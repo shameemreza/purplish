@@ -14,8 +14,8 @@ use WC_Product_Variation;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Queues one job per variation whose photo changed, and walks existing
- * variations in batches after activation. Saving a product never waits
+ * Queues one job per variation or simple product whose photo changed,
+ * and walks existing ones in batches after activation. Saving a product never waits
  * on reading a photo.
  */
 final class DetectColors {
@@ -26,6 +26,9 @@ final class DetectColors {
 	const BATCH_SIZE   = 50;
 	const QUEUE_OPTION = 'purplish_queue_batch';
 
+	const KIND_VARIATION = 'variation';
+	const KIND_SIMPLE    = 'simple';
+
 	/**
 	 * Adds the hooks.
 	 *
@@ -34,8 +37,10 @@ final class DetectColors {
 	public function register() {
 		add_action( 'woocommerce_new_product_variation', array( $this, 'maybe_queue' ), 10, 2 );
 		add_action( 'woocommerce_update_product_variation', array( $this, 'maybe_queue' ), 10, 2 );
+		add_action( 'woocommerce_new_product', array( $this, 'maybe_queue' ), 10, 2 );
+		add_action( 'woocommerce_update_product', array( $this, 'maybe_queue' ), 10, 2 );
 		add_action( self::HOOK_ONE, array( $this, 'detect' ) );
-		add_action( self::HOOK_BATCH, array( $this, 'batch' ) );
+		add_action( self::HOOK_BATCH, array( $this, 'batch' ), 10, 2 );
 		add_action( 'init', array( $this, 'queue_first_batch' ) );
 	}
 
@@ -59,27 +64,39 @@ final class DetectColors {
 			return;
 		}
 
-		if ( as_enqueue_async_action( self::HOOK_BATCH, array( 'offset' => 0 ), self::GROUP, true ) ) {
+		if ( as_enqueue_async_action( self::HOOK_BATCH, self::batch_args( 0, self::KIND_VARIATION ), self::GROUP, true ) ) {
 			delete_option( self::QUEUE_OPTION );
 		}
 	}
 
 	/**
-	 * Queues a detection job when a variation's photo changed.
+	 * Queues a detection job when the photo of a variation or a simple
+	 * product changed.
 	 *
-	 * @param int                       $variation_id Variation ID.
-	 * @param WC_Product_Variation|null $variation    Variation, when WooCommerce passes it.
+	 * @param int              $product_id Product or variation ID.
+	 * @param \WC_Product|null $product    Product, when WooCommerce passes it.
 	 * @return void
 	 */
-	public function maybe_queue( $variation_id, $variation = null ) {
-		if ( ! $variation instanceof WC_Product_Variation ) {
-			$variation = wc_get_product( $variation_id );
+	public function maybe_queue( $product_id, $product = null ) {
+		if ( ! $product instanceof \WC_Product ) {
+			$product = wc_get_product( $product_id );
 		}
-		if ( ! $variation instanceof WC_Product_Variation || ! self::needs_detection( $variation ) ) {
+		if ( ! self::is_colorable( $product ) || ! self::needs_detection( $product ) ) {
 			return;
 		}
 
-		as_enqueue_async_action( self::HOOK_ONE, array( 'variation_id' => (int) $variation->get_id() ), self::GROUP, true );
+		as_enqueue_async_action( self::HOOK_ONE, array( 'product_id' => (int) $product->get_id() ), self::GROUP, true );
+	}
+
+	/**
+	 * Whether Purplish gives a product its own color: variations and simple
+	 * products.
+	 *
+	 * @param mixed $product Product.
+	 * @return bool
+	 */
+	public static function is_colorable( $product ) {
+		return $product instanceof WC_Product_Variation || ( $product instanceof \WC_Product && $product->is_type( 'simple' ) );
 	}
 
 	/**
@@ -87,7 +104,7 @@ final class DetectColors {
 	 * Automatic mode and its photo, or the photo file, isn't the one the
 	 * color came from.
 	 *
-	 * @param WC_Product_Variation $variation Variation.
+	 * @param \WC_Product $variation Variation or simple product.
 	 * @return bool
 	 */
 	public static function needs_detection( $variation ) {
@@ -101,8 +118,8 @@ final class DetectColors {
 	 * Where a variation's auto color comes from: the photo's attachment ID
 	 * and its modified time, so a replaced file counts as a new photo.
 	 *
-	 * @param WC_Product_Variation $variation Variation.
-	 * @return string Empty when the variation has no photo.
+	 * @param \WC_Product $variation Variation or simple product.
+	 * @return string Empty when it has no photo.
 	 */
 	public static function source_of( $variation ) {
 		$image_id = (int) $variation->get_image_id( 'edit' );
@@ -113,14 +130,15 @@ final class DetectColors {
 	}
 
 	/**
-	 * Reads one variation's photo color and saves it with the variation.
+	 * Reads the photo color of one variation or simple product and saves it
+	 * with the product.
 	 *
-	 * @param int $variation_id Variation ID.
+	 * @param int $product_id Variation or simple product ID.
 	 * @return void
 	 */
-	public function detect( $variation_id ) {
-		$variation = wc_get_product( absint( $variation_id ) );
-		if ( ! $variation instanceof WC_Product_Variation || ! self::needs_detection( $variation ) ) {
+	public function detect( $product_id ) {
+		$variation = wc_get_product( absint( $product_id ) );
+		if ( ! self::is_colorable( $variation ) || ! self::needs_detection( $variation ) ) {
 			return;
 		}
 
@@ -154,37 +172,53 @@ final class DetectColors {
 	}
 
 	/**
-	 * Queues jobs for one page of variations that have a photo, then the
-	 * next page. Stops on an empty page.
+	 * Queues jobs for one page of variations or simple products that have a
+	 * photo, then the next page. Variations go first; their empty page
+	 * starts the simple products, and theirs ends the walk.
 	 *
-	 * @param int $offset Variations already walked.
+	 * @param int    $offset Items of this kind already walked.
+	 * @param string $kind   `variation` or `simple`.
 	 * @return void
 	 */
-	public function batch( $offset = 0 ) {
+	public function batch( $offset = 0, $kind = self::KIND_VARIATION ) {
 		$offset = absint( $offset );
+		$kind   = self::KIND_SIMPLE === $kind ? self::KIND_SIMPLE : self::KIND_VARIATION;
 
-		$ids = get_posts(
-			array(
-				'post_type'        => 'product_variation',
-				'post_status'      => array( 'publish', 'private' ),
-				'fields'           => 'ids',
-				'orderby'          => 'ID',
-				'order'            => 'ASC',
-				'posts_per_page'   => self::BATCH_SIZE,
-				'offset'           => $offset,
-				'no_found_rows'    => true,
-				'suppress_filters' => false,
-				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- One indexed key, 50 rows per run, in the background.
-				'meta_query'       => array(
-					array(
-						'key'     => '_thumbnail_id',
-						'compare' => 'EXISTS',
-					),
+		$query = array(
+			'post_type'        => self::KIND_SIMPLE === $kind ? 'product' : 'product_variation',
+			'post_status'      => array( 'publish', 'private' ),
+			'fields'           => 'ids',
+			'orderby'          => 'ID',
+			'order'            => 'ASC',
+			'posts_per_page'   => self::BATCH_SIZE,
+			'offset'           => $offset,
+			'no_found_rows'    => true,
+			'suppress_filters' => false,
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- One indexed key, 50 rows per run, in the background.
+			'meta_query'       => array(
+				array(
+					'key'     => '_thumbnail_id',
+					'compare' => 'EXISTS',
 				),
-			)
+			),
 		);
+		if ( self::KIND_SIMPLE === $kind ) {
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Same background walk.
+			$query['tax_query'] = array(
+				array(
+					'taxonomy' => 'product_type',
+					'field'    => 'slug',
+					'terms'    => 'simple',
+				),
+			);
+		}
+
+		$ids = get_posts( $query );
 
 		if ( empty( $ids ) ) {
+			if ( self::KIND_VARIATION === $kind ) {
+				as_enqueue_async_action( self::HOOK_BATCH, self::batch_args( 0, self::KIND_SIMPLE ), self::GROUP, true );
+			}
 			return;
 		}
 
@@ -192,6 +226,20 @@ final class DetectColors {
 			$this->maybe_queue( $id );
 		}
 
-		as_enqueue_async_action( self::HOOK_BATCH, array( 'offset' => $offset + count( $ids ) ), self::GROUP, true );
+		as_enqueue_async_action( self::HOOK_BATCH, self::batch_args( $offset + count( $ids ), $kind ), self::GROUP, true );
+	}
+
+	/**
+	 * Arguments for a batch job, in the order batch() takes them.
+	 *
+	 * @param int    $offset Items already walked.
+	 * @param string $kind   `variation` or `simple`.
+	 * @return array{offset: int, kind: string}
+	 */
+	public static function batch_args( $offset, $kind ) {
+		return array(
+			'offset' => (int) $offset,
+			'kind'   => $kind,
+		);
 	}
 }

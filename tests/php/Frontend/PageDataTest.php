@@ -187,13 +187,45 @@ class PageDataTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * A simple product gets no data.
+	 * A simple product without a color gets no data.
 	 */
-	public function test_simple_product() {
+	public function test_simple_product_without_color() {
 		$product = new \WC_Product_Simple();
 		$product->save();
 
 		$this->assertNull( PageData::for_product( $product, Options::defaults() ) );
+	}
+
+	/**
+	 * A simple product's own color is the default, with no variations.
+	 */
+	public function test_simple_product_with_color() {
+		$product = new \WC_Product_Simple();
+		$product->update_meta_data( Meta::AUTO_COLOR, '#0d317c' );
+		$product->save();
+
+		$data = PageData::for_product( wc_get_product( $product->get_id() ), Options::defaults() );
+
+		$this->assertSame( array(), $data['variations'] );
+		$this->assertSame( '#ffffff', $data['default']['on'] );
+		$this->assertNotSame( '#0d317c', $data['default']['color'], 'photo colors are tuned' );
+	}
+
+	/**
+	 * Custom and Off work on simple products.
+	 */
+	public function test_simple_product_custom_and_off() {
+		$product = new \WC_Product_Simple();
+		$product->update_meta_data( Meta::AUTO_COLOR, '#0d317c' );
+		$product->update_meta_data( Meta::MODE, Meta::MODE_CUSTOM );
+		$product->update_meta_data( Meta::CUSTOM_COLOR, '#7b2cbf' );
+		$product->save();
+
+		$this->assertSame( '#7b2cbf', PageData::for_product( wc_get_product( $product->get_id() ), Options::defaults() )['default']['color'] );
+
+		$product->update_meta_data( Meta::MODE, Meta::MODE_OFF );
+		$product->save();
+		$this->assertNull( PageData::for_product( wc_get_product( $product->get_id() ), Options::defaults() ) );
 	}
 
 	/**
