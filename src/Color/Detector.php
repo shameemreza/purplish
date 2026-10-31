@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * The most common color in a product photo is often the wall behind the
  * product. So the detector drops the background first, using the photo's
- * border, then picks the most saturated large area that's left.
+ * border, then picks the most colorful large area that's left.
  */
 final class Detector {
 
@@ -29,9 +29,20 @@ final class Detector {
 	const BORDER = 4;
 
 	/**
+	 * How far down the sides, as a share of the height, the background is read.
+	 */
+	const SIDE_SHARE = 0.6;
+
+	/**
 	 * RGB distance under which a pixel counts as background.
 	 */
 	const BACKGROUND_DISTANCE = 48;
+
+	/**
+	 * Saturation difference under which a close pixel still counts as
+	 * background.
+	 */
+	const BACKGROUND_SATURATION_GAP = 0.08;
 
 	/**
 	 * Share of the border the background colors have to cover.
@@ -52,6 +63,18 @@ final class Detector {
 	 * Share of the winning hue bucket, most saturated first, that makes the color.
 	 */
 	const KEEP_SHARE = 0.75;
+
+	/**
+	 * Share of the photo's center that has to share a colorful backdrop's
+	 * hue for the photo to count as a tonal shot.
+	 */
+	const TONAL_SHARE = 0.6;
+
+	/**
+	 * Hue distance, in degrees, under which a center pixel shares the
+	 * backdrop's color.
+	 */
+	const TONAL_HUE_GAP = 30;
 
 	/**
 	 * Number of hue buckets around the color wheel.
@@ -139,7 +162,13 @@ final class Detector {
 			}
 			$bucket = (int) floor( $hue / ( 360 / self::HUE_BUCKETS ) ) % self::HUE_BUCKETS;
 
-			$buckets[ $bucket ][] = array( $rgb, $saturation );
+			// Chroma, not saturation: HSV saturation rates dark skin or wood above a pastel product.
+			$buckets[ $bucket ][] = array( $rgb, ( max( $rgb ) - min( $rgb ) ) / 255 );
+		}
+
+		$tonal = self::tonal_product( $pixels, $width, $height, $background );
+		if ( '' !== $tonal ) {
+			return $tonal;
 		}
 
 		if ( empty( $buckets ) ) {
@@ -169,9 +198,63 @@ final class Detector {
 	}
 
 	/**
-	 * Pixel count times average saturation.
+	 * The product color in a tonal shot: a colorful backdrop, and a product
+	 * of the same hue, like a green sweater on a green wall. Background
+	 * removal can't tell them apart, but the center of the photo, where the
+	 * product usually is, is then mostly the backdrop's hue, so the color
+	 * comes from those center pixels.
 	 *
-	 * @param array<int, array{0: int[], 1: float}> $entries Pixels with their saturation.
+	 * @param array<int, int[]|null> $pixels     Pixels row by row.
+	 * @param int                    $width      Width.
+	 * @param int                    $height     Height.
+	 * @param array<int, float[]>    $background Background colors, most common first.
+	 * @return string Hex color, or an empty string when the photo isn't a tonal shot.
+	 */
+	private static function tonal_product( $pixels, $width, $height, $background ) {
+		if ( empty( $background ) ) {
+			return '';
+		}
+
+		list( $backdrop_hue, $saturation, $value ) = self::to_hsv( $background[0] );
+		if ( $saturation < self::MIN_SATURATION || $value < self::MIN_VALUE ) {
+			return '';
+		}
+
+		$center = array();
+		$like   = array();
+		// The middle of the photo: 40% to 60% across and 35% to 65% down.
+		$top    = (int) ( $height * 0.35 );
+		$bottom = (int) ceil( $height * 0.65 );
+		$left   = (int) ( $width * 0.4 );
+		$right  = (int) ceil( $width * 0.6 );
+		for ( $y = $top; $y < $bottom; $y++ ) {
+			for ( $x = $left; $x < $right; $x++ ) {
+				$rgb = $pixels[ $y * $width + $x ] ?? null;
+				if ( null === $rgb ) {
+					continue;
+				}
+				$center[] = $rgb;
+
+				list( $hue, $pixel_saturation, $pixel_value ) = self::to_hsv( $rgb );
+				$hue_gap                                      = abs( $hue - $backdrop_hue );
+				if ( $pixel_saturation >= self::MIN_SATURATION && $pixel_value >= self::MIN_VALUE && min( $hue_gap, 360 - $hue_gap ) <= self::TONAL_HUE_GAP ) {
+					$like[] = array( $rgb, ( max( $rgb ) - min( $rgb ) ) / 255 );
+				}
+			}
+		}
+
+		if ( empty( $center ) || count( $like ) / count( $center ) < self::TONAL_SHARE ) {
+			return '';
+		}
+
+		// Shadows and folds pull the plain average dark, so use the most colorful part.
+		return self::average_of_saturated( $like );
+	}
+
+	/**
+	 * Pixel count times average chroma.
+	 *
+	 * @param array<int, array{0: int[], 1: float}> $entries Pixels with their chroma.
 	 * @return float
 	 */
 	private static function bucket_score( $entries ) {
@@ -183,10 +266,10 @@ final class Detector {
 	}
 
 	/**
-	 * Average color of the more saturated half of a bucket, so skin, shade
+	 * Average color of the most colorful part of a bucket, so skin, shade
 	 * and highlights at the edge of the hue don't pull the color grey.
 	 *
-	 * @param array<int, array{0: int[], 1: float}> $entries Pixels with their saturation.
+	 * @param array<int, array{0: int[], 1: float}> $entries Pixels with their chroma.
 	 * @return string Hex color.
 	 */
 	private static function average_of_saturated( $entries ) {
@@ -228,8 +311,10 @@ final class Detector {
 		$total  = 0;
 		for ( $y = 0; $y < $height; $y++ ) {
 			for ( $x = 0; $x < $width; $x++ ) {
-				// Top and sides only: products and models are often cut off at the bottom edge.
-				$on_border = $y < $border || $x < $border || $x >= $width - $border;
+				// The top edge and the upper part of the sides: products and models
+				// are often cut off at the bottom and low on the sides.
+				$on_side   = ( $x < $border || $x >= $width - $border ) && $y < $height * self::SIDE_SHARE;
+				$on_border = $y < $border || $on_side;
 				$rgb       = $pixels[ $y * $width + $x ] ?? null;
 				if ( ! $on_border || null === $rgb ) {
 					continue;
@@ -279,10 +364,13 @@ final class Detector {
 	 * @return bool
 	 */
 	private static function is_near_any( $rgb, $colors ) {
-		$limit = self::BACKGROUND_DISTANCE * self::BACKGROUND_DISTANCE;
+		$limit      = self::BACKGROUND_DISTANCE * self::BACKGROUND_DISTANCE;
+		$saturation = self::to_hsv( $rgb )[1];
 		foreach ( $colors as $color ) {
 			$distance = ( $rgb[0] - $color[0] ) ** 2 + ( $rgb[1] - $color[1] ) ** 2 + ( $rgb[2] - $color[2] ) ** 2;
-			if ( $distance <= $limit ) {
+			// Close in RGB isn't enough: a pastel product on a cream wall is close
+			// in RGB but clearly more colorful.
+			if ( $distance <= $limit && abs( $saturation - self::to_hsv( $color )[1] ) <= self::BACKGROUND_SATURATION_GAP ) {
 				return true;
 			}
 		}

@@ -84,6 +84,26 @@ class DetectorTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A tonal shot: the green sweater on a green wall. Background removal
+	 * can't separate them, so the color comes from the center of the photo,
+	 * not from the face, the only other colorful area.
+	 */
+	public function test_green_sweater_on_green_wall() {
+		$color = Detector::from_file( dirname( __DIR__, 2 ) . '/fixtures/green-sweater.webp' );
+
+		$this->assert_product_color( '#1e4a3c', '#b07f62', $color );
+	}
+
+	/**
+	 * A pastel product on a pale wall reads as the pastel, not the wall.
+	 */
+	public function test_pastel_pink_on_pale_wall() {
+		$color = Detector::from_file( dirname( __DIR__, 2 ) . '/fixtures/pink-sweater.webp' );
+
+		$this->assert_product_color( '#de9eb6', '#efece8', $color );
+	}
+
+	/**
 	 * A grey product on white has no colorful pixels, so it falls back to
 	 * the most common color that isn't the background.
 	 */
