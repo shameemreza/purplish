@@ -57,6 +57,18 @@ final class BlockEffects {
 		add_filter( 'render_block', array( $this, 'add_classes' ), 10, 2 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_classic' ), 20 );
 		add_filter( 'body_class', array( $this, 'classic_body_classes' ) );
+		add_filter( 'woocommerce_single_product_zoom_enabled', array( $this, 'classic_zoom' ) );
+	}
+
+	/**
+	 * Turns off WooCommerce's hover zoom on classic galleries when the 3D
+	 * tilt is on: the two would move the same photo at once.
+	 *
+	 * @param bool $enabled Whether the zoom is on.
+	 * @return bool
+	 */
+	public function classic_zoom( $enabled ) {
+		return in_array( 'purplish-classic-gallery-tilt', self::classic_classes(), true ) ? false : $enabled;
 	}
 
 	/**

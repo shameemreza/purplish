@@ -113,7 +113,7 @@ final class Settings {
 		$gallery = array(
 			'gallery_nothumbs' => __( 'Hide thumbnails (one big photo)', 'purplish' ),
 			'gallery_rounded'  => __( 'Rounded corners', 'purplish' ),
-			'gallery_tilt'     => __( '3D tilt on hover', 'purplish' ),
+			'gallery_tilt'     => __( '3D tilt on hover (replaces WooCommerce\'s hover zoom)', 'purplish' ),
 		);
 		$first   = true;
 		foreach ( $gallery as $key => $label ) {
