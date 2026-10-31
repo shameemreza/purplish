@@ -109,7 +109,7 @@ Purplish doesn't collect, store or send any personal data. It doesn't set cookie
 
 == Credits ==
 
-Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea of setting each variation's color by hand or reading it from the photo.
+Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209): set each variation's color by hand, or read it from the photo.
 
 == Changelog ==
 
