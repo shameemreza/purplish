@@ -158,9 +158,9 @@ class VariationFieldTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The picker's Default button goes back to the photo color.
+	 * The custom color field hints at the photo color.
 	 */
-	public function test_picker_default_is_the_photo_color() {
+	public function test_placeholder_is_the_photo_color() {
 		$variation = Products::sweater()['Blue/M'];
 		$variation->update_meta_data( Meta::AUTO_COLOR, '#3357b7' );
 		$variation->save();
@@ -169,7 +169,7 @@ class VariationFieldTest extends WP_UnitTestCase {
 		( new VariationField() )->render( 0, array(), get_post( $variation->get_id() ) );
 		$html = ob_get_clean();
 
-		$this->assertStringContainsString( 'data-default-color="#3357b7"', $html );
+		$this->assertStringContainsString( 'placeholder="#3357b7"', $html );
 	}
 
 	/**

@@ -68,12 +68,6 @@ final class VariationField {
 			)
 		);
 
-		$picker_attributes = array( 'data-purplish-color-picker' => '1' );
-		if ( $auto ) {
-			// The picker's Default button goes back to the photo color.
-			$picker_attributes['data-default-color'] = $auto;
-		}
-
 		woocommerce_wp_text_input(
 			array(
 				'id'                => "purplish_custom_color{$loop}",
@@ -81,10 +75,16 @@ final class VariationField {
 				'class'             => 'purplish-color-input',
 				'label'             => __( 'Custom color', 'purplish' ),
 				'value'             => $custom ? $custom : '',
-				'placeholder'       => '#dc4a24',
+				// Shows the photo color as a hint until a custom color is set.
+				'placeholder'       => $auto ? $auto : '',
 				'desc_tip'          => true,
-				'description'       => __( 'Pick a color, or type a hex code like #dc4a24.', 'purplish' ),
-				'custom_attributes' => $picker_attributes,
+				'description'       => __( 'Click the field to pick a color, or type a hex code like #dc4a24.', 'purplish' ),
+				'custom_attributes' => array(
+					'data-purplish-color-picker' => '1',
+					'autocomplete'               => 'off',
+					'spellcheck'                 => 'false',
+					'maxlength'                  => '7',
+				),
 				'wrapper_class'     => 'form-row form-row-last purplish-custom-color',
 			)
 		);
@@ -163,8 +163,8 @@ final class VariationField {
 	}
 
 	/**
-	 * Loads WordPress's color picker and the field's script and styles on
-	 * the product editor.
+	 * Loads WordPress's Iris color picker and the field's script and styles
+	 * on the product editor.
 	 *
 	 * @return void
 	 */
@@ -175,27 +175,27 @@ final class VariationField {
 		}
 
 		$asset = include PURPLISH_DIR . 'build/admin.asset.php';
-		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script(
 			'purplish-admin',
 			PURPLISH_URL . 'build/admin.js',
-			array_merge( $asset['dependencies'], array( 'jquery', 'wp-color-picker' ) ),
+			array_merge( $asset['dependencies'], array( 'jquery', 'iris' ) ),
 			$asset['version'],
 			true
 		);
 
+		// Same field as WooCommerce's own color settings: a hex text field with
+		// a swatch, at the height WooCommerce gives selects in this panel.
 		wp_add_inline_style(
 			'woocommerce_admin_styles',
 			'.purplish-variation-color { clear: both; }'
 			. '.purplish-variation-color:not(:has(.purplish-mode option[value="custom"]:checked)) .purplish-custom-color { display: none; }'
-			// The picker fills the column and matches the height WooCommerce gives selects in this panel.
-			. '.purplish-custom-color .wp-picker-container { display: block; width: 100%; margin-top: 2px; }'
-			. '.purplish-custom-color .wp-picker-container .wp-color-result.button { width: 100%; min-height: 40px; margin: 0; }'
-			. '.purplish-custom-color .wp-picker-container .wp-color-result-text { line-height: 38px; height: 100%; }'
-			. '.purplish-custom-color .wp-picker-input-wrap { margin-top: 6px; }'
-			. '.purplish-custom-color .wp-picker-input-wrap input.purplish-color-input { width: 8em; }'
-			. '.wc-wp-version-gte-70 #variable_product_options .purplish-custom-color .wp-color-result.button { height: 50px; }'
-			. '.wc-wp-version-gte-70 #variable_product_options .purplish-custom-color .wp-color-result-text { line-height: 48px; }'
+			. '.purplish-color-field { position: relative; display: block; }'
+			// The ID matches WooCommerce's own #variable_product_options input rule, so this padding wins.
+			. '#variable_product_options .purplish-color-field input.purplish-color-input { width: 100%; padding-left: 48px; font-family: Consolas, Monaco, monospace; text-transform: lowercase; }'
+			. '.wc-wp-version-gte-70 #variable_product_options .purplish-color-field .purplish-color-input { height: 50px; }'
+			. '.purplish-color-swatch { position: absolute; z-index: 1; left: 10px; top: calc(50% + 1px); width: 28px; height: 28px; transform: translateY(-50%); border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2); cursor: pointer; }'
+			. '.purplish-color-swatch.is-empty { background: linear-gradient(to top right, #fff calc(50% - 1px), #cc1818 50%, #fff calc(50% + 1px)); }'
+			. '.purplish-color-field .iris-picker { position: absolute; z-index: 100; top: 100%; left: 0; margin-top: 4px; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15); }'
 			. '.purplish-swatch { display: inline-block; width: 1.25em; height: 1.25em; border-radius: 50%; vertical-align: middle; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15); }'
 		);
 	}
