@@ -1,3 +1,4 @@
 /**
- * Follows the picked color on the product page. Filled in by the front end tasks.
+ * Follows the picked color on the product page.
  */
+import './style.css';
