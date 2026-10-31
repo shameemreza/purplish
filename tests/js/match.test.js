@@ -4,8 +4,18 @@
 import { describe, expect, it } from '@jest/globals';
 import { match, nextColor } from '../../assets/src/frontend/match';
 
-const orange = { color: '#d94421', on: '#000000', tint: '#ffebe6' };
-const blue = { color: '#2a519e', on: '#ffffff', tint: '#e8f1ff' };
+const orange = {
+	color: '#d94421',
+	on: '#000000',
+	ink: '#b22800',
+	tint: '#ffebe6',
+};
+const blue = {
+	color: '#2a519e',
+	on: '#ffffff',
+	ink: '#2a519e',
+	tint: '#e8f1ff',
+};
 
 const sweater = [
 	{

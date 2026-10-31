@@ -7,6 +7,7 @@
  * @typedef {Object} ColorSet
  * @property {string} color Accent color.
  * @property {string} on    Text color on the accent.
+ * @property {string} ink   The accent as text on the page.
  * @property {string} tint  Page tint.
  */
 
@@ -37,6 +38,7 @@ export function match( variations, picked ) {
 			sets.set( variation.color, {
 				color: variation.color,
 				on: variation.on,
+				ink: variation.ink,
 				tint: variation.tint,
 			} );
 		}
