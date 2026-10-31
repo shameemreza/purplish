@@ -8,6 +8,7 @@
 namespace Purplish\Tests\Color;
 
 use Purplish\Color\Resolver;
+use Purplish\Color\Tone;
 use Purplish\Meta;
 use Purplish\Tests\Support\Products;
 use WP_UnitTestCase;
@@ -129,5 +130,52 @@ class ResolverTest extends WP_UnitTestCase {
 		$variation = Products::with_global_color( array( 'Broken' => 'not-a-color' ) )['broken'];
 
 		$this->assertSame( '', Resolver::color( wc_get_product( $variation->get_id() ) ) );
+	}
+
+	/**
+	 * A photo color is tuned for the page; the raw color stays the record.
+	 */
+	public function test_accent_tunes_photo_colors() {
+		$variation = Products::sweater()['Blue/S'];
+		$variation->update_meta_data( Meta::AUTO_COLOR, '#0c3a90' );
+		$variation->save();
+		$variation = wc_get_product( $variation->get_id() );
+
+		$this->assertSame( '#0c3a90', Resolver::color( $variation ) );
+		$this->assertSame( Tone::accent( '#0c3a90' ), Resolver::accent( $variation ) );
+		$this->assertNotSame( '#0c3a90', Resolver::accent( $variation ) );
+	}
+
+	/**
+	 * A custom color is the merchant's choice and is never tuned.
+	 */
+	public function test_accent_keeps_custom_colors() {
+		$variation = Products::sweater()['Blue/S'];
+		$variation->update_meta_data( Meta::MODE, Meta::MODE_CUSTOM );
+		$variation->update_meta_data( Meta::CUSTOM_COLOR, '#0c3a90' );
+		$variation->save();
+
+		$this->assertSame( '#0c3a90', Resolver::accent( wc_get_product( $variation->get_id() ) ) );
+	}
+
+	/**
+	 * A swatch color is the merchant's choice and is never tuned.
+	 */
+	public function test_accent_keeps_swatch_colors() {
+		$variation = Products::with_global_color( array( 'Night' => '#0c3a90' ) )['night'];
+
+		$this->assertSame( '#0c3a90', Resolver::accent( wc_get_product( $variation->get_id() ) ) );
+	}
+
+	/**
+	 * Off gives no accent.
+	 */
+	public function test_accent_off() {
+		$variation = Products::sweater()['Blue/S'];
+		$variation->update_meta_data( Meta::AUTO_COLOR, '#0c3a90' );
+		$variation->update_meta_data( Meta::MODE, Meta::MODE_OFF );
+		$variation->save();
+
+		$this->assertSame( '', Resolver::accent( wc_get_product( $variation->get_id() ) ) );
 	}
 }

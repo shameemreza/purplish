@@ -25,31 +25,80 @@ final class Resolver {
 	 */
 	const TERM_COLOR_META = 'color';
 
+	const SOURCE_CUSTOM = 'custom';
+	const SOURCE_TERM   = 'term';
+	const SOURCE_AUTO   = 'auto';
+
 	/**
-	 * The color for a variation.
+	 * The color for a variation, as the merchant or the photo gave it.
 	 *
 	 * @param WC_Product_Variation $variation Variation.
 	 * @return string Hex color, or an empty string when the variation keeps the theme colors.
 	 */
 	public static function color( $variation ) {
+		return self::resolve( $variation )['color'];
+	}
+
+	/**
+	 * The color the page uses for a variation. A color read from the photo
+	 * is tuned into a usable accent; a custom or swatch color is the
+	 * merchant's choice and stays as set.
+	 *
+	 * @param WC_Product_Variation $variation Variation.
+	 * @return string Hex color, or an empty string when the variation keeps the theme colors.
+	 */
+	public static function accent( $variation ) {
+		$resolved = self::resolve( $variation );
+		if ( self::SOURCE_AUTO === $resolved['source'] ) {
+			return Tone::accent( $resolved['color'] );
+		}
+		return $resolved['color'];
+	}
+
+	/**
+	 * The color for a variation and where it came from.
+	 *
+	 * @param WC_Product_Variation $variation Variation.
+	 * @return array{color: string, source: string} Empty strings when the variation keeps the theme colors.
+	 */
+	public static function resolve( $variation ) {
+		$none = array(
+			'color'  => '',
+			'source' => '',
+		);
+
 		$mode = Meta::mode( $variation );
 		if ( Meta::MODE_OFF === $mode ) {
-			return '';
+			return $none;
 		}
 
 		if ( Meta::MODE_CUSTOM === $mode ) {
 			$custom = sanitize_hex_color( (string) $variation->get_meta( Meta::CUSTOM_COLOR ) );
 			if ( $custom ) {
-				return $custom;
+				return array(
+					'color'  => $custom,
+					'source' => self::SOURCE_CUSTOM,
+				);
 			}
 		}
 
 		$term_color = self::term_color( $variation );
 		if ( '' !== $term_color ) {
-			return $term_color;
+			return array(
+				'color'  => $term_color,
+				'source' => self::SOURCE_TERM,
+			);
 		}
 
-		return (string) sanitize_hex_color( (string) $variation->get_meta( Meta::AUTO_COLOR ) );
+		$auto = sanitize_hex_color( (string) $variation->get_meta( Meta::AUTO_COLOR ) );
+		if ( $auto ) {
+			return array(
+				'color'  => $auto,
+				'source' => self::SOURCE_AUTO,
+			);
+		}
+
+		return $none;
 	}
 
 	/**
