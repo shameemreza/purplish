@@ -2,21 +2,21 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Purplish for WooCommerce 1.0.0\n"
+"Project-Id-Version: Purplish - Product Page Design for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/purplish\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T17:50:48+00:00\n"
+"POT-Creation-Date: 2026-10-31T18:11:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
 
 #. Plugin Name of the plugin
 #: purplish.php
-msgid "Purplish for WooCommerce"
+msgid "Purplish - Product Page Design for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -118,42 +118,50 @@ msgstr ""
 msgid "Blur"
 msgstr ""
 
-#: src/Admin/VariationField.php:58
-msgid "Page color"
-msgstr ""
-
-#: src/Admin/VariationField.php:61
-msgid "Automatic"
-msgstr ""
-
-#: src/Admin/VariationField.php:62
-msgid "Custom"
-msgstr ""
-
-#: src/Admin/VariationField.php:63
-msgid "Off"
-msgstr ""
-
-#: src/Admin/VariationField.php:66
+#: src/Admin/VariationField.php:59
 msgid "The product page takes this color when a shopper picks this variation. Automatic reads it from the variation photo. Off keeps the theme colors."
 msgstr ""
 
-#: src/Admin/VariationField.php:76
+#: src/Admin/VariationField.php:60
+msgid "Color from the photo: not read yet. Purplish reads it in the background after the variation has a photo and is saved."
+msgstr ""
+
+#: src/Admin/VariationField.php:89
+msgid "The product page takes this color. Automatic reads it from the product image. Off keeps the theme colors."
+msgstr ""
+
+#: src/Admin/VariationField.php:90
+msgid "Color from the photo: not read yet. Purplish reads it in the background after the product has an image and is saved."
+msgstr ""
+
+#: src/Admin/VariationField.php:119
+msgid "Page color"
+msgstr ""
+
+#: src/Admin/VariationField.php:122
+msgid "Automatic"
+msgstr ""
+
+#: src/Admin/VariationField.php:123
+msgid "Custom"
+msgstr ""
+
+#: src/Admin/VariationField.php:124
+msgid "Off"
+msgstr ""
+
+#: src/Admin/VariationField.php:137
 msgid "Custom color"
 msgstr ""
 
-#: src/Admin/VariationField.php:81
+#: src/Admin/VariationField.php:142
 msgid "Click the field to pick a color, or type a hex code like #dc4a24."
 msgstr ""
 
 #. translators: %s: a hex color, like #dc4a24.
-#: src/Admin/VariationField.php:98
+#: src/Admin/VariationField.php:159
 #, php-format
 msgid "Color from the photo: %s"
-msgstr ""
-
-#: src/Admin/VariationField.php:101
-msgid "Color from the photo: not read yet. Purplish reads it in the background after the variation has a photo and is saved."
 msgstr ""
 
 #: assets/src/editor/index.js:21

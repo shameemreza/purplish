@@ -1,6 +1,6 @@
-=== Purplish for WooCommerce ===
+=== Purplish - Product Page Design for WooCommerce ===
 Contributors: shameemreza
-Tags: woocommerce, product page, variations, color, product blocks
+Tags: woocommerce, product page, variations, color, product design
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,104 +8,124 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Design options for the WooCommerce product page. The page follows the color a shopper picks. Works with block and classic themes.
+Design the WooCommerce product page: the button, options and sale badge follow the color a shopper picks. Works with block and classic themes.
 
 == Description ==
 
-Purplish adds design options to WooCommerce's own product page. It never replaces a WooCommerce block. It adds settings to the blocks you already use, and it works with block themes and classic themes, not only the Purple theme it was first built on.
+Purplish gives the WooCommerce product page design options it doesn't have on its own. It adds settings to WooCommerce's own product blocks instead of replacing them, so your store keeps working the way WooCommerce built it. It works with block themes and classic themes.
 
-The first release makes the product page follow the color a shopper picks on a variable product. Pick the orange sweater, and the add to cart button, the selected option and the sale badge turn orange. Pick blue, and they turn blue, with a short transition on the photo.
+The first release makes the product page follow the color a shopper picks. When someone picks the orange sweater, the add to cart button, the selected option and the sale badge turn orange. When they pick blue, everything turns blue, and the product photo changes with a soft transition.
 
-= A color for each variation =
+= Variation colors, set automatically =
 
-Each variation gets a Page color field in the product editor:
+Every variation gets a Page color field in the product editor:
 
-* **Automatic:** Purplish reads the color from the variation photo. The field shows the color it found.
+* **Automatic:** Purplish reads the color from the variation image, and the field shows the color it found.
 * **Custom:** pick a color, or type a hex code.
-* **Off:** this variation keeps the theme colors.
+* **Off:** the variation keeps your theme's colors.
 
-If you use WooCommerce's color swatches for attributes, Purplish uses the swatch color of the term before the photo.
+Simple products get the same field, so a single product page can carry its own color too.
 
-= Colors read from the photo =
+If you use WooCommerce's color swatches for attributes, Purplish uses the swatch color first.
 
-Purplish reads each variation photo once, in the background, when the photo is set or changed. It looks for the product, not the wall behind it, and it handles a product on a matching background, like a green sweater on a green wall. Saving a product stays fast, and shoppers load nothing extra.
+= Colors that look designed, not sampled =
 
-Photo colors are often too dark or too pale for a button. Purplish keeps the color's hue and moves it into a range that works for buttons and text, and the page tint is a pale color of the same hue. Custom colors stay exactly as you set them.
+Purplish looks for the product in the photo, not the wall behind it. It also handles a product shot against a matching background, like a green sweater on a green wall.
 
-After activation, Purplish reads the photos of your existing variations in small background batches.
+A color picked straight from a photo is often too dark or too pale for a button. Purplish keeps its hue and adjusts it for each job: a button color with readable black or white text, a darker version for the sale price, and a pale tint for the page background. Colors you set by hand are used exactly as you set them.
 
-= The page follows the color =
+= What follows the color =
 
-* The color changes as soon as a shopper picks a color, before they pick a size.
-* The page opens with the default variation's color, with no flash of the theme colors.
-* Clearing the selection goes back to the default color.
-* Text on colored buttons is black or white, whichever reads better.
-* Colors change smoothly, and with no motion for visitors who ask for reduced motion.
+Choose which parts of the product page take the color:
 
-= You choose what takes the color =
-
-* Add to cart button (on by default)
-* Selected option (on by default, block themes)
-* Sale badge (on by default)
+* Add to cart button
+* Selected option (block themes)
+* Sale badge
 * Sale price
 * Page background tint
 
-Pick the photo transition too: None, Fade or Blur.
+The button, option and badge are on by default. Pick the photo transition too: Blur, Fade or None.
 
-On block themes, the settings are in a Purplish panel on the Add to Cart + Options block, in the Site Editor. Each template keeps its own settings. On classic themes, they're under WooCommerce > Settings > Products > Purplish.
+On block themes, the settings sit in a Purplish panel on the Add to Cart + Options block in the Site Editor, so each product template can have its own look. On classic themes, they're under WooCommerce > Settings > Products > Purplish.
 
-= Light and private =
+= Fast, and quiet when it isn't needed =
 
-Purplish loads on variable product pages that have a color, and nowhere else. It makes no outside requests, collects no data, and adds no admin notices.
+* Product images are read once, in the background, with WooCommerce's Action Scheduler. Saving a product stays fast.
+* Shoppers load a small stylesheet, plus a small script on variable products. Nothing loads on pages without a product color.
+* The page opens in the right color, with no flash of your theme's colors.
+* Visitors who ask their device for reduced motion get color changes without animation.
+* No outside requests, no tracking, no admin notices.
+
+= Works with =
+
+* WooCommerce 11.0 and later, with block themes like Twenty Twenty-Five and classic themes like Storefront.
+* WooCommerce's Add to Cart + Options, Product Gallery, Product Price and Sale Badge blocks.
+* High-Performance Order Storage (HPOS), and the cart and checkout blocks.
 
 = Source code =
 
-The source code and build tools are on [GitHub](https://github.com/shameemreza/purplish). The readable source for the scripts ships in `assets/src`, next to the built files in `build`. To build them yourself, run `npm ci` and `npm run build`.
+The code is on [GitHub](https://github.com/shameemreza/purplish). The readable source of the scripts ships in `assets/src`, next to the built files in `build`. To build them, run `npm ci` and `npm run build`.
 
 == Installation ==
 
 1. Install and activate WooCommerce.
-2. Go to Plugins > Add New, search for Purplish, then install and activate it.
-3. Edit a variable product, open a variation, and check its Page color. Automatic is on for every variation already.
-4. Block themes: open Appearance > Editor > Templates > Single Product, select the Add to Cart + Options block, and use the Purplish panel. Classic themes: go to WooCommerce > Settings > Products > Purplish.
+2. In Plugins > Add New, search for Purplish, then install and activate it.
+3. Purplish starts reading your existing product images in the background. Open a variable product to see each variation's Page color.
+4. Block themes: go to Appearance > Editor > Templates > Single Product, select the Add to Cart + Options block, and open the Purplish panel. Classic themes: go to WooCommerce > Settings > Products > Purplish.
 
 == Frequently Asked Questions ==
 
+= How do I change the add to cart button color for each variation in WooCommerce? =
+
+Install Purplish. Each variation takes its color from its image by default, and the add to cart button follows the variation the shopper picks. To set a color yourself, open the variation in the product editor and set Page color to Custom.
+
 = Does Purplish work with my theme? =
 
-Yes, with block themes and classic themes. On block themes it works with WooCommerce's Add to Cart + Options and Product Gallery blocks. On classic themes it works with WooCommerce's variation dropdowns and product gallery.
+Yes. It works with block themes through WooCommerce's product blocks, and with classic themes through WooCommerce's variation dropdowns and product gallery.
 
-= Does it only work with the Purple theme? =
+= Does it work with simple products? =
 
-No. Purplish started on the Purple theme, and the name came from there, but it works with any theme.
+Yes. A simple product gets one Page color for its whole page, read from its image or set by hand. Product Bundles support is planned.
 
-= Which products does it work on? =
+= Do I need WooCommerce's color swatches? =
 
-Variable products, where a shopper picks a variation. Simple products and Product Bundles are planned.
+No. Purplish works with the plain dropdowns and option buttons too. If you turn on WooCommerce's swatches for attributes, Purplish uses those swatch colors.
 
-= The color Purplish read from a photo looks wrong. What do I do? =
+= A color Purplish found looks wrong. What do I do? =
 
-Set the variation's Page color to Custom and pick the color. Photos with a lot going on, like a model in a furnished room, can lead Purplish to the wrong area.
+Set the variation's Page color to Custom and pick the color. A busy photo, like a model in a furnished room, can point Purplish at the wrong area.
 
-= Can I turn it off for one variation? =
+= Can I turn it off for one variation or product? =
 
-Yes. Set that variation's Page color to Off. It keeps the theme colors.
+Yes. Set its Page color to Off. It keeps your theme's colors.
 
-= Does it slow down my store? =
+= Will Purplish slow down my store? =
 
-No. Photos are read in the background with Action Scheduler, which comes with WooCommerce, and the color is saved with the variation. The product page loads a small script and stylesheet only when it has colors to show.
+No. Images are read in the background and the color is saved with the product. The product page loads a small stylesheet, and a small script only on variable products with colors.
 
-= Do my variation photos leave my site? =
+= Do my product images leave my site? =
 
-No. Purplish reads the photo files on your server and never sends them anywhere.
+No. Purplish reads the image files on your own server and never sends them anywhere.
+
+= Does it change WooCommerce's blocks or templates? =
+
+No. Purplish adds a setting to the Add to Cart + Options block and styles the parts you choose. Deactivate it, and your product page looks exactly as it did before.
 
 = Where do I report a security issue? =
 
 Please report it privately through the [security policy](https://github.com/shameemreza/purplish/security/policy) on GitHub, not in the support forum.
 
+== Screenshots ==
+
+1. The product page in the orange variation's color: button, option, sale badge and sale price.
+2. The same page after picking blue.
+3. The Page color field on a variation: Automatic, Custom or Off.
+4. The Purplish panel on the Add to Cart + Options block in the Site Editor.
+5. Purplish settings for classic themes under WooCommerce > Settings > Products.
+
 == Privacy ==
 
-Purplish doesn't collect, store or send any personal data. It doesn't set cookies and makes no outside requests.
+Purplish doesn't collect, store or send personal data. It sets no cookies and makes no outside requests.
 
 == Credits ==
 
@@ -115,9 +135,9 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 
 = 1.0.0 =
 
-* New: Page color field on each variation: Automatic, Custom or Off.
-* New: Colors read from variation photos in the background, tuned into a button color and a page tint.
+* New: Page color field on each variation and simple product: Automatic, Custom or Off.
+* New: Colors read from product images in the background, adjusted into a button color, a sale price color and a page tint.
 * New: The product page follows the color a shopper picks, on block and classic themes.
 * New: Choose which parts take the color: add to cart button, selected option, sale badge, sale price and page tint.
-* New: Photo transition: None, Fade or Blur.
+* New: Photo transition: Blur, Fade or None.
 * New: Purplish panel on the Add to Cart + Options block, and a settings section for classic themes.

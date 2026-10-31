@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:          Purplish for WooCommerce
+ * Plugin Name:          Purplish - Product Page Design for WooCommerce
  * Plugin URI:           https://github.com/shameemreza/purplish
  * Description:          Design options for the WooCommerce product page, added to WooCommerce's own blocks. Works with block and classic themes.
  * Version:              1.0.0
