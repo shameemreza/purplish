@@ -13,4 +13,5 @@ Every change to Purplish that a user or contributor would notice. The format fol
 - Color detector: reads the product's main color from a variation photo, skipping the background, with GD or Imagick. Tonal shots, like a green sweater on a green wall, read the product from the middle of the photo.
 - Background color reading: a new or changed variation photo queues one Action Scheduler job, and activation walks existing variations 50 at a time.
 - Product page data: each variation's accent, text and tint colors, with the default variation's colors on the page from the first paint.
+- Block themes: the page follows the picked color on the Add to Cart + Options block, by click, keyboard, or clearing a chip, and before a size is picked.
 - Accent and tint from each color: a photo color is tuned into a usable button color with the same hue, and the page tint is a pale color of that hue. Custom and swatch colors are used as set.

@@ -9,9 +9,10 @@
 		"start": "wp-scripts start admin=./assets/src/admin/index.js editor=./assets/src/editor/index.js frontend=./assets/src/frontend/index.js --output-path=build",
 		"lint:js": "wp-scripts lint-js",
 		"lint:css": "wp-scripts lint-style 'assets/src/**/*.css' --allow-empty-input",
-		"test:js": "wp-scripts test-unit-jest --roots tests/js --passWithNoTests"
+		"test:js": "wp-scripts test-unit-jest"
 	},
 	"devDependencies": {
+		"@jest/globals": "30.5.2",
 		"@wordpress/scripts": "36.0.0",
 		"jest": "30.5.2",
 		"jest-environment-jsdom": "30.5.2"
