@@ -80,6 +80,7 @@ final class Plugin {
 	public function boot() {
 		( new Jobs\DetectColors() )->register();
 		( new Frontend\PageData() )->register();
+		( new Frontend\BlockOptions() )->register();
 
 		if ( is_admin() ) {
 			( new Admin\VariationField() )->register();
