@@ -1,0 +1,8 @@
+# Internal planning docs, never shipped
+/planning/
+
+/vendor/
+/node_modules/
+/_trash/
+.DS_Store
+.phpunit.result.cache

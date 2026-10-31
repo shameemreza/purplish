@@ -1,0 +1,78 @@
+name: Bug report
+description: Something in Purplish doesn't work the way it should.
+labels: [ "bug" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. The more detail you add, the faster I can reproduce it.
+
+        Found a security issue? Please don't post it here. Report it privately through the [security policy](../security/policy).
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of Purplish?
+      options:
+        - Page color field (product editor)
+        - Product page colors
+        - Photo transition
+        - Settings (block panel or WooCommerce settings)
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you saw, including any error message, word for word.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See the error.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: "Purplish version"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Where it runs
+      description: WordPress, WooCommerce and PHP versions, and the theme name. Say if it is a block theme or a classic theme.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Remove passwords, keys, tokens and email addresses first.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send it
+      options:
+        - label: I searched the open and closed issues, and this isn't one of them.
+          required: true
+        - label: This isn't a security issue.
+          required: true
