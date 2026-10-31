@@ -31,7 +31,7 @@
 	"scripts": {
 		"phpcs": "phpcs",
 		"phpcbf": "phpcbf",
-		"lint:compat": "phpcs -p --standard=PHPCompatibilityWP --runtime-set testVersion 7.4- --extensions=php src purplish.php",
+		"lint:compat": "phpcs -p --standard=PHPCompatibilityWP --runtime-set testVersion 7.4- --extensions=php src purplish.php uninstall.php",
 		"test": "phpunit"
 	}
 }

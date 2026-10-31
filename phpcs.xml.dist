@@ -2,6 +2,7 @@
 <ruleset name="Purplish">
 	<file>./src</file>
 	<file>./purplish.php</file>
+	<file>./uninstall.php</file>
 	<file>./tests/php</file>
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
