@@ -18,4 +18,5 @@ Every change to Purplish that a user or contributor would notice. The format fol
 - Part styles: add to cart button, selected option chip, sale badge, sale price and page tint each follow the color when turned on, on the main product only, with a short color transition that reduced motion turns off.
 - Photo transition: None, Fade or Blur on the product gallery when the color changes, on the Product Gallery block and the classic gallery.
 - Purplish panel on the Add to Cart + Options block in the Site Editor: turn each part on or off and pick the photo transition, per template.
+- Purplish section under WooCommerce > Settings > Products for classic themes. On block themes it points to the block panel.
 - Accent and tint from each color: a photo color is tuned into a usable button color with the same hue, and the page tint is a pale color of that hue. Custom and swatch colors are used as set.
