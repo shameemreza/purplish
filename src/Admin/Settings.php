@@ -110,6 +110,24 @@ final class Settings {
 			$first    = false;
 		}
 
+		$gallery = array(
+			'gallery_nothumbs' => __( 'Hide thumbnails (one big photo)', 'purplish' ),
+			'gallery_rounded'  => __( 'Rounded corners', 'purplish' ),
+			'gallery_tilt'     => __( '3D tilt on hover', 'purplish' ),
+		);
+		$first   = true;
+		foreach ( $gallery as $key => $label ) {
+			$fields[] = array(
+				'id'            => self::OPTION . '[' . $key . ']',
+				'type'          => 'checkbox',
+				'title'         => $first ? __( 'Product gallery', 'purplish' ) : '',
+				'desc'          => $label,
+				'default'       => 'no',
+				'checkboxgroup' => $first ? 'start' : ( 'gallery_tilt' === $key ? 'end' : '' ),
+			);
+			$first    = false;
+		}
+
 		$fields[] = array(
 			'id'       => self::OPTION . '[transition]',
 			'type'     => 'select',
