@@ -1,8 +1,8 @@
 # Purplish for WooCommerce
 
-When a shopper picks a color on a variable product, the product page follows it. The add to cart button, the selected option, the sale badge and, if you want, the price and the page background take the variation's color, and the photo changes with a short transition.
+Design options for the WooCommerce product page, added to WooCommerce's own blocks. Purplish never replaces a WooCommerce block, and it works with block themes and classic themes.
 
-Purplish works with block themes and classic themes. It adds options to WooCommerce's own product blocks and never replaces them.
+The first release makes the product page follow the color a shopper picks. Options for the gallery, the add to cart button, prices and badges come after it.
 
 Purplish 1.0 is in development. The first release goes to the WordPress.org plugin directory.
 
