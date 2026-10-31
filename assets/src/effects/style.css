@@ -4,6 +4,27 @@
  * class for the classic gallery.
  */
 
+/*
+ * Effect colors. The page accent while a variation color is active;
+ * otherwise the block's own effect color, then the theme's text color.
+ * Purplish's page colors are registered properties, which never fall
+ * back, so these unregistered names carry the fallbacks.
+ */
+body.purplish-active {
+	--purplish-fx: var(--purplish-accent);
+	--purplish-fx-on: var(--purplish-on);
+	--purplish-fx-tint: var(--purplish-tint);
+}
+
+.purplish-gallery,
+.purplish-cards,
+.purplish-accordion,
+body[class*="purplish-classic-gallery-"] {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, #fff));
+}
+
 /* Gallery: one big photo, no thumbnail strip. */
 .purplish-gallery-nothumbs .wc-block-product-gallery-thumbnails,
 body.purplish-classic-gallery-nothumbs .woocommerce-product-gallery .flex-control-thumbs {
@@ -31,14 +52,14 @@ body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only
 	border-radius: 50%;
 	background: rgb(255 255 255 / 0.75);
 	backdrop-filter: blur(10px);
-	color: var(--purplish-accent, currentColor);
+	color: var(--purplish-color);
 	box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.35);
 	transition: background-color 0.25s, color 0.25s, scale 0.2s;
 }
 
 .purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:hover:not(:disabled) {
-	background: var(--purplish-accent, #1e1e1e);
-	color: var(--purplish-on, #fff);
+	background: var(--purplish-color);
+	color: var(--purplish-color-on);
 }
 
 .purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:active {
@@ -84,7 +105,7 @@ body.purplish-classic-gallery-tilt .purplish-tilt-target::after {
 	body.purplish-classic-gallery-tilt .purplish-tilt-target:hover {
 		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
 		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-accent, #1e1e1e) 55%, #000);
+		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
 	}
 
 	.purplish-gallery-tilt .wc-block-product-gallery-large-image:hover::after,
@@ -98,7 +119,7 @@ body.purplish-classic-gallery-tilt .purplish-tilt-target::after {
  * One photo per screen: scroll or swipe and it snaps to the next.
  */
 .purplish-gallery-lightbox .wc-block-product-gallery-dialog {
-	background: var(--purplish-tint, #fff);
+	background: var(--purplish-color-soft);
 }
 
 .purplish-gallery-lightbox .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content {
@@ -181,13 +202,13 @@ body.purplish-classic-gallery-tilt .purplish-tilt-target::after {
 	height: 48px;
 	border-radius: 50%;
 	background: rgb(255 255 255 / 0.8);
-	color: var(--purplish-accent, currentColor);
+	color: var(--purplish-color);
 	transition: background-color 0.25s, color 0.25s, rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .purplish-gallery-lightbox .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button:hover {
-	background: var(--purplish-accent, #1e1e1e);
-	color: var(--purplish-on, #fff);
+	background: var(--purplish-color);
+	color: var(--purplish-color-on);
 	rotate: 90deg;
 }
 
