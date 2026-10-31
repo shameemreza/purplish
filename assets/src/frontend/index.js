@@ -41,10 +41,10 @@ function apply( set ) {
 }
 
 /**
- * The picked values in a block, read from the inputs WooCommerce keeps up
- * to date for the chips and the dropdowns.
+ * The picked values in a block or a classic form, read from the inputs
+ * WooCommerce keeps up to date for the chips and the dropdowns.
  *
- * @param {Element} block The Add to Cart + Options block.
+ * @param {Element} block The Add to Cart + Options block or the variations form.
  * @return {Object<string, string>} Values by `attribute_*` name.
  */
 function readBlock( block ) {
@@ -95,8 +95,46 @@ function followBlock( block ) {
 	} );
 }
 
+/**
+ * Follows a classic theme's variation form. WooCommerce sets its selects
+ * with jQuery, which native listeners don't hear, so this listens to
+ * WooCommerce's own jQuery events and reads the selects.
+ * `found_variation` only fires once every attribute is picked, so
+ * `woocommerce_variation_has_changed` covers a color picked before a size
+ * and the Clear link.
+ *
+ * @param {Element} form The variations form.
+ */
+function followClassicForm( form ) {
+	let timer = 0;
+	window
+		.jQuery( form )
+		.on(
+			'found_variation reset_data woocommerce_variation_has_changed',
+			() => {
+				window.clearTimeout( timer );
+				timer = window.setTimeout( () =>
+					apply(
+						nextColor(
+							data.variations,
+							readBlock( form ),
+							data.default,
+							current
+						)
+					)
+				);
+			}
+		);
+}
+
 if ( data?.variations ) {
 	document
 		.querySelectorAll( '.wp-block-woocommerce-add-to-cart-with-options' )
 		.forEach( followBlock );
+
+	if ( window.jQuery ) {
+		document
+			.querySelectorAll( 'form.variations_form' )
+			.forEach( followClassicForm );
+	}
 }
