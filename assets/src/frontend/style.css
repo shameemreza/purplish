@@ -85,9 +85,65 @@ body.purplish-active.purplish-part-tint {
 	background-color: var(--purplish-tint);
 }
 
+/*
+ * Photo transition. WooCommerce swaps the photo about 0.1 s after the
+ * click, so each effect peaks at 18% to hide the swap. Two keyframe names
+ * per effect, so it replays on every change.
+ */
+body.purplish-transition-fade .purplish-swap-a {
+	animation: purplish-fade-a 0.6s ease-out;
+}
+
+body.purplish-transition-fade .purplish-swap-b {
+	animation: purplish-fade-b 0.6s ease-out;
+}
+
+body.purplish-transition-blur .purplish-swap-a {
+	animation: purplish-blur-a 0.9s ease-out;
+}
+
+body.purplish-transition-blur .purplish-swap-b {
+	animation: purplish-blur-b 0.9s ease-out;
+}
+
+@keyframes purplish-fade-a {
+
+	18% {
+		opacity: 0.15;
+	}
+}
+
+@keyframes purplish-fade-b {
+
+	18% {
+		opacity: 0.15;
+	}
+}
+
+@keyframes purplish-blur-a {
+
+	18% {
+		filter: blur(18px) saturate(0.7);
+		opacity: 0.75;
+	}
+}
+
+@keyframes purplish-blur-b {
+
+	18% {
+		filter: blur(18px) saturate(0.7);
+		opacity: 0.75;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 
 	body.purplish {
 		transition: none;
+	}
+
+	body.purplish .purplish-swap-a,
+	body.purplish .purplish-swap-b {
+		animation: none;
 	}
 }

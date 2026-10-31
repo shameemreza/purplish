@@ -16,4 +16,5 @@ Every change to Purplish that a user or contributor would notice. The format fol
 - Block themes: the page follows the picked color on the Add to Cart + Options block, by click, keyboard, or clearing a chip, and before a size is picked.
 - Classic themes: the page follows the variation dropdowns, including a color picked before a size and the Clear link.
 - Part styles: add to cart button, selected option chip, sale badge, sale price and page tint each follow the color when turned on, on the main product only, with a short color transition that reduced motion turns off.
+- Photo transition: None, Fade or Blur on the product gallery when the color changes, on the Product Gallery block and the classic gallery.
 - Accent and tint from each color: a photo color is tuned into a usable button color with the same hue, and the page tint is a pale color of that hue. Custom and swatch colors are used as set.
