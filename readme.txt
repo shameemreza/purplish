@@ -109,7 +109,7 @@ Purplish doesn't collect, store or send any personal data. It doesn't set cookie
 
 == Credits ==
 
-The idea of letting each variation's color come from a manual pick or from its photo came from Luigi Teschio ([@gigitux](https://x.com/gigitux) on X, [gigitux](https://github.com/gigitux) on GitHub), a WooCommerce core developer, in a reply on X to the post about customizing the Purple theme's product page for each color. Thank you, Luigi.
+Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea of setting each variation's color by hand or reading it from the photo.
 
 == Changelog ==
 
