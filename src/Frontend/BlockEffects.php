@@ -27,7 +27,7 @@ final class BlockEffects {
 	 */
 	public static function blocks() {
 		return array(
-			'woocommerce/product-gallery' => array(
+			'woocommerce/product-gallery'    => array(
 				'prefix'  => 'gallery',
 				'options' => array(
 					'nothumbs' => true,
@@ -35,6 +35,14 @@ final class BlockEffects {
 					'arrows'   => true,
 					'tilt'     => true,
 					'lightbox' => true,
+				),
+			),
+			'woocommerce/product-collection' => array(
+				'prefix'  => 'cards',
+				'options' => array(
+					'overlay' => true,
+					'motion'  => true,
+					'hover'   => array( 'magnetic', 'spotlight', 'reveal', 'deck' ),
 				),
 			),
 		);
@@ -150,6 +158,14 @@ final class BlockEffects {
 		}
 		foreach ( $classes as $class ) {
 			$tags->add_class( $class );
+		}
+
+		// The collection's effect color, and readable text on it.
+		$color = isset( $block['attrs']['purplish']['color'] ) ? sanitize_hex_color( (string) $block['attrs']['purplish']['color'] ) : '';
+		if ( $color ) {
+			$style = trim( (string) $tags->get_attribute( 'style' ) );
+			$style = ( '' === $style ? '' : rtrim( $style, ';' ) . ';' ) . '--purplish-effect:' . $color . ';--purplish-effect-on:' . \Purplish\Color\Contrast::on( $color ) . ';';
+			$tags->set_attribute( 'style', $style );
 		}
 
 		self::enqueue();
