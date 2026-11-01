@@ -20,29 +20,19 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # The plugin skeleton adds composer.json. Until then this job has
-      # nothing to check.
-      - name: Check for Composer
-        id: tooling
-        run: echo "ready=$( test -f composer.json && echo yes || echo no )" >> "$GITHUB_OUTPUT"
-
       - uses: shivammathur/setup-php@v2
-        if: steps.tooling.outputs.ready == 'yes'
         with:
           php-version: '7.4'
           coverage: none
           tools: composer:v2
 
       - name: Install Composer packages
-        if: steps.tooling.outputs.ready == 'yes'
         run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: PHPCS
-        if: steps.tooling.outputs.ready == 'yes'
         run: vendor/bin/phpcs -q
 
       - name: PHPCompatibility (PHP 7.4 and later)
-        if: steps.tooling.outputs.ready == 'yes'
         run: composer lint:compat
 
   js:
@@ -51,35 +41,25 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Check for npm
-        id: tooling
-        run: echo "ready=$( test -f package.json && echo yes || echo no )" >> "$GITHUB_OUTPUT"
-
       # The repo pins Node in .nvmrc. @wordpress/scripts needs Node 22.
       - uses: actions/setup-node@v7
-        if: steps.tooling.outputs.ready == 'yes'
         with:
           node-version-file: .nvmrc
           cache: npm
 
       - name: Install npm packages
-        if: steps.tooling.outputs.ready == 'yes'
         run: npm ci
 
       - name: JavaScript tests
-        if: steps.tooling.outputs.ready == 'yes'
         run: npm run test:js
 
       - name: Lint JavaScript
-        if: steps.tooling.outputs.ready == 'yes'
         run: npm run lint:js
 
       - name: Lint styles
-        if: steps.tooling.outputs.ready == 'yes'
         run: npm run lint:css
 
       - name: Build
-        if: steps.tooling.outputs.ready == 'yes'
         run: npm run build
 
   phpunit:
@@ -116,12 +96,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Check for PHPUnit
-        id: tooling
-        run: echo "ready=$( test -f phpunit.xml.dist && echo yes || echo no )" >> "$GITHUB_OUTPUT"
-
       - uses: shivammathur/setup-php@v2
-        if: steps.tooling.outputs.ready == 'yes'
         with:
           php-version: ${{ matrix.php }}
           extensions: mysqli, gd, imagick
@@ -129,22 +104,23 @@ jobs:
           tools: composer:v2
 
       - name: Install Composer packages
-        if: steps.tooling.outputs.ready == 'yes'
         run: composer install --no-interaction --no-progress --prefer-dist
 
       # WordPress core matches the wp-phpunit test library Composer installed.
       - name: Install WordPress and the test database
-        if: steps.tooling.outputs.ready == 'yes'
         run: bin/install-wp-tests.sh "$WP_TESTS_DB_NAME" "$WP_TESTS_DB_USER" "$WP_TESTS_DB_HOST" "$(composer show wp-phpunit/wp-phpunit --format=json | jq -r '.versions[0]')"
 
       - name: Install WooCommerce
-        if: steps.tooling.outputs.ready == 'yes'
         run: |
           curl -fsSL "https://downloads.wordpress.org/plugin/woocommerce.${WOOCOMMERCE_VERSION}.zip" -o /tmp/woocommerce.zip
           unzip -q /tmp/woocommerce.zip -d "$WP_CORE_DIR/wp-content/plugins/"
 
+      # Purplish runs from the plugins folder, as on a real site, so
+      # WooCommerce can identify it by its plugin ID.
+      - name: Link Purplish into the plugins folder
+        run: ln -s "$GITHUB_WORKSPACE" "$WP_CORE_DIR/wp-content/plugins/purplish"
+
       - name: PHPUnit
-        if: steps.tooling.outputs.ready == 'yes'
         run: composer test
 
   # The one check branch protection requires. Its name never changes, so

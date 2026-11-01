@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset name="Purplish">
+	<file>./src</file>
+	<file>./purplish.php</file>
+	<file>./tests/php</file>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<!-- WordPress test suite settings: core constants, not ours. -->
+	<exclude-pattern>/tests/php/wp-tests-config.php</exclude-pattern>
+	<arg name="extensions" value="php"/>
+	<arg value="sp"/>
+	<config name="testVersion" value="7.4-"/>
+	<config name="minimum_wp_version" value="7.0"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
+	<rule ref="WooCommerce-Core"/>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="purplish"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="purplish"/>
+				<element value="Purplish"/>
+			</property>
+		</properties>
+	</rule>
+	<!-- PSR-4 class files in src/ and tests/php/. -->
+	<rule ref="WordPress.Files.FileName">
+		<exclude-pattern>/src/*</exclude-pattern>
+		<exclude-pattern>/tests/php/*</exclude-pattern>
+	</rule>
+	<rule ref="PHPCompatibilityWP"/>
+</ruleset>
