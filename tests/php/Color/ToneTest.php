@@ -148,4 +148,20 @@ class ToneTest extends WP_UnitTestCase {
 			$this->assertSame( $hex, Tone::from_oklch( $lightness, $chroma, $hue ) );
 		}
 	}
+
+	/**
+	 * Ink is never lighter than the cap, and keeps dark colors as they are.
+	 *
+	 * @dataProvider provide_colors
+	 *
+	 * @param string $source Source color.
+	 */
+	public function test_ink_is_dark_enough_for_text( $source ) {
+		$ink = Tone::to_oklch( Tone::ink( $source ) );
+
+		$this->assertLessThanOrEqual( Tone::INK_MAX_LIGHTNESS + 0.01, $ink[0] );
+		if ( Tone::to_oklch( $source )[0] <= Tone::INK_MAX_LIGHTNESS ) {
+			$this->assertSame( $source, Tone::ink( $source ) );
+		}
+	}
 }

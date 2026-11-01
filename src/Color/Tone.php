@@ -49,6 +49,11 @@ final class Tone {
 	const ACCENT_MAX_CHROMA = 0.2;
 
 	/**
+	 * The most lightness for text on a light page.
+	 */
+	const INK_MAX_LIGHTNESS = 0.5;
+
+	/**
 	 * Lightness and the most chroma of the page tint.
 	 */
 	const TINT_LIGHTNESS  = 0.955;
@@ -84,6 +89,24 @@ final class Tone {
 		$chroma    = min( self::ACCENT_MAX_CHROMA, $chroma );
 
 		return self::from_oklch( $lightness, $chroma, $hue );
+	}
+
+	/**
+	 * The color darkened enough to read as text on a light page, such as a
+	 * sale price: lightness capped, hue and chroma kept.
+	 *
+	 * @param string $hex Source color.
+	 * @return string Hex color, or an empty string when the source isn't a hex color.
+	 */
+	public static function ink( $hex ) {
+		$lch = self::to_oklch( $hex );
+		if ( null === $lch ) {
+			return '';
+		}
+
+		list( $lightness, $chroma, $hue ) = $lch;
+
+		return self::from_oklch( min( self::INK_MAX_LIGHTNESS, $lightness ), $chroma, $hue );
 	}
 
 	/**

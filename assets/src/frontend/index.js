@@ -26,13 +26,17 @@ function apply( set ) {
 	if ( set ) {
 		body.style.setProperty( '--purplish-accent', set.color );
 		body.style.setProperty( '--purplish-on', set.on );
+		body.style.setProperty( '--purplish-ink', set.ink );
 		body.style.setProperty( '--purplish-tint', set.tint );
 		body.classList.add( 'purplish-active' );
 	} else {
 		body.classList.remove( 'purplish-active' );
-		[ '--purplish-accent', '--purplish-on', '--purplish-tint' ].forEach(
-			( name ) => body.style.removeProperty( name )
-		);
+		[
+			'--purplish-accent',
+			'--purplish-on',
+			'--purplish-ink',
+			'--purplish-tint',
+		].forEach( ( name ) => body.style.removeProperty( name ) );
 	}
 
 	body.dispatchEvent(

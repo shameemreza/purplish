@@ -123,10 +123,11 @@ final class PageData {
 	}
 
 	/**
-	 * The colors for one accent: the accent, the text on it, and the tint.
+	 * The colors for one accent: the accent, the text on it, the accent as
+	 * text on the page, and the tint.
 	 *
 	 * @param string $accent Hex color, or empty.
-	 * @return array{color: string, on: string, tint: string}|null Null for no color.
+	 * @return array{color: string, on: string, ink: string, tint: string}|null Null for no color.
 	 */
 	public static function color_set( $accent ) {
 		$accent = sanitize_hex_color( (string) $accent );
@@ -136,6 +137,7 @@ final class PageData {
 		return array(
 			'color' => $accent,
 			'on'    => Contrast::on( $accent ),
+			'ink'   => Tone::ink( $accent ),
 			'tint'  => Tone::tint( $accent ),
 		);
 	}
@@ -148,7 +150,7 @@ final class PageData {
 	 *
 	 * @param array $variations Variations with `attributes` and their color set.
 	 * @param array $picked     Picked values by `attribute_*` name; empty means not picked.
-	 * @return array{color: string, on: string, tint: string}|null Null when nothing is picked or the colors differ.
+	 * @return array{color: string, on: string, ink: string, tint: string}|null Null when nothing is picked or the colors differ.
 	 */
 	public static function match( $variations, $picked ) {
 		$picked = array_filter( array_map( 'strval', $picked ), 'strlen' );
@@ -167,6 +169,7 @@ final class PageData {
 			$colors[ $variation['color'] ] = array(
 				'color' => $variation['color'],
 				'on'    => $variation['on'],
+				'ink'   => $variation['ink'],
 				'tint'  => $variation['tint'],
 			);
 		}
@@ -208,9 +211,10 @@ final class PageData {
 			wp_add_inline_style(
 				self::HANDLE,
 				sprintf(
-					'body{--purplish-accent:%1$s;--purplish-on:%2$s;--purplish-tint:%3$s}',
+					'body{--purplish-accent:%1$s;--purplish-on:%2$s;--purplish-ink:%3$s;--purplish-tint:%4$s}',
 					sanitize_hex_color( $data['default']['color'] ),
 					sanitize_hex_color( $data['default']['on'] ),
+					sanitize_hex_color( $data['default']['ink'] ),
 					sanitize_hex_color( $data['default']['tint'] )
 				)
 			);
