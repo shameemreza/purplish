@@ -78,5 +78,8 @@ final class Plugin {
 	 * @return void
 	 */
 	public function boot() {
+		if ( is_admin() ) {
+			( new Admin\VariationField() )->register();
+		}
 	}
 }

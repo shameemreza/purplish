@@ -8,3 +8,4 @@ Every change to Purplish that a user or contributor would notice. The format fol
 
 - Repo setup: issue and pull request templates, CI, security policy and contributor guide.
 - Plugin skeleton: requires WooCommerce, declares order storage (HPOS) and cart and checkout blocks compatibility, and sets up PHPCS, PHPUnit, ESLint and Jest.
+- Page color field in each variation: Automatic, Custom or Off, with WordPress's color picker for the custom color.
