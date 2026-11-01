@@ -20,6 +20,7 @@
 /phpunit.xml.dist
 /phpcs.xml.dist
 /jest.config.js
+/eslint.config.cjs
 /README.md
 /SECURITY.md
 /CONTRIBUTING.md
