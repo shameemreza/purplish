@@ -81,6 +81,7 @@ final class Plugin {
 		( new Jobs\DetectColors() )->register();
 		( new Frontend\PageData() )->register();
 		( new Frontend\BlockOptions() )->register();
+		( new Admin\Settings() )->register();
 
 		if ( is_admin() ) {
 			( new Admin\VariationField() )->register();
