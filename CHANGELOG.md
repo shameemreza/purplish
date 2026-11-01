@@ -21,4 +21,5 @@ Every change to Purplish that a user or contributor would notice. The format fol
 - Purplish section under WooCommerce > Settings > Products for classic themes. On block themes it points to the block panel.
 - readme.txt for WordPress.org, uninstall.php that removes Purplish's settings, variation data and queued jobs, and the purplish.pot translation template.
 - Simple products: the same Page color field on the General tab, colors read from the product image, and the page in that color from the first paint.
+- Gallery options: hide thumbnails, rounded corners, frosted arrows on hover, 3D tilt and a styled full-screen view on the Product Gallery block; thumbnails, corners and tilt for classic themes.
 - Accent and tint from each color: a photo color is tuned into a usable button color with the same hue, and the page tint is a pale color of that hue. Custom and swatch colors are used as set.

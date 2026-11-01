@@ -1,0 +1,222 @@
+/**
+ * Purplish effects on WooCommerce's blocks. Each rule hangs off a class
+ * Purplish adds to the block's wrapper when its option is on, or a body
+ * class for the classic gallery.
+ */
+
+/*
+ * Effect colors. The page accent while a variation color is active;
+ * otherwise the block's own effect color, then the theme's text color.
+ * Purplish's page colors are registered properties, which never fall
+ * back, so these unregistered names carry the fallbacks.
+ */
+body.purplish-active {
+	--purplish-fx: var(--purplish-accent);
+	--purplish-fx-on: var(--purplish-on);
+	--purplish-fx-tint: var(--purplish-tint);
+}
+
+.purplish-gallery,
+.purplish-cards,
+.purplish-accordion,
+body[class*="purplish-classic-gallery-"] {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, #fff));
+}
+
+/* Gallery: one big photo, no thumbnail strip. */
+.purplish-gallery-nothumbs .wc-block-product-gallery-thumbnails,
+body.purplish-classic-gallery-nothumbs .woocommerce-product-gallery .flex-control-thumbs {
+	display: none;
+}
+
+/* Gallery: rounded corners on the large photo. */
+.purplish-gallery-rounded .wc-block-product-gallery-large-image,
+body.purplish-classic-gallery-rounded .woocommerce-product-gallery .flex-viewport,
+body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only-child {
+	border-radius: 24px;
+	overflow: hidden;
+}
+
+/* Gallery: round frosted arrows that show when the shopper hovers the photo. */
+.purplish-gallery-arrows .wc-block-next-previous-buttons {
+	gap: 8px;
+	transition: opacity 0.3s ease-out, translate 0.3s ease-out;
+}
+
+.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button {
+	width: 44px;
+	height: 44px;
+	border: 0;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.75);
+	backdrop-filter: blur(10px);
+	color: var(--purplish-color);
+	box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.35);
+	transition: background-color 0.25s, color 0.25s, scale 0.2s;
+}
+
+.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:hover:not(:disabled) {
+	background: var(--purplish-color);
+	color: var(--purplish-color-on);
+}
+
+.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:active {
+	scale: 0.92;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-gallery-arrows .wc-block-product-gallery-large-image:not(:hover) .wc-block-next-previous-buttons {
+		opacity: 0;
+		translate: 0 8px;
+	}
+}
+
+/*
+ * Gallery: the photo as a 3D card. On hover it tilts toward the mouse, lifts,
+ * and a light sheen follows the mouse. The script sets the four variables.
+ * perspective() sits inside the transform: a perspective property on the
+ * gallery would trap the full-screen view inside it.
+ */
+.purplish-gallery-tilt .wc-block-product-gallery-large-image,
+body.purplish-classic-gallery-tilt .purplish-tilt-target {
+	position: relative;
+	transform-style: preserve-3d;
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.purplish-gallery-tilt .wc-block-product-gallery-large-image::after,
+body.purplish-classic-gallery-tilt .purplish-tilt-target::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.4), transparent 45%);
+	opacity: 0;
+	transition: opacity 0.4s;
+	pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-gallery-tilt .wc-block-product-gallery-large-image:hover,
+	body.purplish-classic-gallery-tilt .purplish-tilt-target:hover {
+		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
+		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	.purplish-gallery-tilt .wc-block-product-gallery-large-image:hover::after,
+	body.purplish-classic-gallery-tilt .purplish-tilt-target:hover::after {
+		opacity: 1;
+	}
+}
+
+/*
+ * Gallery: WooCommerce's own full-screen view, tinted to the page color.
+ * One photo per screen: scroll or swipe and it snaps to the next.
+ */
+.purplish-gallery-lightbox .wc-block-product-gallery-dialog {
+	background: var(--purplish-color-soft);
+}
+
+.purplish-gallery-lightbox .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content {
+	flex-direction: column;
+	align-items: center;
+	gap: 40vh;
+	box-sizing: border-box;
+	height: calc(100vh - 110px);
+	padding: calc((100vh - 110px - 68vh) / 2) 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scroll-snap-type: y mandatory;
+	scroll-behavior: smooth;
+	scrollbar-width: none;
+}
+
+.purplish-gallery-lightbox .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content img {
+	flex: 0 0 auto;
+	width: auto;
+	height: auto;
+	max-width: 86vw;
+	max-height: 68vh;
+	border-radius: 24px;
+	object-fit: contain;
+	scroll-snap-align: center;
+	box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.45);
+}
+
+.purplish-gallery-lightbox
+.wc-block-product-gallery-dialog[open]
+.wc-block-product-gallery-dialog__content {
+	animation: purplish-lightbox-open 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes purplish-lightbox-open {
+
+	from {
+		opacity: 0;
+		scale: 0.94;
+		filter: blur(8px);
+	}
+}
+
+/*
+ * Each photo tips in from below like a card being dealt, and tips away as
+ * it leaves.
+ */
+@supports (animation-timeline: view()) {
+
+	.purplish-gallery-lightbox .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content img {
+		animation: purplish-lightbox-deal linear both;
+		animation-timeline: view();
+	}
+}
+
+@keyframes purplish-lightbox-deal {
+
+	0% {
+		transform: perspective(1200px) rotateX(-38deg) rotateZ(4deg) scale(0.78);
+		opacity: 0;
+		filter: blur(12px);
+	}
+
+	38%,
+	62% {
+		transform: none;
+		opacity: 1;
+		filter: none;
+	}
+
+	100% {
+		transform: perspective(1200px) rotateX(38deg) rotateZ(-4deg) scale(0.78);
+		opacity: 0;
+		filter: blur(12px);
+	}
+}
+
+.purplish-gallery-lightbox .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.8);
+	color: var(--purplish-color);
+	transition: background-color 0.25s, color 0.25s, rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.purplish-gallery-lightbox .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button:hover {
+	background: var(--purplish-color);
+	color: var(--purplish-color-on);
+	rotate: 90deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	[class*="purplish-gallery-"] *,
+	[class*="purplish-classic-gallery-"] .woocommerce-product-gallery * {
+		animation: none !important;
+		transition: none !important;
+	}
+}

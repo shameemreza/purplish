@@ -62,6 +62,9 @@ class SettingsTest extends WP_UnitTestCase {
 			$this->assertContains( 'purplish_settings[' . $key . ']', $ids );
 		}
 		$this->assertNotContains( 'purplish_settings[chip]', $ids );
+		foreach ( array( 'gallery_nothumbs', 'gallery_rounded', 'gallery_tilt' ) as $key ) {
+			$this->assertContains( 'purplish_settings[' . $key . ']', $ids );
+		}
 	}
 
 	/**
