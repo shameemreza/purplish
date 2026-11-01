@@ -131,7 +131,41 @@ function followClassicForm( form ) {
 		);
 }
 
+const GALLERIES =
+	'.wc-block-product-gallery-large-image__container, .woocommerce-product-gallery__wrapper';
+let swap = false;
+
+/**
+ * Plays the photo transition once on each color change. Two class names
+ * take turns, so the animation restarts every time.
+ */
+function playTransition() {
+	if (
+		! body.classList.contains( 'purplish-transition-fade' ) &&
+		! body.classList.contains( 'purplish-transition-blur' )
+	) {
+		return;
+	}
+
+	swap = ! swap;
+	document.querySelectorAll( GALLERIES ).forEach( ( gallery ) => {
+		gallery.classList.remove( 'purplish-swap-a', 'purplish-swap-b' );
+		gallery.classList.add( swap ? 'purplish-swap-a' : 'purplish-swap-b' );
+		gallery.addEventListener(
+			'animationend',
+			() =>
+				gallery.classList.remove(
+					'purplish-swap-a',
+					'purplish-swap-b'
+				),
+			{ once: true }
+		);
+	} );
+}
+
 if ( data?.variations ) {
+	body.addEventListener( 'purplish:change', playTransition );
+
 	document
 		.querySelectorAll( '.wp-block-woocommerce-add-to-cart-with-options' )
 		.forEach( followBlock );
