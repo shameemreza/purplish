@@ -30,4 +30,6 @@ defined( 'PURPLISH_URL' ) || define( 'PURPLISH_URL', plugin_dir_url( __FILE__ ) 
 require_once PURPLISH_DIR . 'src/Autoloader.php';
 \Purplish\Autoloader::register();
 
+register_activation_hook( __FILE__, array( \Purplish\Jobs\DetectColors::class, 'activate' ) );
+
 \Purplish\Plugin::instance()->register();
