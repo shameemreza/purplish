@@ -136,6 +136,49 @@ body.purplish-transition-blur .purplish-swap-b {
 	}
 }
 
+/* Title and price rise in after the photo; the price a moment later. */
+.purplish-rise-a {
+	animation: purplish-rise-a 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.purplish-rise-b {
+	animation: purplish-rise-b 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+:is(.wp-block-woocommerce-product-price, .price):is(.purplish-rise-a, .purplish-rise-b) {
+	animation-delay: 0.08s;
+}
+
+@keyframes purplish-rise-a {
+
+	from {
+		opacity: 0;
+		translate: 0 14px;
+	}
+}
+
+@keyframes purplish-rise-b {
+
+	from {
+		opacity: 0;
+		translate: 0 14px;
+	}
+}
+
+/* A dot in each option's own color, before its name on the chip. */
+body.purplish-dots .purplish-has-dot::before {
+	content: "";
+	display: inline-block;
+	flex: none;
+	width: 10px;
+	height: 10px;
+	margin-right: 0.4rem;
+	border-radius: 50%;
+	background: var(--purplish-dot);
+	box-shadow: 0 0 0 2px #fff;
+	vertical-align: 0.05em;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
 	body.purplish {
@@ -143,7 +186,9 @@ body.purplish-transition-blur .purplish-swap-b {
 	}
 
 	body.purplish .purplish-swap-a,
-	body.purplish .purplish-swap-b {
+	body.purplish .purplish-swap-b,
+	.purplish-rise-a,
+	.purplish-rise-b {
 		animation: none;
 	}
 }

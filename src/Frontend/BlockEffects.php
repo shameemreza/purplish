@@ -45,6 +45,18 @@ final class BlockEffects {
 					'hover'   => array( 'magnetic', 'spotlight', 'reveal', 'deck' ),
 				),
 			),
+			'core/accordion'                 => array(
+				'prefix'  => 'accordion',
+				'options' => array(
+					'soft' => true,
+				),
+			),
+			'core/group'                     => array(
+				'prefix'  => 'group',
+				'options' => array(
+					'tint' => true,
+				),
+			),
 		);
 	}
 

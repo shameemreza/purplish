@@ -132,4 +132,12 @@ class BlockEffectsTest extends WP_UnitTestCase {
 		);
 		$this->assertStringNotContainsString( 'style=', $out );
 	}
+
+	/**
+	 * The accordion and group switches become their classes.
+	 */
+	public function test_accordion_and_group() {
+		$this->assertSame( array( 'purplish-accordion', 'purplish-accordion-soft' ), BlockEffects::classes_for( 'core/accordion', array( 'soft' => true ) ) );
+		$this->assertSame( array( 'purplish-group', 'purplish-group-tint' ), BlockEffects::classes_for( 'core/group', array( 'tint' => true ) ) );
+	}
 }

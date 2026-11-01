@@ -23,4 +23,5 @@ Every change to Purplish that a user or contributor would notice. The format fol
 - Simple products: the same Page color field on the General tab, colors read from the product image, and the page in that color from the first paint.
 - Gallery options: hide thumbnails, rounded corners, frosted arrows on hover, 3D tilt and a styled full-screen view on the Product Gallery block; thumbnails, corners and tilt for classic themes.
 - Product card options on the Product Collection block: add to cart on the photo as a frosted button, button motion, hover effects (magnetic panel, spotlight, color reveal, deck) and an effect color.
+- Title and price rise on each color change, color dots on the option chips, a soft style for the Accordion block, and a "Take the page color" option for Group blocks.
 - Accent and tint from each color: a photo color is tuned into a usable button color with the same hue, and the page tint is a pale color of that hue. Custom and swatch colors are used as set.

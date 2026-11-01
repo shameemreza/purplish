@@ -48,10 +48,22 @@ The button, option and badge are on by default. Pick the photo transition too: B
 
 On block themes, the settings sit in a Purplish panel on the Add to Cart + Options block in the Site Editor, so each product template can have its own look. On classic themes, they're under WooCommerce > Settings > Products > Purplish.
 
+= Gallery, product cards and more =
+
+Purplish adds options to more of WooCommerce's blocks, each in a Purplish panel in the Site Editor:
+
+* **Product Gallery:** hide the thumbnails for one big photo, rounded corners, round frosted arrows that show on hover, a 3D tilt that follows the mouse, and a full-screen view tinted to the page color with photos that snap into place.
+* **Product Collection:** add to cart as a small frosted button on the photo, a bag icon and light sweep on hover, a fill after adding to cart, and a hover effect: magnetic panel, spotlight, color reveal or deck.
+* **Add to Cart + Options:** the title and price rise in on each color change, and color dots on the option buttons.
+* **Accordion:** a soft card style, with a round button that fills with the color when open.
+* **Group:** any section can take a soft version of the picked color.
+
+Classic themes get the gallery's thumbnails, rounded corners and 3D tilt, and the title and price rise, under WooCommerce > Settings > Products > Purplish.
+
 = Fast, and quiet when it isn't needed =
 
 * Product images are read once, in the background, with WooCommerce's Action Scheduler. Saving a product stays fast.
-* Shoppers load a small stylesheet, plus a small script on variable products. Nothing loads on pages without a product color.
+* Shoppers load a small stylesheet, plus a small script on variable products. Gallery and card effects load only where a block uses them.
 * The page opens in the right color, with no flash of your theme's colors.
 * Visitors who ask their device for reduced motion get color changes without animation.
 * No outside requests, no tracking, no admin notices.
@@ -141,3 +153,6 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 * New: Choose which parts take the color: add to cart button, selected option, sale badge, sale price and page tint.
 * New: Photo transition: Blur, Fade or None.
 * New: Purplish panel on the Add to Cart + Options block, and a settings section for classic themes.
+* New: Gallery options: hide thumbnails, rounded corners, frosted arrows, 3D tilt and a styled full-screen view.
+* New: Product card options: add to cart on the photo, button motion and four hover effects.
+* New: Title and price rise, color dots on options, a soft accordion style and group tint.

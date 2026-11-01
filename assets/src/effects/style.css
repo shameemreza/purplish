@@ -13,7 +13,7 @@
 body.purplish-active {
 	--purplish-fx: var(--purplish-accent);
 	--purplish-fx-on: var(--purplish-on);
-	--purplish-fx-tint: var(--purplish-tint);
+	--purplish-fx-tint: color-mix(in oklab, var(--purplish-tint) 55%, #fff);
 }
 
 .purplish-gallery,
@@ -512,11 +512,105 @@ body.purplish-classic-gallery-tilt .purplish-tilt-target::after {
 	}
 }
 
+/*
+ * Accordion, soft: each item is a soft card, the plus turns into an x in a
+ * round button that fills with the color when open, and the panel rises in.
+ */
+.purplish-accordion-soft :is(.wp-block-accordion-item, .wp-block-accordion-heading, .wp-block-accordion-panel) {
+	border: 0 !important;
+}
+
+.purplish-accordion-soft .wp-block-accordion-item {
+	padding: 0 1.25rem;
+	border-radius: 18px;
+	background-color: var(--purplish-color-soft);
+	transition: background-color 0.3s;
+}
+
+.purplish-accordion-soft .wp-block-accordion-item + .wp-block-accordion-item {
+	margin-top: 0.75rem;
+}
+
+.purplish-accordion-soft .wp-block-accordion-heading__toggle-title {
+	font-weight: 600;
+}
+
+.purplish-accordion-soft .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
+	text-decoration: none;
+}
+
+.purplish-accordion-soft .wp-block-accordion-heading__toggle-icon {
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: #fff;
+	color: var(--purplish-color);
+	transition:
+		transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+		background-color 0.3s,
+		color 0.3s;
+}
+
+.purplish-accordion-soft .wp-block-accordion-item.is-open .wp-block-accordion-heading__toggle-icon {
+	background: var(--purplish-color);
+	color: var(--purplish-color-on);
+}
+
+.purplish-accordion-soft .wp-block-accordion-item.is-open > .wp-block-accordion-panel {
+	animation: purplish-panel 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes purplish-panel {
+
+	from {
+		opacity: 0;
+		translate: 0 -8px;
+	}
+}
+
+.purplish-accordion-soft .wp-block-accordion-panel table {
+	width: 100%;
+	margin-bottom: 1rem;
+	border-collapse: collapse;
+}
+
+.purplish-accordion-soft .wp-block-accordion-panel :is(th, td) {
+	padding: 0.7rem 0 !important;
+	border: 0 !important;
+	border-bottom: 1px solid rgb(0 0 0 / 0.08) !important;
+	background: none !important;
+	text-align: left;
+}
+
+.purplish-accordion-soft .wp-block-accordion-panel tr:last-child :is(th, td) {
+	border-bottom: 0 !important;
+}
+
+.purplish-accordion-soft .wp-block-accordion-panel :is(th, td):first-child {
+	width: 35%;
+	font-weight: 400;
+	opacity: 0.75;
+}
+
+/*
+ * Group, take the page color: the section's background becomes a soft
+ * version of the picked color. WordPress paints preset backgrounds with
+ * !important, so this needs it too. Without a color, the theme's stays.
+ */
+body.purplish-active .purplish-group-tint {
+	background-color: var(--purplish-fx-tint) !important;
+	transition: background-color 0.5s ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
 	[class*="purplish-gallery-"] *,
 	[class*="purplish-cards-"] *,
 	[class*="purplish-cards-"] .wc-block-product-template::before,
+	.purplish-accordion-soft *,
+	.purplish-group-tint,
 	[class*="purplish-classic-gallery-"] .woocommerce-product-gallery * {
 		animation: none !important;
 		transition: none !important;

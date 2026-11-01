@@ -79,6 +79,26 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 				] }
 				onChange={ ( transition ) => save( { transition } ) }
 			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Title and price rise', 'purplish' ) }
+				help={ __(
+					'The product title and price rise in after the photo on each color change.',
+					'purplish'
+				) }
+				checked={ true === options.rise }
+				onChange={ ( rise ) => save( { rise } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Color dots on options', 'purplish' ) }
+				help={ __(
+					'A dot in each color before its name on the option buttons.',
+					'purplish'
+				) }
+				checked={ true === options.dots }
+				onChange={ ( dots ) => save( { dots } ) }
+			/>
 		</PanelBody>
 	);
 }
