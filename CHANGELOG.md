@@ -19,4 +19,5 @@ Every change to Purplish that a user or contributor would notice. The format fol
 - Photo transition: None, Fade or Blur on the product gallery when the color changes, on the Product Gallery block and the classic gallery.
 - Purplish panel on the Add to Cart + Options block in the Site Editor: turn each part on or off and pick the photo transition, per template.
 - Purplish section under WooCommerce > Settings > Products for classic themes. On block themes it points to the block panel.
+- readme.txt for WordPress.org, uninstall.php that removes Purplish's settings, variation data and queued jobs, and the purplish.pot translation template.
 - Accent and tint from each color: a photo color is tuned into a usable button color with the same hue, and the page tint is a pale color of that hue. Custom and swatch colors are used as set.

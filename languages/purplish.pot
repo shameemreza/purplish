@@ -1,0 +1,167 @@
+# Copyright (C) 2026 Shameem Reza
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Purplish for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/purplish\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-31T17:50:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: purplish\n"
+
+#. Plugin Name of the plugin
+#: purplish.php
+msgid "Purplish for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: purplish.php
+msgid "https://github.com/shameemreza/purplish"
+msgstr ""
+
+#. Description of the plugin
+#: purplish.php
+msgid "Design options for the WooCommerce product page, added to WooCommerce's own blocks. Works with block and classic themes."
+msgstr ""
+
+#. Author of the plugin
+#: purplish.php
+msgid "Shameem Reza"
+msgstr ""
+
+#. Author URI of the plugin
+#: purplish.php
+msgid "https://shameem.dev/"
+msgstr ""
+
+#: src/Admin/Settings.php:42
+#: src/Admin/Settings.php:74
+#: assets/src/editor/index.js:61
+#: build/editor.js:1
+msgid "Purplish"
+msgstr ""
+
+#. translators: %s: link to the Single Product template in the Site Editor.
+#: src/Admin/Settings.php:84
+#, php-format
+msgid "Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings."
+msgstr ""
+
+#: src/Admin/Settings.php:85
+msgid "Single Product template"
+msgstr ""
+
+#: src/Admin/Settings.php:90
+msgid "When a shopper picks a color on a variable product, these parts of the product page take that color."
+msgstr ""
+
+#: src/Admin/Settings.php:93
+#: assets/src/editor/index.js:20
+#: build/editor.js:1
+msgid "Add to cart button"
+msgstr ""
+
+#: src/Admin/Settings.php:94
+#: assets/src/editor/index.js:22
+#: build/editor.js:1
+msgid "Sale badge"
+msgstr ""
+
+#: src/Admin/Settings.php:95
+#: assets/src/editor/index.js:23
+#: build/editor.js:1
+msgid "Sale price"
+msgstr ""
+
+#: src/Admin/Settings.php:96
+#: assets/src/editor/index.js:24
+#: build/editor.js:1
+msgid "Page background tint"
+msgstr ""
+
+#: src/Admin/Settings.php:105
+msgid "Parts that take the color"
+msgstr ""
+
+#: src/Admin/Settings.php:116
+#: assets/src/editor/index.js:88
+#: build/editor.js:1
+msgid "Photo transition"
+msgstr ""
+
+#: src/Admin/Settings.php:117
+#: assets/src/editor/index.js:89
+#: build/editor.js:1
+msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
+msgstr ""
+
+#: src/Admin/Settings.php:121
+#: assets/src/editor/index.js:97
+#: build/editor.js:1
+msgid "None"
+msgstr ""
+
+#: src/Admin/Settings.php:122
+#: assets/src/editor/index.js:101
+#: build/editor.js:1
+msgid "Fade"
+msgstr ""
+
+#: src/Admin/Settings.php:123
+#: assets/src/editor/index.js:105
+#: build/editor.js:1
+msgid "Blur"
+msgstr ""
+
+#: src/Admin/VariationField.php:58
+msgid "Page color"
+msgstr ""
+
+#: src/Admin/VariationField.php:61
+msgid "Automatic"
+msgstr ""
+
+#: src/Admin/VariationField.php:62
+msgid "Custom"
+msgstr ""
+
+#: src/Admin/VariationField.php:63
+msgid "Off"
+msgstr ""
+
+#: src/Admin/VariationField.php:66
+msgid "The product page takes this color when a shopper picks this variation. Automatic reads it from the variation photo. Off keeps the theme colors."
+msgstr ""
+
+#: src/Admin/VariationField.php:76
+msgid "Custom color"
+msgstr ""
+
+#: src/Admin/VariationField.php:81
+msgid "Click the field to pick a color, or type a hex code like #dc4a24."
+msgstr ""
+
+#. translators: %s: a hex color, like #dc4a24.
+#: src/Admin/VariationField.php:98
+#, php-format
+msgid "Color from the photo: %s"
+msgstr ""
+
+#: src/Admin/VariationField.php:101
+msgid "Color from the photo: not read yet. Purplish reads it in the background after the variation has a photo and is saved."
+msgstr ""
+
+#: assets/src/editor/index.js:21
+#: build/editor.js:1
+msgid "Selected option"
+msgstr ""
+
+#: assets/src/editor/index.js:63
+#: build/editor.js:1
+msgid "Parts of the product page that take the color of the variation a shopper picks."
+msgstr ""
