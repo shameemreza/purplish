@@ -32,7 +32,7 @@ final class Resolver {
 	/**
 	 * The color for a variation, as the merchant or the photo gave it.
 	 *
-	 * @param WC_Product_Variation $variation Variation.
+	 * @param \WC_Product $variation Variation or simple product.
 	 * @return string Hex color, or an empty string when the variation keeps the theme colors.
 	 */
 	public static function color( $variation ) {
@@ -109,6 +109,11 @@ final class Resolver {
 	 * @return string Hex color, or an empty string.
 	 */
 	public static function term_color( $variation ) {
+		// Only a variation has a picked term; a simple product's attributes are all its options.
+		if ( ! $variation instanceof WC_Product_Variation ) {
+			return '';
+		}
+
 		foreach ( $variation->get_attributes() as $taxonomy => $slug ) {
 			if ( '' === $slug || ! taxonomy_is_product_attribute( $taxonomy ) ) {
 				continue;

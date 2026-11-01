@@ -4,7 +4,7 @@
  * color settings work.
  *
  * WooCommerce loads variations over AJAX, so the field starts when they
- * load or get added, not on page load.
+ * load or get added; the simple product field starts on page load.
  */
 const $ = window.jQuery;
 const HEX = /^#([a-f0-9]{6}|[a-f0-9]{3})$/i;
@@ -33,7 +33,7 @@ function markChanged( $input ) {
 }
 
 function start() {
-	$( '#variable_product_options input[data-purplish-color-picker]' )
+	$( '#woocommerce-product-data input[data-purplish-color-picker]' )
 		.not( '.purplish-color-ready' )
 		.each( function () {
 			const $input = $( this ).addClass( 'purplish-color-ready' );

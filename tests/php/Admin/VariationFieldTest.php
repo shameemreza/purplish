@@ -214,4 +214,35 @@ class VariationFieldTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'value="#7b2cbf"', $html );
 		$this->assertStringContainsString( '#3357b7', $html );
 	}
+
+	/**
+	 * The simple product field saves through the product object.
+	 */
+	public function test_saves_simple_product() {
+		$product = new \WC_Product_Simple();
+		$product->save();
+
+		$_POST['purplish_product_mode']         = 'custom';
+		$_POST['purplish_product_custom_color'] = '#7b2cbf';
+		( new VariationField() )->save_product( $product );
+		$product->save();
+
+		$saved = wc_get_product( $product->get_id() );
+		$this->assertSame( 'custom', $saved->get_meta( Meta::MODE ) );
+		$this->assertSame( '#7b2cbf', $saved->get_meta( Meta::CUSTOM_COLOR ) );
+	}
+
+	/**
+	 * A variable product's own form values are ignored; its variations hold the colors.
+	 */
+	public function test_ignores_variable_parent() {
+		$variations = Products::sweater();
+		$parent     = wc_get_product( reset( $variations )->get_parent_id() );
+
+		$_POST['purplish_product_mode'] = 'off';
+		( new VariationField() )->save_product( $parent );
+		$parent->save();
+
+		$this->assertSame( '', wc_get_product( $parent->get_id() )->get_meta( Meta::MODE ) );
+	}
 }

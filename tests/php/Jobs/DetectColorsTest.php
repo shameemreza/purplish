@@ -62,7 +62,7 @@ class DetectColorsTest extends WP_UnitTestCase {
 	 * @return bool
 	 */
 	private function is_queued( $variation_id ) {
-		return as_has_scheduled_action( DetectColors::HOOK_ONE, array( 'variation_id' => $variation_id ), DetectColors::GROUP );
+		return as_has_scheduled_action( DetectColors::HOOK_ONE, array( 'product_id' => $variation_id ), DetectColors::GROUP );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class DetectColorsTest extends WP_UnitTestCase {
 		DetectColors::activate();
 		( new DetectColors() )->queue_first_batch();
 
-		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, array( 'offset' => 0 ), DetectColors::GROUP ) );
+		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, DetectColors::batch_args( 0, DetectColors::KIND_VARIATION ), DetectColors::GROUP ) );
 		$this->assertFalse( get_option( DetectColors::QUEUE_OPTION ) );
 	}
 
@@ -196,10 +196,58 @@ class DetectColorsTest extends WP_UnitTestCase {
 		foreach ( $variations as $variation ) {
 			$this->assertTrue( $this->is_queued( $variation->get_id() ) );
 		}
-		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, array( 'offset' => 6 ), DetectColors::GROUP ) );
+		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, DetectColors::batch_args( 6, DetectColors::KIND_VARIATION ), DetectColors::GROUP ) );
 
 		as_unschedule_all_actions( DetectColors::HOOK_BATCH, null, DetectColors::GROUP );
 		( new DetectColors() )->batch( 6 );
-		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_BATCH, null, DetectColors::GROUP ), 'empty page ends the walk' );
+		$this->assertTrue(
+			as_has_scheduled_action( DetectColors::HOOK_BATCH, DetectColors::batch_args( 0, DetectColors::KIND_SIMPLE ), DetectColors::GROUP ),
+			'an empty page of variations starts the simple products'
+		);
+
+		as_unschedule_all_actions( DetectColors::HOOK_BATCH, null, DetectColors::GROUP );
+		( new DetectColors() )->batch( 0, DetectColors::KIND_SIMPLE );
+		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_BATCH, null, DetectColors::GROUP ), 'an empty page of simple products ends the walk' );
+	}
+
+	/**
+	 * A simple product's main photo queues a job, and the job saves its color.
+	 */
+	public function test_simple_product_photo() {
+		$product = new \WC_Product_Simple();
+		$product->set_name( 'Orange scarf' );
+		$product->set_image_id( $this->upload( 'orange-sweater' ) );
+		$product->save();
+
+		$this->assertTrue( $this->is_queued( $product->get_id() ) );
+
+		( new DetectColors() )->detect( $product->get_id() );
+		$this->assertMatchesRegularExpression( '/^#[0-9a-f]{6}$/', wc_get_product( $product->get_id() )->get_meta( Meta::AUTO_COLOR ) );
+	}
+
+	/**
+	 * A simple product in the activation walk gets a job.
+	 */
+	public function test_batch_walks_simple_products() {
+		$product = new \WC_Product_Simple();
+		$product->set_image_id( $this->upload( 'blue-sweater' ) );
+		$product->save();
+		as_unschedule_all_actions( DetectColors::HOOK_ONE, null, DetectColors::GROUP );
+
+		( new DetectColors() )->batch( 0, DetectColors::KIND_SIMPLE );
+
+		$this->assertTrue( $this->is_queued( $product->get_id() ) );
+	}
+
+	/**
+	 * A variable product's own photo is not read; its variations are.
+	 */
+	public function test_variable_parent_is_not_queued() {
+		$variations = Products::sweater();
+		$parent     = wc_get_product( reset( $variations )->get_parent_id() );
+		$parent->set_image_id( $this->upload( 'orange-sweater' ) );
+		$parent->save();
+
+		$this->assertFalse( $this->is_queued( $parent->get_id() ) );
 	}
 }

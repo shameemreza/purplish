@@ -87,6 +87,15 @@ final class PageData {
 	 * @return array|null Null when the product isn't variable or no variation has a color.
 	 */
 	public static function for_product( $product, $options ) {
+		if ( $product instanceof \WC_Product && $product->is_type( 'simple' ) ) {
+			$set = self::color_set( Resolver::accent( $product ) );
+			return null === $set ? null : array(
+				'variations' => array(),
+				'default'    => $set,
+				'options'    => $options,
+			);
+		}
+
 		if ( ! $product instanceof WC_Product_Variable ) {
 			return null;
 		}
@@ -202,8 +211,11 @@ final class PageData {
 		}
 
 		$asset = include PURPLISH_DIR . 'build/frontend.asset.php';
-		wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/frontend.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
-		wp_add_inline_script( self::HANDLE, 'window.purplishData = ' . wp_json_encode( $data ) . ';', 'before' );
+		// A simple product has nothing to follow, so it needs only the styles.
+		if ( ! empty( $data['variations'] ) ) {
+			wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/frontend.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+			wp_add_inline_script( self::HANDLE, 'window.purplishData = ' . wp_json_encode( $data ) . ';', 'before' );
+		}
 
 		wp_enqueue_style( self::HANDLE, PURPLISH_URL . 'build/style-frontend.css', array(), $asset['version'] );
 		wp_style_add_data( self::HANDLE, 'rtl', 'replace' );
