@@ -79,6 +79,7 @@ final class Plugin {
 	 */
 	public function boot() {
 		( new Jobs\DetectColors() )->register();
+		( new Frontend\PageData() )->register();
 
 		if ( is_admin() ) {
 			( new Admin\VariationField() )->register();
