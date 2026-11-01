@@ -84,4 +84,52 @@ class BlockEffectsTest extends WP_UnitTestCase {
 
 		$this->assertSame( 'object', $args['attributes']['purplish']['type'] );
 	}
+
+	/**
+	 * Card options: switches, a hover style from the list, and the effect
+	 * color as an inline variable with readable text.
+	 */
+	public function test_cards() {
+		$saved = array(
+			'overlay' => true,
+			'motion'  => true,
+			'hover'   => 'spotlight',
+			'color'   => '#7b2cbf',
+		);
+
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-overlay', 'purplish-cards-motion', 'purplish-cards-hover-spotlight' ),
+			BlockEffects::classes_for( 'woocommerce/product-collection', $saved )
+		);
+
+		$out = ( new BlockEffects() )->add_classes(
+			'<div class="wp-block-woocommerce-product-collection" style="margin:0">Cards</div>',
+			array(
+				'blockName' => 'woocommerce/product-collection',
+				'attrs'     => array( 'purplish' => $saved ),
+			)
+		);
+		$this->assertStringContainsString( 'style="margin:0;--purplish-effect:#7b2cbf;--purplish-effect-on:#ffffff;"', $out );
+	}
+
+	/**
+	 * A hover style outside the list, or a color that isn't hex, is ignored.
+	 */
+	public function test_cards_bad_input() {
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-collection', array( 'hover' => 'explode' ) ) );
+
+		$out = ( new BlockEffects() )->add_classes(
+			'<div class="wp-block-woocommerce-product-collection">Cards</div>',
+			array(
+				'blockName' => 'woocommerce/product-collection',
+				'attrs'     => array(
+					'purplish' => array(
+						'overlay' => true,
+						'color'   => 'red;background:url(x)',
+					),
+				),
+			)
+		);
+		$this->assertStringNotContainsString( 'style=', $out );
+	}
 }

@@ -8,10 +8,12 @@ import { InspectorControls } from '@wordpress/block-editor';
 
 import AddToCartPanel from './add-to-cart';
 import GalleryPanel from './gallery';
+import CardsPanel from './cards';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
 	'woocommerce/product-gallery': GalleryPanel,
+	'woocommerce/product-collection': CardsPanel,
 };
 
 addFilter(
