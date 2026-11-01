@@ -243,4 +243,33 @@ class PageDataTest extends WP_UnitTestCase {
 		$this->assertSame( 'blur', $clean['transition'] );
 		$this->assertSame( Options::defaults(), Options::clean( 'nope' ) );
 	}
+
+	/**
+	 * A color option gets a dot; a size that comes in two colors gets none.
+	 */
+	public function test_dot_colors() {
+		$dots = PageData::dot_colors( $this->sweater_data() );
+
+		$this->assertSame( '#d94421', $dots['attribute_color-orange'] );
+		$this->assertSame( '#2a519e', $dots['attribute_color-blue'] );
+		$this->assertArrayNotHasKey( 'attribute_size-s', $dots );
+	}
+
+	/**
+	 * Rise and dots are off by default and switch on from saved options.
+	 */
+	public function test_rise_and_dots_switches() {
+		$this->assertFalse( Options::defaults()['rise'] );
+		$this->assertFalse( Options::defaults()['dots'] );
+
+		$clean = Options::clean(
+			array(
+				'rise' => true,
+				'dots' => 'yes',
+			)
+		);
+		$this->assertTrue( $clean['rise'] );
+		$this->assertTrue( $clean['dots'] );
+		$this->assertFalse( Options::clean( array( 'rise' => 'maybe' ) )['rise'] );
+	}
 }

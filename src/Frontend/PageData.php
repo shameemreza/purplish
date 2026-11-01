@@ -124,11 +124,45 @@ final class PageData {
 			$picked[ 'attribute_' . sanitize_title( $name ) ] = (string) $value;
 		}
 
-		return array(
+		$data = array(
 			'variations' => $variations,
 			'default'    => self::match( $variations, $picked ),
 			'options'    => $options,
 		);
+		if ( ! empty( $options['dots'] ) ) {
+			$data['dots'] = self::dot_colors( $variations );
+		}
+		return $data;
+	}
+
+	/**
+	 * The dot color for each option, keyed like WooCommerce's option chip
+	 * IDs (`attribute_color-orange`). An option gets a dot only when every
+	 * variation with it shares one color, like a color attribute; a size
+	 * that comes in several colors gets none.
+	 *
+	 * @param array $variations Variations with `attributes` and their color.
+	 * @return array<string, string> Hex colors by chip ID.
+	 */
+	public static function dot_colors( $variations ) {
+		$seen = array();
+		foreach ( $variations as $variation ) {
+			foreach ( $variation['attributes'] as $name => $value ) {
+				if ( '' === (string) $value ) {
+					continue;
+				}
+				$id                                 = $name . '-' . sanitize_title( $value );
+				$seen[ $id ][ $variation['color'] ] = true;
+			}
+		}
+
+		$dots = array();
+		foreach ( $seen as $id => $colors ) {
+			if ( 1 === count( $colors ) ) {
+				$dots[ $id ] = (string) key( $colors );
+			}
+		}
+		return $dots;
 	}
 
 	/**
@@ -254,6 +288,12 @@ final class PageData {
 			$classes[] = 'purplish-part-' . sanitize_html_class( $part );
 		}
 		$classes[] = 'purplish-transition-' . sanitize_html_class( $data['options']['transition'] );
+		if ( ! empty( $data['options']['rise'] ) ) {
+			$classes[] = 'purplish-rise';
+		}
+		if ( ! empty( $data['options']['dots'] ) ) {
+			$classes[] = 'purplish-dots';
+		}
 
 		return $classes;
 	}

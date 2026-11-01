@@ -163,8 +163,47 @@ function playTransition() {
 	} );
 }
 
+const RISERS =
+	'main .wp-block-post-title, main .wp-block-woocommerce-product-price, .summary .product_title, .summary > .price';
+let rise = false;
+
+/**
+ * The title and price rise in after the photo, once per color change. Two
+ * class names take turns, so the animation restarts every time.
+ */
+function playRise() {
+	if ( ! body.classList.contains( 'purplish-rise' ) ) {
+		return;
+	}
+
+	rise = ! rise;
+	document.querySelectorAll( RISERS ).forEach( ( element ) => {
+		element.classList.remove( 'purplish-rise-a', 'purplish-rise-b' );
+		element.classList.add( rise ? 'purplish-rise-a' : 'purplish-rise-b' );
+	} );
+}
+
+/**
+ * Gives each option chip a dot in its own color, from the page data.
+ */
+function paintDots() {
+	if ( ! data.dots || ! body.classList.contains( 'purplish-dots' ) ) {
+		return;
+	}
+
+	Object.entries( data.dots ).forEach( ( [ id, color ] ) => {
+		const chip = document.getElementById( id );
+		if ( chip ) {
+			chip.style.setProperty( '--purplish-dot', color );
+			chip.classList.add( 'purplish-has-dot' );
+		}
+	} );
+}
+
 if ( data?.variations ) {
 	body.addEventListener( 'purplish:change', playTransition );
+	body.addEventListener( 'purplish:change', playRise );
+	paintDots();
 
 	document
 		.querySelectorAll( '.wp-block-woocommerce-add-to-cart-with-options' )

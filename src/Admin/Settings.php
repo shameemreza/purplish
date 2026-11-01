@@ -141,6 +141,13 @@ final class Settings {
 				'blur' => __( 'Blur', 'purplish' ),
 			),
 		);
+		$fields[] = array(
+			'id'      => self::OPTION . '[rise]',
+			'type'    => 'checkbox',
+			'title'   => __( 'Title and price', 'purplish' ),
+			'desc'    => __( 'Rise in after the photo on each color change', 'purplish' ),
+			'default' => 'no',
+		);
 		$fields[] = $end;
 
 		return $fields;
@@ -186,6 +193,7 @@ final class Settings {
 			array(
 				'parts'      => $parts,
 				'transition' => isset( $saved['transition'] ) ? $saved['transition'] : Options::defaults()['transition'],
+				'rise'       => isset( $saved['rise'] ) && 'yes' === $saved['rise'],
 			)
 		);
 	}

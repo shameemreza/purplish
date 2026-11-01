@@ -41,12 +41,14 @@ final class Options {
 	/**
 	 * The default options.
 	 *
-	 * @return array{parts: string[], transition: string}
+	 * @return array{parts: string[], transition: string, rise: bool, dots: bool}
 	 */
 	public static function defaults() {
 		return array(
 			'parts'      => array_keys( array_filter( self::part_defaults() ) ),
 			'transition' => 'blur',
+			'rise'       => false,
+			'dots'       => false,
 		);
 	}
 
@@ -54,8 +56,8 @@ final class Options {
 	 * Options from any source, cleaned against the allowlist. Missing keys
 	 * take the defaults.
 	 *
-	 * @param mixed $raw Options as saved: an array with `parts` and `transition`.
-	 * @return array{parts: string[], transition: string}
+	 * @param mixed $raw Options as saved: an array with `parts`, `transition`, `rise` and `dots`.
+	 * @return array{parts: string[], transition: string, rise: bool, dots: bool}
 	 */
 	public static function clean( $raw ) {
 		$options = self::defaults();
@@ -72,6 +74,12 @@ final class Options {
 			$transition = sanitize_key( $raw['transition'] );
 			if ( in_array( $transition, self::TRANSITIONS, true ) ) {
 				$options['transition'] = $transition;
+			}
+		}
+
+		foreach ( array( 'rise', 'dots' ) as $switch ) {
+			if ( isset( $raw[ $switch ] ) ) {
+				$options[ $switch ] = true === $raw[ $switch ] || 'yes' === $raw[ $switch ];
 			}
 		}
 
