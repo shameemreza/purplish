@@ -7,6 +7,7 @@
 
 namespace Purplish\Tests\Color;
 
+use Purplish\Color\Contrast;
 use Purplish\Color\Resolver;
 use Purplish\Color\Tone;
 use Purplish\Meta;
@@ -156,6 +157,20 @@ class ResolverTest extends WP_UnitTestCase {
 		$variation->save();
 
 		$this->assertSame( '#0c3a90', Resolver::accent( wc_get_product( $variation->get_id() ) ) );
+	}
+
+	/**
+	 * A custom orange keeps the plain text rule: no darkening, black text.
+	 */
+	public function test_custom_orange_keeps_black_text() {
+		$variation = Products::sweater()['Orange/S'];
+		$variation->update_meta_data( Meta::MODE, Meta::MODE_CUSTOM );
+		$variation->update_meta_data( Meta::CUSTOM_COLOR, '#d94421' );
+		$variation->save();
+
+		$accent = Resolver::accent( wc_get_product( $variation->get_id() ) );
+		$this->assertSame( '#d94421', $accent );
+		$this->assertSame( Contrast::BLACK, Contrast::on( $accent ) );
 	}
 
 	/**
