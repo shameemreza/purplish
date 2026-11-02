@@ -136,9 +136,15 @@ final class Settings {
 			'desc_tip' => true,
 			'default'  => Options::defaults()['transition'],
 			'options'  => array(
-				'none' => __( 'None', 'purplish' ),
-				'fade' => __( 'Fade', 'purplish' ),
-				'blur' => __( 'Blur', 'purplish' ),
+				'none'   => __( 'None', 'purplish' ),
+				'fade'   => __( 'Fade', 'purplish' ),
+				'blur'   => __( 'Blur', 'purplish' ),
+				'zoom'   => __( 'Zoom', 'purplish' ),
+				'slide'  => __( 'Slide', 'purplish' ),
+				'flip'   => __( 'Flip', 'purplish' ),
+				'wipe'   => __( 'Wipe', 'purplish' ),
+				'circle' => __( 'Circle reveal', 'purplish' ),
+				'wash'   => __( 'Color wash', 'purplish' ),
 			),
 		);
 		$fields[] = array(

@@ -136,19 +136,42 @@ const GALLERIES =
 let swap = false;
 
 /**
+ * The box a photo transition plays on: the block gallery's container, or
+ * on classic themes the viewport FlexSlider puts around its sliding strip,
+ * so moving or clipping it never shifts the slides.
+ *
+ * @param {Element} element A gallery container or a classic wrapper.
+ * @return {Element} The frame.
+ */
+function frameOf( element ) {
+	const parent = element.parentElement;
+	return parent?.classList.contains( 'flex-viewport' ) ? parent : element;
+}
+
+/**
  * Plays the photo transition once on each color change. Two class names
  * take turns, so the animation restarts every time.
+ *
+ * @param {CustomEvent} event The `purplish:change` event.
  */
-function playTransition() {
-	if (
-		! body.classList.contains( 'purplish-transition-fade' ) &&
-		! body.classList.contains( 'purplish-transition-blur' )
-	) {
+function playTransition( event ) {
+	const on = [ ...body.classList ].some(
+		( name ) =>
+			name.startsWith( 'purplish-transition-' ) &&
+			name !== 'purplish-transition-none'
+	);
+	if ( ! on ) {
 		return;
 	}
 
 	swap = ! swap;
-	document.querySelectorAll( GALLERIES ).forEach( ( gallery ) => {
+	document.querySelectorAll( GALLERIES ).forEach( ( element ) => {
+		const gallery = frameOf( element );
+		// The accent is still on its way to the new color; the wash shows it now.
+		gallery.style.setProperty(
+			'--purplish-wash',
+			event.detail.set?.color ?? 'transparent'
+		);
 		gallery.classList.remove( 'purplish-swap-a', 'purplish-swap-b' );
 		gallery.classList.add( swap ? 'purplish-swap-a' : 'purplish-swap-b' );
 		gallery.addEventListener(

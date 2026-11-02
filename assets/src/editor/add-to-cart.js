@@ -76,6 +76,30 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 						value: 'blur',
 						label: __( 'Blur', 'purplish' ),
 					},
+					{
+						value: 'zoom',
+						label: __( 'Zoom', 'purplish' ),
+					},
+					{
+						value: 'slide',
+						label: __( 'Slide', 'purplish' ),
+					},
+					{
+						value: 'flip',
+						label: __( 'Flip', 'purplish' ),
+					},
+					{
+						value: 'wipe',
+						label: __( 'Wipe', 'purplish' ),
+					},
+					{
+						value: 'circle',
+						label: __( 'Circle reveal', 'purplish' ),
+					},
+					{
+						value: 'wash',
+						label: __( 'Color wash', 'purplish' ),
+					},
 				] }
 				onChange={ ( transition ) => save( { transition } ) }
 			/>

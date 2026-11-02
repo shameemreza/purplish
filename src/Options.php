@@ -21,7 +21,7 @@ final class Options {
 	const PART_PRICE  = 'price';
 	const PART_TINT   = 'tint';
 
-	const TRANSITIONS = array( 'none', 'fade', 'blur' );
+	const TRANSITIONS = array( 'none', 'fade', 'blur', 'zoom', 'slide', 'flip', 'wipe', 'circle', 'wash' );
 
 	/**
 	 * Every part, with whether it's on by default.

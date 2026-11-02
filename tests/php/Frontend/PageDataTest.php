@@ -245,6 +245,15 @@ class PageDataTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Every photo transition survives cleaning.
+	 */
+	public function test_every_transition_is_allowed() {
+		foreach ( array( 'none', 'fade', 'blur', 'zoom', 'slide', 'flip', 'wipe', 'circle', 'wash' ) as $transition ) {
+			$this->assertSame( $transition, Options::clean( array( 'transition' => $transition ) )['transition'] );
+		}
+	}
+
+	/**
 	 * A color option gets a dot; a size that comes in two colors gets none.
 	 */
 	public function test_dot_colors() {
