@@ -430,6 +430,132 @@ body.purplish-dots .purplish-has-dot::before {
 	vertical-align: 0.05em;
 }
 
+/* Title comes into focus on a color change. */
+.purplish-focus-a {
+	animation: purplish-focus-a 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.purplish-focus-b {
+	animation: purplish-focus-b 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes purplish-focus-a {
+
+	from {
+		filter: blur(8px);
+		letter-spacing: 0.12em;
+		opacity: 0.4;
+	}
+}
+
+@keyframes purplish-focus-b {
+
+	from {
+		filter: blur(8px);
+		letter-spacing: 0.12em;
+		opacity: 0.4;
+	}
+}
+
+/*
+ * Mesh: soft blobs of the accent over the tint, on a fixed layer behind
+ * the page. They move to their next place on each color change and then
+ * stay, so nothing moves on its own.
+ */
+body.purplish-active.purplish-part-tint.purplish-mesh::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background:
+		radial-gradient(closest-side, color-mix(in oklab, var(--purplish-accent) 34%, var(--purplish-tint)), transparent) no-repeat,
+		radial-gradient(closest-side, color-mix(in oklab, var(--purplish-accent) 18%, #fff), transparent) no-repeat,
+		radial-gradient(closest-side, color-mix(in oklab, var(--purplish-accent) 24%, var(--purplish-tint)), transparent) no-repeat;
+	background-position: 0% 0%, 100% 30%, 30% 100%;
+	background-size: 70vmax 70vmax, 60vmax 60vmax, 80vmax 80vmax;
+}
+
+body.purplish-mesh-a::before {
+	animation: purplish-mesh-a 1.2s cubic-bezier(0.45, 0, 0.2, 1) both;
+}
+
+body.purplish-mesh-b::before {
+	animation: purplish-mesh-b 1.2s cubic-bezier(0.45, 0, 0.2, 1) both;
+}
+
+@keyframes purplish-mesh-a {
+
+	from {
+		background-position: 0% 0%, 100% 30%, 30% 100%;
+	}
+
+	to {
+		background-position: 100% 10%, 10% 70%, 80% 100%;
+	}
+}
+
+@keyframes purplish-mesh-b {
+
+	from {
+		background-position: 100% 10%, 10% 70%, 80% 100%;
+	}
+
+	to {
+		background-position: 0% 0%, 100% 30%, 30% 100%;
+	}
+}
+
+/* Glow ring: a ring of the accent around the add to cart button. */
+body.purplish-active.purplish-glow .single_add_to_cart_button {
+	box-shadow:
+		0 0 0 3px color-mix(in oklab, var(--purplish-accent) 45%, transparent),
+		0 0 22px color-mix(in oklab, var(--purplish-accent) 55%, transparent);
+	transition: box-shadow 0.3s ease;
+}
+
+body.purplish-active.purplish-glow .single_add_to_cart_button:is(:hover, :focus-visible) {
+	box-shadow:
+		0 0 0 5px color-mix(in oklab, var(--purplish-accent) 55%, transparent),
+		0 0 32px color-mix(in oklab, var(--purplish-accent) 70%, transparent);
+}
+
+/*
+ * Halo burst: after adding to cart, a ring leaves the button and fades.
+ * WooCommerce puts wc-block-slide-in on the button text while the added
+ * text slides in, and takes it off after, so it plays once per add.
+ */
+body.purplish-halo .single_add_to_cart_button {
+	position: relative;
+}
+
+body.purplish-halo .single_add_to_cart_button:has(.wc-block-slide-in)::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border: 2px solid currentcolor;
+	border-radius: inherit;
+	pointer-events: none;
+	animation: purplish-halo 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+body.purplish-active.purplish-halo .single_add_to_cart_button::after {
+	border-color: var(--purplish-accent);
+}
+
+@keyframes purplish-halo {
+
+	from {
+		opacity: 0.9;
+		scale: 1;
+	}
+
+	to {
+		opacity: 0;
+		scale: 1.35 1.8;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 
 	body.purplish {
@@ -439,8 +565,20 @@ body.purplish-dots .purplish-has-dot::before {
 	body.purplish .purplish-swap-a,
 	body.purplish .purplish-swap-b,
 	.purplish-rise-a,
-	.purplish-rise-b {
+	.purplish-rise-b,
+	.purplish-focus-a,
+	.purplish-focus-b,
+	body.purplish-mesh-a::before,
+	body.purplish-mesh-b::before {
 		animation: none;
+	}
+
+	body.purplish-halo .single_add_to_cart_button::after {
+		display: none;
+	}
+
+	body.purplish-glow .single_add_to_cart_button {
+		transition: none;
 	}
 
 	body.purplish.purplish-transition-wash :is(.purplish-swap-a, .purplish-swap-b)::after {

@@ -23,6 +23,8 @@ final class Options {
 
 	const TRANSITIONS = array( 'none', 'fade', 'blur', 'zoom', 'slide', 'flip', 'wipe', 'circle', 'wash' );
 
+	const SWITCHES = array( 'rise', 'dots', 'focus', 'glow', 'halo', 'mesh' );
+
 	/**
 	 * Every part, with whether it's on by default.
 	 *
@@ -41,23 +43,21 @@ final class Options {
 	/**
 	 * The default options.
 	 *
-	 * @return array{parts: string[], transition: string, rise: bool, dots: bool}
+	 * @return array{parts: string[], transition: string, rise: bool, dots: bool, focus: bool, glow: bool, halo: bool, mesh: bool}
 	 */
 	public static function defaults() {
 		return array(
 			'parts'      => array_keys( array_filter( self::part_defaults() ) ),
 			'transition' => 'blur',
-			'rise'       => false,
-			'dots'       => false,
-		);
+		) + array_fill_keys( self::SWITCHES, false );
 	}
 
 	/**
 	 * Options from any source, cleaned against the allowlist. Missing keys
 	 * take the defaults.
 	 *
-	 * @param mixed $raw Options as saved: an array with `parts`, `transition`, `rise` and `dots`.
-	 * @return array{parts: string[], transition: string, rise: bool, dots: bool}
+	 * @param mixed $raw Options as saved: an array with `parts`, `transition` and the switches.
+	 * @return array{parts: string[], transition: string, rise: bool, dots: bool, focus: bool, glow: bool, halo: bool, mesh: bool}
 	 */
 	public static function clean( $raw ) {
 		$options = self::defaults();
@@ -77,7 +77,7 @@ final class Options {
 			}
 		}
 
-		foreach ( array( 'rise', 'dots' ) as $switch ) {
+		foreach ( self::SWITCHES as $switch ) {
 			if ( isset( $raw[ $switch ] ) ) {
 				$options[ $switch ] = true === $raw[ $switch ] || 'yes' === $raw[ $switch ];
 			}

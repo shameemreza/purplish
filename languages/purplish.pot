@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-02T15:23:01+00:00\n"
+"POT-Creation-Date: 2026-11-02T15:53:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -42,9 +42,9 @@ msgstr ""
 #: src/Admin/Settings.php:42
 #: src/Admin/Settings.php:74
 #: assets/src/editor/accordion.js:16
-#: assets/src/editor/add-to-cart.js:33
-#: assets/src/editor/cards.js:36
-#: assets/src/editor/gallery.js:49
+#: assets/src/editor/add-to-cart.js:46
+#: assets/src/editor/cards.js:60
+#: assets/src/editor/gallery.js:57
 #: assets/src/editor/group.js:16
 #: build/editor.js:1
 msgid "Purplish"
@@ -111,68 +111,69 @@ msgid "Product gallery"
 msgstr ""
 
 #: src/Admin/Settings.php:134
-#: assets/src/editor/add-to-cart.js:60
+#: assets/src/editor/add-to-cart.js:73
 #: build/editor.js:1
 msgid "Photo transition"
 msgstr ""
 
 #: src/Admin/Settings.php:135
-#: assets/src/editor/add-to-cart.js:61
+#: assets/src/editor/add-to-cart.js:74
 #: build/editor.js:1
 msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
 msgstr ""
 
 #: src/Admin/Settings.php:139
-#: assets/src/editor/add-to-cart.js:69
-#: assets/src/editor/cards.js:16
+#: assets/src/editor/add-to-cart.js:82
+#: assets/src/editor/add-to-cart.js:125
+#: assets/src/editor/cards.js:92
 #: build/editor.js:1
 msgid "None"
 msgstr ""
 
 #: src/Admin/Settings.php:140
-#: assets/src/editor/add-to-cart.js:73
+#: assets/src/editor/add-to-cart.js:86
 #: build/editor.js:1
 msgid "Fade"
 msgstr ""
 
 #: src/Admin/Settings.php:141
-#: assets/src/editor/add-to-cart.js:77
+#: assets/src/editor/add-to-cart.js:90
 #: build/editor.js:1
 msgid "Blur"
 msgstr ""
 
 #: src/Admin/Settings.php:142
-#: assets/src/editor/add-to-cart.js:81
+#: assets/src/editor/add-to-cart.js:94
 #: build/editor.js:1
 msgid "Zoom"
 msgstr ""
 
 #: src/Admin/Settings.php:143
-#: assets/src/editor/add-to-cart.js:85
+#: assets/src/editor/add-to-cart.js:98
 #: build/editor.js:1
 msgid "Slide"
 msgstr ""
 
 #: src/Admin/Settings.php:144
-#: assets/src/editor/add-to-cart.js:89
+#: assets/src/editor/add-to-cart.js:102
 #: build/editor.js:1
 msgid "Flip"
 msgstr ""
 
 #: src/Admin/Settings.php:145
-#: assets/src/editor/add-to-cart.js:93
+#: assets/src/editor/add-to-cart.js:106
 #: build/editor.js:1
 msgid "Wipe"
 msgstr ""
 
 #: src/Admin/Settings.php:146
-#: assets/src/editor/add-to-cart.js:97
+#: assets/src/editor/add-to-cart.js:110
 #: build/editor.js:1
 msgid "Circle reveal"
 msgstr ""
 
 #: src/Admin/Settings.php:147
-#: assets/src/editor/add-to-cart.js:101
+#: assets/src/editor/add-to-cart.js:114
 #: build/editor.js:1
 msgid "Color wash"
 msgstr ""
@@ -246,84 +247,189 @@ msgstr ""
 msgid "Selected option"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:35
+#: assets/src/editor/add-to-cart.js:48
 #: build/editor.js:1
 msgid "Parts of the product page that take the color of the variation a shopper picks."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:108
+#: assets/src/editor/add-to-cart.js:122
+#: build/editor.js:1
+msgid "Title on a color change"
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:128
 #: build/editor.js:1
 msgid "Title and price rise"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:109
+#: assets/src/editor/add-to-cart.js:132
 #: build/editor.js:1
-msgid "The product title and price rise in after the photo on each color change."
+msgid "Title comes into focus"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:118
+#: assets/src/editor/add-to-cart.js:145
+#: build/editor.js:1
+msgid "Mesh background"
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:146
+#: build/editor.js:1
+msgid "Soft blobs of the color over the tint, which move to a new place on each color change."
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:156
+#: build/editor.js:1
+msgid "Glow ring on the button"
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:157
+#: build/editor.js:1
+msgid "A soft ring of the color around the add to cart button."
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:166
+#: build/editor.js:1
+msgid "Halo after adding to cart"
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:167
+#: build/editor.js:1
+msgid "A ring leaves the button and fades each time the product goes into the cart."
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:176
 #: build/editor.js:1
 msgid "Color dots on options"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:119
+#: assets/src/editor/add-to-cart.js:177
 #: build/editor.js:1
 msgid "A dot in each color before its name on the option buttons."
 msgstr ""
 
 #: assets/src/editor/cards.js:17
 #: build/editor.js:1
-msgid "Magnetic panel"
-msgstr ""
-
-#: assets/src/editor/cards.js:18
-#: build/editor.js:1
-msgid "Spotlight"
+msgid "On hover"
 msgstr ""
 
 #: assets/src/editor/cards.js:19
 #: build/editor.js:1
-msgid "Color reveal"
+msgid "Magnetic panel"
 msgstr ""
 
 #: assets/src/editor/cards.js:20
 #: build/editor.js:1
-msgid "Deck (carousel)"
+msgid "Spotlight"
 msgstr ""
 
-#: assets/src/editor/cards.js:39
+#: assets/src/editor/cards.js:21
 #: build/editor.js:1
-msgid "Button on the photo"
+msgid "Color reveal"
+msgstr ""
+
+#: assets/src/editor/cards.js:22
+#: build/editor.js:1
+msgid "Fan deck"
+msgstr ""
+
+#: assets/src/editor/cards.js:23
+#: build/editor.js:1
+msgid "Expanded cards"
+msgstr ""
+
+#: assets/src/editor/cards.js:24
+#: build/editor.js:1
+msgid "Card folder"
+msgstr ""
+
+#: assets/src/editor/cards.js:28
+#: build/editor.js:1
+msgid "In a carousel"
+msgstr ""
+
+#: assets/src/editor/cards.js:30
+#: build/editor.js:1
+msgid "Deck"
+msgstr ""
+
+#: assets/src/editor/cards.js:31
+#: build/editor.js:1
+msgid "Arc"
+msgstr ""
+
+#: assets/src/editor/cards.js:32
+#: build/editor.js:1
+msgid "Spotlight carousel"
+msgstr ""
+
+#: assets/src/editor/cards.js:33
+#: build/editor.js:1
+msgid "Grow"
+msgstr ""
+
+#: assets/src/editor/cards.js:34
+#: build/editor.js:1
+msgid "Tilt"
+msgstr ""
+
+#: assets/src/editor/cards.js:38
+#: build/editor.js:1
+msgid "As cards scroll in"
 msgstr ""
 
 #: assets/src/editor/cards.js:40
 #: build/editor.js:1
+msgid "Clothes line"
+msgstr ""
+
+#: assets/src/editor/cards.js:41
+#: build/editor.js:1
+msgid "Parallax"
+msgstr ""
+
+#: assets/src/editor/cards.js:42
+#: build/editor.js:1
+msgid "Zoom reveal"
+msgstr ""
+
+#: assets/src/editor/cards.js:63
+#: build/editor.js:1
+msgid "Button on the photo"
+msgstr ""
+
+#: assets/src/editor/cards.js:64
+#: build/editor.js:1
 msgid "Title and price on one line, and add to cart as a small frosted button on the photo. It shows on hover, and always on touch screens."
 msgstr ""
 
-#: assets/src/editor/cards.js:49
+#: assets/src/editor/cards.js:73
 #: build/editor.js:1
 msgid "Button motion"
 msgstr ""
 
-#: assets/src/editor/cards.js:50
+#: assets/src/editor/cards.js:74
 #: build/editor.js:1
 msgid "A bag icon slides in and a light sweeps across on hover; the button fills and pops after adding to cart."
 msgstr ""
 
-#: assets/src/editor/cards.js:60
+#: assets/src/editor/cards.js:84
 #: build/editor.js:1
-msgid "Hover effect"
+msgid "Card effect"
 msgstr ""
 
-#: assets/src/editor/cards.js:68
+#: assets/src/editor/cards.js:85
+#: build/editor.js:1
+msgid "Carousel effects need the Carousel layout and leave a grid as it is. Visitors who ask for reduced motion see no movement."
+msgstr ""
+
+#: assets/src/editor/cards.js:106
 #: build/editor.js:1
 msgid "Effect color"
 msgstr ""
 
-#: assets/src/editor/cards.js:69
+#: assets/src/editor/cards.js:107
 #: build/editor.js:1
-msgid "Used by the button fill, the magnetic panel and the color reveal. On a product page with a variation color, that color is used instead."
+msgid "Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs and the card folder. On a product page with a variation color, that color is used instead."
 msgstr ""
 
 #: assets/src/editor/gallery.js:10
@@ -364,6 +470,41 @@ msgstr ""
 #: assets/src/editor/gallery.js:33
 #: build/editor.js:1
 msgid "Tinted to the page color, one photo per screen that snaps into place."
+msgstr ""
+
+#: assets/src/editor/gallery.js:41
+#: build/editor.js:1
+msgid "Default"
+msgstr ""
+
+#: assets/src/editor/gallery.js:42
+#: build/editor.js:1
+msgid "3D media gallery"
+msgstr ""
+
+#: assets/src/editor/gallery.js:43
+#: build/editor.js:1
+msgid "Circular slider"
+msgstr ""
+
+#: assets/src/editor/gallery.js:44
+#: build/editor.js:1
+msgid "Reel slider"
+msgstr ""
+
+#: assets/src/editor/gallery.js:45
+#: build/editor.js:1
+msgid "Image tunnel"
+msgstr ""
+
+#: assets/src/editor/gallery.js:73
+#: build/editor.js:1
+msgid "Slide style"
+msgstr ""
+
+#: assets/src/editor/gallery.js:74
+#: build/editor.js:1
+msgid "How the photo moves when the gallery slides to the next one. Visitors who ask for reduced motion see the default slide."
 msgstr ""
 
 #: assets/src/editor/group.js:19

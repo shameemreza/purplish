@@ -188,22 +188,39 @@ function playTransition( event ) {
 
 const RISERS =
 	'main .wp-block-post-title, main .wp-block-woocommerce-product-price, .summary .product_title, .summary > .price';
-let rise = false;
+const TITLES =
+	'main .wp-block-post-title:not(.wc-block-product *), .summary .product_title';
+let turn = false;
 
 /**
- * The title and price rise in after the photo, once per color change. Two
- * class names take turns, so the animation restarts every time.
+ * Replays an animation on elements by giving them the other of two class
+ * names, `<name>-a` or `<name>-b`.
+ *
+ * @param {Iterable<Element>} elements The elements.
+ * @param {string}            name     The class name before `-a` or `-b`.
  */
-function playRise() {
-	if ( ! body.classList.contains( 'purplish-rise' ) ) {
-		return;
-	}
-
-	rise = ! rise;
-	document.querySelectorAll( RISERS ).forEach( ( element ) => {
-		element.classList.remove( 'purplish-rise-a', 'purplish-rise-b' );
-		element.classList.add( rise ? 'purplish-rise-a' : 'purplish-rise-b' );
+function replay( elements, name ) {
+	[ ...elements ].forEach( ( element ) => {
+		element.classList.remove( name + '-a', name + '-b' );
+		element.classList.add( name + ( turn ? '-a' : '-b' ) );
 	} );
+}
+
+/**
+ * The page effects that play once per color change: the title and price
+ * rise, the title focus and the mesh moving to its next place.
+ */
+function playPageEffects() {
+	turn = ! turn;
+	if ( body.classList.contains( 'purplish-rise' ) ) {
+		replay( document.querySelectorAll( RISERS ), 'purplish-rise' );
+	}
+	if ( body.classList.contains( 'purplish-focus' ) ) {
+		replay( document.querySelectorAll( TITLES ), 'purplish-focus' );
+	}
+	if ( body.classList.contains( 'purplish-mesh' ) ) {
+		replay( [ body ], 'purplish-mesh' );
+	}
 }
 
 /**
@@ -225,7 +242,7 @@ function paintDots() {
 
 if ( data?.variations ) {
 	body.addEventListener( 'purplish:change', playTransition );
-	body.addEventListener( 'purplish:change', playRise );
+	body.addEventListener( 'purplish:change', playPageEffects );
 	paintDots();
 
 	document

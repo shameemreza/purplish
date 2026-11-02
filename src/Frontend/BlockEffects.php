@@ -35,6 +35,7 @@ final class BlockEffects {
 					'arrows'   => true,
 					'tilt'     => true,
 					'lightbox' => true,
+					'slider'   => array( 'cube', 'circle', 'reel', 'tunnel' ),
 				),
 			),
 			'woocommerce/product-collection' => array(
@@ -42,7 +43,22 @@ final class BlockEffects {
 				'options' => array(
 					'overlay' => true,
 					'motion'  => true,
-					'hover'   => array( 'magnetic', 'spotlight', 'reveal', 'deck' ),
+					'hover'   => array(
+						'magnetic',
+						'spotlight',
+						'reveal',
+						'deck',
+						'clothesline',
+						'fan',
+						'arc',
+						'stage',
+						'expand',
+						'grow',
+						'tiltrow',
+						'parallax',
+						'zoomin',
+						'folder',
+					),
 				),
 			),
 			'core/accordion'                 => array(
