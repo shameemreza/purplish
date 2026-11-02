@@ -19,22 +19,26 @@ const OPTIONS = [
 			'purplish'
 		),
 	},
-	{
-		key: 'tilt',
-		label: __( '3D tilt', 'purplish' ),
-		help: __(
-			'The photo tilts toward the mouse with a light sheen. Off for touch screens and reduced motion.',
-			'purplish'
-		),
-	},
-	{
-		key: 'lightbox',
-		label: __( 'Styled full-screen view', 'purplish' ),
-		help: __(
-			'Tinted to the page color, one photo per screen that snaps into place.',
-			'purplish'
-		),
-	},
+];
+
+const HOVERS = [
+	{ value: '', label: __( 'None', 'purplish' ) },
+	{ value: 'tilt', label: __( '3D tilt', 'purplish' ) },
+	{ value: 'zoom', label: __( 'Zoom', 'purplish' ) },
+	{ value: 'lift', label: __( 'Lift', 'purplish' ) },
+	{ value: 'parallax', label: __( 'Parallax', 'purplish' ) },
+	{ value: 'glare', label: __( 'Glare', 'purplish' ) },
+	{ value: 'loupe', label: __( 'Loupe', 'purplish' ) },
+	{ value: 'slowzoom', label: __( 'Slow zoom', 'purplish' ) },
+];
+
+const FULLSCREENS = [
+	{ value: '', label: __( 'WooCommerce default', 'purplish' ) },
+	{ value: 'snap', label: __( 'Snap stack', 'purplish' ) },
+	{ value: 'fade', label: __( 'Classic fade', 'purplish' ) },
+	{ value: 'zoom', label: __( 'Zoom from photo', 'purplish' ) },
+	{ value: 'filmstrip', label: __( 'Filmstrip', 'purplish' ) },
+	{ value: 'cinema', label: __( 'Cinema', 'purplish' ) },
 ];
 
 const SLIDERS = [
@@ -67,6 +71,45 @@ export default function GalleryPanel( { saved, setSaved } ) {
 					}
 				/>
 			) ) }
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Hover style', 'purplish' ) }
+				help={ __(
+					'Plays when the mouse is over the photo. Touch screens and visitors who ask for reduced motion see the plain photo.',
+					'purplish'
+				) }
+				value={ saved.hover || ( true === saved.tilt ? 'tilt' : '' ) }
+				options={ HOVERS }
+				onChange={ ( hover ) =>
+					setSaved( {
+						...saved,
+						hover: hover || undefined,
+						tilt: undefined,
+					} )
+				}
+			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Full-screen style', 'purplish' ) }
+				help={ __(
+					'The view that opens when the shopper clicks the photo. Needs the gallery\'s "Open pop-up when clicked" setting.',
+					'purplish'
+				) }
+				value={
+					saved.fullscreen ||
+					( true === saved.lightbox ? 'snap' : '' )
+				}
+				options={ FULLSCREENS }
+				onChange={ ( fullscreen ) =>
+					setSaved( {
+						...saved,
+						fullscreen: fullscreen || undefined,
+						lightbox: undefined,
+					} )
+				}
+			/>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom

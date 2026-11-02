@@ -64,9 +64,40 @@ class SettingsTest extends WP_UnitTestCase {
 			$this->assertContains( 'purplish_settings[' . $key . ']', $ids );
 		}
 		$this->assertNotContains( 'purplish_settings[chip]', $ids );
-		foreach ( array( 'gallery_nothumbs', 'gallery_rounded', 'gallery_tilt', 'rise' ) as $key ) {
+		foreach ( array( 'gallery_nothumbs', 'gallery_rounded', 'gallery_hover', 'rise' ) as $key ) {
 			$this->assertContains( 'purplish_settings[' . $key . ']', $ids );
 		}
+		$this->assertNotContains( 'purplish_settings[gallery_tilt]', $ids );
+	}
+
+	/**
+	 * The hover style select starts on the tilt when the old checkbox was
+	 * saved, and on None otherwise.
+	 */
+	public function test_hover_select_default() {
+		$default = function () {
+			foreach ( Settings::fields( false ) as $field ) {
+				if ( 'purplish_settings[gallery_hover]' === $field['id'] ) {
+					return $field['default'];
+				}
+			}
+			return null;
+		};
+
+		delete_option( Settings::OPTION );
+		$this->assertSame( 'none', $default() );
+
+		update_option( Settings::OPTION, array( 'gallery_tilt' => 'yes' ) );
+		$this->assertSame( 'tilt', $default() );
+
+		update_option(
+			Settings::OPTION,
+			array(
+				'gallery_tilt'  => 'yes',
+				'gallery_hover' => 'loupe',
+			)
+		);
+		$this->assertSame( 'loupe', $default() );
 	}
 
 	/**

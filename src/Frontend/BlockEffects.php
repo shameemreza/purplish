@@ -20,22 +20,34 @@ final class BlockEffects {
 	const HANDLE = 'purplish-effects';
 
 	/**
+	 * The gallery's hover styles, on block and classic themes.
+	 */
+	const HOVER_STYLES = array( 'tilt', 'zoom', 'lift', 'parallax', 'glare', 'loupe', 'slowzoom' );
+
+	/**
 	 * Purplish's options for each block, with the values each one accepts.
 	 * `true` means an on or off switch.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>}>
+	 * `legacy` maps an old switch to the option and value it became.
+	 *
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>}>
 	 */
 	public static function blocks() {
 		return array(
 			'woocommerce/product-gallery'    => array(
 				'prefix'  => 'gallery',
 				'options' => array(
-					'nothumbs' => true,
-					'rounded'  => true,
-					'arrows'   => true,
-					'tilt'     => true,
-					'lightbox' => true,
-					'slider'   => array( 'cube', 'circle', 'reel', 'tunnel' ),
+					'nothumbs'   => true,
+					'rounded'    => true,
+					'arrows'     => true,
+					'hover'      => self::HOVER_STYLES,
+					'fullscreen' => array( 'snap', 'fade', 'zoom', 'filmstrip', 'cinema' ),
+					'slider'     => array( 'cube', 'circle', 'reel', 'tunnel' ),
+				),
+				// Switches saved before task 23, read as the style they became.
+				'legacy'  => array(
+					'tilt'     => array( 'hover', 'tilt' ),
+					'lightbox' => array( 'fullscreen', 'snap' ),
 				),
 			),
 			'woocommerce/product-collection' => array(
@@ -97,14 +109,19 @@ final class BlockEffects {
 	}
 
 	/**
-	 * Turns off WooCommerce's hover zoom on classic galleries when the 3D
-	 * tilt is on: the two would move the same photo at once.
+	 * Turns off WooCommerce's hover zoom on classic galleries when a hover
+	 * style is on: the two would move the same photo at once.
 	 *
 	 * @param bool $enabled Whether the zoom is on.
 	 * @return bool
 	 */
 	public function classic_zoom( $enabled ) {
-		return in_array( 'purplish-classic-gallery-tilt', self::classic_classes(), true ) ? false : $enabled;
+		foreach ( self::classic_classes() as $class ) {
+			if ( 0 === strpos( $class, 'purplish-classic-gallery-hover-' ) ) {
+				return false;
+			}
+		}
+		return $enabled;
 	}
 
 	/**
@@ -140,6 +157,13 @@ final class BlockEffects {
 		$blocks = self::blocks();
 		if ( ! isset( $blocks[ $name ] ) || ! is_array( $saved ) ) {
 			return array();
+		}
+
+		$legacy = isset( $blocks[ $name ]['legacy'] ) ? $blocks[ $name ]['legacy'] : array();
+		foreach ( $legacy as $old => $now ) {
+			if ( isset( $saved[ $old ] ) && true === $saved[ $old ] && ! isset( $saved[ $now[0] ] ) ) {
+				$saved[ $now[0] ] = $now[1];
+			}
 		}
 
 		$prefix  = 'purplish-' . $blocks[ $name ]['prefix'];
@@ -212,12 +236,34 @@ final class BlockEffects {
 
 		$saved   = get_option( \Purplish\Admin\Settings::OPTION, array() );
 		$classes = array();
-		foreach ( array( 'nothumbs', 'rounded', 'tilt' ) as $option ) {
+		foreach ( array( 'nothumbs', 'rounded' ) as $option ) {
 			if ( is_array( $saved ) && isset( $saved[ 'gallery_' . $option ] ) && 'yes' === $saved[ 'gallery_' . $option ] ) {
 				$classes[] = 'purplish-classic-gallery-' . $option;
 			}
 		}
+		$hover = self::classic_hover( $saved );
+		if ( '' !== $hover ) {
+			$classes[] = 'purplish-classic-gallery-hover-' . $hover;
+		}
 		return $classes;
+	}
+
+	/**
+	 * The classic hover style from the saved settings, or '' for none. A
+	 * `gallery_tilt` saved before task 23 reads as the tilt until
+	 * `gallery_hover` is saved.
+	 *
+	 * @param mixed $saved The saved settings.
+	 * @return string
+	 */
+	public static function classic_hover( $saved ) {
+		if ( ! is_array( $saved ) ) {
+			return '';
+		}
+		if ( isset( $saved['gallery_hover'] ) ) {
+			return in_array( $saved['gallery_hover'], self::HOVER_STYLES, true ) ? $saved['gallery_hover'] : '';
+		}
+		return isset( $saved['gallery_tilt'] ) && 'yes' === $saved['gallery_tilt'] ? 'tilt' : '';
 	}
 
 	/**
@@ -256,5 +302,6 @@ final class BlockEffects {
 		wp_enqueue_style( self::HANDLE, PURPLISH_URL . 'build/style-effects.css', array(), $asset['version'] );
 		wp_style_add_data( self::HANDLE, 'rtl', 'replace' );
 		wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/effects.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+		wp_set_script_translations( self::HANDLE, 'purplish' );
 	}
 }

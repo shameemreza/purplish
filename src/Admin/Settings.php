@@ -7,6 +7,7 @@
 
 namespace Purplish\Admin;
 
+use Purplish\Frontend\BlockEffects;
 use Purplish\Options;
 
 defined( 'ABSPATH' ) || exit;
@@ -113,7 +114,6 @@ final class Settings {
 		$gallery = array(
 			'gallery_nothumbs' => __( 'Hide thumbnails (one big photo)', 'purplish' ),
 			'gallery_rounded'  => __( 'Rounded corners', 'purplish' ),
-			'gallery_tilt'     => __( '3D tilt on hover (replaces WooCommerce\'s hover zoom)', 'purplish' ),
 		);
 		$first   = true;
 		foreach ( $gallery as $key => $label ) {
@@ -123,10 +123,31 @@ final class Settings {
 				'title'         => $first ? __( 'Product gallery', 'purplish' ) : '',
 				'desc'          => $label,
 				'default'       => 'no',
-				'checkboxgroup' => $first ? 'start' : ( 'gallery_tilt' === $key ? 'end' : '' ),
+				'checkboxgroup' => $first ? 'start' : 'end',
 			);
 			$first    = false;
 		}
+
+		// A tilt saved as a checkbox before the select existed shows as the tilt.
+		$hover    = BlockEffects::classic_hover( get_option( self::OPTION, array() ) );
+		$fields[] = array(
+			'id'       => self::OPTION . '[gallery_hover]',
+			'type'     => 'select',
+			'title'    => __( 'Gallery hover style', 'purplish' ),
+			'desc'     => __( 'Plays when the mouse is over the photo, and replaces WooCommerce\'s hover zoom. Touch screens and visitors who ask for reduced motion see the plain photo.', 'purplish' ),
+			'desc_tip' => true,
+			'default'  => '' === $hover ? 'none' : $hover,
+			'options'  => array(
+				'none'     => __( 'None', 'purplish' ),
+				'tilt'     => __( '3D tilt', 'purplish' ),
+				'zoom'     => __( 'Zoom', 'purplish' ),
+				'lift'     => __( 'Lift', 'purplish' ),
+				'parallax' => __( 'Parallax', 'purplish' ),
+				'glare'    => __( 'Glare', 'purplish' ),
+				'loupe'    => __( 'Loupe', 'purplish' ),
+				'slowzoom' => __( 'Slow zoom', 'purplish' ),
+			),
+		);
 
 		$fields[] = array(
 			'id'       => self::OPTION . '[transition]',

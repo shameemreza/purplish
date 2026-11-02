@@ -23,12 +23,12 @@ class BlockEffectsTest extends WP_UnitTestCase {
 			'woocommerce/product-gallery',
 			array(
 				'nothumbs' => true,
-				'tilt'     => true,
+				'hover'    => 'tilt',
 				'arrows'   => false,
 			)
 		);
 
-		$this->assertSame( array( 'purplish-gallery', 'purplish-gallery-nothumbs', 'purplish-gallery-tilt' ), $classes );
+		$this->assertSame( array( 'purplish-gallery', 'purplish-gallery-nothumbs', 'purplish-gallery-hover-tilt' ), $classes );
 	}
 
 	/**
@@ -162,5 +162,83 @@ class BlockEffectsTest extends WP_UnitTestCase {
 
 		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'slider' => 'spin' ) ) );
 		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'slider' => true ) ) );
+	}
+
+	/**
+	 * Every hover and full-screen style becomes its class, and values
+	 * outside the lists are ignored.
+	 */
+	public function test_hover_and_fullscreen_values() {
+		foreach ( array( 'tilt', 'zoom', 'lift', 'parallax', 'glare', 'loupe', 'slowzoom' ) as $hover ) {
+			$this->assertSame(
+				array( 'purplish-gallery', 'purplish-gallery-hover-' . $hover ),
+				BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'hover' => $hover ) )
+			);
+		}
+
+		foreach ( array( 'snap', 'fade', 'zoom', 'filmstrip', 'cinema' ) as $fullscreen ) {
+			$this->assertSame(
+				array( 'purplish-gallery', 'purplish-gallery-fullscreen-' . $fullscreen ),
+				BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'fullscreen' => $fullscreen ) )
+			);
+		}
+
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'hover' => 'spin' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'fullscreen' => 'slider' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'hover' => true ) ) );
+	}
+
+	/**
+	 * Tilt and lightbox switches saved before task 23 read as the 3D tilt
+	 * hover style and the snap stack, unless a style is saved too.
+	 */
+	public function test_saved_tilt_and_lightbox() {
+		$this->assertSame(
+			array( 'purplish-gallery', 'purplish-gallery-rounded', 'purplish-gallery-hover-tilt', 'purplish-gallery-fullscreen-snap' ),
+			BlockEffects::classes_for(
+				'woocommerce/product-gallery',
+				array(
+					'rounded'  => true,
+					'tilt'     => true,
+					'lightbox' => true,
+				)
+			)
+		);
+
+		$this->assertSame(
+			array( 'purplish-gallery', 'purplish-gallery-hover-zoom', 'purplish-gallery-fullscreen-cinema' ),
+			BlockEffects::classes_for(
+				'woocommerce/product-gallery',
+				array(
+					'tilt'       => true,
+					'hover'      => 'zoom',
+					'lightbox'   => true,
+					'fullscreen' => 'cinema',
+				)
+			)
+		);
+
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'tilt' => false ) ) );
+	}
+
+	/**
+	 * The classic hover style: the select wins, an old tilt checkbox reads
+	 * as the tilt, and anything else is none.
+	 */
+	public function test_classic_hover() {
+		$this->assertSame( '', BlockEffects::classic_hover( 'junk' ) );
+		$this->assertSame( '', BlockEffects::classic_hover( array() ) );
+		$this->assertSame( 'tilt', BlockEffects::classic_hover( array( 'gallery_tilt' => 'yes' ) ) );
+		$this->assertSame( 'glare', BlockEffects::classic_hover( array( 'gallery_hover' => 'glare' ) ) );
+		$this->assertSame(
+			'',
+			BlockEffects::classic_hover(
+				array(
+					'gallery_tilt'  => 'yes',
+					'gallery_hover' => 'none',
+				)
+			)
+		);
+		$this->assertSame( '', BlockEffects::classic_hover( array( 'gallery_hover' => 'explode' ) ) );
 	}
 }
