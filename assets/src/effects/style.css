@@ -1146,11 +1146,11 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
- * Gallery slide styles: WooCommerce shows one photo and hides the rest, so
- * each style plays as the new photo comes in. The script sets
- * --purplish-from to 1 when it comes after the old photo and -1 when it
- * comes before, and adds purplish-sliding after the first change, so
- * nothing plays on page load. The strip and the frame never move.
+ * Gallery slide styles: each style plays as the new photo comes in. The
+ * script sets --purplish-from to 1 when it comes after the old photo and
+ * -1 when it comes before, and adds purplish-sliding again on each change,
+ * never on page load. Between photos in a set the strip jumps instead of
+ * sliding, so the style is the only motion; the frame never moves.
  */
 @media (prefers-reduced-motion: no-preference) {
 

@@ -378,35 +378,70 @@ document
 	} );
 
 /**
- * Tells the slide styles which way the gallery moved. WooCommerce shows
- * one slide and hides the rest; when another one shows, the strip gets
- * `--purplish-from` (1 for a later photo, -1 for an earlier one) and
- * `purplish-sliding`, before the new slide is painted.
+ * Tells the slide styles which way the gallery moved. WooCommerce hides
+ * the photos outside the selected set and scrolls the strip sideways
+ * between the ones it shows. When another photo lands on screen, the
+ * strip gets `--purplish-from` (1 for a later photo, -1 for an earlier
+ * one) and `purplish-sliding` again, before the new photo is painted.
  *
  * @param {HTMLElement} strip The gallery's list of slides.
  */
 function followSlides( strip ) {
-	const shown = () =>
-		[ ...strip.children ].findIndex( ( slide ) => ! slide.hidden );
-	let last = shown();
+	const children = [ ...strip.children ];
+	const onScreen = () => {
+		const shown = children.filter( ( slide ) => ! slide.hidden );
+		const at = Math.round(
+			Math.abs( strip.scrollLeft ) / ( strip.clientWidth || 1 )
+		);
+		return shown[ at ] || null;
+	};
+	let last = onScreen();
 
-	new window.MutationObserver( () => {
-		const now = shown();
-		if ( now < 0 || now === last ) {
+	const check = () => {
+		const now = onScreen();
+		if ( ! now || now === last ) {
 			return;
 		}
-		strip.style.setProperty( '--purplish-from', now > last ? '1' : '-1' );
+		const later = children.indexOf( now ) > children.indexOf( last );
+		strip.style.setProperty( '--purplish-from', later ? '1' : '-1' );
+		// Restarts the style, which already ran on every slide in the set.
+		strip.classList.remove( 'purplish-sliding' );
+		// eslint-disable-next-line no-unused-expressions
+		strip.offsetWidth;
 		strip.classList.add( 'purplish-sliding' );
 		last = now;
-	} ).observe( strip, {
+	};
+
+	new window.MutationObserver( check ).observe( strip, {
 		subtree: true,
 		attributes: true,
 		attributeFilter: [ 'hidden' ],
 	} );
+
+	// Arrows and thumbnails smooth-scroll the strip. The slide style takes
+	// the place of that slide, so the strip jumps and the style plays.
+	const scrollTo = strip.scrollTo;
+	strip.scrollTo = ( options, ...rest ) => {
+		scrollTo.call(
+			strip,
+			options && 'object' === typeof options
+				? { ...options, behavior: 'instant' }
+				: options,
+			...rest
+		);
+		check();
+	};
+
+	// A swipe moves the photo by hand, so it only updates the photo on screen.
+	strip.addEventListener( 'scrollend', () => {
+		last = onScreen() || last;
+	} );
 }
 
-document
-	.querySelectorAll(
-		'[class*="purplish-gallery-slider-"] .wc-block-product-gallery-large-image__container'
-	)
-	.forEach( followSlides );
+if ( ! reduced ) {
+	document
+		.querySelectorAll(
+			'[class*="purplish-gallery-slider-"] .wc-block-product-gallery-large-image__container'
+		)
+		.forEach( followSlides );
+}
