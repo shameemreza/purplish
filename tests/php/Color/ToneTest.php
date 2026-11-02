@@ -107,6 +107,42 @@ class ToneTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The orange from the sweater photo, where black wins on WCAG math by a
+	 * little, darkens a touch so white text reaches 4.5:1 and wins.
+	 */
+	public function test_mid_tone_orange_gets_white_text() {
+		$accent = Tone::accent( '#d94421' );
+		$before = Tone::to_oklch( '#d94421' );
+		$after  = Tone::to_oklch( $accent );
+
+		$this->assertSame( Contrast::BLACK, Contrast::on( '#d94421' ) );
+		$this->assertSame( Contrast::WHITE, Contrast::on( $accent ) );
+		$this->assertGreaterThanOrEqual( 4.5, Contrast::ratio( $accent, Contrast::WHITE ) );
+		$this->assertLessThan( $before[0], $after[0] );
+		$this->assertLessThanOrEqual( Tone::WHITE_TEXT_MAX_DROP, $before[0] - $after[0] );
+		$this->assertLessThan( 1, $this->hue_gap( $before[2], $after[2] ) );
+	}
+
+	/**
+	 * Accents that already take white text, or where white is far behind,
+	 * don't darken.
+	 */
+	public function test_white_text_leaves_other_accents() {
+		$this->assertSame( '#2a519e', Tone::accent( '#2a519e' ) );
+		$this->assertSame( '#2a519e', Tone::accent( '#0d317c' ) );
+
+		$light = array(
+			'lavender' => '#c9a0dc',
+			'pink'     => '#cb859e',
+		);
+		foreach ( $light as $name => $source ) {
+			$accent = Tone::accent( $source );
+			$this->assertSame( Contrast::BLACK, Contrast::on( $accent ), $name );
+			$this->assertLessThan( Tone::WHITE_TEXT_MIN_RATIO, Contrast::ratio( $accent, Contrast::WHITE ), $name );
+		}
+	}
+
+	/**
 	 * A pale yellow stays a yellow instead of turning olive.
 	 */
 	public function test_pale_yellow_stays_yellow() {

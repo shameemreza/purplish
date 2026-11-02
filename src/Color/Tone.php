@@ -49,6 +49,16 @@ final class Tone {
 	const ACCENT_MAX_CHROMA = 0.2;
 
 	/**
+	 * White reads better than black on mid tones like orange, even when
+	 * black wins on WCAG math by a little. When white already reaches the
+	 * lower ratio, the accent darkens in steps, up to the most drop, until
+	 * white wins. A bigger drop would change the color too much.
+	 */
+	const WHITE_TEXT_MIN_RATIO = 3.5;
+	const WHITE_TEXT_STEP      = 0.005;
+	const WHITE_TEXT_MAX_DROP  = 0.08;
+
+	/**
 	 * The most lightness for text on a light page.
 	 */
 	const INK_MAX_LIGHTNESS = 0.5;
@@ -76,7 +86,7 @@ final class Tone {
 
 		if ( $chroma <= self::GREY_CHROMA ) {
 			$lightness = min( self::GREY_MAX_LIGHTNESS, max( self::GREY_MIN_LIGHTNESS, $lightness ) );
-			return self::from_oklch( $lightness, $chroma, $hue );
+			return self::for_white_text( $lightness, $chroma, $hue );
 		}
 
 		$is_yellow = $hue >= self::YELLOW_HUES[0] && $hue <= self::YELLOW_HUES[1];
@@ -88,7 +98,32 @@ final class Tone {
 		$lightness = min( $ceiling, max( $floor, $lightness ) );
 		$chroma    = min( self::ACCENT_MAX_CHROMA, $chroma );
 
-		return self::from_oklch( $lightness, $chroma, $hue );
+		return self::for_white_text( $lightness, $chroma, $hue );
+	}
+
+	/**
+	 * The accent, darkened a little when that lets white text win.
+	 *
+	 * @param float $lightness Lightness, 0 to 1.
+	 * @param float $chroma    Chroma.
+	 * @param float $hue       Hue in degrees.
+	 * @return string Hex color.
+	 */
+	private static function for_white_text( $lightness, $chroma, $hue ) {
+		$hex = self::from_oklch( $lightness, $chroma, $hue );
+		if ( Contrast::WHITE === Contrast::on( $hex ) || Contrast::ratio( $hex, Contrast::WHITE ) < self::WHITE_TEXT_MIN_RATIO ) {
+			return $hex;
+		}
+
+		$steps = (int) round( self::WHITE_TEXT_MAX_DROP / self::WHITE_TEXT_STEP );
+		for ( $i = 1; $i <= $steps; $i++ ) {
+			$darker = self::from_oklch( $lightness - $i * self::WHITE_TEXT_STEP, $chroma, $hue );
+			if ( Contrast::WHITE === Contrast::on( $darker ) ) {
+				return $darker;
+			}
+		}
+
+		return $hex;
 	}
 
 	/**

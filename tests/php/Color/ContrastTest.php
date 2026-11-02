@@ -50,6 +50,19 @@ class ContrastTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The ratio matches the WCAG formula, in either order.
+	 */
+	public function test_ratio() {
+		$this->assertEqualsWithDelta( 21.0, Contrast::ratio( '#000000', '#ffffff' ), 0.001 );
+		$this->assertEqualsWithDelta( 21.0, Contrast::ratio( '#ffffff', '#000000' ), 0.001 );
+		$this->assertEqualsWithDelta( 1.0, Contrast::ratio( '#3357b7', '#3357b7' ), 0.001 );
+		// Luminance 0.2025: 4.16:1 with white.
+		$this->assertEqualsWithDelta( 4.16, Contrast::ratio( '#dc4a24', Contrast::WHITE ), 0.01 );
+		$this->assertNull( Contrast::ratio( 'blue', '#ffffff' ) );
+		$this->assertNull( Contrast::ratio( '#ffffff', '' ) );
+	}
+
+	/**
 	 * Luminance matches the WCAG formula.
 	 */
 	public function test_luminance() {

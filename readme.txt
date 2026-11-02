@@ -107,6 +107,10 @@ No. Purplish works with the plain dropdowns and option buttons too. If you turn 
 
 Set the variation's Page color to Custom and pick the color. A busy photo, like a model in a furnished room, can point Purplish at the wrong area.
 
+= Why do some option buttons have no color dot? =
+
+An option gets a dot only when every variation with it has the same color, like Orange or Blue. A size, or any option that comes in several colors, has no single color to show, so it gets none. On the picked option, the dot turns the button's text color so it stays visible.
+
 = Can I turn it off for one variation or product? =
 
 Yes. Set its Page color to Off. It keeps your theme's colors.

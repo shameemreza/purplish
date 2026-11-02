@@ -38,6 +38,23 @@ final class Contrast {
 	}
 
 	/**
+	 * The WCAG contrast ratio between two colors.
+	 *
+	 * @param string $first  Color, as #rgb or #rrggbb.
+	 * @param string $second Color, as #rgb or #rrggbb.
+	 * @return float|null From 1 to 21, or null when either value isn't a hex color.
+	 */
+	public static function ratio( $first, $second ) {
+		$a = self::luminance( $first );
+		$b = self::luminance( $second );
+		if ( null === $a || null === $b ) {
+			return null;
+		}
+
+		return ( max( $a, $b ) + 0.05 ) / ( min( $a, $b ) + 0.05 );
+	}
+
+	/**
 	 * WCAG relative luminance of a color, from 0 for black to 1 for white.
 	 *
 	 * @param string $hex Color, as #rgb or #rrggbb.
