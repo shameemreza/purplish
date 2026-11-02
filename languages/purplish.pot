@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-02T15:53:32+00:00\n"
+"POT-Creation-Date: 2026-11-02T16:43:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -39,150 +39,195 @@ msgstr ""
 msgid "https://shameem.dev/"
 msgstr ""
 
-#: src/Admin/Settings.php:42
-#: src/Admin/Settings.php:74
+#: src/Admin/Settings.php:43
+#: src/Admin/Settings.php:75
 #: assets/src/editor/accordion.js:16
 #: assets/src/editor/add-to-cart.js:46
 #: assets/src/editor/cards.js:60
-#: assets/src/editor/gallery.js:57
+#: assets/src/editor/gallery.js:61
 #: assets/src/editor/group.js:16
 #: build/editor.js:1
 msgid "Purplish"
 msgstr ""
 
 #. translators: %s: link to the Single Product template in the Site Editor.
-#: src/Admin/Settings.php:84
+#: src/Admin/Settings.php:85
 #, php-format
 msgid "Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings."
 msgstr ""
 
-#: src/Admin/Settings.php:85
+#: src/Admin/Settings.php:86
 msgid "Single Product template"
 msgstr ""
 
-#: src/Admin/Settings.php:90
+#: src/Admin/Settings.php:91
 msgid "When a shopper picks a color on a variable product, these parts of the product page take that color."
 msgstr ""
 
-#: src/Admin/Settings.php:93
+#: src/Admin/Settings.php:94
 #: assets/src/editor/add-to-cart.js:14
 #: build/editor.js:1
 msgid "Add to cart button"
 msgstr ""
 
-#: src/Admin/Settings.php:94
+#: src/Admin/Settings.php:95
 #: assets/src/editor/add-to-cart.js:16
 #: build/editor.js:1
 msgid "Sale badge"
 msgstr ""
 
-#: src/Admin/Settings.php:95
+#: src/Admin/Settings.php:96
 #: assets/src/editor/add-to-cart.js:17
 #: build/editor.js:1
 msgid "Sale price"
 msgstr ""
 
-#: src/Admin/Settings.php:96
+#: src/Admin/Settings.php:97
 #: assets/src/editor/add-to-cart.js:18
 #: build/editor.js:1
 msgid "Page background tint"
 msgstr ""
 
-#: src/Admin/Settings.php:105
+#: src/Admin/Settings.php:106
 msgid "Parts that take the color"
 msgstr ""
 
-#: src/Admin/Settings.php:114
+#: src/Admin/Settings.php:115
 msgid "Hide thumbnails (one big photo)"
 msgstr ""
 
-#: src/Admin/Settings.php:115
+#: src/Admin/Settings.php:116
 #: assets/src/editor/gallery.js:13
 #: build/editor.js:1
 msgid "Rounded corners"
-msgstr ""
-
-#: src/Admin/Settings.php:116
-msgid "3D tilt on hover (replaces WooCommerce's hover zoom)"
 msgstr ""
 
 #: src/Admin/Settings.php:123
 msgid "Product gallery"
 msgstr ""
 
-#: src/Admin/Settings.php:134
+#: src/Admin/Settings.php:136
+msgid "Gallery hover style"
+msgstr ""
+
+#: src/Admin/Settings.php:137
+msgid "Plays when the mouse is over the photo, and replaces WooCommerce's hover zoom. Touch screens and visitors who ask for reduced motion see the plain photo."
+msgstr ""
+
+#: src/Admin/Settings.php:141
+#: src/Admin/Settings.php:160
+#: assets/src/editor/add-to-cart.js:82
+#: assets/src/editor/add-to-cart.js:125
+#: assets/src/editor/cards.js:92
+#: assets/src/editor/gallery.js:25
+#: build/editor.js:1
+msgid "None"
+msgstr ""
+
+#: src/Admin/Settings.php:142
+#: assets/src/editor/gallery.js:26
+#: build/editor.js:1
+msgid "3D tilt"
+msgstr ""
+
+#: src/Admin/Settings.php:143
+#: src/Admin/Settings.php:163
+#: assets/src/editor/add-to-cart.js:94
+#: assets/src/editor/gallery.js:27
+#: build/editor.js:1
+msgid "Zoom"
+msgstr ""
+
+#: src/Admin/Settings.php:144
+#: assets/src/editor/gallery.js:28
+#: build/editor.js:1
+msgid "Lift"
+msgstr ""
+
+#: src/Admin/Settings.php:145
+#: assets/src/editor/cards.js:41
+#: assets/src/editor/gallery.js:29
+#: build/editor.js:1
+msgid "Parallax"
+msgstr ""
+
+#: src/Admin/Settings.php:146
+#: assets/src/editor/gallery.js:30
+#: build/editor.js:1
+msgid "Glare"
+msgstr ""
+
+#: src/Admin/Settings.php:147
+#: assets/src/editor/gallery.js:31
+#: build/editor.js:1
+msgid "Loupe"
+msgstr ""
+
+#: src/Admin/Settings.php:148
+#: assets/src/editor/gallery.js:32
+#: build/editor.js:1
+msgid "Slow zoom"
+msgstr ""
+
+#: src/Admin/Settings.php:155
 #: assets/src/editor/add-to-cart.js:73
 #: build/editor.js:1
 msgid "Photo transition"
 msgstr ""
 
-#: src/Admin/Settings.php:135
+#: src/Admin/Settings.php:156
 #: assets/src/editor/add-to-cart.js:74
 #: build/editor.js:1
 msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
 msgstr ""
 
-#: src/Admin/Settings.php:139
-#: assets/src/editor/add-to-cart.js:82
-#: assets/src/editor/add-to-cart.js:125
-#: assets/src/editor/cards.js:92
-#: build/editor.js:1
-msgid "None"
-msgstr ""
-
-#: src/Admin/Settings.php:140
+#: src/Admin/Settings.php:161
 #: assets/src/editor/add-to-cart.js:86
 #: build/editor.js:1
 msgid "Fade"
 msgstr ""
 
-#: src/Admin/Settings.php:141
+#: src/Admin/Settings.php:162
 #: assets/src/editor/add-to-cart.js:90
 #: build/editor.js:1
 msgid "Blur"
 msgstr ""
 
-#: src/Admin/Settings.php:142
-#: assets/src/editor/add-to-cart.js:94
-#: build/editor.js:1
-msgid "Zoom"
-msgstr ""
-
-#: src/Admin/Settings.php:143
+#: src/Admin/Settings.php:164
 #: assets/src/editor/add-to-cart.js:98
 #: build/editor.js:1
 msgid "Slide"
 msgstr ""
 
-#: src/Admin/Settings.php:144
+#: src/Admin/Settings.php:165
 #: assets/src/editor/add-to-cart.js:102
 #: build/editor.js:1
 msgid "Flip"
 msgstr ""
 
-#: src/Admin/Settings.php:145
+#: src/Admin/Settings.php:166
 #: assets/src/editor/add-to-cart.js:106
 #: build/editor.js:1
 msgid "Wipe"
 msgstr ""
 
-#: src/Admin/Settings.php:146
+#: src/Admin/Settings.php:167
 #: assets/src/editor/add-to-cart.js:110
 #: build/editor.js:1
 msgid "Circle reveal"
 msgstr ""
 
-#: src/Admin/Settings.php:147
+#: src/Admin/Settings.php:168
 #: assets/src/editor/add-to-cart.js:114
 #: build/editor.js:1
 msgid "Color wash"
 msgstr ""
 
-#: src/Admin/Settings.php:153
+#: src/Admin/Settings.php:174
 msgid "Title and price"
 msgstr ""
 
-#: src/Admin/Settings.php:154
+#: src/Admin/Settings.php:175
 msgid "Rise in after the photo on each color change"
 msgstr ""
 
@@ -382,11 +427,6 @@ msgstr ""
 msgid "Clothes line"
 msgstr ""
 
-#: assets/src/editor/cards.js:41
-#: build/editor.js:1
-msgid "Parallax"
-msgstr ""
-
 #: assets/src/editor/cards.js:42
 #: build/editor.js:1
 msgid "Zoom reveal"
@@ -452,57 +492,87 @@ msgstr ""
 msgid "Round arrows that show when the shopper hovers the photo."
 msgstr ""
 
-#: assets/src/editor/gallery.js:24
+#: assets/src/editor/gallery.js:36
 #: build/editor.js:1
-msgid "3D tilt"
+msgid "WooCommerce default"
 msgstr ""
 
-#: assets/src/editor/gallery.js:25
+#: assets/src/editor/gallery.js:37
 #: build/editor.js:1
-msgid "The photo tilts toward the mouse with a light sheen. Off for touch screens and reduced motion."
+msgid "Snap stack"
 msgstr ""
 
-#: assets/src/editor/gallery.js:32
+#: assets/src/editor/gallery.js:38
 #: build/editor.js:1
-msgid "Styled full-screen view"
+msgid "Classic fade"
 msgstr ""
 
-#: assets/src/editor/gallery.js:33
+#: assets/src/editor/gallery.js:39
 #: build/editor.js:1
-msgid "Tinted to the page color, one photo per screen that snaps into place."
+msgid "Zoom from photo"
+msgstr ""
+
+#: assets/src/editor/gallery.js:40
+#: build/editor.js:1
+msgid "Filmstrip"
 msgstr ""
 
 #: assets/src/editor/gallery.js:41
 #: build/editor.js:1
-msgid "Default"
-msgstr ""
-
-#: assets/src/editor/gallery.js:42
-#: build/editor.js:1
-msgid "3D media gallery"
-msgstr ""
-
-#: assets/src/editor/gallery.js:43
-#: build/editor.js:1
-msgid "Circular slider"
-msgstr ""
-
-#: assets/src/editor/gallery.js:44
-#: build/editor.js:1
-msgid "Reel slider"
+msgid "Cinema"
 msgstr ""
 
 #: assets/src/editor/gallery.js:45
 #: build/editor.js:1
+msgid "Default"
+msgstr ""
+
+#: assets/src/editor/gallery.js:46
+#: build/editor.js:1
+msgid "3D media gallery"
+msgstr ""
+
+#: assets/src/editor/gallery.js:47
+#: build/editor.js:1
+msgid "Circular slider"
+msgstr ""
+
+#: assets/src/editor/gallery.js:48
+#: build/editor.js:1
+msgid "Reel slider"
+msgstr ""
+
+#: assets/src/editor/gallery.js:49
+#: build/editor.js:1
 msgid "Image tunnel"
 msgstr ""
 
-#: assets/src/editor/gallery.js:73
+#: assets/src/editor/gallery.js:77
+#: build/editor.js:1
+msgid "Hover style"
+msgstr ""
+
+#: assets/src/editor/gallery.js:78
+#: build/editor.js:1
+msgid "Plays when the mouse is over the photo. Touch screens and visitors who ask for reduced motion see the plain photo."
+msgstr ""
+
+#: assets/src/editor/gallery.js:95
+#: build/editor.js:1
+msgid "Full-screen style"
+msgstr ""
+
+#: assets/src/editor/gallery.js:96
+#: build/editor.js:1
+msgid "The view that opens when the shopper clicks the photo. Needs the gallery's \"Open pop-up when clicked\" setting."
+msgstr ""
+
+#: assets/src/editor/gallery.js:116
 #: build/editor.js:1
 msgid "Slide style"
 msgstr ""
 
-#: assets/src/editor/gallery.js:74
+#: assets/src/editor/gallery.js:117
 #: build/editor.js:1
 msgid "How the photo moves when the gallery slides to the next one. Visitors who ask for reduced motion see the default slide."
 msgstr ""
@@ -515,4 +585,11 @@ msgstr ""
 #: assets/src/editor/group.js:20
 #: build/editor.js:1
 msgid "On product pages, this section's background becomes a soft version of the color the shopper picks."
+msgstr ""
+
+#. translators: 1: photo number, 2: number of photos.
+#: assets/src/effects/index.js:303
+#: build/effects.js:2
+#, js-format
+msgid "Photo %1$d of %2$d"
 msgstr ""

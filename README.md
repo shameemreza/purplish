@@ -36,8 +36,8 @@ The page opens in the default variation's color, so there's no flash of the them
 - **Hide thumbnails:** one big photo, with no thumbnail strip.
 - **Rounded corners:** on the main photo.
 - **Frosted arrows:** round arrows that show on hover.
-- **3D tilt:** the photo tilts toward the mouse.
-- **Styled full-screen view:** tinted to the page color, with photos that snap into place.
+- **Hover style:** what the photo does under the mouse. A 3D tilt toward the mouse, a zoom where the mouse points, a lift with a soft shadow, a parallax drift, a light glare, a round loupe, or a slow push in.
+- **Full-screen style:** the view that opens when a shopper clicks the photo. A snap stack tinted to the page color, a classic fade, a zoom out of the photo's own place, a filmstrip of small photos along the bottom, or a dark cinema screen.
 - **Slide style:** how the next photo comes in. A 3D turn like a cube, a swing like a wheel, a film reel, or out of the distance like a tunnel.
 
 ### Product cards
@@ -88,7 +88,7 @@ Nothing moves on its own: every effect plays on a hover, a scroll, a color chang
    - **Block themes:** open the Single Product template in the Site Editor, select the Add to Cart + Options, Product Gallery, Product Collection, Accordion or Group block, and find the Purplish panel. Each template keeps its own settings, so one product can have its own look.
    - **Classic themes:** go to WooCommerce > Settings > Products > Purplish.
 
-Classic themes get the color parts, the photo transition, the title rise, and three gallery options: hide thumbnails, rounded corners and 3D tilt. Product cards, color dots, accordions and sections need a block theme.
+Classic themes get the color parts, the photo transition, the title rise, and three gallery options: hide thumbnails, rounded corners and the hover style. Product cards, color dots, accordions and sections need a block theme.
 
 Turn Purplish off, and the page goes back to exactly how WooCommerce draws it.
 
