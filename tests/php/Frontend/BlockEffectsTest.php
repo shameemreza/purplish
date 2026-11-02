@@ -140,4 +140,27 @@ class BlockEffectsTest extends WP_UnitTestCase {
 		$this->assertSame( array( 'purplish-accordion', 'purplish-accordion-soft' ), BlockEffects::classes_for( 'core/accordion', array( 'soft' => true ) ) );
 		$this->assertSame( array( 'purplish-group', 'purplish-group-tint' ), BlockEffects::classes_for( 'core/group', array( 'tint' => true ) ) );
 	}
+
+	/**
+	 * Every motion pack value on the cards and the gallery becomes its class,
+	 * and a slide style outside the list is ignored.
+	 */
+	public function test_motion_pack_values() {
+		foreach ( array( 'clothesline', 'fan', 'arc', 'stage', 'expand', 'grow', 'tiltrow', 'parallax', 'zoomin', 'folder' ) as $hover ) {
+			$this->assertSame(
+				array( 'purplish-cards', 'purplish-cards-hover-' . $hover ),
+				BlockEffects::classes_for( 'woocommerce/product-collection', array( 'hover' => $hover ) )
+			);
+		}
+
+		foreach ( array( 'cube', 'circle', 'reel', 'tunnel' ) as $slider ) {
+			$this->assertSame(
+				array( 'purplish-gallery', 'purplish-gallery-slider-' . $slider ),
+				BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'slider' => $slider ) )
+			);
+		}
+
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'slider' => 'spin' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'slider' => true ) ) );
+	}
 }

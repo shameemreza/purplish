@@ -281,4 +281,43 @@ class PageDataTest extends WP_UnitTestCase {
 		$this->assertTrue( $clean['dots'] );
 		$this->assertFalse( Options::clean( array( 'rise' => 'maybe' ) )['rise'] );
 	}
+
+	/**
+	 * The motion switches are off by default, switch on from saved options,
+	 * and each one puts its class on the product page's body.
+	 */
+	public function test_motion_switches() {
+		foreach ( array( 'focus', 'glow', 'halo', 'mesh' ) as $switch ) {
+			$this->assertFalse( Options::defaults()[ $switch ], $switch );
+			$this->assertTrue( Options::clean( array( $switch => true ) )[ $switch ], $switch );
+			$this->assertFalse( Options::clean( array( $switch => 'maybe' ) )[ $switch ], $switch );
+		}
+
+		$product = new \WC_Product_Simple();
+		$product->update_meta_data( Meta::AUTO_COLOR, '#0d317c' );
+		$product->save();
+		$this->go_to( get_permalink( $product->get_id() ) );
+
+		$block_options = new \ReflectionProperty( PageData::class, 'block_options' );
+		$block_options->setAccessible( true );
+		try {
+			PageData::use_block_options(
+				array(
+					'focus' => true,
+					'glow'  => true,
+					'halo'  => false,
+					'mesh'  => true,
+				)
+			);
+			$classes = ( new PageData() )->body_class( array() );
+		} finally {
+			$block_options->setValue( null, null );
+		}
+
+		$this->assertContains( 'purplish-focus', $classes );
+		$this->assertContains( 'purplish-glow', $classes );
+		$this->assertContains( 'purplish-mesh', $classes );
+		$this->assertNotContains( 'purplish-halo', $classes );
+		$this->assertNotContains( 'purplish-rise', $classes );
+	}
 }

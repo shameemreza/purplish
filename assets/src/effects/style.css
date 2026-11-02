@@ -513,6 +513,444 @@ body.purplish-classic-gallery-tilt .purplish-tilt-target::after {
 }
 
 /*
+ * Cards, clothes line: each card hangs from a peg on a line across its row.
+ * It swings once as it scrolls in and again on hover. The line counter-turns
+ * around the same peg, so it stays still while the card swings.
+ */
+@property --purplish-swing {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+.purplish-cards-hover-clothesline .wc-block-product {
+	position: relative;
+	padding-top: 26px;
+	transform-origin: 50% 0;
+	rotate: var(--purplish-swing);
+}
+
+.purplish-cards-hover-clothesline .wc-block-product::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -0.75rem;
+	right: -0.75rem;
+	height: 12px;
+	border-bottom: 1.5px solid color-mix(in oklab, currentcolor 35%, transparent);
+	border-radius: 0 0 50% 50% / 0 0 100% 100%;
+	transform-origin: 50% 0;
+	rotate: calc(var(--purplish-swing) * -1);
+	pointer-events: none;
+}
+
+.purplish-cards-hover-clothesline .wc-block-product::before {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: 4px;
+	left: calc(50% - 4px);
+	width: 8px;
+	height: 20px;
+	border-radius: 3px;
+	background: var(--purplish-color);
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-clothesline .wc-block-product {
+			animation: purplish-swing 1s ease-out both;
+			animation-timeline: view();
+			animation-range: entry 0% entry 100%;
+		}
+
+		.purplish-cards-hover-clothesline .wc-block-product-template.is-horizontal .wc-block-product {
+			animation-timeline: view(inline);
+		}
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+
+		.purplish-cards-hover-clothesline .wc-block-product:hover {
+			animation: purplish-swing-hover 1.4s ease-out;
+		}
+	}
+}
+
+@keyframes purplish-swing {
+
+	from {
+		--purplish-swing: 9deg;
+	}
+
+	45% {
+		--purplish-swing: -5deg;
+	}
+
+	75% {
+		--purplish-swing: 2deg;
+	}
+
+	to {
+		--purplish-swing: 0deg;
+	}
+}
+
+@keyframes purplish-swing-hover {
+
+	20% {
+		--purplish-swing: -4deg;
+	}
+
+	50% {
+		--purplish-swing: 2.5deg;
+	}
+
+	75% {
+		--purplish-swing: -1deg;
+	}
+}
+
+/*
+ * Cards, fan deck: cards rest a little off straight. The hovered card
+ * straightens and lifts, and its neighbors lean away.
+ */
+.purplish-cards-hover-fan .wc-block-product {
+	position: relative;
+	transform-origin: 50% 100%;
+	rotate: -2deg;
+	transition:
+		rotate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+		translate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+		scale 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.purplish-cards-hover-fan .wc-block-product:nth-child(2n) {
+	rotate: 1.5deg;
+}
+
+.purplish-cards-hover-fan .wc-block-product:nth-child(3n) {
+	rotate: -1deg;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-fan .wc-block-product:hover {
+		z-index: 2;
+		rotate: 0deg;
+		translate: 0 -10px;
+		scale: 1.03;
+	}
+
+	.purplish-cards-hover-fan .wc-block-product:has(+ .wc-block-product:hover) {
+		rotate: -5deg;
+		translate: -8px 0;
+	}
+
+	.purplish-cards-hover-fan .wc-block-product:hover + .wc-block-product {
+		rotate: 5deg;
+		translate: 8px 0;
+	}
+}
+
+/*
+ * Cards, expanded: photos show as a narrow band and open to full on hover.
+ * Touch screens always see the whole photo.
+ */
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-expand .wc-block-components-product-image img {
+		clip-path: inset(0 28% round 20px);
+		transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+	}
+
+	.purplish-cards-hover-expand .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image img {
+		clip-path: inset(0 0 round 20px);
+	}
+}
+
+/*
+ * Cards, folder: each card sits in a soft folder with a tab, and on hover
+ * the photo lifts out of it.
+ */
+.purplish-cards-hover-folder .wc-block-product {
+	position: relative;
+	margin-top: 14px;
+	padding: 10px;
+	border-radius: 0 18px 18px;
+	background: var(--purplish-color-soft);
+}
+
+.purplish-cards-hover-folder .wc-block-product::before {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	width: 72px;
+	height: 14px;
+	border-radius: 10px 10px 0 0;
+	background: inherit;
+}
+
+.purplish-cards-hover-folder .wc-block-components-product-image {
+	transition:
+		translate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+		rotate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+		box-shadow 0.45s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-folder .wc-block-product:hover .wc-block-components-product-image {
+		translate: 0 -16px;
+		rotate: -2deg;
+		box-shadow: 0 18px 30px -16px rgb(0 0 0 / 0.4);
+	}
+}
+
+/*
+ * Cards in a carousel: arc, spotlight (stage), grow and tilt. Each card's
+ * place in the carousel drives its look; in a grid there's nothing to
+ * scroll sideways, so these leave the cards as they are.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		:is(.purplish-cards-hover-arc, .purplish-cards-hover-stage, .purplish-cards-hover-grow, .purplish-cards-hover-tiltrow) .wc-block-product-template.is-horizontal .wc-block-product {
+			animation: linear both;
+			animation-timeline: view(inline);
+		}
+
+		.purplish-cards-hover-arc .wc-block-product-template.is-horizontal {
+			padding-bottom: 48px;
+		}
+
+		.purplish-cards-hover-arc .wc-block-product-template.is-horizontal .wc-block-product {
+			animation-name: purplish-arc;
+		}
+
+		.purplish-cards-hover-stage .wc-block-product-template.is-horizontal .wc-block-product {
+			animation-name: purplish-stage;
+		}
+
+		.purplish-cards-hover-grow .wc-block-product-template.is-horizontal .wc-block-product {
+			transform-origin: 50% 100%;
+			animation-name: purplish-grow;
+		}
+
+		.purplish-cards-hover-tiltrow .wc-block-product-template.is-horizontal .wc-block-product {
+			animation-name: purplish-tiltrow;
+		}
+	}
+}
+
+@keyframes purplish-arc {
+
+	from {
+		translate: 0 44px;
+		rotate: 9deg;
+	}
+
+	50% {
+		translate: 0 0;
+		rotate: 0deg;
+	}
+
+	to {
+		translate: 0 44px;
+		rotate: -9deg;
+	}
+}
+
+@keyframes purplish-stage {
+
+	from,
+	to {
+		opacity: 0.45;
+		scale: 0.88;
+	}
+
+	40%,
+	60% {
+		opacity: 1;
+		scale: 1;
+	}
+}
+
+@keyframes purplish-grow {
+
+	from,
+	to {
+		scale: 0.78;
+	}
+
+	45%,
+	55% {
+		scale: 1;
+	}
+}
+
+@keyframes purplish-tiltrow {
+
+	from {
+		rotate: -7deg;
+	}
+
+	50% {
+		rotate: 0deg;
+	}
+
+	to {
+		rotate: 7deg;
+	}
+}
+
+/*
+ * Cards, parallax: the photo moves slower than its card, sideways in a
+ * carousel and up and down in a grid.
+ */
+.purplish-cards-hover-parallax .wc-block-components-product-image {
+	overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-parallax .wc-block-components-product-image img {
+			scale: 1.2;
+			animation: purplish-parallax-y linear both;
+			animation-timeline: view();
+		}
+
+		.purplish-cards-hover-parallax .wc-block-product-template.is-horizontal .wc-block-components-product-image img {
+			animation-name: purplish-parallax-x;
+			animation-timeline: view(inline);
+		}
+	}
+}
+
+@keyframes purplish-parallax-x {
+
+	from {
+		translate: -8% 0;
+	}
+
+	to {
+		translate: 8% 0;
+	}
+}
+
+@keyframes purplish-parallax-y {
+
+	from {
+		translate: 0 -8%;
+	}
+
+	to {
+		translate: 0 8%;
+	}
+}
+
+/* Cards, zoom reveal: each card grows in as it scrolls into view. */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-zoomin .wc-block-product {
+			animation: purplish-zoomin linear both;
+			animation-timeline: view();
+			animation-range: entry 0% entry 100%;
+		}
+
+		.purplish-cards-hover-zoomin .wc-block-product-template.is-horizontal .wc-block-product {
+			animation-timeline: view(inline);
+		}
+	}
+}
+
+@keyframes purplish-zoomin {
+
+	from {
+		opacity: 0;
+		scale: 0.82;
+	}
+}
+
+/*
+ * Gallery slide styles: WooCommerce shows one photo and hides the rest, so
+ * each style plays as the new photo comes in. The script sets
+ * --purplish-from to 1 when it comes after the old photo and -1 when it
+ * comes before, and adds purplish-sliding after the first change, so
+ * nothing plays on page load. The strip and the frame never move.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-gallery-slider-cube .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		transform-origin: calc(50% - var(--purplish-from, 1) * 50%) 50%;
+		animation: purplish-cube 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+
+	.purplish-gallery-slider-circle .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		transform-origin: 50% 300%;
+		animation: purplish-circle 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+
+	.purplish-gallery-slider-reel .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		animation: purplish-reel 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+
+	.purplish-gallery-slider-tunnel .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		animation: purplish-tunnel 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+}
+
+@keyframes purplish-cube {
+
+	from {
+		transform: perspective(1200px) rotateY(calc(var(--purplish-from, 1) * 70deg));
+	}
+}
+
+@keyframes purplish-circle {
+
+	from {
+		rotate: calc(var(--purplish-from, 1) * 25deg);
+	}
+}
+
+@keyframes purplish-reel {
+
+	from {
+		translate: calc(var(--purplish-from, 1) * 40%) 0;
+		scale: 0.82;
+		clip-path: inset(0 round 24px);
+	}
+
+	60% {
+		translate: 0 0;
+		scale: 0.82;
+		clip-path: inset(0 round 24px);
+	}
+
+	to {
+		clip-path: inset(0 round 0);
+	}
+}
+
+@keyframes purplish-tunnel {
+
+	from {
+		opacity: 0;
+		scale: 0.6;
+	}
+}
+
+/*
  * Accordion, soft: each item is a soft card, the plus turns into an x in a
  * round button that fills with the color when open, and the panel rises in.
  */

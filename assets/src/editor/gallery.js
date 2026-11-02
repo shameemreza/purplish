@@ -1,7 +1,7 @@
 /**
  * Purplish panel on the Product Gallery block.
  */
-import { PanelBody, ToggleControl } from '@wordpress/components';
+import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const OPTIONS = [
@@ -37,6 +37,14 @@ const OPTIONS = [
 	},
 ];
 
+const SLIDERS = [
+	{ value: '', label: __( 'Default', 'purplish' ) },
+	{ value: 'cube', label: __( '3D media gallery', 'purplish' ) },
+	{ value: 'circle', label: __( 'Circular slider', 'purplish' ) },
+	{ value: 'reel', label: __( 'Reel slider', 'purplish' ) },
+	{ value: 'tunnel', label: __( 'Image tunnel', 'purplish' ) },
+];
+
 /**
  * The panel.
  *
@@ -59,6 +67,20 @@ export default function GalleryPanel( { saved, setSaved } ) {
 					}
 				/>
 			) ) }
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Slide style', 'purplish' ) }
+				help={ __(
+					'How the photo moves when the gallery slides to the next one. Visitors who ask for reduced motion see the default slide.',
+					'purplish'
+				) }
+				value={ saved.slider || '' }
+				options={ SLIDERS }
+				onChange={ ( slider ) =>
+					setSaved( { ...saved, slider: slider || undefined } )
+				}
+			/>
 		</PanelBody>
 	);
 }

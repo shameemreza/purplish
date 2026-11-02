@@ -288,11 +288,10 @@ final class PageData {
 			$classes[] = 'purplish-part-' . sanitize_html_class( $part );
 		}
 		$classes[] = 'purplish-transition-' . sanitize_html_class( $data['options']['transition'] );
-		if ( ! empty( $data['options']['rise'] ) ) {
-			$classes[] = 'purplish-rise';
-		}
-		if ( ! empty( $data['options']['dots'] ) ) {
-			$classes[] = 'purplish-dots';
+		foreach ( Options::SWITCHES as $switch ) {
+			if ( ! empty( $data['options'][ $switch ] ) ) {
+				$classes[] = 'purplish-' . $switch;
+			}
 		}
 
 		return $classes;

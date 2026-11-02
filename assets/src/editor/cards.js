@@ -13,11 +13,35 @@ import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
 const HOVERS = [
-	{ value: '', label: __( 'None', 'purplish' ) },
-	{ value: 'magnetic', label: __( 'Magnetic panel', 'purplish' ) },
-	{ value: 'spotlight', label: __( 'Spotlight', 'purplish' ) },
-	{ value: 'reveal', label: __( 'Color reveal', 'purplish' ) },
-	{ value: 'deck', label: __( 'Deck (carousel)', 'purplish' ) },
+	{
+		label: __( 'On hover', 'purplish' ),
+		options: [
+			{ value: 'magnetic', label: __( 'Magnetic panel', 'purplish' ) },
+			{ value: 'spotlight', label: __( 'Spotlight', 'purplish' ) },
+			{ value: 'reveal', label: __( 'Color reveal', 'purplish' ) },
+			{ value: 'fan', label: __( 'Fan deck', 'purplish' ) },
+			{ value: 'expand', label: __( 'Expanded cards', 'purplish' ) },
+			{ value: 'folder', label: __( 'Card folder', 'purplish' ) },
+		],
+	},
+	{
+		label: __( 'In a carousel', 'purplish' ),
+		options: [
+			{ value: 'deck', label: __( 'Deck', 'purplish' ) },
+			{ value: 'arc', label: __( 'Arc', 'purplish' ) },
+			{ value: 'stage', label: __( 'Spotlight carousel', 'purplish' ) },
+			{ value: 'grow', label: __( 'Grow', 'purplish' ) },
+			{ value: 'tiltrow', label: __( 'Tilt', 'purplish' ) },
+		],
+	},
+	{
+		label: __( 'As cards scroll in', 'purplish' ),
+		options: [
+			{ value: 'clothesline', label: __( 'Clothes line', 'purplish' ) },
+			{ value: 'parallax', label: __( 'Parallax', 'purplish' ) },
+			{ value: 'zoomin', label: __( 'Zoom reveal', 'purplish' ) },
+		],
+	},
 ];
 
 /**
@@ -57,17 +81,31 @@ export default function CardsPanel( { saved, setSaved } ) {
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Hover effect', 'purplish' ) }
+				label={ __( 'Card effect', 'purplish' ) }
+				help={ __(
+					'Carousel effects need the Carousel layout and leave a grid as it is. Visitors who ask for reduced motion see no movement.',
+					'purplish'
+				) }
 				value={ saved.hover || '' }
-				options={ HOVERS }
 				onChange={ ( hover ) => save( { hover: hover || undefined } ) }
-			/>
+			>
+				<option value="">{ __( 'None', 'purplish' ) }</option>
+				{ HOVERS.map( ( group ) => (
+					<optgroup key={ group.label } label={ group.label }>
+						{ group.options.map( ( option ) => (
+							<option key={ option.value } value={ option.value }>
+								{ option.label }
+							</option>
+						) ) }
+					</optgroup>
+				) ) }
+			</SelectControl>
 			<BaseControl
 				__nextHasNoMarginBottom
 				id={ colorId }
 				label={ __( 'Effect color', 'purplish' ) }
 				help={ __(
-					'Used by the button fill, the magnetic panel and the color reveal. On a product page with a variation color, that color is used instead.',
+					'Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs and the card folder. On a product page with a variation color, that color is used instead.',
 					'purplish'
 				) }
 			>

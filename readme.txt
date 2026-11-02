@@ -52,9 +52,9 @@ On block themes, the settings sit in a Purplish panel on the Add to Cart + Optio
 
 Purplish adds options to more of WooCommerce's blocks, each in a Purplish panel in the Site Editor:
 
-* **Product Gallery:** hide the thumbnails for one big photo, rounded corners, round frosted arrows that show on hover, a 3D tilt that follows the mouse, and a full-screen view tinted to the page color with photos that snap into place.
-* **Product Collection:** add to cart as a small frosted button on the photo, a bag icon and light sweep on hover, a fill after adding to cart, and a hover effect: magnetic panel, spotlight, color reveal or deck.
-* **Add to Cart + Options:** the title and price rise in on each color change, and color dots on the option buttons.
+* **Product Gallery:** hide the thumbnails for one big photo, rounded corners, round frosted arrows that show on hover, a 3D tilt that follows the mouse, a full-screen view tinted to the page color with photos that snap into place, and a slide style for the next photo: 3D media gallery, circular slider, reel slider or image tunnel.
+* **Product Collection:** add to cart as a small frosted button on the photo, a bag icon and light sweep on hover, a fill after adding to cart, and a card effect. On hover: magnetic panel, spotlight, color reveal, fan deck, expanded cards or card folder. In a carousel: deck, arc, spotlight carousel, grow or tilt. As cards scroll in: clothes line, parallax or zoom reveal.
+* **Add to Cart + Options:** the title and price rise in, or the title comes into focus, on each color change. Color dots on the option buttons, a glow ring around the add to cart button, a halo after adding to cart, and a mesh background in place of the flat tint.
 * **Accordion:** a soft card style, with a round button that fills with the color when open.
 * **Group:** any section can take a soft version of the picked color.
 
@@ -158,5 +158,6 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 * New: Photo transition: Blur, Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
 * New: Purplish panel on the Add to Cart + Options block, and a settings section for classic themes.
 * New: Gallery options: hide thumbnails, rounded corners, frosted arrows, 3D tilt and a styled full-screen view.
-* New: Product card options: add to cart on the photo, button motion and four hover effects.
+* New: Product card options: add to cart on the photo, button motion and fourteen card effects.
 * New: Title and price rise, color dots on options, a soft accordion style and group tint.
+* New: Motion pack: gallery slide styles, title focus, glow ring, halo after adding to cart and a mesh background.

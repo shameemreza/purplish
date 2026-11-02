@@ -38,24 +38,47 @@ The page opens in the default variation's color, so there's no flash of the them
 - **Frosted arrows:** round arrows that show on hover.
 - **3D tilt:** the photo tilts toward the mouse.
 - **Styled full-screen view:** tinted to the page color, with photos that snap into place.
+- **Slide style:** how the next photo comes in. A 3D turn like a cube, a swing like a wheel, a film reel, or out of the distance like a tunnel.
 
 ### Product cards
 
-On shop and collection pages, add to cart becomes a small frosted button on the photo, with a bag icon and a sweep of light on hover. Pick one hover effect for the whole collection:
+On shop and collection pages, add to cart becomes a small frosted button on the photo, with a bag icon and a sweep of light on hover. Pick one card effect for the whole collection.
+
+On hover:
 
 - **Magnetic panel:** a soft panel in your effect color slides under the card.
 - **Spotlight:** the card under the mouse grows a little while the rest blur and fade back.
 - **Color reveal:** the photos sit in a color wash until the mouse brings one to full color.
-- **Deck:** in a carousel, the cards at the edges turn away and the one under the mouse faces you.
+- **Fan deck:** cards rest a little off straight; the one under the mouse straightens and its neighbors lean away.
+- **Expanded cards:** each photo shows as a narrow band and opens to full under the mouse.
+- **Card folder:** each card sits in a soft folder with a tab, and the photo lifts out on hover.
+
+In a carousel (a grid stays as it is):
+
+- **Deck:** the cards at the edges turn away and the one under the mouse faces you.
+- **Arc:** the cards sit on a curve, highest in the middle.
+- **Spotlight carousel:** the card in the middle is full size and the rest fade back.
+- **Grow:** cards grow as they reach the middle.
+- **Tilt:** cards lean as they travel across.
+
+As cards scroll in:
+
+- **Clothes line:** each card hangs from a peg on a line and swings as it comes in or when the mouse touches it.
+- **Parallax:** the photo moves slower than its card.
+- **Zoom reveal:** each card grows in as it appears.
 
 ### Details
 
 - **Title and price rise:** they rise in again each time the color changes.
+- **Title focus:** or the title comes into focus each time the color changes.
+- **Glow ring:** a soft ring of the page color around the add to cart button.
+- **Halo:** a ring leaves the button each time the product goes into the cart.
+- **Mesh background:** with the page tint on, soft blobs of the color over the tint, which move to a new place each time the color changes.
 - **Color dots:** each color option shows a dot in its own color. An option gets a dot only when every variation with it has the same color, like Orange or Blue. A size, or any option that comes in several colors, gets none. On the picked option, the dot turns the button's text color so it stays visible.
 - **Soft accordion:** accordion items become soft cards, and the open one fills with the page color.
 - **Section color:** any Group block can take a soft version of the page color.
 
-Every motion turns off for visitors who ask their device for reduced motion.
+Nothing moves on its own: every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Every motion turns off for visitors who ask their device for reduced motion.
 
 ## Set it up
 

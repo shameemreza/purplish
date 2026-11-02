@@ -19,6 +19,19 @@ const PARTS = [
 ];
 
 /**
+ * Which title effect is saved: rise, focus or none.
+ *
+ * @param {Object} options The saved options.
+ * @return {string} `rise`, `focus` or an empty string.
+ */
+function titleEffect( options ) {
+	if ( true === options.rise ) {
+		return 'rise';
+	}
+	return true === options.focus ? 'focus' : '';
+}
+
+/**
  * The panel.
  *
  * @param {Object}                  props          Panel props.
@@ -103,15 +116,60 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 				] }
 				onChange={ ( transition ) => save( { transition } ) }
 			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Title on a color change', 'purplish' ) }
+				value={ titleEffect( options ) }
+				options={ [
+					{ value: '', label: __( 'None', 'purplish' ) },
+					{
+						value: 'rise',
+						label: __( 'Title and price rise', 'purplish' ),
+					},
+					{
+						value: 'focus',
+						label: __( 'Title comes into focus', 'purplish' ),
+					},
+				] }
+				onChange={ ( effect ) =>
+					save( {
+						rise: 'rise' === effect,
+						focus: 'focus' === effect,
+					} )
+				}
+			/>
+			{ options.parts.includes( 'tint' ) && (
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Mesh background', 'purplish' ) }
+					help={ __(
+						'Soft blobs of the color over the tint, which move to a new place on each color change.',
+						'purplish'
+					) }
+					checked={ true === options.mesh }
+					onChange={ ( mesh ) => save( { mesh } ) }
+				/>
+			) }
 			<ToggleControl
 				__nextHasNoMarginBottom
-				label={ __( 'Title and price rise', 'purplish' ) }
+				label={ __( 'Glow ring on the button', 'purplish' ) }
 				help={ __(
-					'The product title and price rise in after the photo on each color change.',
+					'A soft ring of the color around the add to cart button.',
 					'purplish'
 				) }
-				checked={ true === options.rise }
-				onChange={ ( rise ) => save( { rise } ) }
+				checked={ true === options.glow }
+				onChange={ ( glow ) => save( { glow } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Halo after adding to cart', 'purplish' ) }
+				help={ __(
+					'A ring leaves the button and fades each time the product goes into the cart.',
+					'purplish'
+				) }
+				checked={ true === options.halo }
+				onChange={ ( halo ) => save( { halo } ) }
 			/>
 			<ToggleControl
 				__nextHasNoMarginBottom
