@@ -21,7 +21,7 @@ With Purplish, each variation has a Page color. Pick blue, and the page turns bl
 - **Swatches first:** in Automatic mode, a swatch color set on the color attribute comes before the photo.
 - **Simple products:** a simple product gets one color for its whole page.
 
-You choose which parts take the color: the add to cart button, the selected option, the sale badge, the sale price and a pale tint on the page background. The photo can change with a blur, a fade or no effect.
+You choose which parts take the color: the add to cart button, the selected option, the sale badge, the sale price and a pale tint on the page background. The photo can change with blur, fade, zoom, slide, flip, wipe, circle reveal, color wash or no effect.
 
 ### Colors that look designed
 

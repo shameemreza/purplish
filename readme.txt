@@ -44,7 +44,7 @@ Choose which parts of the product page take the color:
 * Sale price
 * Page background tint
 
-The button, option and badge are on by default. Pick the photo transition too: Blur, Fade or None.
+The button, option and badge are on by default. Pick the photo transition too: Blur, Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
 
 On block themes, the settings sit in a Purplish panel on the Add to Cart + Options block in the Site Editor, so each product template can have its own look. On classic themes, they're under WooCommerce > Settings > Products > Purplish.
 
@@ -155,7 +155,7 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 * New: Colors read from product images in the background, adjusted into a button color, a sale price color and a page tint.
 * New: The product page follows the color a shopper picks, on block and classic themes.
 * New: Choose which parts take the color: add to cart button, selected option, sale badge, sale price and page tint.
-* New: Photo transition: Blur, Fade or None.
+* New: Photo transition: Blur, Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
 * New: Purplish panel on the Add to Cart + Options block, and a settings section for classic themes.
 * New: Gallery options: hide thumbnails, rounded corners, frosted arrows, 3D tilt and a styled full-screen view.
 * New: Product card options: add to cart on the photo, button motion and four hover effects.

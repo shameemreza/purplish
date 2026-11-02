@@ -87,8 +87,9 @@ body.purplish-active.purplish-part-tint {
 
 /*
  * Photo transition. WooCommerce swaps the photo about 0.1 s after the
- * click, so each effect peaks at 18% to hide the swap. Two keyframe names
- * per effect, so it replays on every change.
+ * click, so each effect hides the photo at 18%. Two keyframe names per
+ * effect, so it replays on every change. The classes land on the frame
+ * around the photo, never on a classic slider's sliding strip.
  */
 body.purplish-transition-fade .purplish-swap-a {
 	animation: purplish-fade-a 0.6s ease-out;
@@ -133,6 +134,256 @@ body.purplish-transition-blur .purplish-swap-b {
 	18% {
 		filter: blur(18px) saturate(0.7);
 		opacity: 0.75;
+	}
+}
+
+/* Zoom: the photo shrinks away and grows back. */
+body.purplish-transition-zoom .purplish-swap-a {
+	animation: purplish-zoom-a 0.8s ease-out;
+}
+
+body.purplish-transition-zoom .purplish-swap-b {
+	animation: purplish-zoom-b 0.8s ease-out;
+}
+
+@keyframes purplish-zoom-a {
+
+	0%,
+	100% {
+		scale: 1;
+		opacity: 1;
+	}
+
+	18% {
+		scale: 0.85;
+		opacity: 0;
+	}
+}
+
+@keyframes purplish-zoom-b {
+
+	0%,
+	100% {
+		scale: 1;
+		opacity: 1;
+	}
+
+	18% {
+		scale: 0.85;
+		opacity: 0;
+	}
+}
+
+/*
+ * Slide: out to the left and in from the right, clipped to the frame
+ * so it never spills over the page.
+ */
+body.purplish-transition-slide .purplish-swap-a {
+	animation: purplish-slide-a 0.8s ease-out;
+}
+
+body.purplish-transition-slide .purplish-swap-b {
+	animation: purplish-slide-b 0.8s ease-out;
+}
+
+@keyframes purplish-slide-a {
+
+	0%,
+	100% {
+		translate: 0;
+		clip-path: inset(0);
+		opacity: 1;
+	}
+
+	18% {
+		translate: -10% 0;
+		clip-path: inset(0 0 0 10%);
+		opacity: 0;
+	}
+
+	18.1% {
+		translate: 10% 0;
+		clip-path: inset(0 10% 0 0);
+		opacity: 0;
+	}
+}
+
+@keyframes purplish-slide-b {
+
+	0%,
+	100% {
+		translate: 0;
+		clip-path: inset(0);
+		opacity: 1;
+	}
+
+	18% {
+		translate: -10% 0;
+		clip-path: inset(0 0 0 10%);
+		opacity: 0;
+	}
+
+	18.1% {
+		translate: 10% 0;
+		clip-path: inset(0 10% 0 0);
+		opacity: 0;
+	}
+}
+
+/* Flip: the photo turns edge-on and back, like a card. */
+body.purplish-transition-flip .purplish-swap-a {
+	animation: purplish-flip-a 0.8s ease-out;
+}
+
+body.purplish-transition-flip .purplish-swap-b {
+	animation: purplish-flip-b 0.8s ease-out;
+}
+
+@keyframes purplish-flip-a {
+
+	0%,
+	100% {
+		transform: perspective(1200px) rotateY(0deg);
+	}
+
+	18% {
+		transform: perspective(1200px) rotateY(90deg);
+	}
+
+	18.1% {
+		transform: perspective(1200px) rotateY(-90deg);
+	}
+}
+
+@keyframes purplish-flip-b {
+
+	0%,
+	100% {
+		transform: perspective(1200px) rotateY(0deg);
+	}
+
+	18% {
+		transform: perspective(1200px) rotateY(90deg);
+	}
+
+	18.1% {
+		transform: perspective(1200px) rotateY(-90deg);
+	}
+}
+
+/* Wipe: closes from the left edge, then opens from it again. */
+body.purplish-transition-wipe .purplish-swap-a {
+	animation: purplish-wipe-a 0.9s ease-out;
+}
+
+body.purplish-transition-wipe .purplish-swap-b {
+	animation: purplish-wipe-b 0.9s ease-out;
+}
+
+@keyframes purplish-wipe-a {
+
+	0%,
+	100% {
+		clip-path: inset(0);
+	}
+
+	18% {
+		clip-path: inset(0 0 0 100%);
+	}
+
+	18.1% {
+		clip-path: inset(0 100% 0 0);
+	}
+}
+
+@keyframes purplish-wipe-b {
+
+	0%,
+	100% {
+		clip-path: inset(0);
+	}
+
+	18% {
+		clip-path: inset(0 0 0 100%);
+	}
+
+	18.1% {
+		clip-path: inset(0 100% 0 0);
+	}
+}
+
+/* Circle reveal: closes to the center and opens back out. */
+body.purplish-transition-circle .purplish-swap-a {
+	animation: purplish-circle-a 0.9s ease-out;
+}
+
+body.purplish-transition-circle .purplish-swap-b {
+	animation: purplish-circle-b 0.9s ease-out;
+}
+
+@keyframes purplish-circle-a {
+
+	0%,
+	100% {
+		clip-path: circle(75% at 50% 50%);
+	}
+
+	18% {
+		clip-path: circle(0% at 50% 50%);
+	}
+}
+
+@keyframes purplish-circle-b {
+
+	0%,
+	100% {
+		clip-path: circle(75% at 50% 50%);
+	}
+
+	18% {
+		clip-path: circle(0% at 50% 50%);
+	}
+}
+
+/*
+ * Color wash: a layer in the new color washes over the photo and clears.
+ * The script sets --purplish-wash on the frame. A lone classic wrapper
+ * gets a position so the layer covers it; FlexSlider's viewport and the
+ * block's large image already have one.
+ */
+body.purplish-transition-wash .woocommerce-product-gallery > .woocommerce-product-gallery__wrapper:is(.purplish-swap-a, .purplish-swap-b) {
+	position: relative;
+}
+
+body.purplish.purplish-transition-wash :is(.purplish-swap-a, .purplish-swap-b)::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	background: var(--purplish-wash);
+	opacity: 0;
+	pointer-events: none;
+}
+
+body.purplish.purplish-transition-wash .purplish-swap-a::after {
+	animation: purplish-wash-a 0.9s ease-out;
+}
+
+body.purplish.purplish-transition-wash .purplish-swap-b::after {
+	animation: purplish-wash-b 0.9s ease-out;
+}
+
+@keyframes purplish-wash-a {
+
+	18% {
+		opacity: 0.85;
+	}
+}
+
+@keyframes purplish-wash-b {
+
+	18% {
+		opacity: 0.85;
 	}
 }
 
@@ -190,5 +441,9 @@ body.purplish-dots .purplish-has-dot::before {
 	.purplish-rise-a,
 	.purplish-rise-b {
 		animation: none;
+	}
+
+	body.purplish.purplish-transition-wash :is(.purplish-swap-a, .purplish-swap-b)::after {
+		display: none;
 	}
 }
