@@ -51,7 +51,7 @@ On shop and collection pages, add to cart becomes a small frosted button on the 
 ### Details
 
 - **Title and price rise:** they rise in again each time the color changes.
-- **Color dots:** each color option shows a dot in its own color.
+- **Color dots:** each color option shows a dot in its own color. An option gets a dot only when every variation with it has the same color, like Orange or Blue. A size, or any option that comes in several colors, gets none. On the picked option, the dot turns the button's text color so it stays visible.
 - **Soft accordion:** accordion items become soft cards, and the open one fills with the page color.
 - **Section color:** any Group block can take a soft version of the page color.
 
