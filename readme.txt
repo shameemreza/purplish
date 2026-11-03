@@ -12,9 +12,9 @@ Make the WooCommerce product page follow the variation color, with gallery, prod
 
 == Description ==
 
-Purplish adds design options to the WooCommerce product page. When a shopper picks a color, the add to cart button, the selected option and the sale badge take that color, and the photo changes with a soft transition. It also adds options to the product gallery, product cards, accordions and sections.
+Purplish adds design options to your WooCommerce store's blocks. On the product page, the add to cart button, the selected option and the sale badge take the color a shopper picks, and the photo changes with a soft transition. The product gallery, product cards on shop pages, accordions and sections get options too.
 
-Every option lives inside the blocks WooCommerce already gives you, so nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes. There's no paid version and no account to sign up for.
+Every option lives inside the blocks WordPress and WooCommerce already give you, so nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes. There's no paid version and no account to sign up for.
 
 = The product page follows the color =
 
