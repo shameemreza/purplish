@@ -21,7 +21,15 @@ With Purplish, each variation has a Page color. Pick blue, and the page turns bl
 - **Swatches first:** in Automatic mode, a swatch color set on the color attribute comes before the photo.
 - **Simple products:** a simple product gets one color for its whole page.
 
-You choose which parts take the color: the add to cart button, the selected option, the sale badge, the sale price and a pale tint on the page background. The photo can change with blur, fade, zoom, slide, flip, wipe, circle reveal, color wash or no effect.
+You choose which parts take the color:
+
+- **Add to cart button:** on by default.
+- **Selected option:** the option button the shopper picked, on by default. Block themes only, since classic themes show a dropdown.
+- **Sale badge:** on by default.
+- **Sale price:** in a darker shade of the color.
+- **Page background tint:** a pale wash of the color behind the page.
+
+The photo changes with a Photo transition: Blur (the default), Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
 
 ### Colors that look designed
 
@@ -35,16 +43,23 @@ The page opens in the default variation's color, so there's no flash of the them
 
 - **Hide thumbnails:** one big photo, with no thumbnail strip.
 - **Rounded corners:** on the main photo.
-- **Frosted arrows:** round arrows that show on hover.
-- **Hover style:** what the photo does under the mouse. A 3D tilt toward the mouse, a zoom where the mouse points, a lift with a soft shadow, a parallax drift, a light glare, a round loupe, or a slow push in.
-- **Full-screen style:** the view that opens when a shopper clicks the photo. A snap stack tinted to the page color, a classic fade, a zoom out of the photo's own place, a filmstrip of small photos along the bottom, or a dark cinema screen.
-- **Slide style:** how the next photo comes in. A 3D turn like a cube, a swing like a wheel, a film reel, or out of the distance like a tunnel.
+- **Frosted arrows on hover:** round frosted arrows that show when the mouse is over the photo.
+- **Hover style:** what the photo does under the mouse. 3D tilt leans it toward the mouse, Zoom magnifies the spot the mouse points at, Lift raises it on a soft shadow, Parallax lets it drift, Glare runs a light across it, Loupe shows a round magnifier, and Slow zoom pushes in. Any hover style replaces WooCommerce's own hover zoom.
+- **Full-screen style:** the view that opens when a shopper clicks the photo. Snap stack is tinted to the page color, Classic fade is a plain fade, Zoom from photo grows the photo out of its own place, Filmstrip adds a row of small photos along the bottom, and Cinema puts the photos on a dark screen. It needs the gallery's "Open pop-up when clicked" setting.
+- **Slide style:** how the next photo comes in. 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like a film reel, and Image tunnel comes out of the distance.
+
+Touch screens get no hover style. Visitors who ask their device for reduced motion see the plain photo and WooCommerce's own slide.
 
 ### Product cards
 
-On shop and collection pages, add to cart becomes a small frosted button on the photo, with a bag icon and a sweep of light on hover. Pick one card effect for the whole collection.
+On shop and collection pages, the Product Collection block gets these options:
 
-On hover:
+- **Button on the photo:** title and price sit on one line, and add to cart becomes a small frosted button on the photo. It shows on hover, and always on touch screens.
+- **Button motion:** a bag icon slides in and a light sweeps across on hover. After adding to cart, the button fills and pops.
+- **Card effect:** one effect for the whole collection, from the lists below.
+- **Effect color:** the color for the button fill, the magnetic panel, the color reveal, the clothes line pegs and the card folder. On a product page with a variation color, that color wins.
+
+Card effects on hover:
 
 - **Magnetic panel:** a soft panel in your effect color slides under the card.
 - **Spotlight:** the card under the mouse grows a little while the rest blur and fade back.
@@ -69,14 +84,18 @@ As cards scroll in:
 
 ### Details
 
-- **Title and price rise:** they rise in again each time the color changes.
-- **Title focus:** or the title comes into focus each time the color changes.
-- **Glow ring:** a soft ring of the page color around the add to cart button.
-- **Halo:** a ring leaves the button each time the product goes into the cart.
-- **Mesh background:** with the page tint on, soft blobs of the color over the tint, which move to a new place each time the color changes.
-- **Color dots:** each color option shows a dot in its own color. An option gets a dot only when every variation with it has the same color, like Orange or Blue. A size, or any option that comes in several colors, gets none. On the picked option, the dot turns the button's text color so it stays visible.
-- **Soft accordion:** accordion items become soft cards, and the open one fills with the page color.
-- **Section color:** any Group block can take a soft version of the page color.
+On the Add to Cart + Options block:
+
+- **Title on a color change:** with Title and price rise, both rise in after the new photo. With Title comes into focus, the title sharpens into view. Or pick None.
+- **Glow ring on the button:** a soft ring of the page color around the add to cart button.
+- **Halo after adding to cart:** a ring leaves the button and fades each time the product goes into the cart.
+- **Mesh background:** with the page background tint on, soft blobs of the color sit over the tint and move to a new place each time the color changes.
+- **Color dots on options:** each color option shows a dot in its own color. An option gets a dot only when every variation with it has the same color, like Orange or Blue. A size, or any option that comes in several colors, gets none. On the picked option, the dot turns the button's text color so it stays visible.
+
+On other blocks:
+
+- **Soft style (Accordion):** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
+- **Take the page color (Group):** on product pages, the section's background becomes a soft version of the color the shopper picks.
 
 Nothing moves on its own: every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Every motion turns off for visitors who ask their device for reduced motion.
 
@@ -88,13 +107,13 @@ Nothing moves on its own: every effect plays on a hover, a scroll, a color chang
    - **Block themes:** open the Single Product template in the Site Editor, select the Add to Cart + Options, Product Gallery, Product Collection, Accordion or Group block, and find the Purplish panel. Each template keeps its own settings, so one product can have its own look.
    - **Classic themes:** go to WooCommerce > Settings > Products > Purplish.
 
-Classic themes get the color parts, the photo transition, the title rise, and three gallery options: hide thumbnails, rounded corners and the hover style. Product cards, color dots, accordions and sections need a block theme.
+Classic themes get the color parts (all but the selected option), the photo transition, the title and price rise, and three gallery options: hide thumbnails, rounded corners and the hover style. The full-screen and slide styles, frosted arrows, product cards, the title focus, glow ring, halo, mesh background, color dots, accordions and sections need a block theme.
 
 Turn Purplish off, and the page goes back to exactly how WooCommerce draws it.
 
 ## Performance and privacy
 
-- **Loads only where it's used:** the effect styles load only on pages that use them, and a simple product page needs no script at all.
+- **Loads only where it's used:** the color script loads only on variable products, and the effects load only on pages that use them. A simple product page with no effects needs no script at all.
 - **Photos stay on your server:** Purplish reads them with the image tools PHP already has. It makes no outside requests and adds no tracking.
 - **No admin noise:** no banners, notices or upsells.
 - **Compatible with WooCommerce features:** High-Performance Order Storage (HPOS) and the cart and checkout blocks.
