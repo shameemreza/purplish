@@ -82,7 +82,7 @@ As cards scroll in:
 - **Parallax:** the photo moves slower than its card.
 - **Zoom reveal:** each card grows in as it appears.
 
-### Details
+### Add to cart and page details
 
 On the Add to Cart + Options block:
 

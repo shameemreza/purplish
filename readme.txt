@@ -1,6 +1,6 @@
 === Purplish - Product Page Design for WooCommerce ===
 Contributors: shameemreza
-Tags: woocommerce, product page, variations, color, product design
+Tags: woocommerce, product page, product gallery, variations, color
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,11 +8,11 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Design options for the WooCommerce product page. The add to cart button, selected option and sale badge take the color a shopper picks.
+Make the WooCommerce product page follow the variation color, with gallery, product card and add to cart effects. Block and classic themes.
 
 == Description ==
 
-Purplish is a free WooCommerce plugin that adds design options to the product page. When a shopper picks a color, the add to cart button, the selected option and the sale badge take that color, and the photo changes with a soft transition. It also adds options to the product gallery, product cards, accordions and sections.
+Purplish adds design options to the WooCommerce product page. When a shopper picks a color, the add to cart button, the selected option and the sale badge take that color, and the photo changes with a soft transition. It also adds options to the product gallery, product cards, accordions and sections.
 
 Every option lives inside the blocks WooCommerce already gives you, so nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes. There's no paid version and no account to sign up for.
 
@@ -89,7 +89,7 @@ As cards scroll in:
 * **Parallax:** the photo moves slower than its card.
 * **Zoom reveal:** each card grows in as it appears.
 
-= Details =
+= Add to cart and page details =
 
 On the Add to Cart + Options block:
 
@@ -144,11 +144,19 @@ Yes. It works with block themes through WooCommerce's product blocks, and with c
 
 = Does it work with simple products? =
 
-Yes. A simple product gets one Page color for its whole page, read from its photo or set by hand. Product Bundles support is planned.
+Yes. A simple product gets one Page color for its whole page, read from its photo or set by hand.
 
-= Do I need WooCommerce's color swatches? =
+= Do I need color swatches? =
 
-No. Purplish works with the plain dropdowns and option buttons too. If you turn on WooCommerce's swatches for attributes, Purplish uses those swatch colors.
+No. Purplish works with WooCommerce's plain dropdowns and option buttons. If you turn on WooCommerce's color swatches for attributes, Purplish uses those colors first. To show a dot of each color on the option buttons, turn on Color dots on options.
+
+= How do I add a hover effect to the WooCommerce product gallery? =
+
+On a block theme, open the Single Product template in the Site Editor, select the Product Gallery block, and pick a Hover style in the Purplish panel. The same panel has the full-screen and slide styles. On a classic theme, pick the Gallery hover style under WooCommerce > Settings > Products > Purplish.
+
+= Can I change how product cards look on the shop page? =
+
+Yes, on block themes. Select the Product Collection block on your shop or collection template and open the Purplish panel. You can put add to cart on the photo, add button motion, and pick one of fourteen card effects.
 
 = A color Purplish found looks wrong. What do I do? =
 
@@ -161,6 +169,10 @@ An option gets a dot only when every variation with it has the same color, like 
 = Can I turn it off for one variation or product? =
 
 Yes. Set its Page color to Off. It keeps your theme's colors.
+
+= What about visitors who turn off motion? =
+
+Every effect turns off for visitors who ask their device for reduced motion. They still get the colors, without the animation. Nothing moves on its own either: each effect plays on a hover, a scroll, a color change or an add to cart, then stops.
 
 = Will Purplish slow down my store? =
 
