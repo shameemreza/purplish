@@ -1,5 +1,7 @@
 # Purplish: product page design for WooCommerce
 
+![Purplish: the product page takes the color a shopper picks](.github/assets/banner.gif)
+
 Purplish is a free plugin that adds design options to your WooCommerce store's blocks. On the product page, the add to cart button, the selected option and the sale badge take the color a shopper picks, and the photo changes with a soft transition. The product gallery, product cards on shop pages, accordions and sections get options too.
 
 [![CI](https://github.com/shameemreza/purplish/actions/workflows/ci.yml/badge.svg)](https://github.com/shameemreza/purplish/actions/workflows/ci.yml)
@@ -31,6 +33,8 @@ You choose which parts take the color:
 
 The photo changes with a Photo transition: Blur (the default), Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
 
+![Picking blue turns the button, the selected option and the background blue](.github/assets/color-change.gif)
+
 ### Colors that look designed
 
 Purplish looks for the product in the photo, not the wall behind it, and it handles a green sweater shot against a green backdrop.
@@ -49,6 +53,10 @@ The page opens in the default variation's color, so there's no flash of the them
 - **Slide style:** how the next photo comes in. 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like a film reel, and Image tunnel comes out of the distance.
 
 Touch screens get no hover style. Visitors who ask their device for reduced motion see the plain photo and WooCommerce's own slide.
+
+![Each hover style in turn: 3D tilt, Zoom, Lift, Parallax, Glare, Loupe and Slow zoom](.github/assets/gallery-hover.gif)
+
+![Each full-screen style in turn: Snap stack, Classic fade, Zoom from photo, Filmstrip and Cinema](.github/assets/gallery-fullscreen.gif)
 
 ### Product cards
 
