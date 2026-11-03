@@ -187,7 +187,7 @@ function playTransition( event ) {
 }
 
 const RISERS =
-	'main .wp-block-post-title, main .wp-block-woocommerce-product-price, .summary .product_title, .summary > .price';
+	'main .wp-block-post-title:not(.wc-block-product *), main .wp-block-woocommerce-product-price:not(.wc-block-product *), .summary .product_title, .summary > .price';
 const TITLES =
 	'main .wp-block-post-title:not(.wc-block-product *), .summary .product_title';
 let turn = false;
