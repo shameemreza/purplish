@@ -19,7 +19,8 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Area | Block | What you can design |
 |---|---|---|
 | Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background and color dots. |
-| Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden thumbnails, rounded corners and frosted arrows. |
+| Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
+| Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 14 card effects, add to cart on the photo and button motion. |
 | Page sections | Accordion, Group | A soft accordion style, and sections that take the page color. |
 
@@ -48,6 +49,11 @@ On the same block:
 - **Mesh background:** soft blobs of the color over the background tint, which move each time the color changes.
 - **Color dots:** each color option shows a dot in its own color. Sizes, and options that come in several colors, get no dot.
 
+On other blocks:
+
+- **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out. To hide them, use WooCommerce's own Invalid options setting.
+- **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
+
 ## Product gallery
 
 | Option | Choices |
@@ -56,6 +62,7 @@ On the same block:
 | Full-screen style | Snap stack is tinted to the page color, Zoom from photo grows out of the photo, Filmstrip adds small photos along the bottom, Cinema uses a dark screen, Classic fade keeps it plain. |
 | Slide style | 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, Image tunnel comes out of the distance. |
 | Layout | Hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover. |
+| Thumbnail shape | On the Thumbnails block inside the gallery: rounded or circle. |
 
 Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it. The full-screen style needs the gallery's "Open pop-up when clicked" setting.
 
@@ -100,6 +107,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Product cards and card effects | Yes | No |
 | Title focus, glow ring, halo, mesh background, color dots | Yes | No |
 | Accordion and Group styles | Yes | No |
+| Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |
 
 ## Get started
 
