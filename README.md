@@ -1,12 +1,10 @@
 # Purplish: block design toolkit for WooCommerce
 
-Design your whole store with blocks.
-
 ![Purplish: the product page takes the color a shopper picks](.github/assets/banner.gif)
 
-Every WooCommerce store starts the same. Yours won't.
+Purplish is a WordPress plugin that puts a Purplish panel on WooCommerce's own blocks: Product Gallery, Add to Cart + Options, Product Collection, Accordion and Group. What you pick there is saved on the block in the template, so every template keeps its own look, and WooCommerce's markup stays in place. Deactivate the plugin and the store renders exactly as WooCommerce draws it. Classic themes get a smaller set of options on a settings screen. It's built and tested with the free [Purple](https://wordpress.org/themes/purple/) block theme.
 
-Purplish is a block design toolkit for WooCommerce. It adds design options to the blocks your store already uses, right in the block sidebar, so you design the store in the editor and not on a settings page. Nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes, and it's made with the free [Purple](https://wordpress.org/themes/purple/) block theme in mind. It's free and open source, with no account to sign up for.
+Install it from [WordPress.org](https://wordpress.org/plugins/purplish/). The project site is [purplish.io](https://purplish.io/). Free and open source under GPLv2 or later.
 
 [![CI](https://github.com/shameemreza/purplish/actions/workflows/ci.yml/badge.svg)](https://github.com/shameemreza/purplish/actions/workflows/ci.yml)
 [![License: GPLv2 or later](https://img.shields.io/badge/license-GPLv2%20or%20later-blue)](https://www.gnu.org/licenses/gpl-2.0.html)
