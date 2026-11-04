@@ -51,6 +51,7 @@ Select the Product Gallery block and choose how the photos behave:
 * **Full-screen style:** the view that opens when a shopper clicks the photo. Snap stack is tinted to the page color, Zoom from photo grows out of the photo, Filmstrip adds small photos along the bottom, Cinema uses a dark screen, and Classic fade keeps it plain. It needs the gallery's "Open pop-up when clicked" setting.
 * **Slide style:** how the next photo comes in. 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, and Image tunnel comes out of the distance.
 * **Layout:** hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover.
+* **Thumbnail shape:** select the Thumbnails block inside the gallery for rounded or circle thumbnails.
 
 = Product cards =
 
@@ -98,6 +99,8 @@ On other blocks:
 
 * **Accordion, Soft style:** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
 * **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
+* **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out. To hide them, use WooCommerce's own Invalid options setting.
+* **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 

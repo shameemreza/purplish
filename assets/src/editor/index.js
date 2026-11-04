@@ -11,6 +11,9 @@ import GalleryPanel from './gallery';
 import CardsPanel from './cards';
 import AccordionPanel from './accordion';
 import GroupPanel from './group';
+import ChipsPanel from './chips';
+import BadgePanel from './badge';
+import ThumbsPanel from './thumbs';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
@@ -18,6 +21,10 @@ const PANELS = {
 	'woocommerce/product-collection': CardsPanel,
 	'core/accordion': AccordionPanel,
 	'core/group': GroupPanel,
+	'woocommerce/add-to-cart-with-options-variation-selector-attribute':
+		ChipsPanel,
+	'woocommerce/product-sale-badge': BadgePanel,
+	'woocommerce/product-gallery-thumbnails': ThumbsPanel,
 };
 
 addFilter(
