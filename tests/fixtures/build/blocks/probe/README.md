@@ -1,0 +1,1 @@
+Test block folder with no block.json, so the Registry tests prove the metadata comes from `../../blocks-manifest.php`. The manifest is in the format `wp-scripts build --blocks-manifest` writes (checked with `@wordpress/scripts` 36.0.0): one entry per block, keyed by the block's folder name.

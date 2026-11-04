@@ -83,9 +83,19 @@ final class Plugin {
 		( new Frontend\BlockOptions() )->register();
 		( new Frontend\BlockEffects() )->register();
 		( new Admin\Settings() )->register();
+		( new Blocks\Registry() )->register();
+		( new Patterns() )->register();
 
 		if ( is_admin() ) {
 			( new Admin\VariationField() )->register();
 		}
+
+		/**
+		 * Fires once Purplish has added its hooks, so add-on code can hook
+		 * in after it. Only runs when WooCommerce is active.
+		 *
+		 * @since 1.1.0
+		 */
+		do_action( 'purplish_loaded' );
 	}
 }

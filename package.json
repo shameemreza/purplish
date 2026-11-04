@@ -5,8 +5,8 @@
 	"description": "A block design toolkit for your WooCommerce store. Style the product page, gallery and product cards in the block sidebar. Works with block and classic themes.",
 	"license": "GPL-2.0-or-later",
 	"scripts": {
-		"build": "wp-scripts build admin=./assets/src/admin/index.js editor=./assets/src/editor/index.js frontend=./assets/src/frontend/index.js effects=./assets/src/effects/index.js --output-path=build",
-		"start": "wp-scripts start admin=./assets/src/admin/index.js editor=./assets/src/editor/index.js frontend=./assets/src/frontend/index.js effects=./assets/src/effects/index.js --output-path=build",
+		"build": "wp-scripts build --source-path=assets/src --output-path=build --blocks-manifest",
+		"start": "wp-scripts start --source-path=assets/src --output-path=build --blocks-manifest",
 		"lint:js": "wp-scripts lint-js",
 		"lint:css": "wp-scripts lint-style 'assets/src/**/*.css' --allow-empty-input",
 		"test:js": "wp-scripts test-unit-jest"

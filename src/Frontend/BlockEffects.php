@@ -199,7 +199,18 @@ final class BlockEffects {
 			return $block_content;
 		}
 
-		$classes = self::classes_for( $name, $block['attrs']['purplish'] );
+		/**
+		 * Filters the classes Purplish adds to a block's wrapper for its
+		 * saved options.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string[] $classes Class names.
+		 * @param string   $name    Block name, such as `woocommerce/product-collection`.
+		 * @param array    $saved   The block's saved Purplish options.
+		 */
+		$classes = apply_filters( 'purplish_block_classes', self::classes_for( $name, $block['attrs']['purplish'] ), $name, $block['attrs']['purplish'] );
+		$classes = is_array( $classes ) ? array_filter( array_map( 'sanitize_html_class', array_filter( $classes, 'is_string' ) ) ) : array();
 		if ( empty( $classes ) ) {
 			return $block_content;
 		}
