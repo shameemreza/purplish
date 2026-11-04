@@ -12,7 +12,7 @@ A block design toolkit for your WooCommerce store. Style the product page, galle
 
 == Description ==
 
-Purplish is a block design toolkit for WooCommerce. It adds design options to the blocks your store already uses, right in the block sidebar, so you design the store in the editor and not on a settings page. Nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes, and it's made with the free [Purple](https://wordpress.org/themes/purple/) block theme in mind. It's free and open source, with no account to sign up for.
+Purplish is a block design toolkit for WooCommerce. It adds design options to the blocks your store already uses, right in the block sidebar, so you design the store in the editor and not on a settings page. Nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes, and it's made with the free [Purple](https://wordpress.org/themes/purple/) block theme in mind. It's free and open source, with no account to sign up for. See it on a live store at [purplish.io](https://purplish.io/).
 
 = What's in it today =
 
@@ -127,6 +127,10 @@ Turn Purplish off, and the page goes back to exactly how WooCommerce draws it.
 * **Photos stay on your server:** Purplish reads them with the image tools PHP already has. It makes no outside requests and adds no tracking.
 * **No admin noise:** no banners, notices or upsells.
 * **Compatible with WooCommerce features:** High-Performance Order Storage (HPOS) and the cart and checkout blocks.
+
+= Demo and docs =
+
+Try the effects on the [demo store](https://purplish.io/shop/), and read how each option works in the [docs](https://purplish.io/docs/).
 
 = Source code =
 
