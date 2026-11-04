@@ -1306,6 +1306,123 @@ body.purplish-active .purplish-group-tint {
 	transition: background-color 0.5s ease;
 }
 
+/*
+ * Grayed-out chips. WooCommerce already fades invalid chips and strikes
+ * through their names; these swap the line through the name for another
+ * look. The cross covers the whole chip, so swatches without a visible
+ * name show it too.
+ */
+:is(.purplish-chips-soldout-cross, .purplish-chips-soldout-blur) .wc-block-product-filter-chips__item:disabled .wc-block-product-filter-chips__label {
+	text-decoration: none;
+}
+
+.purplish-chips-soldout-cross .wc-block-product-filter-chips__item:disabled {
+	position: relative;
+	overflow: hidden;
+}
+
+.purplish-chips-soldout-cross .wc-block-product-filter-chips__item:disabled::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top right, transparent calc(50% - 1px), currentcolor calc(50% - 1px), currentcolor calc(50% + 1px), transparent calc(50% + 1px));
+	pointer-events: none;
+}
+
+.purplish-chips-soldout-blur .wc-block-product-filter-chips__item:disabled .wc-block-product-filter-chips__label {
+	filter: blur(1.5px);
+}
+
+/*
+ * Sale badge shapes. A border radius set in Styles prints inline, so it
+ * still wins over the pill and circle.
+ */
+.purplish-badge-shape-pill .wc-block-components-product-sale-badge {
+	border-radius: 999px;
+}
+
+.purplish-badge-shape-circle .wc-block-components-product-sale-badge {
+	display: inline-grid;
+	place-items: center;
+	min-width: 4.25em;
+	aspect-ratio: 1;
+	padding: 0.5em;
+	border-radius: 50%;
+}
+
+/*
+ * Price tag: a point on the leading side, drawn by a turned square that
+ * takes the badge's own background and border, so the outline stays whole.
+ */
+.purplish-badge-shape-tag .wc-block-components-product-sale-badge {
+	position: relative;
+	margin-inline-start: 0.6em;
+	border-start-start-radius: 0;
+	border-end-start-radius: 0;
+}
+
+.purplish-badge-shape-tag .wc-block-components-product-sale-badge::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	inset-inline-start: 0;
+	height: 70.71%;
+	aspect-ratio: 1;
+	box-sizing: border-box;
+	background: inherit;
+	border: inherit;
+	border-block-start-color: transparent;
+	border-inline-end-color: transparent;
+	border-radius: 0;
+	translate: -50% -50%;
+	rotate: 45deg;
+	pointer-events: none;
+}
+
+/* Logical sides and a mirrored turn keep the same two edges outlined in RTL. */
+.purplish-badge-shape-tag .wc-block-components-product-sale-badge:dir(rtl)::before {
+	translate: 50% -50%;
+	rotate: -45deg;
+}
+
+/*
+ * Badge corner, on the gallery's large photo, where WooCommerce's own
+ * gallery template puts the badge. Elsewhere the badge stays where it is.
+ */
+.wc-block-product-gallery-large-image [class*="purplish-badge-corner-"] {
+	position: absolute;
+	margin: 0;
+}
+
+.wc-block-product-gallery-large-image .purplish-badge-corner-top-left {
+	top: 12px;
+	left: 12px;
+}
+
+.wc-block-product-gallery-large-image .purplish-badge-corner-top-right {
+	top: 12px;
+	right: 12px;
+}
+
+.wc-block-product-gallery-large-image .purplish-badge-corner-bottom-left {
+	bottom: 12px;
+	left: 12px;
+}
+
+.wc-block-product-gallery-large-image .purplish-badge-corner-bottom-right {
+	right: 12px;
+	bottom: 12px;
+}
+
+/* Gallery thumbnail shapes. */
+.purplish-thumbs-shape-rounded .wc-block-product-gallery-thumbnails__thumbnail__image {
+	border-radius: 12px;
+}
+
+.purplish-thumbs-shape-circle .wc-block-product-gallery-thumbnails__thumbnail__image {
+	border-radius: 50%;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
 	[class*="purplish-gallery-"] *,

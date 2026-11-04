@@ -30,11 +30,14 @@ final class BlockEffects {
 	 *
 	 * `legacy` maps an old switch to the option and value it became.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>}>
+	 * `rows` marks a block that prints one wrapper per row, so every row
+	 * gets the classes.
+	 *
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool}>
 	 */
 	public static function blocks() {
 		return array(
-			'woocommerce/product-gallery'    => array(
+			'woocommerce/product-gallery'            => array(
 				'prefix'  => 'gallery',
 				'options' => array(
 					'nothumbs'   => true,
@@ -50,7 +53,7 @@ final class BlockEffects {
 					'lightbox' => array( 'fullscreen', 'snap' ),
 				),
 			),
-			'woocommerce/product-collection' => array(
+			'woocommerce/product-collection'         => array(
 				'prefix'  => 'cards',
 				'options' => array(
 					'overlay' => true,
@@ -73,16 +76,37 @@ final class BlockEffects {
 					),
 				),
 			),
-			'core/accordion'                 => array(
+			'core/accordion'                         => array(
 				'prefix'  => 'accordion',
 				'options' => array(
 					'soft' => true,
 				),
 			),
-			'core/group'                     => array(
+			'core/group'                             => array(
 				'prefix'  => 'group',
 				'options' => array(
 					'tint' => true,
+				),
+			),
+			// WooCommerce grays out and hides invalid chips itself.
+			'woocommerce/add-to-cart-with-options-variation-selector-attribute' => array(
+				'prefix'  => 'chips',
+				'options' => array(
+					'soldout' => array( 'cross', 'blur' ),
+				),
+				'rows'    => true,
+			),
+			'woocommerce/product-sale-badge'         => array(
+				'prefix'  => 'badge',
+				'options' => array(
+					'shape'  => array( 'pill', 'circle', 'tag' ),
+					'corner' => array( 'top-left', 'top-right', 'bottom-left', 'bottom-right' ),
+				),
+			),
+			'woocommerce/product-gallery-thumbnails' => array(
+				'prefix'  => 'thumbs',
+				'options' => array(
+					'shape' => array( 'rounded', 'circle' ),
 				),
 			),
 		);
@@ -215,21 +239,25 @@ final class BlockEffects {
 			return $block_content;
 		}
 
-		$tags = new \WP_HTML_Tag_Processor( $block_content );
-		if ( ! $tags->next_tag() ) {
+		$rows  = ! empty( self::blocks()[ $name ]['rows'] );
+		$query = $rows ? array( 'class_name' => 'wp-block-' . str_replace( '/', '-', $name ) ) : null;
+		$tags  = new \WP_HTML_Tag_Processor( $block_content );
+		if ( ! $tags->next_tag( $query ) ) {
 			return $block_content;
-		}
-		foreach ( $classes as $class ) {
-			$tags->add_class( $class );
 		}
 
 		// The collection's effect color, and readable text on it.
 		$color = isset( $block['attrs']['purplish']['color'] ) ? sanitize_hex_color( (string) $block['attrs']['purplish']['color'] ) : '';
-		if ( $color ) {
-			$style = trim( (string) $tags->get_attribute( 'style' ) );
-			$style = ( '' === $style ? '' : rtrim( $style, ';' ) . ';' ) . '--purplish-effect:' . $color . ';--purplish-effect-on:' . \Purplish\Color\Contrast::on( $color ) . ';';
-			$tags->set_attribute( 'style', $style );
-		}
+		do {
+			foreach ( $classes as $class ) {
+				$tags->add_class( $class );
+			}
+			if ( $color ) {
+				$style = trim( (string) $tags->get_attribute( 'style' ) );
+				$style = ( '' === $style ? '' : rtrim( $style, ';' ) . ';' ) . '--purplish-effect:' . $color . ';--purplish-effect-on:' . \Purplish\Color\Contrast::on( $color ) . ';';
+				$tags->set_attribute( 'style', $style );
+			}
+		} while ( $rows && $tags->next_tag( $query ) );
 
 		self::enqueue();
 		return $tags->get_updated_html();
