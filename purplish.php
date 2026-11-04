@@ -5,7 +5,7 @@
  * Description:          Design options for the WooCommerce product page, added to WooCommerce's own blocks. Works with block and classic themes.
  * Version:              1.0.0
  * Author:               Shameem Reza
- * Author URI:           https://shameem.dev/
+ * Author URI:           https://shameemreza.com/
  * License:              GPL v2 or later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:          purplish
