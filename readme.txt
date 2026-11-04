@@ -1,6 +1,6 @@
-=== Purplish - Product Page Design for WooCommerce ===
+=== Purplish - Block Design Toolkit for WooCommerce ===
 Contributors: shameemreza
-Tags: woocommerce, product page, product gallery, variations, color
+Tags: woocommerce, woocommerce blocks, blocks, design, product gallery
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,13 +8,20 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Make the WooCommerce product page follow the variation color, with gallery, product card and add to cart effects. Block and classic themes.
+A block design toolkit for your WooCommerce store. Style the product page, gallery and product cards in the block sidebar. Block and classic themes.
 
 == Description ==
 
-Purplish adds design options to your WooCommerce store's blocks. On the product page, the add to cart button, the selected option and the sale badge take the color a shopper picks, and the photo changes with a soft transition. The product gallery, product cards on shop pages, accordions and sections get options too.
+Purplish is a block design toolkit for WooCommerce. It adds design options to the blocks your store already uses, right in the block sidebar, so you design the store in the editor and not on a settings page. Nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes, and it's made with the free [Purple](https://wordpress.org/themes/purple/) block theme in mind. It's free and open source, with no account to sign up for.
 
-Every option lives inside the blocks WordPress and WooCommerce already give you, so nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes. There's no paid version and no account to sign up for.
+= What's in it today =
+
+* **Product page color:** the add to cart button, the selected option, the sale badge and the sale price take the color of the variation a shopper picks, and the photo changes with a soft transition.
+* **Product gallery:** hide thumbnails, rounded corners, frosted arrows, seven hover styles, five full-screen styles and four slide styles.
+* **Product cards:** add to cart on the photo, button motion and fourteen card effects on the Product Collection block.
+* **Motion pack:** title and price rise, a glow ring, a halo after adding to cart and a mesh background on the Add to Cart + Options block.
+* **Color dots:** a dot in each option's own color on the option buttons.
+* **Accordions and sections:** a soft style for the Accordion block, and Group blocks that take the page color.
 
 = The product page follows the color =
 
@@ -184,7 +191,7 @@ No. Purplish reads the photos on your own server, with the image tools PHP alrea
 
 = Does it change WooCommerce's blocks or templates? =
 
-No. Purplish adds a Purplish panel to WooCommerce's own blocks and styles the parts you choose. Deactivate it, and your product page looks exactly as it did before.
+No. Purplish adds a Purplish panel to WooCommerce's own blocks and styles the parts you choose. Deactivate it, and your store looks exactly as it did before.
 
 = Where do I report a security issue? =
 

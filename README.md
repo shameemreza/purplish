@@ -1,15 +1,24 @@
-# Purplish: product page design for WooCommerce
+# Purplish: block design toolkit for WooCommerce
+
+Design your whole store with blocks.
 
 ![Purplish: the product page takes the color a shopper picks](.github/assets/banner.gif)
 
-Purplish is a free plugin that adds design options to your WooCommerce store's blocks. On the product page, the add to cart button, the selected option and the sale badge take the color a shopper picks, and the photo changes with a soft transition. The product gallery, product cards on shop pages, accordions and sections get options too.
+Every WooCommerce store starts the same. Yours won't.
+
+Purplish is a block design toolkit for WooCommerce. It adds design options to the blocks your store already uses, right in the block sidebar, so you design the store in the editor and not on a settings page. Nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes, and it's made with the free [Purple](https://wordpress.org/themes/purple/) block theme in mind. It's free and open source, with no account to sign up for.
 
 [![CI](https://github.com/shameemreza/purplish/actions/workflows/ci.yml/badge.svg)](https://github.com/shameemreza/purplish/actions/workflows/ci.yml)
 [![License: GPLv2 or later](https://img.shields.io/badge/license-GPLv2%20or%20later-blue)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-Every option lives inside the blocks WordPress and WooCommerce already give you, so nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes. There's no paid version and no account to sign up for.
+## What's in it today
 
-## Features
+- **Product page color:** the add to cart button, the selected option, the sale badge and the sale price take the color of the variation a shopper picks, and the photo changes with a soft transition.
+- **Product gallery:** hide thumbnails, rounded corners, frosted arrows, seven hover styles, five full-screen styles and four slide styles.
+- **Product cards:** add to cart on the photo, button motion and fourteen card effects on the Product Collection block.
+- **Motion pack:** title and price rise, a glow ring, a halo after adding to cart and a mesh background on the Add to Cart + Options block.
+- **Color dots:** a dot in each option's own color on the option buttons.
+- **Accordions and sections:** a soft style for the Accordion block, and Group blocks that take the page color.
 
 ### The product page follows the color
 
@@ -144,4 +153,4 @@ Bug reports and fixes are welcome. [CONTRIBUTING.md](CONTRIBUTING.md) covers the
 
 ## License
 
-GPLv2 or later.
+Free and open source, under GPLv2 or later.
