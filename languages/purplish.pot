@@ -2,21 +2,21 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Purplish - Product Page Design for WooCommerce 1.0.0\n"
+"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/purplish\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-04T08:09:37+00:00\n"
+"POT-Creation-Date: 2026-11-04T08:37:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
 
 #. Plugin Name of the plugin
 #: purplish.php
-msgid "Purplish - Product Page Design for WooCommerce"
+msgid "Purplish - Block Design Toolkit for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: purplish.php
-msgid "Design options for the WooCommerce product page, added to WooCommerce's own blocks. Works with block and classic themes."
+msgid "A block design toolkit for your WooCommerce store. Style the product page, gallery and product cards in the block sidebar. Works with block and classic themes."
 msgstr ""
 
 #. Author of the plugin

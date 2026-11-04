@@ -2,7 +2,7 @@
 	"name": "purplish",
 	"version": "1.0.0",
 	"private": true,
-	"description": "Design options for the WooCommerce product page, added to WooCommerce's own blocks. Works with block and classic themes.",
+	"description": "A block design toolkit for your WooCommerce store. Style the product page, gallery and product cards in the block sidebar. Works with block and classic themes.",
 	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"build": "wp-scripts build admin=./assets/src/admin/index.js editor=./assets/src/editor/index.js frontend=./assets/src/frontend/index.js effects=./assets/src/effects/index.js --output-path=build",
