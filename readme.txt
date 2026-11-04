@@ -8,129 +8,110 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A block design toolkit for your WooCommerce store. Style the product page, gallery and product cards in the block sidebar. Block and classic themes.
+Give your WooCommerce store a look of its own. Design options for WooCommerce blocks and patterns, right in the block sidebar.
 
 == Description ==
 
-Purplish is a block design toolkit for WooCommerce. It adds design options to the blocks your store already uses, right in the block sidebar, so you design the store in the editor and not on a settings page. Nothing gets replaced and nothing needs rebuilding. It works with block themes and classic themes, and it's made with the free [Purple](https://wordpress.org/themes/purple/) block theme in mind. It's free and open source, with no account to sign up for. See it on a live store at [purplish.io](https://purplish.io/).
+Open a few WooCommerce stores on block themes and you'll see the same add to cart button, the same gallery and the same product cards, whatever they sell. The blocks are good. They all start out looking alike, though.
 
-= What's in it today =
+Purplish is a block design toolkit for WooCommerce. It gives those blocks, and the patterns you build from them, the design options they don't have on their own. Select a block in the Site Editor, open the Purplish panel, and decide how it looks and moves. You need no page builder and no custom CSS, and nothing of WooCommerce's gets replaced.
 
-* **Product page color:** the add to cart button, the selected option, the sale badge and the sale price take the color of the variation a shopper picks, and the photo changes with a soft transition.
-* **Product gallery:** hide thumbnails, rounded corners, frosted arrows, seven hover styles, five full-screen styles and four slide styles.
-* **Product cards:** add to cart on the photo, button motion and fourteen card effects on the Product Collection block.
-* **Motion pack:** title and price rise, a glow ring, a halo after adding to cart and a mesh background on the Add to Cart + Options block.
-* **Color dots:** a dot in each option's own color on the option buttons.
-* **Accordions and sections:** a soft style for the Accordion block, and Group blocks that take the page color.
+Think of a product page that takes the color of the variation a shopper picks, a gallery that tilts toward the mouse or slides in like a film reel, or a shop page where product cards fan out and hang from a clothes line. That's the kind of store Purplish is for.
 
-= The product page follows the color =
+= Built to stay out of your way =
 
-On a default WooCommerce product page, picking another color changes the photo and nothing else. The button, the badge and the background look the same for the orange sweater and the navy one.
+* **Works on WooCommerce's own blocks:** Purplish adds a panel to the Product Gallery, Add to Cart + Options, Product Collection, Accordion and Group blocks. It replaces nothing.
+* **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
+* **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
+* **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
+* **Your photos stay on your server:** no outside requests, no tracking and no account to sign up for.
+* **Quiet admin:** no banners, notices or upsells.
 
-With Purplish, each variation has a Page color. Pick blue, and the page turns blue. Pick orange, and it turns orange.
+= Product page colors =
 
-* **Automatic:** Purplish reads the color from the variation photo, in the background, so saving a product stays fast.
-* **Custom:** pick a color, or type a hex code.
+When a shopper picks another color on a WooCommerce product page, the photo changes and nothing else does. The button, the sale badge and the price look the same for the orange sweater and the navy one.
+
+With Purplish, the page follows the color. Pick blue, and the add to cart button, the selected option and the sale badge turn blue. Pick orange, and they turn orange. Each variation has a Page color setting:
+
+* **Automatic:** the default. Purplish finds the product in the photo, not the wall behind it, and takes its color. If the color attribute has a swatch color, that comes first.
+* **Custom:** pick a color or type a hex code. Purplish uses it exactly as you set it.
 * **Off:** the variation keeps your theme's colors.
-* **Swatches first:** in Automatic mode, a swatch color set on the color attribute comes before the photo.
-* **Simple products:** a simple product gets one color for its whole page.
 
-You choose which parts take the color:
+A color taken straight from a photo is often too dark or too pale for a button. Purplish keeps the hue and adjusts it for each use: a button color with readable black or white text, a deeper shade for the sale price and a pale tint for the background. Simple products get one color for the whole page.
 
-* **Add to cart button:** on by default.
-* **Selected option:** the option button the shopper picked, on by default. Block themes only, since classic themes show a dropdown.
-* **Sale badge:** on by default.
-* **Sale price:** in a darker shade of the color.
-* **Page background tint:** a pale wash of the color behind the page.
+You pick what takes the color: the add to cart button, the selected option and the sale badge (all three on by default), the sale price and a soft background tint. The page opens in the default variation's color, so there's no flash of your theme's colors first.
 
-The photo changes with a Photo transition: Blur (the default), Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
-
-= Colors that look designed =
-
-Purplish looks for the product in the photo, not the wall behind it, and it handles a green sweater shot against a green backdrop.
-
-A color taken straight from a photo is often too dark or too pale for a button. Purplish keeps the hue and adjusts it for each use: a button color with readable black or white text, a darker shade for the sale price, and a pale tint for the background. A color you set by hand is used exactly as you set it.
-
-The page opens in the default variation's color, so there's no flash of the theme's colors first.
+When the color changes, the photo changes with a transition: Blur (the default), Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
 
 = Product gallery =
 
-* **Hide thumbnails:** one big photo, with no thumbnail strip.
-* **Rounded corners:** on the main photo.
-* **Frosted arrows on hover:** round frosted arrows that show when the mouse is over the photo.
-* **Hover style:** what the photo does under the mouse. 3D tilt leans it toward the mouse, Zoom magnifies the spot the mouse points at, Lift raises it on a soft shadow, Parallax lets it drift, Glare runs a light across it, Loupe shows a round magnifier, and Slow zoom pushes in. Any hover style replaces WooCommerce's own hover zoom.
-* **Full-screen style:** the view that opens when a shopper clicks the photo. Snap stack is tinted to the page color, Classic fade is a plain fade, Zoom from photo grows the photo out of its own place, Filmstrip adds a row of small photos along the bottom, and Cinema puts the photos on a dark screen. It needs the gallery's "Open pop-up when clicked" setting.
-* **Slide style:** how the next photo comes in. 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like a film reel, and Image tunnel comes out of the distance.
+Select the Product Gallery block and choose how the photos behave:
 
-Touch screens get no hover style. Visitors who ask their device for reduced motion see the plain photo and WooCommerce's own slide.
+* **Hover style:** 3D tilt leans the photo toward the mouse, Zoom magnifies the spot under it, and Loupe shows a round magnifier. Lift, Parallax, Glare and Slow zoom add softer motion. Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it.
+* **Full-screen style:** the view that opens when a shopper clicks the photo. Snap stack is tinted to the page color, Zoom from photo grows out of the photo, Filmstrip adds small photos along the bottom, Cinema uses a dark screen, and Classic fade keeps it plain. It needs the gallery's "Open pop-up when clicked" setting.
+* **Slide style:** how the next photo comes in. 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, and Image tunnel comes out of the distance.
+* **Layout:** hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover.
 
 = Product cards =
 
-On shop and collection pages, the Product Collection block gets these options:
+On shop and collection pages, select the Product Collection block:
 
-* **Button on the photo:** title and price sit on one line, and add to cart becomes a small frosted button on the photo. It shows on hover, and always on touch screens.
-* **Button motion:** a bag icon slides in and a light sweeps across on hover. After adding to cart, the button fills and pops.
-* **Card effect:** one effect for the whole collection, from the lists below.
-* **Effect color:** the color for the button fill, the magnetic panel, the color reveal, the clothes line pegs and the card folder. On a product page with a variation color, that color wins.
+* **Add to cart on the photo:** a small frosted button sits on the photo, and the title and price share one line. It shows on hover, and always on touch screens.
+* **Button motion:** a bag icon slides in on hover, and the button fills and pops after adding to cart.
+* **Effect color:** one color for the button fill and the card effects. On a product page with a variation color, the variation color wins.
+* **Card effect:** one of 14 effects for the whole collection.
 
-Card effects on hover:
+Effects on hover:
 
-* **Magnetic panel:** a soft panel in your effect color slides under the card.
-* **Spotlight:** the card under the mouse grows a little while the rest blur and fade back.
+* **Spotlight:** the card under the mouse grows while the rest blur and fade back.
 * **Color reveal:** the photos sit in a color wash until the mouse brings one to full color.
-* **Fan deck:** cards rest a little off straight; the one under the mouse straightens and its neighbors lean away.
-* **Expanded cards:** each photo shows as a narrow band and opens to full under the mouse.
-* **Card folder:** each card sits in a soft folder with a tab, and the photo lifts out on hover.
+* **Fan deck:** the cards rest slightly tilted. The one under the mouse straightens and its neighbors lean away.
+* **Expanded cards:** each photo shows as a narrow band and opens to full size under the mouse.
+* **Magnetic panel:** a soft panel in the effect color slides under the card.
+* **Card folder:** each card sits in a soft folder with a tab, and the photo lifts out.
 
-In a carousel (a grid stays as it is):
+Effects in a carousel (a grid stays as it is):
 
-* **Deck:** the cards at the edges turn away and the one under the mouse faces you.
+* **Deck:** the cards at the edges turn away, and the one under the mouse faces you.
 * **Arc:** the cards sit on a curve, highest in the middle.
-* **Spotlight carousel:** the card in the middle is full size and the rest fade back.
+* **Spotlight carousel:** the middle card is full size and the rest fade back.
 * **Grow:** cards grow as they reach the middle.
 * **Tilt:** cards lean as they travel across.
 
-As cards scroll in:
+Effects as cards scroll into view:
 
-* **Clothes line:** each card hangs from a peg on a line and swings as it comes in or when the mouse touches it.
+* **Clothes line:** each card hangs from a peg and swings as it comes in, or when the mouse touches it.
 * **Parallax:** the photo moves slower than its card.
 * **Zoom reveal:** each card grows in as it appears.
 
-= Add to cart and page details =
+= Small details =
 
 On the Add to Cart + Options block:
 
-* **Title on a color change:** with Title and price rise, both rise in after the new photo. With Title comes into focus, the title sharpens into view. Or pick None.
-* **Glow ring on the button:** a soft ring of the page color around the add to cart button.
-* **Halo after adding to cart:** a ring leaves the button and fades each time the product goes into the cart.
-* **Mesh background:** with the page background tint on, soft blobs of the color sit over the tint and move to a new place each time the color changes.
-* **Color dots on options:** each color option shows a dot in its own color. An option gets a dot only when every variation with it has the same color, like Orange or Blue. A size, or any option that comes in several colors, gets none. On the picked option, the dot turns the button's text color so it stays visible.
+* **Title and price rise:** after the photo changes, the title and price rise into place. Or pick Title comes into focus, and the title sharpens into view.
+* **Glow ring:** a soft ring in the page color around the add to cart button.
+* **Halo:** a ring leaves the button and fades each time a product goes into the cart.
+* **Mesh background:** soft blobs of the color sit over the background tint and move each time the color changes.
+* **Color dots:** each color option shows a dot in its own color, like Orange or Blue. Sizes, and options that come in several colors, get no dot.
 
 On other blocks:
 
-* **Soft style (Accordion):** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
-* **Take the page color (Group):** on product pages, the section's background becomes a soft version of the color the shopper picks.
+* **Accordion, Soft style:** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
+* **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
 
-Nothing moves on its own: every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Every motion turns off for visitors who ask their device for reduced motion.
+Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 
 = Block and classic themes =
 
-On block themes, every option sits in a Purplish panel on the block it changes, in the Site Editor. Each template keeps its own settings, so one product can have its own look.
+Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
 
-Classic themes get the color parts (all but the selected option), the photo transition, the title and price rise, and three gallery options: hide thumbnails, rounded corners and the hover style. They're under WooCommerce > Settings > Products > Purplish. The full-screen and slide styles, frosted arrows, product cards, the title focus, glow ring, halo, mesh background, color dots, accordions and sections need a block theme.
+Classic themes get a smaller set under WooCommerce > Settings > Products > Purplish: the page colors (except the selected option, since classic themes show a dropdown), the photo transition, the title and price rise, and three gallery options: hide thumbnails, rounded corners and the hover style.
 
-Turn Purplish off, and the page goes back to exactly how WooCommerce draws it.
+= Why I made it =
 
-= Performance and privacy =
-
-* **Loads only where it's used:** the color script loads only on variable products, and the effects load only on pages that use them. A simple product page with no effects needs no script at all.
-* **Photos stay on your server:** Purplish reads them with the image tools PHP already has. It makes no outside requests and adds no tracking.
-* **No admin noise:** no banners, notices or upsells.
-* **Compatible with WooCommerce features:** High-Performance Order Storage (HPOS) and the cart and checkout blocks.
-
-= Demo and docs =
-
-Try the effects on the [demo store](https://purplish.io/shop/), and read how each option works in the [docs](https://purplish.io/docs/).
+> Purplish started with one small idea from a chat on X: let the product page take the color of the variation a shopper picks. Building it showed me how much more WooCommerce's blocks can do with a few good options, so I kept going. The [Purplish website](https://purplish.io/) runs on WooCommerce, the Purple theme and Purplish itself.
+>
+> Shameem Reza
 
 = Source code =
 
@@ -138,20 +119,20 @@ The code is on [GitHub](https://github.com/shameemreza/purplish). The readable s
 
 == Installation ==
 
-1. Install and activate WooCommerce 11.0 or later.
-2. In Plugins > Add New, search for Purplish, then install and activate it. Purplish reads the colors of your existing variation photos in the background.
-3. To change a variation's color, edit the product, open Variations, and use the Page color field. For a simple product, it's on the General tab.
-4. Pick what takes the color. Block themes: open the Single Product template in the Site Editor, select the Add to Cart + Options, Product Gallery, Product Collection, Accordion or Group block, and find the Purplish panel. Classic themes: go to WooCommerce > Settings > Products > Purplish.
+1. Make sure WooCommerce 11.0 or later is active.
+2. Go to Plugins > Add New, search for Purplish, then install and activate it. Purplish reads the colors of your variation photos in the background.
+3. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
+4. On a block theme, open the Single Product template in the Site Editor, select the Add to Cart + Options, Product Gallery, Product Collection, Accordion or Group block, and open the Purplish panel. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 == Frequently Asked Questions ==
 
 = How do I change the add to cart button color for each variation in WooCommerce? =
 
-Install Purplish. Each variation takes its color from its photo by default, and the add to cart button follows the variation the shopper picks. To set a color yourself, open the variation in the product editor and set Page color to Custom.
+Install Purplish. Each variation takes its color from its photo by default, and the add to cart button follows the variation the shopper picks. To set a color yourself, edit the variation and set Page color to Custom.
 
 = Does Purplish work with my theme? =
 
-Yes. It works with block themes through WooCommerce's product blocks, and with classic themes through WooCommerce's variation dropdowns and product gallery.
+Yes. Block themes get every option through WooCommerce's product blocks. Classic themes get the page colors, the photo transition, the title and price rise, and three gallery options.
 
 = Does it work with simple products? =
 
@@ -159,15 +140,15 @@ Yes. A simple product gets one Page color for its whole page, read from its phot
 
 = Do I need color swatches? =
 
-No. Purplish works with WooCommerce's plain dropdowns and option buttons. If you turn on WooCommerce's color swatches for attributes, Purplish uses those colors first. To show a dot of each color on the option buttons, turn on Color dots on options.
+No. Purplish works with WooCommerce's plain dropdowns and option buttons. If you set swatch colors on the color attribute, Purplish uses those first. To show a dot of each color on the option buttons, turn on Color dots.
 
 = How do I add a hover effect to the WooCommerce product gallery? =
 
-On a block theme, open the Single Product template in the Site Editor, select the Product Gallery block, and pick a Hover style in the Purplish panel. The same panel has the full-screen and slide styles. On a classic theme, pick the Gallery hover style under WooCommerce > Settings > Products > Purplish.
+On a block theme, open the Single Product template in the Site Editor, select the Product Gallery block, and pick a Hover style in the Purplish panel. The full-screen and slide styles are in the same panel. On a classic theme, pick the hover style under WooCommerce > Settings > Products > Purplish.
 
 = Can I change how product cards look on the shop page? =
 
-Yes, on block themes. Select the Product Collection block on your shop or collection template and open the Purplish panel. You can put add to cart on the photo, add button motion, and pick one of fourteen card effects.
+Yes, on block themes. Select the Product Collection block on your shop or collection template and open the Purplish panel. You can put add to cart on the photo, add button motion and pick one of 14 card effects.
 
 = A color Purplish found looks wrong. What do I do? =
 
@@ -175,19 +156,19 @@ Set the variation's Page color to Custom and pick the color. A busy photo, like 
 
 = Why do some option buttons have no color dot? =
 
-An option gets a dot only when every variation with it has the same color, like Orange or Blue. A size, or any option that comes in several colors, has no single color to show, so it gets none. On the picked option, the dot turns the button's text color so it stays visible.
+An option gets a dot only when every variation with it has the same color. A size, or an option that comes in several colors, has no single color to show. On the picked option, the dot turns the button's text color so it stays visible.
 
 = Can I turn it off for one variation or product? =
 
-Yes. Set its Page color to Off. It keeps your theme's colors.
+Yes. Set its Page color to Off, and it keeps your theme's colors.
 
 = What about visitors who turn off motion? =
 
-Every effect turns off for visitors who ask their device for reduced motion. They still get the colors, without the animation. Nothing moves on its own either: each effect plays on a hover, a scroll, a color change or an add to cart, then stops.
+Visitors who turn on reduced motion on their device get the colors without any animation.
 
 = Will Purplish slow down my store? =
 
-No. Photos are read in the background and the color is saved with the product. The product page loads a small stylesheet. The color script loads only on variable products, and the effects load only on pages that use them.
+No. Photos are read in the background and the color is saved with the product. The product page loads a small stylesheet. The color script loads only on variable products, and each effect loads only on pages that use it.
 
 = Do my product photos leave my site? =
 
@@ -195,7 +176,7 @@ No. Purplish reads the photos on your own server, with the image tools PHP alrea
 
 = Does it change WooCommerce's blocks or templates? =
 
-No. Purplish adds a Purplish panel to WooCommerce's own blocks and styles the parts you choose. Deactivate it, and your store looks exactly as it did before.
+No. Purplish adds a panel to WooCommerce's own blocks and styles the parts you choose. Deactivate it, and your store looks exactly as it did before.
 
 = Where do I report a security issue? =
 
