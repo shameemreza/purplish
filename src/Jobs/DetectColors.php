@@ -160,7 +160,16 @@ final class DetectColors {
 			);
 		}
 
-		$color = Detector::from_attachment( $image_id );
+		/**
+		 * Filters the color the photo detector picked, before it's saved.
+		 * Return an empty string to save no color.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param string $color    Hex color, or an empty string when the photo couldn't be read.
+		 * @param int    $image_id Attachment ID of the photo.
+		 */
+		$color = (string) sanitize_hex_color( (string) apply_filters( 'purplish_detected_color', Detector::from_attachment( $image_id ), $image_id ) );
 		if ( '' === $color ) {
 			$variation->delete_meta_data( Meta::AUTO_COLOR );
 		} else {

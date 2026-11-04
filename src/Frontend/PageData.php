@@ -88,7 +88,7 @@ final class PageData {
 	 */
 	public static function for_product( $product, $options ) {
 		if ( $product instanceof \WC_Product && $product->is_type( 'simple' ) ) {
-			$set = self::color_set( Resolver::accent( $product ) );
+			$set = self::product_set( $product );
 			return null === $set ? null : array(
 				'variations' => array(),
 				'default'    => $set,
@@ -107,7 +107,7 @@ final class PageData {
 				continue;
 			}
 
-			$set = self::color_set( Resolver::accent( $variation ) );
+			$set = self::product_set( $variation );
 			if ( null === $set ) {
 				continue;
 			}
@@ -183,6 +183,42 @@ final class PageData {
 			'ink'   => Tone::ink( $accent ),
 			'tint'  => Tone::tint( $accent ),
 		);
+	}
+
+	/**
+	 * The color set for a variation or simple product, after the
+	 * `purplish_color_set` filter.
+	 *
+	 * @param \WC_Product $product Variation or simple product.
+	 * @return array{color: string, on: string, ink: string, tint: string}|null Null for no color.
+	 */
+	public static function product_set( $product ) {
+		/**
+		 * Filters the color set for a variation or simple product, so a store
+		 * can force its own colors. Return null for no color.
+		 *
+		 * @since 1.1.0
+		 *
+		 * @param array|null  $set     `color`, `on` (text on the color), `ink` (the color as text on the page) and `tint`, or null for no color.
+		 * @param \WC_Product $product Variation or simple product.
+		 */
+		$set = apply_filters( 'purplish_color_set', self::color_set( Resolver::accent( $product ) ), $product );
+		if ( ! is_array( $set ) || ! isset( $set['color'] ) ) {
+			return null;
+		}
+
+		// A filtered set may leave out or break a part; work that part out from the color.
+		$worked_out = self::color_set( $set['color'] );
+		if ( null === $worked_out ) {
+			return null;
+		}
+		foreach ( array( 'on', 'ink', 'tint' ) as $part ) {
+			$value = isset( $set[ $part ] ) ? sanitize_hex_color( (string) $set[ $part ] ) : '';
+			if ( $value ) {
+				$worked_out[ $part ] = $value;
+			}
+		}
+		return $worked_out;
 	}
 
 	/**
