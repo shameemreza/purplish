@@ -51,7 +51,9 @@ final class Registry {
 	 * @return string[] Class names.
 	 */
 	public static function blocks() {
-		return array();
+		return array(
+			HangingRail::class,
+		);
 	}
 
 	/**

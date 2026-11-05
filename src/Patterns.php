@@ -37,7 +37,14 @@ final class Patterns {
 	 * @return array<string, array{title: string, categories: string[], blockTypes: string[], file: string}>
 	 */
 	public static function patterns() {
-		return array();
+		return array(
+			'hanging-rail' => array(
+				'title'      => __( 'Hanging rail of new arrivals', 'purplish' ),
+				'categories' => array(),
+				'blockTypes' => array( 'purplish/hanging-rail' ),
+				'file'       => PURPLISH_DIR . 'patterns/hanging-rail.php',
+			),
+		);
 	}
 
 	/**

@@ -35,7 +35,7 @@ class PatternsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Lists the probe pattern through the filter.
+	 * Lists only the probe pattern through the filter.
 	 *
 	 * @param array $extra Keys to add to or replace in the entry.
 	 * @return void
@@ -43,17 +43,18 @@ class PatternsTest extends WP_UnitTestCase {
 	private function list_probe( $extra = array() ) {
 		add_filter(
 			'purplish_patterns',
-			static function ( $patterns ) use ( $extra ) {
-				$patterns['probe'] = array_merge(
-					array(
-						'title'      => 'Probe',
-						'categories' => array( 'featured' ),
-						'blockTypes' => array( 'core/group' ),
-						'file'       => dirname( __DIR__ ) . '/fixtures/patterns/probe.php',
+			static function () use ( $extra ) {
+				return array(
+					'probe' => array_merge(
+						array(
+							'title'      => 'Probe',
+							'categories' => array( 'featured' ),
+							'blockTypes' => array( 'core/group' ),
+							'file'       => dirname( __DIR__ ) . '/fixtures/patterns/probe.php',
+						),
+						$extra
 					),
-					$extra
 				);
-				return $patterns;
 			}
 		);
 	}
@@ -69,11 +70,19 @@ class PatternsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * 1.1 ships no pattern yet, so nothing registers, not even the category.
+	 * The shipped patterns register with the category, and a filter that
+	 * drops them all leaves the category out too.
 	 */
-	public function test_ships_no_pattern_yet() {
-		$this->assertSame( array(), Patterns::patterns() );
+	public function test_ships_its_patterns() {
+		$this->assertSame( array( 'hanging-rail' ), array_keys( Patterns::patterns() ) );
 
+		( new Patterns() )->register_patterns();
+
+		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/hanging-rail' ) );
+		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
+
+		unregister_block_pattern_category( Patterns::CATEGORY );
+		add_filter( 'purplish_patterns', '__return_empty_array' );
 		( new Patterns() )->register_patterns();
 
 		$this->assertFalse( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
