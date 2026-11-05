@@ -18,6 +18,8 @@ import AccordionGroupPanel from './accordion-group';
 import DetailsPanel from './details';
 import ReviewsPanel from './reviews';
 import SpecsPanel from './specs';
+import FiltersPanel from './filters';
+import MiniCartPanel from './mini-cart';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
@@ -33,6 +35,8 @@ const PANELS = {
 	'core/details': DetailsPanel,
 	'woocommerce/product-reviews': ReviewsPanel,
 	'woocommerce/product-specifications': SpecsPanel,
+	'woocommerce/product-filters': FiltersPanel,
+	'woocommerce/mini-cart': MiniCartPanel,
 };
 
 addFilter(

@@ -1,7 +1,8 @@
 /**
  * Purplish effects that need a script: the gallery's hover styles follow
  * the mouse by setting CSS variables, the slide styles learn which way the
- * gallery moved, and two full-screen styles measure the view. The
+ * gallery moved, two full-screen styles measure the view, the active
+ * filter chips copy a chip's look, and the mini-cart count pops. The
  * stylesheet does the rest.
  */
 import { __, sprintf } from '@wordpress/i18n';
@@ -444,4 +445,117 @@ if ( ! reduced ) {
 			'[class*="purplish-gallery-slider-"] .wc-block-product-gallery-large-image__container'
 		)
 		.forEach( followSlides );
+}
+
+/**
+ * Gives the active filter chips the look of a selected chip in the same
+ * filters. WooCommerce prints the two in different blocks, so the look is
+ * read from a chip and set as `--purplish-chip-*` variables on the filters
+ * block. The colors follow WooCommerce's own fallbacks for a selected chip.
+ * It reads again whenever the filters change, since WooCommerce's chips
+ * script fills in their colors after the page loads.
+ *
+ * @param {HTMLElement} filters The Product Filters block.
+ */
+function matchChips( filters ) {
+	const read = () => {
+		const chip = filters.querySelector(
+			'.wp-block-woocommerce-product-filter-chips:not(.is-style-swatch) .wc-block-product-filter-chips__item'
+		);
+		if ( ! chip ) {
+			return;
+		}
+		const own = window.getComputedStyle(
+			chip.closest( '.wp-block-woocommerce-product-filter-chips' )
+		);
+		const look = window.getComputedStyle( chip );
+		const first = ( fallback, ...names ) =>
+			names
+				.map( ( name ) => own.getPropertyValue( name ).trim() )
+				.find( Boolean ) || fallback;
+		const vars = {
+			background: first(
+				'CanvasText',
+				'--wc-product-filter-chips-selected-background',
+				'--wc-product-filter-chips-text'
+			),
+			border: first(
+				'CanvasText',
+				'--wc-product-filter-chips-selected-border',
+				'--wc-product-filter-chips-text'
+			),
+			text: first(
+				'Canvas',
+				'--wc-product-filter-chips-selected-text',
+				'--wc-product-filter-chips-background'
+			),
+			radius: look.borderRadius,
+			padding: [ 'Top', 'Right', 'Bottom', 'Left' ]
+				.map( ( side ) => look[ `padding${ side }` ] )
+				.join( ' ' ),
+			size: look.fontSize,
+			spacing: look.letterSpacing,
+			case: look.textTransform,
+		};
+		// WooCommerce's filters script rewrites the whole style attribute,
+		// so each variable is checked on the element, and set only when
+		// it changed, which keeps the observer from looping.
+		Object.entries( vars ).forEach( ( [ name, value ] ) => {
+			const prop = `--purplish-chip-${ name }`;
+			if ( filters.style.getPropertyValue( prop ) !== value ) {
+				filters.style.setProperty( prop, value );
+			}
+		} );
+	};
+
+	let queued = false;
+	new window.MutationObserver( () => {
+		if ( ! queued ) {
+			queued = true;
+			window.requestAnimationFrame( () => {
+				queued = false;
+				read();
+			} );
+		}
+	} ).observe( filters, {
+		subtree: true,
+		childList: true,
+		attributes: true,
+		attributeFilter: [ 'style', 'class' ],
+	} );
+	read();
+}
+
+document.querySelectorAll( '.purplish-filters-chips' ).forEach( matchChips );
+
+/**
+ * Pops the mini-cart's count when it goes up. WooCommerce changes the
+ * badge's text in place when something is added without a reload.
+ *
+ * @param {HTMLElement} cart The Mini-Cart block.
+ */
+function popCount( cart ) {
+	const badge = cart.querySelector( '.wc-block-mini-cart__badge' );
+	if ( ! badge ) {
+		return;
+	}
+	let count = parseInt( badge.textContent, 10 ) || 0;
+	new window.MutationObserver( () => {
+		const now = parseInt( badge.textContent, 10 ) || 0;
+		if ( now > count ) {
+			cart.classList.remove( 'purplish-pop' );
+			// eslint-disable-next-line no-unused-expressions
+			cart.offsetWidth;
+			cart.classList.add( 'purplish-pop' );
+		}
+		count = now;
+	} ).observe( badge, {
+		subtree: true,
+		childList: true,
+		characterData: true,
+	} );
+}
+
+if ( ! reduced ) {
+	document.querySelectorAll( '.purplish-minicart-pop' ).forEach( popCount );
 }
