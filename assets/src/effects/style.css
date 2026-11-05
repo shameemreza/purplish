@@ -160,8 +160,10 @@ body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target .woocommerce
 body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	content: "";
 	position: absolute;
-	top: var(--purplish-my, 50%);
-	left: var(--purplish-mx, 50%);
+
+	/* The mouse is measured from the left in every language, and the RTL
+	   build leaves the four-value inset as it is. */
+	inset: var(--purplish-my, 50%) auto auto var(--purplish-mx, 50%);
 	z-index: 2;
 	width: var(--purplish-loupe-box, 180px);
 	height: var(--purplish-loupe-box, 180px);
