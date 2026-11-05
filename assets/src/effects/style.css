@@ -2097,3 +2097,166 @@ body.purplish-active .purplish-group-tint {
 		--purplish-spin: 0deg !important;
 	}
 }
+
+/*
+ * Scroll entrances on headings, groups and columns. The script holds back
+ * each block below the view (purplish-waiting) and lets it in once
+ * (purplish-entered), with --purplish-delay so blocks that come in together
+ * play one after another. Without the script nothing waits. Screens only,
+ * so a printed page shows everything.
+ */
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	.purplish-waiting {
+		opacity: 0;
+	}
+
+	.purplish-entered {
+		animation: 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--purplish-delay, 0s) backwards;
+	}
+
+	.purplish-heading-reveal-rise.purplish-waiting {
+		translate: 0 0.5em;
+	}
+
+	.purplish-heading-reveal-rise.purplish-entered {
+		animation-name: purplish-enter-rise;
+	}
+
+	.purplish-heading-reveal-focus.purplish-waiting {
+		filter: blur(8px);
+	}
+
+	.purplish-heading-reveal-focus.purplish-entered {
+		animation-name: purplish-enter-focus;
+	}
+
+	:is(.purplish-group-entrance-fadeup, .purplish-columns-entrance-fadeup > .wp-block-column).purplish-waiting {
+		translate: 0 2.5rem;
+	}
+
+	:is(.purplish-group-entrance-fadeup, .purplish-columns-entrance-fadeup > .wp-block-column).purplish-entered {
+		animation-name: purplish-enter-fadeup;
+	}
+
+	:is(.purplish-group-entrance-zoomin, .purplish-columns-entrance-zoomin > .wp-block-column).purplish-waiting {
+		scale: 0.92;
+	}
+
+	:is(.purplish-group-entrance-zoomin, .purplish-columns-entrance-zoomin > .wp-block-column).purplish-entered {
+		animation-name: purplish-enter-zoomin;
+	}
+}
+
+@keyframes purplish-enter-rise {
+
+	from {
+		opacity: 0;
+		translate: 0 0.5em;
+	}
+}
+
+@keyframes purplish-enter-focus {
+
+	from {
+		opacity: 0;
+		filter: blur(8px);
+	}
+}
+
+@keyframes purplish-enter-fadeup {
+
+	from {
+		opacity: 0;
+		translate: 0 2.5rem;
+	}
+}
+
+@keyframes purplish-enter-zoomin {
+
+	from {
+		opacity: 0;
+		scale: 0.92;
+	}
+}
+
+/*
+ * Cover scroll effects, on the cover's own view timeline. Slow zoom and
+ * parallax move the background image or video, never a fixed background,
+ * which the browser pins to the window. The pill reveal clips the cover to
+ * a small rounded pill that opens by the time the cover is fully in view,
+ * which every cover reaches, even the last one on the page; the background
+ * settles from a little zoom as it opens. Without scroll timelines the
+ * cover stays plain.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cover {
+			view-timeline-name: --purplish-cover;
+		}
+
+		.purplish-cover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+			animation: linear both;
+			animation-timeline: --purplish-cover;
+		}
+
+		.purplish-cover-scroll-slowzoom > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+			animation-name: purplish-cover-zoom;
+		}
+
+		.purplish-cover-scroll-parallax > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+			scale: 1.2;
+			animation-name: purplish-cover-drift;
+		}
+
+		.purplish-cover-scroll-pill {
+			animation: purplish-cover-pill linear backwards;
+			animation-timeline: --purplish-cover;
+			animation-range: entry 0% entry 100%;
+		}
+
+		.purplish-cover-scroll-pill > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+			animation-name: purplish-cover-settle;
+			animation-fill-mode: backwards;
+			animation-range: entry 0% entry 100%;
+		}
+	}
+}
+
+@keyframes purplish-cover-zoom {
+
+	to {
+		scale: 1.15;
+	}
+}
+
+@keyframes purplish-cover-drift {
+
+	from {
+		translate: 0 -8%;
+	}
+
+	to {
+		translate: 0 8%;
+	}
+}
+
+@keyframes purplish-cover-pill {
+
+	from {
+		clip-path: inset(12% 20% round 999px);
+	}
+
+	to {
+		clip-path: inset(0 round 0);
+	}
+}
+
+@keyframes purplish-cover-settle {
+
+	from {
+		scale: 1.25;
+	}
+}

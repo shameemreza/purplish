@@ -29,6 +29,11 @@ final class BlockEffects {
 	const EYES = array( 'one', 'two' );
 
 	/**
+	 * How a group or columns block comes in as it scrolls into view.
+	 */
+	const ENTRANCES = array( 'fadeup', 'zoomin' );
+
+	/**
 	 * Purplish's options for each block, with the values each one accepts.
 	 * `true` means an on or off switch.
 	 *
@@ -91,7 +96,8 @@ final class BlockEffects {
 			'core/group'                             => array(
 				'prefix'  => 'group',
 				'options' => array(
-					'tint' => true,
+					'tint'     => true,
+					'entrance' => self::ENTRANCES,
 				),
 			),
 			// WooCommerce grays out and hides invalid chips itself.
@@ -180,6 +186,25 @@ final class BlockEffects {
 					'eyes'     => self::EYES,
 				),
 				'eyes'    => 'single_add_to_cart_button',
+			),
+			'core/heading'                           => array(
+				'prefix'  => 'heading',
+				'options' => array(
+					'reveal' => array( 'rise', 'focus' ),
+				),
+			),
+			// Each column comes in on its own, so stacked columns on phones do too.
+			'core/columns'                           => array(
+				'prefix'  => 'columns',
+				'options' => array(
+					'entrance' => self::ENTRANCES,
+				),
+			),
+			'core/cover'                             => array(
+				'prefix'  => 'cover',
+				'options' => array(
+					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
+				),
 			),
 		);
 	}
