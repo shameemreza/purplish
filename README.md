@@ -25,6 +25,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Product Collection | 18 card effects, add to cart on the photo and button motion. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
+| Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
@@ -168,6 +169,25 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 - **Pattern:** Runway lookbook adds the block with a heading, a short line and your 6 newest products.
 
 The line never moves on its own, and a normal mouse wheel still scrolls the page past it. Visitors who turn on reduced motion step one look at a time with a short fade and no blur, and screen readers hear each new look after a button or key press. Without the script the products show as the collection you set up.
+
+## Scroll Lookbook block
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds Cover blocks, one Product Collection and a Group, so it edits like the blocks you already use. Each Cover is a shot and the first one opens the film. As visitors scroll, the camera moves from shot to shot and holds at each one, and that product's card comes in on the side away from the subject. Scrolling back runs the film back. At the end it returns to the opening shot, where the Group shows as the closing line.
+
+- **Shots:** each Cover holds a video or a photo. The camera reads the Cover's focal point, so the card never covers the subject. Photos zoom slowly as the page scrolls.
+- **Cards:** the first Product Collection gives the cards. Card 1 comes in at the second shot, card 2 at the third, and so on. Each card's button takes its product's Purplish color.
+- **Chapter list:** names each stop beside the film, from a paragraph with the class `is-chapter` in each Cover, or the product name. On or off.
+- **Timecode:** a running timecode in the corner while the film plays. Off by default.
+- **Scroll length:** short, medium or long, for how much scrolling each stop takes.
+- **Pattern:** Scroll lookbook storefront adds the block with an opening shot, three shots, an empty hand-picked collection to fill and a closing line, then a heading and four products after it.
+
+Videos follow the scroll smoothly when they have a keyframe every few frames. Most phone and stock clips have one every second or two, so scrolling back stutters. This ffmpeg line makes a clip that scrubs well, without sound:
+
+```bash
+ffmpeg -i in.mp4 -an -vf scale=1920:-2 -r 25 -g 5 -keyint_min 5 -bf 0 -crf 24 -movflags +faststart out.mp4
+```
+
+The opening video plays once when the page loads and stops within 5 seconds. Nothing else plays on its own, and nothing loops. Visitors who turn on reduced motion, and themes that clip the page so the film can't stay on screen (Storefront is one), get each shot with its card beside it as a plain page. Tab reaches every card, and the page scrolls to the card that has focus. Developers can listen for the `purplish:stop` event and change the smoothing and the opening play with the `purplish_scroll_lookbook_config` filter.
 
 ## Block and classic themes
 
