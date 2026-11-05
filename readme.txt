@@ -132,6 +132,16 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 
 Visitors who turn on reduced motion see the products as a row they can scroll sideways, with the rope and clips still drawn.
 
+= Story Deck block =
+
+A block of Purplish's own, in the Purplish group of the block inserter. Each story is a group with a photo, a quote, the customer's name and, if you want, a button to the product. The photos become a deck of cards, and the top card's story sits beside it.
+
+* **Flick through:** visitors drag or swipe the top card away, or use the previous and next buttons or the arrow keys. After the last story the deck starts again.
+* **Deck options:** cards on the left or right, rounded or square, fanned like a hand of cards or flat. On phones the cards sit above the story.
+* **Pattern:** Customer stories deck adds the block with three sample stories, each with a Shop this button. Add your own photos, or leave them out and each card shows a quote mark.
+
+The deck never moves on its own. Visitors who turn on reduced motion switch stories with a short fade.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
