@@ -14,6 +14,10 @@ import GroupPanel from './group';
 import ChipsPanel from './chips';
 import BadgePanel from './badge';
 import ThumbsPanel from './thumbs';
+import AccordionGroupPanel from './accordion-group';
+import DetailsPanel from './details';
+import ReviewsPanel from './reviews';
+import SpecsPanel from './specs';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
@@ -25,6 +29,10 @@ const PANELS = {
 		ChipsPanel,
 	'woocommerce/product-sale-badge': BadgePanel,
 	'woocommerce/product-gallery-thumbnails': ThumbsPanel,
+	'woocommerce/accordion-group': AccordionGroupPanel,
+	'core/details': DetailsPanel,
+	'woocommerce/product-reviews': ReviewsPanel,
+	'woocommerce/product-specifications': SpecsPanel,
 };
 
 addFilter(
