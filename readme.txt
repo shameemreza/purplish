@@ -121,6 +121,17 @@ On other blocks:
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 
+= Hanging Rail block =
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds a heading, a short line and one Product Collection, so you pick the products the way you already do.
+
+* **Products on a rope:** the section holds still while the page scrolls, and the products slide along a rope that sags between them. Each card swings on its clip when the scrolling speeds up or stops, then settles.
+* **Clip and rope:** a wooden peg, a binder clip or a strip of tape, on a rope that sags a little or more.
+* **Scroll length:** short, medium or long. It follows how many products there are, so the rail feels the same with 4 products or 16.
+* **Pattern:** Hanging rail of new arrivals adds the block with a heading, a short line and your 8 newest products.
+
+Visitors who turn on reduced motion see the products as a row they can scroll sideways, with the rope and clips still drawn.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
