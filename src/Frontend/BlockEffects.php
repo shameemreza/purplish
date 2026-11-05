@@ -134,6 +134,19 @@ final class BlockEffects {
 					'style' => array( 'striped', 'cards' ),
 				),
 			),
+			// On the parent, the only block that holds both kinds of chips.
+			'woocommerce/product-filters'            => array(
+				'prefix'  => 'filters',
+				'options' => array(
+					'chips' => true,
+				),
+			),
+			'woocommerce/mini-cart'                  => array(
+				'prefix'  => 'minicart',
+				'options' => array(
+					'pop' => true,
+				),
+			),
 		);
 	}
 
