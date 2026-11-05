@@ -74,13 +74,14 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/hanging-rail' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/story-deck' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/runway' ) );
+		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/scroll-lookbook' ) );
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
 
 		unregister_block_pattern_category( Patterns::CATEGORY );

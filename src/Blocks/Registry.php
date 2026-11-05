@@ -55,6 +55,7 @@ final class Registry {
 			HangingRail::class,
 			StoryDeck::class,
 			Runway::class,
+			ScrollLookbook::class,
 		);
 	}
 
