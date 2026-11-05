@@ -23,6 +23,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 14 card effects, add to cart on the photo and button motion. |
+| Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
 | Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
 
 ## How it works
@@ -92,6 +93,11 @@ On the Product Collection block, add to cart can sit on the photo as a small fro
 
 Carousel effects play only when the collection is a carousel. A grid stays as it is.
 
+## Filters and mini-cart
+
+- **Product Filters, Matching chips:** the active filters take the look of a selected chip, with its colors, corners and letter case, and a chip fades into its selected color when picked.
+- **Mini-Cart, Count pop:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart.
+
 ## Page sections
 
 - **Accordion, Soft style:** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
@@ -114,6 +120,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Accordion and Group styles | Yes | No |
 | Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |
 | Details, review and specifications styles | Yes | No |
+| Matching filter chips, mini-cart count pop | Yes | No |
 
 ## Get started
 

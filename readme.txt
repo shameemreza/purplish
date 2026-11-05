@@ -105,6 +105,8 @@ On other blocks:
 * **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
 * **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
 * **Product Specifications, Table style:** every other row shaded, or each row on its own soft card. Screen readers still read it as a table.
+* **Product Filters, Matching chips:** the active filters take the look of a selected chip, with its colors, corners and letter case, and a chip fades into its selected color when picked.
+* **Mini-Cart, Count pop:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 
