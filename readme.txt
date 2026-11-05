@@ -111,6 +111,9 @@ On other blocks:
 * **Mini-Cart, Count pop:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart.
 * **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom. The photo grows inside its own frame, so the caption and the lightbox button stay where they are.
 * **Button, Looks:** a glow ring, a band of light that sweeps across on hover, liquid glass and a spectrum ring, in any mix. Googly eyes, one or two, sit inside the button and follow the mouse. One effect color drives the glow and the glass.
+* **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
+* **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
+* **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 

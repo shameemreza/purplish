@@ -25,6 +25,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Product Collection | 14 card effects, add to cart on the photo and button motion. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
+| Scroll motion | Heading, Group, Columns, Cover | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
 | Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
 
 ## How it works
@@ -115,6 +116,14 @@ Carousel effects play only when the collection is a carousel. A grid stays as it
 
 Touch screens and visitors who turn on reduced motion see the plain image and button.
 
+## Scroll entrances
+
+- **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
+- **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
+- **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
+
+Each entrance plays once. Visitors who turn on reduced motion see the blocks as they are, and nothing stays hidden if the script doesn't load.
+
 ## Block and classic themes
 
 Purplish is built for block themes. Classic themes get a smaller set under WooCommerce > Settings > Products > Purplish.
@@ -132,6 +141,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Details, review and specifications styles | Yes | No |
 | Matching filter chips, mini-cart count pop | Yes | No |
 | Image hover styles, button looks, and glass, spectrum ring and googly eyes on add to cart | Yes | No |
+| Heading reveals, group and columns entrances, cover scroll effects | Yes | No |
 
 ## Get started
 
