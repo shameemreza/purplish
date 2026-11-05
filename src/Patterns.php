@@ -44,6 +44,12 @@ final class Patterns {
 				'blockTypes' => array( 'purplish/hanging-rail' ),
 				'file'       => PURPLISH_DIR . 'patterns/hanging-rail.php',
 			),
+			'story-deck'   => array(
+				'title'      => __( 'Customer stories deck', 'purplish' ),
+				'categories' => array( 'testimonials' ),
+				'blockTypes' => array( 'purplish/story-deck' ),
+				'file'       => PURPLISH_DIR . 'patterns/story-deck.php',
+			),
 		);
 	}
 

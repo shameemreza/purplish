@@ -1,0 +1,308 @@
+/**
+ * Story Deck. Without the script the stories are a plain list of cards.
+ * The script adds purplish-deck-on: every story sits in the same spot, the
+ * first photo in each becomes a card in the deck, and only the top story's
+ * words show beside it. The script marks the card and the words, also
+ * inside the inner container classic themes add to groups. Each story
+ * carries data-purplish-depth, 0 for the top card up to 3, then "more" for
+ * the hidden ones.
+ */
+.wp-block-purplish-story-deck {
+	--purplish-deck-card: clamp(11rem, 32cqi, 19rem);
+	--purplish-deck-gap: clamp(1.5rem, 6cqi, 4.5rem);
+	--purplish-deck-radius: 1rem;
+	--purplish-deck-paper: var(--wp--preset--color--base, #fff);
+	--purplish-deck-fill: color-mix(in srgb, currentcolor 10%, var(--purplish-deck-paper));
+	--purplish-deck-nav: 2.75rem;
+	container-type: inline-size;
+}
+
+body.purplish-active .wp-block-purplish-story-deck {
+	--purplish-deck-fill: color-mix(in oklab, var(--purplish-accent) 28%, var(--purplish-deck-paper));
+}
+
+.wp-block-purplish-story-deck.purplish-deck-shape-square {
+	--purplish-deck-radius: 0;
+}
+
+/* Without the script, and in the editor: a list of cards. */
+.wp-block-purplish-story-deck .purplish-deck-stories {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+	gap: var(--purplish-deck-gap);
+}
+
+.wp-block-purplish-story-deck .purplish-deck-stories > * {
+	margin-block: 0;
+}
+
+.wp-block-purplish-story-deck .purplish-deck-stories > .wp-block-group > .wp-block-image img,
+.wp-block-purplish-story-deck .purplish-deck-stories > .wp-block-group > .wp-block-group__inner-container > .wp-block-image img {
+	width: 100%;
+	aspect-ratio: 3 / 4;
+	object-fit: cover;
+	border-radius: var(--purplish-deck-radius);
+}
+
+/* The status line is for screen readers only. */
+.wp-block-purplish-story-deck .purplish-deck-status {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.wp-block-purplish-story-deck .purplish-deck-nav[hidden] {
+	display: none;
+}
+
+/* With the script: one deck, the story beside it. */
+.purplish-deck-on {
+	position: relative;
+}
+
+.purplish-deck-on .purplish-deck-stories {
+	grid-template-columns: minmax(0, 1fr);
+	padding-block-end: 1rem;
+	isolation: isolate;
+}
+
+/* Room for the flat deck's lower cards, which sit under the top one. */
+.purplish-deck-fan-flat.purplish-deck-on .purplish-deck-stories {
+	padding-block-end: 3rem;
+}
+
+.wp-block-purplish-story-deck.purplish-deck-on .purplish-deck-stories > .purplish-deck-story {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	grid-area: 1 / 1;
+	box-sizing: border-box;
+	min-height: calc(var(--purplish-deck-card) * 4 / 3);
+	margin: 0;
+	padding-block: 0 calc(var(--purplish-deck-nav) + 1.5rem);
+	padding-inline: calc(var(--purplish-deck-card) + var(--purplish-deck-gap)) 0;
+	outline: none;
+}
+
+.purplish-deck-side-right.purplish-deck-on .purplish-deck-stories > .purplish-deck-story {
+	padding-inline: 0 calc(var(--purplish-deck-card) + var(--purplish-deck-gap));
+}
+
+.purplish-deck-on .purplish-deck-story .purplish-deck-card {
+	position: absolute;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	width: var(--purplish-deck-card);
+	max-width: none;
+	aspect-ratio: 3 / 4;
+	margin: 0;
+	overflow: hidden;
+	border-radius: var(--purplish-deck-radius);
+	background: var(--purplish-deck-fill);
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 12%),
+		0 18px 36px -18px rgb(0 0 0 / 45%);
+	transform-origin: 50% 100%;
+	transition:
+		transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+		opacity 0.3s ease;
+	touch-action: pan-y;
+	user-select: none;
+	-webkit-user-drag: none;
+}
+
+.purplish-deck-side-right.purplish-deck-on .purplish-deck-story .purplish-deck-card {
+	inset-inline: auto 0;
+}
+
+.purplish-deck-on .purplish-deck-card + .purplish-deck-words {
+	margin-block-start: 0;
+}
+
+.purplish-deck-on .purplish-deck-card img {
+	display: block;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover;
+	border-radius: 0;
+}
+
+.purplish-deck-on .purplish-deck-card figcaption {
+	display: none;
+}
+
+/* A story without a photo: a card with a quote mark. */
+.purplish-deck-on .purplish-deck-blank::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	width: 34%;
+	aspect-ratio: 1;
+	background: currentcolor;
+	opacity: 0.3;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 6C6 7 3.5 10 3.5 14v4h6v-6H6.5c0-2.5 1.5-4 3.5-4.5zM20.5 6c-4 1-6.5 4-6.5 8v4h6v-6H17c0-2.5 1.5-4 3.5-4.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* The words keep a readable line length. */
+.purplish-deck-on .purplish-deck-words {
+	max-width: 38rem;
+}
+
+.purplish-deck-on [data-purplish-depth="0"] .purplish-deck-card {
+	cursor: grab;
+}
+
+.purplish-deck-on .purplish-deck-story .purplish-deck-card.purplish-deck-dragging {
+	cursor: grabbing;
+	transition: none;
+}
+
+.purplish-deck-on .purplish-deck-story .purplish-deck-card.purplish-deck-flying,
+.purplish-deck-on .purplish-deck-story .purplish-deck-card.purplish-deck-arriving {
+	transition: none;
+}
+
+.purplish-deck-on .purplish-deck-story .purplish-deck-card.purplish-deck-arriving {
+	opacity: 0;
+}
+
+/* Fanned: the cards under the top one lean out like a hand of cards. */
+.purplish-deck-on [data-purplish-depth="1"] .purplish-deck-card {
+	transform: translateX(-4%) rotate(-5deg);
+}
+
+.purplish-deck-on [data-purplish-depth="2"] .purplish-deck-card {
+	transform: translateX(5%) rotate(6deg);
+}
+
+.purplish-deck-on [data-purplish-depth="3"] .purplish-deck-card {
+	transform: translateX(-6%) rotate(-9deg);
+}
+
+/* Flat: they sit straight, each a little lower and smaller. */
+.purplish-deck-fan-flat.purplish-deck-on [data-purplish-depth="1"] .purplish-deck-card {
+	transform: translateY(0.9rem) scale(0.95);
+}
+
+.purplish-deck-fan-flat.purplish-deck-on [data-purplish-depth="2"] .purplish-deck-card {
+	transform: translateY(1.8rem) scale(0.9);
+}
+
+.purplish-deck-fan-flat.purplish-deck-on [data-purplish-depth="3"] .purplish-deck-card {
+	transform: translateY(2.7rem) scale(0.85);
+}
+
+.purplish-deck-on [data-purplish-depth="more"] .purplish-deck-card {
+	opacity: 0;
+	transform: scale(0.85);
+}
+
+/* Only the top story's words show, and they cross-fade on a change. */
+.purplish-deck-on .purplish-deck-words {
+	transition:
+		opacity 0.25s ease,
+		visibility 0.25s;
+}
+
+.purplish-deck-on .purplish-deck-story:not([data-purplish-depth="0"]) .purplish-deck-words {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.purplish-deck-on [data-purplish-depth="0"] .purplish-deck-words {
+	transition-delay: 0.12s;
+}
+
+/* Previous and next, under the story. */
+.purplish-deck-on .purplish-deck-nav {
+	display: flex;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+	gap: 1rem;
+	width: fit-content;
+	margin-block-start: calc(-1 * var(--purplish-deck-nav));
+	margin-inline-start: calc(var(--purplish-deck-card) + var(--purplish-deck-gap));
+}
+
+.purplish-deck-side-right.purplish-deck-on .purplish-deck-nav {
+	margin-inline-start: 0;
+}
+
+.purplish-deck-nav button {
+	display: grid;
+	place-items: center;
+	width: var(--purplish-deck-nav);
+	height: var(--purplish-deck-nav);
+	padding: 0;
+	border: 1px solid currentcolor;
+	border-radius: 50%;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+}
+
+.purplish-deck-nav button:hover {
+	background: color-mix(in srgb, currentcolor 10%, transparent);
+}
+
+.purplish-deck-nav button:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-deck-nav svg {
+	width: 1.25rem;
+	height: 1.25rem;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 1.75;
+}
+
+.purplish-deck-count {
+	font-variant-numeric: tabular-nums;
+}
+
+/* Narrow spots and phones: the cards on top, the story under them. */
+@container (max-width: 36rem) {
+
+	.wp-block-purplish-story-deck > * {
+		--purplish-deck-card: min(62cqi, 16rem);
+	}
+
+	.wp-block-purplish-story-deck.purplish-deck-on .purplish-deck-stories > .purplish-deck-story,
+	.purplish-deck-side-right.purplish-deck-on .purplish-deck-stories > .purplish-deck-story {
+		justify-content: flex-start;
+		padding-block: calc(var(--purplish-deck-card) * 4 / 3 + 2rem) calc(var(--purplish-deck-nav) + 1.5rem);
+		padding-inline: 0;
+	}
+
+	.purplish-deck-on .purplish-deck-story .purplish-deck-card,
+	.purplish-deck-side-right.purplish-deck-on .purplish-deck-story .purplish-deck-card {
+		inset-inline: calc(50% - var(--purplish-deck-card) / 2) auto;
+	}
+
+	.purplish-deck-on .purplish-deck-nav,
+	.purplish-deck-side-right.purplish-deck-on .purplish-deck-nav {
+		margin-inline: auto;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-deck-on .purplish-deck-story .purplish-deck-card {
+		transition: opacity 0.2s ease;
+		cursor: auto;
+	}
+
+	.purplish-deck-on .purplish-deck-words,
+	.purplish-deck-on [data-purplish-depth="0"] .purplish-deck-words {
+		transition-delay: 0s;
+	}
+}

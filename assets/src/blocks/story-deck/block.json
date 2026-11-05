@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "purplish/story-deck",
+	"version": "1.1.0",
+	"title": "Story Deck",
+	"category": "purplish",
+	"description": "Customer stories on a deck of cards that visitors flick through.",
+	"keywords": [ "testimonials", "reviews", "quotes", "cards" ],
+	"textdomain": "purplish",
+	"attributes": {
+		"side": {
+			"type": "string",
+			"enum": [ "left", "right" ],
+			"default": "left"
+		},
+		"shape": {
+			"type": "string",
+			"enum": [ "rounded", "square" ],
+			"default": "rounded"
+		},
+		"fan": {
+			"type": "string",
+			"enum": [ "fanned", "flat" ],
+			"default": "fanned"
+		}
+	},
+	"allowedBlocks": [ "core/group" ],
+	"supports": {
+		"align": [ "wide", "full" ],
+		"anchor": true,
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": [ "top", "bottom" ],
+			"padding": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css"
+}
