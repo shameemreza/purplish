@@ -212,7 +212,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor, select the Add to Cart + Options, Product Gallery, Product Collection, Accordion or Group block, and open the Purplish panel. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart and Accordion Group blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway and Scroll Lookbook, are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 
@@ -221,6 +221,79 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | WordPress | 7.0 | 7.1 |
 | PHP | 7.4 | 8.3 |
 | WooCommerce | 11.0 | 11.2 |
+
+## For developers
+
+Purplish has a small set of PHP hooks, front-end events and CSS custom properties for theme and add-on code. All of them arrived in 1.1.0.
+
+### PHP hooks
+
+| Hook | Type | What it changes |
+|---|---|---|
+| `purplish_blocks` | Filter | The Purplish block classes to register. Remove one to turn that block off, with its scripts and styles. |
+| `purplish_patterns` | Filter | The Purplish patterns to register, keyed by slug. |
+| `purplish_color_set` | Filter | The color set of a variation or simple product, with the product object. Return `null` for no color. A set with only `color` gets the other parts worked out from it. |
+| `purplish_detected_color` | Filter | The hex color the photo detector picked, with the attachment ID, before it's saved. Return an empty string to save no color. |
+| `purplish_block_classes` | Filter | The classes Purplish adds to a block's wrapper, with the block name and its saved Purplish options. |
+| `purplish_scroll_lookbook_config` | Filter | Scroll Lookbook numbers that aren't in the block panel, with the block attributes: `smoothing` (how fast the film catches up with the scroll, 1 to 30, default 9) and `hold` (the longest the opening video plays, 0 to 30 seconds, default 5). |
+| `purplish_loaded` | Action | Fires once Purplish has added its own hooks. |
+
+To keep every product page in one brand color:
+
+```
+add_filter( 'purplish_color_set', function () {
+	return array( 'color' => '#6b3fa0' );
+} );
+```
+
+To turn off the Runway block:
+
+```
+add_filter( 'purplish_blocks', function ( $blocks ) {
+	return array_diff( $blocks, array( \Purplish\Blocks\Runway::class ) );
+} );
+```
+
+### Front-end events
+
+Both events fire on `document`, so theme scripts and analytics can listen without touching Purplish's files.
+
+| Event | Fires when | `event.detail` |
+|---|---|---|
+| `purplish:colorchange` | The product page color changes, when a shopper picks a variation or clears the selection. | The new color set (`color`, `on`, `ink`, `tint`), or `null` when the page goes back to the theme colors. |
+| `purplish:stop` | Scroll Lookbook lands on a stop. | `stop`, the stop number (1 is the first product card), and `block`, the block's element. |
+
+```
+document.addEventListener( 'purplish:colorchange', ( event ) => {
+	console.log( event.detail ? event.detail.color : 'theme colors' );
+} );
+```
+
+### CSS custom properties
+
+When a product page has a color, Purplish sets four properties on `body`, next to the `purplish-active` class:
+
+| Property | What it holds |
+|---|---|
+| `--purplish-accent` | The button color. |
+| `--purplish-on` | Black or white, whichever reads better on the accent. |
+| `--purplish-ink` | A deeper shade for text on the page, like the sale price. |
+| `--purplish-tint` | The pale background tint. |
+
+Purplish's own blocks read their sizes and colors from properties on the block wrapper, so one line in a theme stylesheet or the Additional CSS box changes them:
+
+```
+.wp-block-purplish-story-deck {
+	--purplish-deck-radius: 0.5rem;
+}
+```
+
+| Block | Properties |
+|---|---|
+| Hanging Rail | `--purplish-rail-card` (card width), `--purplish-rail-gap` |
+| Story Deck | `--purplish-deck-card` (card width), `--purplish-deck-gap`, `--purplish-deck-radius`, `--purplish-deck-paper` (the base color the card fill mixes with) |
+| Runway | `--purplish-runway-mist` (stage and rail background), `--purplish-runway-paper` (the floor fade and every other card), `--purplish-runway-edge` (space at the edges) |
+| Scroll Lookbook | `--purplish-lookbook-card-radius`, `--purplish-lookbook-card-paper`, `--purplish-lookbook-card-ink` (card text color), `--purplish-lookbook-gap`, `--purplish-lookbook-edge` |
 
 ## Why I made it
 

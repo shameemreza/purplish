@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce blocks, blocks, design, product gallery
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 
 = Built to stay out of your way =
 
-* **Works on WooCommerce's own blocks:** Purplish adds a panel to the Product Gallery, Add to Cart + Options, Product Collection, Accordion and Group blocks. It replaces nothing.
+* **Works on the blocks you already use:** Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart and Accordion Group blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
 * **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
@@ -48,7 +48,7 @@ When the color changes, the photo changes with a transition: Blur (the default),
 Select the Product Gallery block and choose how the photos behave:
 
 * **Hover style:** 3D tilt leans the photo toward the mouse, Zoom magnifies the spot under it, and Loupe shows a round magnifier. Lift, Parallax, Glare and Slow zoom add softer motion. Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it.
-* **Full-screen style:** the view that opens when a shopper clicks the photo. Snap stack is tinted to the page color, Zoom from photo grows out of the photo, Filmstrip adds small photos along the bottom, Cinema uses a dark screen, and Classic fade keeps it plain. It needs the gallery's "Open pop-up when clicked" setting.
+* **Full-screen style:** the view that opens when a shopper clicks the photo. Pick Snap stack, Zoom from photo, Filmstrip, Cinema or Classic fade. It needs the gallery's "Open pop-up when clicked" setting.
 * **Slide style:** how the next photo comes in. 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, and Image tunnel comes out of the distance.
 * **Layout:** hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover.
 * **Thumbnail shape:** select the Thumbnails block inside the gallery for rounded or circle thumbnails.
@@ -60,34 +60,13 @@ On shop and collection pages, select the Product Collection block:
 * **Add to cart on the photo:** a small frosted button sits on the photo, and the title and price share one line. It shows on hover, and always on touch screens.
 * **Button motion:** a bag icon slides in on hover, and the button fills and pops after adding to cart.
 * **Effect color:** one color for the button fill and the card effects. On a product page with a variation color, the variation color wins.
-* **Card effect:** one of 18 effects for the whole collection.
+* **Card effect:** one of 18 effects for the whole collection. Cards can fan out like a hand, hang from a clothes line, or lie over each other like prints on a table.
 
-Effects on hover:
+Effects on hover: Spotlight, Color reveal, Fan deck, Expanded cards, Magnetic panel, Card folder, Bookmark and Roster.
 
-* **Spotlight:** the card under the mouse grows while the rest blur and fade back.
-* **Color reveal:** the photos sit in a color wash until the mouse brings one to full color.
-* **Fan deck:** the cards rest slightly tilted. The one under the mouse straightens and its neighbors lean away.
-* **Expanded cards:** each photo shows as a narrow band and opens to full size under the mouse.
-* **Magnetic panel:** a soft panel in the effect color slides under the card.
-* **Card folder:** each card sits in a soft folder with a tab, and the photo lifts out.
-* **Bookmark:** each card is a soft card with a notch cut from its lower edge, and the photo turns from gray to full color under the mouse.
-* **Roster:** product names as a big list beside one large photo. The name under the mouse, or in focus, shows its photo. It needs a grid, and phones and touch screens show the grid as it is.
+Effects in a carousel (a grid stays as it is): Deck, Arc, Spotlight carousel, Grow, Tilt, Depth and Overlap.
 
-Effects in a carousel (a grid stays as it is):
-
-* **Deck:** the cards at the edges turn away, and the one under the mouse faces you.
-* **Arc:** the cards sit on a curve, highest in the middle.
-* **Spotlight carousel:** the middle card is full size and the rest fade back.
-* **Grow:** cards grow as they reach the middle.
-* **Tilt:** cards lean as they travel across.
-* **Depth:** the cards turn further away the closer they get to the edges, and the middle card faces you.
-* **Overlap:** the cards lie over each other like prints on a table, each leaning its own way. The one under the mouse straightens and comes to the top.
-
-Effects as cards scroll into view:
-
-* **Clothes line:** each card hangs from a peg and swings as it comes in, or when the mouse touches it.
-* **Parallax:** the photo moves slower than its card.
-* **Zoom reveal:** each card grows in as it appears.
+Effects as cards scroll into view: Clothes line, Parallax and Zoom reveal.
 
 = Small details =
 
@@ -97,7 +76,7 @@ On the Add to Cart + Options block:
 * **Glow ring:** a soft ring in the page color around the add to cart button.
 * **Halo:** a ring leaves the button and fades each time a product goes into the cart.
 * **Mesh background:** soft blobs of the color sit over the background tint and move each time the color changes.
-* **Color dots:** each color option shows a dot in its own color, like Orange or Blue. Sizes, and options that come in several colors, get no dot.
+* **Color dots:** each color option shows a dot in its own color, like Orange or Blue.
 * **Liquid glass and spectrum ring:** the add to cart button gets a frosted fill with a highlight that follows the mouse, and a rainbow ring that travels once around its edge on hover.
 * **Googly eyes:** one or two eyes inside the add to cart button follow the mouse and blink when it moves again after a pause.
 
@@ -107,14 +86,14 @@ On other blocks:
 * **Accordion Group, Soft style:** the same soft cards on WooCommerce's own accordion, with its icon in a round button that fills with the page color when open.
 * **Details, Soft style:** the block becomes a soft card, and a round plus turns into an x that fills with the page color when open.
 * **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
-* **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out. To hide them, use WooCommerce's own Invalid options setting.
+* **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out.
 * **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
 * **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
-* **Product Specifications, Table style:** every other row shaded, or each row on its own soft card. Screen readers still read it as a table.
-* **Product Filters, Matching chips:** the active filters take the look of a selected chip, with its colors, corners and letter case, and a chip fades into its selected color when picked.
+* **Product Specifications, Table style:** every other row shaded, or each row on its own soft card.
+* **Product Filters, Matching chips:** the active filters take the look of a selected chip, and a chip fades into its selected color when picked.
 * **Mini-Cart, Count pop:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart.
-* **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom. The photo grows inside its own frame, so the caption and the lightbox button stay where they are.
-* **Button, Looks:** a glow ring, a band of light that sweeps across on hover, liquid glass and a spectrum ring, in any mix. Googly eyes, one or two, sit inside the button and follow the mouse. One effect color drives the glow and the glass.
+* **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom.
+* **Button, Looks:** a glow ring, a band of light that sweeps across on hover, liquid glass and a spectrum ring, in any mix. Googly eyes, one or two, sit inside the button and follow the mouse.
 * **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
 * **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
 * **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
@@ -127,24 +106,24 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 
 * **Products on a rope:** the section holds still while the page scrolls, and the products slide along a rope that sags between them. Each card swings on its clip when the scrolling speeds up or stops, then settles.
 * **Clip and rope:** a wooden peg, a binder clip or a strip of tape, on a rope that sags a little or more.
-* **Scroll length:** short, medium or long. It follows how many products there are, so the rail feels the same with 4 products or 16.
+* **Scroll length:** short, medium or long, scaled to how many products there are.
 * **Pattern:** Hanging rail of new arrivals adds the block with a heading, a short line and your 8 newest products.
 
 Visitors who turn on reduced motion see the products as a row they can scroll sideways, with the rope and clips still drawn.
 
 = Story Deck block =
 
-A block of Purplish's own, in the Purplish group of the block inserter. Each story is a group with a photo, a quote, the customer's name and, if you want, a button to the product. The photos become a deck of cards, and the top card's story sits beside it.
+Each story is a group with a photo, a quote, the customer's name and, if you want, a button to the product. The photos become a deck of cards, and the top card's story sits beside it.
 
 * **Flick through:** visitors drag or swipe the top card away, or use the previous and next buttons or the arrow keys. After the last story the deck starts again.
 * **Deck options:** cards on the left or right, rounded or square, fanned like a hand of cards or flat. On phones the cards sit above the story.
-* **Pattern:** Customer stories deck adds the block with three sample stories, each with a Shop this button. Add your own photos, or leave them out and each card shows a quote mark.
+* **Pattern:** Customer stories deck adds the block with three sample stories, each with a Shop this button.
 
 The deck never moves on its own. Visitors who turn on reduced motion switch stories with a short fade.
 
 = Runway block =
 
-A block of Purplish's own, in the Purplish group of the block inserter. It holds a heading, a short line and one Product Collection, so you pick the products the way you already do. Every product photo becomes a look, and the looks stand in one line that gets smaller and softer toward the back.
+It holds a heading, a short line and one Product Collection, so you pick the products the way you already do. Every product photo becomes a look, and the looks stand in one line that gets smaller and softer toward the back.
 
 * **Walk the line:** visitors drag or swipe, tap a look further back, or use the previous and next buttons or the arrow keys. After the last look the first one returns.
 * **Product rail:** the product cards sit beside the line and follow the look at the front. On phones they run under it as one row.
@@ -155,7 +134,7 @@ The line never moves on its own, and a normal mouse wheel still scrolls the page
 
 = Scroll Lookbook block =
 
-A block of Purplish's own, in the Purplish group of the block inserter. It holds Cover blocks, one Product Collection and a Group. Each Cover is a shot: as visitors scroll, the camera moves from shot to shot, holds at each one and brings in that product's card on the side away from the subject. Scrolling back runs the film back, and the Group shows as the closing line over the opening shot.
+It holds Cover blocks, one Product Collection and a Group. Each Cover is a shot: as visitors scroll, the camera moves from shot to shot, holds at each one and brings in that product's card on the side away from the subject.
 
 * **Shots and cards:** each Cover holds a video or a photo, and the first Product Collection gives the cards. Each card's button takes its product's Purplish color.
 * **Scroll Lookbook options:** a chapter list on or off, a timecode on or off, and a short, medium or long scroll for each stop.
@@ -184,7 +163,7 @@ The code is on [GitHub](https://github.com/shameemreza/purplish). The readable s
 1. Make sure WooCommerce 11.0 or later is active.
 2. Go to Plugins > Add New, search for Purplish, then install and activate it. Purplish reads the colors of your variation photos in the background.
 3. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-4. On a block theme, open the Single Product template in the Site Editor, select the Add to Cart + Options, Product Gallery, Product Collection, Accordion or Group block, and open the Purplish panel. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+4. On a block theme, open a template in the Site Editor, select a block Purplish works on, like Add to Cart + Options, Product Gallery or Product Collection, and open the Purplish panel. Purplish's own blocks are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 == Frequently Asked Questions ==
 
@@ -261,6 +240,21 @@ Purplish doesn't collect, store or send personal data. It sets no cookies and ma
 Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209): set each variation's color by hand, or read it from the photo.
 
 == Changelog ==
+
+= 1.1.0 =
+
+* New: Hanging Rail block. Products hang from pegs, binder clips or tape on a rope and slide along it as the page scrolls. Comes with the Hanging rail of new arrivals pattern.
+* New: Story Deck block. Customer stories on a deck of cards that visitors flick through. Comes with the Customer stories deck pattern.
+* New: Runway block. Product photos stand in a line that fades into the distance, with the product cards beside it. Comes with the Runway lookbook pattern.
+* New: Scroll Lookbook block. A full-screen video or photo that plays as visitors scroll and stops at each product with its card. Comes with the Scroll lookbook storefront pattern.
+* New: Grayed-out look for options that can't be bought, a pill, circle or price tag sale badge in any corner, and rounded or circle gallery thumbnails.
+* New: Soft style for the Accordion Group and Details blocks, and soft card or chat bubble reviews and striped or card-style specifications.
+* New: Matching chips for active Product Filters, and a count pop on the Mini-Cart.
+* New: The gallery's 7 hover styles on any Image block, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any Button and on add to cart.
+* New: Scroll reveals for headings, scroll entrances for groups and columns, and slow zoom, parallax or pill reveal for covers.
+* New: Four more card effects on the Product Collection block: Bookmark, Roster, Depth and Overlap, for 18 in all.
+* New: Hooks and front-end events for developers, listed in the README on GitHub.
+* Fix: The gallery loupe sat away from the mouse on right-to-left sites.
 
 = 1.0.0 =
 

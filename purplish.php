@@ -3,7 +3,7 @@
  * Plugin Name:          Purplish - Block Design Toolkit for WooCommerce
  * Plugin URI:           https://purplish.io/
  * Description:          A block design toolkit for your WooCommerce store. Style the product page, gallery and product cards in the block sidebar. Works with block and classic themes.
- * Version:              1.0.0
+ * Version:              1.1.0
  * Author:               Shameem Reza
  * Author URI:           https://shameemreza.com/
  * License:              GPL v2 or later
@@ -22,7 +22,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // The test bootstrap defines these first, so each one is guarded.
-defined( 'PURPLISH_VERSION' ) || define( 'PURPLISH_VERSION', '1.0.0' );
+defined( 'PURPLISH_VERSION' ) || define( 'PURPLISH_VERSION', '1.1.0' );
 defined( 'PURPLISH_FILE' ) || define( 'PURPLISH_FILE', __FILE__ );
 defined( 'PURPLISH_DIR' ) || define( 'PURPLISH_DIR', plugin_dir_path( __FILE__ ) );
 defined( 'PURPLISH_URL' ) || define( 'PURPLISH_URL', plugin_dir_url( __FILE__ ) );
