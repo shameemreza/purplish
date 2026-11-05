@@ -24,6 +24,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 18 card effects, add to cart on the photo and button motion. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
+| Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
@@ -153,6 +154,20 @@ A block of Purplish's own, in the Purplish group of the block inserter. Each sto
 - **Pattern:** Customer stories deck adds the block with three sample stories, each with a Shop this button. Add your own photos, or leave them out and each card shows a quote mark.
 
 The deck never moves on its own. Visitors who turn on reduced motion switch stories with a short fade, and screen readers hear each new story after a button or key press. Without the script the stories show as a plain list of cards.
+
+## Runway block
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds a heading, a short line and one Product Collection, so you pick the products the way you already do. Every product photo becomes a look, and the looks stand in one line that gets smaller and softer toward the back.
+
+- **Walk the line:** visitors drag or swipe, swipe sideways on a trackpad, tap a look further back, or use the previous and next buttons or the arrow keys. The front look steps out, the next one comes forward and a new one comes out of the haze at the back. After the last look the first one returns.
+- **Product rail:** the product cards sit beside the line and follow the look at the front, with the photo, name, price and add to cart. On phones they run under the line as one row.
+- **Looks from:** each product's featured photo and its gallery photos, or the featured photo only.
+- **Photo shape:** framed, or cutout for product photos with a transparent background.
+- **Look number:** the big look number next to the buttons, on or off.
+- **Fly to cart:** the product photo flies into the mini cart when a visitor adds it to the cart. It needs the Mini-Cart block on the page, usually in the header.
+- **Pattern:** Runway lookbook adds the block with a heading, a short line and your 6 newest products.
+
+The line never moves on its own, and a normal mouse wheel still scrolls the page past it. Visitors who turn on reduced motion step one look at a time with a short fade and no blur, and screen readers hear each new look after a button or key press. Without the script the products show as the collection you set up.
 
 ## Block and classic themes
 

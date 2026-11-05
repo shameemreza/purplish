@@ -72,6 +72,82 @@ return array(
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
 	),
+	'runway' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/runway',
+		'version' => '1.1.0',
+		'title' => 'Runway',
+		'category' => 'purplish',
+		'description' => 'Product photos stand in a line that fades into the distance, and visitors walk it look by look beside the product cards.',
+		'keywords' => array(
+			'products',
+			'lookbook',
+			'gallery',
+			'collection'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'looks' => array(
+				'type' => 'string',
+				'enum' => array(
+					'all',
+					'featured'
+				),
+				'default' => 'all'
+			),
+			'shape' => array(
+				'type' => 'string',
+				'enum' => array(
+					'framed',
+					'cutout'
+				),
+				'default' => 'framed'
+			),
+			'number' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'fly' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			)
+		),
+		'allowedBlocks' => array(
+			'woocommerce/product-collection',
+			'core/heading',
+			'core/paragraph'
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				)
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
+	),
 	'story-deck' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

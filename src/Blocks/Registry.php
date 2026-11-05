@@ -54,6 +54,7 @@ final class Registry {
 		return array(
 			HangingRail::class,
 			StoryDeck::class,
+			Runway::class,
 		);
 	}
 

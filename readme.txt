@@ -142,6 +142,17 @@ A block of Purplish's own, in the Purplish group of the block inserter. Each sto
 
 The deck never moves on its own. Visitors who turn on reduced motion switch stories with a short fade.
 
+= Runway block =
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds a heading, a short line and one Product Collection, so you pick the products the way you already do. Every product photo becomes a look, and the looks stand in one line that gets smaller and softer toward the back.
+
+* **Walk the line:** visitors drag or swipe, tap a look further back, or use the previous and next buttons or the arrow keys. After the last look the first one returns.
+* **Product rail:** the product cards sit beside the line and follow the look at the front. On phones they run under it as one row.
+* **Runway options:** looks from every product photo or the featured photo only, framed or cutout photos, the look number on or off, and photos that fly into the mini cart on add to cart.
+* **Pattern:** Runway lookbook adds the block with a heading, a short line and your 6 newest products.
+
+The line never moves on its own, and a normal mouse wheel still scrolls the page past it. Visitors who turn on reduced motion step one look at a time with a short fade.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
