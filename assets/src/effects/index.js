@@ -3,8 +3,9 @@
  * the mouse by setting CSS variables, the slide styles learn which way the
  * gallery moved, two full-screen styles measure the view, the active
  * filter chips copy a chip's look, the mini-cart count pops, the glass
- * button's highlight follows the mouse and googly eyes look at it. The
- * stylesheet does the rest.
+ * button's highlight follows the mouse, googly eyes look at it, and
+ * headings, groups and columns wait below the view until they scroll in.
+ * The stylesheet does the rest.
  */
 import { __, sprintf } from '@wordpress/i18n';
 import './style.css';
@@ -707,5 +708,63 @@ if ( canHover ) {
 	const eyes = [ ...document.querySelectorAll( '.purplish-eye' ) ];
 	if ( eyes.length ) {
 		lookAt( eyes );
+	}
+}
+
+const ENTRANCES =
+	'.purplish-heading[class*="purplish-heading-reveal-"], .purplish-group[class*="purplish-group-entrance-"], [class*="purplish-columns-entrance-"] > .wp-block-column';
+
+/**
+ * Holds back each block below the view and lets it in once, when enough of
+ * it shows: a fifth of it, or a fifth of the view for a block taller than
+ * the view. Blocks already in or above the view at load stay as they are,
+ * and nothing waits without this script. Blocks that come in together play
+ * one after another.
+ *
+ * @param {HTMLElement[]} blocks The blocks, in page order.
+ */
+function enterOnScroll( blocks ) {
+	const steps = Array.from( { length: 51 }, ( _, step ) => step / 50 );
+	const watch = new window.IntersectionObserver(
+		( entries ) => {
+			let order = 0;
+			entries.forEach( ( entry ) => {
+				const seen = entry.intersectionRect.height;
+				const enough =
+					Math.min(
+						entry.boundingClientRect.height,
+						window.innerHeight
+					) * 0.2;
+				if ( ! entry.isIntersecting || seen < enough ) {
+					return;
+				}
+				watch.unobserve( entry.target );
+				entry.target.style.setProperty(
+					'--purplish-delay',
+					order * 0.12 + 's'
+				);
+				order++;
+				entry.target.classList.replace(
+					'purplish-waiting',
+					'purplish-entered'
+				);
+			} );
+		},
+		{ threshold: steps }
+	);
+
+	blocks.forEach( ( block ) => {
+		if ( block.getBoundingClientRect().top < window.innerHeight ) {
+			return;
+		}
+		block.classList.add( 'purplish-waiting' );
+		watch.observe( block );
+	} );
+}
+
+if ( ! reduced && 'IntersectionObserver' in window ) {
+	const blocks = [ ...document.querySelectorAll( ENTRANCES ) ];
+	if ( blocks.length ) {
+		enterOnScroll( blocks );
 	}
 }

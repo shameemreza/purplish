@@ -22,6 +22,9 @@ import FiltersPanel from './filters';
 import MiniCartPanel from './mini-cart';
 import ImagePanel from './image';
 import ButtonPanel from './button';
+import HeadingPanel from './heading';
+import ColumnsPanel from './columns';
+import CoverPanel from './cover';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
@@ -41,6 +44,9 @@ const PANELS = {
 	'woocommerce/mini-cart': MiniCartPanel,
 	'core/image': ImagePanel,
 	'core/button': ButtonPanel,
+	'core/heading': HeadingPanel,
+	'core/columns': ColumnsPanel,
+	'core/cover': CoverPanel,
 };
 
 addFilter(
