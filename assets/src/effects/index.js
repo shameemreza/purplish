@@ -2,7 +2,8 @@
  * Purplish effects that need a script: the gallery's hover styles follow
  * the mouse by setting CSS variables, the slide styles learn which way the
  * gallery moved, two full-screen styles measure the view, the active
- * filter chips copy a chip's look, and the mini-cart count pops. The
+ * filter chips copy a chip's look, the mini-cart count pops, the glass
+ * button's highlight follows the mouse and googly eyes look at it. The
  * stylesheet does the rest.
  */
 import { __, sprintf } from '@wordpress/i18n';
@@ -116,12 +117,19 @@ function pictureBox( img ) {
 /**
  * Makes a frame follow the mouse for its hover style.
  *
- * @param {HTMLElement} frame The element the mouse moves over.
- * @param {string}      style The hover style.
+ * @param {HTMLElement}                   frame         The element that gets the mouse variables.
+ * @param {string}                        style         The hover style.
+ * @param {Object}                        [where]       Where the mouse is read, when it isn't the frame.
+ * @param {HTMLElement}                   [where.area]  The element the mouse moves over.
+ * @param {() => HTMLImageElement | null} [where.photo] The photo under the loupe.
  */
-function follow( frame, style ) {
-	frame.addEventListener( 'pointerenter', () => {
-		const img = shownPhoto( frame );
+function follow(
+	frame,
+	style,
+	{ area = frame, photo = () => shownPhoto( frame ) } = {}
+) {
+	area.addEventListener( 'pointerenter', () => {
+		const img = photo();
 		if ( 'loupe' === style && img ) {
 			frame.style.setProperty(
 				'--purplish-loupe',
@@ -131,8 +139,8 @@ function follow( frame, style ) {
 		}
 	} );
 
-	frame.addEventListener( 'pointermove', ( event ) => {
-		const box = frame.getBoundingClientRect();
+	area.addEventListener( 'pointermove', ( event ) => {
+		const box = area.getBoundingClientRect();
 		const x = ( event.clientX - box.left ) / box.width;
 		const y = ( event.clientY - box.top ) / box.height;
 		frame.style.setProperty( '--purplish-ry', ( x - 0.5 ) * 22 + 'deg' );
@@ -142,7 +150,7 @@ function follow( frame, style ) {
 		frame.style.setProperty( '--purplish-dx', String( x - 0.5 ) );
 		frame.style.setProperty( '--purplish-dy', String( y - 0.5 ) );
 
-		const img = 'loupe' === style && shownPhoto( frame );
+		const img = 'loupe' === style && photo();
 		if ( img ) {
 			const picture = pictureBox( img );
 			const px = ( event.clientX - picture.left ) * LOUPE_ZOOM;
@@ -177,9 +185,51 @@ function follow( frame, style ) {
 					'--purplish-dx',
 					'--purplish-dy',
 				];
-	frame.addEventListener( 'pointerleave', () =>
+	area.addEventListener( 'pointerleave', () =>
 		reset.forEach( ( name ) => frame.style.removeProperty( name ) )
 	);
+}
+
+/**
+ * A hover style on an image block. The photo is the frame, so the light
+ * layer for the tilt, glare and loupe is added beside it on the first
+ * hover, after the lightbox script has set up the figure.
+ *
+ * @param {HTMLElement} figure The image block.
+ */
+function imageHover( figure ) {
+	const img = figure.querySelector( 'img' );
+	if ( ! img ) {
+		return;
+	}
+	const style = styleIn( figure.classList, 'purplish-image-hover-' );
+	const light = [ 'tilt', 'glare', 'loupe' ].includes( style )
+		? document.createElement( 'span' )
+		: null;
+	if ( light ) {
+		light.className = 'purplish-image-light';
+		light.setAttribute( 'aria-hidden', 'true' );
+	}
+
+	img.addEventListener( 'pointerenter', () => {
+		// The clip takes one radius; an elliptical corner reads as its first.
+		const radius = window
+			.getComputedStyle( img )
+			.borderTopLeftRadius.split( ' ' )[ 0 ];
+		figure.style.setProperty( '--purplish-radius', radius );
+		if ( light ) {
+			if ( ! light.isConnected ) {
+				figure.appendChild( light );
+			}
+			light.style.left = img.offsetLeft + 'px';
+			light.style.top = img.offsetTop + 'px';
+			light.style.width = img.offsetWidth + 'px';
+			light.style.height = img.offsetHeight + 'px';
+			light.style.borderRadius = radius;
+		}
+	} );
+
+	follow( figure, style, { area: img, photo: () => img } );
 }
 
 if ( canHover ) {
@@ -194,6 +244,10 @@ if ( canHover ) {
 				.querySelectorAll( '.wc-block-product-gallery-large-image' )
 				.forEach( ( frame ) => follow( frame, style ) );
 		} );
+
+	document
+		.querySelectorAll( '[class*="purplish-image-hover-"]' )
+		.forEach( imageHover );
 
 	// Classic galleries follow on the slider's viewport, never the sliding strip.
 	const classic = styleIn(
@@ -558,4 +612,100 @@ function popCount( cart ) {
 
 if ( ! reduced ) {
 	document.querySelectorAll( '.purplish-minicart-pop' ).forEach( popCount );
+}
+
+/**
+ * Moves the glass button's highlight under the mouse. It drifts back to
+ * the top when the mouse leaves.
+ *
+ * @param {HTMLElement} button The link or button.
+ */
+function glassHighlight( button ) {
+	button.addEventListener( 'pointermove', ( event ) => {
+		const box = button.getBoundingClientRect();
+		button.style.setProperty(
+			'--purplish-bx',
+			( ( event.clientX - box.left ) / box.width ) * 100 + '%'
+		);
+		button.style.setProperty(
+			'--purplish-by',
+			( ( event.clientY - box.top ) / box.height ) * 100 + '%'
+		);
+	} );
+	button.addEventListener( 'pointerleave', () => {
+		button.style.removeProperty( '--purplish-bx' );
+		button.style.removeProperty( '--purplish-by' );
+	} );
+}
+
+const STILL = 1000;
+
+/**
+ * Turns every googly eye on the page toward the mouse, from one listener
+ * and at most once a frame. The eyes blink when the mouse moves after a
+ * still moment, never on a timer.
+ *
+ * @param {HTMLElement[]} eyes The eyes.
+ */
+function lookAt( eyes ) {
+	let pointer = null;
+	let frame = 0;
+	let last = 0;
+
+	const look = () => {
+		frame = 0;
+		eyes.forEach( ( eye ) => {
+			const box = eye.getBoundingClientRect();
+			const dx = pointer.clientX - ( box.left + box.width / 2 );
+			const dy = pointer.clientY - ( box.top + box.height / 2 );
+			const away = Math.hypot( dx, dy ) || 1;
+			const reach = Math.min( 1, away / ( box.width * 4 ) );
+			eye.style.setProperty(
+				'--purplish-ex',
+				( ( dx / away ) * reach ).toFixed( 3 )
+			);
+			eye.style.setProperty(
+				'--purplish-ey',
+				( ( dy / away ) * reach ).toFixed( 3 )
+			);
+		} );
+	};
+
+	document.addEventListener(
+		'pointermove',
+		( event ) => {
+			if ( 'touch' === event.pointerType ) {
+				return;
+			}
+			if ( last && event.timeStamp - last > STILL ) {
+				document
+					.querySelectorAll( '.purplish-eyes' )
+					.forEach( ( pair ) => {
+						pair.classList.remove( 'purplish-blink' );
+						// eslint-disable-next-line no-unused-expressions
+						pair.offsetWidth;
+						pair.classList.add( 'purplish-blink' );
+					} );
+			}
+			last = event.timeStamp;
+			pointer = event;
+			if ( ! frame ) {
+				frame = window.requestAnimationFrame( look );
+			}
+		},
+		{ passive: true }
+	);
+}
+
+if ( canHover ) {
+	document
+		.querySelectorAll(
+			'.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button'
+		)
+		.forEach( glassHighlight );
+
+	const eyes = [ ...document.querySelectorAll( '.purplish-eye' ) ];
+	if ( eyes.length ) {
+		lookAt( eyes );
+	}
 }

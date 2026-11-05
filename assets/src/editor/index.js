@@ -20,6 +20,8 @@ import ReviewsPanel from './reviews';
 import SpecsPanel from './specs';
 import FiltersPanel from './filters';
 import MiniCartPanel from './mini-cart';
+import ImagePanel from './image';
+import ButtonPanel from './button';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
@@ -37,6 +39,8 @@ const PANELS = {
 	'woocommerce/product-specifications': SpecsPanel,
 	'woocommerce/product-filters': FiltersPanel,
 	'woocommerce/mini-cart': MiniCartPanel,
+	'core/image': ImagePanel,
+	'core/button': ButtonPanel,
 };
 
 addFilter(

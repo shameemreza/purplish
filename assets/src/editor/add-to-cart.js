@@ -5,6 +5,8 @@
 import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
+import { EYES, EYES_HELP } from './eyes';
+
 const DEFAULTS = {
 	parts: [ 'button', 'chip', 'badge' ],
 	transition: 'blur',
@@ -160,6 +162,35 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 				) }
 				checked={ true === options.glow }
 				onChange={ ( glow ) => save( { glow } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Liquid glass button', 'purplish' ) }
+				help={ __(
+					'A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button.',
+					'purplish'
+				) }
+				checked={ true === options.glass }
+				onChange={ ( glass ) => save( { glass } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Spectrum ring on the button', 'purplish' ) }
+				help={ __(
+					'A rainbow ring travels once around the button on hover.',
+					'purplish'
+				) }
+				checked={ true === options.spectrum }
+				onChange={ ( spectrum ) => save( { spectrum } ) }
+			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Googly eyes on the button', 'purplish' ) }
+				help={ EYES_HELP }
+				value={ options.eyes || '' }
+				options={ EYES }
+				onChange={ ( eyes ) => save( { eyes: eyes || undefined } ) }
 			/>
 			<ToggleControl
 				__nextHasNoMarginBottom

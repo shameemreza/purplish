@@ -22,6 +22,9 @@ body.purplish-active {
 .purplish-details,
 .purplish-reviews,
 .purplish-specs,
+.purplish-image,
+.purplish-button,
+.purplish-cart,
 body[class*="purplish-classic-gallery-"] {
 	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
 	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
@@ -1729,5 +1732,366 @@ body.purplish-active .purplish-group-tint {
 
 	.purplish-gallery .wc-block-product-gallery-dialog__content {
 		scroll-behavior: auto !important;
+	}
+}
+
+/*
+ * Image hover styles, the gallery's on any image block. The photo is its
+ * own frame: the figure can be wider than the photo and holds the caption,
+ * and core's lightbox measures the photo's parent, so nothing wraps it.
+ * The script sets the mouse variables on the figure, the photo's corner
+ * radius, and adds the light layer for the tilt, glare and loupe.
+ */
+@property --purplish-grow {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 1;
+}
+
+@property --purplish-shift-x {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 0;
+}
+
+@property --purplish-shift-y {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 0;
+}
+
+.purplish-image[class*="purplish-image-hover-"] {
+	position: relative;
+}
+
+/*
+ * Styles that grow the photo clip it back to its own box. The clip undoes
+ * the scale and the shift around the same origin, and both read one
+ * animated number, so the edges hold still while the photo grows.
+ */
+:is(.purplish-image-hover-zoom, .purplish-image-hover-parallax, .purplish-image-hover-slowzoom) img {
+	--purplish-ox: 50%;
+	--purplish-oy: 50%;
+	--purplish-k: calc(1 - 1 / var(--purplish-grow));
+	--purplish-tx: calc(var(--purplish-shift-x) * 1% / var(--purplish-grow));
+	--purplish-ty: calc(var(--purplish-shift-y) * 1% / var(--purplish-grow));
+	transform-origin: var(--purplish-ox) var(--purplish-oy);
+	translate: calc(var(--purplish-shift-x) * 1%) calc(var(--purplish-shift-y) * 1%);
+	scale: var(--purplish-grow);
+	--purplish-clip-top: calc(var(--purplish-oy) * var(--purplish-k) - var(--purplish-ty));
+	--purplish-clip-right: calc((100% - var(--purplish-ox)) * var(--purplish-k) + var(--purplish-tx));
+	--purplish-clip-bottom: calc((100% - var(--purplish-oy)) * var(--purplish-k) + var(--purplish-ty));
+	--purplish-clip-left: calc(var(--purplish-ox) * var(--purplish-k) - var(--purplish-tx));
+	clip-path: inset(var(--purplish-clip-top) var(--purplish-clip-right) var(--purplish-clip-bottom) var(--purplish-clip-left) round calc(var(--purplish-radius, 0px) / var(--purplish-grow)));
+}
+
+/* Zoom: the photo magnifies around the mouse. */
+.purplish-image-hover-zoom img {
+	--purplish-ox: var(--purplish-mx, 50%);
+	--purplish-oy: var(--purplish-my, 50%);
+	transition: --purplish-grow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Parallax: the photo drifts against the mouse inside its own box. */
+.purplish-image-hover-parallax img {
+	transition:
+		--purplish-shift-x 0.45s ease-out,
+		--purplish-shift-y 0.45s ease-out,
+		--purplish-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Slow zoom: a gentle push in while hovered, a quicker settle after. */
+.purplish-image-hover-slowzoom img {
+	transition: --purplish-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Lift: the photo rises with a soft shadow in the effect color. */
+.purplish-image-hover-lift img {
+	transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * The light layer sits over the photo with the photo's box and corners.
+ * With the tilt it takes the same transform, so the sheen turns with it.
+ */
+.purplish-image-light {
+	position: absolute;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.purplish-image-hover-tilt :is(img, .purplish-image-light) {
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:is(.purplish-image-hover-tilt, .purplish-image-hover-glare) .purplish-image-light {
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.4), transparent 45%);
+	opacity: 0;
+	transition: opacity 0.4s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.purplish-image-hover-loupe .purplish-image-light::after {
+	content: "";
+	position: absolute;
+
+	/* The mouse is measured from the left in every language, and the RTL
+	   build leaves the four-value inset as it is. */
+	inset: var(--purplish-my, 50%) auto auto var(--purplish-mx, 50%);
+	width: var(--purplish-loupe-box, 180px);
+	height: var(--purplish-loupe-box, 180px);
+	border-radius: 50%;
+	background-color: #fff;
+	background-image: var(--purplish-loupe, none);
+	background-repeat: no-repeat;
+	background-size: var(--purplish-loupe-size, cover);
+	background-position: var(--purplish-loupe-pos, center);
+	box-shadow: 0 0 0 3px #fff, 0 0 0 4px color-mix(in srgb, var(--purplish-color) 35%, transparent), 0 18px 40px -12px rgb(0 0 0 / 0.45);
+	opacity: 0;
+	translate: -50% -50%;
+	scale: 0.6;
+	transition: opacity 0.2s, scale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-image-hover-tilt:has(img:hover) :is(img, .purplish-image-light) {
+		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
+		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
+	}
+
+	.purplish-image-hover-tilt:has(img:hover) img {
+		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	:is(.purplish-image-hover-tilt, .purplish-image-hover-glare):has(img:hover) .purplish-image-light {
+		opacity: 1;
+	}
+
+	.purplish-image-hover-lift img:hover {
+		translate: 0 -10px;
+		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	.purplish-image-hover-zoom img:hover {
+		--purplish-grow: 2.2;
+		cursor: zoom-in;
+	}
+
+	.purplish-image-hover-parallax img:hover {
+		--purplish-grow: 1.12;
+		--purplish-shift-x: calc(var(--purplish-dx, 0) * -8);
+		--purplish-shift-y: calc(var(--purplish-dy, 0) * -8);
+	}
+
+	.purplish-image-hover-slowzoom img:hover {
+		--purplish-grow: 1.1;
+		transition: --purplish-grow 6s cubic-bezier(0.2, 0.6, 0.2, 1);
+	}
+
+	.purplish-image-hover-loupe img:hover {
+		cursor: crosshair;
+	}
+
+	.purplish-image-hover-loupe:has(img:hover) .purplish-image-light::after {
+		opacity: 1;
+		scale: 1;
+	}
+}
+
+/*
+ * Button looks, on any button block and on the add to cart button. The
+ * classes sit on the button block's wrapper; the looks go on the link or
+ * button inside it.
+ */
+@property --purplish-spin {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+@property --purplish-bx {
+	syntax: "<percentage>";
+	inherits: false;
+	initial-value: 30%;
+}
+
+@property --purplish-by {
+	syntax: "<percentage>";
+	inherits: false;
+	initial-value: 0%;
+}
+
+.purplish-button .wp-block-button__link,
+:is(.purplish-cart-spectrum, .purplish-cart-glass) .single_add_to_cart_button {
+	position: relative;
+}
+
+/* Glow ring: 1.0's ring around the add to cart button, on any button. */
+.purplish-button-glow .wp-block-button__link {
+	box-shadow:
+		0 0 0 3px color-mix(in oklab, var(--purplish-color) 45%, transparent),
+		0 0 22px color-mix(in oklab, var(--purplish-color) 55%, transparent);
+	transition: box-shadow 0.3s ease;
+}
+
+.purplish-button-glow .wp-block-button__link:is(:hover, :focus-visible) {
+	box-shadow:
+		0 0 0 5px color-mix(in oklab, var(--purplish-color) 55%, transparent),
+		0 0 32px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+}
+
+/*
+ * Sweep: a band of light crosses the button once on hover and focus. It
+ * takes the text color, so it shows on filled and outline buttons alike.
+ */
+.purplish-button-sweep .wp-block-button__link {
+	overflow: hidden;
+}
+
+.purplish-button-sweep .wp-block-button__link::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(110deg, transparent 35%, color-mix(in srgb, currentcolor 30%, transparent) 50%, transparent 65%);
+	translate: -120% 0;
+	pointer-events: none;
+}
+
+/*
+ * Spectrum ring: a rainbow ring on the button's edge travels around once
+ * on hover and focus, then stays still until the mouse leaves.
+ */
+:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button)::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	padding: 2px;
+	border-radius: inherit;
+	background: conic-gradient(from var(--purplish-spin), #ff4d6d, #ffb703, #8ac926, #1fb5d6, #6a4cff, #ff4d6d);
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease, --purplish-spin 0s linear 0.3s;
+}
+
+:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button):is(:hover, :focus-visible)::before {
+	--purplish-spin: 360deg;
+	opacity: 1;
+	transition: opacity 0.2s ease, --purplish-spin 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * Liquid glass: a frosted fill in the effect color, a white edge and a
+ * bevel, with a highlight the script moves under the mouse. Only where
+ * the browser can blur what's behind, and never under reduced motion.
+ * Palette and custom colors print with !important or inline.
+ */
+@supports (backdrop-filter: blur(1px)) {
+
+	@media (prefers-reduced-motion: no-preference) {
+
+		:is(.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button) {
+			background-color: color-mix(in oklab, var(--purplish-color) 72%, transparent) !important;
+			background-image: radial-gradient(circle at var(--purplish-bx) var(--purplish-by), rgb(255 255 255 / 0.45), transparent 60%) !important;
+			color: var(--purplish-color-on) !important;
+			box-shadow:
+				inset 0 0 0 1px rgb(255 255 255 / 0.35),
+				inset 0 1px 0 rgb(255 255 255 / 0.55),
+				inset 0 -1px 0 rgb(0 0 0 / 0.12),
+				0 10px 24px -12px color-mix(in oklab, var(--purplish-color) 70%, #000);
+			backdrop-filter: blur(14px) saturate(1.8);
+			transition: --purplish-bx 0.3s ease-out, --purplish-by 0.3s ease-out;
+		}
+
+		/* With the glow ring too, the ring joins the glass edge. */
+		.purplish-button-glow.purplish-button-glass .wp-block-button__link,
+		body.purplish-active.purplish-glow .purplish-cart-glass .single_add_to_cart_button {
+			box-shadow:
+				inset 0 0 0 1px rgb(255 255 255 / 0.35),
+				inset 0 1px 0 rgb(255 255 255 / 0.55),
+				0 0 0 3px color-mix(in oklab, var(--purplish-color) 45%, transparent),
+				0 0 22px color-mix(in oklab, var(--purplish-color) 55%, transparent);
+		}
+	}
+}
+
+/*
+ * Googly eyes, printed by the server as the button's first child. The
+ * script turns each pupil toward the mouse and blinks the eyes when the
+ * mouse moves after a still moment.
+ */
+.purplish-eyes {
+	display: inline-flex;
+	gap: 0.12em;
+	margin-inline-end: 0.5em;
+	vertical-align: -0.2em;
+}
+
+.purplish-eye {
+	position: relative;
+	flex: none;
+	width: 1.05em;
+	height: 1.05em;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 0 0 0.07em currentcolor;
+}
+
+.purplish-eye::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	width: 0.46em;
+	height: 0.46em;
+	margin: auto;
+	border-radius: 50%;
+	background: #1b1b1b;
+	translate: calc(var(--purplish-ex, 0) * 0.22em) calc(var(--purplish-ey, 0) * 0.22em);
+}
+
+.purplish-eyes.purplish-blink .purplish-eye {
+	animation: purplish-blink 0.2s ease-in-out;
+}
+
+@keyframes purplish-blink {
+
+	50% {
+		scale: 1 0.1;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-button-sweep .wp-block-button__link:hover::after {
+		translate: 120% 0;
+		transition: translate 0.8s ease;
+	}
+}
+
+.purplish-button-sweep .wp-block-button__link:focus-visible::after {
+	translate: 120% 0;
+	transition: translate 0.8s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	[class*="purplish-image-hover-"] *,
+	.purplish-button *,
+	.purplish-button *::before,
+	.purplish-button *::after,
+	[class*="purplish-cart-"] .single_add_to_cart_button,
+	[class*="purplish-cart-"] .single_add_to_cart_button *,
+	[class*="purplish-cart-"] .single_add_to_cart_button::before {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	.purplish-button-sweep .wp-block-button__link::after {
+		display: none;
+	}
+
+	:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button)::before {
+		--purplish-spin: 0deg !important;
 	}
 }

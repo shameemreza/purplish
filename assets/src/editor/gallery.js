@@ -21,7 +21,7 @@ const OPTIONS = [
 	},
 ];
 
-const HOVERS = [
+export const HOVERS = [
 	{ value: '', label: __( 'None', 'purplish' ) },
 	{ value: 'tilt', label: __( '3D tilt', 'purplish' ) },
 	{ value: 'zoom', label: __( 'Zoom', 'purplish' ) },

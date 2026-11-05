@@ -94,6 +94,8 @@ On the Add to Cart + Options block:
 * **Halo:** a ring leaves the button and fades each time a product goes into the cart.
 * **Mesh background:** soft blobs of the color sit over the background tint and move each time the color changes.
 * **Color dots:** each color option shows a dot in its own color, like Orange or Blue. Sizes, and options that come in several colors, get no dot.
+* **Liquid glass and spectrum ring:** the add to cart button gets a frosted fill with a highlight that follows the mouse, and a rainbow ring that travels once around its edge on hover.
+* **Googly eyes:** one or two eyes inside the add to cart button follow the mouse and blink when it moves again after a pause.
 
 On other blocks:
 
@@ -107,6 +109,8 @@ On other blocks:
 * **Product Specifications, Table style:** every other row shaded, or each row on its own soft card. Screen readers still read it as a table.
 * **Product Filters, Matching chips:** the active filters take the look of a selected chip, with its colors, corners and letter case, and a chip fades into its selected color when picked.
 * **Mini-Cart, Count pop:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart.
+* **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom. The photo grows inside its own frame, so the caption and the lightbox button stay where they are.
+* **Button, Looks:** a glow ring, a band of light that sweeps across on hover, liquid glass and a spectrum ring, in any mix. Googly eyes, one or two, sit inside the button and follow the mouse. One effect color drives the glow and the glass.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 
