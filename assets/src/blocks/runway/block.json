@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "purplish/runway",
+	"version": "1.1.0",
+	"title": "Runway",
+	"category": "purplish",
+	"description": "Product photos stand in a line that fades into the distance, and visitors walk it look by look beside the product cards.",
+	"keywords": [ "products", "lookbook", "gallery", "collection" ],
+	"textdomain": "purplish",
+	"attributes": {
+		"looks": {
+			"type": "string",
+			"enum": [ "all", "featured" ],
+			"default": "all"
+		},
+		"shape": {
+			"type": "string",
+			"enum": [ "framed", "cutout" ],
+			"default": "framed"
+		},
+		"number": {
+			"type": "string",
+			"enum": [ "on", "off" ],
+			"default": "on"
+		},
+		"fly": {
+			"type": "string",
+			"enum": [ "on", "off" ],
+			"default": "on"
+		}
+	},
+	"allowedBlocks": [
+		"woocommerce/product-collection",
+		"core/heading",
+		"core/paragraph"
+	],
+	"supports": {
+		"align": [ "wide", "full" ],
+		"anchor": true,
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": [ "top", "bottom" ]
+		}
+	},
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css"
+}

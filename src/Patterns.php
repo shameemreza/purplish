@@ -50,6 +50,12 @@ final class Patterns {
 				'blockTypes' => array( 'purplish/story-deck' ),
 				'file'       => PURPLISH_DIR . 'patterns/story-deck.php',
 			),
+			'runway'       => array(
+				'title'      => __( 'Runway lookbook', 'purplish' ),
+				'categories' => array(),
+				'blockTypes' => array( 'purplish/runway' ),
+				'file'       => PURPLISH_DIR . 'patterns/runway.php',
+			),
 		);
 	}
 
