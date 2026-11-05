@@ -42,6 +42,18 @@ function apply( set ) {
 	body.dispatchEvent(
 		new CustomEvent( 'purplish:change', { detail: { set } } )
 	);
+
+	/*
+	 * Public event for theme code and analytics, since 1.1.0. The detail is
+	 * a copy of the new color set (color, on, ink, tint), or null when the
+	 * page goes back to the theme colors, so a listener can't change the
+	 * page's color.
+	 */
+	document.dispatchEvent(
+		new CustomEvent( 'purplish:colorchange', {
+			detail: set ? { ...set } : null,
+		} )
+	);
 }
 
 /**

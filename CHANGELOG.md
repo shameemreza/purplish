@@ -2,7 +2,31 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## [1.1.0] - 2026-11-05
+
+### Added
+
+- Hanging Rail block (`purplish/hanging-rail`) with the Hanging rail of new arrivals pattern: products hang from a rope and slide along it as the page scrolls.
+- Story Deck block (`purplish/story-deck`) with the Customer stories deck pattern: customer stories on a deck of cards that visitors flick through.
+- Runway block (`purplish/runway`) with the Runway lookbook pattern: product photos stand in a line that fades into the distance, with the product cards in a rail beside it.
+- Scroll Lookbook block (`purplish/scroll-lookbook`) with the Scroll lookbook storefront pattern: Cover blocks play as a film as visitors scroll, and each stop brings in its product card.
+- A Purplish block category and pattern category, shown only when Purplish has a block or pattern in them.
+- Product page looks: grayed-out options on the Variation Selector, shape and corner for the On-Sale Badge, rounded or circle thumbnails on the gallery's Thumbnails block.
+- Soft cards: Soft style for the Accordion Group and Details blocks, review styles on Product Reviews and table styles on Product Specifications.
+- Store wide: matching chips on Product Filters and a count pop on the Mini-Cart.
+- Image and Button: the gallery's 7 hover styles on the Image block, and glow ring, light sweep, liquid glass, spectrum ring and googly eyes on the Button block and on add to cart.
+- Scroll entrances: reveal on scroll for Heading, entrance on scroll for Group and Columns, and scroll effects for Cover.
+- Card effects: Bookmark, Roster, Depth and Overlap on the Product Collection block.
+- Developer hooks: `purplish_blocks`, `purplish_patterns`, `purplish_color_set`, `purplish_detected_color`, `purplish_block_classes`, `purplish_scroll_lookbook_config` and `purplish_loaded`.
+- Front-end events on `document`: `purplish:colorchange` when the product page color changes, and `purplish:stop` when Scroll Lookbook lands on a stop.
+
+### Fixed
+
+- The gallery loupe sat away from the mouse on right-to-left sites.
+
+Nothing from 1.0.0 is renamed or removed. Saved blocks and settings keep working as before.
+
+## [1.0.0] - 2026-11-04
 
 ### Added
 
