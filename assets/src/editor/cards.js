@@ -22,6 +22,8 @@ const HOVERS = [
 			{ value: 'fan', label: __( 'Fan deck', 'purplish' ) },
 			{ value: 'expand', label: __( 'Expanded cards', 'purplish' ) },
 			{ value: 'folder', label: __( 'Card folder', 'purplish' ) },
+			{ value: 'bookmark', label: __( 'Bookmark', 'purplish' ) },
+			{ value: 'roster', label: __( 'Roster', 'purplish' ) },
 		],
 	},
 	{
@@ -32,6 +34,8 @@ const HOVERS = [
 			{ value: 'stage', label: __( 'Spotlight carousel', 'purplish' ) },
 			{ value: 'grow', label: __( 'Grow', 'purplish' ) },
 			{ value: 'tiltrow', label: __( 'Tilt', 'purplish' ) },
+			{ value: 'depth', label: __( 'Depth', 'purplish' ) },
+			{ value: 'overlap', label: __( 'Overlap', 'purplish' ) },
 		],
 	},
 	{
@@ -83,7 +87,7 @@ export default function CardsPanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Card effect', 'purplish' ) }
 				help={ __(
-					'Carousel effects need the Carousel layout and leave a grid as it is. Visitors who ask for reduced motion see no movement.',
+					'Carousel effects need the Carousel layout and leave a grid as it is. Roster needs the Grid layout and shows the plain grid on phones and touch screens. Visitors who ask for reduced motion see no movement.',
 					'purplish'
 				) }
 				value={ saved.hover || '' }
@@ -105,7 +109,7 @@ export default function CardsPanel( { saved, setSaved } ) {
 				id={ colorId }
 				label={ __( 'Effect color', 'purplish' ) }
 				help={ __(
-					'Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs and the card folder. On a product page with a variation color, that color is used instead.',
+					'Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs, the card folder and the bookmark. On a product page with a variation color, that color is used instead.',
 					'purplish'
 				) }
 			>

@@ -1154,6 +1154,236 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
+ * Cards, bookmark: each card is a soft card with a notch cut from its
+ * lower edge, and its photo blooms from gray into full color on hover.
+ * Touch screens always see the photo in color.
+ */
+.purplish-cards-hover-bookmark .wc-block-product {
+	padding: 12px 12px 34px;
+	border-radius: 20px 20px 6px 6px;
+	background: var(--purplish-color-soft);
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 20px), 0 100%);
+}
+
+.purplish-cards-hover-bookmark .wc-block-components-product-image {
+	overflow: hidden;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-bookmark .wc-block-components-product-image img {
+		filter: grayscale(1);
+		transition:
+			filter 0.6s ease,
+			scale 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+
+	.purplish-cards-hover-bookmark .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image img {
+		filter: none;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-cards-hover-bookmark .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image img {
+		scale: 1.05;
+	}
+}
+
+/*
+ * Cards, depth: in a carousel, cards turn further edge-on toward the
+ * sides and face you in the middle. The hovered card turns to face you.
+ * The carousel's scroll padding would squeeze the turn into its middle,
+ * so the timeline's inset is set to the full width.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-depth .wc-block-product-template.is-horizontal .wc-block-product {
+			animation: purplish-depth linear both;
+			animation-timeline: view(inline 0);
+		}
+
+		.purplish-cards-hover-depth .wc-block-product-template.is-horizontal .wc-block-product:is(:hover, :focus-within) {
+			animation: none;
+		}
+	}
+}
+
+@keyframes purplish-depth {
+
+	from {
+		transform: perspective(900px) rotateY(70deg) scale(0.75);
+		opacity: 0.5;
+	}
+
+	25% {
+		transform: perspective(900px) rotateY(38deg) scale(0.88);
+		opacity: 0.8;
+	}
+
+	45%,
+	55% {
+		transform: none;
+		opacity: 1;
+	}
+
+	75% {
+		transform: perspective(900px) rotateY(-38deg) scale(0.88);
+		opacity: 0.8;
+	}
+
+	to {
+		transform: perspective(900px) rotateY(-70deg) scale(0.75);
+		opacity: 0.5;
+	}
+}
+
+/*
+ * Cards, overlap: in a carousel, cards lie over each other a little like
+ * prints on a table, each leaning its own way. The hovered card straightens
+ * and comes to the top. The carousel scrolls, so the room for the lean and
+ * the lift is padding inside it.
+ */
+.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal {
+	padding-block: 28px;
+}
+
+.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product {
+	padding: 10px 10px 14px;
+	border-radius: 16px;
+	background: var(--wp--preset--color--base, #fff);
+	box-shadow: 0 12px 28px -14px rgb(0 0 0 / 0.35);
+	rotate: -2.5deg;
+	transition:
+		rotate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+		translate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+		scale 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product + .wc-block-product {
+	margin-inline-start: -3rem;
+}
+
+.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product:nth-child(2n) {
+	rotate: 2deg;
+}
+
+.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product:nth-child(3n) {
+	rotate: -1deg;
+}
+
+.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product:is(:hover, :focus-within) {
+	z-index: 2;
+	rotate: 0deg;
+	translate: 0 -10px;
+	scale: 1.03;
+}
+
+/*
+ * Cards, roster: product names as a big list beside one large photo frame.
+ * Every card's photo sits in the frame and one shows at a time: the hovered
+ * name's, then the focused one's, then the first product's. The photo is
+ * part of its card, and the space before the photo is part of the frame,
+ * so moving the mouse straight across from a name onto its photo keeps it.
+ * Phones, touch screens and carousels keep the plain layout.
+ */
+@media (min-width: 782px) and (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		min-height: min(36rem, 80vh);
+		padding-inline-end: 48%;
+	}
+
+	.purplish-cards.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) > li.wc-block-product {
+		display: flex;
+		align-items: center;
+		column-gap: 1.25rem;
+		width: auto;
+		margin: 0;
+		padding-block: 0.5rem;
+		border-bottom: 1px solid color-mix(in oklab, currentcolor 15%, transparent);
+	}
+
+	/* Font size presets print with !important, so the big names need it too. */
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wp-block-post-title {
+		flex: 1 1 auto;
+		min-width: 0;
+		font-size: clamp(1.75rem, 1rem + 2.2vw, 3rem) !important;
+		line-height: 1.1;
+	}
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wc-block-product > :not(.wp-block-post-title) {
+		flex: none;
+		margin-block: 0;
+	}
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wc-block-components-product-image {
+		position: absolute;
+		inset-block: 0;
+		inset-inline-end: 0;
+		box-sizing: border-box;
+		width: 48%;
+		margin: 0;
+		padding-inline-start: 2.5rem;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.5s ease;
+	}
+
+	/* The sale badge layer sits on the photo, not on the space before it. */
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wc-block-components-product-image > a {
+		position: relative;
+		display: block;
+		height: 100%;
+	}
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wc-block-components-product-image img {
+		position: sticky;
+		top: calc(var(--wp-admin--admin-bar--height, 0px) + 1.5rem);
+		width: 100%;
+		height: min(100%, 85vh);
+	}
+
+	/* The first product shows until a name is focused or hovered. */
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) > .wc-block-product:first-child .wc-block-components-product-image {
+		z-index: 1;
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:focus-within) > .wc-block-product:not(:focus-within) .wc-block-components-product-image {
+		z-index: 0;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:focus-within) > .wc-block-product:focus-within .wc-block-components-product-image {
+		z-index: 1;
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	/* Hover comes last, so it wins over focus. */
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:hover) > .wc-block-product:not(:hover) .wc-block-components-product-image {
+		z-index: 0;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:hover) > .wc-block-product:hover .wc-block-components-product-image {
+		z-index: 1;
+		opacity: 1;
+		pointer-events: auto;
+	}
+}
+
+/*
  * Gallery slide styles: each style plays as the new photo comes in. The
  * script sets --purplish-from to 1 when it comes after the old photo and
  * -1 when it comes before, and adds purplish-sliding again on each change,
