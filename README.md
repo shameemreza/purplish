@@ -23,6 +23,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 18 card effects, add to cart on the photo and button motion. |
+| Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Scroll motion | Heading, Group, Columns, Cover | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
@@ -127,6 +128,18 @@ Touch screens and visitors who turn on reduced motion see the plain image and bu
 - **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
 
 Each entrance plays once. Visitors who turn on reduced motion see the blocks as they are, and nothing stays hidden if the script doesn't load.
+
+## Hanging Rail block
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds a heading, a short line and one Product Collection, so you pick the products the way you already do: new arrivals, a category or hand-picked.
+
+- **Products on a rope:** the section holds still while the page scrolls, and the products slide along a rope that sags between them. Scroll back and they slide back. Each card swings on its clip when the scrolling speeds up or stops, then settles.
+- **Clip:** a wooden peg, a binder clip or a strip of tape.
+- **Rope sag:** a little or more.
+- **Scroll length:** short, medium or long. It follows how many products there are, so the rail feels the same with 4 products or 16.
+- **Pattern:** Hanging rail of new arrivals adds the block with a heading, a short line and your 8 newest products.
+
+Visitors who turn on reduced motion see the products as a row they can scroll sideways, with the rope and clips still drawn. Keyboard users can tab through every product, and the page scrolls each one into view.
 
 ## Block and classic themes
 

@@ -1,0 +1,148 @@
+/**
+ * Hanging Rail. The first Product Collection inside the block becomes one
+ * row of cards hanging from clips on a rope that sags between them. Without
+ * the script it's a strip that scrolls sideways; the script adds
+ * purplish-rail-moving, which holds the section still and slides the row.
+ */
+.wp-block-purplish-hanging-rail {
+	--purplish-rail-card: clamp(10rem, 22vw, 15rem);
+	--purplish-rail-gap: clamp(1.25rem, 3vw, 2.5rem);
+	--purplish-rail-sag: 0.6rem;
+	--purplish-rail-drop: calc(var(--purplish-rail-sag) + 0.9rem);
+	--purplish-rail-rope: color-mix(in srgb, currentcolor 60%, transparent);
+}
+
+.wp-block-purplish-hanging-rail.purplish-rail-sag-more {
+	--purplish-rail-sag: 1.5rem;
+}
+
+.wp-block-purplish-hanging-rail .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) {
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	padding-block-end: 1rem;
+}
+
+.wp-block-purplish-hanging-rail .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	gap: var(--purplish-rail-gap);
+	position: relative;
+	width: max-content;
+	max-width: none;
+	margin: 0 auto;
+	padding: calc(var(--purplish-rail-drop) + 0.25rem) 0 0;
+	grid-template-columns: none;
+}
+
+/* The rope: one dip per gap, with the clips on the high points. */
+.wp-block-purplish-hanging-rail .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template::before {
+	content: "";
+	position: absolute;
+	inset: 0.25rem 0 auto;
+	height: calc(var(--purplish-rail-sag) + 3px);
+	background: var(--purplish-rail-rope);
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 1.5Q50 17 100 1.5' fill='none' stroke='%23000' stroke-width='2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") repeat-x;
+	mask-size: calc(var(--purplish-rail-card) + var(--purplish-rail-gap)) 100%;
+	mask-position: calc(var(--purplish-rail-card) / 2) 0;
+	pointer-events: none;
+}
+
+.wp-block-purplish-hanging-rail .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template > li {
+	position: relative;
+	flex: 0 0 var(--purplish-rail-card);
+	width: var(--purplish-rail-card);
+	max-width: none;
+	margin: 0;
+	transform: rotate(var(--purplish-swing, 0deg));
+	transform-origin: 50% calc(-1 * var(--purplish-rail-drop));
+}
+
+.wp-block-purplish-hanging-rail .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template > li::before,
+.wp-block-purplish-hanging-rail .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template > li::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	left: 0;
+	z-index: 1;
+	margin-inline: auto;
+	pointer-events: none;
+}
+
+/* Peg: two wooden halves and a wire spring. */
+.purplish-rail-clip-peg .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template > li::before {
+	top: calc(-1 * var(--purplish-rail-drop) - 0.2rem);
+	width: 0.7rem;
+	height: calc(var(--purplish-rail-drop) + 0.9rem);
+	border-radius: 0.2rem 0.2rem 0.3rem 0.3rem;
+	background:
+		linear-gradient(#8f939a, #8f939a) 50% 40% / 100% 0.18rem no-repeat,
+		linear-gradient(90deg, #c49a6c 0 46%, #8b6542 46% 54%, #b78b5c 54%);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+}
+
+/* Binder clip: a black body on the card and wire handles over the rope. */
+.purplish-rail-clip-binder .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template > li::before {
+	top: -0.35rem;
+	width: 1.7rem;
+	height: 0.95rem;
+	background: #1e1e1e;
+	clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+}
+
+.purplish-rail-clip-binder .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template > li::after {
+	top: calc(-1 * var(--purplish-rail-drop) - 0.15rem);
+	width: 1.1rem;
+	height: calc(var(--purplish-rail-drop) - 0.1rem);
+	border: 2px solid #9a9ea5;
+	border-bottom: 0;
+	border-radius: 0.55rem 0.55rem 0 0;
+}
+
+/* Tape: a strip of paper tape from the rope to the card. */
+.purplish-rail-clip-tape .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template > li::before {
+	top: calc(-1 * var(--purplish-rail-drop) - 0.3rem);
+	width: 1.6rem;
+	height: calc(var(--purplish-rail-drop) + 1rem);
+	background: rgb(236 226 196 / 85%);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
+	clip-path: polygon(0 3%, 25% 0, 50% 4%, 75% 0, 100% 3%, 100% 97%, 75% 100%, 50% 96%, 25% 100%, 0 97%);
+}
+
+/* With the script: the section holds still and the row slides. */
+.wp-block-purplish-hanging-rail.purplish-rail-moving::after {
+	content: "";
+	display: block;
+	height: var(--purplish-rail-run, 0);
+}
+
+.purplish-rail-moving > .purplish-rail-stage {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: sticky;
+	top: var(--wp-admin--admin-bar--height, 0px);
+	min-height: calc(100svh - var(--wp-admin--admin-bar--height, 0px));
+	overflow-x: clip;
+}
+
+/* Flex items with auto margins shrink to their content; keep them as wide
+   as in normal flow. Full width blocks stretch from their own margins. */
+.purplish-rail-moving > .purplish-rail-stage > :not(.alignfull) {
+	width: 100%;
+}
+
+.purplish-rail-moving .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) {
+	overflow: visible;
+}
+
+.purplish-rail-moving .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template {
+	transform: translateX(var(--purplish-rail-x, 0));
+	will-change: transform;
+}
+
+/* The rope runs on past the row to both edges of the screen. */
+.purplish-rail-moving .purplish-rail-stage > :nth-child(1 of .wp-block-woocommerce-product-collection) .wc-block-product-template::before {
+	inset: 0.25rem -100vw auto;
+	mask-position: calc(100vw + var(--purplish-rail-card) / 2) 0;
+}

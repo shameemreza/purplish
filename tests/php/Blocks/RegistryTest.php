@@ -7,6 +7,7 @@
 
 namespace Purplish\Tests\Blocks;
 
+use Purplish\Blocks\HangingRail;
 use Purplish\Blocks\Registry;
 use Purplish\Tests\Support\ProbeBlock;
 use WP_Block_Type_Registry;
@@ -42,16 +43,16 @@ class RegistryTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Lists the probe block through the filter.
+	 * Lists only the probe block through the filter. The shipped blocks
+	 * registered on init already, and the test build has no folder for them.
 	 *
 	 * @return void
 	 */
 	private function list_probe() {
 		add_filter(
 			'purplish_blocks',
-			static function ( $blocks ) {
-				$blocks[] = ProbeBlock::class;
-				return $blocks;
+			static function () {
+				return array( ProbeBlock::class );
 			}
 		);
 	}
@@ -68,12 +69,11 @@ class RegistryTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * 1.1 ships no block yet, so the real build registers nothing.
+	 * The shipped blocks register on init from the real build, and nothing
+	 * else under Purplish's name does.
 	 */
-	public function test_ships_no_block_yet() {
-		$this->assertSame( array(), Registry::blocks() );
-
-		( new Registry() )->register_blocks();
+	public function test_ships_its_blocks() {
+		$this->assertSame( array( HangingRail::class ), Registry::blocks() );
 
 		$ours = array_filter(
 			array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() ),
@@ -81,7 +81,7 @@ class RegistryTest extends WP_UnitTestCase {
 				return 0 === strpos( $name, 'purplish/' );
 			}
 		);
-		$this->assertSame( array(), array_values( $ours ) );
+		$this->assertSame( array( 'purplish/hanging-rail' ), array_values( $ours ) );
 	}
 
 	/**
@@ -143,7 +143,9 @@ class RegistryTest extends WP_UnitTestCase {
 			),
 		);
 
+		add_filter( 'purplish_blocks', '__return_empty_array' );
 		$this->assertSame( $categories, $registry->add_category( $categories ), 'no block, no category' );
+		remove_filter( 'purplish_blocks', '__return_empty_array' );
 
 		$this->list_probe();
 		$with = $registry->add_category( $categories );
