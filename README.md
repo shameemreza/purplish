@@ -26,6 +26,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
+| Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
 | Scroll motion | Heading, Group, Columns, Cover | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
 | Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
 
@@ -140,6 +141,18 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 - **Pattern:** Hanging rail of new arrivals adds the block with a heading, a short line and your 8 newest products.
 
 Visitors who turn on reduced motion see the products as a row they can scroll sideways, with the rope and clips still drawn. Keyboard users can tab through every product, and the page scrolls each one into view.
+
+## Story Deck block
+
+A block of Purplish's own, in the Purplish group of the block inserter. Each story is a group with a photo, a quote, the customer's name and, if you want, a button to the product. The photos become a deck of cards, and the top card's story sits beside it.
+
+- **Flick through:** visitors drag or swipe the top card away, or use the previous and next buttons or the arrow keys. The card flies off, the next one comes up and the story beside it changes. After the last story the deck starts again.
+- **Deck side:** left or right. On phones the cards sit above the story.
+- **Card shape:** rounded or square.
+- **Fan:** fanned, where the cards under the top one lean out like a hand of cards, or flat.
+- **Pattern:** Customer stories deck adds the block with three sample stories, each with a Shop this button. Add your own photos, or leave them out and each card shows a quote mark.
+
+The deck never moves on its own. Visitors who turn on reduced motion switch stories with a short fade, and screen readers hear each new story after a button or key press. Without the script the stories show as a plain list of cards.
 
 ## Block and classic themes
 

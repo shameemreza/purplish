@@ -53,6 +53,7 @@ final class Registry {
 	public static function blocks() {
 		return array(
 			HangingRail::class,
+			StoryDeck::class,
 		);
 	}
 

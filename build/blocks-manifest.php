@@ -71,5 +71,72 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
+	),
+	'story-deck' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/story-deck',
+		'version' => '1.1.0',
+		'title' => 'Story Deck',
+		'category' => 'purplish',
+		'description' => 'Customer stories on a deck of cards that visitors flick through.',
+		'keywords' => array(
+			'testimonials',
+			'reviews',
+			'quotes',
+			'cards'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'side' => array(
+				'type' => 'string',
+				'enum' => array(
+					'left',
+					'right'
+				),
+				'default' => 'left'
+			),
+			'shape' => array(
+				'type' => 'string',
+				'enum' => array(
+					'rounded',
+					'square'
+				),
+				'default' => 'rounded'
+			),
+			'fan' => array(
+				'type' => 'string',
+				'enum' => array(
+					'fanned',
+					'flat'
+				),
+				'default' => 'fanned'
+			)
+		),
+		'allowedBlocks' => array(
+			'core/group'
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				),
+				'padding' => true
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
 	)
 );
