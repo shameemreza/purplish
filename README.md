@@ -18,12 +18,13 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 
 | Area | Block | What you can design |
 |---|---|---|
-| Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background and color dots. |
+| Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background, color dots, and liquid glass, a spectrum ring and googly eyes on the button. |
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 14 card effects, add to cart on the photo and button motion. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
+| Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
 
 ## How it works
@@ -50,6 +51,8 @@ On the same block:
 - **Glow ring and halo:** a soft ring in the page color around the add to cart button, and a ring that leaves it each time a product goes into the cart.
 - **Mesh background:** soft blobs of the color over the background tint, which move each time the color changes.
 - **Color dots:** each color option shows a dot in its own color. Sizes, and options that come in several colors, get no dot.
+- **Liquid glass and spectrum ring:** the add to cart button gets a frosted fill with a highlight that follows the mouse, and a rainbow ring that travels once around its edge on hover.
+- **Googly eyes:** one or two eyes inside the add to cart button follow the mouse and blink when it moves again after a pause.
 
 On other blocks:
 
@@ -105,6 +108,13 @@ Carousel effects play only when the collection is a carousel. A grid stays as it
 - **Details, Soft style:** the block becomes a soft card, and a round plus turns into an x that fills with the page color when open.
 - **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
 
+## Images and buttons
+
+- **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom. The photo grows inside its own frame, so the caption and the lightbox button stay where they are.
+- **Button, Looks:** a glow ring, a band of light that sweeps across on hover, liquid glass and a spectrum ring, in any mix. Googly eyes, one or two, sit inside the button and follow the mouse. One effect color drives the glow and the glass.
+
+Touch screens and visitors who turn on reduced motion see the plain image and button.
+
 ## Block and classic themes
 
 Purplish is built for block themes. Classic themes get a smaller set under WooCommerce > Settings > Products > Purplish.
@@ -121,6 +131,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |
 | Details, review and specifications styles | Yes | No |
 | Matching filter chips, mini-cart count pop | Yes | No |
+| Image hover styles, button looks, and glass, spectrum ring and googly eyes on add to cart | Yes | No |
 
 ## Get started
 
