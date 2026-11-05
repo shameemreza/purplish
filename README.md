@@ -20,9 +20,10 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 |---|---|---|
 | Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background and color dots. |
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
+| Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 14 card effects, add to cart on the photo and button motion. |
-| Page sections | Accordion, Group | A soft accordion style, and sections that take the page color. |
+| Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
 
 ## How it works
 
@@ -53,6 +54,8 @@ On other blocks:
 
 - **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out. To hide them, use WooCommerce's own Invalid options setting.
 - **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
+- **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
+- **Product Specifications, Table style:** every other row shaded, or each row on its own soft card. Screen readers still read it as a table.
 
 ## Product gallery
 
@@ -92,6 +95,8 @@ Carousel effects play only when the collection is a carousel. A grid stays as it
 ## Page sections
 
 - **Accordion, Soft style:** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
+- **Accordion Group, Soft style:** the same soft cards on WooCommerce's own accordion, with its icon in a round button that fills with the page color when open.
+- **Details, Soft style:** the block becomes a soft card, and a round plus turns into an x that fills with the page color when open.
 - **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
 
 ## Block and classic themes
@@ -108,6 +113,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Title focus, glow ring, halo, mesh background, color dots | Yes | No |
 | Accordion and Group styles | Yes | No |
 | Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |
+| Details, review and specifications styles | Yes | No |
 
 ## Get started
 
