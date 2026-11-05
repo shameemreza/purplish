@@ -1,7 +1,6 @@
 <?php
 /**
- * Purplish options on the Product Gallery, Product Collection and Accordion
- * blocks.
+ * Purplish options on WooCommerce and core blocks.
  *
  * @package Purplish
  */
@@ -25,6 +24,11 @@ final class BlockEffects {
 	const HOVER_STYLES = array( 'tilt', 'zoom', 'lift', 'parallax', 'glare', 'loupe', 'slowzoom' );
 
 	/**
+	 * How many googly eyes a button can have.
+	 */
+	const EYES = array( 'one', 'two' );
+
+	/**
 	 * Purplish's options for each block, with the values each one accepts.
 	 * `true` means an on or off switch.
 	 *
@@ -33,7 +37,9 @@ final class BlockEffects {
 	 * `rows` marks a block that prints one wrapper per row, so every row
 	 * gets the classes.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool}>
+	 * `eyes` names the class of the button that the googly eyes go inside.
+	 *
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool, eyes?: string}>
 	 */
 	public static function blocks() {
 		return array(
@@ -146,6 +152,34 @@ final class BlockEffects {
 				'options' => array(
 					'pop' => true,
 				),
+			),
+			// The photo is its own frame: core's lightbox measures its parent.
+			'core/image'                             => array(
+				'prefix'  => 'image',
+				'options' => array(
+					'hover' => self::HOVER_STYLES,
+				),
+			),
+			'core/button'                            => array(
+				'prefix'  => 'button',
+				'options' => array(
+					'glow'     => true,
+					'sweep'    => true,
+					'glass'    => true,
+					'spectrum' => true,
+					'eyes'     => self::EYES,
+				),
+				'eyes'    => 'wp-block-button__link',
+			),
+			// Shares the attribute with 1.0's page options, which give no class.
+			'woocommerce/add-to-cart-with-options'   => array(
+				'prefix'  => 'cart',
+				'options' => array(
+					'glass'    => true,
+					'spectrum' => true,
+					'eyes'     => self::EYES,
+				),
+				'eyes'    => 'single_add_to_cart_button',
 			),
 		);
 	}
@@ -298,7 +332,26 @@ final class BlockEffects {
 		} while ( $rows && $tags->next_tag( $query ) );
 
 		self::enqueue();
-		return $tags->get_updated_html();
+		return self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
+	}
+
+	/**
+	 * Prints the googly eyes as the first thing inside the button, so the
+	 * button has its full width before the script loads.
+	 *
+	 * @param string $html  Rendered block.
+	 * @param string $name  Block name.
+	 * @param mixed  $saved The block's `purplish` attribute.
+	 * @return string
+	 */
+	private static function add_eyes( $html, $name, $saved ) {
+		$blocks = self::blocks();
+		if ( empty( $blocks[ $name ]['eyes'] ) || ! is_array( $saved ) || ! isset( $saved['eyes'] ) || ! in_array( $saved['eyes'], self::EYES, true ) ) {
+			return $html;
+		}
+
+		$eye = '<span class="purplish-eye"></span>';
+		return Markup::prepend_inside( $html, $blocks[ $name ]['eyes'], '<span class="purplish-eyes" aria-hidden="true">' . ( 'two' === $saved['eyes'] ? $eye . $eye : $eye ) . '</span>' );
 	}
 
 	/**
