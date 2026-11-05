@@ -98,9 +98,13 @@ On the Add to Cart + Options block:
 On other blocks:
 
 * **Accordion, Soft style:** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
+* **Accordion Group, Soft style:** the same soft cards on WooCommerce's own accordion, with its icon in a round button that fills with the page color when open.
+* **Details, Soft style:** the block becomes a soft card, and a round plus turns into an x that fills with the page color when open.
 * **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
 * **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out. To hide them, use WooCommerce's own Invalid options setting.
 * **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
+* **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
+* **Product Specifications, Table style:** every other row shaded, or each row on its own soft card. Screen readers still read it as a table.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 

@@ -109,6 +109,31 @@ final class BlockEffects {
 					'shape' => array( 'rounded', 'circle' ),
 				),
 			),
+			// Same class as the core accordion, so both share one soft style.
+			'woocommerce/accordion-group'            => array(
+				'prefix'  => 'accordion',
+				'options' => array(
+					'soft' => true,
+				),
+			),
+			'core/details'                           => array(
+				'prefix'  => 'details',
+				'options' => array(
+					'soft' => true,
+				),
+			),
+			'woocommerce/product-reviews'            => array(
+				'prefix'  => 'reviews',
+				'options' => array(
+					'style' => array( 'cards', 'bubbles' ),
+				),
+			),
+			'woocommerce/product-specifications'     => array(
+				'prefix'  => 'specs',
+				'options' => array(
+					'style' => array( 'striped', 'cards' ),
+				),
+			),
 		);
 	}
 
