@@ -153,6 +153,16 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 
 The line never moves on its own, and a normal mouse wheel still scrolls the page past it. Visitors who turn on reduced motion step one look at a time with a short fade.
 
+= Scroll Lookbook block =
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds Cover blocks, one Product Collection and a Group. Each Cover is a shot: as visitors scroll, the camera moves from shot to shot, holds at each one and brings in that product's card on the side away from the subject. Scrolling back runs the film back, and the Group shows as the closing line over the opening shot.
+
+* **Shots and cards:** each Cover holds a video or a photo, and the first Product Collection gives the cards. Each card's button takes its product's Purplish color.
+* **Scroll Lookbook options:** a chapter list on or off, a timecode on or off, and a short, medium or long scroll for each stop.
+* **Pattern:** Scroll lookbook storefront adds the block with an opening shot, three shots, an empty hand-picked collection and a closing line, then four products after it.
+
+The opening video plays once and stops within 5 seconds, and nothing loops. Visitors who turn on reduced motion get each shot with its card beside it as a plain page. For video that follows the scroll smoothly, encode it with a keyframe every few frames; the block panel gives an ffmpeg line for it.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.

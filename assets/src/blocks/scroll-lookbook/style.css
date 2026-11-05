@@ -1,0 +1,425 @@
+/**
+ * Scroll Lookbook. The blocks inside show as they are until the view
+ * script picks a layout: purplish-lookbook-film holds the stage on screen
+ * and plays the shots, purplish-lookbook-stacked sets each shot beside its
+ * card as a plain page. Positions tied to the subject are physical (a
+ * four-value inset), since the focal point is.
+ */
+.wp-block-purplish-scroll-lookbook {
+	--purplish-lookbook-gap: clamp(0.75rem, 1.4vw, 1.25rem);
+	--purplish-lookbook-edge: clamp(1rem, 2vw, 1.75rem);
+	--purplish-lookbook-card-radius: 1.25rem;
+	--purplish-lookbook-card-paper: var(--wp--preset--color--base, #fff);
+	--purplish-lookbook-card-ink: var(--wp--preset--color--contrast, #111);
+	--purplish-lookbook-screen: #000;
+	--purplish-lookbook-light: #fff;
+	--purplish-lookbook-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+	--purplish-lookbook-top: var(--wp-admin--admin-bar--height, 0px);
+}
+
+/* Cards, in both layouts. */
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.875rem;
+	box-sizing: border-box;
+	padding: clamp(1.5rem, 2.4vw, 2.5rem);
+	border-radius: var(--purplish-lookbook-card-radius);
+	background: var(--purplish-lookbook-card-paper);
+	color: var(--purplish-lookbook-card-ink);
+	text-align: start;
+	counter-increment: purplish-lookbook;
+}
+
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-cards .wc-block-product-template {
+	counter-reset: purplish-lookbook;
+}
+
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-card > * {
+	margin: 0 !important;
+}
+
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-card::before {
+	content: counter(purplish-lookbook, decimal-leading-zero) " / " var(--purplish-lookbook-total, "");
+	order: -1;
+	font-size: 0.8125rem;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: 0.02em;
+	color: var(--purplish-ink, color-mix(in srgb, currentcolor 62%, transparent));
+}
+
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-card a:not(.wp-block-button__link) {
+	color: inherit;
+}
+
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-card img {
+	width: 100%;
+	max-height: 30svh;
+	object-fit: cover;
+}
+
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-card.purplish-lookbook-accent .wp-block-button__link {
+	background: var(--purplish-accent);
+	color: var(--purplish-on);
+}
+
+.wp-block-purplish-scroll-lookbook .purplish-lookbook-card .wp-block-button__link:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 3px;
+}
+
+/* ---------- Film ---------- */
+.wp-block-purplish-scroll-lookbook.purplish-lookbook-film {
+	position: relative;
+	height: calc(100svh - var(--purplish-lookbook-top) + var(--purplish-lookbook-run, 0svh));
+}
+
+.purplish-lookbook-film > .purplish-lookbook-stage {
+	position: sticky;
+	top: var(--purplish-lookbook-top);
+	height: calc(100svh - var(--purplish-lookbook-top));
+	max-width: none;
+	margin: 0;
+	overflow: hidden;
+	background: var(--purplish-lookbook-screen);
+	isolation: isolate;
+}
+
+.purplish-lookbook-film .purplish-lookbook-shot {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	max-width: none;
+	min-height: 0 !important;
+	margin: 0 !important;
+	overflow: hidden;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.purplish-lookbook-film .purplish-lookbook-shot.is-on {
+	visibility: visible;
+}
+
+.purplish-lookbook-film .purplish-lookbook-alias {
+	display: none;
+}
+
+.purplish-lookbook-film .purplish-lookbook-shot > :is(img.wp-block-cover__image-background, video.wp-block-cover__video-background) {
+	inset: 0 auto auto 0;
+	width: var(--purplish-lookbook-w, 100%);
+	height: var(--purplish-lookbook-h, 100%);
+	max-width: none;
+	max-height: none;
+	object-fit: fill;
+	backface-visibility: hidden;
+}
+
+.purplish-lookbook-film .purplish-lookbook-shot.is-on > :is(img, video) {
+	will-change: transform;
+}
+
+.purplish-lookbook-film .purplish-lookbook-shot .is-chapter {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.purplish-lookbook-film:not(.purplish-lookbook-ready) .purplish-lookbook-hero .wp-block-cover__inner-container {
+	opacity: 0;
+}
+
+.purplish-lookbook-ready .purplish-lookbook-hero .wp-block-cover__inner-container > * {
+	animation: purplish-lookbook-rise 1.2s var(--purplish-lookbook-ease) 0.25s backwards;
+}
+
+.purplish-lookbook-ready .purplish-lookbook-hero .wp-block-cover__inner-container > :nth-child(2) {
+	animation-delay: 0.4s;
+}
+
+.purplish-lookbook-ready .purplish-lookbook-hero .wp-block-cover__inner-container > :nth-child(n + 3) {
+	animation-delay: 0.55s;
+}
+
+@keyframes purplish-lookbook-rise {
+
+	from {
+		opacity: 0;
+		transform: translate3d(0, 1.25rem, 0);
+	}
+}
+
+/* Cards stand over the film, on the side away from the subject. */
+.purplish-lookbook-film .purplish-lookbook-cards {
+	position: absolute;
+	inset: 0;
+	z-index: 30;
+	max-width: none;
+	margin: 0 !important;
+	padding: 0;
+	pointer-events: none;
+}
+
+.purplish-lookbook-film .purplish-lookbook-cards > :not(.wc-block-product-template, .wc-block-components-notices, .wc-block-store-notices) {
+	display: none;
+}
+
+.purplish-lookbook-film .purplish-lookbook-cards :is(.wc-block-components-notices, .wc-block-store-notices) {
+	position: fixed;
+	inset: auto auto 1.25rem 50%;
+	z-index: 60;
+	width: min(92vw, 32rem);
+	transform: translateX(-50%);
+	pointer-events: auto;
+}
+
+.purplish-lookbook-film .purplish-lookbook-cards .wc-block-product-template {
+	display: block !important;
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none;
+}
+
+.purplish-lookbook-film .purplish-lookbook-card {
+	position: absolute !important;
+	inset: var(--purplish-lookbook-gap) auto var(--purplish-lookbook-gap) var(--purplish-lookbook-gap);
+	width: clamp(20rem, 34vw, 32rem) !important;
+	max-width: calc(100% - 2 * var(--purplish-lookbook-gap)) !important;
+	height: fit-content;
+	max-height: calc(100% - 2 * var(--purplish-lookbook-gap));
+	margin: auto 0 !important;
+	overflow: auto;
+	scrollbar-width: none;
+	opacity: 0;
+	box-shadow: 0 40px 100px -40px rgb(0 0 0 / 0.6);
+	will-change: transform;
+}
+
+.purplish-lookbook-film .purplish-lookbook-card-right {
+	inset: var(--purplish-lookbook-gap) var(--purplish-lookbook-gap) var(--purplish-lookbook-gap) auto;
+}
+
+.purplish-lookbook-film .purplish-lookbook-spare,
+.purplish-lookbook-film .purplish-lookbook-extra {
+	display: none !important;
+}
+
+/* Film chrome, built by the script. */
+.purplish-lookbook-bar {
+	position: absolute;
+	z-index: 7;
+	height: 7%;
+	background: var(--purplish-lookbook-screen);
+	transform: scaleY(0);
+	pointer-events: none;
+}
+
+.purplish-lookbook-bar-top {
+	inset: 0 0 auto 0;
+	transform-origin: top;
+}
+
+.purplish-lookbook-bar-bottom {
+	inset: auto 0 0 0;
+	transform-origin: bottom;
+}
+
+.purplish-lookbook-dim {
+	position: absolute;
+	inset: 0;
+	z-index: 15;
+	background: var(--purplish-lookbook-screen);
+	opacity: 0;
+	pointer-events: none;
+}
+
+.purplish-lookbook-rail,
+.purplish-lookbook-timecode {
+	position: absolute;
+	z-index: 20;
+	font-size: 0.8125rem;
+	font-variant-numeric: tabular-nums;
+	color: var(--purplish-lookbook-light);
+	text-shadow: 0 1px 8px rgb(0 0 0 / 0.45);
+	opacity: 0;
+	transition: opacity 0.6s var(--purplish-lookbook-ease);
+	pointer-events: none;
+}
+
+.purplish-lookbook-rail {
+	inset: 50% var(--purplish-lookbook-edge) auto auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: clamp(1rem, 4svh, 2rem);
+	padding-inline-end: 1rem;
+	transform: translateY(-50%);
+}
+
+.purplish-lookbook-rail::before,
+.purplish-lookbook-rail i {
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	inset-inline-end: 0;
+	width: 1px;
+	background: color-mix(in srgb, var(--purplish-lookbook-light) 35%, transparent);
+}
+
+.purplish-lookbook-rail i {
+	background: var(--purplish-lookbook-light);
+	transform: scaleY(var(--purplish-lookbook-fill, 0));
+	transform-origin: top;
+}
+
+.purplish-lookbook-rail span {
+	display: flex;
+	align-items: baseline;
+	gap: 0;
+	color: color-mix(in srgb, var(--purplish-lookbook-light) 60%, transparent);
+	transition: color 0.5s;
+}
+
+.purplish-lookbook-rail b {
+	max-width: 0;
+	overflow: hidden;
+	font-weight: inherit;
+	white-space: nowrap;
+	opacity: 0;
+	transition: max-width 0.6s var(--purplish-lookbook-ease), opacity 0.6s var(--purplish-lookbook-ease), margin 0.6s var(--purplish-lookbook-ease);
+}
+
+.purplish-lookbook-rail span.is-on {
+	color: var(--purplish-lookbook-light);
+	font-weight: 600;
+}
+
+.purplish-lookbook-rail span.is-on b {
+	max-width: 14em;
+	margin-inline-end: 0.625rem;
+	opacity: 1;
+}
+
+.purplish-lookbook-rail.purplish-lookbook-rail-left {
+	inset: 50% auto auto var(--purplish-lookbook-edge);
+	align-items: flex-start;
+	padding-inline: 1rem 0;
+}
+
+.purplish-lookbook-rail-left::before,
+.purplish-lookbook-rail-left i {
+	inset-inline: 0 auto;
+}
+
+.purplish-lookbook-rail-left span {
+	flex-direction: row-reverse;
+}
+
+.purplish-lookbook-rail-left span.is-on b {
+	margin-inline: 0.625rem 0;
+}
+
+.purplish-lookbook-timecode {
+	inset: auto var(--purplish-lookbook-edge) var(--purplish-lookbook-edge) auto;
+	letter-spacing: 0.04em;
+}
+
+.purplish-lookbook-timecode.is-on {
+	opacity: 1;
+}
+
+/* The closing line over the opening shot. */
+.purplish-lookbook-film .purplish-lookbook-outro {
+	position: absolute;
+	inset: 0;
+	z-index: 20;
+	display: grid;
+	place-content: center;
+	max-width: none;
+	margin: 0 !important;
+	padding: var(--purplish-lookbook-edge);
+	text-align: center;
+	visibility: hidden;
+}
+
+.purplish-lookbook-film .purplish-lookbook-outro:not(.has-text-color),
+.purplish-lookbook-film .purplish-lookbook-outro:not(.has-text-color) :is(h1, h2, h3, h4, h5, h6, p):not(.has-text-color) {
+	color: var(--purplish-lookbook-light);
+}
+
+/* Narrow film: the card rises from the bottom, the film keeps the top. */
+.purplish-lookbook-narrow .purplish-lookbook-card,
+.purplish-lookbook-narrow .purplish-lookbook-card-right {
+	inset: auto var(--purplish-lookbook-gap) var(--purplish-lookbook-gap) var(--purplish-lookbook-gap);
+	width: auto !important;
+	max-height: 62%;
+	gap: 0.625rem;
+	padding: 1.25rem;
+}
+
+.purplish-lookbook-narrow .purplish-lookbook-card img {
+	max-height: 16svh;
+}
+
+.purplish-lookbook-narrow .purplish-lookbook-rail,
+.purplish-lookbook-narrow .purplish-lookbook-timecode {
+	display: none;
+}
+
+/* ---------- Stacked: each shot with its card beside it ---------- */
+.purplish-lookbook-stacked > .purplish-lookbook-stage {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-auto-flow: row dense;
+	gap: var(--purplish-lookbook-gap);
+}
+
+.purplish-lookbook-stacked > .purplish-lookbook-stage > *,
+.purplish-lookbook-stacked .purplish-lookbook-cards > * {
+	grid-column: 1 / -1;
+	max-width: none;
+	margin: 0 !important;
+}
+
+.purplish-lookbook-stacked .purplish-lookbook-cards,
+.purplish-lookbook-stacked .purplish-lookbook-cards .wc-block-product-template {
+	display: contents !important;
+}
+
+.purplish-lookbook-stacked .purplish-lookbook-cards > * {
+	order: 998;
+}
+
+.purplish-lookbook-stacked .purplish-lookbook-card {
+	grid-column: auto;
+	align-self: center;
+	order: 998;
+}
+
+.purplish-lookbook-stacked .purplish-lookbook-outro {
+	order: 1000;
+}
+
+.purplish-lookbook-stacked .purplish-lookbook-extra {
+	order: 1001;
+}
+
+.purplish-lookbook-stacked .purplish-lookbook-paired {
+	min-height: min(70svh, 40rem) !important;
+}
+
+@media (max-width: 781px) {
+
+	.purplish-lookbook-stacked > .purplish-lookbook-stage {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.purplish-lookbook-stacked .purplish-lookbook-stage .purplish-lookbook-card,
+	.purplish-lookbook-stacked .purplish-lookbook-stage .purplish-lookbook-paired {
+		grid-column: 1 / -1 !important;
+	}
+}

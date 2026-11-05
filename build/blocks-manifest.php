@@ -148,6 +148,72 @@ return array(
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
 	),
+	'scroll-lookbook' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/scroll-lookbook',
+		'version' => '1.1.0',
+		'title' => 'Scroll Lookbook',
+		'category' => 'purplish',
+		'description' => 'Videos or photos play as visitors scroll, and at each stop that product\'s card slides in with add to cart.',
+		'keywords' => array(
+			'products',
+			'lookbook',
+			'video',
+			'cover',
+			'film'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'chapters' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'timecode' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'off'
+			),
+			'length' => array(
+				'type' => 'string',
+				'enum' => array(
+					'short',
+					'medium',
+					'long'
+				),
+				'default' => 'medium'
+			)
+		),
+		'allowedBlocks' => array(
+			'core/cover',
+			'woocommerce/product-collection',
+			'core/group'
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				)
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
+	),
 	'story-deck' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
