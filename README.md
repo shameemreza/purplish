@@ -22,7 +22,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
-| Shop and collection pages | Product Collection | 14 card effects, add to cart on the photo and button motion. |
+| Shop and collection pages | Product Collection | 18 card effects, add to cart on the photo and button motion. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Scroll motion | Heading, Group, Columns, Cover | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
@@ -86,16 +86,20 @@ On the Product Collection block, add to cart can sit on the photo as a small fro
 | | Expanded cards | Each photo shows as a narrow band and opens to full size under the mouse. |
 | | Magnetic panel | A soft panel in the effect color slides under the card. |
 | | Card folder | Each card sits in a soft folder with a tab, and the photo lifts out. |
+| | Bookmark | Each card is a soft card with a notch cut from its lower edge, and the photo turns from gray to full color under the mouse. |
+| | Roster | Product names as a big list beside one large photo. The name under the mouse, or in focus, shows its photo. |
 | In a carousel | Deck | The cards at the edges turn away, and the one under the mouse faces you. |
 | | Arc | The cards sit on a curve, highest in the middle. |
 | | Spotlight carousel | The middle card is full size and the rest fade back. |
 | | Grow | Cards grow as they reach the middle. |
 | | Tilt | Cards lean as they travel across. |
+| | Depth | The cards turn further away the closer they get to the edges, and the middle card faces you. |
+| | Overlap | The cards lie over each other like prints on a table, each leaning its own way. The one under the mouse straightens and comes to the top. |
 | On scroll | Clothes line | Each card hangs from a peg and swings as it comes in, or when the mouse touches it. |
 | | Parallax | The photo moves slower than its card. |
 | | Zoom reveal | Each card grows in as it appears. |
 
-Carousel effects play only when the collection is a carousel. A grid stays as it is.
+Carousel effects play only when the collection is a carousel. A grid stays as it is. Roster works the other way: it needs a grid, and phones and touch screens show the grid as it is.
 
 ## Filters and mini-cart
 
