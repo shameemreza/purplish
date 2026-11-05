@@ -60,7 +60,7 @@ On shop and collection pages, select the Product Collection block:
 * **Add to cart on the photo:** a small frosted button sits on the photo, and the title and price share one line. It shows on hover, and always on touch screens.
 * **Button motion:** a bag icon slides in on hover, and the button fills and pops after adding to cart.
 * **Effect color:** one color for the button fill and the card effects. On a product page with a variation color, the variation color wins.
-* **Card effect:** one of 14 effects for the whole collection.
+* **Card effect:** one of 18 effects for the whole collection.
 
 Effects on hover:
 
@@ -70,6 +70,8 @@ Effects on hover:
 * **Expanded cards:** each photo shows as a narrow band and opens to full size under the mouse.
 * **Magnetic panel:** a soft panel in the effect color slides under the card.
 * **Card folder:** each card sits in a soft folder with a tab, and the photo lifts out.
+* **Bookmark:** each card is a soft card with a notch cut from its lower edge, and the photo turns from gray to full color under the mouse.
+* **Roster:** product names as a big list beside one large photo. The name under the mouse, or in focus, shows its photo. It needs a grid, and phones and touch screens show the grid as it is.
 
 Effects in a carousel (a grid stays as it is):
 
@@ -78,6 +80,8 @@ Effects in a carousel (a grid stays as it is):
 * **Spotlight carousel:** the middle card is full size and the rest fade back.
 * **Grow:** cards grow as they reach the middle.
 * **Tilt:** cards lean as they travel across.
+* **Depth:** the cards turn further away the closer they get to the edges, and the middle card faces you.
+* **Overlap:** the cards lie over each other like prints on a table, each leaning its own way. The one under the mouse straightens and comes to the top.
 
 Effects as cards scroll into view:
 
@@ -164,7 +168,7 @@ On a block theme, open the Single Product template in the Site Editor, select th
 
 = Can I change how product cards look on the shop page? =
 
-Yes, on block themes. Select the Product Collection block on your shop or collection template and open the Purplish panel. You can put add to cart on the photo, add button motion and pick one of 14 card effects.
+Yes, on block themes. Select the Product Collection block on your shop or collection template and open the Purplish panel. You can put add to cart on the photo, add button motion and pick one of 18 card effects.
 
 = A color Purplish found looks wrong. What do I do? =
 
