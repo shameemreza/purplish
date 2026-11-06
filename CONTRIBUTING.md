@@ -60,6 +60,9 @@ Every change has to pass these, and CI runs the same ones:
 | `npm run lint:css` | CSS standards |
 | `npm run test:js` | Jest |
 | `npm run build` | The scripts in `build/` |
+| `npm run check:size` | Each block's front script is under 5 KB gzipped (run after the build) |
+
+Anything that moves or loads on the front end also follows the speed list in the pull request template: CSS before script, no libraries, a still version for reduced motion, and a PageSpeed mobile run before and after.
 
 Commit the `build/` folder with your change. WordPress.org installs the plugin from the repo files, with no build step.
 

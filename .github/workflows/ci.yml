@@ -62,6 +62,10 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Speed rule 2: each block's front script stays under 5 KB gzipped.
+      - name: Block script sizes
+        run: npm run check:size
+
   phpunit:
     name: PHPUnit on PHP ${{ matrix.php }}, WooCommerce ${{ matrix.woocommerce }}
     runs-on: ubuntu-24.04
