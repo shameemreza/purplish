@@ -6,6 +6,7 @@
 	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"build": "wp-scripts build --source-path=assets/src --output-path=build --blocks-manifest",
+		"check:size": "node bin/check-size.js",
 		"start": "wp-scripts start --source-path=assets/src --output-path=build --blocks-manifest",
 		"lint:js": "wp-scripts lint-js",
 		"lint:css": "wp-scripts lint-style 'assets/src/**/*.css' --allow-empty-input",
