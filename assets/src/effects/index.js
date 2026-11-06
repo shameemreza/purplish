@@ -705,6 +705,25 @@ if ( canHover ) {
 		)
 		.forEach( glassHighlight );
 
+	// WooCommerce draws the checkout buttons after this script runs, so the
+	// highlight starts on the first pointer over each one.
+	if ( document.querySelector( '.purplish-buybutton-glass' ) ) {
+		const ready = new WeakSet();
+		document.addEventListener(
+			'pointerover',
+			( event ) => {
+				const button = event.target.closest?.(
+					'.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button)'
+				);
+				if ( button && ! ready.has( button ) ) {
+					ready.add( button );
+					glassHighlight( button );
+				}
+			},
+			{ passive: true }
+		);
+	}
+
 	const eyes = [ ...document.querySelectorAll( '.purplish-eye' ) ];
 	if ( eyes.length ) {
 		lookAt( eyes );

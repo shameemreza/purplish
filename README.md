@@ -27,6 +27,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
 | Filters and cart | Product Filters, Mini-Cart | Active filters that match the filter chips, and a count that pops when something goes into the cart. |
+| Cart, checkout and order confirmation | Proceed to Checkout, checkout Actions, Order Status, Order Summary | A glow ring, light sweep, liquid glass and spectrum ring on Proceed to Checkout and Place Order, a thank-you moment on the order heading and a receipt card for the order summary. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
 | Scroll motion | Heading, Group, Columns, Cover | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
@@ -39,7 +40,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 - **Scripts load only where they're used:** the color script loads on variable products only, and each effect loads only on pages that use it. A simple product page with no effects loads no script.
 - **Photos stay on your server:** colors are read from variation photos in the background, with the image tools PHP already has, and saved with the product.
 - **Nothing extra:** no outside requests, no tracking, and no banners, notices or upsells in the admin.
-- **Motion with manners:** nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops, and reduced motion turns it all off.
+- **Motion with manners:** nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart or a placed order, then stops, and reduced motion turns it all off.
 
 ## Product page
 
@@ -109,6 +110,14 @@ Carousel effects play only when the collection is a carousel. A grid stays as it
 
 - **Product Filters, Matching chips:** the active filters take the look of a selected chip, with its colors, corners and letter case, and a chip fades into its selected color when picked.
 - **Mini-Cart, Count pop:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart.
+
+## Cart, checkout and order confirmation
+
+- **Proceed to Checkout and Place Order, Looks:** the glow ring, light sweep, liquid glass and spectrum ring from the Button block, in any mix. One effect color drives the glow and the glass. Place Order is in the checkout's Actions block.
+- **Order Status, Thank-you moment:** when the order confirmation page opens, the heading rises into place and a burst of rays in the effect color flashes behind it once. The heading is never hidden while it rises.
+- **Order Summary, Receipt card:** the order number, date, total and payment method sit on a paper receipt with a torn bottom edge and a dashed line between rows.
+
+Touch screens get the button looks without the hover parts, and visitors who turn on reduced motion see the heading and buttons without the motion.
 
 ## Page sections
 
@@ -207,12 +216,13 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Matching filter chips, mini-cart count pop | Yes | No |
 | Image hover styles, button looks, and glass, spectrum ring and googly eyes on add to cart | Yes | No |
 | Heading reveals, group and columns entrances, cover scroll effects | Yes | No |
+| Checkout button looks, thank-you moment, receipt card | Yes | No |
 
 ## Get started
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart and Accordion Group blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway and Scroll Lookbook, are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Accordion Group, Proceed to Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway and Scroll Lookbook, are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 

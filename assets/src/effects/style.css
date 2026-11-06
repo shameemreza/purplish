@@ -25,6 +25,8 @@ body.purplish-active {
 .purplish-image,
 .purplish-button,
 .purplish-cart,
+.purplish-buybutton,
+.purplish-thanks,
 body[class*="purplish-classic-gallery-"] {
 	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
 	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
@@ -2159,14 +2161,16 @@ body.purplish-active .purplish-group-tint {
 }
 
 /* Glow ring: 1.0's ring around the add to cart button, on any button. */
-.purplish-button-glow .wp-block-button__link {
+.purplish-button-glow .wp-block-button__link,
+.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button {
 	box-shadow:
 		0 0 0 3px color-mix(in oklab, var(--purplish-color) 45%, transparent),
 		0 0 22px color-mix(in oklab, var(--purplish-color) 55%, transparent);
 	transition: box-shadow 0.3s ease;
 }
 
-.purplish-button-glow .wp-block-button__link:is(:hover, :focus-visible) {
+.purplish-button-glow .wp-block-button__link:is(:hover, :focus-visible),
+.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button:is(:hover, :focus-visible) {
 	box-shadow:
 		0 0 0 5px color-mix(in oklab, var(--purplish-color) 55%, transparent),
 		0 0 32px color-mix(in oklab, var(--purplish-color) 70%, transparent);
@@ -2176,11 +2180,13 @@ body.purplish-active .purplish-group-tint {
  * Sweep: a band of light crosses the button once on hover and focus. It
  * takes the text color, so it shows on filled and outline buttons alike.
  */
-.purplish-button-sweep .wp-block-button__link {
+.purplish-button-sweep .wp-block-button__link,
+.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button {
 	overflow: hidden;
 }
 
-.purplish-button-sweep .wp-block-button__link::after {
+.purplish-button-sweep .wp-block-button__link::after,
+.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::after {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -2193,7 +2199,7 @@ body.purplish-active .purplish-group-tint {
  * Spectrum ring: a rainbow ring on the button's edge travels around once
  * on hover and focus, then stays still until the mouse leaves.
  */
-:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button)::before {
+:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button, .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -2207,7 +2213,7 @@ body.purplish-active .purplish-group-tint {
 	transition: opacity 0.3s ease, --purplish-spin 0s linear 0.3s;
 }
 
-:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button):is(:hover, :focus-visible)::before {
+:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button, .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button):is(:hover, :focus-visible)::before {
 	--purplish-spin: 360deg;
 	opacity: 1;
 	transition: opacity 0.2s ease, --purplish-spin 1.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -2223,7 +2229,7 @@ body.purplish-active .purplish-group-tint {
 
 	@media (prefers-reduced-motion: no-preference) {
 
-		:is(.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button) {
+		:is(.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button, .purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button) {
 			background-color: color-mix(in oklab, var(--purplish-color) 72%, transparent) !important;
 			background-image: radial-gradient(circle at var(--purplish-bx) var(--purplish-by), rgb(255 255 255 / 0.45), transparent 60%) !important;
 			color: var(--purplish-color-on) !important;
@@ -2238,6 +2244,7 @@ body.purplish-active .purplish-group-tint {
 
 		/* With the glow ring too, the ring joins the glass edge. */
 		.purplish-button-glow.purplish-button-glass .wp-block-button__link,
+		.purplish-buybutton-glow.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button,
 		body.purplish-active.purplish-glow .purplish-cart-glass .single_add_to_cart_button {
 			box-shadow:
 				inset 0 0 0 1px rgb(255 255 255 / 0.35),
@@ -2295,13 +2302,15 @@ body.purplish-active .purplish-group-tint {
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
 
-	.purplish-button-sweep .wp-block-button__link:hover::after {
+	.purplish-button-sweep .wp-block-button__link:hover::after,
+	.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button:hover::after {
 		translate: 120% 0;
 		transition: translate 0.8s ease;
 	}
 }
 
-.purplish-button-sweep .wp-block-button__link:focus-visible::after {
+.purplish-button-sweep .wp-block-button__link:focus-visible::after,
+.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button:focus-visible::after {
 	translate: 120% 0;
 	transition: translate 0.8s ease;
 }
@@ -2312,6 +2321,9 @@ body.purplish-active .purplish-group-tint {
 	.purplish-button *,
 	.purplish-button *::before,
 	.purplish-button *::after,
+	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button,
+	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::before,
+	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::after,
 	[class*="purplish-cart-"] .single_add_to_cart_button,
 	[class*="purplish-cart-"] .single_add_to_cart_button *,
 	[class*="purplish-cart-"] .single_add_to_cart_button::before {
@@ -2319,11 +2331,12 @@ body.purplish-active .purplish-group-tint {
 		transition: none !important;
 	}
 
-	.purplish-button-sweep .wp-block-button__link::after {
+	.purplish-button-sweep .wp-block-button__link::after,
+	.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::after {
 		display: none;
 	}
 
-	:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button)::before {
+	:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button, .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
 		--purplish-spin: 0deg !important;
 	}
 }
@@ -2489,4 +2502,120 @@ body.purplish-active .purplish-group-tint {
 	from {
 		scale: 1.25;
 	}
+}
+
+/*
+ * Thank-you moment on the Order confirmation status: the heading rises in
+ * and one ring of rays bursts behind it, once. The heading never starts
+ * hidden, so it still counts as the page's largest paint from the first
+ * frame. The burst sits behind where the text starts, or its middle or
+ * end when the block is aligned that way.
+ */
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	.purplish-thanks-moment h1 {
+		position: relative;
+		isolation: isolate;
+		animation: purplish-thanks-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	.purplish-thanks-moment h1::before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		inset-block-start: 50%;
+		inset-inline-start: -0.7em;
+		width: 2.8em;
+		aspect-ratio: 1;
+		margin-block-start: -1.4em;
+		border-radius: 50%;
+		background: repeating-conic-gradient(var(--purplish-color) 0 6deg, transparent 6deg 30deg);
+		mask: radial-gradient(closest-side, transparent 42%, #000 44% 76%, transparent 78%);
+		opacity: 0;
+		pointer-events: none;
+		animation: purplish-thanks-burst 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s both;
+	}
+
+	.purplish-thanks-moment.has-text-align-center h1::before {
+		inset-inline-start: calc(50% - 1.4em);
+	}
+
+	.purplish-thanks-moment.has-text-align-right h1::before {
+		inset-inline-start: auto;
+		inset-inline-end: -0.7em;
+	}
+}
+
+@keyframes purplish-thanks-rise {
+
+	from {
+		opacity: 0.35;
+		translate: 0 0.4em;
+	}
+}
+
+@keyframes purplish-thanks-burst {
+
+	0% {
+		opacity: 0;
+		scale: 0.4;
+	}
+
+	20% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		scale: 1.3;
+	}
+}
+
+/*
+ * Receipt card on the Order confirmation summary: the list becomes a
+ * narrow slip with one line per detail, the value at the end, dashed rules
+ * between them and a torn bottom edge. The slip is the list, not the
+ * block, so the block keeps the theme's layout and the slip starts where
+ * the text does. The paper is a light wash of the text color, so it works
+ * on light and dark themes.
+ */
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul {
+	box-sizing: border-box;
+	flex-direction: column;
+	gap: 0;
+	max-width: 30rem;
+	padding: 1.25em 1.5em 2em;
+	background: color-mix(in oklab, currentcolor 5%, transparent);
+	border-radius: 0.375em 0.375em 0 0;
+	mask:
+		conic-gradient(from -45deg at bottom, #000 90deg, #0000 0) bottom / 1em 0.5em repeat-x,
+		linear-gradient(#000 0 0) top / 100% calc(100% - 0.49em) no-repeat;
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1em;
+	width: auto;
+	padding-block: 0.6em;
+	border-block-end: 1px dashed color-mix(in oklab, currentcolor 30%, transparent);
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li:last-child {
+	border-block-end: 0;
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li > .wc-block-order-confirmation-summary-list-item__key {
+	font-weight: inherit;
+	white-space: nowrap;
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li > .wc-block-order-confirmation-summary-list-item__value {
+	display: inline;
+	min-width: 0;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	text-align: end;
+	overflow-wrap: anywhere;
 }
