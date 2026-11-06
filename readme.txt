@@ -20,7 +20,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 
 = Built to stay out of your way =
 
-* **Works on the blocks you already use:** Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart and Accordion Group blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. It replaces nothing.
+* **Works on the blocks you already use:** Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Accordion Group, Proceed to Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
 * **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
@@ -98,7 +98,13 @@ On other blocks:
 * **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
 * **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
 
-Nothing moves on its own. Every effect plays on a hover, a scroll, a color change or an add to cart, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
+Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
+
+= Cart, checkout and order confirmation =
+
+* **Proceed to Checkout and Place Order, Looks:** the glow ring, light sweep, liquid glass and spectrum ring from the Button block, in any mix, with one effect color. Place Order is in the checkout's Actions block.
+* **Order Status, Thank-you moment:** when the order confirmation page opens, the heading rises into place and a burst of rays in the effect color flashes behind it once.
+* **Order Summary, Receipt card:** the order number, date, total and payment method sit on a paper receipt with a torn bottom edge and a dashed line between rows.
 
 = Hanging Rail block =
 

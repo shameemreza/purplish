@@ -34,6 +34,16 @@ final class BlockEffects {
 	const ENTRANCES = array( 'fadeup', 'zoomin' );
 
 	/**
+	 * The button looks on Proceed to Checkout and Place Order.
+	 */
+	const BUY_BUTTON_LOOKS = array(
+		'glow'     => true,
+		'sweep'    => true,
+		'glass'    => true,
+		'spectrum' => true,
+	);
+
+	/**
 	 * Purplish's options for each block, with the values each one accepts.
 	 * `true` means an on or off switch.
 	 *
@@ -44,7 +54,11 @@ final class BlockEffects {
 	 *
 	 * `eyes` names the class of the button that the googly eyes go inside.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool, eyes?: string}>
+	 * `redrawn` marks a block that WooCommerce draws again in the browser,
+	 * keeping the wrapper's class but not its style, so the effect color
+	 * goes on a class with a matching rule instead.
+	 *
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool, eyes?: string, redrawn?: bool}>
 	 */
 	public static function blocks() {
 		return array(
@@ -210,6 +224,28 @@ final class BlockEffects {
 					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
 				),
 			),
+			'woocommerce/order-confirmation-status'  => array(
+				'prefix'  => 'thanks',
+				'options' => array(
+					'moment' => true,
+				),
+			),
+			'woocommerce/order-confirmation-summary' => array(
+				'prefix'  => 'summary',
+				'options' => array(
+					'receipt' => true,
+				),
+			),
+			'woocommerce/proceed-to-checkout-block'  => array(
+				'prefix'  => 'buybutton',
+				'options' => self::BUY_BUTTON_LOOKS,
+				'redrawn' => true,
+			),
+			'woocommerce/checkout-actions-block'     => array(
+				'prefix'  => 'buybutton',
+				'options' => self::BUY_BUTTON_LOOKS,
+				'redrawn' => true,
+			),
 		);
 	}
 
@@ -219,6 +255,13 @@ final class BlockEffects {
 	 * @var bool
 	 */
 	private static $used = false;
+
+	/**
+	 * The color classes whose rule is already on the page.
+	 *
+	 * @var array<string, bool>
+	 */
+	private static $color_rules = array();
 
 	/**
 	 * Adds the hooks.
@@ -349,6 +392,11 @@ final class BlockEffects {
 
 		// The collection's effect color, and readable text on it.
 		$color = isset( $block['attrs']['purplish']['color'] ) ? sanitize_hex_color( (string) $block['attrs']['purplish']['color'] ) : '';
+		self::enqueue();
+		if ( $color && ! empty( self::blocks()[ $name ]['redrawn'] ) ) {
+			$classes[] = self::color_class( $color );
+			$color     = '';
+		}
 		do {
 			foreach ( $classes as $class ) {
 				$tags->add_class( $class );
@@ -360,8 +408,24 @@ final class BlockEffects {
 			}
 		} while ( $rows && $tags->next_tag( $query ) );
 
-		self::enqueue();
 		return self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
+	}
+
+	/**
+	 * The class that carries an effect color on a block WooCommerce draws
+	 * again in the browser, with its rule added to the effects stylesheet
+	 * once per color.
+	 *
+	 * @param string $color A hex color from sanitize_hex_color().
+	 * @return string
+	 */
+	private static function color_class( $color ) {
+		$class = 'purplish-color-' . strtolower( substr( $color, 1 ) );
+		if ( ! isset( self::$color_rules[ $class ] ) ) {
+			self::$color_rules[ $class ] = true;
+			wp_add_inline_style( self::HANDLE, '.' . $class . '{--purplish-effect:' . $color . ';--purplish-effect-on:' . \Purplish\Color\Contrast::on( $color ) . ';}' );
+		}
+		return $class;
 	}
 
 	/**

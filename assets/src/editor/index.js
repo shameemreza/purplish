@@ -25,6 +25,8 @@ import ButtonPanel from './button';
 import HeadingPanel from './heading';
 import ColumnsPanel from './columns';
 import CoverPanel from './cover';
+import BuyButtonPanel from './buy-button';
+import { OrderStatusPanel, OrderSummaryPanel } from './order-confirmation';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
@@ -47,6 +49,10 @@ const PANELS = {
 	'core/heading': HeadingPanel,
 	'core/columns': ColumnsPanel,
 	'core/cover': CoverPanel,
+	'woocommerce/order-confirmation-status': OrderStatusPanel,
+	'woocommerce/order-confirmation-summary': OrderSummaryPanel,
+	'woocommerce/proceed-to-checkout-block': BuyButtonPanel,
+	'woocommerce/checkout-actions-block': BuyButtonPanel,
 };
 
 addFilter(
