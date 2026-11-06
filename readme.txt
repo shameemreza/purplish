@@ -18,6 +18,8 @@ Purplish is a block design toolkit for WooCommerce. It gives those blocks, and t
 
 Think of a product page that takes the color of the variation a shopper picks, a gallery that tilts toward the mouse or slides in like a film reel, or a shop page where product cards fan out and hang from a clothes line. That's the kind of store Purplish is for.
 
+[youtube https://www.youtube.com/watch?v=K9pyGo5XebQ]
+
 = Built to stay out of your way =
 
 * **Works on the blocks you already use:** Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Accordion Group, Proceed to Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. It replaces nothing.
