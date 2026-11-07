@@ -7,6 +7,27 @@
 const HEX = /^#([0-9a-f]{3}){1,2}$/i;
 
 /**
+ * For each glass class, the buttons inside it that take the highlight.
+ */
+export const GLASS_BUTTONS = {
+	'purplish-buybutton-glass':
+		'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button',
+};
+
+/**
+ * The selector of the glass buttons inside a block with these classes.
+ *
+ * @param {string[]} classes The block's Purplish classes.
+ * @return {string} Selector, empty when the block has no glass look.
+ */
+export function glassSelector( classes ) {
+	return classes
+		.map( ( name ) => GLASS_BUTTONS[ name ] )
+		.filter( Boolean )
+		.join( ', ' );
+}
+
+/**
  * Wrapper classes for a block's saved options, as `classes_for()` in PHP.
  *
  * @param {Object} block Map entry: prefix, options and legacy keys.
