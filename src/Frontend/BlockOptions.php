@@ -20,6 +20,19 @@ final class BlockOptions {
 	const HANDLE = 'purplish-editor';
 
 	/**
+	 * The color the page options show in the editor, where a template has
+	 * no product: Purplish's own purple.
+	 */
+	const PREVIEW_COLOR = '#8f43ee';
+
+	/**
+	 * The page switches with a resting or hover look, which the editor
+	 * shows. The others play on a color change or need each option's own
+	 * color.
+	 */
+	const PREVIEW_SWITCHES = array( 'glow', 'mesh' );
+
+	/**
 	 * Adds the hooks.
 	 *
 	 * @return void
@@ -28,6 +41,7 @@ final class BlockOptions {
 		add_filter( 'register_block_type_args', array( $this, 'add_attribute' ), 10, 2 );
 		add_filter( 'render_block_' . self::BLOCK, array( $this, 'read_options' ), 10, 2 );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_canvas_styles' ) );
 	}
 
 	/**
@@ -77,5 +91,36 @@ final class BlockOptions {
 		wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/editor.js', $asset['dependencies'], $asset['version'], true );
 		wp_set_script_translations( self::HANDLE, 'purplish' );
 		wp_add_inline_script( self::HANDLE, 'window.purplishPreview = ' . wp_json_encode( BlockEffects::preview_map() ) . ';', 'before' );
+		wp_add_inline_script( self::HANDLE, 'window.purplishPage = ' . wp_json_encode( self::page_preview() ) . ';', 'before' );
+	}
+
+	/**
+	 * What the editor needs to show the page options: each part with its
+	 * default, the switches it shows, and the sample color set.
+	 *
+	 * @return array{parts: array<string, bool>, switches: string[], sample: array{color: string, on: string, ink: string, tint: string}|null}
+	 */
+	public static function page_preview() {
+		return array(
+			'parts'    => \Purplish\Options::part_defaults(),
+			'switches' => self::PREVIEW_SWITCHES,
+			'sample'   => PageData::color_set( self::PREVIEW_COLOR ),
+		);
+	}
+
+	/**
+	 * Loads the page option styles into the editor canvas. Every rule hangs
+	 * off body classes, which only the editor preview adds there.
+	 *
+	 * @return void
+	 */
+	public function enqueue_canvas_styles() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$asset = include PURPLISH_DIR . 'build/frontend.asset.php';
+		wp_enqueue_style( PageData::HANDLE, PURPLISH_URL . 'build/style-frontend.css', array(), $asset['version'] );
+		wp_style_add_data( PageData::HANDLE, 'rtl', 'replace' );
 	}
 }

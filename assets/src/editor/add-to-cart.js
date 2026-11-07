@@ -50,7 +50,8 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 				{ __(
 					'Parts of the product page that take the color of the variation a shopper picks.',
 					'purplish'
-				) }
+				) }{ ' ' }
+				{ __( 'The editor shows them in a sample color.', 'purplish' ) }
 			</p>
 			{ PARTS.map( ( part ) => (
 				<ToggleControl

@@ -79,6 +79,7 @@ final class BlockEffects {
 					'tilt'     => array( 'hover', 'tilt' ),
 					'lightbox' => array( 'fullscreen', 'snap' ),
 				),
+				'preview' => true,
 			),
 			'woocommerce/product-collection'         => array(
 				'prefix'  => 'cards',
@@ -127,6 +128,7 @@ final class BlockEffects {
 					'soldout' => array( 'cross', 'blur' ),
 				),
 				'rows'    => true,
+				'preview' => true,
 			),
 			'woocommerce/product-sale-badge'         => array(
 				'prefix'  => 'badge',
@@ -134,12 +136,14 @@ final class BlockEffects {
 					'shape'  => array( 'pill', 'circle', 'tag' ),
 					'corner' => array( 'top-left', 'top-right', 'bottom-left', 'bottom-right' ),
 				),
+				'preview' => true,
 			),
 			'woocommerce/product-gallery-thumbnails' => array(
 				'prefix'  => 'thumbs',
 				'options' => array(
 					'shape' => array( 'rounded', 'circle' ),
 				),
+				'preview' => true,
 			),
 			// Same class as the core accordion, so both share one soft style.
 			'woocommerce/accordion-group'            => array(
@@ -206,6 +210,7 @@ final class BlockEffects {
 					'eyes'     => self::EYES,
 				),
 				'eyes'    => 'single_add_to_cart_button',
+				'preview' => true,
 			),
 			'core/heading'                           => array(
 				'prefix'  => 'heading',

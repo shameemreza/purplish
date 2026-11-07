@@ -9,15 +9,13 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { moveHighlight, clearHighlight } from '../shared/glass';
+import { enterFrame, moveFrame, leaveFrame } from '../shared/hover';
 import './style.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 const canHover =
 	window.matchMedia( '(hover: hover) and (pointer: fine)' ).matches &&
 	! reduced;
-
-const LOUPE_BOX = 180;
-const LOUPE_ZOOM = 2.5;
 
 /**
  * The hover style named in a class list, as in `purplish-gallery-hover-zoom`.
@@ -67,56 +65,6 @@ function shownPhoto( frame ) {
 }
 
 /**
- * The largest file the page already names for a photo.
- *
- * @param {HTMLImageElement} img The photo.
- * @return {string} Its address.
- */
-function largest( img ) {
-	if ( img.dataset.large_image ) {
-		return img.dataset.large_image;
-	}
-	let best = img.currentSrc || img.src;
-	let width = 0;
-	( img.getAttribute( 'srcset' ) || '' ).split( ',' ).forEach( ( entry ) => {
-		const [ url, size = '' ] = entry.trim().split( ' ' );
-		const w = parseInt( size, 10 );
-		if ( url && w > width ) {
-			best = url;
-			width = w;
-		}
-	} );
-	return best;
-}
-
-/**
- * Where the picture sits inside its box, after `object-fit`.
- *
- * @param {HTMLImageElement} img The photo.
- * @return {{left: number, top: number, width: number, height: number}} The picture's box on screen.
- */
-function pictureBox( img ) {
-	const box = img.getBoundingClientRect();
-	const fit = window.getComputedStyle( img ).objectFit;
-	if ( ! img.naturalWidth || ( 'cover' !== fit && 'contain' !== fit ) ) {
-		return box;
-	}
-	const pick = 'cover' === fit ? Math.max : Math.min;
-	const ratio = pick(
-		box.width / img.naturalWidth,
-		box.height / img.naturalHeight
-	);
-	const width = img.naturalWidth * ratio;
-	const height = img.naturalHeight * ratio;
-	return {
-		left: box.left + ( box.width - width ) / 2,
-		top: box.top + ( box.height - height ) / 2,
-		width,
-		height,
-	};
-}
-
-/**
  * Makes a frame follow the mouse for its hover style.
  *
  * @param {HTMLElement}                   frame         The element that gets the mouse variables.
@@ -130,66 +78,19 @@ function follow(
 	style,
 	{ area = frame, photo = () => shownPhoto( frame ) } = {}
 ) {
-	area.addEventListener( 'pointerenter', () => {
-		const img = photo();
-		if ( 'loupe' === style && img ) {
-			frame.style.setProperty(
-				'--purplish-loupe',
-				'url("' + largest( img ).split( '"' ).join( '%22' ) + '")'
-			);
-			frame.style.setProperty( '--purplish-loupe-box', LOUPE_BOX + 'px' );
-		}
-	} );
-
-	area.addEventListener( 'pointermove', ( event ) => {
-		const box = area.getBoundingClientRect();
-		const x = ( event.clientX - box.left ) / box.width;
-		const y = ( event.clientY - box.top ) / box.height;
-		frame.style.setProperty( '--purplish-ry', ( x - 0.5 ) * 22 + 'deg' );
-		frame.style.setProperty( '--purplish-rx', ( 0.5 - y ) * 16 + 'deg' );
-		frame.style.setProperty( '--purplish-mx', x * 100 + '%' );
-		frame.style.setProperty( '--purplish-my', y * 100 + '%' );
-		frame.style.setProperty( '--purplish-dx', String( x - 0.5 ) );
-		frame.style.setProperty( '--purplish-dy', String( y - 0.5 ) );
-
-		const img = 'loupe' === style && photo();
-		if ( img ) {
-			const picture = pictureBox( img );
-			const px = ( event.clientX - picture.left ) * LOUPE_ZOOM;
-			const py = ( event.clientY - picture.top ) * LOUPE_ZOOM;
-			frame.style.setProperty(
-				'--purplish-loupe-size',
-				picture.width * LOUPE_ZOOM +
-					'px ' +
-					picture.height * LOUPE_ZOOM +
-					'px'
-			);
-			frame.style.setProperty(
-				'--purplish-loupe-pos',
-				LOUPE_BOX / 2 - px + 'px ' + ( LOUPE_BOX / 2 - py ) + 'px'
-			);
-		}
-	} );
-
-	// The tilt resets fully; the others keep the mouse position so the
-	// photo settles back where it was instead of jumping to the center.
-	const reset =
-		'tilt' === style
-			? [
-					'--purplish-rx',
-					'--purplish-ry',
-					'--purplish-mx',
-					'--purplish-my',
-				]
-			: [
-					'--purplish-rx',
-					'--purplish-ry',
-					'--purplish-dx',
-					'--purplish-dy',
-				];
-	area.addEventListener( 'pointerleave', () =>
-		reset.forEach( ( name ) => frame.style.removeProperty( name ) )
+	area.addEventListener( 'pointerenter', () =>
+		enterFrame( frame, style, photo() )
 	);
+	area.addEventListener( 'pointermove', ( event ) =>
+		moveFrame(
+			frame,
+			style,
+			event,
+			area,
+			'loupe' === style ? photo() : null
+		)
+	);
+	area.addEventListener( 'pointerleave', () => leaveFrame( frame, style ) );
 }
 
 /**
