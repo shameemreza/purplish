@@ -116,12 +116,14 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// The entrance waits for a class the front script adds.
 			'core/group'                             => array(
 				'prefix'  => 'group',
 				'options' => array(
 					'tint'     => true,
 					'entrance' => self::ENTRANCES,
 				),
+				'preview' => true,
 			),
 			// WooCommerce grays out and hides invalid chips itself.
 			'woocommerce/add-to-cart-with-options-variation-selector-attribute' => array(
@@ -182,6 +184,7 @@ final class BlockEffects {
 				'options' => array(
 					'chips' => true,
 				),
+				'preview' => true,
 			),
 			'woocommerce/mini-cart'                  => array(
 				'prefix'  => 'minicart',
