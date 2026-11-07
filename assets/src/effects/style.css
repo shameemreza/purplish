@@ -580,7 +580,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		translate: 0 0;
 	}
 
-	.purplish-cards-overlay .wc-block-product:hover .wc-block-components-product-image img {
+	.purplish-cards-overlay:not([class*="purplish-cards-hoverphoto-"]) .wc-block-product:hover .wc-block-components-product-image img {
 		transform: scale(1.06);
 	}
 
@@ -596,14 +596,14 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
  * with the effect color and pops while the count slides in. The editor
  * draws the button inert, so the preview marks it `purplish-hover` instead.
  */
-.purplish-cards-motion .wc-block-components-product-button__button {
+:is(.purplish-cards-motion, .purplish-cards-hoverbutton-bag) .wc-block-components-product-button__button {
 	display: inline-flex;
 	align-items: center;
 	position: relative;
 	overflow: hidden;
 }
 
-.purplish-cards-motion .wc-block-components-product-button__button::before {
+:is(.purplish-cards-motion, .purplish-cards-hoverbutton-bag) .wc-block-components-product-button__button::before {
 	content: "";
 	flex: none;
 	width: 0;
@@ -615,7 +615,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		margin 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.purplish-cards-motion .wc-block-components-product-button__button::after {
+:is(.purplish-cards-motion, .purplish-cards-hoverbutton-bag) .wc-block-components-product-button__button::after {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -624,7 +624,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	pointer-events: none;
 }
 
-.purplish-cards-motion .wc-block-components-product-button__button:has(.wc-block-slide-in) {
+:is(.purplish-cards-motion, .purplish-cards-hoverbutton-bag) .wc-block-components-product-button__button:has(.wc-block-slide-in) {
 	background-size: 100% 100%, auto !important;
 	color: var(--purplish-color-on) !important;
 	animation: purplish-added 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
@@ -639,19 +639,206 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 @media (hover: hover) and (pointer: fine) {
 
-	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
+	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover),
+	.purplish-cards-hoverbutton-bag .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button,
+	.purplish-cards-hoverbutton-bag .wc-block-components-product-button__button.purplish-hover {
 		translate: 0 -2px;
 		box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--purplish-color) 60%, transparent);
 	}
 
-	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover)::before {
+	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover)::before,
+	.purplish-cards-hoverbutton-bag .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button::before,
+	.purplish-cards-hoverbutton-bag .wc-block-components-product-button__button.purplish-hover::before {
 		width: 16px;
 		margin-right: 0.45rem;
 	}
 
-	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover)::after {
+	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover)::after,
+	.purplish-cards-hoverbutton-bag .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button::after,
+	.purplish-cards-hoverbutton-bag .wc-block-components-product-button__button.purplish-hover::after {
 		translate: 120% 0;
 		transition: translate 0.8s ease;
+	}
+}
+
+/*
+ * Cards, hover looks: one look each for the whole card, the photo and the
+ * add to cart button, all playing while the mouse is anywhere on the card
+ * or the keyboard is inside it. Card effects animate `translate`, `rotate`
+ * and `scale`, so the card and photo looks write only `transform`, which
+ * the browser applies on top: the look adds to wherever the effect has
+ * put the card. Without an effect color they take the theme's text color
+ * at low strength, so they stay quiet on any store.
+ */
+.purplish-cards-hovercard-lift .wc-block-components-product-image {
+	transition: filter 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+[class*="purplish-cards-hovercard-"] .wc-block-product {
+	position: relative;
+	isolation: isolate;
+	transition:
+		transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+		box-shadow 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+		outline-color 0.3s ease,
+		outline-offset 0.3s ease;
+}
+
+[class*="purplish-cards-hovercard-"] .wc-block-product:is(:hover, :focus-within) {
+	z-index: 1;
+}
+
+/* A carousel clips its strip top and bottom; give the lifted card room. */
+:where([class*="purplish-cards-hovercard-"]) .wc-block-product-template.is-horizontal {
+	padding-block: 14px;
+}
+
+/* Tilt's sheen and Torch's light, under the mouse the script follows. */
+:is(.purplish-cards-hovercard-tilt, .purplish-cards-hovercard-torch) .wc-block-product::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.4s ease;
+}
+
+.purplish-cards-hovercard-tilt .wc-block-product::after {
+	background: radial-gradient(circle at var(--purplish-mx, 50%) var(--purplish-my, 30%), rgb(255 255 255 / 0.22), transparent 55%);
+}
+
+.purplish-cards-hovercard-torch .wc-block-product::after {
+	z-index: -1;
+	inset: -10px;
+	border-radius: 16px;
+	background: radial-gradient(260px circle at var(--purplish-mx, 50%) var(--purplish-my, 50%), color-mix(in oklab, var(--purplish-color) 9%, transparent), transparent 70%);
+}
+
+.purplish-cards-hovercard-ring .wc-block-product {
+	border-radius: 12px;
+	outline: 1px solid transparent;
+	outline-offset: 10px;
+}
+
+[class*="purplish-cards-hoverphoto-"] .wc-block-components-product-image {
+	position: relative;
+	overflow: clip;
+}
+
+:is(.purplish-cards-hoverphoto-push, .purplish-cards-hoverphoto-drift) .wc-block-components-product-image img {
+	transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.purplish-cards-hoverphoto-glare .wc-block-components-product-image::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.35), transparent 50%);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.4s ease;
+}
+
+.purplish-cards-hoverphoto-bloom .wc-block-components-product-image img {
+	filter: saturate(0.6);
+	transition: filter 0.6s ease;
+}
+
+/* The first gallery photo, printed by the server under the main one. */
+.wc-block-components-product-image img.purplish-second-photo {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.45s ease;
+}
+
+.purplish-cards-hoverbutton-glow .wc-block-components-product-button__button {
+	transition: box-shadow 0.35s ease;
+}
+
+.purplish-cards-hoverbutton-sweep .wc-block-components-product-button__button {
+	position: relative;
+	overflow: hidden;
+}
+
+.purplish-cards-hoverbutton-sweep .wc-block-components-product-button__button::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(110deg, transparent 35%, color-mix(in srgb, currentcolor 30%, transparent) 50%, transparent 65%);
+	translate: -120% 0;
+	pointer-events: none;
+}
+
+/* Looks that only change color or light: kept under reduced motion. */
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hovercard-ring .wc-block-product:is(:hover, :focus-within) {
+		outline-color: color-mix(in oklab, var(--purplish-color) 35%, transparent);
+		outline-offset: 6px;
+	}
+
+	:is(.purplish-cards-hovercard-tilt, .purplish-cards-hovercard-torch) .wc-block-product:hover::after,
+	.purplish-cards-hoverphoto-glare .wc-block-product:hover .wc-block-components-product-image::after,
+	.purplish-cards-hoverphoto-second .wc-block-product:is(:hover, :focus-within) .purplish-second-photo {
+		opacity: 1;
+	}
+
+	.purplish-cards-hoverphoto-bloom .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image img {
+		filter: none;
+	}
+
+	.purplish-cards-hoverbutton-glow .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button,
+	.purplish-cards-hoverbutton-glow .wc-block-components-product-button__button.purplish-hover {
+		box-shadow:
+			0 0 0 3px color-mix(in oklab, var(--purplish-color) 22%, transparent),
+			0 10px 24px -12px color-mix(in oklab, var(--purplish-color) 55%, transparent);
+	}
+}
+
+/* Looks that move: off under reduced motion and on touch screens. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-cards-hovercard-lift .wc-block-product:is(:hover, :focus-within) {
+		transform: translateY(-6px);
+	}
+
+	/* Cards have no box of their own, so the shadow follows the photo's shape. */
+	.purplish-cards-hovercard-lift .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image {
+		filter: drop-shadow(0 14px 18px rgb(0 0 0 / 0.16));
+	}
+
+	.purplish-cards-hovercard-tilt .wc-block-product:hover {
+		transform: perspective(1000px) rotateX(calc(var(--purplish-rx, 0deg) * 0.35)) rotateY(calc(var(--purplish-ry, 0deg) * 0.35));
+		transition-duration: 0.2s;
+	}
+
+	.purplish-cards-hoverphoto-push .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image img {
+		transform: scale(1.06);
+	}
+
+	.purplish-cards-hoverphoto-drift .wc-block-product:hover .wc-block-components-product-image img {
+		transform: scale(1.08) translate(calc(var(--purplish-dx, 0) * -4%), calc(var(--purplish-dy, 0) * -4%));
+		transition-duration: 0.45s;
+	}
+
+	.purplish-cards-hoverbutton-sweep .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button::after,
+	.purplish-cards-hoverbutton-sweep .wc-block-components-product-button__button.purplish-hover::after {
+		translate: 120% 0;
+		transition: translate 0.8s ease;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	:is([class*="purplish-cards-hovercard-"], [class*="purplish-cards-hoverphoto-"], [class*="purplish-cards-hoverbutton-"]) :is(.wc-block-product, .wc-block-components-product-image, .wc-block-components-product-image img, .purplish-second-photo, .wc-block-components-product-button__button) {
+		transition: none !important;
 	}
 }
 
@@ -2201,7 +2388,7 @@ body.purplish-active .purplish-group-tint {
 }
 
 .purplish-button .wp-block-button__link,
-:is(.purplish-cart-spectrum, .purplish-cart-glass) :is(.single_add_to_cart_button, .wc-block-components-product-button__button) {
+:is(.purplish-cart-spectrum, .purplish-cart-glass, .purplish-cards-hoverbutton-spectrum, .purplish-cards-hoverbutton-glass) :is(.single_add_to_cart_button, .wc-block-components-product-button__button) {
 	position: relative;
 }
 
@@ -2244,7 +2431,7 @@ body.purplish-active .purplish-group-tint {
  * Spectrum ring: a rainbow ring on the button's edge travels around once
  * on hover and focus, then stays still until the mouse leaves.
  */
-:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
+:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -2258,7 +2445,8 @@ body.purplish-active .purplish-group-tint {
 	transition: opacity 0.3s ease, --purplish-spin 0s linear 0.3s;
 }
 
-:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button):is(:hover, :focus-visible, .purplish-hover)::before {
+:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button):is(:hover, :focus-visible, .purplish-hover)::before,
+.purplish-cards-hoverbutton-spectrum .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button::before {
 	--purplish-spin: 360deg;
 	opacity: 1;
 	transition: opacity 0.2s ease, --purplish-spin 1.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -2274,7 +2462,7 @@ body.purplish-active .purplish-group-tint {
 
 	@media (prefers-reduced-motion: no-preference) {
 
-		:is(.purplish-button-glass .wp-block-button__link, .purplish-cart-glass :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button) {
+		:is(.purplish-button-glass .wp-block-button__link, :is(.purplish-cart-glass, .purplish-cards-hoverbutton-glass) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button) {
 			background-color: color-mix(in oklab, var(--purplish-color) 72%, transparent) !important;
 			background-image: radial-gradient(circle at var(--purplish-bx) var(--purplish-by), rgb(255 255 255 / 0.45), transparent 60%) !important;
 			color: var(--purplish-color-on) !important;
