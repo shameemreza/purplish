@@ -111,6 +111,7 @@ final class BlockEffects {
 				'prefix'  => 'cards',
 				'options' => array(
 					'overlay'     => true,
+					'details'     => true,
 					'motion'      => true,
 					'hover'       => array(
 						'magnetic',
@@ -131,6 +132,11 @@ final class BlockEffects {
 						'depth',
 						'overlap',
 						'roster',
+						'unfold',
+						'momentum',
+						'wheel',
+						'helix',
+						'reel',
 					),
 					'hoveron'     => self::HOVER_TARGETS,
 					'hovercard'   => array( 'lift', 'tilt', 'ring', 'torch' ),
@@ -140,6 +146,14 @@ final class BlockEffects {
 				// Each hover look plays only where the target says, and not
 				// on a card effect that already moves that part.
 				'needs'   => array(
+					// Details on the photo already puts the button there.
+					'overlay'     => array(
+						array( 'details', array( true ), false ),
+					),
+					// Roster lays the names out as its own list.
+					'details'     => array(
+						array( 'hover', array( 'roster' ), false ),
+					),
 					'hovercard'   => array(
 						array( 'hoveron', array( 'card', 'all' ), true ),
 						array( 'hover', self::CARD_MOVERS, false ),

@@ -514,7 +514,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	overflow: hidden;
 }
 
-.purplish-cards-overlay .wc-block-product .wc-block-components-product-image img {
+:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-image img {
 	transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -538,14 +538,14 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		position: absolute;
 		z-index: 2;
 		position-anchor: --purplish-photo;
-		right: calc(anchor(right) + 12px);
+		right: calc(anchor(inside) + 12px);
 		bottom: calc(anchor(bottom) + 12px);
 		width: auto !important;
 		margin: 0 !important;
 	}
 }
 
-.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button {
+:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-button__button {
 	width: auto;
 	min-height: 40px;
 	padding: 0.5rem 1rem !important;
@@ -564,7 +564,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		box-shadow 0.3s;
 }
 
-.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button:active {
+:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-button__button:active {
 	scale: 0.97;
 }
 
@@ -582,13 +582,152 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		translate: 0 0;
 	}
 
-	.purplish-cards-overlay:not([class*="purplish-cards-hoverphoto-"]) .wc-block-product:hover .wc-block-components-product-image img {
+	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"]) .wc-block-product:hover .wc-block-components-product-image img {
 		transform: scale(1.06);
 	}
 
-	.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
+	:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
 		background-size: 100% 100%, auto !important;
 		color: var(--purplish-color-on) !important;
+	}
+}
+
+/*
+ * Cards, details on the photo: the title, price and add to cart sit on the
+ * bottom of the photo over a soft shade, the button as the frosted pill
+ * beside the price. With a mouse they show on hover or focus; touch screens
+ * always see them. The card becomes a grid that lays the photo across all
+ * its rows and the details in the last ones. On a narrow card the button
+ * takes its own row and long names stop at two lines. The shade is drawn
+ * on the layer WooCommerce puts over the photo for the sale badge, so the
+ * photo looks keep their own layers. Anything else in the card stays under
+ * the photo.
+ */
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) {
+	container: purplish-card / inline-size;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-rows: 1fr auto auto auto;
+	align-items: end;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > * {
+	grid-column: 1 / -1;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
+	grid-row: 1 / span 4;
+	align-self: stretch;
+	margin: 0 !important;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.purplish-cards-details .wc-block-product .wc-block-components-product-image__inner-container {
+	background: linear-gradient(to top, rgb(0 0 0 / 0.62), rgb(0 0 0 / 0.28) 16%, transparent 30%) no-repeat 0 100% / 100% 200%;
+	transition: background-position 0.4s ease-out;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+	z-index: 1;
+	margin: 0 !important;
+	color: #fff !important;
+	text-shadow: 0 1px 10px rgb(0 0 0 / 0.3);
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-post-title {
+	display: -webkit-box;
+	grid-row: 2;
+	padding: 0 1rem;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-price {
+	grid-column: 1;
+	grid-row: 3;
+	align-self: center;
+	padding: 0.25rem 0.75rem 1rem 1rem;
+}
+
+.purplish-cards-details .wc-block-product :is(.wp-block-post-title a, .wp-block-woocommerce-product-price *) {
+	color: inherit !important;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-button {
+	grid-column: 2;
+	grid-row: 3;
+	padding: 0.25rem 1rem 1rem 0;
+	text-shadow: none;
+}
+
+.purplish-cards-details .wc-block-product .wc-block-components-product-button {
+	width: auto !important;
+	margin: 0 !important;
+}
+
+@container purplish-card (max-width: 16rem) {
+
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-post-title {
+		padding: 0 0.75rem;
+		font-size: 0.875rem !important;
+	}
+
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-price {
+		grid-column: 1 / -1;
+		padding: 0.125rem 0.75rem 0.5rem;
+		font-size: 0.8125rem !important;
+	}
+
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-button {
+		grid-column: 1 / -1;
+		grid-row: 4;
+		justify-self: start;
+		padding: 0 0.75rem 0.75rem;
+	}
+
+	.purplish-cards-details .wc-block-product .wc-block-components-product-button__button {
+		min-height: 34px;
+		padding: 0.375rem 0.875rem !important;
+		font-size: 0.75rem !important;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-details .wc-block-product .wc-block-components-product-image__inner-container {
+		background-position: 0 0;
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image__inner-container {
+		background-position: 0 100%;
+	}
+
+	.purplish-cards-details :where(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+		opacity: 0;
+		translate: 0 12px;
+		transition: opacity 0.3s ease-out, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+		opacity: 1;
+		translate: 0 0;
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) .wp-block-woocommerce-product-price {
+		transition-delay: 40ms;
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) .wp-block-woocommerce-product-button {
+		transition-delay: 80ms;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-cards-details .wc-block-product :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+		translate: none !important;
 	}
 }
 
@@ -862,7 +1001,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	position: absolute;
 	position-anchor: --purplish-hover;
 	top: calc(anchor(top) - 12px);
-	left: calc(anchor(left) - 12px);
+	left: calc(anchor(inside) - 12px);
 	width: calc(anchor-size(width) + 24px);
 	height: calc(anchor-size(height) + 24px);
 	border-radius: 30px;
@@ -945,6 +1084,19 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
+ * Cards: the scroll effects' motion has a side, and keyframe values aren't
+ * flipped for right to left, so the keyframes multiply by this. On a right
+ * to left site a carousel card comes in from the left.
+ */
+.purplish-cards {
+	--purplish-side: 1;
+}
+
+.purplish-cards:dir(rtl) {
+	--purplish-side: -1;
+}
+
+/*
  * Cards, deck: in a carousel, cards fan back as they move toward the edges,
  * and every product stays clear. The hovered card turns to face you.
  */
@@ -966,7 +1118,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-deck {
 
 	0% {
-		transform: perspective(1000px) rotateY(24deg) scale(0.88);
+		transform: perspective(1000px) rotateY(calc(var(--purplish-side) * 24deg)) scale(0.88);
 		filter: saturate(0.8);
 	}
 
@@ -977,7 +1129,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	100% {
-		transform: perspective(1000px) rotateY(-16deg) scale(0.92);
+		transform: perspective(1000px) rotateY(calc(var(--purplish-side) * -16deg)) scale(0.92);
 		opacity: 0.6;
 	}
 }
@@ -994,10 +1146,23 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 .purplish-cards-hover-clothesline .wc-block-product {
+	--purplish-swing-out: 1;
 	position: relative;
 	padding-top: 26px;
 	transform-origin: 50% 0;
 	rotate: var(--purplish-swing);
+}
+
+/*
+ * The swings toward the end of the row are smaller on narrow screens, so
+ * the last card's bottom corner stays inside the side gutter instead of
+ * making the page scroll sideways.
+ */
+@media (max-width: 781px) {
+
+	.purplish-cards-hover-clothesline .wc-block-product {
+		--purplish-swing-out: 0.35;
+	}
 }
 
 .purplish-cards-hover-clothesline .wc-block-product::after {
@@ -1053,15 +1218,15 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-swing {
 
 	from {
-		--purplish-swing: 9deg;
+		--purplish-swing: calc(var(--purplish-side) * 9deg);
 	}
 
 	45% {
-		--purplish-swing: -5deg;
+		--purplish-swing: calc(var(--purplish-side) * -5deg * var(--purplish-swing-out));
 	}
 
 	75% {
-		--purplish-swing: 2deg;
+		--purplish-swing: calc(var(--purplish-side) * 2deg);
 	}
 
 	to {
@@ -1072,15 +1237,15 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-swing-hover {
 
 	20% {
-		--purplish-swing: -4deg;
+		--purplish-swing: calc(var(--purplish-side) * -4deg * var(--purplish-swing-out));
 	}
 
 	50% {
-		--purplish-swing: 2.5deg;
+		--purplish-swing: calc(var(--purplish-side) * 2.5deg);
 	}
 
 	75% {
-		--purplish-swing: -1deg;
+		--purplish-swing: calc(var(--purplish-side) * -1deg * var(--purplish-swing-out));
 	}
 }
 
@@ -1222,7 +1387,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 	from {
 		translate: 0 44px;
-		rotate: 9deg;
+		rotate: calc(var(--purplish-side) * 9deg);
 	}
 
 	50% {
@@ -1232,7 +1397,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 	to {
 		translate: 0 44px;
-		rotate: -9deg;
+		rotate: calc(var(--purplish-side) * -9deg);
 	}
 }
 
@@ -1267,7 +1432,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-tiltrow {
 
 	from {
-		rotate: -7deg;
+		rotate: calc(var(--purplish-side) * -7deg);
 	}
 
 	50% {
@@ -1275,7 +1440,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	to {
-		rotate: 7deg;
+		rotate: calc(var(--purplish-side) * 7deg);
 	}
 }
 
@@ -1309,11 +1474,11 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-parallax-x {
 
 	from {
-		translate: -8% 0;
+		translate: calc(var(--purplish-side) * -8%) 0;
 	}
 
 	to {
-		translate: 8% 0;
+		translate: calc(var(--purplish-side) * 8%) 0;
 	}
 }
 
@@ -1418,12 +1583,12 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-depth {
 
 	from {
-		transform: perspective(900px) rotateY(70deg) scale(0.75);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * 70deg)) scale(0.75);
 		opacity: 0.5;
 	}
 
 	25% {
-		transform: perspective(900px) rotateY(38deg) scale(0.88);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * 38deg)) scale(0.88);
 		opacity: 0.8;
 	}
 
@@ -1434,12 +1599,12 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	75% {
-		transform: perspective(900px) rotateY(-38deg) scale(0.88);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * -38deg)) scale(0.88);
 		opacity: 0.8;
 	}
 
 	to {
-		transform: perspective(900px) rotateY(-70deg) scale(0.75);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * -70deg)) scale(0.75);
 		opacity: 0.5;
 	}
 }
@@ -1609,6 +1774,831 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wp-block-woocommerce-product-image:not(.wc-block-components-product-image) > .wc-block-components-product-image__inner-container {
 		inset-inline-start: 2.5rem;
+	}
+}
+
+/*
+ * Cards, unfold: each row of a grid starts fanned together like a hand of
+ * cards and opens into a diagonal cascade as it scrolls up the screen. The
+ * cards get a card of their own, so a fanned card covers the one under it.
+ * A card's place in the fan comes from its column, and the number of
+ * columns from the grid's width, as WooCommerce's responsive grid fits
+ * them (each at least 150px). A carousel keeps its plain row.
+ */
+.purplish-cards-hover-unfold .wc-block-product-template:not(.is-horizontal) .wc-block-product {
+	padding: 10px 10px 14px;
+	border-radius: 16px;
+	background: var(--wp--preset--color--base, #fff);
+	box-shadow: 0 14px 30px -18px rgb(0 0 0 / 0.4);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.is-horizontal) {
+			container-type: inline-size;
+			padding-block: 2.5rem;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.is-horizontal) .wc-block-product {
+			--purplish-cols: 1;
+			--purplish-col: 0;
+			--purplish-fan: calc((var(--purplish-col) - (var(--purplish-cols) - 1) / 2) * var(--purplish-side));
+			transform-origin: 50% 160%;
+			animation: purplish-unfold linear both;
+			animation-timeline: view();
+			animation-range: entry 15% cover 45%;
+		}
+
+		/*
+		 * A grid that keeps its column count at every width. Cards are counted
+		 * past the hidden copy the editor keeps of the selected one.
+		 */
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-2 > .wc-block-product:nth-child(n of :not([style*="none"])) {
+			--purplish-cols: 2;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-3 > .wc-block-product:nth-child(n of :not([style*="none"])) {
+			--purplish-cols: 3;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-4 > .wc-block-product:nth-child(n of :not([style*="none"])) {
+			--purplish-cols: 4;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-5 > .wc-block-product:nth-child(n of :not([style*="none"])) {
+			--purplish-cols: 5;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-6 > .wc-block-product:nth-child(n of :not([style*="none"])) {
+			--purplish-cols: 6;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-2 > .wc-block-product:nth-child(2n of :not([style*="none"])) {
+			--purplish-col: 1;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-3 > .wc-block-product:nth-child(3n+2 of :not([style*="none"])) {
+			--purplish-col: 1;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-3 > .wc-block-product:nth-child(3n of :not([style*="none"])) {
+			--purplish-col: 2;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-4 > .wc-block-product:nth-child(4n+2 of :not([style*="none"])) {
+			--purplish-col: 1;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-4 > .wc-block-product:nth-child(4n+3 of :not([style*="none"])) {
+			--purplish-col: 2;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-4 > .wc-block-product:nth-child(4n of :not([style*="none"])) {
+			--purplish-col: 3;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-5 > .wc-block-product:nth-child(5n+2 of :not([style*="none"])) {
+			--purplish-col: 1;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-5 > .wc-block-product:nth-child(5n+3 of :not([style*="none"])) {
+			--purplish-col: 2;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-5 > .wc-block-product:nth-child(5n+4 of :not([style*="none"])) {
+			--purplish-col: 3;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-5 > .wc-block-product:nth-child(5n of :not([style*="none"])) {
+			--purplish-col: 4;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-6 > .wc-block-product:nth-child(6n+2 of :not([style*="none"])) {
+			--purplish-col: 1;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-6 > .wc-block-product:nth-child(6n+3 of :not([style*="none"])) {
+			--purplish-col: 2;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-6 > .wc-block-product:nth-child(6n+4 of :not([style*="none"])) {
+			--purplish-col: 3;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-6 > .wc-block-product:nth-child(6n+5 of :not([style*="none"])) {
+			--purplish-col: 4;
+		}
+
+		.purplish-cards-hover-unfold .wc-block-product-template:not(.wc-block-product-template__responsive, .is-horizontal).columns-6 > .wc-block-product:nth-child(6n of :not([style*="none"])) {
+			--purplish-col: 5;
+		}
+
+		@container (min-width: 320px) {
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-2, .columns-3, .columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(n of :not([style*="none"])) {
+				--purplish-cols: 2;
+				--purplish-col: 0;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-2, .columns-3, .columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(2n of :not([style*="none"])) {
+				--purplish-col: 1;
+			}
+		}
+
+		@container (min-width: 490px) {
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-3, .columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(n of :not([style*="none"])) {
+				--purplish-cols: 3;
+				--purplish-col: 0;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-3, .columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(3n+2 of :not([style*="none"])) {
+				--purplish-col: 1;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-3, .columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(3n of :not([style*="none"])) {
+				--purplish-col: 2;
+			}
+		}
+
+		@container (min-width: 660px) {
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(n of :not([style*="none"])) {
+				--purplish-cols: 4;
+				--purplish-col: 0;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(4n+2 of :not([style*="none"])) {
+				--purplish-col: 1;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(4n+3 of :not([style*="none"])) {
+				--purplish-col: 2;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-4, .columns-5, .columns-6) > .wc-block-product:nth-child(4n of :not([style*="none"])) {
+				--purplish-col: 3;
+			}
+		}
+
+		@container (min-width: 830px) {
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-5, .columns-6) > .wc-block-product:nth-child(n of :not([style*="none"])) {
+				--purplish-cols: 5;
+				--purplish-col: 0;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-5, .columns-6) > .wc-block-product:nth-child(5n+2 of :not([style*="none"])) {
+				--purplish-col: 1;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-5, .columns-6) > .wc-block-product:nth-child(5n+3 of :not([style*="none"])) {
+				--purplish-col: 2;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-5, .columns-6) > .wc-block-product:nth-child(5n+4 of :not([style*="none"])) {
+				--purplish-col: 3;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-5, .columns-6) > .wc-block-product:nth-child(5n of :not([style*="none"])) {
+				--purplish-col: 4;
+			}
+		}
+
+		@container (min-width: 1000px) {
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-6) > .wc-block-product:nth-child(n of :not([style*="none"])) {
+				--purplish-cols: 6;
+				--purplish-col: 0;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-6) > .wc-block-product:nth-child(6n+2 of :not([style*="none"])) {
+				--purplish-col: 1;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-6) > .wc-block-product:nth-child(6n+3 of :not([style*="none"])) {
+				--purplish-col: 2;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-6) > .wc-block-product:nth-child(6n+4 of :not([style*="none"])) {
+				--purplish-col: 3;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-6) > .wc-block-product:nth-child(6n+5 of :not([style*="none"])) {
+				--purplish-col: 4;
+			}
+
+			.purplish-cards-hover-unfold .wc-block-product-template__responsive:is(.columns-6) > .wc-block-product:nth-child(6n of :not([style*="none"])) {
+				--purplish-col: 5;
+			}
+		}
+	}
+}
+
+@keyframes purplish-unfold {
+
+	from {
+		translate: calc(var(--purplish-fan) * -86%) 3%;
+		rotate: calc(var(--purplish-fan) * 9deg);
+	}
+
+	to {
+		translate: 0 calc(var(--purplish-fan) * 1.5rem);
+		rotate: 0deg;
+	}
+}
+
+/*
+ * Cards, momentum: in a carousel, the card in the middle is full size and
+ * the others get smaller the further they are from it, each shrinking
+ * toward the middle so the gaps beside the middle card stay even. The
+ * timeline spans the whole strip, past the carousel's scroll padding. On a
+ * desktop the strip can be dragged and thrown with the mouse.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-momentum .wc-block-product-template.is-horizontal .wc-block-product {
+			animation: purplish-momentum linear both;
+			animation-timeline: view(inline 0);
+		}
+	}
+}
+
+@keyframes purplish-momentum {
+
+	from {
+		scale: 0.5;
+		transform-origin: calc(50% - var(--purplish-side) * 50%) 50%;
+	}
+
+	16% {
+		scale: 0.56;
+	}
+
+	30% {
+		scale: 0.7;
+	}
+
+	42% {
+		scale: 0.9;
+	}
+
+	50% {
+		scale: 1;
+		transform-origin: 50% 50%;
+	}
+
+	58% {
+		scale: 0.9;
+	}
+
+	70% {
+		scale: 0.7;
+	}
+
+	84% {
+		scale: 0.56;
+	}
+
+	to {
+		scale: 0.5;
+		transform-origin: calc(50% + var(--purplish-side) * 50%) 50%;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel) .wc-block-product-template.is-horizontal {
+		cursor: grab;
+		user-select: none;
+	}
+
+	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel) .wc-block-product-template.is-horizontal.purplish-dragging {
+		cursor: grabbing;
+		scroll-snap-type: none;
+		scroll-behavior: auto;
+	}
+}
+
+/*
+ * The browser snaps to where cards are drawn, and these effects pull them
+ * toward the middle, so cards would rest off center. The script settles
+ * them on the nearest card instead.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel) .wc-block-product-template.is-horizontal {
+			scroll-snap-type: none;
+		}
+	}
+}
+
+/*
+ * Cards, wheel: in a carousel, the cards ride the inside of a large wheel
+ * that turns as the strip scrolls: the middle card sits lowest and faces
+ * you, and the others climb and lean in toward it. The middle card is in
+ * full color and the others fade to gray through a layer over the photo
+ * that blends away its color, so only that layer's opacity changes as it
+ * turns. The hovered card comes back to full color.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-wheel .wc-block-product-template.is-horizontal {
+			padding-top: clamp(3rem, 7vw, 6.5rem);
+		}
+
+		.purplish-cards-hover-wheel .wc-block-product-template.is-horizontal .wc-block-product {
+			view-timeline: --purplish-wheel inline;
+			view-timeline-inset: 0;
+			animation: purplish-wheel linear both;
+			animation-timeline: --purplish-wheel;
+		}
+
+		.purplish-cards-hover-wheel .wc-block-product-template.is-horizontal .wc-block-components-product-image {
+			position: relative;
+			isolation: isolate;
+		}
+
+		.purplish-cards-hover-wheel .wc-block-product-template.is-horizontal .wc-block-components-product-image::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			border-radius: inherit;
+			background-color: rgb(128 128 128);
+			mix-blend-mode: saturation;
+			pointer-events: none;
+			animation: purplish-wheel-fade linear both;
+			animation-timeline: --purplish-wheel;
+			transition: background-color 0.5s ease;
+		}
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-wheel .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image::before {
+		background-color: rgb(128 128 128 / 0);
+	}
+}
+
+@keyframes purplish-wheel {
+
+	from {
+		translate: 0 -26%;
+		rotate: calc(var(--purplish-side) * -22deg);
+		scale: 0.84;
+	}
+
+	25% {
+		translate: 0 -7%;
+		rotate: calc(var(--purplish-side) * -11deg);
+		scale: 0.92;
+	}
+
+	50% {
+		translate: 0 0;
+		rotate: 0deg;
+		scale: 1;
+	}
+
+	75% {
+		translate: 0 -7%;
+		rotate: calc(var(--purplish-side) * 11deg);
+		scale: 0.92;
+	}
+
+	to {
+		translate: 0 -26%;
+		rotate: calc(var(--purplish-side) * 22deg);
+		scale: 0.84;
+	}
+}
+
+@keyframes purplish-wheel-fade {
+
+	from,
+	20%,
+	80%,
+	to {
+		opacity: 1;
+	}
+
+	45%,
+	55% {
+		opacity: 0;
+	}
+}
+
+/*
+ * Cards, helix: in a carousel, the cards are wound onto two strands that
+ * twist against each other, every other card on the other strand. As a
+ * card drifts toward the middle it climbs or dips and leans, and the card
+ * in the middle comes forward at full size. The cards further out shrink
+ * in behind their neighbors, fade, blur and pick up red and blue edges,
+ * like the rim of a lens. The hovered card comes forward and into focus.
+ * The strip can be dragged and thrown with the mouse, as momentum.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-helix .wc-block-product-template.is-horizontal {
+			padding-block: clamp(1.5rem, 3vw, 3rem);
+		}
+
+		.purplish-cards-hover-helix .wc-block-product-template.is-horizontal .wc-block-product {
+			--purplish-strand: 1;
+			animation: purplish-helix linear both, purplish-helix-lens linear both;
+			animation-timeline: view(inline 0);
+			transition: filter 0.3s ease, opacity 0.3s ease;
+		}
+
+		/* Counted past the hidden copy the editor keeps of the selected card. */
+		.purplish-cards-hover-helix .wc-block-product-template.is-horizontal .wc-block-product:nth-child(even of :not([style*="none"])) {
+			--purplish-strand: -1;
+		}
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-helix .wc-block-product-template.is-horizontal:not(.purplish-dragging) .wc-block-product:is(:hover, :focus-within) {
+		animation-name: purplish-helix;
+		z-index: 20;
+	}
+}
+
+/* Strand position: up or down by the sine of the twist, leaning with it. */
+@keyframes purplish-helix {
+
+	from {
+		translate: calc(var(--purplish-side) * -80%) 0;
+		rotate: 0deg;
+		scale: 0.6;
+	}
+
+	12.5% {
+		translate: calc(var(--purplish-side) * -58%) calc(var(--purplish-strand) * -10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * -6deg);
+		scale: 0.68;
+	}
+
+	25% {
+		translate: calc(var(--purplish-side) * -34%) calc(var(--purplish-strand) * -14%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * -8deg);
+		scale: 0.78;
+	}
+
+	37.5% {
+		translate: calc(var(--purplish-side) * -14%) calc(var(--purplish-strand) * -10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * -6deg);
+		scale: 0.9;
+	}
+
+	50% {
+		translate: 0 0;
+		rotate: 0deg;
+		scale: 1;
+	}
+
+	62.5% {
+		translate: calc(var(--purplish-side) * 14%) calc(var(--purplish-strand) * 10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * 6deg);
+		scale: 0.9;
+	}
+
+	75% {
+		translate: calc(var(--purplish-side) * 34%) calc(var(--purplish-strand) * 14%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * 8deg);
+		scale: 0.78;
+	}
+
+	87.5% {
+		translate: calc(var(--purplish-side) * 58%) calc(var(--purplish-strand) * 10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * 6deg);
+		scale: 0.68;
+	}
+
+	to {
+		translate: calc(var(--purplish-side) * 80%) 0;
+		rotate: 0deg;
+		scale: 0.6;
+	}
+}
+
+/*
+ * Distance: further cards sit behind, fade and go out of focus, red
+ * fringed on their outer edge and blue on their inner one.
+ */
+@keyframes purplish-helix-lens {
+
+	from {
+		z-index: 2;
+		opacity: 0.25;
+		filter: blur(5px) drop-shadow(calc(var(--purplish-side) * 5px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * -5px) 0 0 rgb(40 190 255 / 0.5));
+	}
+
+	12.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3.5px) drop-shadow(calc(var(--purplish-side) * 4px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * -4px) 0 0 rgb(40 190 255 / 0.5));
+	}
+
+	25% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px) drop-shadow(calc(var(--purplish-side) * 2.5px) 0 0 rgb(255 40 90 / 0.45)) drop-shadow(calc(var(--purplish-side) * -2.5px) 0 0 rgb(40 190 255 / 0.45));
+	}
+
+	37.5% {
+		z-index: 8;
+		opacity: 0.85;
+		filter: blur(0.5px) drop-shadow(calc(var(--purplish-side) * 1px) 0 0 rgb(255 40 90 / 0.3)) drop-shadow(calc(var(--purplish-side) * -1px) 0 0 rgb(40 190 255 / 0.3));
+	}
+
+	50% {
+		z-index: 10;
+		opacity: 1;
+		filter: blur(0) drop-shadow(0 0 0 rgb(255 40 90 / 0)) drop-shadow(0 0 0 rgb(40 190 255 / 0));
+	}
+
+	62.5% {
+		z-index: 8;
+		opacity: 0.85;
+		filter: blur(0.5px) drop-shadow(calc(var(--purplish-side) * -1px) 0 0 rgb(255 40 90 / 0.3)) drop-shadow(calc(var(--purplish-side) * 1px) 0 0 rgb(40 190 255 / 0.3));
+	}
+
+	75% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px) drop-shadow(calc(var(--purplish-side) * -2.5px) 0 0 rgb(255 40 90 / 0.45)) drop-shadow(calc(var(--purplish-side) * 2.5px) 0 0 rgb(40 190 255 / 0.45));
+	}
+
+	87.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3.5px) drop-shadow(calc(var(--purplish-side) * -4px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * 4px) 0 0 rgb(40 190 255 / 0.5));
+	}
+
+	to {
+		z-index: 2;
+		opacity: 0.25;
+		filter: blur(5px) drop-shadow(calc(var(--purplish-side) * -5px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * 5px) 0 0 rgb(40 190 255 / 0.5));
+	}
+}
+
+/*
+ * Cards, reel: in a carousel, the card in the middle faces you and the
+ * others stack in behind it on both sides, turned to face it, further back
+ * and softer the further out they are. Only the middle card shows the words
+ * under its photo, so the stack stays clean. The pull toward the middle is
+ * measured against the strip's width, so the stack looks the same on a
+ * phone and a wide screen. The hovered card comes forward and into focus.
+ * The strip can be dragged and thrown with the mouse, as momentum.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal {
+			perspective: 1200px;
+		}
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product {
+			animation: purplish-cards-reel linear both, purplish-cards-reel-soft linear both;
+			animation-timeline: view(inline 0);
+			transition: filter 0.3s ease, opacity 0.3s ease;
+		}
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product > :not(:is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) {
+			animation: purplish-cards-reel-words linear both;
+			animation-timeline: view(inline 0);
+		}
+
+		/*
+		 * Room at both ends, so the first and last cards can reach the
+		 * middle too. Half of what the card leaves, at each of
+		 * WooCommerce's card widths.
+		 */
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+			margin-inline-start: 28.75%;
+		}
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+			margin-inline-end: 28.75%;
+		}
+
+		@container carousel (min-width: 600px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 35.75%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 35.75%;
+			}
+		}
+
+		@container carousel (min-width: 782px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 35.5%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 35.5%;
+			}
+		}
+
+		@container carousel (min-width: 960px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 39%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 39%;
+			}
+		}
+
+		@container carousel (min-width: 1280px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 41%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 41%;
+			}
+		}
+
+		@container carousel (min-width: 1440px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 42.5%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 42.5%;
+			}
+		}
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-reel .wc-block-product-template.is-horizontal:not(.purplish-dragging) .wc-block-product:is(:hover, :focus-within) {
+		animation-name: purplish-cards-reel;
+		z-index: 20;
+	}
+
+	.purplish-cards-hover-reel .wc-block-product-template.is-horizontal:not(.purplish-dragging) .wc-block-product:is(:hover, :focus-within) > * {
+		animation: none;
+	}
+
+	/* With details on the photo, the words wait for hover on every card. */
+	.purplish-cards-hover-reel.purplish-cards-details .wc-block-product-template.is-horizontal .wc-block-product > :not(:is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) {
+		animation: none;
+	}
+}
+
+/*
+ * Place: pulled in toward the middle, turned to face it and pushed back.
+ * Safari stacks turned cards by how far back they sit rather than by
+ * z-index, so each card sits far enough behind its inner neighbor that
+ * its turned edge never pokes through.
+ */
+@keyframes purplish-cards-reel {
+
+	from {
+		translate: calc(var(--purplish-side) * -30cqi) 0 -380px;
+		rotate: y calc(var(--purplish-side) * 36deg);
+	}
+
+	12.5% {
+		translate: calc(var(--purplish-side) * -23cqi) 0 -310px;
+		rotate: y calc(var(--purplish-side) * 36deg);
+	}
+
+	25% {
+		translate: calc(var(--purplish-side) * -15cqi) 0 -230px;
+		rotate: y calc(var(--purplish-side) * 34deg);
+	}
+
+	37.5% {
+		translate: calc(var(--purplish-side) * -7cqi) 0 -140px;
+		rotate: y calc(var(--purplish-side) * 28deg);
+	}
+
+	50% {
+		translate: 0 0 0;
+		rotate: y 0deg;
+	}
+
+	62.5% {
+		translate: calc(var(--purplish-side) * 7cqi) 0 -140px;
+		rotate: y calc(var(--purplish-side) * -28deg);
+	}
+
+	75% {
+		translate: calc(var(--purplish-side) * 15cqi) 0 -230px;
+		rotate: y calc(var(--purplish-side) * -34deg);
+	}
+
+	87.5% {
+		translate: calc(var(--purplish-side) * 23cqi) 0 -310px;
+		rotate: y calc(var(--purplish-side) * -36deg);
+	}
+
+	to {
+		translate: calc(var(--purplish-side) * 30cqi) 0 -380px;
+		rotate: y calc(var(--purplish-side) * -36deg);
+	}
+}
+
+/* Distance: further cards sit back, blur and fade, the last ones out. */
+@keyframes purplish-cards-reel-soft {
+
+	from {
+		z-index: 2;
+		opacity: 0;
+		filter: blur(4px);
+	}
+
+	12.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3px);
+	}
+
+	25% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px);
+	}
+
+	37.5% {
+		z-index: 8;
+		opacity: 0.95;
+		filter: blur(1px);
+	}
+
+	50% {
+		z-index: 10;
+		opacity: 1;
+		filter: blur(0);
+	}
+
+	62.5% {
+		z-index: 8;
+		opacity: 0.95;
+		filter: blur(1px);
+	}
+
+	75% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px);
+	}
+
+	87.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3px);
+	}
+
+	to {
+		z-index: 2;
+		opacity: 0;
+		filter: blur(4px);
+	}
+}
+
+/* Words: only the card in the middle shows what sits under its photo. */
+@keyframes purplish-cards-reel-words {
+
+	from,
+	36% {
+		opacity: 0;
+	}
+
+	46%,
+	54% {
+		opacity: 1;
+	}
+
+	64%,
+	to {
+		opacity: 0;
 	}
 }
 

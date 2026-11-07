@@ -295,3 +295,35 @@ describe( 'card hover looks', () => {
 		).toHaveLength( 6 );
 	} );
 } );
+
+describe( 'details on the photo', () => {
+	const cards = {
+		prefix: 'cards',
+		options: { overlay: true, details: true, hover: [ 'reel', 'roster' ] },
+		legacy: {},
+		needs: {
+			overlay: [ [ 'details', [ true ], false ] ],
+			details: [ [ 'hover', [ 'roster' ], false ] ],
+		},
+	};
+
+	it( 'takes the place of the button on the photo', () => {
+		expect(
+			classesFor( cards, { overlay: true, details: true, hover: 'reel' } )
+		).toEqual( [
+			'purplish-cards',
+			'purplish-cards-details',
+			'purplish-cards-hover-reel',
+		] );
+		expect( classesFor( cards, { overlay: true } ) ).toEqual( [
+			'purplish-cards',
+			'purplish-cards-overlay',
+		] );
+	} );
+
+	it( 'stays off with Roster', () => {
+		expect(
+			classesFor( cards, { details: true, hover: 'roster' } )
+		).toEqual( [ 'purplish-cards', 'purplish-cards-hover-roster' ] );
+	} );
+} );

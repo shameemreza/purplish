@@ -46,6 +46,10 @@ const HOVERS = [
 			{ value: 'tiltrow', label: __( 'Tilt', 'purplish' ) },
 			{ value: 'depth', label: __( 'Depth', 'purplish' ) },
 			{ value: 'overlap', label: __( 'Overlap', 'purplish' ) },
+			{ value: 'momentum', label: __( 'Momentum', 'purplish' ) },
+			{ value: 'wheel', label: __( 'Wheel', 'purplish' ) },
+			{ value: 'helix', label: __( 'Helix', 'purplish' ) },
+			{ value: 'reel', label: __( 'Reel', 'purplish' ) },
 		],
 	},
 	{
@@ -54,6 +58,7 @@ const HOVERS = [
 			{ value: 'clothesline', label: __( 'Clothes line', 'purplish' ) },
 			{ value: 'parallax', label: __( 'Parallax', 'purplish' ) },
 			{ value: 'zoomin', label: __( 'Zoom reveal', 'purplish' ) },
+			{ value: 'unfold', label: __( 'Unfold', 'purplish' ) },
 		],
 	},
 ];
@@ -269,19 +274,46 @@ export default function CardsPanel( { saved, setSaved } ) {
 			<ToggleControl
 				__nextHasNoMarginBottom
 				label={ __( 'Button on the photo', 'purplish' ) }
-				help={ __(
-					'Title and price on one line, and add to cart as a small frosted button on the photo. It shows on hover, and always on touch screens.',
-					'purplish'
-				) }
-				checked={ true === saved.overlay }
+				help={
+					true === saved.details
+						? __(
+								'Details on the photo already puts the button on the photo.',
+								'purplish'
+							)
+						: __(
+								'Title and price on one line, and add to cart as a small frosted button on the photo. It shows on hover, and always on touch screens.',
+								'purplish'
+							)
+				}
+				checked={ true === saved.overlay && true !== saved.details }
+				disabled={ true === saved.details }
 				onChange={ ( overlay ) => save( { overlay } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Details on the photo', 'purplish' ) }
+				help={
+					'roster' === saved.hover
+						? __(
+								'Roster shows the names as its own list, so it keeps the details where they are.',
+								'purplish'
+							)
+						: __(
+								'Title, price and add to cart sit on the bottom of the photo over a soft shade. They show on hover, and always on touch screens.',
+								'purplish'
+							)
+				}
+				checked={ true === saved.details }
+				onChange={ ( details ) =>
+					save( { details: details || undefined } )
+				}
 			/>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
 				label={ __( 'Card effect', 'purplish' ) }
 				help={ __(
-					'Carousel effects need the Carousel layout and leave a grid as it is. Roster needs the Grid layout and shows the plain grid on phones and touch screens. Visitors who ask for reduced motion see no movement.',
+					'Carousel effects need the Carousel layout and leave a grid as it is. Roster and Unfold need the Grid layout, and Roster shows the plain grid on phones and touch screens. Momentum, Helix and Reel can also be dragged with the mouse. Visitors who ask for reduced motion see no movement.',
 					'purplish'
 				) }
 				value={ saved.hover || '' }
