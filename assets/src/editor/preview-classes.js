@@ -13,12 +13,18 @@ const HEX = /^#([0-9a-f]{3}){1,2}$/i;
 const CART_BUTTON = '.wc-block-components-product-button__button';
 
 /**
+ * The link inside a button block. In the editor it's the text box.
+ */
+const BUTTON_LINK = '.wp-block-button__link';
+
+/**
  * For each glass class, the buttons inside it that take the highlight.
  */
 export const GLASS_BUTTONS = {
 	'purplish-buybutton-glass':
 		'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button',
 	'purplish-cart-glass': CART_BUTTON,
+	'purplish-button-glass': BUTTON_LINK,
 };
 
 /**
@@ -36,6 +42,7 @@ export const HOVER_BUTTONS = {
  */
 export const EYES_BUTTONS = {
 	cart: CART_BUTTON,
+	button: BUTTON_LINK,
 };
 
 /**
