@@ -22,7 +22,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
-| Shop and collection pages | Product Collection | 18 card effects, add to cart on the photo and button motion. |
+| Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo, and button motion. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
@@ -81,7 +81,7 @@ Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it
 
 ## Product cards
 
-On the Product Collection block, add to cart can sit on the photo as a small frosted button. One effect color drives the button fill, the card effects and the hover looks. Then pick one card effect for the whole collection:
+On the Product Collection block, add to cart can sit on the photo as a small frosted button. Or the title, price and add to cart can all sit on the photo over a soft shade. One effect color drives the button fill, the card effects and the hover looks. Then pick one card effect for the whole collection:
 
 | When it plays | Effect | What shoppers see |
 |---|---|---|
@@ -100,11 +100,16 @@ On the Product Collection block, add to cart can sit on the photo as a small fro
 | | Tilt | Cards lean as they travel across. |
 | | Depth | The cards turn further away the closer they get to the edges, and the middle card faces you. |
 | | Overlap | The cards lie over each other like prints on a table, each leaning its own way. The one under the mouse straightens and comes to the top. |
+| | Momentum | The middle card is full size and the rest get smaller the further out they are. Drag and throw the strip with the mouse. |
+| | Wheel | The cards ride the inside of a large wheel. The middle card sits lowest in full color, and the rest climb, lean in and turn gray. |
+| | Helix | The cards wind onto two strands that twist against each other. Cards further out shrink back, blur and pick up colored edges like the rim of a lens. |
+| | Reel | A coverflow: the middle card faces you and the rest stack in behind it, turned toward it and softer the further out. |
 | On scroll | Clothes line | Each card hangs from a peg and swings as it comes in, or when the mouse touches it. |
 | | Parallax | The photo moves slower than its card. |
 | | Zoom reveal | Each card grows in as it appears. |
+| | Unfold | Each row starts fanned together like a hand of cards and opens into a diagonal cascade as it scrolls up. Needs the Grid layout. |
 
-Carousel effects play only when the collection is a carousel. A grid stays as it is. Roster works the other way: it needs a grid, and phones and touch screens show the grid as it is.
+Carousel effects play only when the collection is a carousel. A grid stays as it is. Momentum, Helix and Reel can also be dragged with the mouse. Roster and Unfold work the other way: they need a grid, and Roster shows the plain grid on phones and touch screens.
 
 Under the card effect, pick where a hover look plays: the card, the photo, the add to cart button, or all three. Hover is off until you pick one, and it plays alongside any card effect.
 
