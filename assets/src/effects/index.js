@@ -5,8 +5,9 @@
  * filter chips copy a chip's look, the mini-cart count pops, added
  * products fly into the mini-cart, the glass
  * button's highlight follows the mouse, googly eyes look at it, card
- * hover looks follow it, and headings, groups and columns wait below the
- * view until they scroll in.
+ * hover looks follow it, a momentum carousel can be thrown with the
+ * mouse, and headings, groups and columns wait below the view until they
+ * scroll in.
  * The stylesheet does the rest.
  */
 import { __, sprintf } from '@wordpress/i18n';
@@ -20,6 +21,7 @@ import {
 } from '../shared/hover';
 import { matchChips } from '../shared/chips';
 import { flyToCart } from '../shared/fly';
+import { throwStrips } from '../shared/throw';
 import './style.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
@@ -657,6 +659,16 @@ if ( canHover ) {
 	if ( eyes.length ) {
 		lookAt( eyes );
 	}
+}
+
+if (
+	window.matchMedia( '(hover: hover) and (pointer: fine)' ).matches &&
+	document.querySelector( '.purplish-cards-hover-momentum' )
+) {
+	throwStrips(
+		'.purplish-cards-hover-momentum .wc-block-product-template.is-horizontal',
+		! reduced
+	);
 }
 
 const ENTRANCES =

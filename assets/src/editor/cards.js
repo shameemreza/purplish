@@ -46,6 +46,8 @@ const HOVERS = [
 			{ value: 'tiltrow', label: __( 'Tilt', 'purplish' ) },
 			{ value: 'depth', label: __( 'Depth', 'purplish' ) },
 			{ value: 'overlap', label: __( 'Overlap', 'purplish' ) },
+			{ value: 'momentum', label: __( 'Momentum', 'purplish' ) },
+			{ value: 'wheel', label: __( 'Wheel', 'purplish' ) },
 		],
 	},
 	{
@@ -54,6 +56,7 @@ const HOVERS = [
 			{ value: 'clothesline', label: __( 'Clothes line', 'purplish' ) },
 			{ value: 'parallax', label: __( 'Parallax', 'purplish' ) },
 			{ value: 'zoomin', label: __( 'Zoom reveal', 'purplish' ) },
+			{ value: 'unfold', label: __( 'Unfold', 'purplish' ) },
 		],
 	},
 ];
@@ -281,7 +284,7 @@ export default function CardsPanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Card effect', 'purplish' ) }
 				help={ __(
-					'Carousel effects need the Carousel layout and leave a grid as it is. Roster needs the Grid layout and shows the plain grid on phones and touch screens. Visitors who ask for reduced motion see no movement.',
+					'Carousel effects need the Carousel layout and leave a grid as it is. Roster and Unfold need the Grid layout, and Roster shows the plain grid on phones and touch screens. Momentum can also be dragged with the mouse. Visitors who ask for reduced motion see no movement.',
 					'purplish'
 				) }
 				value={ saved.hover || '' }
