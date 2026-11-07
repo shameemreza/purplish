@@ -134,6 +134,7 @@ final class BlockEffects {
 						'unfold',
 						'momentum',
 						'wheel',
+						'helix',
 					),
 					'hoveron'     => self::HOVER_TARGETS,
 					'hovercard'   => array( 'lift', 'tilt', 'ring', 'torch' ),

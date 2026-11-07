@@ -1933,12 +1933,12 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 @media (hover: hover) and (pointer: fine) {
 
-	.purplish-cards-hover-momentum .wc-block-product-template.is-horizontal {
+	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix) .wc-block-product-template.is-horizontal {
 		cursor: grab;
 		user-select: none;
 	}
 
-	.purplish-cards-hover-momentum .wc-block-product-template.is-horizontal.purplish-dragging {
+	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix) .wc-block-product-template.is-horizontal.purplish-dragging {
 		cursor: grabbing;
 		scroll-snap-type: none;
 		scroll-behavior: auto;
@@ -2041,6 +2041,164 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	45%,
 	55% {
 		opacity: 0;
+	}
+}
+
+/*
+ * Cards, helix: in a carousel, the cards are wound onto two strands that
+ * twist against each other, every other card on the other strand. As a
+ * card drifts toward the middle it climbs or dips and leans, and the card
+ * in the middle comes forward at full size. The cards further out shrink
+ * in behind their neighbors, fade, blur and pick up red and blue edges,
+ * like the rim of a lens. The hovered card comes forward and into focus.
+ * The strip can be dragged and thrown with the mouse, as momentum.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-helix .wc-block-product-template.is-horizontal {
+			padding-block: clamp(1.5rem, 3vw, 3rem);
+		}
+
+		.purplish-cards-hover-helix .wc-block-product-template.is-horizontal .wc-block-product {
+			--purplish-strand: 1;
+			animation: purplish-helix linear both, purplish-helix-lens linear both;
+			animation-timeline: view(inline 0);
+			transition: filter 0.3s ease, opacity 0.3s ease;
+		}
+
+		/* Counted past the hidden copy the editor keeps of the selected card. */
+		.purplish-cards-hover-helix .wc-block-product-template.is-horizontal .wc-block-product:nth-child(even of :not([style*="none"])) {
+			--purplish-strand: -1;
+		}
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-helix .wc-block-product-template.is-horizontal:not(.purplish-dragging) .wc-block-product:is(:hover, :focus-within) {
+		animation-name: purplish-helix;
+		z-index: 20;
+	}
+}
+
+/* Strand position: up or down by the sine of the twist, leaning with it. */
+@keyframes purplish-helix {
+
+	from {
+		translate: calc(var(--purplish-side) * -80%) 0;
+		rotate: 0deg;
+		scale: 0.6;
+	}
+
+	12.5% {
+		translate: calc(var(--purplish-side) * -58%) calc(var(--purplish-strand) * -10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * -6deg);
+		scale: 0.68;
+	}
+
+	25% {
+		translate: calc(var(--purplish-side) * -34%) calc(var(--purplish-strand) * -14%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * -8deg);
+		scale: 0.78;
+	}
+
+	37.5% {
+		translate: calc(var(--purplish-side) * -14%) calc(var(--purplish-strand) * -10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * -6deg);
+		scale: 0.9;
+	}
+
+	50% {
+		translate: 0 0;
+		rotate: 0deg;
+		scale: 1;
+	}
+
+	62.5% {
+		translate: calc(var(--purplish-side) * 14%) calc(var(--purplish-strand) * 10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * 6deg);
+		scale: 0.9;
+	}
+
+	75% {
+		translate: calc(var(--purplish-side) * 34%) calc(var(--purplish-strand) * 14%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * 8deg);
+		scale: 0.78;
+	}
+
+	87.5% {
+		translate: calc(var(--purplish-side) * 58%) calc(var(--purplish-strand) * 10%);
+		rotate: calc(var(--purplish-side) * var(--purplish-strand) * 6deg);
+		scale: 0.68;
+	}
+
+	to {
+		translate: calc(var(--purplish-side) * 80%) 0;
+		rotate: 0deg;
+		scale: 0.6;
+	}
+}
+
+/*
+ * Distance: further cards sit behind, fade and go out of focus, red
+ * fringed on their outer edge and blue on their inner one.
+ */
+@keyframes purplish-helix-lens {
+
+	from {
+		z-index: 2;
+		opacity: 0.25;
+		filter: blur(5px) drop-shadow(calc(var(--purplish-side) * 5px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * -5px) 0 0 rgb(40 190 255 / 0.5));
+	}
+
+	12.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3.5px) drop-shadow(calc(var(--purplish-side) * 4px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * -4px) 0 0 rgb(40 190 255 / 0.5));
+	}
+
+	25% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px) drop-shadow(calc(var(--purplish-side) * 2.5px) 0 0 rgb(255 40 90 / 0.45)) drop-shadow(calc(var(--purplish-side) * -2.5px) 0 0 rgb(40 190 255 / 0.45));
+	}
+
+	37.5% {
+		z-index: 8;
+		opacity: 0.85;
+		filter: blur(0.5px) drop-shadow(calc(var(--purplish-side) * 1px) 0 0 rgb(255 40 90 / 0.3)) drop-shadow(calc(var(--purplish-side) * -1px) 0 0 rgb(40 190 255 / 0.3));
+	}
+
+	50% {
+		z-index: 10;
+		opacity: 1;
+		filter: blur(0) drop-shadow(0 0 0 rgb(255 40 90 / 0)) drop-shadow(0 0 0 rgb(40 190 255 / 0));
+	}
+
+	62.5% {
+		z-index: 8;
+		opacity: 0.85;
+		filter: blur(0.5px) drop-shadow(calc(var(--purplish-side) * -1px) 0 0 rgb(255 40 90 / 0.3)) drop-shadow(calc(var(--purplish-side) * 1px) 0 0 rgb(40 190 255 / 0.3));
+	}
+
+	75% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px) drop-shadow(calc(var(--purplish-side) * -2.5px) 0 0 rgb(255 40 90 / 0.45)) drop-shadow(calc(var(--purplish-side) * 2.5px) 0 0 rgb(40 190 255 / 0.45));
+	}
+
+	87.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3.5px) drop-shadow(calc(var(--purplish-side) * -4px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * 4px) 0 0 rgb(40 190 255 / 0.5));
+	}
+
+	to {
+		z-index: 2;
+		opacity: 0.25;
+		filter: blur(5px) drop-shadow(calc(var(--purplish-side) * -5px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * 5px) 0 0 rgb(40 190 255 / 0.5));
 	}
 }
 
