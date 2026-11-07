@@ -24,7 +24,7 @@ export default function GroupPanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Take the page color', 'purplish' ) }
 				help={ __(
-					"On product pages, this section's background becomes a soft version of the color the shopper picks.",
+					"On product pages, this section's background becomes a soft version of the color the shopper picks. The editor shows it in a sample color on product templates.",
 					'purplish'
 				) }
 				checked={ true === saved.tint }
