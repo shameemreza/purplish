@@ -57,6 +57,7 @@ final class Registry {
 			Runway::class,
 			ScrollLookbook::class,
 			StepPath::class,
+			HoverTabs::class,
 		);
 	}
 

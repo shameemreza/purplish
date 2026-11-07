@@ -68,6 +68,12 @@ final class Patterns {
 				'blockTypes' => array( 'purplish/step-path' ),
 				'file'       => PURPLISH_DIR . 'patterns/step-path.php',
 			),
+			'hover-tabs'      => array(
+				'title'      => __( 'Shop by category', 'purplish' ),
+				'categories' => array(),
+				'blockTypes' => array( 'purplish/hover-tabs' ),
+				'file'       => PURPLISH_DIR . 'patterns/hover-tabs.php',
+			),
 		);
 	}
 

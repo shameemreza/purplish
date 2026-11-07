@@ -8,6 +8,7 @@
 namespace Purplish\Tests\Blocks;
 
 use Purplish\Blocks\HangingRail;
+use Purplish\Blocks\HoverTabs;
 use Purplish\Blocks\Registry;
 use Purplish\Blocks\Runway;
 use Purplish\Blocks\ScrollLookbook;
@@ -77,7 +78,7 @@ class RegistryTest extends WP_UnitTestCase {
 	 * else under Purplish's name does.
 	 */
 	public function test_ships_its_blocks() {
-		$this->assertSame( array( HangingRail::class, StoryDeck::class, Runway::class, ScrollLookbook::class, StepPath::class ), Registry::blocks() );
+		$this->assertSame( array( HangingRail::class, StoryDeck::class, Runway::class, ScrollLookbook::class, StepPath::class, HoverTabs::class ), Registry::blocks() );
 
 		$ours = array_filter(
 			array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() ),
@@ -85,7 +86,7 @@ class RegistryTest extends WP_UnitTestCase {
 				return 0 === strpos( $name, 'purplish/' );
 			}
 		);
-		$this->assertSame( array( 'purplish/hanging-rail', 'purplish/story-deck', 'purplish/runway', 'purplish/scroll-lookbook', 'purplish/step-path' ), array_values( $ours ) );
+		$this->assertSame( array( 'purplish/hanging-rail', 'purplish/story-deck', 'purplish/runway', 'purplish/scroll-lookbook', 'purplish/step-path', 'purplish/hover-tabs' ), array_values( $ours ) );
 	}
 
 	/**
