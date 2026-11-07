@@ -214,6 +214,72 @@ return array(
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
 	),
+	'step-path' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/step-path',
+		'version' => '1.2.0',
+		'title' => 'Step Path',
+		'category' => 'purplish',
+		'description' => 'Numbered steps on a line that draws as the block scrolls into view.',
+		'keywords' => array(
+			'steps',
+			'process',
+			'timeline',
+			'how it works'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'direction' => array(
+				'type' => 'string',
+				'enum' => array(
+					'across',
+					'down'
+				),
+				'default' => 'across'
+			),
+			'marker' => array(
+				'type' => 'string',
+				'enum' => array(
+					'numbers',
+					'dots'
+				),
+				'default' => 'numbers'
+			),
+			'line' => array(
+				'type' => 'string',
+				'enum' => array(
+					'plain',
+					'dashed'
+				),
+				'default' => 'plain'
+			)
+		),
+		'allowedBlocks' => array(
+			'core/group'
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				),
+				'padding' => true
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'style' => 'file:./style-index.css'
+	),
 	'story-deck' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

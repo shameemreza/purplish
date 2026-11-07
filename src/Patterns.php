@@ -62,6 +62,12 @@ final class Patterns {
 				'blockTypes' => array( 'purplish/scroll-lookbook' ),
 				'file'       => PURPLISH_DIR . 'patterns/scroll-lookbook.php',
 			),
+			'step-path'       => array(
+				'title'      => __( 'How ordering works', 'purplish' ),
+				'categories' => array(),
+				'blockTypes' => array( 'purplish/step-path' ),
+				'file'       => PURPLISH_DIR . 'patterns/step-path.php',
+			),
 		);
 	}
 
