@@ -2133,45 +2133,45 @@ body.purplish-active .purplish-group-tint {
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
 
-	.purplish-image-hover-tilt:has(img:hover) :is(img, .purplish-image-light) {
+	.purplish-image-hover-tilt:has(img:is(:hover, .purplish-hover)) :is(img, .purplish-image-light) {
 		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
 		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
 	}
 
-	.purplish-image-hover-tilt:has(img:hover) img {
+	.purplish-image-hover-tilt:has(img:is(:hover, .purplish-hover)) img {
 		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
 	}
 
-	:is(.purplish-image-hover-tilt, .purplish-image-hover-glare):has(img:hover) .purplish-image-light {
+	:is(.purplish-image-hover-tilt, .purplish-image-hover-glare):has(img:is(:hover, .purplish-hover)) .purplish-image-light {
 		opacity: 1;
 	}
 
-	.purplish-image-hover-lift img:hover {
+	.purplish-image-hover-lift img:is(:hover, .purplish-hover) {
 		translate: 0 -10px;
 		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
 	}
 
-	.purplish-image-hover-zoom img:hover {
+	.purplish-image-hover-zoom img:is(:hover, .purplish-hover) {
 		--purplish-grow: 2.2;
 		cursor: zoom-in;
 	}
 
-	.purplish-image-hover-parallax img:hover {
+	.purplish-image-hover-parallax img:is(:hover, .purplish-hover) {
 		--purplish-grow: 1.12;
 		--purplish-shift-x: calc(var(--purplish-dx, 0) * -8);
 		--purplish-shift-y: calc(var(--purplish-dy, 0) * -8);
 	}
 
-	.purplish-image-hover-slowzoom img:hover {
+	.purplish-image-hover-slowzoom img:is(:hover, .purplish-hover) {
 		--purplish-grow: 1.1;
 		transition: --purplish-grow 6s cubic-bezier(0.2, 0.6, 0.2, 1);
 	}
 
-	.purplish-image-hover-loupe img:hover {
+	.purplish-image-hover-loupe img:is(:hover, .purplish-hover) {
 		cursor: crosshair;
 	}
 
-	.purplish-image-hover-loupe:has(img:hover) .purplish-image-light::after {
+	.purplish-image-hover-loupe:has(img:is(:hover, .purplish-hover)) .purplish-image-light::after {
 		opacity: 1;
 		scale: 1;
 	}
