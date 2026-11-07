@@ -10,6 +10,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { moveHighlight, clearHighlight } from '../shared/glass';
 import { enterFrame, moveFrame, leaveFrame } from '../shared/hover';
+import { matchChips } from '../shared/chips';
 import './style.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
@@ -404,86 +405,9 @@ if ( ! reduced ) {
 		.forEach( followSlides );
 }
 
-/**
- * Gives the active filter chips the look of a selected chip in the same
- * filters. WooCommerce prints the two in different blocks, so the look is
- * read from a chip and set as `--purplish-chip-*` variables on the filters
- * block. The colors follow WooCommerce's own fallbacks for a selected chip.
- * It reads again whenever the filters change, since WooCommerce's chips
- * script fills in their colors after the page loads.
- *
- * @param {HTMLElement} filters The Product Filters block.
- */
-function matchChips( filters ) {
-	const read = () => {
-		const chip = filters.querySelector(
-			'.wp-block-woocommerce-product-filter-chips:not(.is-style-swatch) .wc-block-product-filter-chips__item'
-		);
-		if ( ! chip ) {
-			return;
-		}
-		const own = window.getComputedStyle(
-			chip.closest( '.wp-block-woocommerce-product-filter-chips' )
-		);
-		const look = window.getComputedStyle( chip );
-		const first = ( fallback, ...names ) =>
-			names
-				.map( ( name ) => own.getPropertyValue( name ).trim() )
-				.find( Boolean ) || fallback;
-		const vars = {
-			background: first(
-				'CanvasText',
-				'--wc-product-filter-chips-selected-background',
-				'--wc-product-filter-chips-text'
-			),
-			border: first(
-				'CanvasText',
-				'--wc-product-filter-chips-selected-border',
-				'--wc-product-filter-chips-text'
-			),
-			text: first(
-				'Canvas',
-				'--wc-product-filter-chips-selected-text',
-				'--wc-product-filter-chips-background'
-			),
-			radius: look.borderRadius,
-			padding: [ 'Top', 'Right', 'Bottom', 'Left' ]
-				.map( ( side ) => look[ `padding${ side }` ] )
-				.join( ' ' ),
-			size: look.fontSize,
-			spacing: look.letterSpacing,
-			case: look.textTransform,
-		};
-		// WooCommerce's filters script rewrites the whole style attribute,
-		// so each variable is checked on the element, and set only when
-		// it changed, which keeps the observer from looping.
-		Object.entries( vars ).forEach( ( [ name, value ] ) => {
-			const prop = `--purplish-chip-${ name }`;
-			if ( filters.style.getPropertyValue( prop ) !== value ) {
-				filters.style.setProperty( prop, value );
-			}
-		} );
-	};
-
-	let queued = false;
-	new window.MutationObserver( () => {
-		if ( ! queued ) {
-			queued = true;
-			window.requestAnimationFrame( () => {
-				queued = false;
-				read();
-			} );
-		}
-	} ).observe( filters, {
-		subtree: true,
-		childList: true,
-		attributes: true,
-		attributeFilter: [ 'style', 'class' ],
-	} );
-	read();
-}
-
-document.querySelectorAll( '.purplish-filters-chips' ).forEach( matchChips );
+document
+	.querySelectorAll( '.purplish-filters-chips' )
+	.forEach( ( filters ) => matchChips( filters ) );
 
 /**
  * Pops the mini-cart's count when it goes up. WooCommerce changes the
