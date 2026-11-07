@@ -7,6 +7,7 @@ import {
 	colorStyle,
 	eyesIn,
 	glassSelector,
+	HOVER_BUTTONS,
 	onColor,
 	pageClasses,
 	pageStyle,
@@ -191,5 +192,28 @@ describe( 'pageStyle', () => {
 			pageStyle( { sample: { ...page.sample, tint: 'red' } } )
 		).toEqual( {} );
 		expect( pageStyle( undefined ) ).toEqual( {} );
+	} );
+} );
+
+describe( 'HOVER_BUTTONS', () => {
+	it( 'marks the add to cart buttons on product cards', () => {
+		expect( HOVER_BUTTONS[ 'woocommerce/product-collection' ] ).toBe(
+			'.wc-block-components-product-button__button'
+		);
+	} );
+
+	it( 'gives the card classes the server prints', () => {
+		const cards = {
+			prefix: 'cards',
+			options: { overlay: true, motion: true, hover: [ 'roster' ] },
+			legacy: {},
+		};
+		expect(
+			classesFor( cards, { overlay: true, hover: 'roster' } )
+		).toEqual( [
+			'purplish-cards',
+			'purplish-cards-overlay',
+			'purplish-cards-hover-roster',
+		] );
 	} );
 } );
