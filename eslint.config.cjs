@@ -13,7 +13,6 @@ module.exports = [
 			'import/core-modules': [
 				'@wordpress/block-editor',
 				'@wordpress/blocks',
-				'@wordpress/data',
 				'@wordpress/element',
 			],
 		},
