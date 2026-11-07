@@ -8,6 +8,11 @@
  * The 1.0 page options on Add to Cart + Options are body classes on the
  * front end, with the product's color. The editor puts the same classes on
  * the canvas body, with a sample color, since a template has no product.
+ * A Group that takes the page color shows it there too, as it does on a
+ * product page.
+ *
+ * Matching chips on Product Filters copy a chip's look with the same code
+ * as the front script, since the editor draws both kinds of chips.
  */
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
@@ -15,6 +20,7 @@ import { useEffect, useRef } from '@wordpress/element';
 
 import { moveHighlight, clearHighlight } from '../shared/glass';
 import { enterFrame, moveFrame, leaveFrame } from '../shared/hover';
+import { matchChips } from '../shared/chips';
 import {
 	classesFor,
 	colorStyle,
@@ -31,6 +37,7 @@ const PAGE = window.purplishPage || {};
 const PAGE_BLOCK = 'woocommerce/add-to-cart-with-options';
 const FRAME = '.wc-block-product-gallery-large-image';
 const GALLERY_HOVER = 'purplish-gallery-hover-';
+const MATCHING_CHIPS = 'purplish-filters-chips';
 
 /**
  * The block's element in the canvas, which may sit in the editor iframe.
@@ -161,6 +168,20 @@ function useEyes( clientId, button, count ) {
 }
 
 /**
+ * Gives the active filter chips the look of a selected chip while the
+ * block has matching chips on.
+ *
+ * @param {string}  clientId The block's client ID.
+ * @param {boolean} on       Whether matching chips is on.
+ */
+function useChips( clientId, on ) {
+	useEffect( () => {
+		const block = on && canvasElement( clientId );
+		return block ? matchChips( block ) : undefined;
+	}, [ clientId, on ] );
+}
+
+/**
  * Whether the pointer is over the element's box.
  *
  * @param {HTMLElement}  element The element.
@@ -268,6 +289,8 @@ const withPurplishPreview = createHigherOrderComponent(
 			block ? EYES_BUTTONS[ block.prefix ] : '',
 			block ? eyesIn( classes, block.prefix ) : 0
 		);
+
+		useChips( props.clientId, classes.includes( MATCHING_CHIPS ) );
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';
 		if ( ! classes.length && ! hover ) {
