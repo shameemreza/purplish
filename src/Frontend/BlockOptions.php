@@ -76,5 +76,6 @@ final class BlockOptions {
 		$asset = include PURPLISH_DIR . 'build/editor.asset.php';
 		wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/editor.js', $asset['dependencies'], $asset['version'], true );
 		wp_set_script_translations( self::HANDLE, 'purplish' );
+		wp_add_inline_script( self::HANDLE, 'window.purplishPreview = ' . wp_json_encode( BlockEffects::preview_map() ) . ';', 'before' );
 	}
 }

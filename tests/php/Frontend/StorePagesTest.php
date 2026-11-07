@@ -127,4 +127,47 @@ class StorePagesTest extends WP_UnitTestCase {
 
 		$this->assertSame( self::PROCEED, $out );
 	}
+
+	/**
+	 * The editor gets the options of the four store blocks, and of no block
+	 * from 1.0 or 1.1.
+	 */
+	public function test_preview_map() {
+		$map = BlockEffects::preview_map();
+
+		$this->assertSame(
+			array(
+				'woocommerce/order-confirmation-status',
+				'woocommerce/order-confirmation-summary',
+				'woocommerce/proceed-to-checkout-block',
+				'woocommerce/checkout-actions-block',
+			),
+			array_keys( $map )
+		);
+		$this->assertSame(
+			array(
+				'prefix'  => 'buybutton',
+				'options' => BlockEffects::BUY_BUTTON_LOOKS,
+				'legacy'  => array(),
+			),
+			$map['woocommerce/checkout-actions-block']
+		);
+	}
+
+	/**
+	 * The effect styles load into the editor, and not on the front end
+	 * through this hook.
+	 */
+	public function test_editor_styles() {
+		wp_dequeue_style( 'purplish-effects' );
+		wp_dequeue_script( 'purplish-effects' );
+		( new BlockEffects() )->enqueue_editor_styles();
+		$this->assertFalse( wp_style_is( 'purplish-effects' ), 'front end' );
+
+		set_current_screen( 'post' );
+		( new BlockEffects() )->enqueue_editor_styles();
+		$this->assertTrue( wp_style_is( 'purplish-effects' ), 'editor' );
+		$this->assertFalse( wp_script_is( 'purplish-effects' ), 'no front script' );
+		set_current_screen( 'front' );
+	}
 }

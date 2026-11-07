@@ -58,7 +58,9 @@ final class BlockEffects {
 	 * keeping the wrapper's class but not its style, so the effect color
 	 * goes on a class with a matching rule instead.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool, eyes?: string, redrawn?: bool}>
+	 * `preview` marks a block whose look also shows in the editor.
+	 *
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool, eyes?: string, redrawn?: bool, preview?: bool}>
 	 */
 	public static function blocks() {
 		return array(
@@ -229,22 +231,26 @@ final class BlockEffects {
 				'options' => array(
 					'moment' => true,
 				),
+				'preview' => true,
 			),
 			'woocommerce/order-confirmation-summary' => array(
 				'prefix'  => 'summary',
 				'options' => array(
 					'receipt' => true,
 				),
+				'preview' => true,
 			),
 			'woocommerce/proceed-to-checkout-block'  => array(
 				'prefix'  => 'buybutton',
 				'options' => self::BUY_BUTTON_LOOKS,
 				'redrawn' => true,
+				'preview' => true,
 			),
 			'woocommerce/checkout-actions-block'     => array(
 				'prefix'  => 'buybutton',
 				'options' => self::BUY_BUTTON_LOOKS,
 				'redrawn' => true,
+				'preview' => true,
 			),
 		);
 	}
@@ -271,6 +277,7 @@ final class BlockEffects {
 	public function register() {
 		add_filter( 'register_block_type_args', array( $this, 'add_attribute' ), 10, 2 );
 		add_filter( 'render_block', array( $this, 'add_classes' ), 10, 2 );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_classic' ), 20 );
 		add_filter( 'body_class', array( $this, 'classic_body_classes' ) );
 		add_filter( 'woocommerce_single_product_zoom_enabled', array( $this, 'classic_zoom' ) );
@@ -311,6 +318,43 @@ final class BlockEffects {
 		);
 
 		return $args;
+	}
+
+	/**
+	 * The options of blocks marked `preview`, for the editor script to work
+	 * out the same classes as `classes_for()`.
+	 *
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy: array<string, string[]>}>
+	 */
+	public static function preview_map() {
+		$map = array();
+		foreach ( self::blocks() as $name => $block ) {
+			if ( empty( $block['preview'] ) ) {
+				continue;
+			}
+			$map[ $name ] = array(
+				'prefix'  => $block['prefix'],
+				'options' => $block['options'],
+				'legacy'  => isset( $block['legacy'] ) ? $block['legacy'] : array(),
+			);
+		}
+		return $map;
+	}
+
+	/**
+	 * Loads the effect styles into the editor canvas, so blocks marked
+	 * `preview` show their look there. The front scripts stay off.
+	 *
+	 * @return void
+	 */
+	public function enqueue_editor_styles() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$asset = include PURPLISH_DIR . 'build/effects.asset.php';
+		wp_enqueue_style( self::HANDLE, PURPLISH_URL . 'build/style-effects.css', array(), $asset['version'] );
+		wp_style_add_data( self::HANDLE, 'rtl', 'replace' );
 	}
 
 	/**
