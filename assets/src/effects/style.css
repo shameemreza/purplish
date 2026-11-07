@@ -1007,10 +1007,23 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 .purplish-cards-hover-clothesline .wc-block-product {
+	--purplish-swing-out: 1;
 	position: relative;
 	padding-top: 26px;
 	transform-origin: 50% 0;
 	rotate: var(--purplish-swing);
+}
+
+/*
+ * The swings toward the end of the row are smaller on narrow screens, so
+ * the last card's bottom corner stays inside the side gutter instead of
+ * making the page scroll sideways.
+ */
+@media (max-width: 781px) {
+
+	.purplish-cards-hover-clothesline .wc-block-product {
+		--purplish-swing-out: 0.35;
+	}
 }
 
 .purplish-cards-hover-clothesline .wc-block-product::after {
@@ -1070,7 +1083,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	45% {
-		--purplish-swing: calc(var(--purplish-side) * -5deg);
+		--purplish-swing: calc(var(--purplish-side) * -5deg * var(--purplish-swing-out));
 	}
 
 	75% {
@@ -1085,7 +1098,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-swing-hover {
 
 	20% {
-		--purplish-swing: calc(var(--purplish-side) * -4deg);
+		--purplish-swing: calc(var(--purplish-side) * -4deg * var(--purplish-swing-out));
 	}
 
 	50% {
@@ -1093,7 +1106,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	75% {
-		--purplish-swing: calc(var(--purplish-side) * -1deg);
+		--purplish-swing: calc(var(--purplish-side) * -1deg * var(--purplish-swing-out));
 	}
 }
 
