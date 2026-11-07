@@ -72,6 +72,73 @@ return array(
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
 	),
+	'hover-tabs' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/hover-tabs',
+		'version' => '1.2.0',
+		'title' => 'Hover Tabs',
+		'category' => 'purplish',
+		'description' => 'Names beside one big photo that changes as visitors hover over or tab to each name.',
+		'keywords' => array(
+			'tabs',
+			'categories',
+			'menu',
+			'photo',
+			'hover'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'side' => array(
+				'type' => 'string',
+				'enum' => array(
+					'end',
+					'start'
+				),
+				'default' => 'end'
+			),
+			'change' => array(
+				'type' => 'string',
+				'enum' => array(
+					'fade',
+					'wipe'
+				),
+				'default' => 'fade'
+			),
+			'shape' => array(
+				'type' => 'string',
+				'enum' => array(
+					'rounded',
+					'square'
+				),
+				'default' => 'rounded'
+			)
+		),
+		'allowedBlocks' => array(
+			'core/group'
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				),
+				'padding' => true
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'style' => 'file:./style-index.css'
+	),
 	'runway' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

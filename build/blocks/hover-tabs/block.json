@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "purplish/hover-tabs",
+  "version": "1.2.0",
+  "title": "Hover Tabs",
+  "category": "purplish",
+  "description": "Names beside one big photo that changes as visitors hover over or tab to each name.",
+  "keywords": [
+    "tabs",
+    "categories",
+    "menu",
+    "photo",
+    "hover"
+  ],
+  "textdomain": "purplish",
+  "attributes": {
+    "side": {
+      "type": "string",
+      "enum": [
+        "end",
+        "start"
+      ],
+      "default": "end"
+    },
+    "change": {
+      "type": "string",
+      "enum": [
+        "fade",
+        "wipe"
+      ],
+      "default": "fade"
+    },
+    "shape": {
+      "type": "string",
+      "enum": [
+        "rounded",
+        "square"
+      ],
+      "default": "rounded"
+    }
+  },
+  "allowedBlocks": [
+    "core/group"
+  ],
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "anchor": true,
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": [
+        "top",
+        "bottom"
+      ],
+      "padding": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css"
+}
