@@ -152,7 +152,6 @@ The opening video plays once and stops within 5 seconds, and nothing loops. Visi
 
 = More Purplish blocks =
 
-* **Step Path:** numbered steps on a line that draws as the page scrolls, for how ordering, shipping or returns work. Comes with the How ordering works pattern.
 * **Hover Tabs:** names beside one big photo that changes as visitors hover over or tab to each name. Each name links to a category, a page or a product. Comes with the Shop by category pattern.
 
 = Block and classic themes =

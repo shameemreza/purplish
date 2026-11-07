@@ -1,5 +1,5 @@
 /**
- * Shared by the Step Path and Hover Tabs editors.
+ * Used by the Hover Tabs editor.
  */
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { createBlocksFromInnerBlocksTemplate } from '@wordpress/blocks';

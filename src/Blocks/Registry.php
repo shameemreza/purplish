@@ -56,7 +56,6 @@ final class Registry {
 			StoryDeck::class,
 			Runway::class,
 			ScrollLookbook::class,
-			StepPath::class,
 			HoverTabs::class,
 		);
 	}
