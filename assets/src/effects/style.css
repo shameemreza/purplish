@@ -93,7 +93,7 @@ body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only
 }
 
 /* Styles that grow the photo clip it, each slide on its own. */
-:is(.purplish-gallery-hover-zoom, .purplish-gallery-hover-parallax, .purplish-gallery-hover-slowzoom) .wc-block-product-gallery-large-image__wrapper,
+:is(.purplish-gallery-hover-zoom, .purplish-gallery-hover-parallax, .purplish-gallery-hover-slowzoom) :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image),
 :is(.purplish-classic-gallery-hover-zoom, .purplish-classic-gallery-hover-parallax, .purplish-classic-gallery-hover-slowzoom) .purplish-hover-target,
 :is(.purplish-classic-gallery-hover-zoom, .purplish-classic-gallery-hover-parallax, .purplish-classic-gallery-hover-slowzoom) .purplish-hover-target .woocommerce-product-gallery__image {
 	overflow: hidden;
@@ -136,20 +136,20 @@ body.purplish-classic-gallery-hover-lift .purplish-hover-target {
 }
 
 /* Zoom: the photo magnifies around the mouse. */
-.purplish-gallery-hover-zoom .wc-block-product-gallery-large-image__wrapper img,
+.purplish-gallery-hover-zoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
 body.purplish-classic-gallery-hover-zoom .purplish-hover-target .woocommerce-product-gallery__image img {
 	transform-origin: var(--purplish-mx, 50%) var(--purplish-my, 50%);
 	transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Parallax: the photo drifts against the mouse inside its frame. */
-.purplish-gallery-hover-parallax .wc-block-product-gallery-large-image__wrapper img,
+.purplish-gallery-hover-parallax :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
 body.purplish-classic-gallery-hover-parallax .purplish-hover-target .woocommerce-product-gallery__image img {
 	transition: translate 0.45s ease-out, scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Slow zoom: a gentle push in while hovered, a quicker settle after. */
-.purplish-gallery-hover-slowzoom .wc-block-product-gallery-large-image__wrapper img,
+.purplish-gallery-hover-slowzoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
 body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target .woocommerce-product-gallery__image img {
 	transition: scale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -203,19 +203,19 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
 	}
 
-	.purplish-gallery-hover-zoom .wc-block-product-gallery-large-image:hover .wc-block-product-gallery-large-image__wrapper img,
+	.purplish-gallery-hover-zoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
 	body.purplish-classic-gallery-hover-zoom .purplish-hover-target:hover .woocommerce-product-gallery__image img {
 		scale: 2.2;
 		cursor: zoom-in;
 	}
 
-	.purplish-gallery-hover-parallax .wc-block-product-gallery-large-image:hover .wc-block-product-gallery-large-image__wrapper img,
+	.purplish-gallery-hover-parallax .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
 	body.purplish-classic-gallery-hover-parallax .purplish-hover-target:hover .woocommerce-product-gallery__image img {
 		translate: calc(var(--purplish-dx, 0) * -8%) calc(var(--purplish-dy, 0) * -8%);
 		scale: 1.12;
 	}
 
-	.purplish-gallery-hover-slowzoom .wc-block-product-gallery-large-image:hover .wc-block-product-gallery-large-image__wrapper img,
+	.purplish-gallery-hover-slowzoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
 	body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target:hover .woocommerce-product-gallery__image img {
 		scale: 1.1;
 		transition: scale 6s cubic-bezier(0.2, 0.6, 0.2, 1);
@@ -2156,7 +2156,7 @@ body.purplish-active .purplish-group-tint {
 }
 
 .purplish-button .wp-block-button__link,
-:is(.purplish-cart-spectrum, .purplish-cart-glass) .single_add_to_cart_button {
+:is(.purplish-cart-spectrum, .purplish-cart-glass) :is(.single_add_to_cart_button, .wc-block-components-product-button__button) {
 	position: relative;
 }
 
@@ -2199,7 +2199,7 @@ body.purplish-active .purplish-group-tint {
  * Spectrum ring: a rainbow ring on the button's edge travels around once
  * on hover and focus, then stays still until the mouse leaves.
  */
-:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button, .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
+:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -2213,7 +2213,7 @@ body.purplish-active .purplish-group-tint {
 	transition: opacity 0.3s ease, --purplish-spin 0s linear 0.3s;
 }
 
-:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button, .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button):is(:hover, :focus-visible)::before {
+:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button):is(:hover, :focus-visible, .purplish-hover)::before {
 	--purplish-spin: 360deg;
 	opacity: 1;
 	transition: opacity 0.2s ease, --purplish-spin 1.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -2229,7 +2229,7 @@ body.purplish-active .purplish-group-tint {
 
 	@media (prefers-reduced-motion: no-preference) {
 
-		:is(.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button, .purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button) {
+		:is(.purplish-button-glass .wp-block-button__link, .purplish-cart-glass :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button) {
 			background-color: color-mix(in oklab, var(--purplish-color) 72%, transparent) !important;
 			background-image: radial-gradient(circle at var(--purplish-bx) var(--purplish-by), rgb(255 255 255 / 0.45), transparent 60%) !important;
 			color: var(--purplish-color-on) !important;
@@ -2245,7 +2245,7 @@ body.purplish-active .purplish-group-tint {
 		/* With the glow ring too, the ring joins the glass edge. */
 		.purplish-button-glow.purplish-button-glass .wp-block-button__link,
 		.purplish-buybutton-glow.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button,
-		body.purplish-active.purplish-glow .purplish-cart-glass .single_add_to_cart_button {
+		body.purplish-active.purplish-glow .purplish-cart-glass :is(.single_add_to_cart_button, .wc-block-components-product-button__button) {
 			box-shadow:
 				inset 0 0 0 1px rgb(255 255 255 / 0.35),
 				inset 0 1px 0 rgb(255 255 255 / 0.55),
@@ -2324,9 +2324,9 @@ body.purplish-active .purplish-group-tint {
 	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button,
 	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::before,
 	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::after,
-	[class*="purplish-cart-"] .single_add_to_cart_button,
-	[class*="purplish-cart-"] .single_add_to_cart_button *,
-	[class*="purplish-cart-"] .single_add_to_cart_button::before {
+	[class*="purplish-cart-"] :is(.single_add_to_cart_button, .wc-block-components-product-button__button),
+	[class*="purplish-cart-"] :is(.single_add_to_cart_button, .wc-block-components-product-button__button) *,
+	[class*="purplish-cart-"] :is(.single_add_to_cart_button, .wc-block-components-product-button__button)::before {
 		animation: none !important;
 		transition: none !important;
 	}
@@ -2336,7 +2336,7 @@ body.purplish-active .purplish-group-tint {
 		display: none;
 	}
 
-	:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum .single_add_to_cart_button, .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
+	:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
 		--purplish-spin: 0deg !important;
 	}
 }

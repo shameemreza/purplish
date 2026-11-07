@@ -7,12 +7,106 @@
 const HEX = /^#([0-9a-f]{3}){1,2}$/i;
 
 /**
+ * The add to cart button as the editor draws it. On the front end the same
+ * button also has `single_add_to_cart_button`.
+ */
+const CART_BUTTON = '.wc-block-components-product-button__button';
+
+/**
  * For each glass class, the buttons inside it that take the highlight.
  */
 export const GLASS_BUTTONS = {
 	'purplish-buybutton-glass':
 		'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button',
+	'purplish-cart-glass': CART_BUTTON,
 };
+
+/**
+ * Buttons the editor draws inside an inert wrapper, which never matches
+ * `:hover`. The preview marks them `purplish-hover` while the mouse is over
+ * them, and the hover styles accept that class too.
+ */
+export const HOVER_BUTTONS = {
+	'woocommerce/add-to-cart-with-options': CART_BUTTON,
+};
+
+/**
+ * For each block prefix with googly eyes, the button they go inside.
+ */
+export const EYES_BUTTONS = {
+	cart: CART_BUTTON,
+};
+
+/**
+ * How many googly eyes the classes ask for.
+ *
+ * @param {string[]} classes The block's Purplish classes.
+ * @param {string}   prefix  The block's prefix, as `cart`.
+ * @return {number} 0, 1 or 2.
+ */
+export function eyesIn( classes, prefix ) {
+	if ( classes.includes( 'purplish-' + prefix + '-eyes-two' ) ) {
+		return 2;
+	}
+	return classes.includes( 'purplish-' + prefix + '-eyes-one' ) ? 1 : 0;
+}
+
+/**
+ * The 1.0 page options that have a resting or hover look, as the body
+ * classes `PageData::body_class()` prints with a color set. Missing keys
+ * take the defaults, as `Options::clean()`. Photo transitions, title
+ * effects, the halo and color dots play on a color change or need each
+ * option's own color, so the editor leaves them out.
+ *
+ * @param {Object} page  Page data: `parts` (every part with its default) and `switches` (the ones the editor shows).
+ * @param {Object} saved The block's `purplish` attribute.
+ * @return {string[]} Body classes.
+ */
+export function pageClasses( page, saved ) {
+	if ( ! page || ! page.parts ) {
+		return [];
+	}
+	const values = saved && typeof saved === 'object' ? saved : {};
+	const known = Object.keys( page.parts );
+	const parts = Array.isArray( values.parts )
+		? known.filter( ( part ) => values.parts.includes( part ) )
+		: known.filter( ( part ) => page.parts[ part ] );
+
+	return [
+		'purplish',
+		'purplish-active',
+		...parts.map( ( part ) => 'purplish-part-' + part ),
+		...( page.switches || [] )
+			.filter(
+				( name ) => values[ name ] === true || values[ name ] === 'yes'
+			)
+			.map( ( name ) => 'purplish-' + name ),
+	];
+}
+
+/**
+ * The sample color set as the custom properties the page styles read.
+ *
+ * @param {Object} page Page data with `sample`: color, on, ink and tint.
+ * @return {Object} Custom properties, empty without a valid sample.
+ */
+export function pageStyle( page ) {
+	const sample = page && page.sample;
+	if (
+		! sample ||
+		! [ 'color', 'on', 'ink', 'tint' ].every( ( key ) =>
+			HEX.test( sample[ key ] )
+		)
+	) {
+		return {};
+	}
+	return {
+		'--purplish-accent': sample.color,
+		'--purplish-on': sample.on,
+		'--purplish-ink': sample.ink,
+		'--purplish-tint': sample.tint,
+	};
+}
 
 /**
  * The selector of the glass buttons inside a block with these classes.
