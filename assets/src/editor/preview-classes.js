@@ -28,6 +28,7 @@ export const GLASS_BUTTONS = {
  */
 export const HOVER_BUTTONS = {
 	'woocommerce/add-to-cart-with-options': CART_BUTTON,
+	'woocommerce/product-collection': CART_BUTTON,
 };
 
 /**
