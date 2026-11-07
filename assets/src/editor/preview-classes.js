@@ -18,24 +18,32 @@ const CART_BUTTON = '.wc-block-components-product-button__button';
 const BUTTON_LINK = '.wp-block-button__link';
 
 /**
- * For each glass class, the buttons inside it that take the highlight.
+ * A product row in the Cart page or the Mini-Cart drawer.
+ */
+const CART_ROW = '.wc-block-cart-items__row';
+
+/**
+ * For each glass class, the buttons that take the highlight: inside the
+ * block, or the block itself, as the drawer's Go to checkout.
  */
 export const GLASS_BUTTONS = {
 	'purplish-buybutton-glass':
-		'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button',
+		'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button, .wc-block-mini-cart__footer-checkout',
 	'purplish-cart-glass': CART_BUTTON,
 	'purplish-cards-hoverbutton-glass': CART_BUTTON,
 	'purplish-button-glass': BUTTON_LINK,
 };
 
 /**
- * Buttons the editor draws inside an inert wrapper, which never matches
- * `:hover`. The preview marks them `purplish-hover` while the mouse is over
- * them, and the hover styles accept that class too.
+ * Buttons and cart rows the editor draws inside an inert wrapper, which
+ * never matches `:hover`. The preview marks them `purplish-hover` while the
+ * mouse is over them, and the hover styles accept that class too.
  */
 export const HOVER_BUTTONS = {
 	'woocommerce/add-to-cart-with-options': CART_BUTTON,
 	'woocommerce/product-collection': CART_BUTTON,
+	'woocommerce/mini-cart-contents': CART_ROW,
+	'woocommerce/cart': CART_ROW,
 };
 
 /**

@@ -51,7 +51,8 @@ final class BlockEffects {
 	const HOVER_TARGETS = array( 'card', 'photo', 'button', 'all' );
 
 	/**
-	 * The button looks on Proceed to Checkout and Place Order.
+	 * The button looks on Proceed to Checkout, Place Order and the drawer's
+	 * Go to checkout.
 	 */
 	const BUY_BUTTON_LOOKS = array(
 		'glow'     => true,
@@ -77,16 +78,19 @@ final class BlockEffects {
 	 *
 	 * `preview` marks a block whose look also shows in the editor.
 	 *
+	 * `target` names the class of the inner element that gets the classes,
+	 * for a block whose own wrapper loses them when it is drawn again.
+	 *
 	 * `needs` lists, per option, the other saved values it depends on: each
 	 * entry is an option, its values and whether the saved value must be one
 	 * of them (`true`) or must not be (`false`). An option whose needs aren't
 	 * met keeps its saved value but prints no class.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, needs?: array<string, array<int, array{0: string, 1: string[], 2: bool}>>, rows?: bool, eyes?: string, redrawn?: bool, preview?: bool}>
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, needs?: array<string, array<int, array{0: string, 1: string[], 2: bool}>>, rows?: bool, eyes?: string, redrawn?: bool, preview?: bool, target?: string}>
 	 */
 	public static function blocks() {
 		return array(
-			'woocommerce/product-gallery'            => array(
+			'woocommerce/product-gallery'                 => array(
 				'prefix'  => 'gallery',
 				'options' => array(
 					'nothumbs'   => true,
@@ -103,7 +107,7 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
-			'woocommerce/product-collection'         => array(
+			'woocommerce/product-collection'              => array(
 				'prefix'  => 'cards',
 				'options' => array(
 					'overlay'     => true,
@@ -151,7 +155,7 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
-			'core/accordion'                         => array(
+			'core/accordion'                              => array(
 				'prefix'  => 'accordion',
 				'options' => array(
 					'soft' => true,
@@ -159,7 +163,7 @@ final class BlockEffects {
 				'preview' => true,
 			),
 			// The entrance waits for a class the front script adds.
-			'core/group'                             => array(
+			'core/group'                                  => array(
 				'prefix'  => 'group',
 				'options' => array(
 					'tint'     => true,
@@ -176,7 +180,7 @@ final class BlockEffects {
 				'rows'    => true,
 				'preview' => true,
 			),
-			'woocommerce/product-sale-badge'         => array(
+			'woocommerce/product-sale-badge'              => array(
 				'prefix'  => 'badge',
 				'options' => array(
 					'shape'  => array( 'pill', 'circle', 'tag' ),
@@ -184,7 +188,7 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
-			'woocommerce/product-gallery-thumbnails' => array(
+			'woocommerce/product-gallery-thumbnails'      => array(
 				'prefix'  => 'thumbs',
 				'options' => array(
 					'shape' => array( 'rounded', 'circle' ),
@@ -192,28 +196,28 @@ final class BlockEffects {
 				'preview' => true,
 			),
 			// Same class as the core accordion, so both share one soft style.
-			'woocommerce/accordion-group'            => array(
+			'woocommerce/accordion-group'                 => array(
 				'prefix'  => 'accordion',
 				'options' => array(
 					'soft' => true,
 				),
 				'preview' => true,
 			),
-			'core/details'                           => array(
+			'core/details'                                => array(
 				'prefix'  => 'details',
 				'options' => array(
 					'soft' => true,
 				),
 				'preview' => true,
 			),
-			'woocommerce/product-reviews'            => array(
+			'woocommerce/product-reviews'                 => array(
 				'prefix'  => 'reviews',
 				'options' => array(
 					'style' => array( 'cards', 'bubbles' ),
 				),
 				'preview' => true,
 			),
-			'woocommerce/product-specifications'     => array(
+			'woocommerce/product-specifications'          => array(
 				'prefix'  => 'specs',
 				'options' => array(
 					'style' => array( 'striped', 'cards' ),
@@ -221,28 +225,45 @@ final class BlockEffects {
 				'preview' => true,
 			),
 			// On the parent, the only block that holds both kinds of chips.
-			'woocommerce/product-filters'            => array(
+			'woocommerce/product-filters'                 => array(
 				'prefix'  => 'filters',
 				'options' => array(
 					'chips' => true,
 				),
 				'preview' => true,
 			),
-			'woocommerce/mini-cart'                  => array(
+			'woocommerce/mini-cart'                       => array(
 				'prefix'  => 'minicart',
 				'options' => array(
 					'pop' => true,
+					'fly' => true,
 				),
 			),
+			// The drawer's own block, in the Mini-Cart template part.
+			'woocommerce/mini-cart-contents'              => array(
+				'prefix'  => 'drawer',
+				'options' => array(
+					'spring' => true,
+					'rows'   => true,
+					'photos' => true,
+				),
+				'preview' => true,
+			),
+			// The class lands on the button itself, which is the block.
+			'woocommerce/mini-cart-checkout-button-block' => array(
+				'prefix'  => 'buybutton',
+				'options' => self::BUY_BUTTON_LOOKS,
+				'preview' => true,
+			),
 			// The photo is its own frame: core's lightbox measures its parent.
-			'core/image'                             => array(
+			'core/image'                                  => array(
 				'prefix'  => 'image',
 				'options' => array(
 					'hover' => self::HOVER_STYLES,
 				),
 				'preview' => true,
 			),
-			'core/button'                            => array(
+			'core/button'                                 => array(
 				'prefix'  => 'button',
 				'options' => array(
 					'glow'     => true,
@@ -255,7 +276,7 @@ final class BlockEffects {
 				'preview' => true,
 			),
 			// Shares the attribute with 1.0's page options, which give no class.
-			'woocommerce/add-to-cart-with-options'   => array(
+			'woocommerce/add-to-cart-with-options'        => array(
 				'prefix'  => 'cart',
 				'options' => array(
 					'glass'    => true,
@@ -265,50 +286,62 @@ final class BlockEffects {
 				'eyes'    => 'single_add_to_cart_button',
 				'preview' => true,
 			),
-			'core/heading'                           => array(
+			'core/heading'                                => array(
 				'prefix'  => 'heading',
 				'options' => array(
 					'reveal' => array( 'rise', 'focus' ),
 				),
 			),
 			// Each column comes in on its own, so stacked columns on phones do too.
-			'core/columns'                           => array(
+			'core/columns'                                => array(
 				'prefix'  => 'columns',
 				'options' => array(
 					'entrance' => self::ENTRANCES,
 				),
 			),
-			'core/cover'                             => array(
+			'core/cover'                                  => array(
 				'prefix'  => 'cover',
 				'options' => array(
 					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
 				),
 			),
-			'woocommerce/order-confirmation-status'  => array(
+			'woocommerce/order-confirmation-status'       => array(
 				'prefix'  => 'thanks',
 				'options' => array(
 					'moment' => true,
 				),
 				'preview' => true,
 			),
-			'woocommerce/order-confirmation-summary' => array(
+			'woocommerce/order-confirmation-summary'      => array(
 				'prefix'  => 'summary',
 				'options' => array(
 					'receipt' => true,
 				),
 				'preview' => true,
 			),
-			'woocommerce/proceed-to-checkout-block'  => array(
+			'woocommerce/proceed-to-checkout-block'       => array(
 				'prefix'  => 'buybutton',
 				'options' => self::BUY_BUTTON_LOOKS,
 				'redrawn' => true,
 				'preview' => true,
 			),
-			'woocommerce/checkout-actions-block'     => array(
+			'woocommerce/checkout-actions-block'          => array(
 				'prefix'  => 'buybutton',
 				'options' => self::BUY_BUTTON_LOOKS,
 				'redrawn' => true,
 				'preview' => true,
+			),
+			// `cart` is taken by Add to Cart + Options.
+			'woocommerce/cart'                            => array(
+				'prefix'  => 'cartpage',
+				'options' => array(
+					'rows'   => true,
+					'photos' => true,
+					'sticky' => true,
+				),
+				'redrawn' => true,
+				'preview' => true,
+				'target'  => 'wp-block-woocommerce-filled-cart-block',
 			),
 		);
 	}
@@ -508,7 +541,10 @@ final class BlockEffects {
 
 		$rows  = ! empty( self::blocks()[ $name ]['rows'] );
 		$query = $rows ? array( 'class_name' => 'wp-block-' . str_replace( '/', '-', $name ) ) : null;
-		$tags  = new \WP_HTML_Tag_Processor( $block_content );
+		if ( ! empty( self::blocks()[ $name ]['target'] ) ) {
+			$query = array( 'class_name' => self::blocks()[ $name ]['target'] );
+		}
+		$tags = new \WP_HTML_Tag_Processor( $block_content );
 		if ( ! $tags->next_tag( $query ) ) {
 			return $block_content;
 		}

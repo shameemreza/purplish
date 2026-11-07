@@ -1,5 +1,6 @@
 /**
- * Purplish panel on Proceed to Checkout (Cart) and Place Order (Checkout).
+ * Purplish panel on Proceed to Checkout (Cart), Place Order (Checkout) and
+ * Go to checkout (Mini-Cart drawer).
  */
 import {
 	BaseControl,

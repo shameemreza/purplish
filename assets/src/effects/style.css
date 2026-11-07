@@ -27,6 +27,8 @@ body.purplish-active {
 .purplish-cart,
 .purplish-buybutton,
 .purplish-thanks,
+.purplish-drawer,
+.purplish-cartpage,
 body[class*="purplish-classic-gallery-"] {
 	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
 	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
@@ -2394,7 +2396,7 @@ body.purplish-active .purplish-group-tint {
 
 /* Glow ring: 1.0's ring around the add to cart button, on any button. */
 .purplish-button-glow .wp-block-button__link,
-.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button {
+:is(.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-glow.wc-block-mini-cart__footer-checkout) {
 	box-shadow:
 		0 0 0 3px color-mix(in oklab, var(--purplish-color) 45%, transparent),
 		0 0 22px color-mix(in oklab, var(--purplish-color) 55%, transparent);
@@ -2402,7 +2404,7 @@ body.purplish-active .purplish-group-tint {
 }
 
 .purplish-button-glow .wp-block-button__link:is(:hover, :focus-visible),
-.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button:is(:hover, :focus-visible) {
+:is(.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-glow.wc-block-mini-cart__footer-checkout):is(:hover, :focus-visible) {
 	box-shadow:
 		0 0 0 5px color-mix(in oklab, var(--purplish-color) 55%, transparent),
 		0 0 32px color-mix(in oklab, var(--purplish-color) 70%, transparent);
@@ -2413,12 +2415,12 @@ body.purplish-active .purplish-group-tint {
  * takes the text color, so it shows on filled and outline buttons alike.
  */
 .purplish-button-sweep .wp-block-button__link,
-.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button {
+:is(.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-sweep.wc-block-mini-cart__footer-checkout) {
 	overflow: hidden;
 }
 
 .purplish-button-sweep .wp-block-button__link::after,
-.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::after {
+:is(.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-sweep.wc-block-mini-cart__footer-checkout)::after {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -2431,7 +2433,7 @@ body.purplish-active .purplish-group-tint {
  * Spectrum ring: a rainbow ring on the button's edge travels around once
  * on hover and focus, then stays still until the mouse leaves.
  */
-:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
+:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), :is(.purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-spectrum.wc-block-mini-cart__footer-checkout))::before {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -2445,7 +2447,7 @@ body.purplish-active .purplish-group-tint {
 	transition: opacity 0.3s ease, --purplish-spin 0s linear 0.3s;
 }
 
-:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button):is(:hover, :focus-visible, .purplish-hover)::before,
+:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), :is(.purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-spectrum.wc-block-mini-cart__footer-checkout)):is(:hover, :focus-visible, .purplish-hover)::before,
 .purplish-cards-hoverbutton-spectrum .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button::before {
 	--purplish-spin: 360deg;
 	opacity: 1;
@@ -2462,7 +2464,7 @@ body.purplish-active .purplish-group-tint {
 
 	@media (prefers-reduced-motion: no-preference) {
 
-		:is(.purplish-button-glass .wp-block-button__link, :is(.purplish-cart-glass, .purplish-cards-hoverbutton-glass) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button) {
+		:is(.purplish-button-glass .wp-block-button__link, :is(.purplish-cart-glass, .purplish-cards-hoverbutton-glass) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), :is(.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-glass.wc-block-mini-cart__footer-checkout)) {
 			background-color: color-mix(in oklab, var(--purplish-color) 72%, transparent) !important;
 			background-image: radial-gradient(circle at var(--purplish-bx) var(--purplish-by), rgb(255 255 255 / 0.45), transparent 60%) !important;
 			color: var(--purplish-color-on) !important;
@@ -2477,7 +2479,7 @@ body.purplish-active .purplish-group-tint {
 
 		/* With the glow ring too, the ring joins the glass edge. */
 		.purplish-button-glow.purplish-button-glass .wp-block-button__link,
-		.purplish-buybutton-glow.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button,
+		:is(.purplish-buybutton-glow.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-glow.purplish-buybutton-glass.wc-block-mini-cart__footer-checkout),
 		body.purplish-active.purplish-glow .purplish-cart-glass :is(.single_add_to_cart_button, .wc-block-components-product-button__button) {
 			box-shadow:
 				inset 0 0 0 1px rgb(255 255 255 / 0.35),
@@ -2536,14 +2538,14 @@ body.purplish-active .purplish-group-tint {
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
 
 	.purplish-button-sweep .wp-block-button__link:hover::after,
-	.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button:hover::after {
+	:is(.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-sweep.wc-block-mini-cart__footer-checkout):hover::after {
 		translate: 120% 0;
 		transition: translate 0.8s ease;
 	}
 }
 
 .purplish-button-sweep .wp-block-button__link:focus-visible::after,
-.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button:focus-visible::after {
+:is(.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-sweep.wc-block-mini-cart__footer-checkout):focus-visible::after {
 	translate: 120% 0;
 	transition: translate 0.8s ease;
 }
@@ -2554,9 +2556,9 @@ body.purplish-active .purplish-group-tint {
 	.purplish-button *,
 	.purplish-button *::before,
 	.purplish-button *::after,
-	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button,
-	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::before,
-	.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::after,
+	:is(.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton.wc-block-mini-cart__footer-checkout),
+	:is(.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton.wc-block-mini-cart__footer-checkout)::before,
+	:is(.purplish-buybutton :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton.wc-block-mini-cart__footer-checkout)::after,
 	[class*="purplish-cart-"] :is(.single_add_to_cart_button, .wc-block-components-product-button__button),
 	[class*="purplish-cart-"] :is(.single_add_to_cart_button, .wc-block-components-product-button__button) *,
 	[class*="purplish-cart-"] :is(.single_add_to_cart_button, .wc-block-components-product-button__button)::before {
@@ -2565,11 +2567,11 @@ body.purplish-active .purplish-group-tint {
 	}
 
 	.purplish-button-sweep .wp-block-button__link::after,
-	.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button::after {
+	:is(.purplish-buybutton-sweep :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-sweep.wc-block-mini-cart__footer-checkout)::after {
 		display: none;
 	}
 
-	:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum :is(.single_add_to_cart_button, .wc-block-components-product-button__button), .purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button)::before {
+	:is(.purplish-button-spectrum .wp-block-button__link, .purplish-cart-spectrum :is(.single_add_to_cart_button, .wc-block-components-product-button__button), :is(.purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-spectrum.wc-block-mini-cart__footer-checkout))::before {
 		--purplish-spin: 0deg !important;
 	}
 }
@@ -2851,4 +2853,206 @@ body.purplish-active .purplish-group-tint {
 	font-variant-numeric: tabular-nums;
 	text-align: end;
 	overflow-wrap: anywhere;
+}
+
+/*
+ * Soft rows on the Cart page and in the Mini-Cart drawer: each item sits
+ * on its own rounded card in a light tint of the effect color, with no
+ * lines between them. A wide cart draws its items as a real table, so the
+ * card is painted on the cells there; narrow carts and the drawer draw
+ * each row as a grid, so the card is the row itself.
+ */
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) table.wc-block-cart-items {
+	border-spacing: 0 12px;
+	margin-block-start: -12px;
+}
+
+/* WooCommerce clears every cell's background with !important. */
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td {
+	border-block: 0;
+	background: var(--purplish-color-soft) !important;
+	transition: background-color 0.25s ease;
+}
+
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td:first-child {
+	padding-inline-start: 16px;
+	border-start-start-radius: 16px;
+	border-end-start-radius: 16px;
+}
+
+/* A flex cell would end at its own content, short of the row's height. */
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td:last-child {
+	display: table-cell;
+	padding-inline-end: 20px;
+	border-start-end-radius: 16px;
+	border-end-end-radius: 16px;
+}
+
+.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	margin-block-end: 10px;
+	padding: 14px;
+	border: 0;
+	border-radius: 16px;
+	background: var(--purplish-color-soft);
+	transition: background-color 0.25s ease;
+}
+
+.purplish-cartpage-rows:is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-rows :is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	padding: 12px;
+}
+
+.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:is(:hover, .purplish-hover),
+.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:is(:hover, .purplish-hover),
+.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row:is(:hover, .purplish-hover) {
+	background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%);
+}
+
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row:is(:hover, .purplish-hover) > td {
+	background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%) !important;
+}
+
+/*
+ * Bigger photos, rounded: 120px on a wide Cart page, 96px in the drawer
+ * and 80px on a phone, where the row has no more room.
+ */
+:is(.purplish-cartpage-photos, .purplish-drawer-photos) .wc-block-cart-item__image img {
+	aspect-ratio: 1;
+	height: auto;
+	border-radius: 12px;
+	object-fit: cover;
+}
+
+:is(.purplish-cartpage-photos.is-large, .purplish-cartpage-photos .is-large) .wc-block-cart-item__image {
+	width: 120px;
+}
+
+:is(.purplish-cartpage-photos.is-large, .purplish-cartpage-photos .is-large) .wc-block-cart-item__image img {
+	width: 120px;
+	max-width: none;
+}
+
+.purplish-cartpage-photos.is-medium table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-photos .is-medium table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	grid-template-columns: 136px 132px;
+}
+
+.purplish-cartpage-photos:is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-photos :is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	grid-template-columns: 96px 132px;
+	column-gap: 12px;
+}
+
+.purplish-drawer-photos table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	grid-template-columns: 112px 132px;
+}
+
+/* A drawer that fills a phone screen has the phone's room, not more. */
+@media (max-width: 480px) {
+
+	.purplish-drawer-photos table.wc-block-cart-items tbody .wc-block-cart-items__row {
+		grid-template-columns: 96px 132px;
+		column-gap: 12px;
+	}
+}
+
+/*
+ * Sticky totals: the totals and Proceed to Checkout stay in view while a
+ * long cart scrolls, wherever WooCommerce puts them beside the items and
+ * the screen is tall enough to hold them.
+ */
+@container (min-width: 920px) {
+
+	@media (min-height: 640px) {
+
+		.purplish-cartpage-sticky .wc-block-cart__sidebar {
+			position: sticky;
+			top: calc(var(--wp-admin--admin-bar--height, 0px) + 32px);
+			align-self: flex-start;
+		}
+	}
+}
+
+/*
+ * Spring slide: the drawer opens with a soft settle, then each item and the
+ * footer follow one after another. It plays every time the drawer opens.
+ * WooCommerce turns the drawer's own slide off for reduced motion, and so
+ * does Purplish.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .wc-block-components-drawer:has(.purplish-drawer-spring) {
+		animation-duration: 0.55s;
+		animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring :is(.wc-block-cart-items__row, .wc-block-mini-cart__footer) {
+		animation: purplish-drawer-in 0.7s cubic-bezier(0.34, 1.5, 0.64, 1) 0.12s backwards;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-cart-items__row:nth-child(2) {
+		animation-delay: 0.18s;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-cart-items__row:nth-child(3) {
+		animation-delay: 0.24s;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-cart-items__row:nth-child(n + 4) {
+		animation-delay: 0.3s;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-mini-cart__footer {
+		animation-name: purplish-drawer-up;
+		animation-delay: 0.22s;
+	}
+}
+
+/* The items come in from the side the drawer opens on. */
+.purplish-drawer-spring {
+	--purplish-drawer-from: 48px;
+}
+
+[dir="rtl"] .purplish-drawer-spring {
+	--purplish-drawer-from: -48px;
+}
+
+@keyframes purplish-drawer-in {
+
+	from {
+		opacity: 0;
+		translate: var(--purplish-drawer-from, 48px) 0;
+	}
+}
+
+@keyframes purplish-drawer-up {
+
+	from {
+		opacity: 0;
+		translate: 0 24px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-cartpage-rows .wc-block-cart-items__row,
+	.purplish-cartpage-rows .wc-block-cart-items__row > td,
+	.purplish-drawer-rows .wc-block-cart-items__row {
+		transition: none;
+	}
+}
+
+/* The copy of a product photo that flies into the Mini-Cart. */
+.purplish-fly {
+	position: fixed;
+	z-index: 99999;
+	max-width: none;
+	margin: 0;
+	border-radius: 0.375rem;
+	object-fit: cover;
+	box-shadow: 0 0.75rem 1.875rem rgb(20 20 40 / 25%);
+	pointer-events: none;
 }

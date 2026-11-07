@@ -22,7 +22,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 
 = Built to stay out of your way =
 
-* **Works on the blocks you already use:** Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Accordion Group, Proceed to Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. It replaces nothing.
+* **Works on the blocks you already use:** Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
 * **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
@@ -94,18 +94,20 @@ On other blocks:
 * **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
 * **Product Specifications, Table style:** every other row shaded, or each row on its own soft card.
 * **Product Filters, Matching chips:** the active filters take the look of a selected chip, and a chip fades into its selected color when picked.
-* **Mini-Cart, Count pop:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart.
+* **Mini-Cart, Count pop and Fly to cart:** the item count pops with a ring in its own color, and the bag gives a small turn, each time something goes into the cart. Fly to cart sends the product photo from the card or product page into the cart icon.
 * **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom.
 * **Button, Looks:** a glow ring, a band of light that sweeps across on hover, liquid glass and a spectrum ring, in any mix. Googly eyes, one or two, sit inside the button and follow the mouse.
 * **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
 * **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
 * **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
 
-Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
+Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 
 = Cart, checkout and order confirmation =
 
-* **Proceed to Checkout and Place Order, Looks:** the glow ring, light sweep, liquid glass and spectrum ring from the Button block, in any mix, with one effect color. Place Order is in the checkout's Actions block.
+* **Proceed to Checkout, Place Order and Go to checkout, Looks:** the glow ring, light sweep, liquid glass and spectrum ring from the Button block, in any mix, with one effect color. Place Order is in the checkout's Actions block, and Go to checkout is in the Mini-Cart drawer.
+* **Mini-Cart drawer, Looks:** the drawer opens with a soft spring and the items follow one after another. Items can sit on soft rounded rows, with bigger photos.
+* **Cart, Looks:** items on soft rounded rows, bigger product photos, and totals that stay in view while a long cart scrolls.
 * **Order Status, Thank-you moment:** when the order confirmation page opens, the heading rises into place and a burst of rays in the effect color flashes behind it once.
 * **Order Summary, Receipt card:** the order number, date, total and payment method sit on a paper receipt with a torn bottom edge and a dashed line between rows.
 
