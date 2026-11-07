@@ -107,12 +107,14 @@ final class BlockEffects {
 						'roster',
 					),
 				),
+				'preview' => true,
 			),
 			'core/accordion'                         => array(
 				'prefix'  => 'accordion',
 				'options' => array(
 					'soft' => true,
 				),
+				'preview' => true,
 			),
 			// The entrance waits for a class the front script adds.
 			'core/group'                             => array(
@@ -153,24 +155,28 @@ final class BlockEffects {
 				'options' => array(
 					'soft' => true,
 				),
+				'preview' => true,
 			),
 			'core/details'                           => array(
 				'prefix'  => 'details',
 				'options' => array(
 					'soft' => true,
 				),
+				'preview' => true,
 			),
 			'woocommerce/product-reviews'            => array(
 				'prefix'  => 'reviews',
 				'options' => array(
 					'style' => array( 'cards', 'bubbles' ),
 				),
+				'preview' => true,
 			),
 			'woocommerce/product-specifications'     => array(
 				'prefix'  => 'specs',
 				'options' => array(
 					'style' => array( 'striped', 'cards' ),
 				),
+				'preview' => true,
 			),
 			// On the parent, the only block that holds both kinds of chips.
 			'woocommerce/product-filters'            => array(

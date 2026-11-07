@@ -492,16 +492,17 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
  * button sits in the card's markup; browsers without it keep the button in
  * place. It shows on hover or focus with a mouse, and always on touch
  * screens. When the title and price sit side by side in the card, they
- * share one line.
+ * share one line. The editor wraps the photo and the button in the block's
+ * own boxes, so the card rules also take those.
  */
-.purplish-cards-overlay :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> .wc-block-components-product-image) {
+.purplish-cards-overlay :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) {
 	display: grid;
 	grid-template-columns: 1fr auto;
 	align-items: baseline;
 	column-gap: 0.75rem;
 }
 
-.purplish-cards-overlay :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> .wc-block-components-product-image) > .wc-block-components-product-image {
+.purplish-cards-overlay :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 	grid-column: 1 / -1;
 }
 
@@ -524,6 +525,11 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 	.purplish-cards-overlay .wc-block-product .wc-block-components-product-image {
 		anchor-name: --purplish-photo;
+	}
+
+	/* Past the editor's boxes around the button, the photo can anchor it. */
+	.purplish-cards-overlay .wc-block-product :is(.wp-block-woocommerce-product-button:not(.wc-block-components-product-button), .wp-block-woocommerce-product-button > .components-disabled) {
+		position: static;
 	}
 
 	.purplish-cards-overlay .wc-block-product .wc-block-components-product-button {
@@ -578,7 +584,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		transform: scale(1.06);
 	}
 
-	.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button:hover {
+	.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
 		background-size: 100% 100%, auto !important;
 		color: var(--purplish-color-on) !important;
 	}
@@ -587,7 +593,8 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 /*
  * Cards, button motion: on hover a bag icon slides in, a light sweep
  * crosses the button and it lifts. After adding to cart the button fills
- * with the effect color and pops while the count slides in.
+ * with the effect color and pops while the count slides in. The editor
+ * draws the button inert, so the preview marks it `purplish-hover` instead.
  */
 .purplish-cards-motion .wc-block-components-product-button__button {
 	display: inline-flex;
@@ -632,17 +639,17 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 @media (hover: hover) and (pointer: fine) {
 
-	.purplish-cards-motion .wc-block-components-product-button__button:hover {
+	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
 		translate: 0 -2px;
 		box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--purplish-color) 60%, transparent);
 	}
 
-	.purplish-cards-motion .wc-block-components-product-button__button:hover::before {
+	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover)::before {
 		width: 16px;
 		margin-right: 0.45rem;
 	}
 
-	.purplish-cards-motion .wc-block-components-product-button__button:hover::after {
+	.purplish-cards-motion .wc-block-components-product-button__button:is(:hover, .purplish-hover)::after {
 		translate: 120% 0;
 		transition: translate 0.8s ease;
 	}
@@ -1325,7 +1332,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		margin-block: 0;
 	}
 
-	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wc-block-components-product-image {
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 		position: absolute;
 		inset-block: 0;
 		inset-inline-end: 0;
@@ -1353,35 +1360,60 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	/* The first product shows until a name is focused or hovered. */
-	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) > .wc-block-product:first-child .wc-block-components-product-image {
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) > .wc-block-product:first-child :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 		z-index: 1;
 		opacity: 1;
 		pointer-events: auto;
 	}
 
-	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:focus-within) > .wc-block-product:not(:focus-within) .wc-block-components-product-image {
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:focus-within) > .wc-block-product:not(:focus-within) :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 		z-index: 0;
 		opacity: 0;
 		pointer-events: none;
 	}
 
-	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:focus-within) > .wc-block-product:focus-within .wc-block-components-product-image {
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:focus-within) > .wc-block-product:focus-within :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 		z-index: 1;
 		opacity: 1;
 		pointer-events: auto;
 	}
 
 	/* Hover comes last, so it wins over focus. */
-	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:hover) > .wc-block-product:not(:hover) .wc-block-components-product-image {
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:hover) > .wc-block-product:not(:hover) :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 		z-index: 0;
 		opacity: 0;
 		pointer-events: none;
 	}
 
-	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:hover) > .wc-block-product:hover .wc-block-components-product-image {
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal):has(> .wc-block-product:hover) > .wc-block-product:hover :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 		z-index: 1;
 		opacity: 1;
 		pointer-events: auto;
+	}
+
+	/*
+	 * The editor puts the card being edited in a box of its own, which would
+	 * hold the frame. Low specificity, so the button on the photo still
+	 * places the card as it does on the front end.
+	 */
+	:where(.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal)) > li.block-editor-block-list__layout {
+		position: static;
+	}
+
+	/*
+	 * In the editor the image block's own box is the frame, with the photo
+	 * and the sale badge layer side by side inside it.
+	 */
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wp-block-woocommerce-product-image:not(.wc-block-components-product-image) > .wc-block-components-product-image {
+		position: relative;
+		inset: auto;
+		width: auto;
+		height: 100%;
+		padding: 0;
+	}
+
+	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wp-block-woocommerce-product-image:not(.wc-block-components-product-image) > .wc-block-components-product-image__inner-container {
+		inset-inline-start: 2.5rem;
 	}
 }
 
@@ -1628,15 +1660,20 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	margin-bottom: 0;
 }
 
-/* Reviews, soft cards: each review on its own card, replies on white. */
-.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] {
+/*
+ * Reviews, soft cards: each review on its own card, replies on white. The
+ * editor's sample reviews are list items without a comment ID.
+ */
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"],
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout {
 	padding: 1.25rem 1.5rem;
 	border-radius: 18px;
 	background-color: var(--purplish-color-soft);
 	transition: background-color 0.3s;
 }
 
-.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] + li {
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] + li,
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout + li {
 	margin-top: 0.75rem;
 }
 
@@ -1648,11 +1685,13 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
  * The card's padding takes the place of the space under each review, which
  * the review template can print inline.
  */
-.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] > * {
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] > *,
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout > * {
 	margin-bottom: 0 !important;
 }
 
-.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] > * + * {
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] > * + *,
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout > * + * {
 	margin-top: 1rem;
 }
 
