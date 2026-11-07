@@ -113,6 +113,58 @@ export function moveFrame( frame, style, event, area, img ) {
 }
 
 /**
+ * The light layer an image block's tilt, glare or loupe draws on.
+ *
+ * @param {Document} doc   The block's document.
+ * @param {string}   style The hover style.
+ * @return {HTMLElement|null} The layer, or null for styles without one.
+ */
+export function imageLight( doc, style ) {
+	if ( ! [ 'tilt', 'glare', 'loupe' ].includes( style ) ) {
+		return null;
+	}
+	const light = doc.createElement( 'span' );
+	light.className = 'purplish-image-light';
+	light.setAttribute( 'aria-hidden', 'true' );
+	return light;
+}
+
+/**
+ * Fits an image block to its photo as the mouse comes in: the clip takes
+ * the photo's corner, and the light layer goes over the photo. The photo's
+ * offsets are added up to the figure, since a lightbox or the editor's
+ * resize box can sit between them.
+ *
+ * @param {HTMLElement}      figure The image block.
+ * @param {HTMLImageElement} img    The photo.
+ * @param {HTMLElement|null} light  The light layer, if the style has one.
+ */
+export function fitImage( figure, img, light ) {
+	// The clip takes one radius; an elliptical corner reads as its first.
+	const radius = img.ownerDocument.defaultView
+		.getComputedStyle( img )
+		.borderTopLeftRadius.split( ' ' )[ 0 ];
+	figure.style.setProperty( '--purplish-radius', radius );
+	if ( ! light ) {
+		return;
+	}
+	if ( ! light.isConnected ) {
+		figure.appendChild( light );
+	}
+	let left = 0;
+	let top = 0;
+	for ( let node = img; node && node !== figure; node = node.offsetParent ) {
+		left += node.offsetLeft;
+		top += node.offsetTop;
+	}
+	light.style.left = left + 'px';
+	light.style.top = top + 'px';
+	light.style.width = img.offsetWidth + 'px';
+	light.style.height = img.offsetHeight + 'px';
+	light.style.borderRadius = radius;
+}
+
+/**
  * Lets the frame settle as the mouse leaves. The tilt resets fully; the
  * others keep the mouse position so the photo settles back where it was
  * instead of jumping to the center.

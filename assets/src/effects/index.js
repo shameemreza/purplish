@@ -10,7 +10,13 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { moveHighlight, clearHighlight } from '../shared/glass';
-import { enterFrame, moveFrame, leaveFrame } from '../shared/hover';
+import {
+	enterFrame,
+	moveFrame,
+	leaveFrame,
+	imageLight,
+	fitImage,
+} from '../shared/hover';
 import { matchChips } from '../shared/chips';
 import './style.css';
 
@@ -108,31 +114,11 @@ function imageHover( figure ) {
 		return;
 	}
 	const style = styleIn( figure.classList, 'purplish-image-hover-' );
-	const light = [ 'tilt', 'glare', 'loupe' ].includes( style )
-		? document.createElement( 'span' )
-		: null;
-	if ( light ) {
-		light.className = 'purplish-image-light';
-		light.setAttribute( 'aria-hidden', 'true' );
-	}
+	const light = imageLight( document, style );
 
-	img.addEventListener( 'pointerenter', () => {
-		// The clip takes one radius; an elliptical corner reads as its first.
-		const radius = window
-			.getComputedStyle( img )
-			.borderTopLeftRadius.split( ' ' )[ 0 ];
-		figure.style.setProperty( '--purplish-radius', radius );
-		if ( light ) {
-			if ( ! light.isConnected ) {
-				figure.appendChild( light );
-			}
-			light.style.left = img.offsetLeft + 'px';
-			light.style.top = img.offsetTop + 'px';
-			light.style.width = img.offsetWidth + 'px';
-			light.style.height = img.offsetHeight + 'px';
-			light.style.borderRadius = radius;
-		}
-	} );
+	img.addEventListener( 'pointerenter', () =>
+		fitImage( figure, img, light )
+	);
 
 	follow( figure, style, { area: img, photo: () => img } );
 }

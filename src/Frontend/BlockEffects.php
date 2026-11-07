@@ -240,6 +240,7 @@ final class BlockEffects {
 				'options' => array(
 					'hover' => self::HOVER_STYLES,
 				),
+				'preview' => true,
 			),
 			'core/button'                            => array(
 				'prefix'  => 'button',
@@ -251,6 +252,7 @@ final class BlockEffects {
 					'eyes'     => self::EYES,
 				),
 				'eyes'    => 'wp-block-button__link',
+				'preview' => true,
 			),
 			// Shares the attribute with 1.0's page options, which give no class.
 			'woocommerce/add-to-cart-with-options'   => array(

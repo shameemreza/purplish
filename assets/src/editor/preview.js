@@ -13,13 +13,23 @@
  *
  * Matching chips on Product Filters copy a chip's look with the same code
  * as the front script, since the editor draws both kinds of chips.
+ *
+ * A button block's link is its text box in the editor. The googly eyes go
+ * inside it as on the front end; the text box reads no text from them, so
+ * they're never saved into the button.
  */
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
 
 import { moveHighlight, clearHighlight } from '../shared/glass';
-import { enterFrame, moveFrame, leaveFrame } from '../shared/hover';
+import {
+	enterFrame,
+	moveFrame,
+	leaveFrame,
+	imageLight,
+	fitImage,
+} from '../shared/hover';
 import { matchChips } from '../shared/chips';
 import {
 	classesFor,
@@ -37,6 +47,7 @@ const PAGE = window.purplishPage || {};
 const PAGE_BLOCK = 'woocommerce/add-to-cart-with-options';
 const FRAME = '.wc-block-product-gallery-large-image';
 const GALLERY_HOVER = 'purplish-gallery-hover-';
+const IMAGE_HOVER = 'purplish-image-hover-';
 const MATCHING_CHIPS = 'purplish-filters-chips';
 const CARD = '.wc-block-product';
 const CARD_PHOTO = '.wc-block-components-product-image';
@@ -155,6 +166,7 @@ function useEyes( clientId, button, count ) {
 				const eyes = doc.createElement( 'span' );
 				eyes.className = 'purplish-eyes';
 				eyes.setAttribute( 'aria-hidden', 'true' );
+				eyes.setAttribute( 'contenteditable', 'false' );
 				for ( let i = 0; i < count; i++ ) {
 					const eye = doc.createElement( 'span' );
 					eye.className = 'purplish-eye';
@@ -187,6 +199,69 @@ function useChips( clientId, on ) {
 		const block = on && canvasElement( clientId );
 		return block ? matchChips( block ) : undefined;
 	}, [ clientId, on ] );
+}
+
+/**
+ * Plays an image block's hover style on its photo, as the front script
+ * does, with the light layer for the tilt, glare and loupe. The editor
+ * draws the photo without pointer events, so it never matches `:hover`:
+ * the photo is found by its box and marked `purplish-hover` while the
+ * mouse is over it, and the hover styles accept that class too.
+ *
+ * @param {string} clientId The block's client ID.
+ * @param {string} style    The hover style, or '' for none.
+ */
+function useImageHover( clientId, style ) {
+	useEffect( () => {
+		const figure = style && canvasElement( clientId );
+		if ( ! figure ) {
+			return;
+		}
+		const light = imageLight( figure.ownerDocument, style );
+		let photo = null;
+
+		const leave = () => {
+			if ( photo ) {
+				photo.classList.remove( 'purplish-hover' );
+				leaveFrame( figure, style );
+				photo = null;
+			}
+		};
+		// The editor can swap the photo or redraw its classes, so both are
+		// checked on each move.
+		const move = ( event ) => {
+			const img = figure.querySelector( 'img' );
+			if ( ! img || ! under( img, event ) ) {
+				leave();
+				return;
+			}
+			if ( img !== photo ) {
+				leave();
+				photo = img;
+				fitImage( figure, img, light );
+				enterFrame( figure, style, img );
+			}
+			img.classList.add( 'purplish-hover' );
+			moveFrame( figure, style, event, img, img );
+		};
+
+		figure.addEventListener( 'pointermove', move );
+		figure.addEventListener( 'pointerleave', leave );
+		return () => {
+			figure.removeEventListener( 'pointermove', move );
+			figure.removeEventListener( 'pointerleave', leave );
+			leave();
+			light?.remove();
+			// The effect color on the same element belongs to the editor.
+			[ ...figure.style ]
+				.filter(
+					( prop ) =>
+						prop.startsWith( '--purplish-' ) &&
+						! prop.startsWith( '--purplish-effect' )
+				)
+				.forEach( ( prop ) => figure.style.removeProperty( prop ) );
+		};
+	}, [ clientId, style ] );
 }
 
 /**
@@ -308,6 +383,18 @@ function pointerProps( { glass, hover, gallery, frame, cards, card } ) {
 	};
 }
 
+/**
+ * The style a class with this prefix names, as `purplish-image-hover-tilt`.
+ *
+ * @param {string[]} classes The block's Purplish classes.
+ * @param {string}   prefix  The class prefix.
+ * @return {string} The style, or '' when no class has the prefix.
+ */
+function styleIn( classes, prefix ) {
+	const found = classes.find( ( name ) => name.startsWith( prefix ) );
+	return found ? found.slice( prefix.length ) : '';
+}
+
 const withPurplishPreview = createHigherOrderComponent(
 	( BlockListBlock ) => ( props ) => {
 		const block = MAP[ props.name ];
@@ -327,15 +414,14 @@ const withPurplishPreview = createHigherOrderComponent(
 		);
 
 		useChips( props.clientId, classes.includes( MATCHING_CHIPS ) );
+		useImageHover( props.clientId, styleIn( classes, IMAGE_HOVER ) );
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';
 		if ( ! classes.length && ! hover ) {
 			return <BlockListBlock { ...props } />;
 		}
 
-		const style = classes.find( ( name ) =>
-			name.startsWith( GALLERY_HOVER )
-		);
+		const gallery = styleIn( classes, GALLERY_HOVER );
 		const wrapperProps = props.wrapperProps || {};
 		return (
 			<BlockListBlock
@@ -348,9 +434,7 @@ const withPurplishPreview = createHigherOrderComponent(
 					...pointerProps( {
 						glass: glassSelector( classes ),
 						hover,
-						gallery: style
-							? style.slice( GALLERY_HOVER.length )
-							: '',
+						gallery,
 						frame,
 						cards: CARD_FOLLOW.some( ( name ) =>
 							classes.includes( name )
