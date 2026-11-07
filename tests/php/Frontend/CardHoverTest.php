@@ -92,7 +92,7 @@ class CardHoverTest extends WP_UnitTestCase {
 		);
 		$this->assertSame( array(), $this->hover_classes( array( 'hover' => 'roster' ) + $all ) );
 
-		foreach ( array( 'arc', 'stage', 'grow', 'tiltrow', 'parallax', 'zoomin' ) as $hover ) {
+		foreach ( array( 'arc', 'stage', 'grow', 'tiltrow', 'parallax', 'zoomin', 'unfold', 'momentum', 'wheel' ) as $hover ) {
 			$this->assertCount( 3, $this->hover_classes( array( 'hover' => $hover ) + $all ), $hover );
 		}
 	}

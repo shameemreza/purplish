@@ -1,6 +1,7 @@
 <?php
 /**
- * Tests for the 1.1 card effects: bookmark, depth, overlap and roster.
+ * Tests for the card effects added after 1.0: bookmark, depth, overlap and
+ * roster in 1.1, and unfold, momentum and wheel in 1.2.
  *
  * @package Purplish
  */
@@ -11,12 +12,14 @@ use Purplish\Frontend\BlockEffects;
 use WP_UnitTestCase;
 
 /**
- * The four effects are new values of the 1.0 card effect. Each becomes a
- * wrapper class on the collection, and the stylesheet does the rest.
+ * The effects are new values of the 1.0 card effect. Each becomes a wrapper
+ * class on the collection, and the stylesheet does the rest.
  */
 class CardEffectsTest extends WP_UnitTestCase {
 
 	const NEW_VALUES = array( 'bookmark', 'depth', 'overlap', 'roster' );
+
+	const VALUES_12 = array( 'unfold', 'momentum', 'wheel' );
 
 	const COLLECTION = '<div class="wp-block-woocommerce-product-collection alignwide"><ul class="wc-block-product-template is-product-collection-layout-carousel is-horizontal"><li class="wc-block-product"><h3 class="wp-block-post-title"><a href="/product/lamp/">Lamp</a></h3></li></ul></div>';
 
@@ -40,7 +43,7 @@ class CardEffectsTest extends WP_UnitTestCase {
 	 * Each new value becomes its class.
 	 */
 	public function test_new_values() {
-		foreach ( self::NEW_VALUES as $hover ) {
+		foreach ( array_merge( self::NEW_VALUES, self::VALUES_12 ) as $hover ) {
 			$this->assertSame(
 				array( 'purplish-cards', 'purplish-cards-hover-' . $hover ),
 				BlockEffects::classes_for( 'woocommerce/product-collection', array( 'hover' => $hover ) ),
@@ -50,21 +53,21 @@ class CardEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The new values join the 1.0 list after the 1.0 values, which stay as
-	 * they were.
+	 * Each release's values join the list after the ones before, which stay
+	 * as they were.
 	 */
 	public function test_joins_the_list() {
 		$hover = BlockEffects::blocks()['woocommerce/product-collection']['options']['hover'];
 		$v1    = array( 'magnetic', 'spotlight', 'reveal', 'deck', 'clothesline', 'fan', 'arc', 'stage', 'expand', 'grow', 'tiltrow', 'parallax', 'zoomin', 'folder' );
 
-		$this->assertSame( array_merge( $v1, self::NEW_VALUES ), $hover );
+		$this->assertSame( array_merge( $v1, self::NEW_VALUES, self::VALUES_12 ), $hover );
 	}
 
 	/**
 	 * Bad values, and the right names with the wrong type, give nothing.
 	 */
 	public function test_bad_values() {
-		foreach ( array( 'Bookmark', 'coverflow', 'roster ', true, array( 'roster' ) ) as $bad ) {
+		foreach ( array( 'Bookmark', 'coverflow', 'roster ', 'Wheel', 'unfolded', true, array( 'roster' ) ) as $bad ) {
 			$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-collection', array( 'hover' => $bad ) ) );
 		}
 	}
@@ -98,7 +101,7 @@ class CardEffectsTest extends WP_UnitTestCase {
 	 * stylesheet leaves a grid as it is.
 	 */
 	public function test_markup_carousel() {
-		foreach ( array( 'depth', 'overlap', 'roster' ) as $hover ) {
+		foreach ( array( 'depth', 'overlap', 'roster', 'unfold', 'momentum', 'wheel' ) as $hover ) {
 			$this->assertSame(
 				str_replace( 'alignwide"', 'alignwide purplish-cards purplish-cards-hover-' . $hover . '"', self::COLLECTION ),
 				$this->render( array( 'hover' => $hover ) )
