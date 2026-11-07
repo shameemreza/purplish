@@ -5,8 +5,11 @@ import { describe, expect, it } from '@jest/globals';
 import {
 	classesFor,
 	colorStyle,
+	eyesIn,
 	glassSelector,
 	onColor,
+	pageClasses,
+	pageStyle,
 } from '../../assets/src/editor/preview-classes';
 
 const buyButton = {
@@ -94,5 +97,99 @@ describe( 'glassSelector', () => {
 		expect(
 			glassSelector( [ 'purplish-buybutton', 'purplish-buybutton-glow' ] )
 		).toBe( '' );
+	} );
+
+	it( 'names the add to cart button when its glass is on', () => {
+		expect(
+			glassSelector( [ 'purplish-cart', 'purplish-cart-glass' ] )
+		).toBe( '.wc-block-components-product-button__button' );
+	} );
+} );
+
+describe( 'eyesIn', () => {
+	it( 'counts the eyes the classes ask for', () => {
+		expect(
+			eyesIn( [ 'purplish-cart', 'purplish-cart-eyes-two' ], 'cart' )
+		).toBe( 2 );
+		expect(
+			eyesIn( [ 'purplish-cart', 'purplish-cart-eyes-one' ], 'cart' )
+		).toBe( 1 );
+		expect(
+			eyesIn( [ 'purplish-cart', 'purplish-cart-glass' ], 'cart' )
+		).toBe( 0 );
+		expect( eyesIn( [ 'purplish-badge-eyes-two' ], 'cart' ) ).toBe( 0 );
+	} );
+} );
+
+const page = {
+	parts: { button: true, chip: true, badge: true, price: false, tint: false },
+	switches: [ 'glow', 'mesh' ],
+	sample: {
+		color: '#8f43ee',
+		on: '#ffffff',
+		ink: '#4f2583',
+		tint: '#f2edff',
+	},
+};
+
+describe( 'pageClasses', () => {
+	it( 'takes the default parts when none are saved', () => {
+		expect( pageClasses( page, undefined ) ).toEqual( [
+			'purplish',
+			'purplish-active',
+			'purplish-part-button',
+			'purplish-part-chip',
+			'purplish-part-badge',
+		] );
+	} );
+
+	it( 'takes the saved parts and the switches the editor shows', () => {
+		expect(
+			pageClasses( page, {
+				parts: [ 'tint', 'button', 'nope' ],
+				mesh: true,
+				glow: 'yes',
+				halo: true,
+				dots: true,
+			} )
+		).toEqual( [
+			'purplish',
+			'purplish-active',
+			'purplish-part-button',
+			'purplish-part-tint',
+			'purplish-glow',
+			'purplish-mesh',
+		] );
+	} );
+
+	it( 'keeps the base classes with no part on', () => {
+		expect( pageClasses( page, { parts: [] } ) ).toEqual( [
+			'purplish',
+			'purplish-active',
+		] );
+	} );
+
+	it( 'gives nothing without page data', () => {
+		expect( pageClasses( {}, { parts: [ 'button' ] } ) ).toEqual( [] );
+		expect( pageClasses( undefined, undefined ) ).toEqual( [] );
+	} );
+} );
+
+describe( 'pageStyle', () => {
+	it( 'gives the sample colors as custom properties', () => {
+		expect( pageStyle( page ) ).toEqual( {
+			'--purplish-accent': '#8f43ee',
+			'--purplish-on': '#ffffff',
+			'--purplish-ink': '#4f2583',
+			'--purplish-tint': '#f2edff',
+		} );
+	} );
+
+	it( 'gives nothing for a missing or bad sample', () => {
+		expect( pageStyle( { sample: null } ) ).toEqual( {} );
+		expect(
+			pageStyle( { sample: { ...page.sample, tint: 'red' } } )
+		).toEqual( {} );
+		expect( pageStyle( undefined ) ).toEqual( {} );
 	} );
 } );

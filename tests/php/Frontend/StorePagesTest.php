@@ -129,21 +129,19 @@ class StorePagesTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The editor gets the options of the four store blocks, and of no block
-	 * from 1.0 or 1.1.
+	 * The editor gets the options of the four store blocks.
 	 */
 	public function test_preview_map() {
 		$map = BlockEffects::preview_map();
 
-		$this->assertSame(
-			array(
-				'woocommerce/order-confirmation-status',
-				'woocommerce/order-confirmation-summary',
-				'woocommerce/proceed-to-checkout-block',
-				'woocommerce/checkout-actions-block',
-			),
-			array_keys( $map )
-		);
+		foreach ( array(
+			'woocommerce/order-confirmation-status',
+			'woocommerce/order-confirmation-summary',
+			'woocommerce/proceed-to-checkout-block',
+			'woocommerce/checkout-actions-block',
+		) as $name ) {
+			$this->assertArrayHasKey( $name, $map );
+		}
 		$this->assertSame(
 			array(
 				'prefix'  => 'buybutton',

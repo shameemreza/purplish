@@ -41,14 +41,18 @@ body.purplish {
 		--purplish-tint 0.5s ease;
 }
 
-/* Add to cart button, block and classic themes. */
-body.purplish-active.purplish-part-button .single_add_to_cart_button {
+/*
+ * Add to cart button, block and classic themes. The editor draws it
+ * without `single_add_to_cart_button` and inert, so the editor preview
+ * marks it `purplish-hover` instead of `:hover`.
+ */
+body.purplish-active.purplish-part-button :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button) {
 	background-color: var(--purplish-accent);
 	border-color: var(--purplish-accent);
 	color: var(--purplish-on);
 }
 
-body.purplish-active.purplish-part-button .single_add_to_cart_button:is(:hover, :focus-visible) {
+body.purplish-active.purplish-part-button :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:hover, :focus-visible, .purplish-hover) {
 	background-color: color-mix(in oklab, var(--purplish-accent) 88%, var(--purplish-on));
 	border-color: color-mix(in oklab, var(--purplish-accent) 88%, var(--purplish-on));
 	color: var(--purplish-on);
@@ -507,14 +511,14 @@ body.purplish-mesh-b::before {
 }
 
 /* Glow ring: a ring of the accent around the add to cart button. */
-body.purplish-active.purplish-glow .single_add_to_cart_button {
+body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button) {
 	box-shadow:
 		0 0 0 3px color-mix(in oklab, var(--purplish-accent) 45%, transparent),
 		0 0 22px color-mix(in oklab, var(--purplish-accent) 55%, transparent);
 	transition: box-shadow 0.3s ease;
 }
 
-body.purplish-active.purplish-glow .single_add_to_cart_button:is(:hover, :focus-visible) {
+body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:hover, :focus-visible, .purplish-hover) {
 	box-shadow:
 		0 0 0 5px color-mix(in oklab, var(--purplish-accent) 55%, transparent),
 		0 0 32px color-mix(in oklab, var(--purplish-accent) 70%, transparent);
