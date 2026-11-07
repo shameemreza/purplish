@@ -217,3 +217,57 @@ describe( 'HOVER_BUTTONS', () => {
 		] );
 	} );
 } );
+
+describe( 'card hover looks', () => {
+	const cards = {
+		prefix: 'cards',
+		options: {
+			hover: [ 'deck', 'arc', 'reveal' ],
+			hoveron: [ 'card', 'photo', 'button', 'all' ],
+			hovercard: [ 'lift' ],
+			hoverphoto: [ 'push' ],
+			hoverbutton: [ 'glow' ],
+		},
+		legacy: {},
+		needs: {
+			hovercard: [
+				[ 'hoveron', [ 'card', 'all' ], true ],
+				[ 'hover', [ 'deck' ], false ],
+			],
+			hoverphoto: [
+				[ 'hoveron', [ 'photo', 'all' ], true ],
+				[ 'hover', [ 'reveal' ], false ],
+			],
+			hoverbutton: [ [ 'hoveron', [ 'button', 'all' ], true ] ],
+		},
+	};
+	const looks = {
+		hovercard: 'lift',
+		hoverphoto: 'push',
+		hoverbutton: 'glow',
+	};
+
+	it( 'prints only the looks the target reaches', () => {
+		expect( classesFor( cards, { hoveron: 'photo', ...looks } ) ).toEqual( [
+			'purplish-cards',
+			'purplish-cards-hoveron-photo',
+			'purplish-cards-hoverphoto-push',
+		] );
+		expect( classesFor( cards, looks ) ).toEqual( [] );
+	} );
+
+	it( 'leaves out the part the card effect already moves', () => {
+		expect(
+			classesFor( cards, { hover: 'deck', hoveron: 'all', ...looks } )
+		).toEqual( [
+			'purplish-cards',
+			'purplish-cards-hover-deck',
+			'purplish-cards-hoveron-all',
+			'purplish-cards-hoverphoto-push',
+			'purplish-cards-hoverbutton-glow',
+		] );
+		expect(
+			classesFor( cards, { hover: 'arc', hoveron: 'all', ...looks } )
+		).toHaveLength( 6 );
+	} );
+} );

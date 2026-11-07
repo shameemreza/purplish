@@ -81,7 +81,7 @@ Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it
 
 ## Product cards
 
-On the Product Collection block, add to cart can sit on the photo as a small frosted button, and button motion slides a bag icon in on hover. One effect color drives the button fill and the card effects. Then pick one card effect for the whole collection:
+On the Product Collection block, add to cart can sit on the photo as a small frosted button. One effect color drives the button fill, the card effects and the hover looks. Then pick one card effect for the whole collection:
 
 | When it plays | Effect | What shoppers see |
 |---|---|---|
@@ -105,6 +105,16 @@ On the Product Collection block, add to cart can sit on the photo as a small fro
 | | Zoom reveal | Each card grows in as it appears. |
 
 Carousel effects play only when the collection is a carousel. A grid stays as it is. Roster works the other way: it needs a grid, and phones and touch screens show the grid as it is.
+
+Under the card effect, pick where a hover look plays: the card, the photo, the add to cart button, or all three. Hover is off until you pick one, and it plays alongside any card effect.
+
+| Part | Looks |
+|---|---|
+| Card | Lift, Tilt, Ring, Torch |
+| Photo | Push in, Drift, Glare, Color bloom, Second photo (fades to the product's first gallery photo) |
+| Button | Bag and sweep, Glow ring, Sweep, Spectrum ring, Liquid glass |
+
+When the card effect already moves a part on hover, that part's look is skipped: Spotlight, Fan deck, Expanded cards, Magnetic panel, Card folder, Deck, Depth, Overlap and Clothes line skip the card look, Color reveal and Bookmark skip the photo look, and Roster has no hover looks. Without an effect color, the looks use your theme's text color. Collections saved with button motion keep it, as the Bag and sweep look.
 
 ## Filters and mini-cart
 
@@ -208,7 +218,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Title and price rise | Yes | Yes |
 | Gallery: hide thumbnails, rounded corners, hover style | Yes | Yes |
 | Gallery: full-screen and slide styles, frosted arrows | Yes | No |
-| Product cards and card effects | Yes | No |
+| Product cards, card effects and card hover looks | Yes | No |
 | Title focus, glow ring, halo, mesh background, color dots | Yes | No |
 | Accordion and Group styles | Yes | No |
 | Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |

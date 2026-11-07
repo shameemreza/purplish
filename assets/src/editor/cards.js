@@ -8,9 +8,19 @@ import {
 	ToggleControl,
 	BaseControl,
 } from '@wordpress/components';
+import * as components from '@wordpress/components';
 import { useSettings } from '@wordpress/block-editor';
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
+
+// WordPress 7.1 ships the segmented control under its experimental name
+// only; newer versions under the stable one.
+const ToggleGroupControl =
+	components.ToggleGroupControl ||
+	components.__experimentalToggleGroupControl;
+const ToggleGroupControlOption =
+	components.ToggleGroupControlOption ||
+	components.__experimentalToggleGroupControlOption;
 
 const HOVERS = [
 	{
@@ -49,6 +59,200 @@ const HOVERS = [
 ];
 
 /**
+ * Card effects that already move the whole card or change the photo on
+ * hover, as `BlockEffects::CARD_MOVERS` and `PHOTO_CHANGERS`. The hover
+ * look for that part is greyed out with them.
+ */
+const CARD_MOVERS = [
+	'magnetic',
+	'spotlight',
+	'fan',
+	'expand',
+	'folder',
+	'deck',
+	'depth',
+	'overlap',
+	'clothesline',
+	'roster',
+];
+const PHOTO_CHANGERS = [ 'reveal', 'bookmark', 'roster' ];
+
+/**
+ * The hover looks for each part of the card. The first is used when the
+ * part is turned on.
+ */
+const LOOKS = {
+	card: {
+		key: 'hovercard',
+		label: __( 'Card on hover', 'purplish' ),
+		options: [
+			{ value: 'lift', label: __( 'Lift', 'purplish' ) },
+			{ value: 'tilt', label: __( 'Tilt', 'purplish' ) },
+			{ value: 'ring', label: __( 'Ring', 'purplish' ) },
+			{ value: 'torch', label: __( 'Torch', 'purplish' ) },
+		],
+	},
+	photo: {
+		key: 'hoverphoto',
+		label: __( 'Photo on hover', 'purplish' ),
+		options: [
+			{ value: 'push', label: __( 'Push in', 'purplish' ) },
+			{ value: 'drift', label: __( 'Drift', 'purplish' ) },
+			{ value: 'glare', label: __( 'Glare', 'purplish' ) },
+			{ value: 'bloom', label: __( 'Color bloom', 'purplish' ) },
+			{ value: 'second', label: __( 'Second photo', 'purplish' ) },
+		],
+	},
+	button: {
+		key: 'hoverbutton',
+		label: __( 'Button on hover', 'purplish' ),
+		options: [
+			{ value: 'bag', label: __( 'Bag and sweep', 'purplish' ) },
+			{ value: 'glow', label: __( 'Glow ring', 'purplish' ) },
+			{ value: 'sweep', label: __( 'Sweep', 'purplish' ) },
+			{ value: 'spectrum', label: __( 'Spectrum ring', 'purplish' ) },
+			{ value: 'glass', label: __( 'Liquid glass', 'purplish' ) },
+		],
+	},
+};
+
+/**
+ * The parts a hover target covers.
+ *
+ * @param {string} target `card`, `photo`, `button`, `all` or ''.
+ * @return {string[]} The parts.
+ */
+const partsOf = ( target ) =>
+	'all' === target ? Object.keys( LOOKS ) : [ target ].filter( Boolean );
+
+/**
+ * The hover options as the panel shows them. A 1.1 block with Button
+ * motion on and no hover target reads as the button's Bag and sweep look,
+ * which is what it draws.
+ *
+ * @param {Object} saved The block's saved `purplish` attribute.
+ * @return {Object} `hoveron` and the three looks.
+ */
+function hoverValues( saved ) {
+	if ( true === saved.motion && ! saved.hoveron ) {
+		return { ...saved, hoveron: 'button', hoverbutton: 'bag' };
+	}
+	return saved;
+}
+
+/**
+ * The Hover section: where the hover plays, and one look per part.
+ *
+ * @param {Object}                    props       Section props.
+ * @param {Object}                    props.saved The block's saved `purplish` attribute.
+ * @param {(changes: Object) => void} props.save  Saves changed keys.
+ */
+function HoverControls( { saved, save } ) {
+	const values = hoverValues( saved );
+	const target = values.hoveron || '';
+	const moves = CARD_MOVERS.includes( saved.hover );
+	const changes = PHOTO_CHANGERS.includes( saved.hover );
+	const blocked = { card: moves, photo: changes, button: false };
+
+	// The first change here writes the hover keys out, so Button motion,
+	// which they replace, goes.
+	const update = ( next ) =>
+		save( {
+			hoveron: values.hoveron,
+			hoverbutton: values.hoverbutton,
+			...next,
+			motion: undefined,
+		} );
+
+	const pick = ( next ) => {
+		const looks = {};
+		partsOf( next ).forEach( ( part ) => {
+			const { key, options } = LOOKS[ part ];
+			looks[ key ] = values[ key ] || options[ 0 ].value;
+		} );
+		update( { hoveron: next || undefined, ...looks } );
+	};
+
+	let help = __(
+		'Plays while the mouse is on the card, alongside the card effect. Off on touch screens; looks that move are off for visitors who ask for reduced motion.',
+		'purplish'
+	);
+	if ( moves ) {
+		help = __(
+			'This card effect already moves the card on hover, so the card look is off. The photo and button looks still play.',
+			'purplish'
+		);
+	} else if ( changes ) {
+		help = __(
+			'This card effect already changes the photo on hover, so the photo look is off. The card and button looks still play.',
+			'purplish'
+		);
+	}
+
+	return (
+		<>
+			<ToggleGroupControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				isBlock
+				label={ __( 'Hover plays on', 'purplish' ) }
+				help={ help }
+				value={ target }
+				onChange={ pick }
+			>
+				<ToggleGroupControlOption
+					value=""
+					label={ __( 'Off', 'purplish' ) }
+				/>
+				<ToggleGroupControlOption
+					value="card"
+					label={ __( 'Card', 'purplish' ) }
+					disabled={ moves }
+				/>
+				<ToggleGroupControlOption
+					value="photo"
+					label={ __( 'Photo', 'purplish' ) }
+					disabled={ changes }
+				/>
+				<ToggleGroupControlOption
+					value="button"
+					label={ __( 'Button', 'purplish' ) }
+				/>
+				<ToggleGroupControlOption
+					value="all"
+					label={ __( 'All', 'purplish' ) }
+					disabled={ moves }
+				/>
+			</ToggleGroupControl>
+			{ partsOf( target )
+				.filter( ( part ) => ! blocked[ part ] )
+				.map( ( part ) => {
+					const { key, label, options } = LOOKS[ part ];
+					return (
+						<SelectControl
+							key={ key }
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ label }
+							value={ values[ key ] || options[ 0 ].value }
+							options={ options }
+							onChange={ ( look ) => update( { [ key ]: look } ) }
+							help={
+								'photo' === part && 'second' === values[ key ]
+									? __(
+											'Fades to the product’s first gallery photo on the store. Products without one keep their photo. The editor shows the main photo only.',
+											'purplish'
+										)
+									: undefined
+							}
+						/>
+					);
+				} ) }
+		</>
+	);
+}
+
+/**
  * The panel.
  *
  * @param {Object}                  props          Panel props.
@@ -72,16 +276,6 @@ export default function CardsPanel( { saved, setSaved } ) {
 				checked={ true === saved.overlay }
 				onChange={ ( overlay ) => save( { overlay } ) }
 			/>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Button motion', 'purplish' ) }
-				help={ __(
-					'A bag icon slides in and a light sweeps across on hover; the button fills and pops after adding to cart.',
-					'purplish'
-				) }
-				checked={ true === saved.motion }
-				onChange={ ( motion ) => save( { motion } ) }
-			/>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
@@ -104,12 +298,15 @@ export default function CardsPanel( { saved, setSaved } ) {
 					</optgroup>
 				) ) }
 			</SelectControl>
+			{ 'roster' !== saved.hover && (
+				<HoverControls saved={ saved } save={ save } />
+			) }
 			<BaseControl
 				__nextHasNoMarginBottom
 				id={ colorId }
 				label={ __( 'Effect color', 'purplish' ) }
 				help={ __(
-					'Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs, the card folder and the bookmark. On a product page with a variation color, that color is used instead.',
+					'Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs, the card folder, the bookmark and the hover looks. Without one, the hover looks use the theme’s text color. On a product page with a variation color, that color is used instead.',
 					'purplish'
 				) }
 			>

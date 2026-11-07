@@ -2,8 +2,8 @@
  * Shows the looks of blocks marked `preview` in the editor canvas: the same
  * wrapper classes and effect color as on the front end. The effect styles
  * load into the canvas from PHP; the front scripts don't, so the parts of
- * them that draw a hover look (the glass highlight, the photo hover styles)
- * are wired up here, and the googly eyes the server prints are added here.
+ * them that draw a hover look (the glass highlight, the photo hover styles,
+ * the card hover looks that follow the mouse) are wired up here, and the googly eyes the server prints are added here.
  *
  * The 1.0 page options on Add to Cart + Options are body classes on the
  * front end, with the product's color. The editor puts the same classes on
@@ -38,6 +38,14 @@ const PAGE_BLOCK = 'woocommerce/add-to-cart-with-options';
 const FRAME = '.wc-block-product-gallery-large-image';
 const GALLERY_HOVER = 'purplish-gallery-hover-';
 const MATCHING_CHIPS = 'purplish-filters-chips';
+const CARD = '.wc-block-product';
+const CARD_PHOTO = '.wc-block-components-product-image';
+const CARD_FOLLOW = [
+	'purplish-cards-hovercard-tilt',
+	'purplish-cards-hovercard-torch',
+	'purplish-cards-hoverphoto-drift',
+	'purplish-cards-hoverphoto-glare',
+];
 
 /**
  * The block's element in the canvas, which may sit in the editor iframe.
@@ -202,15 +210,17 @@ function under( element, event ) {
  * Pointer handlers for the hover looks a script draws on the front end.
  * Buttons are found by their box, since the editor can draw them inert.
  *
- * @param {Object} options         What the block has.
- * @param {string} options.glass   Selector of glass buttons, or ''.
- * @param {string} options.hover   Selector of buttons that get `purplish-hover`, or ''.
- * @param {string} options.gallery The gallery hover style, or ''.
- * @param {Object} options.frame   Ref holding the photo frame under the mouse.
+ * @param {Object}  options         What the block has.
+ * @param {string}  options.glass   Selector of glass buttons, or ''.
+ * @param {string}  options.hover   Selector of buttons that get `purplish-hover`, or ''.
+ * @param {string}  options.gallery The gallery hover style, or ''.
+ * @param {Object}  options.frame   Ref holding the photo frame under the mouse.
+ * @param {boolean} options.cards   Whether product cards follow the mouse.
+ * @param {Object}  options.card    Ref holding the product card under the mouse.
  * @return {Object} Props for the block wrapper, empty when there's nothing to follow.
  */
-function pointerProps( { glass, hover, gallery, frame } ) {
-	if ( ! glass && ! hover && ! gallery ) {
+function pointerProps( { glass, hover, gallery, frame, cards, card } ) {
+	if ( ! glass && ! hover && ! gallery && ! cards ) {
 		return {};
 	}
 	const selector = [ glass, hover ].filter( Boolean ).join( ', ' );
@@ -220,6 +230,24 @@ function pointerProps( { glass, hover, gallery, frame } ) {
 		if ( frame.current ) {
 			leaveFrame( frame.current, gallery );
 			frame.current = null;
+		}
+	};
+	// The card takes the tilt's variables, its photo the drift's and glare's.
+	const followCard = ( target, event ) => {
+		if ( card.current && card.current !== target ) {
+			leaveFrame( card.current, 'tilt' );
+			const photo = card.current.querySelector( CARD_PHOTO );
+			if ( photo ) {
+				leaveFrame( photo, '' );
+			}
+		}
+		card.current = target;
+		if ( target && event ) {
+			moveFrame( target, 'tilt', event, target, null );
+			const photo = target.querySelector( CARD_PHOTO );
+			if ( photo ) {
+				moveFrame( photo, '', event, photo, null );
+			}
 		}
 	};
 
@@ -238,6 +266,10 @@ function pointerProps( { glass, hover, gallery, frame } ) {
 					}
 				}
 			} );
+
+			if ( cards ) {
+				followCard( event.target.closest( CARD ), event );
+			}
 
 			if ( gallery ) {
 				const photo = event.target.closest( FRAME );
@@ -269,6 +301,9 @@ function pointerProps( { glass, hover, gallery, frame } ) {
 				clearHighlight( button );
 			} );
 			leavePhoto();
+			if ( cards ) {
+				followCard( null );
+			}
 		},
 	};
 }
@@ -279,6 +314,7 @@ const withPurplishPreview = createHigherOrderComponent(
 		const saved = props.attributes && props.attributes.purplish;
 		const classes = block ? classesFor( block, saved ) : [];
 		const frame = useRef( null );
+		const card = useRef( null );
 
 		usePageLook(
 			props.clientId,
@@ -316,6 +352,10 @@ const withPurplishPreview = createHigherOrderComponent(
 							? style.slice( GALLERY_HOVER.length )
 							: '',
 						frame,
+						cards: CARD_FOLLOW.some( ( name ) =>
+							classes.includes( name )
+						),
+						card,
 					} ),
 					style: { ...wrapperProps.style, ...colorStyle( saved ) },
 				} }

@@ -19,6 +19,7 @@ export const GLASS_BUTTONS = {
 	'purplish-buybutton-glass':
 		'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button',
 	'purplish-cart-glass': CART_BUTTON,
+	'purplish-cards-hoverbutton-glass': CART_BUTTON,
 };
 
 /**
@@ -123,9 +124,24 @@ export function glassSelector( classes ) {
 }
 
 /**
+ * Whether saved options meet an option's needs, as `needs_met()` in PHP.
+ * Each need is an option, its values and whether the saved value must be
+ * one of them.
+ *
+ * @param {Array}  needs  The option's needs.
+ * @param {Object} values The block's saved options.
+ * @return {boolean} Whether every need is met.
+ */
+export function needsMet( needs, values ) {
+	return needs.every(
+		( [ option, list, must ] ) => list.includes( values[ option ] ) === must
+	);
+}
+
+/**
  * Wrapper classes for a block's saved options, as `classes_for()` in PHP.
  *
- * @param {Object} block Map entry: prefix, options and legacy keys.
+ * @param {Object} block Map entry: prefix, options, legacy and needs keys.
  * @param {Object} saved The block's `purplish` attribute.
  * @return {string[]} Class names, empty when no option is on.
  */
@@ -144,9 +160,13 @@ export function classesFor( block, saved ) {
 	);
 
 	const prefix = 'purplish-' + block.prefix;
+	const needs = block.needs || {};
 	const classes = [];
 	Object.entries( block.options ).forEach( ( [ option, allowed ] ) => {
-		if ( ! ( option in values ) ) {
+		if (
+			! ( option in values ) ||
+			( needs[ option ] && ! needsMet( needs[ option ], values ) )
+		) {
 			return;
 		}
 		if ( allowed === true && values[ option ] === true ) {

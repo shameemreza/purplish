@@ -34,6 +34,23 @@ final class BlockEffects {
 	const ENTRANCES = array( 'fadeup', 'zoomin' );
 
 	/**
+	 * Card effects that already move the whole card on hover, so a card
+	 * hover look would fight them. Roster turns the cards into a list.
+	 */
+	const CARD_MOVERS = array( 'magnetic', 'spotlight', 'fan', 'expand', 'folder', 'deck', 'depth', 'overlap', 'clothesline', 'roster' );
+
+	/**
+	 * Card effects that already change the photo on hover.
+	 */
+	const PHOTO_CHANGERS = array( 'reveal', 'bookmark', 'roster' );
+
+	/**
+	 * Where a card hover look plays: the whole card, the photo, the add to
+	 * cart button, or all three.
+	 */
+	const HOVER_TARGETS = array( 'card', 'photo', 'button', 'all' );
+
+	/**
 	 * The button looks on Proceed to Checkout and Place Order.
 	 */
 	const BUY_BUTTON_LOOKS = array(
@@ -60,7 +77,12 @@ final class BlockEffects {
 	 *
 	 * `preview` marks a block whose look also shows in the editor.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, rows?: bool, eyes?: string, redrawn?: bool, preview?: bool}>
+	 * `needs` lists, per option, the other saved values it depends on: each
+	 * entry is an option, its values and whether the saved value must be one
+	 * of them (`true`) or must not be (`false`). An option whose needs aren't
+	 * met keeps its saved value but prints no class.
+	 *
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, needs?: array<string, array<int, array{0: string, 1: string[], 2: bool}>>, rows?: bool, eyes?: string, redrawn?: bool, preview?: bool}>
 	 */
 	public static function blocks() {
 		return array(
@@ -84,9 +106,9 @@ final class BlockEffects {
 			'woocommerce/product-collection'         => array(
 				'prefix'  => 'cards',
 				'options' => array(
-					'overlay' => true,
-					'motion'  => true,
-					'hover'   => array(
+					'overlay'     => true,
+					'motion'      => true,
+					'hover'       => array(
 						'magnetic',
 						'spotlight',
 						'reveal',
@@ -105,6 +127,26 @@ final class BlockEffects {
 						'depth',
 						'overlap',
 						'roster',
+					),
+					'hoveron'     => self::HOVER_TARGETS,
+					'hovercard'   => array( 'lift', 'tilt', 'ring', 'torch' ),
+					'hoverphoto'  => array( 'push', 'drift', 'glare', 'bloom', 'second' ),
+					'hoverbutton' => array( 'bag', 'glow', 'sweep', 'spectrum', 'glass' ),
+				),
+				// Each hover look plays only where the target says, and not
+				// on a card effect that already moves that part.
+				'needs'   => array(
+					'hovercard'   => array(
+						array( 'hoveron', array( 'card', 'all' ), true ),
+						array( 'hover', self::CARD_MOVERS, false ),
+					),
+					'hoverphoto'  => array(
+						array( 'hoveron', array( 'photo', 'all' ), true ),
+						array( 'hover', self::PHOTO_CHANGERS, false ),
+					),
+					'hoverbutton' => array(
+						array( 'hoveron', array( 'button', 'all' ), true ),
+						array( 'hover', array( 'roster' ), false ),
 					),
 				),
 				'preview' => true,
@@ -338,7 +380,7 @@ final class BlockEffects {
 	 * The options of blocks marked `preview`, for the editor script to work
 	 * out the same classes as `classes_for()`.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy: array<string, string[]>}>
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy: array<string, string[]>, needs?: array<string, mixed>}>
 	 */
 	public static function preview_map() {
 		$map = array();
@@ -351,6 +393,9 @@ final class BlockEffects {
 				'options' => $block['options'],
 				'legacy'  => isset( $block['legacy'] ) ? $block['legacy'] : array(),
 			);
+			if ( isset( $block['needs'] ) ) {
+				$map[ $name ]['needs'] = $block['needs'];
+			}
 		}
 		return $map;
 	}
@@ -393,9 +438,10 @@ final class BlockEffects {
 		}
 
 		$prefix  = 'purplish-' . $blocks[ $name ]['prefix'];
+		$needs   = isset( $blocks[ $name ]['needs'] ) ? $blocks[ $name ]['needs'] : array();
 		$classes = array();
 		foreach ( $blocks[ $name ]['options'] as $option => $allowed ) {
-			if ( ! isset( $saved[ $option ] ) ) {
+			if ( ! isset( $saved[ $option ] ) || ( isset( $needs[ $option ] ) && ! self::needs_met( $needs[ $option ], $saved ) ) ) {
 				continue;
 			}
 			if ( true === $allowed && true === $saved[ $option ] ) {
@@ -409,6 +455,23 @@ final class BlockEffects {
 			array_unshift( $classes, $prefix );
 		}
 		return $classes;
+	}
+
+	/**
+	 * Whether the saved options meet an option's needs (see `blocks()`).
+	 *
+	 * @param array<int, array{0: string, 1: string[], 2: bool}> $needs The option's needs.
+	 * @param array                                              $saved The block's saved options.
+	 * @return bool
+	 */
+	public static function needs_met( $needs, $saved ) {
+		foreach ( $needs as $need ) {
+			$value = isset( $saved[ $need[0] ] ) ? $saved[ $need[0] ] : null;
+			if ( in_array( $value, $need[1], true ) !== $need[2] ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**

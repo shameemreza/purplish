@@ -3,8 +3,9 @@
  * the mouse by setting CSS variables, the slide styles learn which way the
  * gallery moved, two full-screen styles measure the view, the active
  * filter chips copy a chip's look, the mini-cart count pops, the glass
- * button's highlight follows the mouse, googly eyes look at it, and
- * headings, groups and columns wait below the view until they scroll in.
+ * button's highlight follows the mouse, googly eyes look at it, card
+ * hover looks follow it, and headings, groups and columns wait below the
+ * view until they scroll in.
  * The stylesheet does the rest.
  */
 import { __, sprintf } from '@wordpress/i18n';
@@ -174,6 +175,56 @@ if ( canHover ) {
 			}
 		} );
 	}
+}
+
+const CARD_FOLLOW =
+	'.purplish-cards-hovercard-tilt, .purplish-cards-hovercard-torch, .purplish-cards-hoverphoto-drift, .purplish-cards-hoverphoto-glare';
+
+/**
+ * Card hover looks that follow the mouse: the card gets the mouse
+ * variables for its tilt and light, the photo its own for the drift and
+ * glare. One listener on the page, so cards a collection loads later
+ * follow too.
+ */
+function followCards() {
+	const cardAt = ( node ) =>
+		node.closest?.( `:is(${ CARD_FOLLOW }) .wc-block-product` );
+	const photoIn = ( card ) =>
+		card.querySelector( '.wc-block-components-product-image' );
+
+	document.addEventListener(
+		'pointermove',
+		( event ) => {
+			const card = cardAt( event.target );
+			if ( ! card ) {
+				return;
+			}
+			moveFrame( card, 'tilt', event, card, null );
+			const photo = photoIn( card );
+			if ( photo ) {
+				moveFrame( photo, '', event, photo, null );
+			}
+		},
+		{ passive: true }
+	);
+	document.addEventListener(
+		'pointerout',
+		( event ) => {
+			const card = cardAt( event.target );
+			if ( card && ! card.contains( event.relatedTarget ) ) {
+				leaveFrame( card, 'tilt' );
+				const photo = photoIn( card );
+				if ( photo ) {
+					leaveFrame( photo, '' );
+				}
+			}
+		},
+		{ passive: true }
+	);
+}
+
+if ( canHover && document.querySelector( CARD_FOLLOW ) ) {
+	followCards();
 }
 
 /**
@@ -516,7 +567,7 @@ function lookAt( eyes ) {
 if ( canHover ) {
 	document
 		.querySelectorAll(
-			'.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button'
+			'.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button, .purplish-cards-hoverbutton-glass .wc-block-components-product-button__button'
 		)
 		.forEach( glassHighlight );
 
