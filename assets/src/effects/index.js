@@ -8,6 +8,7 @@
  * The stylesheet does the rest.
  */
 import { __, sprintf } from '@wordpress/i18n';
+import { moveHighlight, clearHighlight } from '../shared/glass';
 import './style.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
@@ -622,21 +623,10 @@ if ( ! reduced ) {
  * @param {HTMLElement} button The link or button.
  */
 function glassHighlight( button ) {
-	button.addEventListener( 'pointermove', ( event ) => {
-		const box = button.getBoundingClientRect();
-		button.style.setProperty(
-			'--purplish-bx',
-			( ( event.clientX - box.left ) / box.width ) * 100 + '%'
-		);
-		button.style.setProperty(
-			'--purplish-by',
-			( ( event.clientY - box.top ) / box.height ) * 100 + '%'
-		);
-	} );
-	button.addEventListener( 'pointerleave', () => {
-		button.style.removeProperty( '--purplish-bx' );
-		button.style.removeProperty( '--purplish-by' );
-	} );
+	button.addEventListener( 'pointermove', ( event ) =>
+		moveHighlight( button, event )
+	);
+	button.addEventListener( 'pointerleave', () => clearHighlight( button ) );
 }
 
 const STILL = 1000;

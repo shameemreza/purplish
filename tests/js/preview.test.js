@@ -5,6 +5,7 @@ import { describe, expect, it } from '@jest/globals';
 import {
 	classesFor,
 	colorStyle,
+	glassSelector,
 	onColor,
 } from '../../assets/src/editor/preview-classes';
 
@@ -77,5 +78,21 @@ describe( 'colorStyle', () => {
 		} );
 		expect( colorStyle( { color: 'red;background:x' } ) ).toEqual( {} );
 		expect( colorStyle( {} ) ).toEqual( {} );
+	} );
+} );
+
+describe( 'glassSelector', () => {
+	it( 'names the checkout buttons only when glass is on', () => {
+		expect(
+			glassSelector( [
+				'purplish-buybutton',
+				'purplish-buybutton-glass',
+			] )
+		).toBe(
+			'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button'
+		);
+		expect(
+			glassSelector( [ 'purplish-buybutton', 'purplish-buybutton-glow' ] )
+		).toBe( '' );
 	} );
 } );
