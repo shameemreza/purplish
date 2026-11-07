@@ -2,7 +2,8 @@
  * Mouse drag with momentum for a carousel strip. Touch scrolling already
  * glides, so only the mouse is handled: the strip follows the drag, keeps
  * the speed it was let go at and eases to a stop, then the carousel's own
- * snap takes over again.
+ * snap takes over again. The strip gets a `purplish-thrown` event when it
+ * comes to rest.
  */
 
 /**
@@ -38,10 +39,13 @@ export function throwStrips( selector, glide ) {
 	let drag = null;
 	let frame = 0;
 
-	const stop = ( strip ) => {
+	const stop = ( strip, rest = false ) => {
 		window.cancelAnimationFrame( frame );
 		frame = 0;
 		strip.classList.remove( 'purplish-dragging' );
+		if ( rest ) {
+			strip.dispatchEvent( new window.Event( 'purplish-thrown' ) );
+		}
 	};
 
 	const slide = ( strip, speed, then ) => {
@@ -52,7 +56,7 @@ export function throwStrips( selector, glide ) {
 			if ( next && strip.scrollLeft !== before ) {
 				slide( strip, next, now );
 			} else {
-				stop( strip );
+				stop( strip, true );
 			}
 		} );
 	};
@@ -124,7 +128,7 @@ export function throwStrips( selector, glide ) {
 		if ( glide && event.timeStamp - at < 80 ) {
 			slide( strip, speed, window.performance.now() );
 		} else {
-			stop( strip );
+			stop( strip, true );
 		}
 	} );
 

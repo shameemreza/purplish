@@ -1,7 +1,8 @@
 <?php
 /**
  * Tests for the card effects added after 1.0: bookmark, depth, overlap and
- * roster in 1.1, and unfold, momentum, wheel and helix in 1.2.
+ * roster in 1.1, and unfold, momentum, wheel, helix and reel in 1.2, with
+ * details on the photo.
  *
  * @package Purplish
  */
@@ -19,7 +20,7 @@ class CardEffectsTest extends WP_UnitTestCase {
 
 	const NEW_VALUES = array( 'bookmark', 'depth', 'overlap', 'roster' );
 
-	const VALUES_12 = array( 'unfold', 'momentum', 'wheel', 'helix' );
+	const VALUES_12 = array( 'unfold', 'momentum', 'wheel', 'helix', 'reel' );
 
 	const COLLECTION = '<div class="wp-block-woocommerce-product-collection alignwide"><ul class="wc-block-product-template is-product-collection-layout-carousel is-horizontal"><li class="wc-block-product"><h3 class="wp-block-post-title"><a href="/product/lamp/">Lamp</a></h3></li></ul></div>';
 
@@ -67,7 +68,7 @@ class CardEffectsTest extends WP_UnitTestCase {
 	 * Bad values, and the right names with the wrong type, give nothing.
 	 */
 	public function test_bad_values() {
-		foreach ( array( 'Bookmark', 'coverflow', 'roster ', 'Wheel', 'unfolded', 'dna', true, array( 'roster' ) ) as $bad ) {
+		foreach ( array( 'Bookmark', 'coverflow', 'roster ', 'Wheel', 'unfolded', 'dna', 'Reel', true, array( 'roster' ) ) as $bad ) {
 			$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-collection', array( 'hover' => $bad ) ) );
 		}
 	}
@@ -101,11 +102,45 @@ class CardEffectsTest extends WP_UnitTestCase {
 	 * stylesheet leaves a grid as it is.
 	 */
 	public function test_markup_carousel() {
-		foreach ( array( 'depth', 'overlap', 'roster', 'unfold', 'momentum', 'wheel', 'helix' ) as $hover ) {
+		foreach ( array( 'depth', 'overlap', 'roster', 'unfold', 'momentum', 'wheel', 'helix', 'reel' ) as $hover ) {
 			$this->assertSame(
 				str_replace( 'alignwide"', 'alignwide purplish-cards purplish-cards-hover-' . $hover . '"', self::COLLECTION ),
 				$this->render( array( 'hover' => $hover ) )
 			);
+		}
+	}
+
+	/**
+	 * Details on the photo prints its class, takes the place of the button
+	 * on the photo, and stays off with Roster, which lists the names itself.
+	 */
+	public function test_details_on_the_photo() {
+		$name = 'woocommerce/product-collection';
+
+		$this->assertSame( array( 'purplish-cards', 'purplish-cards-details' ), BlockEffects::classes_for( $name, array( 'details' => true ) ) );
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-details', 'purplish-cards-hover-reel' ),
+			BlockEffects::classes_for(
+				$name,
+				array(
+					'overlay' => true,
+					'details' => true,
+					'hover'   => 'reel',
+				)
+			)
+		);
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-hover-roster' ),
+			BlockEffects::classes_for(
+				$name,
+				array(
+					'details' => true,
+					'hover'   => 'roster',
+				)
+			)
+		);
+		foreach ( array( 'yes', 1, 'true' ) as $bad ) {
+			$this->assertSame( array(), BlockEffects::classes_for( $name, array( 'details' => $bad ) ) );
 		}
 	}
 }

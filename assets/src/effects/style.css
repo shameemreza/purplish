@@ -514,7 +514,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	overflow: hidden;
 }
 
-.purplish-cards-overlay .wc-block-product .wc-block-components-product-image img {
+:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-image img {
 	transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -545,7 +545,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 }
 
-.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button {
+:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-button__button {
 	width: auto;
 	min-height: 40px;
 	padding: 0.5rem 1rem !important;
@@ -564,7 +564,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		box-shadow 0.3s;
 }
 
-.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button:active {
+:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-button__button:active {
 	scale: 0.97;
 }
 
@@ -582,13 +582,152 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		translate: 0 0;
 	}
 
-	.purplish-cards-overlay:not([class*="purplish-cards-hoverphoto-"]) .wc-block-product:hover .wc-block-components-product-image img {
+	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"]) .wc-block-product:hover .wc-block-components-product-image img {
 		transform: scale(1.06);
 	}
 
-	.purplish-cards-overlay .wc-block-product .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
+	:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
 		background-size: 100% 100%, auto !important;
 		color: var(--purplish-color-on) !important;
+	}
+}
+
+/*
+ * Cards, details on the photo: the title, price and add to cart sit on the
+ * bottom of the photo over a soft shade, the button as the frosted pill
+ * beside the price. With a mouse they show on hover or focus; touch screens
+ * always see them. The card becomes a grid that lays the photo across all
+ * its rows and the details in the last ones. On a narrow card the button
+ * takes its own row and long names stop at two lines. The shade is drawn
+ * on the layer WooCommerce puts over the photo for the sale badge, so the
+ * photo looks keep their own layers. Anything else in the card stays under
+ * the photo.
+ */
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) {
+	container: purplish-card / inline-size;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-rows: 1fr auto auto auto;
+	align-items: end;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > * {
+	grid-column: 1 / -1;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
+	grid-row: 1 / span 4;
+	align-self: stretch;
+	margin: 0 !important;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.purplish-cards-details .wc-block-product .wc-block-components-product-image__inner-container {
+	background: linear-gradient(to top, rgb(0 0 0 / 0.62), rgb(0 0 0 / 0.28) 16%, transparent 30%) no-repeat 0 100% / 100% 200%;
+	transition: background-position 0.4s ease-out;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+	z-index: 1;
+	margin: 0 !important;
+	color: #fff !important;
+	text-shadow: 0 1px 10px rgb(0 0 0 / 0.3);
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-post-title {
+	display: -webkit-box;
+	grid-row: 2;
+	padding: 0 1rem;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-price {
+	grid-column: 1;
+	grid-row: 3;
+	align-self: center;
+	padding: 0.25rem 0.75rem 1rem 1rem;
+}
+
+.purplish-cards-details .wc-block-product :is(.wp-block-post-title a, .wp-block-woocommerce-product-price *) {
+	color: inherit !important;
+}
+
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-button {
+	grid-column: 2;
+	grid-row: 3;
+	padding: 0.25rem 1rem 1rem 0;
+	text-shadow: none;
+}
+
+.purplish-cards-details .wc-block-product .wc-block-components-product-button {
+	width: auto !important;
+	margin: 0 !important;
+}
+
+@container purplish-card (max-width: 16rem) {
+
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-post-title {
+		padding: 0 0.75rem;
+		font-size: 0.875rem !important;
+	}
+
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-price {
+		grid-column: 1 / -1;
+		padding: 0.125rem 0.75rem 0.5rem;
+		font-size: 0.8125rem !important;
+	}
+
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-button {
+		grid-column: 1 / -1;
+		grid-row: 4;
+		justify-self: start;
+		padding: 0 0.75rem 0.75rem;
+	}
+
+	.purplish-cards-details .wc-block-product .wc-block-components-product-button__button {
+		min-height: 34px;
+		padding: 0.375rem 0.875rem !important;
+		font-size: 0.75rem !important;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-details .wc-block-product .wc-block-components-product-image__inner-container {
+		background-position: 0 0;
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image__inner-container {
+		background-position: 0 100%;
+	}
+
+	.purplish-cards-details :where(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+		opacity: 0;
+		translate: 0 12px;
+		transition: opacity 0.3s ease-out, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+		opacity: 1;
+		translate: 0 0;
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) .wp-block-woocommerce-product-price {
+		transition-delay: 40ms;
+	}
+
+	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) .wp-block-woocommerce-product-button {
+		transition-delay: 80ms;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-cards-details .wc-block-product :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+		translate: none !important;
 	}
 }
 
@@ -1933,15 +2072,30 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 @media (hover: hover) and (pointer: fine) {
 
-	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix) .wc-block-product-template.is-horizontal {
+	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel) .wc-block-product-template.is-horizontal {
 		cursor: grab;
 		user-select: none;
 	}
 
-	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix) .wc-block-product-template.is-horizontal.purplish-dragging {
+	:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel) .wc-block-product-template.is-horizontal.purplish-dragging {
 		cursor: grabbing;
 		scroll-snap-type: none;
 		scroll-behavior: auto;
+	}
+}
+
+/*
+ * The browser snaps to where cards are drawn, and these effects pull them
+ * toward the middle, so cards would rest off center. The script settles
+ * them on the nearest card instead.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		:is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel) .wc-block-product-template.is-horizontal {
+			scroll-snap-type: none;
+		}
 	}
 }
 
@@ -2199,6 +2353,252 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		z-index: 2;
 		opacity: 0.25;
 		filter: blur(5px) drop-shadow(calc(var(--purplish-side) * -5px) 0 0 rgb(255 40 90 / 0.5)) drop-shadow(calc(var(--purplish-side) * 5px) 0 0 rgb(40 190 255 / 0.5));
+	}
+}
+
+/*
+ * Cards, reel: in a carousel, the card in the middle faces you and the
+ * others stack in behind it on both sides, turned to face it, further back
+ * and softer the further out they are. Only the middle card shows the words
+ * under its photo, so the stack stays clean. The pull toward the middle is
+ * measured against the strip's width, so the stack looks the same on a
+ * phone and a wide screen. The hovered card comes forward and into focus.
+ * The strip can be dragged and thrown with the mouse, as momentum.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal {
+			perspective: 1200px;
+		}
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product {
+			animation: purplish-cards-reel linear both, purplish-cards-reel-soft linear both;
+			animation-timeline: view(inline 0);
+			transition: filter 0.3s ease, opacity 0.3s ease;
+		}
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product > :not(:is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) {
+			animation: purplish-cards-reel-words linear both;
+			animation-timeline: view(inline 0);
+		}
+
+		/*
+		 * Room at both ends, so the first and last cards can reach the
+		 * middle too. Half of what the card leaves, at each of
+		 * WooCommerce's card widths.
+		 */
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+			margin-inline-start: 28.75%;
+		}
+
+		.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+			margin-inline-end: 28.75%;
+		}
+
+		@container carousel (min-width: 600px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 35.75%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 35.75%;
+			}
+		}
+
+		@container carousel (min-width: 782px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 35.5%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 35.5%;
+			}
+		}
+
+		@container carousel (min-width: 960px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 39%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 39%;
+			}
+		}
+
+		@container carousel (min-width: 1280px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 41%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 41%;
+			}
+		}
+
+		@container carousel (min-width: 1440px) {
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:first-child {
+				margin-inline-start: 42.5%;
+			}
+
+			.purplish-cards-hover-reel .wc-block-product-template.is-horizontal .wc-block-product:last-child {
+				margin-inline-end: 42.5%;
+			}
+		}
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-hover-reel .wc-block-product-template.is-horizontal:not(.purplish-dragging) .wc-block-product:is(:hover, :focus-within) {
+		animation-name: purplish-cards-reel;
+		z-index: 20;
+	}
+
+	.purplish-cards-hover-reel .wc-block-product-template.is-horizontal:not(.purplish-dragging) .wc-block-product:is(:hover, :focus-within) > * {
+		animation: none;
+	}
+
+	/* With details on the photo, the words wait for hover on every card. */
+	.purplish-cards-hover-reel.purplish-cards-details .wc-block-product-template.is-horizontal .wc-block-product > :not(:is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) {
+		animation: none;
+	}
+}
+
+/*
+ * Place: pulled in toward the middle, turned to face it and pushed back.
+ * Safari stacks turned cards by how far back they sit rather than by
+ * z-index, so each card sits far enough behind its inner neighbor that
+ * its turned edge never pokes through.
+ */
+@keyframes purplish-cards-reel {
+
+	from {
+		translate: calc(var(--purplish-side) * -30cqi) 0 -380px;
+		rotate: y calc(var(--purplish-side) * 36deg);
+	}
+
+	12.5% {
+		translate: calc(var(--purplish-side) * -23cqi) 0 -310px;
+		rotate: y calc(var(--purplish-side) * 36deg);
+	}
+
+	25% {
+		translate: calc(var(--purplish-side) * -15cqi) 0 -230px;
+		rotate: y calc(var(--purplish-side) * 34deg);
+	}
+
+	37.5% {
+		translate: calc(var(--purplish-side) * -7cqi) 0 -140px;
+		rotate: y calc(var(--purplish-side) * 28deg);
+	}
+
+	50% {
+		translate: 0 0 0;
+		rotate: y 0deg;
+	}
+
+	62.5% {
+		translate: calc(var(--purplish-side) * 7cqi) 0 -140px;
+		rotate: y calc(var(--purplish-side) * -28deg);
+	}
+
+	75% {
+		translate: calc(var(--purplish-side) * 15cqi) 0 -230px;
+		rotate: y calc(var(--purplish-side) * -34deg);
+	}
+
+	87.5% {
+		translate: calc(var(--purplish-side) * 23cqi) 0 -310px;
+		rotate: y calc(var(--purplish-side) * -36deg);
+	}
+
+	to {
+		translate: calc(var(--purplish-side) * 30cqi) 0 -380px;
+		rotate: y calc(var(--purplish-side) * -36deg);
+	}
+}
+
+/* Distance: further cards sit back, blur and fade, the last ones out. */
+@keyframes purplish-cards-reel-soft {
+
+	from {
+		z-index: 2;
+		opacity: 0;
+		filter: blur(4px);
+	}
+
+	12.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3px);
+	}
+
+	25% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px);
+	}
+
+	37.5% {
+		z-index: 8;
+		opacity: 0.95;
+		filter: blur(1px);
+	}
+
+	50% {
+		z-index: 10;
+		opacity: 1;
+		filter: blur(0);
+	}
+
+	62.5% {
+		z-index: 8;
+		opacity: 0.95;
+		filter: blur(1px);
+	}
+
+	75% {
+		z-index: 6;
+		opacity: 0.6;
+		filter: blur(2px);
+	}
+
+	87.5% {
+		z-index: 4;
+		opacity: 0.4;
+		filter: blur(3px);
+	}
+
+	to {
+		z-index: 2;
+		opacity: 0;
+		filter: blur(4px);
+	}
+}
+
+/* Words: only the card in the middle shows what sits under its photo. */
+@keyframes purplish-cards-reel-words {
+
+	from,
+	36% {
+		opacity: 0;
+	}
+
+	46%,
+	54% {
+		opacity: 1;
+	}
+
+	64%,
+	to {
+		opacity: 0;
 	}
 }
 

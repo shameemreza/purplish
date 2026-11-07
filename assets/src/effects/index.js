@@ -5,9 +5,10 @@
  * filter chips copy a chip's look, the mini-cart count pops, added
  * products fly into the mini-cart, the glass
  * button's highlight follows the mouse, googly eyes look at it, card
- * hover looks follow it, a momentum or helix carousel can be thrown with the
- * mouse, and headings, groups and columns wait below the view until they
- * scroll in.
+ * hover looks follow it, a momentum, helix or reel carousel can be thrown
+ * with the mouse and settles on a card, a reel opens on its middle card,
+ * and headings, groups and columns wait below the view until they scroll
+ * in.
  * The stylesheet does the rest.
  */
 import { __, sprintf } from '@wordpress/i18n';
@@ -22,6 +23,7 @@ import {
 import { matchChips } from '../shared/chips';
 import { flyToCart } from '../shared/fly';
 import { throwStrips } from '../shared/throw';
+import { settleStrips } from '../shared/settle';
 import './style.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
@@ -664,12 +666,26 @@ if ( canHover ) {
 if (
 	window.matchMedia( '(hover: hover) and (pointer: fine)' ).matches &&
 	document.querySelector(
-		'.purplish-cards-hover-momentum, .purplish-cards-hover-helix'
+		'.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel'
 	)
 ) {
 	throwStrips(
-		':is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix) .wc-block-product-template.is-horizontal',
+		':is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix, .purplish-cards-hover-reel) .wc-block-product-template.is-horizontal',
 		! reduced
+	);
+}
+
+// Momentum, Helix and Reel pull cards toward the middle, which moves where
+// the browser snaps, so they settle on the nearest card here instead. A
+// reel opens on its middle card, so cards stack in on both sides.
+if ( ! reduced && window.CSS?.supports( 'animation-timeline: view()' ) ) {
+	settleStrips(
+		':is(.purplish-cards-hover-momentum, .purplish-cards-hover-helix) .wc-block-product-template.is-horizontal',
+		false
+	);
+	settleStrips(
+		'.purplish-cards-hover-reel .wc-block-product-template.is-horizontal',
+		true
 	);
 }
 
