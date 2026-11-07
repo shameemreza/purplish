@@ -538,7 +538,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		position: absolute;
 		z-index: 2;
 		position-anchor: --purplish-photo;
-		right: calc(anchor(right) + 12px);
+		right: calc(anchor(inside) + 12px);
 		bottom: calc(anchor(bottom) + 12px);
 		width: auto !important;
 		margin: 0 !important;
@@ -862,7 +862,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	position: absolute;
 	position-anchor: --purplish-hover;
 	top: calc(anchor(top) - 12px);
-	left: calc(anchor(left) - 12px);
+	left: calc(anchor(inside) - 12px);
 	width: calc(anchor-size(width) + 24px);
 	height: calc(anchor-size(height) + 24px);
 	border-radius: 30px;
@@ -945,6 +945,19 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
+ * Cards: the scroll effects' motion has a side, and keyframe values aren't
+ * flipped for right to left, so the keyframes multiply by this. On a right
+ * to left site a carousel card comes in from the left.
+ */
+.purplish-cards {
+	--purplish-side: 1;
+}
+
+.purplish-cards:dir(rtl) {
+	--purplish-side: -1;
+}
+
+/*
  * Cards, deck: in a carousel, cards fan back as they move toward the edges,
  * and every product stays clear. The hovered card turns to face you.
  */
@@ -966,7 +979,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-deck {
 
 	0% {
-		transform: perspective(1000px) rotateY(24deg) scale(0.88);
+		transform: perspective(1000px) rotateY(calc(var(--purplish-side) * 24deg)) scale(0.88);
 		filter: saturate(0.8);
 	}
 
@@ -977,7 +990,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	100% {
-		transform: perspective(1000px) rotateY(-16deg) scale(0.92);
+		transform: perspective(1000px) rotateY(calc(var(--purplish-side) * -16deg)) scale(0.92);
 		opacity: 0.6;
 	}
 }
@@ -1053,15 +1066,15 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-swing {
 
 	from {
-		--purplish-swing: 9deg;
+		--purplish-swing: calc(var(--purplish-side) * 9deg);
 	}
 
 	45% {
-		--purplish-swing: -5deg;
+		--purplish-swing: calc(var(--purplish-side) * -5deg);
 	}
 
 	75% {
-		--purplish-swing: 2deg;
+		--purplish-swing: calc(var(--purplish-side) * 2deg);
 	}
 
 	to {
@@ -1072,15 +1085,15 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-swing-hover {
 
 	20% {
-		--purplish-swing: -4deg;
+		--purplish-swing: calc(var(--purplish-side) * -4deg);
 	}
 
 	50% {
-		--purplish-swing: 2.5deg;
+		--purplish-swing: calc(var(--purplish-side) * 2.5deg);
 	}
 
 	75% {
-		--purplish-swing: -1deg;
+		--purplish-swing: calc(var(--purplish-side) * -1deg);
 	}
 }
 
@@ -1222,7 +1235,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 	from {
 		translate: 0 44px;
-		rotate: 9deg;
+		rotate: calc(var(--purplish-side) * 9deg);
 	}
 
 	50% {
@@ -1232,7 +1245,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 	to {
 		translate: 0 44px;
-		rotate: -9deg;
+		rotate: calc(var(--purplish-side) * -9deg);
 	}
 }
 
@@ -1267,7 +1280,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-tiltrow {
 
 	from {
-		rotate: -7deg;
+		rotate: calc(var(--purplish-side) * -7deg);
 	}
 
 	50% {
@@ -1275,7 +1288,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	to {
-		rotate: 7deg;
+		rotate: calc(var(--purplish-side) * 7deg);
 	}
 }
 
@@ -1309,11 +1322,11 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-parallax-x {
 
 	from {
-		translate: -8% 0;
+		translate: calc(var(--purplish-side) * -8%) 0;
 	}
 
 	to {
-		translate: 8% 0;
+		translate: calc(var(--purplish-side) * 8%) 0;
 	}
 }
 
@@ -1418,12 +1431,12 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 @keyframes purplish-depth {
 
 	from {
-		transform: perspective(900px) rotateY(70deg) scale(0.75);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * 70deg)) scale(0.75);
 		opacity: 0.5;
 	}
 
 	25% {
-		transform: perspective(900px) rotateY(38deg) scale(0.88);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * 38deg)) scale(0.88);
 		opacity: 0.8;
 	}
 
@@ -1434,12 +1447,12 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	75% {
-		transform: perspective(900px) rotateY(-38deg) scale(0.88);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * -38deg)) scale(0.88);
 		opacity: 0.8;
 	}
 
 	to {
-		transform: perspective(900px) rotateY(-70deg) scale(0.75);
+		transform: perspective(900px) rotateY(calc(var(--purplish-side) * -70deg)) scale(0.75);
 		opacity: 0.5;
 	}
 }
@@ -1610,19 +1623,6 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	.purplish-cards-hover-roster .wc-block-product-template:not(.is-horizontal) .wp-block-woocommerce-product-image:not(.wc-block-components-product-image) > .wc-block-components-product-image__inner-container {
 		inset-inline-start: 2.5rem;
 	}
-}
-
-/*
- * Cards, 1.2 effects: unfold, momentum and wheel. Each one's motion has a
- * side, and the stylesheet isn't flipped for right to left, so they read
- * the side from here.
- */
-:is(.purplish-cards-hover-unfold, .purplish-cards-hover-momentum, .purplish-cards-hover-wheel) {
-	--purplish-side: 1;
-}
-
-:is(.purplish-cards-hover-unfold, .purplish-cards-hover-momentum, .purplish-cards-hover-wheel):dir(rtl) {
-	--purplish-side: -1;
 }
 
 /*
