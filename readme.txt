@@ -150,6 +150,10 @@ It holds Cover blocks, one Product Collection and a Group. Each Cover is a shot:
 
 The opening video plays once and stops within 5 seconds, and nothing loops. Visitors who turn on reduced motion get each shot with its card beside it as a plain page. For video that follows the scroll smoothly, encode it with a keyframe every few frames; the block panel gives an ffmpeg line for it.
 
+= More Purplish blocks =
+
+* **Step Path:** numbered steps on a line that draws as the page scrolls, for how ordering, shipping or returns work. Comes with the How ordering works pattern.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
