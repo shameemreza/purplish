@@ -299,8 +299,13 @@ function pointerProps( { glass, hover, gallery, frame, cards, card } ) {
 		return {};
 	}
 	const selector = [ glass, hover ].filter( Boolean ).join( ', ' );
-	const buttons = ( wrapper ) =>
-		selector ? [ ...wrapper.querySelectorAll( selector ) ] : [];
+	const buttons = ( wrapper ) => {
+		if ( ! selector ) {
+			return [];
+		}
+		const inside = [ ...wrapper.querySelectorAll( selector ) ];
+		return wrapper.matches( selector ) ? [ wrapper, ...inside ] : inside;
+	};
 	const leavePhoto = () => {
 		if ( frame.current ) {
 			leaveFrame( frame.current, gallery );

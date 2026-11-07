@@ -2,7 +2,8 @@
  * Purplish effects that need a script: the gallery's hover styles follow
  * the mouse by setting CSS variables, the slide styles learn which way the
  * gallery moved, two full-screen styles measure the view, the active
- * filter chips copy a chip's look, the mini-cart count pops, the glass
+ * filter chips copy a chip's look, the mini-cart count pops, added
+ * products fly into the mini-cart, the glass
  * button's highlight follows the mouse, googly eyes look at it, card
  * hover looks follow it, and headings, groups and columns wait below the
  * view until they scroll in.
@@ -18,6 +19,7 @@ import {
 	fitImage,
 } from '../shared/hover';
 import { matchChips } from '../shared/chips';
+import { flyToCart } from '../shared/fly';
 import './style.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
@@ -478,6 +480,80 @@ if ( ! reduced ) {
 	document.querySelectorAll( '.purplish-minicart-pop' ).forEach( popCount );
 }
 
+const ADD_BUTTONS =
+	'.wc-block-components-product-button__button, .add_to_cart_button, .single_add_to_cart_button';
+const PRODUCT_PHOTOS =
+	'.wc-block-product-gallery-large-image img, .woocommerce-product-gallery__image img, .wp-block-woocommerce-product-image img';
+
+/**
+ * The photo of the product a button adds: the card's photo, or the large
+ * photo on a product page.
+ *
+ * @param {HTMLElement} button The add to cart button.
+ * @return {HTMLImageElement|undefined} The photo, if one is on screen.
+ */
+function photoOf( button ) {
+	const card = button.closest( '.wc-block-product, li.product' );
+	return [
+		...( card || document ).querySelectorAll(
+			card ? 'img' : PRODUCT_PHOTOS
+		),
+	].find( ( photo ) => photo.getBoundingClientRect().width );
+}
+
+/**
+ * Flies the product photo into the mini-cart once WooCommerce says the
+ * product is in the cart, so a failed add flies nothing. Runway flies its
+ * own photos, and a mini-cart whose drawer opens on add is covered by the
+ * drawer, so neither flies here.
+ */
+function flyOnAdd() {
+	const carts = [
+		...document.querySelectorAll( '.purplish-minicart-fly' ),
+	].filter(
+		( cart ) =>
+			! cart.hasAttribute(
+				'data-wp-on-document--wc-blocks_added_to_cart---open-drawer'
+			)
+	);
+	if ( ! carts.length ) {
+		return;
+	}
+	let last = null;
+	document.addEventListener(
+		'click',
+		( event ) => {
+			const button = event.target.closest?.( ADD_BUTTONS );
+			if ( button && ! button.closest( '.purplish-runway-fly-on' ) ) {
+				last = { button, at: event.timeStamp };
+			}
+		},
+		true
+	);
+	document.addEventListener( 'wc-blocks_added_to_cart', ( event ) => {
+		const from = last;
+		last = null;
+		if ( ! from || event.timeStamp - from.at > 10000 ) {
+			return;
+		}
+		const photo = photoOf( from.button );
+		const target = carts
+			.map( ( cart ) =>
+				cart.querySelector( '.wc-block-mini-cart__button' )
+			)
+			.find( ( button ) => button && button.getClientRects().length );
+		if ( photo && target ) {
+			const way =
+				'rtl' === window.getComputedStyle( target ).direction ? -1 : 1;
+			flyToCart( photo, target, way, 'purplish-fly' );
+		}
+	} );
+}
+
+if ( ! reduced ) {
+	flyOnAdd();
+}
+
 /**
  * Moves the glass button's highlight under the mouse. It drifts back to
  * the top when the mouse leaves.
@@ -557,15 +633,16 @@ if ( canHover ) {
 		)
 		.forEach( glassHighlight );
 
-	// WooCommerce draws the checkout buttons after this script runs, so the
-	// highlight starts on the first pointer over each one.
+	// WooCommerce draws the checkout buttons after this script runs, and
+	// the drawer's again when it fills, so the highlight starts on the
+	// first pointer over each one.
 	if ( document.querySelector( '.purplish-buybutton-glass' ) ) {
 		const ready = new WeakSet();
 		document.addEventListener(
 			'pointerover',
 			( event ) => {
 				const button = event.target.closest?.(
-					'.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button)'
+					'.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button), .purplish-buybutton-glass.wc-block-mini-cart__footer-checkout'
 				);
 				if ( button && ! ready.has( button ) ) {
 					ready.add( button );

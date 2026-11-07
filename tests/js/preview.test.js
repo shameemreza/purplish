@@ -93,7 +93,7 @@ describe( 'glassSelector', () => {
 				'purplish-buybutton-glass',
 			] )
 		).toBe(
-			'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button'
+			'.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button, .wc-block-mini-cart__footer-checkout'
 		);
 		expect(
 			glassSelector( [ 'purplish-buybutton', 'purplish-buybutton-glow' ] )
@@ -200,6 +200,30 @@ describe( 'HOVER_BUTTONS', () => {
 		expect( HOVER_BUTTONS[ 'woocommerce/product-collection' ] ).toBe(
 			'.wc-block-components-product-button__button'
 		);
+	} );
+
+	it( 'marks the product rows in the drawer and on the Cart page', () => {
+		expect( HOVER_BUTTONS[ 'woocommerce/mini-cart-contents' ] ).toBe(
+			'.wc-block-cart-items__row'
+		);
+		expect( HOVER_BUTTONS[ 'woocommerce/cart' ] ).toBe(
+			'.wc-block-cart-items__row'
+		);
+	} );
+
+	it( 'gives the Cart page classes the server prints', () => {
+		const cartPage = {
+			prefix: 'cartpage',
+			options: { rows: true, photos: true, sticky: true },
+			legacy: {},
+		};
+		expect(
+			classesFor( cartPage, { rows: true, sticky: true, spring: true } )
+		).toEqual( [
+			'purplish-cartpage',
+			'purplish-cartpage-rows',
+			'purplish-cartpage-sticky',
+		] );
 	} );
 
 	it( 'gives the card classes the server prints', () => {
