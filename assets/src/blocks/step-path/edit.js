@@ -5,16 +5,13 @@
  */
 import {
 	InspectorControls,
-	store as blockEditorStore,
 	useBlockProps,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { createBlocksFromInnerBlocksTemplate } from '@wordpress/blocks';
 import { PanelBody, SelectControl } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+import { useFillNewGroups } from '../../shared/fill-new-groups';
 import metadata from './block.json';
 
 const DIRECTIONS = [
@@ -51,51 +48,11 @@ const STEP = [
 
 const TEMPLATE = [ STEP, STEP, STEP ];
 
-// The add button inserts a group straight away; the hook below fills it.
+// The add button inserts a group straight away; useFillNewGroups fills it.
 const DEFAULT_BLOCK = {
 	name: 'core/group',
 	attributes: { layout: { type: 'default' } },
 };
-
-/**
- * Gives a step added after the block loaded a heading and a paragraph, so
- * it doesn't open on the empty group's layout picker. Saved steps and
- * steps a merchant empties later are left alone.
- *
- * @param {string} clientId The Step Path block's client ID.
- */
-function useFillNewSteps( clientId ) {
-	const steps = useSelect(
-		( select ) => select( blockEditorStore ).getBlocks( clientId ),
-		[ clientId ]
-	);
-	const { replaceInnerBlocks, __unstableMarkNextChangeAsNotPersistent } =
-		useDispatch( blockEditorStore );
-	const known = useRef( null );
-
-	useEffect( () => {
-		const before = known.current;
-		known.current = new Set( steps.map( ( step ) => step.clientId ) );
-		if ( ! before ) {
-			return;
-		}
-		steps
-			.filter(
-				( step ) =>
-					! before.has( step.clientId ) &&
-					'core/group' === step.name &&
-					! step.innerBlocks.length
-			)
-			.forEach( ( step ) => {
-				__unstableMarkNextChangeAsNotPersistent();
-				replaceInnerBlocks(
-					step.clientId,
-					createBlocksFromInnerBlocksTemplate( STEP[ 2 ] ),
-					false
-				);
-			} );
-	}, [ steps, replaceInnerBlocks, __unstableMarkNextChangeAsNotPersistent ] );
-}
 
 /**
  * The editor view and the block panel.
@@ -107,7 +64,7 @@ function useFillNewSteps( clientId ) {
  */
 export default function Edit( { attributes, setAttributes, clientId } ) {
 	const { direction, marker, line } = attributes;
-	useFillNewSteps( clientId );
+	useFillNewGroups( clientId, STEP[ 2 ] );
 	const blockProps = useBlockProps( {
 		className: `purplish-path-direction-${ direction } purplish-path-marker-${ marker } purplish-path-line-${ line }`,
 	} );
