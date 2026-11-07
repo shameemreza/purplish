@@ -27,6 +27,7 @@ import ColumnsPanel from './columns';
 import CoverPanel from './cover';
 import BuyButtonPanel from './buy-button';
 import { OrderStatusPanel, OrderSummaryPanel } from './order-confirmation';
+import './preview';
 
 const PANELS = {
 	'woocommerce/add-to-cart-with-options': AddToCartPanel,
