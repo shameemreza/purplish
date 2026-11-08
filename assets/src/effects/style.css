@@ -4250,6 +4250,110 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Steps: a number before each section title, counted by Purplish, so it
+ * shows whether or not WooCommerce's own step numbers are on. When they
+ * are, these take their place, along with their line. Only sections with
+ * a title are counted, so the order note isn't.
+ */
+.purplish-checkoutpage:is(.purplish-checkoutpage-steps-badges, .purplish-checkoutpage-steps-timeline) .wc-block-checkout__form {
+	counter-reset: purplish-step;
+}
+
+.purplish-checkoutpage:is(.purplish-checkoutpage-steps-badges, .purplish-checkoutpage-steps-timeline) .wc-block-checkout__form--with-step-numbers .wc-block-components-checkout-step--with-step-number {
+	padding: 0;
+}
+
+.purplish-checkoutpage:is(.purplish-checkoutpage-steps-badges, .purplish-checkoutpage-steps-timeline) .wc-block-checkout__form--with-step-numbers .wc-block-components-checkout-step--with-step-number :is(.wc-block-components-checkout-step__content, .wc-block-components-checkout-step__description)::before {
+	display: none;
+}
+
+.purplish-checkoutpage:is(.purplish-checkoutpage-steps-badges, .purplish-checkoutpage-steps-timeline) .wc-block-checkout__form .wc-block-components-checkout-step .wc-block-components-checkout-step__title::before {
+	content: counter(purplish-step);
+	counter-increment: purplish-step;
+	display: inline-flex;
+	box-sizing: border-box;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	margin: 0;
+	padding: 0;
+	border-radius: 50%;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1;
+	white-space: nowrap;
+	transform: none;
+}
+
+/* Badges: the number in a filled circle of the effect color. */
+.purplish-checkoutpage.purplish-checkoutpage-steps-badges .wc-block-checkout__form .wc-block-components-checkout-step .wc-block-components-checkout-step__title {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-steps-badges .wc-block-checkout__form .wc-block-components-checkout-step .wc-block-components-checkout-step__title::before {
+	position: static;
+	border: 0;
+	background: var(--purplish-color);
+	color: var(--purplish-fx-on, var(--purplish-effect-on, var(--wp--preset--color--base, #fff)));
+}
+
+/*
+ * Timeline: each section moves in to make room for a ringed number beside
+ * its title, with a line in the effect color down the side of its fields.
+ */
+.purplish-checkoutpage.purplish-checkoutpage-steps-timeline .wc-block-checkout__form .wc-block-components-checkout-step:has(> .wc-block-components-checkout-step__heading-container) {
+	padding-inline-start: 44px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-steps-timeline .wc-block-checkout__form .wc-block-components-checkout-step .wc-block-components-checkout-step__title {
+	position: relative;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-steps-timeline .wc-block-checkout__form .wc-block-components-checkout-step .wc-block-components-checkout-step__title::before {
+	position: absolute;
+	top: 50%;
+	inset-inline-start: -44px;
+	border: 2px solid var(--purplish-color);
+	background: transparent;
+	color: inherit;
+	transform: translateY(-50%);
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-steps-timeline .wc-block-checkout__form .wc-block-components-checkout-step:has(> .wc-block-components-checkout-step__heading-container) > .wc-block-components-checkout-step__content {
+	position: relative;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-steps-timeline .wc-block-checkout__form .wc-block-components-checkout-step:has(> .wc-block-components-checkout-step__heading-container) > .wc-block-components-checkout-step__content::before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	inset-inline-start: -31px;
+	border-inline-start: 2px solid color-mix(in oklab, var(--purplish-color) 35%, transparent);
+}
+
+/* Lock: a small lock before "Place Order", in the button's text color. */
+.purplish-buybutton-lock .wc-block-components-checkout-place-order-button__text {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.purplish-buybutton-lock .wc-block-components-checkout-place-order-button__text::before {
+	content: "";
+	flex: none;
+	width: 1em;
+	height: 1em;
+	background-color: currentcolor;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 11V7.5a4 4 0 0 1 8 0V11' fill='none' stroke='%23000' stroke-width='2.4'/%3E%3Crect x='4.5' y='10' width='15' height='12' rx='3'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/*
  * Spring slide: the drawer opens with a soft settle, then each item and the
  * footer follow one after another. It plays every time the drawer opens.
  * WooCommerce turns the drawer's own slide off for reduced motion, and so

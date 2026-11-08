@@ -25,6 +25,12 @@ const CHOICES = [
 	{ value: 'list', label: __( 'List', 'purplish' ) },
 ];
 
+const STEPS = [
+	{ value: '', label: __( 'None', 'purplish' ) },
+	{ value: 'badges', label: __( 'Badges', 'purplish' ) },
+	{ value: 'timeline', label: __( 'Timeline', 'purplish' ) },
+];
+
 const LOOKS = [
 	{
 		key: 'focus',
@@ -110,6 +116,18 @@ export default function CheckoutPagePanel( { saved, setSaved } ) {
 					save( { choices: choices || undefined } )
 				}
 			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Step numbers', 'purplish' ) }
+				help={ __(
+					"Badges puts each section's number in a circle of the effect color, timeline puts it in a ring beside the section with a line down its side. Either one replaces WooCommerce's own step numbers.",
+					'purplish'
+				) }
+				value={ saved.steps || '' }
+				options={ STEPS }
+				onChange={ ( steps ) => save( { steps: steps || undefined } ) }
+			/>
 			{ LOOKS.map( ( look ) => (
 				<ToggleControl
 					key={ look.key }
@@ -125,7 +143,7 @@ export default function CheckoutPagePanel( { saved, setSaved } ) {
 				id={ colorId }
 				label={ __( 'Effect color', 'purplish' ) }
 				help={ __(
-					"Colors the focus ring, the picked choice and the total line, and tints the filled fields, the summary and the side panel. Without one, they use the theme's text color.",
+					"Colors the focus ring, the picked choice, the total line and the step numbers, and tints the filled fields, the summary and the side panel. Without one, they use the theme's text color.",
 					'purplish'
 				) }
 			>

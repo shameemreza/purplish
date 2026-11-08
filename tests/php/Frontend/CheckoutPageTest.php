@@ -94,6 +94,36 @@ class CheckoutPageTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Step numbers take badges or timeline, and nothing else.
+	 */
+	public function test_steps_options() {
+		foreach ( array( 'badges', 'timeline' ) as $steps ) {
+			$this->assertSame(
+				array( 'purplish-checkoutpage', 'purplish-checkoutpage-steps-' . $steps ),
+				BlockEffects::classes_for( 'woocommerce/checkout', array( 'steps' => $steps ) ),
+				$steps
+			);
+		}
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/checkout', array( 'steps' => 'numbers' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/checkout', array( 'steps' => true ) ) );
+	}
+
+	/**
+	 * Step numbers sit on the same wrapper as the other looks.
+	 */
+	public function test_steps_markup() {
+		$out = $this->render(
+			array(
+				'choices' => 'cards',
+				'steps'   => 'timeline',
+				'color'   => '#8a4b2d',
+			)
+		);
+
+		$this->assertStringStartsWith( '<div class="wp-block-woocommerce-checkout alignwide wc-block-checkout is-loading purplish-checkoutpage purplish-checkoutpage-choices-cards purplish-checkoutpage-steps-timeline purplish-color-8a4b2d">', $out );
+	}
+
+	/**
 	 * Round 1 and round 2 looks sit together on the one wrapper.
 	 */
 	public function test_layout_markup() {
@@ -145,5 +175,6 @@ class CheckoutPageTest extends WP_UnitTestCase {
 		$this->assertSame( array( 'cards', 'list' ), $map['woocommerce/checkout']['options']['choices'] );
 		$this->assertTrue( $map['woocommerce/checkout']['options']['side'] );
 		$this->assertTrue( $map['woocommerce/checkout']['options']['cards'] );
+		$this->assertSame( array( 'badges', 'timeline' ), $map['woocommerce/checkout']['options']['steps'] );
 	}
 }

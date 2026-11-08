@@ -44,21 +44,31 @@ const LOOKS = [
 	},
 ];
 
+const LOCK = {
+	key: 'lock',
+	label: __( 'Lock icon', 'purplish' ),
+	help: __(
+		"A small lock before Place Order, in the button's text color.",
+		'purplish'
+	),
+};
+
 /**
  * The panel.
  *
  * @param {Object}                  props          Panel props.
  * @param {Object}                  props.saved    The block's saved `purplish` attribute.
  * @param {(saved: Object) => void} props.setSaved Saves a new `purplish` attribute.
+ * @param {boolean}                 [props.lock]   Offers the lock icon too (Place Order only).
  */
-export default function BuyButtonPanel( { saved, setSaved } ) {
+export default function BuyButtonPanel( { saved, setSaved, lock = false } ) {
 	const [ palette ] = useSettings( 'color.palette' );
 	const colorId = useInstanceId( BuyButtonPanel, 'purplish-effect-color' );
 	const save = ( changes ) => setSaved( { ...saved, ...changes } );
 
 	return (
 		<PanelBody title={ __( 'Purplish', 'purplish' ) }>
-			{ LOOKS.map( ( look ) => (
+			{ ( lock ? [ ...LOOKS, LOCK ] : LOOKS ).map( ( look ) => (
 				<ToggleControl
 					key={ look.key }
 					__nextHasNoMarginBottom
@@ -86,4 +96,13 @@ export default function BuyButtonPanel( { saved, setSaved } ) {
 			</BaseControl>
 		</PanelBody>
 	);
+}
+
+/**
+ * The panel on Place Order, with the lock icon.
+ *
+ * @param {Object} props Panel props, as for BuyButtonPanel.
+ */
+export function PlaceOrderPanel( props ) {
+	return <BuyButtonPanel { ...props } lock />;
 }

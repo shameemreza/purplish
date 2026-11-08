@@ -85,6 +85,36 @@ class StorePagesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The lock goes on Place Order only: Proceed to Checkout and Go to
+	 * checkout don't take it.
+	 */
+	public function test_lock_on_place_order_only() {
+		$this->assertSame(
+			array( 'purplish-buybutton', 'purplish-buybutton-glow', 'purplish-buybutton-lock' ),
+			BlockEffects::classes_for(
+				'woocommerce/checkout-actions-block',
+				array(
+					'glow' => true,
+					'lock' => true,
+				)
+			)
+		);
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/checkout-actions-block', array( 'lock' => 'yes' ) ) );
+		foreach ( array( 'woocommerce/proceed-to-checkout-block', 'woocommerce/mini-cart-checkout-button-block' ) as $name ) {
+			$this->assertSame( array(), BlockEffects::classes_for( $name, array( 'lock' => true ) ), $name );
+		}
+	}
+
+	/**
+	 * Place Order keeps its markup with the lock on.
+	 */
+	public function test_lock_markup() {
+		$out = $this->render( 'woocommerce/checkout-actions-block', self::PROCEED, array( 'lock' => true ) );
+
+		$this->assertSame( '<div class="wp-block-woocommerce-proceed-to-checkout-block purplish-buybutton purplish-buybutton-lock"></div>', $out );
+	}
+
+	/**
 	 * The status block keeps its markup; the classes and the effect color
 	 * go on its wrapper.
 	 */
@@ -145,11 +175,12 @@ class StorePagesTest extends WP_UnitTestCase {
 		$this->assertSame(
 			array(
 				'prefix'  => 'buybutton',
-				'options' => BlockEffects::BUY_BUTTON_LOOKS,
+				'options' => BlockEffects::BUY_BUTTON_LOOKS + array( 'lock' => true ),
 				'legacy'  => array(),
 			),
 			$map['woocommerce/checkout-actions-block']
 		);
+		$this->assertSame( BlockEffects::BUY_BUTTON_LOOKS, $map['woocommerce/proceed-to-checkout-block']['options'] );
 	}
 
 	/**
