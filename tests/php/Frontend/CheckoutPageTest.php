@@ -1,7 +1,7 @@
 <?php
 /**
- * Tests for the Checkout page looks: field style, focus ring, soft summary
- * and bigger photos.
+ * Tests for the Checkout page looks: field style, focus ring, soft summary,
+ * bigger photos, choices, side panel and raised card.
  *
  * @package Purplish
  */
@@ -70,6 +70,47 @@ class CheckoutPageTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Choices take cards or list; the side panel and raised card are switches.
+	 */
+	public function test_layout_options() {
+		foreach ( array( 'cards', 'list' ) as $choices ) {
+			$this->assertSame(
+				array( 'purplish-checkoutpage', 'purplish-checkoutpage-choices-' . $choices, 'purplish-checkoutpage-side', 'purplish-checkoutpage-cards' ),
+				BlockEffects::classes_for(
+					'woocommerce/checkout',
+					array(
+						'choices' => $choices,
+						'side'    => true,
+						'cards'   => true,
+					)
+				),
+				$choices
+			);
+		}
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/checkout', array( 'choices' => 'tiles' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/checkout', array( 'choices' => true ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/checkout', array( 'side' => 'tint' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/checkout', array( 'cards' => 'white' ) ) );
+	}
+
+	/**
+	 * Round 1 and round 2 looks sit together on the one wrapper.
+	 */
+	public function test_layout_markup() {
+		$out = $this->render(
+			array(
+				'summary' => true,
+				'choices' => 'list',
+				'side'    => true,
+				'color'   => '#2f6f4f',
+			)
+		);
+
+		$this->assertStringStartsWith( '<div class="wp-block-woocommerce-checkout alignwide wc-block-checkout is-loading purplish-checkoutpage purplish-checkoutpage-summary purplish-checkoutpage-choices-list purplish-checkoutpage-side purplish-color-2f6f4f">', $out );
+		$this->assertStringContainsString( '<div class="wp-block-woocommerce-checkout-fields-block"></div>', $out );
+	}
+
+	/**
 	 * The classes and the color class go on the outer wrapper, never on the
 	 * inner blocks, and the color is printed once as a rule.
 	 */
@@ -101,5 +142,8 @@ class CheckoutPageTest extends WP_UnitTestCase {
 
 		$this->assertSame( 'checkoutpage', $map['woocommerce/checkout']['prefix'] );
 		$this->assertSame( array( 'soft', 'filled', 'underline' ), $map['woocommerce/checkout']['options']['fields'] );
+		$this->assertSame( array( 'cards', 'list' ), $map['woocommerce/checkout']['options']['choices'] );
+		$this->assertTrue( $map['woocommerce/checkout']['options']['side'] );
+		$this->assertTrue( $map['woocommerce/checkout']['options']['cards'] );
 	}
 }

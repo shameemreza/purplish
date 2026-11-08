@@ -255,6 +255,40 @@ describe( 'HOVER_BUTTONS', () => {
 		);
 	} );
 
+	it( 'gives the Checkout layout classes the server prints', () => {
+		const checkoutPage = {
+			prefix: 'checkoutpage',
+			options: {
+				fields: [ 'soft', 'filled', 'underline' ],
+				focus: true,
+				summary: true,
+				photos: true,
+				choices: [ 'cards', 'list' ],
+				side: true,
+				cards: true,
+			},
+			legacy: {},
+		};
+		expect(
+			classesFor( checkoutPage, {
+				summary: true,
+				choices: 'cards',
+				side: true,
+				cards: true,
+			} )
+		).toEqual( [
+			'purplish-checkoutpage',
+			'purplish-checkoutpage-summary',
+			'purplish-checkoutpage-choices-cards',
+			'purplish-checkoutpage-side',
+			'purplish-checkoutpage-cards',
+		] );
+		expect( classesFor( checkoutPage, { choices: 'tiles' } ) ).toEqual(
+			[]
+		);
+		expect( classesFor( checkoutPage, { side: 'tint' } ) ).toEqual( [] );
+	} );
+
 	it( 'gives the card classes the server prints', () => {
 		const cards = {
 			prefix: 'cards',
