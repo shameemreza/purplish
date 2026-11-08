@@ -357,6 +357,18 @@ final class BlockEffects {
 				'preview' => true,
 				'target'  => 'wp-block-woocommerce-filled-cart-block',
 			),
+			// React keeps the Checkout's own wrapper, so no `target`.
+			'woocommerce/checkout'                        => array(
+				'prefix'  => 'checkoutpage',
+				'options' => array(
+					'fields'  => array( 'soft', 'filled', 'underline' ),
+					'focus'   => true,
+					'summary' => true,
+					'photos'  => true,
+				),
+				'redrawn' => true,
+				'preview' => true,
+			),
 		);
 	}
 

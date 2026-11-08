@@ -226,6 +226,35 @@ describe( 'HOVER_BUTTONS', () => {
 		] );
 	} );
 
+	it( 'gives the Checkout page classes the server prints', () => {
+		const checkoutPage = {
+			prefix: 'checkoutpage',
+			options: {
+				fields: [ 'soft', 'filled', 'underline' ],
+				focus: true,
+				summary: true,
+				photos: true,
+			},
+			legacy: {},
+		};
+		expect(
+			classesFor( checkoutPage, {
+				fields: 'underline',
+				focus: true,
+				photos: true,
+				sticky: true,
+			} )
+		).toEqual( [
+			'purplish-checkoutpage',
+			'purplish-checkoutpage-fields-underline',
+			'purplish-checkoutpage-focus',
+			'purplish-checkoutpage-photos',
+		] );
+		expect( classesFor( checkoutPage, { fields: 'rounded' } ) ).toEqual(
+			[]
+		);
+	} );
+
 	it( 'gives the card classes the server prints', () => {
 		const cards = {
 			prefix: 'cards',

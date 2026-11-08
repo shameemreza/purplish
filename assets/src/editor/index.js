@@ -28,6 +28,7 @@ import CoverPanel from './cover';
 import BuyButtonPanel from './buy-button';
 import DrawerPanel from './drawer';
 import CartPagePanel from './cart-page';
+import CheckoutPagePanel from './checkout-page';
 import { OrderStatusPanel, OrderSummaryPanel } from './order-confirmation';
 import './preview';
 
@@ -59,6 +60,7 @@ const PANELS = {
 	'woocommerce/mini-cart-contents': DrawerPanel,
 	'woocommerce/mini-cart-checkout-button-block': BuyButtonPanel,
 	'woocommerce/cart': CartPagePanel,
+	'woocommerce/checkout': CheckoutPagePanel,
 };
 
 addFilter(
