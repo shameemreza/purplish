@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.1.0\n"
+"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/purplish\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-05T11:11:01+00:00\n"
+"POT-Creation-Date: 2026-11-08T04:47:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -124,17 +124,23 @@ msgstr ""
 #: assets/src/editor/add-to-cart.js:48
 #: assets/src/editor/badge.js:31
 #: assets/src/editor/button.js:62
-#: assets/src/editor/cards.js:64
+#: assets/src/editor/buy-button.js:70
+#: assets/src/editor/cards.js:273
+#: assets/src/editor/cart-page.js:54
+#: assets/src/editor/checkout-page.js:90
 #: assets/src/editor/chips.js:22
 #: assets/src/editor/columns.js:18
 #: assets/src/editor/cover.js:23
 #: assets/src/editor/details.js:16
+#: assets/src/editor/drawer.js:55
 #: assets/src/editor/filters.js:16
 #: assets/src/editor/gallery.js:61
 #: assets/src/editor/group.js:22
 #: assets/src/editor/heading.js:22
 #: assets/src/editor/image.js:18
 #: assets/src/editor/mini-cart.js:16
+#: assets/src/editor/order-confirmation.js:28
+#: assets/src/editor/order-confirmation.js:68
 #: assets/src/editor/reviews.js:22
 #: assets/src/editor/specs.js:22
 #: assets/src/editor/thumbs.js:22
@@ -208,9 +214,12 @@ msgstr ""
 
 #: src/Admin/Settings.php:141
 #: src/Admin/Settings.php:160
-#: assets/src/editor/add-to-cart.js:84
-#: assets/src/editor/add-to-cart.js:127
-#: assets/src/editor/cards.js:96
+#: assets/src/editor/add-to-cart.js:85
+#: assets/src/editor/add-to-cart.js:128
+#: assets/src/editor/cards.js:322
+#: assets/src/editor/checkout-page.js:16
+#: assets/src/editor/checkout-page.js:23
+#: assets/src/editor/checkout-page.js:29
 #: assets/src/editor/cover.js:8
 #: assets/src/editor/eyes.js:8
 #: assets/src/editor/gallery.js:25
@@ -228,20 +237,21 @@ msgstr ""
 
 #: src/Admin/Settings.php:143
 #: src/Admin/Settings.php:163
-#: assets/src/editor/add-to-cart.js:96
+#: assets/src/editor/add-to-cart.js:97
 #: assets/src/editor/gallery.js:27
 #: build/editor.js:1
 msgid "Zoom"
 msgstr ""
 
 #: src/Admin/Settings.php:144
+#: assets/src/editor/cards.js:94
 #: assets/src/editor/gallery.js:28
 #: build/editor.js:1
 msgid "Lift"
 msgstr ""
 
 #: src/Admin/Settings.php:145
-#: assets/src/editor/cards.js:45
+#: assets/src/editor/cards.js:59
 #: assets/src/editor/cover.js:10
 #: assets/src/editor/gallery.js:29
 #: build/editor.js:1
@@ -249,6 +259,7 @@ msgid "Parallax"
 msgstr ""
 
 #: src/Admin/Settings.php:146
+#: assets/src/editor/cards.js:106
 #: assets/src/editor/gallery.js:30
 #: build/editor.js:1
 msgid "Glare"
@@ -268,55 +279,55 @@ msgid "Slow zoom"
 msgstr ""
 
 #: src/Admin/Settings.php:155
-#: assets/src/editor/add-to-cart.js:75
+#: assets/src/editor/add-to-cart.js:76
 #: build/editor.js:1
 msgid "Photo transition"
 msgstr ""
 
 #: src/Admin/Settings.php:156
-#: assets/src/editor/add-to-cart.js:76
+#: assets/src/editor/add-to-cart.js:77
 #: build/editor.js:1
 msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
 msgstr ""
 
 #: src/Admin/Settings.php:161
-#: assets/src/editor/add-to-cart.js:88
+#: assets/src/editor/add-to-cart.js:89
 #: build/editor.js:1
 msgid "Fade"
 msgstr ""
 
 #: src/Admin/Settings.php:162
-#: assets/src/editor/add-to-cart.js:92
+#: assets/src/editor/add-to-cart.js:93
 #: build/editor.js:1
 msgid "Blur"
 msgstr ""
 
 #: src/Admin/Settings.php:164
-#: assets/src/editor/add-to-cart.js:100
+#: assets/src/editor/add-to-cart.js:101
 #: build/editor.js:1
 msgid "Slide"
 msgstr ""
 
 #: src/Admin/Settings.php:165
-#: assets/src/editor/add-to-cart.js:104
+#: assets/src/editor/add-to-cart.js:105
 #: build/editor.js:1
 msgid "Flip"
 msgstr ""
 
 #: src/Admin/Settings.php:166
-#: assets/src/editor/add-to-cart.js:108
+#: assets/src/editor/add-to-cart.js:109
 #: build/editor.js:1
 msgid "Wipe"
 msgstr ""
 
 #: src/Admin/Settings.php:167
-#: assets/src/editor/add-to-cart.js:112
+#: assets/src/editor/add-to-cart.js:113
 #: build/editor.js:1
 msgid "Circle reveal"
 msgstr ""
 
 #: src/Admin/Settings.php:168
-#: assets/src/editor/add-to-cart.js:116
+#: assets/src/editor/add-to-cart.js:117
 #: build/editor.js:1
 msgid "Color wash"
 msgstr ""
@@ -358,6 +369,8 @@ msgid "Custom"
 msgstr ""
 
 #: src/Admin/VariationField.php:124
+#: assets/src/editor/cards.js:210
+#: build/editor.js:1
 msgid "Off"
 msgstr ""
 
@@ -590,7 +603,9 @@ msgid "The big look number next to the previous and next buttons."
 msgstr ""
 
 #: assets/src/blocks/runway/edit.js:98
+#: assets/src/editor/mini-cart.js:29
 #: build/blocks/runway/index.js:1
+#: build/editor.js:1
 msgid "Fly to cart"
 msgstr ""
 
@@ -707,7 +722,7 @@ msgid "Add their name"
 msgstr ""
 
 #: assets/src/blocks/story-deck/edit.js:80
-#: assets/src/editor/cards.js:32
+#: assets/src/editor/cards.js:42
 #: build/blocks/story-deck/index.js:1
 #: build/editor.js:1
 msgid "Deck"
@@ -765,82 +780,87 @@ msgstr ""
 msgid "Parts of the product page that take the color of the variation a shopper picks."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:124
+#: assets/src/editor/add-to-cart.js:54
+#: build/editor.js:1
+msgid "The editor shows them in a sample color."
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:125
 #: build/editor.js:1
 msgid "Title on a color change"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:130
+#: assets/src/editor/add-to-cart.js:131
 #: build/editor.js:1
 msgid "Title and price rise"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:134
+#: assets/src/editor/add-to-cart.js:135
 #: build/editor.js:1
 msgid "Title comes into focus"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:147
+#: assets/src/editor/add-to-cart.js:148
 #: build/editor.js:1
 msgid "Mesh background"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:148
+#: assets/src/editor/add-to-cart.js:149
 #: build/editor.js:1
 msgid "Soft blobs of the color over the tint, which move to a new place on each color change."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:158
+#: assets/src/editor/add-to-cart.js:159
 #: build/editor.js:1
 msgid "Glow ring on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:159
+#: assets/src/editor/add-to-cart.js:160
 #: build/editor.js:1
 msgid "A soft ring of the color around the add to cart button."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:168
+#: assets/src/editor/add-to-cart.js:169
 #: build/editor.js:1
 msgid "Liquid glass button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:169
+#: assets/src/editor/add-to-cart.js:170
 #: build/editor.js:1
 msgid "A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:178
+#: assets/src/editor/add-to-cart.js:179
 #: build/editor.js:1
 msgid "Spectrum ring on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:179
+#: assets/src/editor/add-to-cart.js:180
 #: build/editor.js:1
 msgid "A rainbow ring travels once around the button on hover."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:189
+#: assets/src/editor/add-to-cart.js:190
 #: build/editor.js:1
 msgid "Googly eyes on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:197
+#: assets/src/editor/add-to-cart.js:198
 #: build/editor.js:1
 msgid "Halo after adding to cart"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:198
+#: assets/src/editor/add-to-cart.js:199
 #: build/editor.js:1
 msgid "A ring leaves the button and fades each time the product goes into the cart."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:207
+#: assets/src/editor/add-to-cart.js:208
 #: build/editor.js:1
 msgid "Color dots on options"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:208
+#: assets/src/editor/add-to-cart.js:209
 #: build/editor.js:1
 msgid "A dot in each color before its name on the option buttons."
 msgstr ""
@@ -913,41 +933,52 @@ msgid "Where the badge sits on the photo. Works when the badge is inside the Pro
 msgstr ""
 
 #: assets/src/editor/button.js:20
+#: assets/src/editor/buy-button.js:18
+#: assets/src/editor/cards.js:116
 #: build/editor.js:1
 msgid "Glow ring"
 msgstr ""
 
 #: assets/src/editor/button.js:21
+#: assets/src/editor/buy-button.js:19
 #: build/editor.js:1
 msgid "A soft ring of the effect color around the button."
 msgstr ""
 
 #: assets/src/editor/button.js:28
+#: assets/src/editor/buy-button.js:26
 #: build/editor.js:1
 msgid "Light sweep"
 msgstr ""
 
 #: assets/src/editor/button.js:29
+#: assets/src/editor/buy-button.js:27
 #: build/editor.js:1
 msgid "A band of light crosses the button on hover."
 msgstr ""
 
 #: assets/src/editor/button.js:33
+#: assets/src/editor/buy-button.js:31
+#: assets/src/editor/cards.js:119
 #: build/editor.js:1
 msgid "Liquid glass"
 msgstr ""
 
 #: assets/src/editor/button.js:34
+#: assets/src/editor/buy-button.js:32
 #: build/editor.js:1
 msgid "A frosted fill in the effect color with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button."
 msgstr ""
 
 #: assets/src/editor/button.js:41
+#: assets/src/editor/buy-button.js:39
+#: assets/src/editor/cards.js:118
 #: build/editor.js:1
 msgid "Spectrum ring"
 msgstr ""
 
 #: assets/src/editor/button.js:42
+#: assets/src/editor/buy-button.js:40
 #: build/editor.js:1
 msgid "A rainbow ring travels once around the edge on hover."
 msgstr ""
@@ -958,7 +989,12 @@ msgid "Googly eyes"
 msgstr ""
 
 #: assets/src/editor/button.js:85
-#: assets/src/editor/cards.js:110
+#: assets/src/editor/buy-button.js:84
+#: assets/src/editor/cards.js:339
+#: assets/src/editor/cart-page.js:68
+#: assets/src/editor/checkout-page.js:144
+#: assets/src/editor/drawer.js:69
+#: assets/src/editor/order-confirmation.js:42
 #: build/editor.js:1
 msgid "Effect color"
 msgstr ""
@@ -968,134 +1004,441 @@ msgstr ""
 msgid "Used by the glow ring and the liquid glass. On a product page with a variation color, that color is used instead."
 msgstr ""
 
-#: assets/src/editor/cards.js:17
+#: assets/src/editor/buy-button.js:49
+#: build/editor.js:1
+msgid "Lock icon"
+msgstr ""
+
+#: assets/src/editor/buy-button.js:50
+#: build/editor.js:1
+msgid "A small lock before Place Order, in the button's text color."
+msgstr ""
+
+#: assets/src/editor/buy-button.js:85
+#: build/editor.js:1
+msgid "Used by the glow ring and the liquid glass. Without one, they use the theme's text color."
+msgstr ""
+
+#: assets/src/editor/cards.js:27
 #: build/editor.js:1
 msgid "On hover"
 msgstr ""
 
-#: assets/src/editor/cards.js:19
+#: assets/src/editor/cards.js:29
 #: build/editor.js:1
 msgid "Magnetic panel"
 msgstr ""
 
-#: assets/src/editor/cards.js:20
+#: assets/src/editor/cards.js:30
 #: build/editor.js:1
 msgid "Spotlight"
 msgstr ""
 
-#: assets/src/editor/cards.js:21
+#: assets/src/editor/cards.js:31
 #: build/editor.js:1
 msgid "Color reveal"
 msgstr ""
 
-#: assets/src/editor/cards.js:22
+#: assets/src/editor/cards.js:32
 #: build/editor.js:1
 msgid "Fan deck"
 msgstr ""
 
-#: assets/src/editor/cards.js:23
+#: assets/src/editor/cards.js:33
 #: build/editor.js:1
 msgid "Expanded cards"
 msgstr ""
 
-#: assets/src/editor/cards.js:24
+#: assets/src/editor/cards.js:34
 #: build/editor.js:1
 msgid "Card folder"
 msgstr ""
 
-#: assets/src/editor/cards.js:25
+#: assets/src/editor/cards.js:35
 #: build/editor.js:1
 msgid "Bookmark"
 msgstr ""
 
-#: assets/src/editor/cards.js:26
+#: assets/src/editor/cards.js:36
 #: build/editor.js:1
 msgid "Roster"
 msgstr ""
 
-#: assets/src/editor/cards.js:30
+#: assets/src/editor/cards.js:40
 #: build/editor.js:1
 msgid "In a carousel"
 msgstr ""
 
-#: assets/src/editor/cards.js:33
+#: assets/src/editor/cards.js:43
 #: build/editor.js:1
 msgid "Arc"
 msgstr ""
 
-#: assets/src/editor/cards.js:34
+#: assets/src/editor/cards.js:44
 #: build/editor.js:1
 msgid "Spotlight carousel"
 msgstr ""
 
-#: assets/src/editor/cards.js:35
+#: assets/src/editor/cards.js:45
 #: build/editor.js:1
 msgid "Grow"
 msgstr ""
 
-#: assets/src/editor/cards.js:36
+#: assets/src/editor/cards.js:46
+#: assets/src/editor/cards.js:95
 #: build/editor.js:1
 msgid "Tilt"
 msgstr ""
 
-#: assets/src/editor/cards.js:37
+#: assets/src/editor/cards.js:47
 #: build/editor.js:1
 msgid "Depth"
 msgstr ""
 
-#: assets/src/editor/cards.js:38
+#: assets/src/editor/cards.js:48
 #: build/editor.js:1
 msgid "Overlap"
 msgstr ""
 
-#: assets/src/editor/cards.js:42
+#: assets/src/editor/cards.js:49
+#: build/editor.js:1
+msgid "Momentum"
+msgstr ""
+
+#: assets/src/editor/cards.js:50
+#: build/editor.js:1
+msgid "Wheel"
+msgstr ""
+
+#: assets/src/editor/cards.js:51
+#: build/editor.js:1
+msgid "Helix"
+msgstr ""
+
+#: assets/src/editor/cards.js:52
+#: build/editor.js:1
+msgid "Reel"
+msgstr ""
+
+#: assets/src/editor/cards.js:56
 #: build/editor.js:1
 msgid "As cards scroll in"
 msgstr ""
 
-#: assets/src/editor/cards.js:44
+#: assets/src/editor/cards.js:58
 #: build/editor.js:1
 msgid "Clothes line"
 msgstr ""
 
-#: assets/src/editor/cards.js:46
+#: assets/src/editor/cards.js:60
 #: build/editor.js:1
 msgid "Zoom reveal"
 msgstr ""
 
-#: assets/src/editor/cards.js:67
+#: assets/src/editor/cards.js:61
+#: build/editor.js:1
+msgid "Unfold"
+msgstr ""
+
+#: assets/src/editor/cards.js:92
+#: build/editor.js:1
+msgid "Card on hover"
+msgstr ""
+
+#: assets/src/editor/cards.js:96
+#: build/editor.js:1
+msgid "Ring"
+msgstr ""
+
+#: assets/src/editor/cards.js:97
+#: build/editor.js:1
+msgid "Torch"
+msgstr ""
+
+#: assets/src/editor/cards.js:102
+#: build/editor.js:1
+msgid "Photo on hover"
+msgstr ""
+
+#: assets/src/editor/cards.js:104
+#: build/editor.js:1
+msgid "Push in"
+msgstr ""
+
+#: assets/src/editor/cards.js:105
+#: build/editor.js:1
+msgid "Drift"
+msgstr ""
+
+#: assets/src/editor/cards.js:107
+#: build/editor.js:1
+msgid "Color bloom"
+msgstr ""
+
+#: assets/src/editor/cards.js:108
+#: build/editor.js:1
+msgid "Second photo"
+msgstr ""
+
+#: assets/src/editor/cards.js:113
+#: build/editor.js:1
+msgid "Button on hover"
+msgstr ""
+
+#: assets/src/editor/cards.js:115
+#: build/editor.js:1
+msgid "Bag and sweep"
+msgstr ""
+
+#: assets/src/editor/cards.js:117
+#: build/editor.js:1
+msgid "Sweep"
+msgstr ""
+
+#: assets/src/editor/cards.js:181
+#: build/editor.js:1
+msgid "Plays while the mouse is on the card, alongside the card effect. Off on touch screens; looks that move are off for visitors who ask for reduced motion."
+msgstr ""
+
+#: assets/src/editor/cards.js:186
+#: build/editor.js:1
+msgid "This card effect already moves the card on hover, so the card look is off. The photo and button looks still play."
+msgstr ""
+
+#: assets/src/editor/cards.js:191
+#: build/editor.js:1
+msgid "This card effect already changes the photo on hover, so the photo look is off. The card and button looks still play."
+msgstr ""
+
+#: assets/src/editor/cards.js:203
+#: build/editor.js:1
+msgid "Hover plays on"
+msgstr ""
+
+#: assets/src/editor/cards.js:214
+#: build/editor.js:1
+msgid "Card"
+msgstr ""
+
+#: assets/src/editor/cards.js:219
+#: build/editor.js:1
+msgid "Photo"
+msgstr ""
+
+#: assets/src/editor/cards.js:224
+#: build/editor.js:1
+msgid "Button"
+msgstr ""
+
+#: assets/src/editor/cards.js:228
+#: build/editor.js:1
+msgid "All"
+msgstr ""
+
+#: assets/src/editor/cards.js:247
+#: build/editor.js:1
+msgid "Fades to the product’s first gallery photo on the store. Products without one keep their photo. The editor shows the main photo only."
+msgstr ""
+
+#: assets/src/editor/cards.js:276
 #: build/editor.js:1
 msgid "Button on the photo"
 msgstr ""
 
-#: assets/src/editor/cards.js:68
+#: assets/src/editor/cards.js:279
+#: build/editor.js:1
+msgid "Details on the photo already puts the button on the photo."
+msgstr ""
+
+#: assets/src/editor/cards.js:283
 #: build/editor.js:1
 msgid "Title and price on one line, and add to cart as a small frosted button on the photo. It shows on hover, and always on touch screens."
 msgstr ""
 
-#: assets/src/editor/cards.js:77
+#: assets/src/editor/cards.js:294
 #: build/editor.js:1
-msgid "Button motion"
+msgid "Details on the photo"
 msgstr ""
 
-#: assets/src/editor/cards.js:78
+#: assets/src/editor/cards.js:297
 #: build/editor.js:1
-msgid "A bag icon slides in and a light sweeps across on hover; the button fills and pops after adding to cart."
+msgid "Roster shows the names as its own list, so it keeps the details where they are."
 msgstr ""
 
-#: assets/src/editor/cards.js:88
+#: assets/src/editor/cards.js:301
+#: build/editor.js:1
+msgid "Title, price and add to cart sit on the bottom of the photo over a soft shade. They show on hover, and always on touch screens."
+msgstr ""
+
+#: assets/src/editor/cards.js:314
 #: build/editor.js:1
 msgid "Card effect"
 msgstr ""
 
-#: assets/src/editor/cards.js:89
+#: assets/src/editor/cards.js:315
 #: build/editor.js:1
-msgid "Carousel effects need the Carousel layout and leave a grid as it is. Roster needs the Grid layout and shows the plain grid on phones and touch screens. Visitors who ask for reduced motion see no movement."
+msgid "Carousel effects need the Carousel layout and leave a grid as it is. Roster and Unfold need the Grid layout, and Roster shows the plain grid on phones and touch screens. Momentum, Helix and Reel can also be dragged with the mouse. Visitors who ask for reduced motion see no movement."
 msgstr ""
 
-#: assets/src/editor/cards.js:111
+#: assets/src/editor/cards.js:340
 #: build/editor.js:1
-msgid "Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs, the card folder and the bookmark. On a product page with a variation color, that color is used instead."
+msgid "Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs, the card folder, the bookmark and the hover looks. Without one, the hover looks use the theme’s text color. On a product page with a variation color, that color is used instead."
+msgstr ""
+
+#: assets/src/editor/cart-page.js:17
+#: assets/src/editor/drawer.js:26
+#: build/editor.js:1
+msgid "Soft rows"
+msgstr ""
+
+#: assets/src/editor/cart-page.js:18
+#: assets/src/editor/drawer.js:27
+#: build/editor.js:1
+msgid "Each item sits on its own rounded card in a light tint of the effect color."
+msgstr ""
+
+#: assets/src/editor/cart-page.js:25
+#: assets/src/editor/checkout-page.js:69
+#: assets/src/editor/drawer.js:34
+#: build/editor.js:1
+msgid "Bigger photos"
+msgstr ""
+
+#: assets/src/editor/cart-page.js:26
+#: build/editor.js:1
+msgid "Item photos grow from 80 to 120 pixels, or 64 to 80 on phones, with rounded corners."
+msgstr ""
+
+#: assets/src/editor/cart-page.js:33
+#: build/editor.js:1
+msgid "Sticky totals"
+msgstr ""
+
+#: assets/src/editor/cart-page.js:34
+#: build/editor.js:1
+msgid "The totals and the checkout button stay in view while a long cart scrolls, when they sit beside the items."
+msgstr ""
+
+#: assets/src/editor/cart-page.js:69
+#: assets/src/editor/drawer.js:70
+#: build/editor.js:1
+msgid "Tints the soft rows. Without one, they use a light tint of the theme's text color."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:17
+#: build/editor.js:1
+msgid "Soft"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:18
+#: build/editor.js:1
+msgid "Filled"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:19
+#: build/editor.js:1
+msgid "Underline"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:24
+#: assets/src/editor/specs.js:10
+#: build/editor.js:1
+msgid "Cards"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:25
+#: build/editor.js:1
+msgid "List"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:30
+#: build/editor.js:1
+msgid "Badges"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:31
+#: build/editor.js:1
+msgid "Timeline"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:37
+#: build/editor.js:1
+msgid "Focus ring"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:38
+#: build/editor.js:1
+msgid "The field a shopper is typing in gets a ring in the effect color."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:45
+#: build/editor.js:1
+msgid "Soft summary"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:46
+#: build/editor.js:1
+msgid "The order summary sits on a rounded card in a light tint of the effect color, with a bigger, bolder total."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:53
+#: build/editor.js:1
+msgid "Side panel"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:54
+#: build/editor.js:1
+msgid "On wide screens, the order summary column sits on a rounded panel in a light tint of the effect color."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:61
+#: build/editor.js:1
+msgid "Raised card"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:62
+#: build/editor.js:1
+msgid "The whole checkout sits on a raised card in the page color. Looks best when the checkout is placed on a tinted section."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:70
+#: build/editor.js:1
+msgid "Photos in the order summary grow from 48 to 64 pixels, with rounded corners."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:94
+#: build/editor.js:1
+msgid "Field style"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:95
+#: build/editor.js:1
+msgid "Soft rounds the fields, filled gives them a light tint of the effect color, underline keeps only the bottom line. Labels still float as before."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:108
+#: build/editor.js:1
+msgid "Shipping and payment choices"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:109
+#: build/editor.js:1
+msgid "Cards puts each option in its own box, list joins them in one box with a line between each. The picked option gets a light tint of the effect color."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:122
+#: build/editor.js:1
+msgid "Step numbers"
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:123
+#: build/editor.js:1
+msgid "Badges puts each section's number in a circle of the effect color, timeline puts it in a ring beside the section with a line down its side. Either one replaces WooCommerce's own step numbers."
+msgstr ""
+
+#: assets/src/editor/checkout-page.js:145
+#: build/editor.js:1
+msgid "Colors the focus ring, the picked choice, the total line and the step numbers, and tints the filled fields, the summary and the side panel. Without one, they use the theme's text color."
 msgstr ""
 
 #: assets/src/editor/chips.js:9
@@ -1147,6 +1490,21 @@ msgstr ""
 #: assets/src/editor/details.js:20
 #: build/editor.js:1
 msgid "The block becomes a soft card, and a round plus turns into an x that fills with the color when open."
+msgstr ""
+
+#: assets/src/editor/drawer.js:18
+#: build/editor.js:1
+msgid "Spring slide"
+msgstr ""
+
+#: assets/src/editor/drawer.js:19
+#: build/editor.js:1
+msgid "The drawer opens with a soft settle, then the items and the footer follow one after another. Visitors who ask for reduced motion see the plain drawer. It plays on the store, not in the editor."
+msgstr ""
+
+#: assets/src/editor/drawer.js:35
+#: build/editor.js:1
+msgid "Item photos grow from 64 to 96 pixels, or to 80 on phones, with rounded corners."
 msgstr ""
 
 #: assets/src/editor/eyes.js:9
@@ -1293,7 +1651,7 @@ msgstr ""
 
 #: assets/src/editor/group.js:26
 #: build/editor.js:1
-msgid "On product pages, this section's background becomes a soft version of the color the shopper picks."
+msgid "On product pages, this section's background becomes a soft version of the color the shopper picks. The editor shows it in a sample color on product templates."
 msgstr ""
 
 #: assets/src/editor/group.js:37
@@ -1331,6 +1689,36 @@ msgstr ""
 msgid "The item count pops and the bag nudges when something is added to the cart."
 msgstr ""
 
+#: assets/src/editor/mini-cart.js:30
+#: build/editor.js:1
+msgid "The product photo flies into the cart icon when a shopper adds it, from product cards and the product page. Not used when the drawer opens on add, since the drawer covers the icon. Visitors who ask for reduced motion see no flight."
+msgstr ""
+
+#: assets/src/editor/order-confirmation.js:31
+#: build/editor.js:1
+msgid "Thank-you moment"
+msgstr ""
+
+#: assets/src/editor/order-confirmation.js:32
+#: build/editor.js:1
+msgid "The heading rises in and one burst plays behind it when the page opens. It plays once and never loops. Visitors who ask for reduced motion see the plain heading."
+msgstr ""
+
+#: assets/src/editor/order-confirmation.js:43
+#: build/editor.js:1
+msgid "Used by the burst. Without one, the burst takes the theme's text color."
+msgstr ""
+
+#: assets/src/editor/order-confirmation.js:71
+#: build/editor.js:1
+msgid "Receipt card"
+msgstr ""
+
+#: assets/src/editor/order-confirmation.js:72
+#: build/editor.js:1
+msgid "Shows the order number, date, total, email and payment as a printed receipt, one line each, with a torn edge."
+msgstr ""
+
 #: assets/src/editor/reviews.js:9
 #: build/editor.js:1
 msgid "Soft cards"
@@ -1356,11 +1744,6 @@ msgstr ""
 msgid "Striped"
 msgstr ""
 
-#: assets/src/editor/specs.js:10
-#: build/editor.js:1
-msgid "Cards"
-msgstr ""
-
 #: assets/src/editor/specs.js:26
 #: build/editor.js:1
 msgid "Table style"
@@ -1382,7 +1765,7 @@ msgid "Circle is round with the square aspect ratio, and oval with the others."
 msgstr ""
 
 #. translators: 1: photo number, 2: number of photos.
-#: assets/src/effects/index.js:359
+#: assets/src/effects/index.js:305
 #: build/effects.js:2
 #, js-format
 msgid "Photo %1$d of %2$d"

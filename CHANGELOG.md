@@ -2,6 +2,32 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-11-08
+
+### Added
+
+- Button looks on Proceed to Checkout (`woocommerce/proceed-to-checkout-block`), Place Order (`woocommerce/checkout-actions-block`) and Go to checkout (`woocommerce/mini-cart-checkout-button-block`): glow ring, light sweep, liquid glass and spectrum ring, with one effect color. Place Order also gets a lock icon.
+- Mini-Cart Contents looks: Spring slide, Soft rows, Bigger photos and an effect color. Fly to cart on the Mini-Cart block.
+- Cart looks: Soft rows, Bigger photos, Sticky totals and an effect color.
+- Checkout looks: field styles (soft, filled, underline), a focus ring, choices as cards or a list, step numbers as badges or a timeline, Soft summary, a side panel, a raised card and bigger order photos.
+- Order Status, Thank-you moment, and Order Summary, Receipt card, on the order confirmation page.
+- Hover looks on Product Collection. Card: Lift, Tilt, Ring, Torch. Photo: Push in, Drift, Glare, Color bloom, Second photo. Button: Bag and sweep, Glow ring, Sweep, Spectrum ring, Liquid glass.
+- Card effects: Unfold, Momentum, Wheel, Helix and Reel on the Product Collection block, for 23 in all. Momentum, Helix and Reel can be dragged.
+- Details on the photo on the Product Collection block: title, price and add to cart over a soft shade at the bottom of the photo.
+- Editor previews: Purplish options show on the editor canvas as they're picked, at rest and on hover, apart from the ones that play on an action (Spring slide, Fly to cart, Thank-you moment, the add to cart moments).
+
+### Changed
+
+- The Product Collection button motion is now the Bag and sweep button look under Hover. Saved blocks keep it.
+
+### Fixed
+
+- The Parallax card effect never moved, and Zoom reveal finished while the card was still coming onto the screen.
+- Carousel card effects leaned the wrong way on right-to-left sites.
+- The last Clothes line card swung past the edge of phone screens.
+
+Nothing from 1.1.0 is renamed or removed. Saved blocks and settings keep working as before.
+
 ## [1.1.0] - 2026-11-05
 
 ### Added
