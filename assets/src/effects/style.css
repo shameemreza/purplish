@@ -29,6 +29,7 @@ body.purplish-active {
 .purplish-thanks,
 .purplish-drawer,
 .purplish-cartpage,
+.purplish-checkoutpage,
 body[class*="purplish-classic-gallery-"] {
 	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
 	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
@@ -3964,6 +3965,144 @@ body.purplish-active .purplish-group-tint {
 			align-self: flex-start;
 		}
 	}
+}
+
+/*
+ * Checkout field styles. Only the borders, corners and a tint change, never
+ * the padding, so WooCommerce's floating labels keep their place. The
+ * fields keep WooCommerce's own background (white, or dark with its "dark
+ * mode inputs" setting), so the text stays readable on any theme. The rest
+ * looks skip a field in focus, which keeps WooCommerce's focus look unless
+ * the focus ring is on.
+ */
+.purplish-checkoutpage {
+	--purplish-field-line: color-mix(in srgb, currentcolor 58%, transparent);
+	--purplish-field-tint: color-mix(in oklab, var(--purplish-color) 9%, transparent);
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-soft :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-blocks-components-select__container, .wc-block-components-textarea) {
+	border-radius: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-soft :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea):not(:focus) {
+	border-color: color-mix(in srgb, currentcolor 26%, transparent);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+}
+
+/* The option box is the group's ::after. Pseudo-elements can't go in :is(). */
+.purplish-checkoutpage.purplish-checkoutpage-fields-soft :is(.wc-block-components-radio-control--highlight-checked, .wc-block-components-radio-control__option--checked-option-highlighted, .wc-block-components-radio-control-accordion-option--checked-option-highlighted),
+.purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-components-radio-control--highlight-checked::after {
+	border-radius: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option:first-child::after {
+	border-start-start-radius: 12px;
+	border-start-end-radius: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option:last-child::after {
+	border-end-start-radius: 12px;
+	border-end-end-radius: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-components-checkbox .wc-block-components-checkbox__input[type="checkbox"] {
+	border-radius: 6px;
+}
+
+/*
+ * Filled: a light tint with a line along the bottom, so the field still
+ * shows where it ends. The tint sits over WooCommerce's own background.
+ */
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-blocks-components-select__container, .wc-block-components-textarea) {
+	border-radius: 10px 10px 2px 2px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea) {
+	background-image: linear-gradient(var(--purplish-field-tint), var(--purplish-field-tint));
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea):not(:focus) {
+	border-color: transparent transparent var(--purplish-field-line);
+	box-shadow: none;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-components-radio-control--highlight-checked {
+	border-radius: 10px;
+	background-color: var(--purplish-field-tint);
+}
+
+/* Doubled classes: Purple draws the box edges with three. */
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-components-radio-control--highlight-checked.wc-block-components-radio-control--highlight-checked::after,
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option.wc-block-components-radio-control-accordion-option::after {
+	border-color: transparent;
+	border-radius: 10px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled :is(.wc-block-components-radio-control__option--checked-option-highlighted, .wc-block-components-radio-control-accordion-option--checked-option-highlighted) {
+	border-radius: 10px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-components-checkbox .wc-block-components-checkbox__input[type="checkbox"] {
+	border-radius: 5px;
+	background-image: linear-gradient(var(--purplish-field-tint), var(--purplish-field-tint));
+}
+
+/* Underline: square fields with only the bottom line. */
+.purplish-checkoutpage.purplish-checkoutpage-fields-underline :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-blocks-components-select__container, .wc-block-components-textarea) {
+	border-radius: 0;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-fields-underline :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea):not(:focus) {
+	border-color: transparent transparent var(--purplish-field-line);
+	box-shadow: none;
+}
+
+/* Focus ring: the field in use gets a ring in the effect color. */
+.purplish-checkoutpage.purplish-checkoutpage-focus :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea):focus {
+	border-color: var(--purplish-color);
+	outline: 0;
+	box-shadow: 0 0 0 3px color-mix(in oklab, var(--purplish-color) 30%, transparent);
+}
+
+/* An underline field keeps its line: the line thickens instead. */
+.purplish-checkoutpage.purplish-checkoutpage-focus.purplish-checkoutpage-fields-underline :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea):focus {
+	border-color: transparent transparent var(--purplish-color);
+	box-shadow: 0 2px 0 var(--purplish-color);
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-focus :is(.wc-block-components-checkbox__input, .wc-block-components-radio-control__input):focus-visible {
+	outline: 2px solid var(--purplish-color);
+	outline-offset: 2px;
+}
+
+/*
+ * Soft summary: the order summary on a rounded card in a light tint of the
+ * effect color, beside the fields on a wide checkout and above Place Order
+ * on a narrow one. The tint is see-through, so it works on dark themes too.
+ */
+.purplish-checkoutpage-summary :is(.wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block, .checkout-order-summary-block-fill) {
+	--wc-separator-color: color-mix(in oklab, var(--purplish-color) 18%, transparent);
+	border-color: transparent;
+	border-radius: 20px;
+	background-color: color-mix(in oklab, var(--purplish-color) 8%, transparent);
+}
+
+.purplish-checkoutpage-summary :is(.wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block, .checkout-order-summary-block-fill) .wc-block-components-totals-wrapper {
+	border-color: var(--wc-separator-color);
+}
+
+/* Bigger photos in the order summary, rounded. */
+.purplish-checkoutpage-photos .wc-block-components-order-summary .wc-block-components-order-summary-item__image {
+	width: 64px;
+}
+
+.purplish-checkoutpage-photos .wc-block-components-order-summary .wc-block-components-order-summary-item__image > img {
+	width: 64px;
+	max-width: 64px;
+	aspect-ratio: 1;
+	height: auto;
+	border-radius: 10px;
+	object-fit: cover;
 }
 
 /*
