@@ -4106,6 +4106,150 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Choices: the shipping and payment options. Shipping options are labels
+ * and payment options are accordion rows, both direct children of the
+ * group. The picked one gets a light tint of the effect color.
+ */
+.purplish-checkoutpage {
+	--purplish-choice-line: color-mix(in srgb, currentcolor 22%, transparent);
+	--purplish-choice-tint: color-mix(in oklab, var(--purplish-color) 8%, transparent);
+}
+
+.purplish-checkoutpage:is(.purplish-checkoutpage-choices-cards, .purplish-checkoutpage-choices-list) .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked .wc-block-components-radio-control__input:checked {
+	border-color: var(--purplish-color);
+}
+
+.purplish-checkoutpage:is(.purplish-checkoutpage-choices-cards, .purplish-checkoutpage-choices-list) .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked .wc-block-components-radio-control__input:checked::before {
+	background: var(--purplish-color);
+}
+
+/* Cards: each option is its own box, and the picked one is ringed. */
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	background-color: transparent;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked::after,
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option)::after {
+	display: none;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option) {
+	border: 1px solid var(--purplish-choice-line);
+	border-radius: 12px;
+	box-shadow: none;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):hover {
+	border-color: color-mix(in srgb, currentcolor 45%, transparent);
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)),
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)):hover {
+	border-color: var(--purplish-color);
+	background-color: var(--purplish-choice-tint);
+	box-shadow: 0 0 0 1px var(--purplish-color), 0 10px 24px -14px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+}
+
+/* List: one rounded box with a line between every option. */
+.purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked {
+	border-radius: 12px;
+	background-color: transparent;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked::after {
+	margin: 0;
+	border: 1px solid var(--purplish-choice-line);
+	border-radius: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):not(:first-child)::after {
+	display: block;
+	background: var(--purplish-choice-line);
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option) {
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):first-child {
+	border-start-start-radius: 12px;
+	border-start-end-radius: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):last-child {
+	border-end-start-radius: 12px;
+	border-end-end-radius: 12px;
+}
+
+.purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)) {
+	background-color: var(--purplish-choice-tint);
+	box-shadow: inset 3px 0 0 var(--purplish-color);
+}
+
+/*
+ * Side panel: the order summary column on a tinted, rounded panel on a wide
+ * checkout. It grows by its padding, so the summary keeps WooCommerce's
+ * width. Without Soft summary, the summary drops its own box and sits
+ * right on the panel.
+ */
+.purplish-checkoutpage-side .wc-block-components-sidebar-layout.is-large .wc-block-checkout__sidebar {
+	flex-basis: 408px;
+	width: 408px;
+	padding: 24px;
+	border-radius: 24px;
+	background-color: color-mix(in oklab, var(--purplish-color) 7%, transparent);
+}
+
+.purplish-checkoutpage-side:not(.purplish-checkoutpage-summary) .wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block {
+	border-color: transparent;
+}
+
+/* With Soft summary, the summary turns into a card in the page color. */
+.purplish-checkoutpage-side.purplish-checkoutpage-summary .wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block {
+	background-color: var(--wp--preset--color--base, #fff);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 12px 28px -18px rgb(0 0 0 / 0.35);
+}
+
+/*
+ * Cards: the whole checkout on a raised card in the page color, for a
+ * checkout placed on a tinted section. Both columns sit inside it.
+ */
+.purplish-checkoutpage-cards .wc-block-components-sidebar-layout {
+	padding: clamp(16px, 4vw, 40px);
+	border: 1px solid color-mix(in srgb, currentcolor 8%, transparent);
+	border-radius: 24px;
+	background-color: var(--wp--preset--color--base, #fff);
+	box-shadow: 0 1px 3px rgb(0 0 0 / 0.06), 0 24px 48px -24px rgb(0 0 0 / 0.25);
+}
+
+/*
+ * Soft summary, Total line: a rule in the effect color above it and a
+ * bolder, bigger total. On a phone, the summary bar at the top gets the tint.
+ */
+.purplish-checkoutpage-summary :is(.wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block, .checkout-order-summary-block-fill) .wc-block-components-totals-wrapper:has(> .wc-block-components-totals-footer-item) {
+	border-top: 2px solid var(--purplish-color);
+}
+
+.purplish-checkoutpage-summary :is(.wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block, .checkout-order-summary-block-fill) .wc-block-components-totals-footer-item :is(.wc-block-components-totals-item__label, .wc-block-components-totals-item__value) {
+	font-weight: 700;
+}
+
+.purplish-checkoutpage-summary :is(.wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block, .checkout-order-summary-block-fill) .wc-block-components-totals-footer-item .wc-block-components-totals-item__value {
+	font-size: 1.5em;
+}
+
+.purplish-checkoutpage-summary .wc-block-components-sidebar-layout:not(.is-large) .wc-block-components-checkout-order-summary__title {
+	padding-inline: 16px;
+	border-color: transparent;
+	border-radius: 14px;
+	background-color: color-mix(in oklab, var(--purplish-color) 8%, transparent);
+}
+
+/*
  * Spring slide: the drawer opens with a soft settle, then each item and the
  * footer follow one after another. It plays every time the drawer opens.
  * WooCommerce turns the drawer's own slide off for reduced motion, and so

@@ -19,6 +19,12 @@ const FIELDS = [
 	{ value: 'underline', label: __( 'Underline', 'purplish' ) },
 ];
 
+const CHOICES = [
+	{ value: '', label: __( 'None', 'purplish' ) },
+	{ value: 'cards', label: __( 'Cards', 'purplish' ) },
+	{ value: 'list', label: __( 'List', 'purplish' ) },
+];
+
 const LOOKS = [
 	{
 		key: 'focus',
@@ -32,7 +38,23 @@ const LOOKS = [
 		key: 'summary',
 		label: __( 'Soft summary', 'purplish' ),
 		help: __(
-			'The order summary sits on a rounded card in a light tint of the effect color.',
+			'The order summary sits on a rounded card in a light tint of the effect color, with a bigger, bolder total.',
+			'purplish'
+		),
+	},
+	{
+		key: 'side',
+		label: __( 'Side panel', 'purplish' ),
+		help: __(
+			'On wide screens, the order summary column sits on a rounded panel in a light tint of the effect color.',
+			'purplish'
+		),
+	},
+	{
+		key: 'cards',
+		label: __( 'Raised card', 'purplish' ),
+		help: __(
+			'The whole checkout sits on a raised card in the page color. Looks best when the checkout is placed on a tinted section.',
 			'purplish'
 		),
 	},
@@ -74,6 +96,20 @@ export default function CheckoutPagePanel( { saved, setSaved } ) {
 					save( { fields: fields || undefined } )
 				}
 			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Shipping and payment choices', 'purplish' ) }
+				help={ __(
+					'Cards puts each option in its own box, list joins them in one box with a line between each. The picked option gets a light tint of the effect color.',
+					'purplish'
+				) }
+				value={ saved.choices || '' }
+				options={ CHOICES }
+				onChange={ ( choices ) =>
+					save( { choices: choices || undefined } )
+				}
+			/>
 			{ LOOKS.map( ( look ) => (
 				<ToggleControl
 					key={ look.key }
@@ -89,7 +125,7 @@ export default function CheckoutPagePanel( { saved, setSaved } ) {
 				id={ colorId }
 				label={ __( 'Effect color', 'purplish' ) }
 				help={ __(
-					"Colors the focus ring and tints the filled fields and the summary. Without one, they use the theme's text color.",
+					"Colors the focus ring, the picked choice and the total line, and tints the filled fields, the summary and the side panel. Without one, they use the theme's text color.",
 					'purplish'
 				) }
 			>
