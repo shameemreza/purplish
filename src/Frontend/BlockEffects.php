@@ -339,9 +339,10 @@ final class BlockEffects {
 				'redrawn' => true,
 				'preview' => true,
 			),
+			// Place Order alone gets the lock: it's the step where the card goes in.
 			'woocommerce/checkout-actions-block'          => array(
 				'prefix'  => 'buybutton',
-				'options' => self::BUY_BUTTON_LOOKS,
+				'options' => self::BUY_BUTTON_LOOKS + array( 'lock' => true ),
 				'redrawn' => true,
 				'preview' => true,
 			),
@@ -368,6 +369,7 @@ final class BlockEffects {
 					'choices' => array( 'cards', 'list' ),
 					'side'    => true,
 					'cards'   => true,
+					'steps'   => array( 'badges', 'timeline' ),
 				),
 				'redrawn' => true,
 				'preview' => true,

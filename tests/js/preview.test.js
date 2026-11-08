@@ -289,6 +289,46 @@ describe( 'HOVER_BUTTONS', () => {
 		expect( classesFor( checkoutPage, { side: 'tint' } ) ).toEqual( [] );
 	} );
 
+	it( 'gives the Checkout step and lock classes the server prints', () => {
+		const checkoutPage = {
+			prefix: 'checkoutpage',
+			options: {
+				choices: [ 'cards', 'list' ],
+				steps: [ 'badges', 'timeline' ],
+			},
+			legacy: {},
+		};
+		expect(
+			classesFor( checkoutPage, { choices: 'list', steps: 'badges' } )
+		).toEqual( [
+			'purplish-checkoutpage',
+			'purplish-checkoutpage-choices-list',
+			'purplish-checkoutpage-steps-badges',
+		] );
+		expect( classesFor( checkoutPage, { steps: 'numbers' } ) ).toEqual(
+			[]
+		);
+		const placeOrder = {
+			prefix: 'buybutton',
+			options: {
+				glow: true,
+				sweep: true,
+				glass: true,
+				spectrum: true,
+				lock: true,
+			},
+			legacy: {},
+		};
+		expect(
+			classesFor( placeOrder, { spectrum: true, lock: true } )
+		).toEqual( [
+			'purplish-buybutton',
+			'purplish-buybutton-spectrum',
+			'purplish-buybutton-lock',
+		] );
+		expect( classesFor( placeOrder, { lock: 'yes' } ) ).toEqual( [] );
+	} );
+
 	it( 'gives the card classes the server prints', () => {
 		const cards = {
 			prefix: 'cards',

@@ -25,7 +25,7 @@ import ButtonPanel from './button';
 import HeadingPanel from './heading';
 import ColumnsPanel from './columns';
 import CoverPanel from './cover';
-import BuyButtonPanel from './buy-button';
+import BuyButtonPanel, { PlaceOrderPanel } from './buy-button';
 import DrawerPanel from './drawer';
 import CartPagePanel from './cart-page';
 import CheckoutPagePanel from './checkout-page';
@@ -56,7 +56,7 @@ const PANELS = {
 	'woocommerce/order-confirmation-status': OrderStatusPanel,
 	'woocommerce/order-confirmation-summary': OrderSummaryPanel,
 	'woocommerce/proceed-to-checkout-block': BuyButtonPanel,
-	'woocommerce/checkout-actions-block': BuyButtonPanel,
+	'woocommerce/checkout-actions-block': PlaceOrderPanel,
 	'woocommerce/mini-cart-contents': DrawerPanel,
 	'woocommerce/mini-cart-checkout-button-block': BuyButtonPanel,
 	'woocommerce/cart': CartPagePanel,
