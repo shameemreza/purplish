@@ -2,6 +2,12 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] - 2026-11-08
+
+### Fixed
+
+- Details on the photo did nothing on product cards that keep the title, price and add to cart in groups beside the photo, like the Purple theme's shop grid. The details now sit on the photo there too.
+
 ## [1.2.0] - 2026-11-08
 
 ### Added
