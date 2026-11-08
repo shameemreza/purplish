@@ -616,6 +616,19 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	grid-column: 1 / -1;
 }
 
+/*
+ * Cards that wrap the title, price or button in groups beside the photo,
+ * like the Purple shop grid, drop those boxes so the details join the
+ * card's grid.
+ */
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-group:has(:is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button)) {
+	display: contents;
+}
+
+:where(.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-group:has(:is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button))) > * {
+	grid-column: 1 / -1;
+}
+
 .purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image) {
 	grid-row: 1 / span 4;
 	align-self: stretch;
@@ -629,14 +642,14 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	transition: background-position 0.4s ease-out;
 }
 
-.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
 	z-index: 1;
 	margin: 0 !important;
 	color: #fff !important;
 	text-shadow: 0 1px 10px rgb(0 0 0 / 0.3);
 }
 
-.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-post-title {
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-post-title {
 	display: -webkit-box;
 	grid-row: 2;
 	padding: 0 1rem;
@@ -645,7 +658,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	-webkit-box-orient: vertical;
 }
 
-.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-price {
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-woocommerce-product-price {
 	grid-column: 1;
 	grid-row: 3;
 	align-self: center;
@@ -656,7 +669,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	color: inherit !important;
 }
 
-.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-button {
+.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-woocommerce-product-button {
 	grid-column: 2;
 	grid-row: 3;
 	padding: 0.25rem 1rem 1rem 0;
@@ -670,18 +683,18 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 @container purplish-card (max-width: 16rem) {
 
-	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-post-title {
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-post-title {
 		padding: 0 0.75rem;
 		font-size: 0.875rem !important;
 	}
 
-	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-price {
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-woocommerce-product-price {
 		grid-column: 1 / -1;
 		padding: 0.125rem 0.75rem 0.5rem;
 		font-size: 0.8125rem !important;
 	}
 
-	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > .wp-block-woocommerce-product-button {
+	.purplish-cards-details :is(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) .wp-block-woocommerce-product-button {
 		grid-column: 1 / -1;
 		grid-row: 4;
 		justify-self: start;
@@ -705,7 +718,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		background-position: 0 100%;
 	}
 
-	.purplish-cards-details :where(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) > :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
+	.purplish-cards-details :where(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
 		opacity: 0;
 		translate: 0 12px;
 		transition: opacity 0.3s ease-out, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
