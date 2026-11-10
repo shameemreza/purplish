@@ -1,0 +1,1551 @@
+/**
+ * Showfloor. PHP prints every look with the front one's copy and products
+ * in place. Until the view script adds is-ready, only the front look shows
+ * and the controls that need the script stay hidden. The script places
+ * each look on the floor with custom properties (--x, --y, --s, --o, --b,
+ * --z) and swaps the copy and panel when the floor turns. Option classes
+ * are purplish-showfloor-<option>-<value>.
+ */
+.wp-block-purplish-showfloor {
+	--purplish-showfloor-ink: var(--wp--preset--color--contrast, #111);
+	--purplish-showfloor-accent: var(--purplish-effect, var(--wp--preset--color--accent, #720eec));
+	--purplish-showfloor-base: var(--wp--preset--color--base, #fff);
+	--purplish-showfloor-text: currentcolor;
+	--purplish-showfloor-floor: color-mix(in srgb, var(--purplish-showfloor-accent) 8%, var(--purplish-showfloor-base));
+	position: relative;
+	height: clamp(600px, 92svh, 900px);
+	overflow: clip;
+	background-color: var(--purplish-showfloor-base);
+	background-image: linear-gradient(180deg, transparent, var(--purplish-showfloor-floor));
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.wp-block-purplish-showfloor :where(button:not(.wp-element-button)) {
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+.wp-block-purplish-showfloor :focus-visible {
+	outline: 2px solid var(--purplish-showfloor-accent);
+	outline-offset: 3px;
+}
+
+/* Stage and floor */
+.purplish-showfloor-stage {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	isolation: isolate;
+	touch-action: pan-y;
+	cursor: grab;
+}
+
+.purplish-showfloor-stage:focus-visible {
+	outline-offset: -6px;
+}
+
+.wp-block-purplish-showfloor.is-dragging .purplish-showfloor-stage {
+	cursor: grabbing;
+}
+
+.purplish-showfloor-floor {
+	position: absolute;
+	left: var(--purplish-showfloor-cx, 50%);
+	top: var(--purplish-showfloor-floor-y, 74%);
+	width: calc(var(--purplish-showfloor-rx, 360px) * 2.5);
+	height: calc(var(--purplish-showfloor-ry, 80px) * 2.6);
+	translate: -50% -50%;
+	border-radius: 50%;
+	background: radial-gradient(closest-side, color-mix(in srgb, var(--purplish-showfloor-accent) 9%, transparent), transparent);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--purplish-showfloor-accent) 14%, transparent);
+}
+
+.purplish-showfloor-ring {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.purplish-showfloor-look {
+	position: absolute;
+	left: var(--purplish-showfloor-cx, 50%);
+	top: var(--purplish-showfloor-floor-y, 74%);
+	margin: 0;
+	z-index: var(--z, 1);
+	pointer-events: none;
+}
+
+.purplish-showfloor-figure {
+	all: unset;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: block;
+	height: var(--purplish-showfloor-fig-h, 62svh);
+	translate: calc(-50% + var(--x, 0px)) var(--y, 0px);
+	scale: var(--s, 1);
+	transform-origin: 50% 100%;
+	opacity: var(--o, 1);
+	filter: blur(var(--b, 0px));
+	pointer-events: auto;
+	cursor: pointer;
+	will-change: translate, scale;
+}
+
+.purplish-showfloor-figure img {
+	display: block;
+	height: 100%;
+	width: auto;
+	max-width: none;
+	pointer-events: none;
+}
+
+.purplish-showfloor-shadow {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: calc(var(--purplish-showfloor-fig-h, 62svh) * 0.32);
+	height: calc(var(--purplish-showfloor-fig-h, 62svh) * 0.045);
+	translate: calc(-50% + var(--x, 0px)) calc(-50% + var(--y, 0px));
+	scale: var(--s, 1);
+	border-radius: 50%;
+	background: radial-gradient(closest-side, rgb(31 3 66 / 0.32), transparent);
+	opacity: var(--o, 1);
+}
+
+.purplish-showfloor-grid-label {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.is-moving .purplish-showfloor-figure {
+	filter: blur(calc(var(--b, 0px) + var(--purplish-showfloor-motion, 0px)));
+}
+
+/* Copy on the left */
+.purplish-showfloor-copy {
+	position: absolute;
+	left: clamp(20px, 5vw, 72px);
+	bottom: clamp(24px, 6%, 56px);
+	width: min(30ch, 32vw);
+	pointer-events: none;
+	z-index: 50;
+}
+
+.purplish-showfloor-count {
+	margin: 0 0 0.5rem;
+	font-size: 0.875rem;
+	color: color-mix(in srgb, var(--purplish-showfloor-ink) 70%, transparent);
+}
+
+.purplish-showfloor-title {
+	margin: 0;
+	font-size: clamp(2.75rem, 6.4vw, 6rem);
+	line-height: 0.92;
+	font-weight: 800;
+	letter-spacing: -0.045em;
+	color: var(--purplish-showfloor-ink);
+}
+
+.purplish-showfloor-line {
+	margin: 1rem 0 1.5rem;
+	font-size: 1.125rem;
+	line-height: 1.45;
+	color: color-mix(in srgb, var(--purplish-showfloor-text) 78%, transparent);
+}
+
+.purplish-showfloor-title.is-swap,
+.purplish-showfloor-line.is-swap {
+	animation: purplish-showfloor-swap 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes purplish-showfloor-swap {
+
+	from {
+		opacity: 0;
+		translate: 0 0.35em;
+	}
+}
+
+.purplish-showfloor-open {
+	pointer-events: auto;
+}
+
+/* Look names */
+.purplish-showfloor-names {
+	position: absolute;
+	left: clamp(20px, 5vw, 72px);
+	top: clamp(32px, 9%, 96px);
+	display: grid;
+	gap: 2px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	z-index: 50;
+}
+
+.purplish-showfloor-name {
+	all: unset;
+	cursor: pointer;
+	position: relative;
+	display: flex;
+	align-items: baseline;
+	gap: 0.75rem;
+	padding: 0.3rem 0 0.3rem 0.875rem;
+	font-size: 0.875rem;
+	line-height: 1.2;
+	color: color-mix(in srgb, var(--purplish-showfloor-text) 55%, transparent);
+	transition: color 200ms, translate 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.purplish-showfloor-name::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 2px;
+	height: 0;
+	translate: 0 -50%;
+	border-radius: 2px;
+	background: var(--purplish-showfloor-accent);
+	transition: height 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.purplish-showfloor-name:hover {
+	color: var(--purplish-showfloor-ink);
+}
+
+.purplish-showfloor-name-n {
+	font-size: 0.75rem;
+	font-variant-numeric: tabular-nums;
+	opacity: 0.7;
+}
+
+.purplish-showfloor-name[aria-current="true"] {
+	color: var(--purplish-showfloor-ink);
+	font-weight: 600;
+	translate: 4px 0;
+}
+
+.purplish-showfloor-name[aria-current="true"]::before {
+	height: 70%;
+}
+
+/* View switch */
+.purplish-showfloor-view {
+	position: absolute;
+	right: clamp(20px, 4vw, 56px);
+	top: clamp(20px, 5%, 48px);
+	display: flex;
+	padding: 4px;
+	border-radius: 999px;
+	background: var(--purplish-showfloor-base);
+	box-shadow: 0 1px 2px rgb(31 3 66 / 0.08), 0 0 0 1px rgb(31 3 66 / 0.08);
+	z-index: 50;
+}
+
+.purplish-showfloor-view button {
+	border: 0;
+	border-radius: 999px;
+	padding: 0.5rem 1rem;
+	background: none;
+	font-size: 0.875rem;
+}
+
+.purplish-showfloor-view [aria-pressed="true"] {
+	background: var(--purplish-showfloor-ink);
+	color: var(--purplish-showfloor-base);
+}
+
+/* Turn controls */
+.purplish-showfloor-turn {
+	position: absolute;
+	left: 50%;
+	bottom: clamp(16px, 4%, 40px);
+	translate: -50% 0;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	z-index: 50;
+}
+
+.purplish-showfloor-prev,
+.purplish-showfloor-next {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	border: 0;
+	background: var(--purplish-showfloor-base);
+	box-shadow: 0 0 0 1px rgb(31 3 66 / 0.12);
+	position: relative;
+}
+
+.purplish-showfloor-prev::before,
+.purplish-showfloor-next::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	width: 9px;
+	height: 9px;
+	border: solid var(--purplish-showfloor-ink);
+	border-width: 0 0 2px 2px;
+	rotate: 45deg;
+	translate: 2px 0;
+}
+
+.purplish-showfloor-next::before {
+	rotate: -135deg;
+	translate: -2px 0;
+}
+
+.purplish-showfloor-hint {
+	font-size: 0.8125rem;
+	color: color-mix(in srgb, var(--purplish-showfloor-text) 60%, transparent);
+	transition: opacity 400ms;
+}
+
+.wp-block-purplish-showfloor.has-dragged .purplish-showfloor-hint {
+	opacity: 0;
+}
+
+/* Panel */
+.purplish-showfloor-panel {
+	position: absolute;
+	right: clamp(20px, 4vw, 56px);
+	bottom: clamp(20px, 5%, 48px);
+	width: min(340px, 30vw);
+	padding: 1rem;
+	border-radius: 20px;
+	background: color-mix(in srgb, var(--purplish-showfloor-base) 88%, transparent);
+	backdrop-filter: blur(14px);
+	box-shadow: 0 12px 40px rgb(31 3 66 / 0.12), 0 0 0 1px rgb(31 3 66 / 0.06);
+	z-index: 50;
+}
+
+.purplish-showfloor-panel-title {
+	margin: 0 0 0.5rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--purplish-showfloor-ink);
+}
+
+.purplish-showfloor-pieces,
+.purplish-showfloor-tag-pieces {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.purplish-showfloor-piece {
+	display: grid;
+	grid-template-columns: 48px 1fr auto;
+	align-items: center;
+	gap: 0.75rem;
+	padding-block: 0.5rem;
+	border-top: 1px solid rgb(31 3 66 / 0.08);
+}
+
+.purplish-showfloor-piece:first-child {
+	border-top: 0;
+}
+
+.purplish-showfloor-piece img {
+	width: 48px;
+	height: 48px;
+	border-radius: 10px;
+	object-fit: cover;
+}
+
+.purplish-showfloor-piece-name {
+	display: grid;
+	font-size: 0.875rem;
+	line-height: 1.3;
+}
+
+.purplish-showfloor-piece-name a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.purplish-showfloor-piece-name a:hover {
+	text-decoration: underline;
+}
+
+.purplish-showfloor-piece-price {
+	color: color-mix(in srgb, var(--purplish-showfloor-text) 65%, transparent);
+}
+
+.purplish-showfloor-add {
+	border: 1px solid var(--purplish-showfloor-ink);
+	border-radius: 999px;
+	padding: 0.45rem 0.85rem;
+	background: none;
+	font-size: 0.8125rem;
+	white-space: nowrap;
+}
+
+.purplish-showfloor-add:hover {
+	background: var(--purplish-showfloor-ink);
+	color: var(--purplish-showfloor-base);
+}
+
+.purplish-showfloor-add.is-added {
+	background: var(--purplish-showfloor-accent);
+	border-color: var(--purplish-showfloor-accent);
+	color: var(--purplish-showfloor-base);
+}
+
+.purplish-showfloor-piece.is-lit {
+	background: color-mix(in srgb, var(--purplish-showfloor-accent) 8%, transparent);
+	border-radius: 12px;
+}
+
+/* Grid view */
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-floor,
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-turn,
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-panel,
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-copy,
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-names,
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-shadow {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-stage {
+	position: absolute;
+	inset: 0;
+	overflow-y: auto;
+	cursor: default;
+}
+
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-ring {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1rem 2rem;
+	padding: clamp(72px, 10%, 110px) clamp(20px, 5vw, 72px) 40px;
+}
+
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-look {
+	position: relative;
+	left: auto;
+	top: auto;
+	display: grid;
+	justify-items: center;
+	gap: 0.5rem;
+	pointer-events: auto;
+}
+
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-figure {
+	position: relative;
+	height: calc((clamp(600px, 92svh, 900px) - 220px) / 2);
+	translate: none;
+	scale: 1;
+	opacity: 1;
+	filter: none;
+}
+
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-grid-label {
+	display: block;
+	font-size: 0.875rem;
+	color: color-mix(in srgb, var(--purplish-showfloor-text) 70%, transparent);
+}
+
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-grid-label strong {
+	color: var(--purplish-showfloor-ink);
+	margin-inline-end: 0.35rem;
+}
+
+::view-transition-group(*.purplish-showfloor) {
+	animation-duration: 560ms;
+	animation-timing-function: cubic-bezier(0.3, 0.7, 0.1, 1);
+}
+
+/* Dialog */
+.purplish-showfloor-dialog {
+	width: 100vw;
+	height: 100svh;
+	max-width: none;
+	max-height: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--purplish-showfloor-text);
+	overflow: hidden;
+}
+
+.purplish-showfloor-dialog::backdrop {
+	background: color-mix(in srgb, var(--purplish-showfloor-floor) 82%, transparent);
+	backdrop-filter: blur(10px);
+}
+
+.purplish-showfloor-dialog[open] .purplish-showfloor-solo {
+	animation: purplish-showfloor-rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes purplish-showfloor-rise {
+
+	from {
+		opacity: 0;
+		scale: 0.86;
+	}
+}
+
+.purplish-showfloor-dialog-body {
+	position: relative;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr minmax(300px, 380px);
+	align-items: center;
+	gap: 2rem;
+	padding: 0 clamp(20px, 5vw, 80px);
+}
+
+.purplish-showfloor-solo {
+	position: relative;
+	justify-self: center;
+	height: 84svh;
+	transform-origin: 50% 100%;
+}
+
+.purplish-showfloor-solo img {
+	height: 100%;
+	width: auto;
+	display: block;
+}
+
+.purplish-showfloor-solo::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: -1.5%;
+	width: 70%;
+	height: 5%;
+	translate: -50% 0;
+	border-radius: 50%;
+	background: radial-gradient(closest-side, rgb(31 3 66 / 0.28), transparent);
+	z-index: -1;
+}
+
+.purplish-showfloor-mark {
+	position: absolute;
+	left: calc(var(--x) * 100%);
+	top: calc(var(--y) * 100%);
+	translate: -50% -50%;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	border: 2px solid var(--purplish-showfloor-base);
+	background: var(--purplish-showfloor-ink);
+	color: var(--purplish-showfloor-base);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	box-shadow: 0 4px 14px rgb(31 3 66 / 0.3);
+	animation: purplish-showfloor-pop 360ms cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
+	animation-delay: calc(380ms + var(--i, 0) * 90ms);
+}
+
+.purplish-showfloor-mark:hover,
+.purplish-showfloor-mark.is-lit {
+	background: var(--purplish-showfloor-accent);
+}
+
+@keyframes purplish-showfloor-pop {
+
+	from {
+		scale: 0;
+	}
+}
+
+.purplish-showfloor-tag-wrap {
+	position: relative;
+	align-self: start;
+	padding-top: 0;
+}
+
+.purplish-showfloor-tag-wrap::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 1.5px;
+	height: 9svh;
+	background: color-mix(in srgb, var(--purplish-showfloor-ink) 45%, transparent);
+}
+
+.purplish-showfloor-tag {
+	position: relative;
+	margin-top: 9svh;
+	padding: 2.25rem 1.5rem 1.5rem;
+	border-radius: 6px 6px 18px 18px;
+	background: var(--purplish-showfloor-base);
+	box-shadow: 0 18px 50px rgb(31 3 66 / 0.18), 0 0 0 1px rgb(31 3 66 / 0.06);
+	clip-path: polygon(22% 0, 78% 0, 100% 7%, 100% 100%, 0 100%, 0 7%);
+	transform-origin: 50% calc(-9svh);
+}
+
+.purplish-showfloor-dialog[open] .purplish-showfloor-tag {
+	animation: purplish-showfloor-swing 1500ms cubic-bezier(0.25, 0.6, 0.3, 1);
+}
+
+@keyframes purplish-showfloor-swing {
+
+	0% {
+		rotate: -16deg;
+		opacity: 0;
+	}
+
+	12% {
+		opacity: 1;
+	}
+
+	35% {
+		rotate: 9deg;
+	}
+
+	58% {
+		rotate: -4deg;
+	}
+
+	78% {
+		rotate: 1.5deg;
+	}
+
+	100% {
+		rotate: 0deg;
+	}
+}
+
+.purplish-showfloor-tag-hole {
+	position: absolute;
+	left: 50%;
+	top: 0.9rem;
+	width: 12px;
+	height: 12px;
+	translate: -50% 0;
+	border-radius: 50%;
+	background: var(--purplish-showfloor-floor);
+	box-shadow: inset 0 1px 2px rgb(31 3 66 / 0.25);
+}
+
+.purplish-showfloor-tag-brand {
+	margin: 0;
+	text-align: center;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--purplish-showfloor-accent);
+}
+
+.purplish-showfloor-tag-title {
+	margin: 0.75rem 0 0.25rem;
+	font-size: 2rem;
+	font-weight: 800;
+	letter-spacing: -0.035em;
+	color: var(--purplish-showfloor-ink);
+}
+
+.purplish-showfloor-tag-line {
+	margin: 0 0 1rem;
+	font-size: 0.9375rem;
+	color: color-mix(in srgb, var(--purplish-showfloor-text) 70%, transparent);
+}
+
+.purplish-showfloor-tag-pieces .purplish-showfloor-piece {
+	grid-template-columns: 24px 44px 1fr auto;
+	padding-inline: 0.25rem;
+}
+
+.purplish-showfloor-tag-pieces .purplish-showfloor-piece::before {
+	content: attr(data-piece);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	color: var(--purplish-showfloor-accent);
+	text-align: center;
+}
+
+.purplish-showfloor-tag-pieces .purplish-showfloor-piece img {
+	width: 44px;
+	height: 44px;
+}
+
+.purplish-showfloor-tag-total {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin: 0.75rem 0 0;
+	padding-top: 0.75rem;
+	border-top: 2px solid var(--purplish-showfloor-ink);
+	font-size: 0.9375rem;
+}
+
+.purplish-showfloor-tag-total strong {
+	font-size: 1.5rem;
+	color: var(--purplish-showfloor-ink);
+}
+
+.purplish-showfloor-close {
+	position: fixed;
+	z-index: 2;
+	left: clamp(16px, 3vw, 40px);
+	top: clamp(16px, 3vw, 40px);
+	border: 0;
+	border-radius: 999px;
+	padding: 0.6rem 1.1rem;
+	background: var(--purplish-showfloor-ink);
+	color: var(--purplish-showfloor-base);
+	font-size: 0.875rem;
+}
+
+/* Phones and small tablets */
+@media (max-width: 781px) {
+
+	.wp-block-purplish-showfloor {
+		height: auto;
+		min-height: 0;
+		display: grid;
+		grid-template-rows: auto 50svh auto auto;
+	}
+
+	.purplish-showfloor-copy {
+		position: relative;
+		inset: auto;
+		width: auto;
+		padding: 28px 20px 0;
+		grid-row: 1;
+	}
+
+	.purplish-showfloor-title {
+		font-size: clamp(2.5rem, 12vw, 3.5rem);
+	}
+
+	.purplish-showfloor-line {
+		margin-block: 0.5rem 1rem;
+	}
+
+	.purplish-showfloor-stage {
+		position: relative;
+		grid-row: 2;
+	}
+
+	.purplish-showfloor-names,
+	.purplish-showfloor-hint {
+		display: none;
+	}
+
+	.purplish-showfloor-view {
+		top: 20px;
+		right: 20px;
+	}
+
+	.purplish-showfloor-turn {
+		position: relative;
+		left: auto;
+		bottom: auto;
+		translate: none;
+		justify-content: center;
+		grid-row: 3;
+		padding-block: 8px;
+	}
+
+	.purplish-showfloor-panel {
+		position: relative;
+		inset: auto;
+		width: auto;
+		margin: 12px 16px 24px;
+		grid-row: 4;
+	}
+
+	.wp-block-purplish-showfloor.is-grid .purplish-showfloor-ring {
+		grid-template-columns: repeat(2, 1fr);
+		padding-top: 72px;
+	}
+
+	.wp-block-purplish-showfloor.is-grid {
+		display: block;
+		height: auto;
+	}
+
+	.wp-block-purplish-showfloor.is-grid .purplish-showfloor-stage {
+		position: relative;
+		overflow: visible;
+	}
+
+	.wp-block-purplish-showfloor.is-grid .purplish-showfloor-figure {
+		height: 46svh;
+	}
+
+	.purplish-showfloor-dialog-body {
+		grid-template-columns: 1fr;
+		align-items: start;
+		overflow-y: auto;
+		padding: 64px 16px 24px;
+		gap: 0;
+	}
+
+	.purplish-showfloor-solo {
+		height: 52svh;
+	}
+
+	.purplish-showfloor-tag-wrap::before {
+		display: none;
+	}
+
+	.purplish-showfloor-tag {
+		margin-top: 1rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wp-block-purplish-showfloor *,
+	.purplish-showfloor-dialog * {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	.purplish-showfloor-figure {
+		filter: none !important;
+	}
+}
+
+/* Copy: meta row and a softer swap between looks. */
+.purplish-showfloor-meta {
+	margin: 0.75rem 0 0;
+	font-size: 0.875rem;
+	font-variant-numeric: tabular-nums;
+	color: color-mix(in srgb, var(--purplish-showfloor-ink) 70%, transparent);
+}
+
+.purplish-showfloor-line {
+	margin-top: 0.5rem;
+}
+
+.purplish-showfloor-title.is-swap,
+.purplish-showfloor-meta.is-swap,
+.purplish-showfloor-line.is-swap {
+	animation: purplish-showfloor-swap-soft 560ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+.purplish-showfloor-meta.is-swap {
+	animation-delay: 50ms;
+}
+
+.purplish-showfloor-line.is-swap {
+	animation-delay: 90ms;
+}
+
+@keyframes purplish-showfloor-swap-soft {
+
+	from {
+		opacity: 0;
+		translate: 0 0.3em;
+		filter: blur(6px);
+	}
+}
+
+.purplish-showfloor-open {
+	transition: background-color 200ms, color 200ms, scale 160ms;
+}
+
+.purplish-showfloor-open:active {
+	scale: 0.97;
+}
+
+/* Shared: keep a label for screen readers when it is hidden. */
+.wp-block-purplish-showfloor.purplish-showfloor-toggle-icons .purplish-showfloor-view .purplish-showfloor-label,
+.wp-block-purplish-showfloor.purplish-showfloor-close-icon .purplish-showfloor-close .purplish-showfloor-label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* View switch: icon, text or both. */
+.purplish-showfloor-view button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	transition: background-color 200ms, color 200ms;
+}
+
+.purplish-showfloor-view svg {
+	flex: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-toggle-text .purplish-showfloor-view svg {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-toggle-icons .purplish-showfloor-view button {
+	width: 38px;
+	height: 38px;
+	padding: 0;
+	justify-content: center;
+}
+
+/* Close: icon, text or both. */
+.purplish-showfloor-close {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-close-text .purplish-showfloor-close svg {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-close-icon .purplish-showfloor-close {
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	justify-content: center;
+	border-radius: 50%;
+}
+
+/* Arrows on or off. */
+.wp-block-purplish-showfloor.purplish-showfloor-arrows-off .purplish-showfloor-prev,
+.wp-block-purplish-showfloor.purplish-showfloor-arrows-off .purplish-showfloor-next,
+.wp-block-purplish-showfloor.purplish-showfloor-arrows-off .purplish-showfloor-hint {
+	display: none;
+}
+
+/* Look list: numbers and names, names, numbers, or off. */
+.wp-block-purplish-showfloor.purplish-showfloor-list-names .purplish-showfloor-name-n,
+.wp-block-purplish-showfloor.purplish-showfloor-list-numbers .purplish-showfloor-name-t {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-numbers .purplish-showfloor-name {
+	font-size: 0.8125rem;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-off .purplish-showfloor-names {
+	display: none;
+}
+
+/* Panel: header with the look total. */
+.purplish-showfloor-panel-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+.purplish-showfloor-panel-total {
+	font-weight: 500;
+	font-variant-numeric: tabular-nums;
+	color: color-mix(in srgb, var(--purplish-showfloor-text) 65%, transparent);
+}
+
+.purplish-showfloor-piece-name a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.purplish-showfloor-add {
+	transition: background-color 200ms, color 200ms, border-color 200ms;
+}
+
+/* Add buttons as a round plus. */
+.wp-block-purplish-showfloor.purplish-showfloor-add-icon .purplish-showfloor-add:not(.is-link) {
+	position: relative;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border-radius: 50%;
+	font-size: 0;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-add-icon .purplish-showfloor-add:not(.is-link)::before {
+	content: "+";
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	font-size: 1.25rem;
+	line-height: 1;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-add-icon .purplish-showfloor-add:not(.is-link).is-added::before {
+	content: "\2713";
+	font-size: 1rem;
+}
+
+/* Grid hover looks. */
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-figure {
+	transition: translate 320ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 300ms, filter 300ms;
+}
+
+.wp-block-purplish-showfloor.is-grid .purplish-showfloor-look {
+	transition: opacity 300ms, filter 300ms;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-figure:hover,
+.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-figure:focus-visible {
+	translate: 0 -12px;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-look::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: calc((clamp(600px, 92svh, 900px) - 220px) / 2 - 6px);
+	width: 90px;
+	height: 12px;
+	translate: -50% 0;
+	border-radius: 50%;
+	background: radial-gradient(closest-side, rgb(31 3 66 / 0.25), transparent);
+	transition: scale 320ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 320ms;
+	pointer-events: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:hover)::after {
+	scale: 0.75;
+	opacity: 0.6;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-spotlight.is-grid .purplish-showfloor-ring:has(.purplish-showfloor-figure:hover) .purplish-showfloor-look:not(:has(.purplish-showfloor-figure:hover)) {
+	opacity: 0.3;
+	filter: grayscale(0.7);
+}
+
+.purplish-showfloor-grid-peek {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-look {
+	position: relative;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-grid-peek {
+	display: flex;
+	gap: 6px;
+	position: absolute;
+	left: 50%;
+	bottom: 1.6rem;
+	translate: -50% 8px;
+	padding: 6px;
+	border-radius: 14px;
+	background: var(--purplish-showfloor-base);
+	box-shadow: 0 10px 30px rgb(31 3 66 / 0.16);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 220ms, translate 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-grid-peek img {
+	width: 40px;
+	height: 40px;
+	border-radius: 9px;
+	object-fit: cover;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:hover) .purplish-showfloor-grid-peek {
+	opacity: 1;
+	translate: -50% 0;
+}
+
+/* Drag cursor, from Runway's ring: follows the mouse with a little lag. */
+.purplish-showfloor-cursor {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 200;
+	display: grid;
+	place-items: center;
+	min-width: 44px;
+	height: 44px;
+	padding: 0;
+	translate: calc(var(--cx, 0px) - 50%) calc(var(--cy, 0px) - 50%);
+	border: 1.5px solid var(--purplish-showfloor-ink);
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--purplish-showfloor-base) 55%, transparent);
+	backdrop-filter: blur(6px);
+	color: var(--purplish-showfloor-ink);
+	font-size: 0.75rem;
+	font-weight: 600;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	scale: 0.6;
+	transition:
+		opacity 200ms,
+		scale 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+		min-width 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+		height 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+		padding 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+		background-color 200ms,
+		color 200ms;
+}
+
+.purplish-showfloor-cursor span {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.is-pointing:not(.is-grid):not(.purplish-showfloor-cursor-off) .purplish-showfloor-stage {
+	cursor: none;
+}
+
+.wp-block-purplish-showfloor.is-pointing:not(.is-grid):not(.purplish-showfloor-cursor-off) .purplish-showfloor-figure {
+	cursor: none;
+}
+
+.wp-block-purplish-showfloor.is-pointing:not(.is-grid):not(.purplish-showfloor-cursor-off) .purplish-showfloor-cursor {
+	opacity: 1;
+	scale: 1;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-cursor-ring.is-dragging .purplish-showfloor-cursor {
+	min-width: 84px;
+	height: 34px;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-cursor-label .purplish-showfloor-cursor {
+	height: 36px;
+	padding: 0 14px;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-cursor-label .purplish-showfloor-cursor span {
+	display: block;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-cursor-label .purplish-showfloor-cursor.is-drag span::before {
+	content: "\2039\00a0\00a0";
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-cursor-label .purplish-showfloor-cursor.is-drag span::after {
+	content: "\00a0\00a0\203A";
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-cursor-label .purplish-showfloor-cursor.is-open {
+	background: var(--purplish-showfloor-ink);
+	color: var(--purplish-showfloor-base);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-cursor-label.is-dragging .purplish-showfloor-cursor {
+	scale: 0.9;
+}
+
+@media (max-width: 781px) {
+
+	.purplish-showfloor-cursor {
+		display: none;
+	}
+
+	.purplish-showfloor-copy {
+		bottom: auto;
+		padding-right: 104px;
+	}
+
+	.wp-block-purplish-showfloor .purplish-showfloor-view .purplish-showfloor-label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+	}
+
+	.wp-block-purplish-showfloor .purplish-showfloor-view button {
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		justify-content: center;
+	}
+
+	.wp-block-purplish-showfloor.purplish-showfloor-toggle-text .purplish-showfloor-view svg {
+		display: block;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-showfloor-cursor {
+		display: none;
+	}
+}
+
+/* Look list as faces: a round crop of each figure's head, name on hover. */
+.purplish-showfloor-name-face {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-names {
+	gap: 6px;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name {
+	padding: 0;
+	gap: 0;
+	align-items: center;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name::before,
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name-n {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name-face {
+	display: block;
+	position: relative;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	overflow: hidden;
+	background: color-mix(in srgb, var(--purplish-showfloor-accent) 9%, var(--purplish-showfloor-base));
+	box-shadow: 0 0 0 1px rgb(31 3 66 / 0.1);
+	opacity: 0.6;
+	transition: opacity 200ms, box-shadow 220ms, scale 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.purplish-showfloor-name-face img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 760%;
+	width: auto;
+	max-width: none;
+	translate: calc(var(--fx, 0.5) * -100%) calc(var(--fy, 0.07) * -100%);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:hover .purplish-showfloor-name-face {
+	opacity: 1;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name[aria-current="true"] {
+	translate: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name[aria-current="true"] .purplish-showfloor-name-face {
+	opacity: 1;
+	scale: 1.08;
+	box-shadow: 0 0 0 2px var(--purplish-showfloor-base), 0 0 0 4px var(--purplish-showfloor-accent);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name-t {
+	position: absolute;
+	left: 50px;
+	padding: 0.3rem 0.6rem;
+	border-radius: 999px;
+	background: var(--purplish-showfloor-ink);
+	color: var(--purplish-showfloor-base);
+	font-size: 0.8125rem;
+	font-weight: 500;
+	white-space: nowrap;
+	opacity: 0;
+	translate: -6px 0;
+	pointer-events: none;
+	transition: opacity 180ms, translate 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:hover .purplish-showfloor-name-t,
+.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:focus-visible .purplish-showfloor-name-t {
+	opacity: 1;
+	translate: 0 0;
+}
+
+/* Markers that add to the cart: a small plus, then a tick. */
+.wp-block-purplish-showfloor.purplish-showfloor-marks-add .purplish-showfloor-mark::after {
+	content: "+";
+	position: absolute;
+	right: -7px;
+	top: -7px;
+	display: grid;
+	place-items: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--purplish-showfloor-accent);
+	color: var(--purplish-showfloor-base);
+	font-size: 0.8125rem;
+	line-height: 1;
+	box-shadow: 0 0 0 2px var(--purplish-showfloor-base);
+	transition: scale 200ms cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-marks-add .purplish-showfloor-mark:hover::after {
+	scale: 1.15;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-marks-add .purplish-showfloor-mark.is-added {
+	background: var(--purplish-showfloor-accent);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-marks-add .purplish-showfloor-mark.is-added::after {
+	content: "\2713";
+	font-size: 0.6875rem;
+	background: var(--purplish-showfloor-ink);
+}
+
+/* Whole-look button. */
+.purplish-showfloor-whole {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+	width: 100%;
+	margin-top: 0.75rem;
+	padding: 0.8rem 1.1rem;
+	border: 0;
+	border-radius: 999px;
+	background: var(--purplish-showfloor-ink);
+	color: var(--purplish-showfloor-base);
+	font-size: 0.875rem;
+	font-weight: 600;
+	transition: background-color 200ms, scale 160ms;
+}
+
+.purplish-showfloor-whole:hover {
+	background: var(--purplish-showfloor-accent);
+}
+
+.purplish-showfloor-whole:active {
+	scale: 0.98;
+}
+
+.purplish-showfloor-whole:disabled {
+	cursor: progress;
+}
+
+.purplish-showfloor-whole.is-added {
+	background: var(--purplish-showfloor-accent);
+}
+
+.purplish-showfloor-whole-p {
+	font-weight: 500;
+	font-variant-numeric: tabular-nums;
+	opacity: 0.8;
+}
+
+.purplish-showfloor-tag .purplish-showfloor-whole {
+	margin-top: 1rem;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-whole-off .purplish-showfloor-whole {
+	display: none;
+}
+
+/* Autoplay: pause and play, with a ring that fills until the next turn. */
+.purplish-showfloor-play {
+	display: none;
+	position: relative;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: var(--purplish-showfloor-base);
+	box-shadow: 0 0 0 1px rgb(31 3 66 / 0.12);
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-autoplay-on .purplish-showfloor-play {
+	display: block;
+}
+
+.purplish-showfloor-play svg {
+	position: absolute;
+	inset: 0;
+	overflow: visible;
+}
+
+.purplish-showfloor-play-ring {
+	fill: none;
+	stroke: var(--purplish-showfloor-accent);
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-dasharray: 100;
+	stroke-dashoffset: 100;
+	transform: rotate(-90deg);
+	transform-box: fill-box;
+	transform-origin: center;
+	animation: purplish-showfloor-auto var(--purplish-showfloor-auto, 4000ms) linear infinite paused;
+}
+
+.wp-block-purplish-showfloor.is-auto-live .purplish-showfloor-play-ring {
+	animation-play-state: running;
+}
+
+.purplish-showfloor-play-ring.is-reset {
+	animation: none;
+}
+
+@keyframes purplish-showfloor-auto {
+
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+.purplish-showfloor-play-pause {
+	fill: none;
+	stroke: var(--purplish-showfloor-ink);
+	stroke-width: 2.4;
+	stroke-linecap: round;
+}
+
+.purplish-showfloor-play-go {
+	display: none;
+	fill: var(--purplish-showfloor-ink);
+}
+
+.wp-block-purplish-showfloor.is-auto-off .purplish-showfloor-play-pause {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.is-auto-off .purplish-showfloor-play-go {
+	display: block;
+}
+
+.wp-block-purplish-showfloor.is-auto-off .purplish-showfloor-play-ring {
+	opacity: 0;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-pause-plain .purplish-showfloor-play-ring {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-autoplay-on.purplish-showfloor-pause-off .purplish-showfloor-play {
+	display: none;
+}
+
+/* Phones: a swipe row with scroll snap instead of the small floor. */
+.wp-block-purplish-showfloor.is-row {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.wp-block-purplish-showfloor.is-row .purplish-showfloor-stage {
+	min-width: 0;
+	touch-action: auto;
+	cursor: default;
+}
+
+.wp-block-purplish-showfloor.is-row .purplish-showfloor-floor {
+	top: 92%;
+	width: 150%;
+	height: 22%;
+}
+
+.wp-block-purplish-showfloor.is-row .purplish-showfloor-ring {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	gap: 2vw;
+	height: 100%;
+	padding: 0 calc(50% - 21vw) 4%;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+}
+
+.wp-block-purplish-showfloor.is-row .purplish-showfloor-ring::-webkit-scrollbar {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.is-row .purplish-showfloor-look {
+	position: relative;
+	left: auto;
+	top: auto;
+	flex: none;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	width: 42vw;
+	height: 100%;
+	scroll-snap-align: center;
+	pointer-events: auto;
+}
+
+.wp-block-purplish-showfloor.is-row .purplish-showfloor-figure {
+	position: relative;
+	left: auto;
+	bottom: auto;
+	height: 92%;
+	translate: none;
+	scale: 1;
+	opacity: 1;
+	filter: none;
+}
+
+.wp-block-purplish-showfloor.is-row .purplish-showfloor-shadow {
+	left: 50%;
+	top: auto;
+	bottom: 0;
+	width: 70%;
+	height: 14px;
+	translate: -50% 50%;
+	scale: 1;
+	opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+
+	.wp-block-purplish-showfloor.is-row .purplish-showfloor-figure,
+	.wp-block-purplish-showfloor.is-row .purplish-showfloor-shadow {
+		animation: purplish-showfloor-row-focus linear both;
+		animation-timeline: view(inline);
+	}
+}
+
+@keyframes purplish-showfloor-row-focus {
+
+	0%,
+	100% {
+		scale: 0.72;
+		opacity: 0.4;
+	}
+
+	50% {
+		scale: 1;
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-showfloor-play {
+		display: none !important;
+	}
+}
+
+/* Before the script runs: the front look and its products only. */
+.wp-block-purplish-showfloor:not(.is-ready) .purplish-showfloor-look:not(:first-child),
+.wp-block-purplish-showfloor:not(.is-ready) :is(.purplish-showfloor-names, .purplish-showfloor-view, .purplish-showfloor-turn, .purplish-showfloor-open, .purplish-showfloor-whole, button.purplish-showfloor-add) {
+	visibility: hidden;
+}
+
+.purplish-showfloor-whole[hidden],
+.purplish-showfloor-panel:has(.purplish-showfloor-pieces:empty) {
+	display: none;
+}
+
+.wp-block-purplish-showfloor.purplish-showfloor-total-off :is(.purplish-showfloor-panel-total, .purplish-showfloor-whole-p, .purplish-showfloor-tag-total) {
+	display: none;
+}
+
+.wp-block-purplish-showfloor .screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.purplish-showfloor-figure {
+	view-transition-class: purplish-showfloor;
+}
+
+/* The photo that flies into the Mini-Cart. */
+.purplish-showfloor-fly {
+	position: fixed;
+	z-index: 99999;
+	max-width: none;
+	margin: 0;
+	border-radius: 0.625rem;
+	object-fit: cover;
+	box-shadow: 0 0.75rem 1.875rem rgb(20 20 40 / 25%);
+	pointer-events: none;
+}

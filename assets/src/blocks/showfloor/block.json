@@ -1,0 +1,132 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "purplish/showfloor",
+	"version": "1.3.0",
+	"title": "Showfloor",
+	"category": "purplish",
+	"description": "Cut-out looks stand on a turning floor. Visitors turn it, open a look and add its pieces to the cart.",
+	"keywords": [ "shop the look", "lookbook", "hero", "outfit", "products" ],
+	"textdomain": "purplish",
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+		},
+		"shape": {
+			"type": "string",
+			"enum": [ "oval", "flat" ],
+			"default": "oval"
+		},
+		"depth": {
+			"type": "string",
+			"enum": [ "subtle", "strong", "off" ],
+			"default": "subtle"
+		},
+		"start": {
+			"type": "string",
+			"enum": [ "floor", "grid" ],
+			"default": "floor"
+		},
+		"autoplay": {
+			"type": "string",
+			"enum": [ "off", "on" ],
+			"default": "off"
+		},
+		"speed": {
+			"type": "number",
+			"default": 4
+		},
+		"pause": {
+			"type": "string",
+			"enum": [ "ring", "plain", "off" ],
+			"default": "ring"
+		},
+		"phone": {
+			"type": "string",
+			"enum": [ "row", "ring" ],
+			"default": "row"
+		},
+		"toggle": {
+			"type": "string",
+			"enum": [ "both", "icons", "text", "off" ],
+			"default": "both"
+		},
+		"arrows": {
+			"type": "string",
+			"enum": [ "on", "off" ],
+			"default": "on"
+		},
+		"cursor": {
+			"type": "string",
+			"enum": [ "label", "ring", "off" ],
+			"default": "label"
+		},
+		"list": {
+			"type": "string",
+			"enum": [ "both", "faces", "names", "numbers", "off" ],
+			"default": "both"
+		},
+		"shop": {
+			"type": "string",
+			"enum": [ "on", "off" ],
+			"default": "on"
+		},
+		"shopText": {
+			"type": "string",
+			"default": ""
+		},
+		"add": {
+			"type": "string",
+			"enum": [ "text", "icon" ],
+			"default": "text"
+		},
+		"total": {
+			"type": "string",
+			"enum": [ "on", "off" ],
+			"default": "on"
+		},
+		"whole": {
+			"type": "string",
+			"enum": [ "on", "off" ],
+			"default": "on"
+		},
+		"hover": {
+			"type": "string",
+			"enum": [ "lift", "spotlight", "peek", "none" ],
+			"default": "lift"
+		},
+		"close": {
+			"type": "string",
+			"enum": [ "both", "icon", "text" ],
+			"default": "both"
+		},
+		"marks": {
+			"type": "string",
+			"enum": [ "highlight", "add" ],
+			"default": "highlight"
+		},
+		"fly": {
+			"type": "string",
+			"enum": [ "on", "off" ],
+			"default": "on"
+		}
+	},
+	"allowedBlocks": [ "purplish/showfloor-look" ],
+	"supports": {
+		"align": [ "wide", "full" ],
+		"anchor": true,
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": [ "top", "bottom" ]
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css"
+}

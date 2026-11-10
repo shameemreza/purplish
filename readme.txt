@@ -153,6 +153,17 @@ It holds Cover blocks, one Product Collection and a Group. Each Cover is a shot:
 
 The opening video plays once and stops within 5 seconds, and nothing loops. Visitors who turn on reduced motion get each shot with its card beside it as a plain page.
 
+= Showfloor block =
+
+It holds Look blocks, one for each look: a cut-out photo, a name, a short line and the products in it. The looks stand on a turning oval floor, and the one at the front shows its pieces and their total beside it.
+
+* **Turn and open:** visitors drag, swipe, tap a look or its name, or use the buttons or arrow keys. Opening a look shows it as a price tag with a numbered marker on each piece.
+* **Add the whole look:** one button adds every piece at the price shown. Variable products link to their page instead.
+* **Showfloor options:** an oval floor or a flat row, three depths, a floor and grid switch, a look list with faces, names or numbers, a swipe row or small floor on phones, and photos that fly into the mini cart.
+* **Autoplay:** off by default, every 3 to 8 seconds, with a pause button that can show a timer ring or be hidden.
+
+Autoplay holds while a visitor uses the floor and never runs for visitors who turn on reduced motion.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
