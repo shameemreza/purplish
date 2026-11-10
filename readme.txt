@@ -161,6 +161,7 @@ It holds Look blocks, one for each look: a cut-out photo, a name, a short line a
 * **Add the whole look:** one button adds every piece at the price shown. Variable products link to their page instead.
 * **Showfloor options:** an oval floor or a flat row, three depths, a floor and grid switch, a look list with faces, names or numbers, a swipe row or small floor on phones, and photos that fly into the mini cart.
 * **Autoplay:** off by default, every 3 to 8 seconds, with a pause button that can show a timer ring or be hidden.
+* **Drawn figures:** eight figures drawn for Purplish fill the block's preview in the inserter. A look with no products shows its figure and name only.
 
 Autoplay holds while a visitor uses the floor and never runs for visitors who turn on reduced motion.
 

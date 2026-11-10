@@ -227,6 +227,7 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 - **Floor and grid:** a switch moves between the floor and a grid of every look. The block can start on either.
 - **Floor options:** an oval floor or a flat row, a subtle, strong or flat depth, and on phones a swipe row with the next looks peeking in, or a smaller floor.
 - **Look list:** numbers and names, faces, names only, numbers only, or off. The face crop comes from a focal point you set on each Look.
+- **Drawn figures:** eight figures drawn for Purplish ship in `assets/figures/`, for patterns and the inserter preview. A Look uses its image URL when it has no media library image, so a pattern can point at them. A look with no products shows its figure and name only, until you pick the products in it.
 - **Autoplay:** off by default. When it's on, the floor turns every 3 to 8 seconds, with a pause button that shows a timer ring, a plain pause button, or no button.
 - **Shopping options:** the Shop this look button and its text, add buttons with text or an icon, the look total, and photos that fly into the mini cart.
 
