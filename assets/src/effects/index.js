@@ -746,3 +746,32 @@ if ( ! reduced && 'IntersectionObserver' in window ) {
 		enterOnScroll( blocks );
 	}
 }
+
+/**
+ * A condensing group inside a template part makes the part stick, and the
+ * blocks above the group, like a note bar, would stick with it. The part
+ * sticks that much higher instead, so they scroll away and the group stays
+ * at the top. The group's own top margin, which the pill animates, is left
+ * out. Without this script they stay too.
+ *
+ * @param {HTMLElement} group The condensing group.
+ */
+function condenseLead( group ) {
+	const part = group.parentElement;
+	const set = () =>
+		part.style.setProperty(
+			'--purplish-condense-lead',
+			group.offsetTop -
+				( parseFloat( window.getComputedStyle( group ).marginTop ) ||
+					0 ) +
+				'px'
+		);
+	set();
+	if ( 'ResizeObserver' in window ) {
+		new window.ResizeObserver( set ).observe( part );
+	}
+}
+
+document
+	.querySelectorAll( '.wp-block-template-part > .purplish-group-condense' )
+	.forEach( condenseLead );

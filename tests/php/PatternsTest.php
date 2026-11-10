@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -82,6 +82,8 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/story-deck' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/runway' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/scroll-lookbook' ) );
+		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
+		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
 
 		unregister_block_pattern_category( Patterns::CATEGORY );
@@ -176,5 +178,28 @@ class PatternsTest extends WP_UnitTestCase {
 			$names = array_merge( $names, $this->block_names( $block['innerBlocks'] ) );
 		}
 		return $names;
+	}
+
+	/**
+	 * The Flagship header carries the note bar, the condensing bar with the
+	 * Wardrobe Shop panel and the cart pill, and offers itself for headers.
+	 * The phone menu offers itself for navigation overlays and has a close.
+	 */
+	public function test_flagship_patterns() {
+		$patterns = Patterns::patterns();
+		$this->assertSame( array( 'core/template-part/header' ), $patterns['flagship-header']['blockTypes'] );
+		$this->assertSame( array( 'core/template-part/navigation-overlay' ), $patterns['flagship-phone-menu']['blockTypes'] );
+
+		$header = Patterns::content( $patterns['flagship-header']['file'] );
+		$names  = $this->block_names( parse_blocks( $header ) );
+		foreach ( array( 'core/navigation', 'purplish/wardrobe', 'core/site-title', 'core/search', 'woocommerce/customer-account', 'woocommerce/mini-cart' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		$this->assertStringContainsString( '"purplish":{"condense":true}', $header );
+		$this->assertStringContainsString( '"purplish":{"pop":true}', $header );
+
+		$menu = Patterns::content( $patterns['flagship-phone-menu']['file'] );
+		$this->assertContains( 'core/navigation-overlay-close', $this->block_names( parse_blocks( $menu ) ) );
+		$this->assertStringContainsString( '"purplish":{"entrance":"fadeup"}', $menu );
 	}
 }

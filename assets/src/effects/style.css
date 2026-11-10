@@ -3749,15 +3749,17 @@ body.purplish-active .purplish-group-tint {
  * group can't stick past the template part it sits in, so the part sticks
  * too. The pill's shape and shadow go on the group, its base color and
  * frosted glass on a layer behind the content: a filter or transform on the
- * group would trap the Navigation overlay inside it. The pill floats by
- * moving the sticky offset, so nothing below it moves. Without scroll
+ * group would trap the Navigation overlay inside it. The pill floats on a
+ * top margin paid back by a bottom one, so nothing below it moves. Blocks
+ * above the group in the same part, like a note bar, scroll away: the
+ * front script measures them into --purplish-condense-lead. Without scroll
  * timelines, and for visitors who ask for reduced motion, the full bar
  * stays, still sticky.
  */
 .purplish-group-condense,
 .wp-block-template-part:has(> .purplish-group-condense) {
 	--purplish-condense-top: var(--wp-admin--admin-bar--height, 0px);
-	top: var(--purplish-condense-top);
+	top: calc(var(--purplish-condense-top) - var(--purplish-condense-lead, 0px));
 	z-index: 100;
 }
 
@@ -3790,15 +3792,10 @@ body.purplish-active .purplish-group-tint {
 	@supports (animation-timeline: scroll()) {
 
 		.purplish-group-condense,
-		.wp-block-template-part:has(> .purplish-group-condense),
 		.purplish-group-condense:not(.has-background)::before {
-			animation: purplish-condense-drop linear both;
+			animation: purplish-condense linear both;
 			animation-timeline: scroll(root);
 			animation-range: 40px 260px;
-		}
-
-		.purplish-group-condense {
-			animation-name: purplish-condense;
 		}
 
 		.purplish-group-condense:not(.has-background)::before {
@@ -3810,18 +3807,11 @@ body.purplish-active .purplish-group-tint {
 @keyframes purplish-condense {
 
 	to {
-		top: calc(var(--purplish-condense-top) + 10px);
+		margin-block: 10px -10px;
 		margin-inline: max(16px, calc((100% - 1080px) / 2));
 		padding-inline: clamp(1rem, 2.5vw, 1.75rem);
 		border-radius: 999px;
 		box-shadow: 0 14px 34px -16px color-mix(in srgb, currentcolor 35%, transparent), 0 0 0 1px color-mix(in srgb, currentcolor 6%, transparent);
-	}
-}
-
-@keyframes purplish-condense-drop {
-
-	to {
-		top: calc(var(--purplish-condense-top) + 10px);
 	}
 }
 
@@ -3830,6 +3820,43 @@ body.purplish-active .purplish-group-tint {
 	to {
 		background-color: color-mix(in srgb, var(--wp--preset--color--base, #fff) 80%, transparent);
 		backdrop-filter: blur(16px) saturate(1.4);
+	}
+}
+
+/*
+ * Group, Fade up inside a menu overlay: the menu links rise in one after
+ * another each time the menu opens, since an entrance in a hidden overlay
+ * would play before anyone sees it.
+ */
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	.is-menu-open .purplish-group-entrance-fadeup .wp-block-navigation-item {
+		transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+		@starting-style {
+			opacity: 0;
+			translate: 0 18px;
+		}
+	}
+
+	.is-menu-open .purplish-group-entrance-fadeup .wp-block-navigation-item:nth-child(2) {
+		transition-delay: 0.04s;
+	}
+
+	.is-menu-open .purplish-group-entrance-fadeup .wp-block-navigation-item:nth-child(3) {
+		transition-delay: 0.08s;
+	}
+
+	.is-menu-open .purplish-group-entrance-fadeup .wp-block-navigation-item:nth-child(4) {
+		transition-delay: 0.12s;
+	}
+
+	.is-menu-open .purplish-group-entrance-fadeup .wp-block-navigation-item:nth-child(5) {
+		transition-delay: 0.16s;
+	}
+
+	.is-menu-open .purplish-group-entrance-fadeup .wp-block-navigation-item:nth-child(n+6) {
+		transition-delay: 0.2s;
 	}
 }
 

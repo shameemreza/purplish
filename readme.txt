@@ -98,6 +98,7 @@ On other blocks:
 * **Button, Looks:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, in any mix.
 * **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
 * **Group and Columns, Entrance on scroll:** the section fades up or zooms in, and columns come in one after another.
+* **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls.
 * **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small pill to full size.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
@@ -173,6 +174,7 @@ A mega menu item for the Navigation block. Hovering or clicking its label opens 
 * **Keyboard:** Enter or Space opens the panel, Tab moves into it, and Escape closes it and puts focus back on the label.
 * **Wardrobe options:** wide, content or full width, and a card or flat look.
 * **Phones:** on small screens and inside the Navigation overlay, the label is a plain link.
+* **Patterns:** Flagship header adds a note bar and a bar with a Wardrobe Shop menu, the site title, search, account and a bag pill that condenses on scroll. Flagship phone menu is the sheet its menu opens on phones.
 
 Visitors who turn on reduced motion see the panel open without motion.
 
