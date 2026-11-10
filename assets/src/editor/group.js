@@ -44,6 +44,18 @@ export default function GroupPanel( { saved, setSaved } ) {
 					setSaved( { ...saved, entrance: entrance || undefined } )
 				}
 			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Condense on scroll', 'purplish' ) }
+				help={ __(
+					'Made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls. Visitors who ask for reduced motion keep the full bar.',
+					'purplish'
+				) }
+				checked={ true === saved.condense }
+				onChange={ ( on ) =>
+					setSaved( { ...saved, condense: on || undefined } )
+				}
+			/>
 		</PanelBody>
 	);
 }

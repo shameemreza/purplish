@@ -112,6 +112,35 @@ export function wardrobe( item ) {
 		}
 	} );
 
+	looks( panel );
 	item.classList.add( 'is-ready' );
 	return { open, panel };
+}
+
+/**
+ * With more than one look card in the panel, the card that matches the
+ * link under the pointer or in focus shows: the first link's card, the
+ * second link's card, and so on. Links past the last card keep the card
+ * that shows.
+ *
+ * @param {HTMLElement} panel The panel.
+ */
+export function looks( panel ) {
+	const cards = panel.querySelectorAll( '.purplish-wardrobe-look' );
+	if ( cards.length < 2 ) {
+		return;
+	}
+	const show = ( index ) =>
+		cards.forEach( ( card, at ) =>
+			card.classList.toggle( 'is-shown', at === index )
+		);
+	panel
+		.querySelectorAll( '.purplish-wardrobe-links a' )
+		.forEach( ( link, index ) => {
+			if ( index < cards.length ) {
+				link.addEventListener( 'pointerenter', () => show( index ) );
+				link.addEventListener( 'focus', () => show( index ) );
+			}
+		} );
+	show( 0 );
 }

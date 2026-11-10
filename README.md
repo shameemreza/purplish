@@ -27,7 +27,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
 | Shop and collection pages | Showfloor | Purplish's own block: a shop-the-look hero where cut-out looks stand on a turning floor, and visitors open a look to add its pieces to the cart. |
-| Header | Navigation | Purplish's own Wardrobe block: a menu item that opens a big panel under the header, with category links, photo tiles and a featured look, all made of blocks you edit in place. |
+| Header | Navigation, Group | Purplish's own Wardrobe block: a menu item that opens a big panel under the header, with category links, photo tiles and a featured look, all made of blocks you edit in place. A header that stays at the top and narrows into a floating pill as the page scrolls, and the Flagship header and phone menu patterns that put it all together. |
 | Filters and cart | Product Filters, Mini-Cart, Mini-Cart Contents | Active filters that match the filter chips, a count that pops and a product photo that flies into the cart icon when something goes into the cart, and a cart drawer with a spring slide, soft rows and bigger photos. |
 | Cart, checkout and order confirmation | Cart, Proceed to Checkout, Mini-Cart Proceed to Checkout Button, Checkout, checkout Actions, Order Status, Order Summary | Soft rows, bigger photos and sticky totals on the Cart page, soft, filled or underline fields, a focus ring, card or list choices, step numbers, a soft summary card, a side panel, a raised card and bigger photos on the Checkout, a glow ring, light sweep, liquid glass and spectrum ring on Proceed to Checkout, Go to checkout and Place Order, a lock on Place Order, a thank-you moment on the order heading and a receipt card for the order summary. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
@@ -158,8 +158,9 @@ Touch screens and visitors who turn on reduced motion see the plain image and bu
 - **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
 - **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
 - **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
+- **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill with frosted glass as the page scrolls, then opens out again at the top.
 
-Each entrance plays once. Visitors who turn on reduced motion see the blocks as they are, and nothing stays hidden if the script doesn't load.
+Each entrance plays once. Condense on scroll follows the scroll both ways. Visitors who turn on reduced motion see the blocks as they are, with the header as a full bar, and nothing stays hidden if the script doesn't load.
 
 ## Hanging Rail block
 
@@ -241,7 +242,9 @@ A block of Purplish's own that goes inside the Navigation block, where you add i
 - **Opens like your submenus:** the Navigation block's Submenus open on setting decides it. On hover, the panel opens when the pointer rests on the label and stays open while it moves into the panel. On click, only a click opens it. Always open opens on click, since a panel that never closes would cover the page.
 - **Keyboard:** Tab reaches the label, Enter or Space opens the panel, and Tab moves into it. Escape closes it and puts focus back on the label. Focus leaving the item or a click outside closes it too, and only one panel is open at a time.
 - **Panel options:** Wide, Content or Full width, from your theme's sizes, and a Card look with rounded corners and a soft shadow, or a Flat sheet straight under the header.
+- **A look for each link:** put more than one look card in the panel and each one goes with a category link, in order. Hovering or focusing a link shows its look, and the first look shows when the panel opens. In the editor, the look card you select shows in place.
 - **Phones:** on small screens and inside the Navigation overlay, the label is a plain link to the page in the Link setting, or to the shop page when that's empty.
+- **Patterns:** Flagship header is a full store header for the header template part. A note bar scrolls away, then a bar with a Wardrobe Shop menu that has a look for each category, more links, the site title in a serif in the middle, and search, account and a bag pill whose count pops. The bar has Condense on scroll on. Flagship phone menu is the sheet its menu opens on phones: the site title and a close button, large links that rise in one after another, and a look card. Create it from the Navigation block's Overlay template setting.
 
 The panel sits centered under the header, stays inside the window and scrolls when the window is short. Visitors who turn on reduced motion see it open without the unroll. Without the script the label is a plain link.
 

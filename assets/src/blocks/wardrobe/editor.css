@@ -28,3 +28,12 @@
 .wp-block-purplish-wardrobe .purplish-wardrobe-toggle [data-rich-text-placeholder] {
 	opacity: 0.6;
 }
+
+/* The look card being edited shows in place of the first. */
+.purplish-wardrobe-panel :has(> .purplish-wardrobe-look:is(.is-selected, .has-child-selected)) > .purplish-wardrobe-look:not(.is-selected, .has-child-selected) {
+	display: none;
+}
+
+.purplish-wardrobe-panel .purplish-wardrobe-look:is(.is-selected, .has-child-selected) {
+	display: flex;
+}

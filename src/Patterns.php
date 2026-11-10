@@ -38,29 +38,41 @@ final class Patterns {
 	 */
 	public static function patterns() {
 		return array(
-			'hanging-rail'    => array(
+			'hanging-rail'        => array(
 				'title'      => __( 'Hanging rail of new arrivals', 'purplish' ),
 				'categories' => array(),
 				'blockTypes' => array( 'purplish/hanging-rail' ),
 				'file'       => PURPLISH_DIR . 'patterns/hanging-rail.php',
 			),
-			'story-deck'      => array(
+			'story-deck'          => array(
 				'title'      => __( 'Customer stories deck', 'purplish' ),
 				'categories' => array( 'testimonials' ),
 				'blockTypes' => array( 'purplish/story-deck' ),
 				'file'       => PURPLISH_DIR . 'patterns/story-deck.php',
 			),
-			'runway'          => array(
+			'runway'              => array(
 				'title'      => __( 'Runway lookbook', 'purplish' ),
 				'categories' => array(),
 				'blockTypes' => array( 'purplish/runway' ),
 				'file'       => PURPLISH_DIR . 'patterns/runway.php',
 			),
-			'scroll-lookbook' => array(
+			'scroll-lookbook'     => array(
 				'title'      => __( 'Scroll lookbook storefront', 'purplish' ),
 				'categories' => array(),
 				'blockTypes' => array( 'purplish/scroll-lookbook' ),
 				'file'       => PURPLISH_DIR . 'patterns/scroll-lookbook.php',
+			),
+			'flagship-header'     => array(
+				'title'      => __( 'Flagship header', 'purplish' ),
+				'categories' => array( 'header' ),
+				'blockTypes' => array( 'core/template-part/header' ),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-header.php',
+			),
+			'flagship-phone-menu' => array(
+				'title'      => __( 'Flagship phone menu', 'purplish' ),
+				'categories' => array( 'navigation' ),
+				'blockTypes' => array( 'core/template-part/navigation-overlay' ),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-phone-menu.php',
 			),
 		);
 	}
