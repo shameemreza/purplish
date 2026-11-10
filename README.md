@@ -26,6 +26,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
+| Shop and collection pages | Showfloor | Purplish's own block: a shop-the-look hero where cut-out looks stand on a turning floor, and visitors open a look to add its pieces to the cart. |
 | Filters and cart | Product Filters, Mini-Cart, Mini-Cart Contents | Active filters that match the filter chips, a count that pops and a product photo that flies into the cart icon when something goes into the cart, and a cart drawer with a spring slide, soft rows and bigger photos. |
 | Cart, checkout and order confirmation | Cart, Proceed to Checkout, Mini-Cart Proceed to Checkout Button, Checkout, checkout Actions, Order Status, Order Summary | Soft rows, bigger photos and sticky totals on the Cart page, soft, filled or underline fields, a focus ring, card or list choices, step numbers, a soft summary card, a side panel, a raised card and bigger photos on the Checkout, a glow ring, light sweep, liquid glass and spectrum ring on Proceed to Checkout, Go to checkout and Place Order, a lock on Place Order, a thank-you moment on the order heading and a receipt card for the order summary. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
@@ -216,6 +217,21 @@ ffmpeg -i in.mp4 -an -vf scale=1920:-2 -r 25 -g 5 -keyint_min 5 -bf 0 -crf 24 -m
 
 The opening video plays once when the page loads and stops within 5 seconds. Nothing else plays on its own, and nothing loops. Visitors who turn on reduced motion, and themes that clip the page so the film can't stay on screen (Storefront is one), get each shot with its card beside it as a plain page. Tab reaches every card, and the page scrolls to the card that has focus. Developers can listen for the `purplish:stop` event and change the smoothing and the opening play with the `purplish_scroll_lookbook_config` filter.
 
+## Showfloor block
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds Look blocks, one for each look. Each Look has a full-length cut-out photo with a transparent background, a name, a short line and the products in it. The looks stand on an oval floor, and the one at the front shows its name, its pieces and their total beside the floor.
+
+- **Turn the floor:** visitors drag or swipe, tap a look further back or its name in the look list, or use the previous and next buttons or the arrow keys.
+- **Open a look:** Shop this look, or a tap on the front look, opens it as a price tag with a numbered marker on each piece. Tapping a marker highlights its piece, or adds it to the cart.
+- **Add the whole look:** one button adds every piece of the look at the price shown. Variable products link to their product page instead, and their look gets no whole-look button.
+- **Floor and grid:** a switch moves between the floor and a grid of every look. The block can start on either.
+- **Floor options:** an oval floor or a flat row, a subtle, strong or flat depth, and on phones a swipe row with the next looks peeking in, or a smaller floor.
+- **Look list:** numbers and names, faces, names only, numbers only, or off. The face crop comes from a focal point you set on each Look.
+- **Autoplay:** off by default. When it's on, the floor turns every 3 to 8 seconds, with a pause button that shows a timer ring, a plain pause button, or no button.
+- **Shopping options:** the Shop this look button and its text, add buttons with text or an icon, the look total, and photos that fly into the mini cart.
+
+Autoplay holds while a visitor hovers, focuses or drags the floor, opens a look or views the grid, and it never runs for visitors who turn on reduced motion. Hiding the pause button leaves autoplay without a way to stop it, so the block panel says so when you pick that. Without the script the front look shows with its products.
+
 ## Block and classic themes
 
 Purplish is built for block themes. Classic themes get a smaller set under WooCommerce > Settings > Products > Purplish.
@@ -240,7 +256,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway and Scroll Lookbook, are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook and Showfloor, are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 
