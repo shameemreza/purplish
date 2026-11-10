@@ -27,6 +27,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
 | Shop and collection pages | Showfloor | Purplish's own block: a shop-the-look hero where cut-out looks stand on a turning floor, and visitors open a look to add its pieces to the cart. |
+| Header | Navigation | Purplish's own Wardrobe block: a menu item that opens a big panel under the header, with category links, photo tiles and a featured look, all made of blocks you edit in place. |
 | Filters and cart | Product Filters, Mini-Cart, Mini-Cart Contents | Active filters that match the filter chips, a count that pops and a product photo that flies into the cart icon when something goes into the cart, and a cart drawer with a spring slide, soft rows and bigger photos. |
 | Cart, checkout and order confirmation | Cart, Proceed to Checkout, Mini-Cart Proceed to Checkout Button, Checkout, checkout Actions, Order Status, Order Summary | Soft rows, bigger photos and sticky totals on the Cart page, soft, filled or underline fields, a focus ring, card or list choices, step numbers, a soft summary card, a side panel, a raised card and bigger photos on the Checkout, a glow ring, light sweep, liquid glass and spectrum ring on Proceed to Checkout, Go to checkout and Place Order, a lock on Place Order, a thank-you moment on the order heading and a receipt card for the order summary. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
@@ -233,6 +234,17 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 
 Autoplay holds while a visitor hovers, focuses or drags the floor, opens a look or views the grid, and it never runs for visitors who turn on reduced motion. Hiding the pause button leaves autoplay without a way to stop it, so the block panel says so when you pick that. Without the script the front look shows with its products.
 
+## Wardrobe block
+
+A block of Purplish's own that goes inside the Navigation block, where you add it like any menu item. It shows a label in the menu, and hovering or clicking the label opens a big panel under the header. The panel holds blocks, so you edit it in place. A new Wardrobe starts with category links, three photo tiles and a featured look, all pointing at your shop page.
+
+- **Opens like your submenus:** the Navigation block's Submenus open on setting decides it. On hover, the panel opens when the pointer rests on the label and stays open while it moves into the panel. On click, only a click opens it. Always open opens on click, since a panel that never closes would cover the page.
+- **Keyboard:** Tab reaches the label, Enter or Space opens the panel, and Tab moves into it. Escape closes it and puts focus back on the label. Focus leaving the item or a click outside closes it too, and only one panel is open at a time.
+- **Panel options:** Wide, Content or Full width, from your theme's sizes, and a Card look with rounded corners and a soft shadow, or a Flat sheet straight under the header.
+- **Phones:** on small screens and inside the Navigation overlay, the label is a plain link to the page in the Link setting, or to the shop page when that's empty.
+
+The panel sits centered under the header, stays inside the window and scrolls when the window is short. Visitors who turn on reduced motion see it open without the unroll. Without the script the label is a plain link.
+
 ## Block and classic themes
 
 Purplish is built for block themes. Classic themes get a smaller set under WooCommerce > Settings > Products > Purplish.
@@ -257,7 +269,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook and Showfloor, are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook and Showfloor, are in the Purplish group of the block inserter, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 
@@ -339,6 +351,7 @@ Purplish's own blocks read their sizes and colors from properties on the block w
 | Story Deck | `--purplish-deck-card` (card width), `--purplish-deck-gap`, `--purplish-deck-radius`, `--purplish-deck-paper` (the base color the card fill mixes with) |
 | Runway | `--purplish-runway-mist` (stage and rail background), `--purplish-runway-paper` (the floor fade and every other card), `--purplish-runway-edge` (space at the edges) |
 | Scroll Lookbook | `--purplish-lookbook-card-radius`, `--purplish-lookbook-card-paper`, `--purplish-lookbook-card-ink` (card text color), `--purplish-lookbook-gap`, `--purplish-lookbook-edge` |
+| Wardrobe | `--purplish-wardrobe-radius`, `--purplish-wardrobe-gap` (space between the header and the panel), `--purplish-wardrobe-pad` (space inside the panel), `--purplish-wardrobe-width` (panel width), `--purplish-wardrobe-tint` (tile and look card background) |
 
 ## Why I made it
 

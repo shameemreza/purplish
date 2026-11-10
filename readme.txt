@@ -165,6 +165,17 @@ It holds Look blocks, one for each look: a cut-out photo, a name, a short line a
 
 Autoplay holds while a visitor uses the floor and never runs for visitors who turn on reduced motion.
 
+= Wardrobe block =
+
+A mega menu item for the Navigation block. Hovering or clicking its label opens a big panel under the header, made of blocks you edit in place. A new one starts with category links, photo tiles and a featured look.
+
+* **Opens like your submenus:** on hover or on click, following the Navigation block's setting.
+* **Keyboard:** Enter or Space opens the panel, Tab moves into it, and Escape closes it and puts focus back on the label.
+* **Wardrobe options:** wide, content or full width, and a card or flat look.
+* **Phones:** on small screens and inside the Navigation overlay, the label is a plain link.
+
+Visitors who turn on reduced motion see the panel open without motion.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
