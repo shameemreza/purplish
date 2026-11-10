@@ -55,12 +55,62 @@ final class Showfloor implements Block {
 	const SPEED = array( 3, 8, 4 );
 
 	/**
+	 * The drawn figures in assets/figures/, for patterns and the inserter
+	 * preview. Original drawings, so they ship under the plugin's GPL.
+	 *
+	 * @var string[]
+	 */
+	const FIGURES = array( 'long-coat', 'field-parka', 'violet-coat', 'puffer', 'easy-sunday', 'trench', 'quilted-jacket', 'denim-set' );
+
+	/**
 	 * The block's folder name.
 	 *
 	 * @return string
 	 */
 	public function slug() {
 		return 'showfloor';
+	}
+
+	/**
+	 * A drawn figure's URL, for a pattern's Look.
+	 *
+	 * @param string $name A name from FIGURES.
+	 * @return string Empty for an unknown name.
+	 */
+	public static function figure( $name ) {
+		return in_array( $name, self::FIGURES, true ) ? plugins_url( 'assets/figures/' . $name . '.svg', PURPLISH_FILE ) : '';
+	}
+
+	/**
+	 * Extra block settings: the inserter preview, a floor of drawn figures.
+	 *
+	 * @return array
+	 */
+	public function settings() {
+		$looks = array(
+			'violet-coat' => array( __( 'Gallery Night', 'purplish' ), __( 'One bright coat, everything else quiet.', 'purplish' ) ),
+			'long-coat'   => array( __( 'Soft Grey', 'purplish' ), __( 'Quiet colors, sharp shape.', 'purplish' ) ),
+			'puffer'      => array( __( 'Trail Mix', 'purplish' ), __( 'City paths, mountain jacket.', 'purplish' ) ),
+			'trench'      => array( __( 'Late Train', 'purplish' ), __( 'Belted, buttoned, ready for rain.', 'purplish' ) ),
+			'denim-set'   => array( __( 'Weekend Blue', 'purplish' ), __( 'Denim on denim, no rules.', 'purplish' ) ),
+		);
+		$inner = array();
+		foreach ( $looks as $name => $copy ) {
+			$inner[] = array(
+				'name'       => 'purplish/showfloor-look',
+				'attributes' => array(
+					'url'  => self::figure( $name ),
+					'name' => $copy[0],
+					'line' => $copy[1],
+				),
+			);
+		}
+		return array(
+			'example' => array(
+				'viewportWidth' => 1200,
+				'innerBlocks'   => $inner,
+			),
+		);
 	}
 
 	/**
@@ -116,8 +166,8 @@ final class Showfloor implements Block {
 
 	/**
 	 * The looks to print, from the Look blocks inside. A Look without an
-	 * image gives nothing; a product that's gone or not published is
-	 * skipped.
+	 * image ID or an image URL gives nothing; a product that's gone or not
+	 * published is skipped.
 	 *
 	 * @param \WP_Block|null $block Block instance.
 	 * @return array<int, array> Looks, in order.
@@ -133,7 +183,10 @@ final class Showfloor implements Block {
 			}
 			$attrs = $inner['attrs'];
 			$image = isset( $attrs['id'] ) ? (int) $attrs['id'] : 0;
-			if ( ! $image || ! wp_attachment_is_image( $image ) ) {
+			$url   = isset( $attrs['url'] ) ? esc_url_raw( (string) $attrs['url'], array( 'http', 'https' ) ) : '';
+			// A media library image wins. A pattern can't carry one, so a Look
+			// without an ID uses its URL, like the figures in assets/figures/.
+			if ( $image ? ! wp_attachment_is_image( $image ) : '' === $url ) {
 				continue;
 			}
 			$marks    = isset( $attrs['marks'] ) && is_array( $attrs['marks'] ) ? $attrs['marks'] : array();
@@ -160,6 +213,7 @@ final class Showfloor implements Block {
 			}
 			$looks[] = array(
 				'image'    => $image,
+				'url'      => $image ? '' : $url,
 				'name'     => isset( $attrs['name'] ) ? trim( wp_strip_all_tags( (string) $attrs['name'] ) ) : '',
 				'line'     => isset( $attrs['line'] ) ? trim( wp_strip_all_tags( (string) $attrs['line'] ) ) : '',
 				'face'     => array( self::share( isset( $face['x'] ) ? $face['x'] : null, 0.5 ), self::share( isset( $face['y'] ) ? $face['y'] : null, 0.07 ) ),
@@ -167,6 +221,27 @@ final class Showfloor implements Block {
 			);
 		}
 		return $looks;
+	}
+
+	/**
+	 * A look's image: the media library image at this size, or an img tag
+	 * for its URL when it has no ID.
+	 *
+	 * @param array  $look  A look from looks().
+	 * @param string $size  Image size for a media library image.
+	 * @param array  $attrs Image attributes.
+	 * @return string
+	 */
+	private static function image( $look, $size, $attrs ) {
+		if ( $look['image'] ) {
+			return wp_get_attachment_image( $look['image'], $size, false, $attrs );
+		}
+		unset( $attrs['sizes'] );
+		$html = '<img src="' . esc_url( $look['url'] ) . '"';
+		foreach ( $attrs as $name => $value ) {
+			$html .= ' ' . $name . '="' . esc_attr( $value ) . '"';
+		}
+		return $html . '>';
 	}
 
 	/**
@@ -341,10 +416,9 @@ final class Showfloor implements Block {
 					esc_attr( $name )
 				);
 			}
-			$image    = wp_get_attachment_image(
-				$look['image'],
+			$image    = self::image(
+				$look,
 				'large',
-				false,
 				array(
 					/* translators: %s: look name. */
 					'alt'           => '' === $look['name'] ? '' : sprintf( __( '%s look', 'purplish' ), $look['name'] ),
@@ -375,10 +449,9 @@ final class Showfloor implements Block {
 				0 === $index ? ' aria-current="true"' : '',
 				esc_attr( (string) $look['face'][0] ),
 				esc_attr( (string) $look['face'][1] ),
-				'faces' === $options['list'] ? wp_get_attachment_image(
-					$look['image'],
+				'faces' === $options['list'] ? self::image(
+					$look,
 					'medium',
-					false,
 					array(
 						'alt'     => '',
 						'loading' => 'lazy',
@@ -391,7 +464,11 @@ final class Showfloor implements Block {
 
 		$first = $looks[0];
 		$sums  = self::sums( $first, 'on' === $options['total'] );
-		$rows  = '';
+		// A look with no products shows its figure and name only.
+		if ( empty( $first['products'] ) ) {
+			$classes .= ' is-bare';
+		}
+		$rows = '';
 		foreach ( $first['products'] as $n => $piece ) {
 			$rows .= self::row( $piece['product'], $n + 1 );
 		}

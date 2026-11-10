@@ -1517,7 +1517,8 @@
 }
 
 .purplish-showfloor-whole[hidden],
-.purplish-showfloor-panel:has(.purplish-showfloor-pieces:empty) {
+.purplish-showfloor-panel:has(.purplish-showfloor-pieces:empty),
+.wp-block-purplish-showfloor.is-bare :is(.purplish-showfloor-open, .purplish-showfloor-panel) {
 	display: none;
 }
 
