@@ -117,10 +117,13 @@ final class Registry {
 				continue;
 			}
 
-			register_block_type(
-				$this->build_dir . 'blocks/' . $slug,
-				array( 'render_callback' => array( $block, 'render' ) )
-			);
+			$args = array( 'render_callback' => array( $block, 'render' ) );
+			// A block can add settings PHP has to fill, like an inserter
+			// preview with URLs.
+			if ( method_exists( $block, 'settings' ) ) {
+				$args = array_merge( $block->settings(), $args );
+			}
+			register_block_type( $this->build_dir . 'blocks/' . $slug, $args );
 		}
 	}
 

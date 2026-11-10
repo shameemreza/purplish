@@ -169,6 +169,14 @@ export default function LookEdit( { attributes, setAttributes, clientId } ) {
 					</div>
 				</PanelBody>
 				<PanelBody title={ __( 'Products', 'purplish' ) }>
+					{ ! products.length && (
+						<p className="components-base-control__help">
+							{ __(
+								'Pick the products in this look. Until then, visitors see the figure and name only.',
+								'purplish'
+							) }
+						</p>
+					) }
 					<ul className="purplish-showfloor-look-products">
 						{ chosen.map( ( product ) => (
 							<li key={ product.id }>

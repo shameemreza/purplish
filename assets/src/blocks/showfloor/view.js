@@ -151,6 +151,8 @@ function init( root ) {
 			pieces.replaceChildren( rows( li ).cloneNode( true ) );
 		}
 		fresh = false;
+		// A look with no products (one from a pattern) has nothing to open.
+		root.classList.toggle( 'is-bare', ! li.dataset.meta );
 		total.textContent = li.dataset.total;
 		setWhole( panelWhole, li );
 		names.forEach( ( b, n ) =>
@@ -159,7 +161,12 @@ function init( root ) {
 		looks.forEach( ( l, n ) => {
 			$( 'figure', l ).setAttribute(
 				'aria-label',
-				fill( n === i ? strings.open : strings.turn, l.dataset.name )
+				n !== i || l.dataset.meta
+					? fill(
+							n === i ? strings.open : strings.turn,
+							l.dataset.name
+						)
+					: l.dataset.name
 			);
 		} );
 	}
@@ -449,10 +456,11 @@ function init( root ) {
 			follow = window.requestAnimationFrame( trail );
 		}
 		const fig = ! drag && e.target.closest( '.' + P + 'figure' );
-		if ( ! fig ) {
+		const front = looks[ active ];
+		if ( ! fig || ( fig.parentNode === front && ! front.dataset.meta ) ) {
 			label( 'drag' );
 		} else {
-			label( fig.parentNode === looks[ active ] ? 'enter' : 'spin' );
+			label( fig.parentNode === front ? 'enter' : 'spin' );
 		}
 	} );
 	stage.addEventListener( 'pointerleave', () => {
@@ -550,6 +558,9 @@ function init( root ) {
 	// The open look.
 	function open( i ) {
 		const li = looks[ i ];
+		if ( ! li.dataset.meta ) {
+			return;
+		}
 		const img = $( 'figure img', li );
 		const solo = $( 'solo img', dialog );
 		solo.src = img.currentSrc || img.src;

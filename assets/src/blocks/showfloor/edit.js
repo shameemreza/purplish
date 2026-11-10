@@ -335,15 +335,25 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						{ meta && (
 							<p className="purplish-showfloor-meta">{ meta }</p>
 						) }
+						{ look && ! look.products.length && (
+							<p className="purplish-showfloor-meta is-hint">
+								{ __(
+									'Pick the products in this look',
+									'purplish'
+								) }
+							</p>
+						) }
 						<p className="purplish-showfloor-line">
 							{ look && look.line }
 						</p>
-						{ 'on' === attributes.shop && (
-							<span className="wp-element-button purplish-showfloor-open">
-								{ attributes.shopText ||
-									__( 'Shop this look', 'purplish' ) }
-							</span>
-						) }
+						{ 'on' === attributes.shop &&
+							look &&
+							look.products.length > 0 && (
+								<span className="wp-element-button purplish-showfloor-open">
+									{ attributes.shopText ||
+										__( 'Shop this look', 'purplish' ) }
+								</span>
+							) }
 					</div>
 					{ 'off' !== attributes.list && (
 						<ul className="purplish-showfloor-names">

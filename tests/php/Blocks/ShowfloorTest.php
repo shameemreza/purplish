@@ -172,14 +172,112 @@ class ShowfloorTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * A Look without an image prints nothing; with no look left, only an
-	 * empty wrapper prints.
+	 * A Look without an image ID or URL prints nothing; with no look left,
+	 * only an empty wrapper prints.
 	 */
 	public function test_empty_wrapper_without_images() {
 		$html = do_blocks( '<!-- wp:purplish/showfloor --><!-- wp:purplish/showfloor-look {"name":"Harbor"} /--><!-- /wp:purplish/showfloor -->' );
 
 		$this->assertStringContainsString( 'wp-block-purplish-showfloor', $html );
 		$this->assertStringNotContainsString( 'purplish-showfloor-stage', $html );
+	}
+
+	/**
+	 * A Look without a media ID uses its image URL, the way a pattern
+	 * points at the drawn figures. With no products it shows the figure
+	 * and name only: the wrapper is bare, the look has no piece line or
+	 * whole-look button, and the panel has no rows. The face list uses the
+	 * URL too.
+	 */
+	public function test_look_from_url_without_products() {
+		$url  = Showfloor::figure( 'trench' );
+		$html = do_blocks(
+			'<!-- wp:purplish/showfloor {"list":"faces"} --><!-- wp:purplish/showfloor-look ' . wp_json_encode(
+				array(
+					'url'  => $url,
+					'name' => 'Late Train',
+				)
+			) . ' /--><!-- /wp:purplish/showfloor -->'
+		);
+
+		$tags = new WP_HTML_Tag_Processor( $html );
+		$this->assertTrue( $tags->next_tag( 'section' ) );
+		$this->assertTrue( $tags->has_class( 'is-bare' ) );
+		$this->assertTrue( $tags->next_tag( array( 'class_name' => 'purplish-showfloor-look' ) ) );
+		$this->assertSame( '', $tags->get_attribute( 'data-meta' ) );
+		$this->assertSame( '', $tags->get_attribute( 'data-whole' ) );
+		$this->assertTrue( $tags->next_tag( 'img' ) );
+		$this->assertSame( $url, $tags->get_attribute( 'src' ) );
+		$this->assertSame( 'Late Train look', $tags->get_attribute( 'alt' ) );
+		$this->assertSame( 'eager', $tags->get_attribute( 'loading' ) );
+		$this->assertNull( $tags->get_attribute( 'sizes' ), 'no sizes without a srcset' );
+		$this->assertTrue( $tags->next_tag( array( 'class_name' => 'purplish-showfloor-name-face' ) ) );
+		$this->assertTrue( $tags->next_tag( 'img' ) );
+		$this->assertSame( $url, $tags->get_attribute( 'src' ) );
+
+		$this->assertStringContainsString( '<h2 class="wp-block-heading purplish-showfloor-title">Late Train</h2>', $html );
+		$this->assertStringContainsString( '<ul class="purplish-showfloor-pieces"></ul>', $html );
+	}
+
+	/**
+	 * A media library image wins over the URL. A URL that isn't http or
+	 * https gives no look, and neither does an ID that isn't an image.
+	 */
+	public function test_media_id_wins_and_bad_urls_drop() {
+		$photo = $this->photo( 'harbor' );
+		$html  = do_blocks(
+			'<!-- wp:purplish/showfloor --><!-- wp:purplish/showfloor-look ' . wp_json_encode(
+				array(
+					'id'   => $photo,
+					'url'  => 'https://example.com/other.png',
+					'name' => 'Harbor',
+				)
+			) . ' /--><!-- /wp:purplish/showfloor -->'
+		);
+		$this->assertStringContainsString( 'uploads/2026/11/harbor.png', $html );
+		$this->assertStringNotContainsString( 'example.com/other.png', $html );
+
+		foreach ( array( 'javascript:alert(1)', 'data:image/svg+xml,<svg/>' ) as $url ) {
+			$html = do_blocks( '<!-- wp:purplish/showfloor --><!-- wp:purplish/showfloor-look ' . wp_json_encode( array( 'url' => $url ) ) . ' /--><!-- /wp:purplish/showfloor -->' );
+			$this->assertStringNotContainsString( 'purplish-showfloor-stage', $html, $url );
+		}
+
+		$post = self::factory()->post->create();
+		$html = do_blocks(
+			'<!-- wp:purplish/showfloor --><!-- wp:purplish/showfloor-look ' . wp_json_encode(
+				array(
+					'id'  => $post,
+					'url' => 'https://example.com/a.png',
+				)
+			) . ' /--><!-- /wp:purplish/showfloor -->'
+		);
+		$this->assertStringNotContainsString( 'purplish-showfloor-stage', $html, 'an ID that is not an image' );
+	}
+
+	/**
+	 * Every drawn figure ships in assets/figures/ as an SVG of 3 to 6 KB,
+	 * figure() gives its plugin URL, and the inserter preview stands five
+	 * of them on the floor.
+	 */
+	public function test_figures_and_inserter_preview() {
+		foreach ( Showfloor::FIGURES as $name ) {
+			$file = PURPLISH_DIR . 'assets/figures/' . $name . '.svg';
+			$this->assertFileExists( $file );
+			$size = filesize( $file );
+			$this->assertGreaterThanOrEqual( 3 * 1024 - 100, $size, $name );
+			$this->assertLessThanOrEqual( 6 * 1024, $size, $name );
+			$this->assertStringStartsWith( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 800"', file_get_contents( $file ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			$this->assertSame( plugins_url( 'assets/figures/' . $name . '.svg', PURPLISH_FILE ), Showfloor::figure( $name ) );
+		}
+		$this->assertSame( '', Showfloor::figure( '../readme' ) );
+
+		$example = WP_Block_Type_Registry::get_instance()->get_registered( self::NAME )->example;
+		$this->assertCount( 5, $example['innerBlocks'] );
+		foreach ( $example['innerBlocks'] as $look ) {
+			$this->assertSame( self::LOOK, $look['name'] );
+			$this->assertContains( $look['attributes']['url'], array_map( array( Showfloor::class, 'figure' ), Showfloor::FIGURES ) );
+			$this->assertNotSame( '', $look['attributes']['name'] );
+		}
 	}
 
 	/**

@@ -105,3 +105,7 @@
 	text-align: start;
 	white-space: normal;
 }
+
+.wp-block-purplish-showfloor .purplish-showfloor-meta.is-hint {
+	opacity: 0.72;
+}
