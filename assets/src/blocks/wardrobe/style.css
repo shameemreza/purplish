@@ -1,0 +1,343 @@
+/**
+ * Wardrobe. PHP prints a link and a button with the same label, and the
+ * panel after them, hidden. Until the view script adds is-ready, and on
+ * phones and inside the Navigation overlay, only the link shows. The
+ * script places the open panel with --purplish-wardrobe-x and -y, sizes
+ * full panels with -vw, and draws the hover bridge with -bridgex, -bridgew
+ * and -reach. Option classes are purplish-wardrobe-<option>-<value>.
+ */
+.wp-block-purplish-wardrobe {
+	--purplish-wardrobe-ink: var(--wp--preset--color--contrast, #111);
+	--purplish-wardrobe-base: var(--wp--preset--color--base, #fff);
+	--purplish-wardrobe-accent: var(--purplish-effect, var(--wp--preset--color--accent, #720eec));
+	--purplish-wardrobe-tint: color-mix(in srgb, var(--purplish-wardrobe-accent) 9%, var(--purplish-wardrobe-base));
+	--purplish-wardrobe-shade: color-mix(in srgb, var(--purplish-wardrobe-accent) 22%, var(--purplish-wardrobe-ink));
+	--purplish-wardrobe-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	--purplish-wardrobe-radius: 24px;
+	--purplish-wardrobe-gap: 8px;
+	--purplish-wardrobe-pad: clamp(20px, 2.2vw, 32px);
+	--purplish-wardrobe-width: var(--wp--style--global--wide-size, 1200px);
+}
+
+/* Label */
+.wp-block-purplish-wardrobe > .purplish-wardrobe-toggle {
+	display: none;
+	align-items: center;
+	gap: 0.3em;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	text-transform: inherit;
+	cursor: pointer;
+}
+
+.wp-block-purplish-wardrobe.is-ready > .purplish-wardrobe-toggle {
+	display: inline-flex;
+}
+
+.wp-block-purplish-wardrobe.is-ready > .purplish-wardrobe-link {
+	display: none;
+}
+
+.purplish-wardrobe-toggle svg {
+	flex: none;
+	width: 0.75em;
+	height: 0.75em;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	transition: rotate 0.4s var(--purplish-wardrobe-ease);
+}
+
+.purplish-wardrobe-toggle[aria-expanded="true"] svg {
+	rotate: 180deg;
+}
+
+.purplish-wardrobe-toggle:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 4px;
+	border-radius: 2px;
+}
+
+/* Phones and the Navigation overlay: the plain link. */
+@media (max-width: 599px) {
+
+	.wp-block-purplish-wardrobe.is-ready > .purplish-wardrobe-link {
+		display: block;
+	}
+
+	.wp-block-purplish-wardrobe.is-ready > .purplish-wardrobe-toggle,
+	.wp-block-purplish-wardrobe > .purplish-wardrobe-panel {
+		display: none;
+	}
+}
+
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-purplish-wardrobe.is-ready > .purplish-wardrobe-link {
+	display: block;
+}
+
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-purplish-wardrobe > :is(.purplish-wardrobe-toggle, .purplish-wardrobe-panel) {
+	display: none;
+}
+
+/* Panel */
+.wp-block-purplish-wardrobe > .purplish-wardrobe-panel {
+	position: absolute;
+	top: var(--purplish-wardrobe-y, 100%);
+	left: var(--purplish-wardrobe-x, 0);
+	z-index: 100;
+	box-sizing: border-box;
+	width: min(var(--purplish-wardrobe-width), calc(var(--purplish-wardrobe-vw, 100vw) - 32px));
+	padding: var(--purplish-wardrobe-pad);
+	border-radius: var(--purplish-wardrobe-radius);
+	background: var(--purplish-wardrobe-base);
+	color: var(--purplish-wardrobe-ink);
+	box-shadow:
+		0 30px 60px -24px color-mix(in srgb, var(--purplish-wardrobe-shade) 40%, transparent),
+		0 0 0 1px color-mix(in srgb, var(--purplish-wardrobe-shade) 7%, transparent);
+	font-size: var(--wp--preset--font-size--small, 0.9375rem);
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: normal;
+	text-align: start;
+	text-transform: none;
+	white-space: normal;
+	cursor: auto;
+}
+
+.wp-block-purplish-wardrobe > .purplish-wardrobe-panel[hidden] {
+	display: none;
+}
+
+/* Keeps the hover alive on the way down from the label. */
+.purplish-wardrobe-panel::before {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: var(--purplish-wardrobe-bridgex, 0);
+	width: var(--purplish-wardrobe-bridgew, 100%);
+	height: var(--purplish-wardrobe-reach, 0);
+}
+
+/* A panel taller than the window scrolls inside, under the header. */
+.purplish-wardrobe-inner {
+	max-height: calc(var(--purplish-wardrobe-max) - 2 * var(--purplish-wardrobe-pad) + 8px);
+	margin: -4px;
+	padding: 4px;
+	overflow: hidden auto;
+	overscroll-behavior: contain;
+}
+
+.purplish-wardrobe-inner > :first-child {
+	margin-block-start: 0;
+}
+
+.purplish-wardrobe-inner > :last-child {
+	margin-block-end: 0;
+}
+
+.wp-block-purplish-wardrobe.purplish-wardrobe-width-content {
+	--purplish-wardrobe-width: var(--wp--style--global--content-size, 720px);
+}
+
+.wp-block-purplish-wardrobe.purplish-wardrobe-width-full {
+	--purplish-wardrobe-width: 100vw;
+}
+
+.purplish-wardrobe-width-full > .purplish-wardrobe-panel > .purplish-wardrobe-inner {
+	max-width: var(--wp--style--global--wide-size, 1200px);
+	margin-inline: auto;
+}
+
+/* Flat: a sheet straight under the header. */
+.wp-block-purplish-wardrobe.purplish-wardrobe-look-flat {
+	--purplish-wardrobe-radius: 0;
+	--purplish-wardrobe-gap: 0px;
+}
+
+.purplish-wardrobe-look-flat > .purplish-wardrobe-panel {
+	border-block: 1px solid color-mix(in srgb, var(--purplish-wardrobe-ink) 10%, transparent);
+	box-shadow: 0 28px 40px -32px color-mix(in srgb, var(--purplish-wardrobe-shade) 45%, transparent);
+}
+
+.purplish-wardrobe-look-flat.purplish-wardrobe-width-full > .purplish-wardrobe-panel {
+	width: var(--purplish-wardrobe-vw, 100vw);
+	border-top-color: transparent;
+}
+
+/* The starting layout: big links, photo tiles and a look card. */
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-links {
+	display: grid;
+	gap: 2px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-links a {
+	display: inline-block;
+	padding-block: 4px;
+	color: var(--purplish-wardrobe-ink);
+	font-family: var(--wp--preset--font-family--heading, inherit);
+	font-size: clamp(1.25rem, 1rem + 0.6vw, 1.6rem);
+	line-height: 1.15;
+	text-decoration: none;
+	transition: translate 0.4s var(--purplish-wardrobe-ease), color 0.2s;
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-links a:hover,
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-links a:focus-visible {
+	translate: 8px 0;
+	color: var(--purplish-wardrobe-accent);
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-all a {
+	color: var(--purplish-wardrobe-ink);
+	text-decoration: underline;
+	text-underline-offset: 5px;
+	text-decoration-color: color-mix(in srgb, currentcolor 40%, transparent);
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-tile {
+	position: relative;
+	overflow: clip;
+	margin: 0;
+	border-radius: 14px;
+	background: var(--purplish-wardrobe-tint);
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-tile img {
+	display: block;
+	width: 100%;
+	transition: scale 1.2s var(--purplish-wardrobe-ease);
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-tile:hover img {
+	scale: 1.06;
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-tile figcaption {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	margin: 0;
+	padding: 4px 11px;
+	border-radius: 999px;
+	background: var(--purplish-wardrobe-base);
+	color: var(--purplish-wardrobe-ink);
+	font-size: inherit;
+	line-height: 1.4;
+}
+
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-look {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 0;
+	height: 100%;
+	overflow: clip;
+	border-radius: 14px;
+	background: radial-gradient(120% 60% at 50% 100%, color-mix(in srgb, var(--purplish-wardrobe-accent) 22%, var(--purplish-wardrobe-tint)) 0%, var(--purplish-wardrobe-tint) 60%);
+}
+
+:where(.purplish-wardrobe-look) .wp-block-image {
+	position: relative;
+	flex: 1;
+	min-height: 180px;
+	margin: 0;
+}
+
+/* The figure fills what the tiles leave, so the card never sets the
+   panel's height. The image block prints its aspect ratio inline. */
+:where(.purplish-wardrobe-look) .wp-block-image img {
+	position: absolute;
+	inset: 16px 0 0;
+	width: 100%;
+	height: calc(100% - 16px);
+	aspect-ratio: auto !important;
+	object-fit: contain;
+	transition: translate 0.6s var(--purplish-wardrobe-ease);
+}
+
+:where(.purplish-wardrobe-look):hover .wp-block-image img {
+	translate: 0 -6px;
+}
+
+:where(.purplish-wardrobe-look) > p {
+	margin: 0;
+	padding-inline: 16px;
+	background: color-mix(in srgb, var(--purplish-wardrobe-base) 84%, transparent);
+}
+
+:where(.purplish-wardrobe-look) > .purplish-wardrobe-look-name {
+	padding-top: 12px;
+	color: var(--purplish-wardrobe-ink);
+	font-family: var(--wp--preset--font-family--heading, inherit);
+	font-size: 1.3rem;
+	line-height: 1.25;
+}
+
+:where(.purplish-wardrobe-look) > .purplish-wardrobe-look-go {
+	padding-top: 6px;
+	padding-bottom: 14px;
+}
+
+:where(.purplish-wardrobe-look) > .purplish-wardrobe-look-go a {
+	color: var(--purplish-wardrobe-accent);
+	font-weight: 500;
+	text-decoration: none;
+}
+
+:where(.purplish-wardrobe-look) > .purplish-wardrobe-look-go a::after {
+	content: " \2192";
+	display: inline-block;
+	transition: translate 0.4s var(--purplish-wardrobe-ease);
+}
+
+:where(.purplish-wardrobe-look) > .purplish-wardrobe-look-go a:hover::after {
+	translate: 4px 0;
+}
+
+/* Opening: the panel unrolls from the top and its columns rise in. */
+@media (prefers-reduced-motion: no-preference) {
+
+	.wp-block-purplish-wardrobe > .purplish-wardrobe-panel {
+		clip-path: inset(-200px -80px -120px);
+		transition: clip-path 0.55s var(--purplish-wardrobe-ease);
+	}
+
+	.purplish-wardrobe-panel :is(.purplish-wardrobe-inner > :not(.wp-block-columns), .purplish-wardrobe-inner > .wp-block-columns > .wp-block-column) {
+		transition: opacity 0.6s var(--purplish-wardrobe-ease), translate 0.6s var(--purplish-wardrobe-ease);
+	}
+
+	.purplish-wardrobe-inner > .wp-block-columns > .wp-block-column:nth-child(2) {
+		transition-delay: 0.06s;
+	}
+
+	.purplish-wardrobe-inner > .wp-block-columns > .wp-block-column:nth-child(3) {
+		transition-delay: 0.12s;
+	}
+
+	.purplish-wardrobe-inner > .wp-block-columns > .wp-block-column:nth-child(n + 4) {
+		transition-delay: 0.18s;
+	}
+
+	@starting-style {
+
+		.wp-block-purplish-wardrobe > .purplish-wardrobe-panel {
+			clip-path: inset(0 0 100% 0 round var(--purplish-wardrobe-radius));
+		}
+
+		.purplish-wardrobe-panel :is(.purplish-wardrobe-inner > :not(.wp-block-columns), .purplish-wardrobe-inner > .wp-block-columns > .wp-block-column) {
+			opacity: 0;
+			translate: 0 14px;
+		}
+	}
+}

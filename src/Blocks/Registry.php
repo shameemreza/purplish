@@ -43,6 +43,7 @@ final class Registry {
 	public function register() {
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_filter( 'block_categories_all', array( $this, 'add_category' ) );
+		Wardrobe::hooks();
 	}
 
 	/**
@@ -58,6 +59,7 @@ final class Registry {
 			ScrollLookbook::class,
 			Showfloor::class,
 			ShowfloorLook::class,
+			Wardrobe::class,
 		);
 	}
 
