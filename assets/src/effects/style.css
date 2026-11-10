@@ -3744,6 +3744,96 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Group, condense on scroll: the section sticks to the top and narrows into
+ * a floating pill as the page scrolls, on the page's own scroll timeline. A
+ * group can't stick past the template part it sits in, so the part sticks
+ * too. The pill's shape and shadow go on the group, its base color and
+ * frosted glass on a layer behind the content: a filter or transform on the
+ * group would trap the Navigation overlay inside it. The pill floats by
+ * moving the sticky offset, so nothing below it moves. Without scroll
+ * timelines, and for visitors who ask for reduced motion, the full bar
+ * stays, still sticky.
+ */
+.purplish-group-condense,
+.wp-block-template-part:has(> .purplish-group-condense) {
+	--purplish-condense-top: var(--wp-admin--admin-bar--height, 0px);
+	top: var(--purplish-condense-top);
+	z-index: 100;
+}
+
+/* Three classes: the editor canvas sets every block relative. */
+.wp-block-group.purplish-group.purplish-group-condense,
+.wp-block-template-part.wp-block-template-part:has(> .purplish-group-condense) {
+	position: sticky;
+}
+
+/* The admin bar scrolls away on small screens. */
+@media screen and (max-width: 600px) {
+
+	.purplish-group-condense,
+	.wp-block-template-part:has(> .purplish-group-condense) {
+		--purplish-condense-top: 0px;
+	}
+}
+
+.purplish-group-condense:not(.has-background)::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	background-color: var(--wp--preset--color--base, #fff);
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: scroll()) {
+
+		.purplish-group-condense,
+		.wp-block-template-part:has(> .purplish-group-condense),
+		.purplish-group-condense:not(.has-background)::before {
+			animation: purplish-condense-drop linear both;
+			animation-timeline: scroll(root);
+			animation-range: 40px 260px;
+		}
+
+		.purplish-group-condense {
+			animation-name: purplish-condense;
+		}
+
+		.purplish-group-condense:not(.has-background)::before {
+			animation-name: purplish-condense-glass;
+		}
+	}
+}
+
+@keyframes purplish-condense {
+
+	to {
+		top: calc(var(--purplish-condense-top) + 10px);
+		margin-inline: max(16px, calc((100% - 1080px) / 2));
+		padding-inline: clamp(1rem, 2.5vw, 1.75rem);
+		border-radius: 999px;
+		box-shadow: 0 14px 34px -16px color-mix(in srgb, currentcolor 35%, transparent), 0 0 0 1px color-mix(in srgb, currentcolor 6%, transparent);
+	}
+}
+
+@keyframes purplish-condense-drop {
+
+	to {
+		top: calc(var(--purplish-condense-top) + 10px);
+	}
+}
+
+@keyframes purplish-condense-glass {
+
+	to {
+		background-color: color-mix(in srgb, var(--wp--preset--color--base, #fff) 80%, transparent);
+		backdrop-filter: blur(16px) saturate(1.4);
+	}
+}
+
+/*
  * Thank-you moment on the Order confirmation status: the heading rises in
  * and one ring of rays bursts behind it, once. The heading never starts
  * hidden, so it still counts as the page's largest paint from the first

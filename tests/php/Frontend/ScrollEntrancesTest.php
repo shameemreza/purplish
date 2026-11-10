@@ -83,6 +83,32 @@ class ScrollEntrancesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Condense on scroll is a switch of its own on the group, and combines
+	 * with the entrance and the page color.
+	 */
+	public function test_group_condense() {
+		$this->assertSame( array( 'purplish-group', 'purplish-group-condense' ), BlockEffects::classes_for( 'core/group', array( 'condense' => true ) ) );
+		$all = array(
+			'tint'     => true,
+			'entrance' => 'fadeup',
+			'condense' => true,
+		);
+		$this->assertSame( array( 'purplish-group', 'purplish-group-tint', 'purplish-group-entrance-fadeup', 'purplish-group-condense' ), BlockEffects::classes_for( 'core/group', $all ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'core/group', array( 'condense' => 'yes' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'core/group', array( 'condense' => false ) ) );
+	}
+
+	/**
+	 * The class goes on the group's wrapper and nothing else in it changes.
+	 */
+	public function test_group_condense_markup() {
+		$html = '<div class="wp-block-group has-global-padding is-layout-constrained"><p>Purplish</p></div>';
+		$out  = $this->render( 'core/group', $html, array( 'condense' => true ) );
+
+		$this->assertSame( str_replace( 'is-layout-constrained"', 'is-layout-constrained purplish-group purplish-group-condense"', $html ), $out );
+	}
+
+	/**
 	 * Columns take the same entrances. The class goes on the Columns
 	 * wrapper only; the stylesheet reaches each column from there.
 	 */

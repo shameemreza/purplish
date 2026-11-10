@@ -182,6 +182,7 @@ final class BlockEffects {
 				'options' => array(
 					'tint'     => true,
 					'entrance' => self::ENTRANCES,
+					'condense' => true,
 				),
 				'preview' => true,
 			),
