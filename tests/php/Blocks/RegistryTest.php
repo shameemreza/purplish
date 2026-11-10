@@ -14,6 +14,7 @@ use Purplish\Blocks\ScrollLookbook;
 use Purplish\Blocks\Showfloor;
 use Purplish\Blocks\ShowfloorLook;
 use Purplish\Blocks\StoryDeck;
+use Purplish\Blocks\Wardrobe;
 use Purplish\Tests\Support\ProbeBlock;
 use WP_Block_Type_Registry;
 use WP_UnitTestCase;
@@ -71,6 +72,7 @@ class RegistryTest extends WP_UnitTestCase {
 
 		$this->assertSame( 10, has_action( 'init', array( $registry, 'register_blocks' ) ) );
 		$this->assertSame( 10, has_filter( 'block_categories_all', array( $registry, 'add_category' ) ) );
+		$this->assertSame( 10, has_filter( 'block_type_metadata', array( Wardrobe::class, 'allow_in_navigation' ) ) );
 	}
 
 	/**
@@ -78,7 +80,7 @@ class RegistryTest extends WP_UnitTestCase {
 	 * else under Purplish's name does.
 	 */
 	public function test_ships_its_blocks() {
-		$this->assertSame( array( HangingRail::class, StoryDeck::class, Runway::class, ScrollLookbook::class, Showfloor::class, ShowfloorLook::class ), Registry::blocks() );
+		$this->assertSame( array( HangingRail::class, StoryDeck::class, Runway::class, ScrollLookbook::class, Showfloor::class, ShowfloorLook::class, Wardrobe::class ), Registry::blocks() );
 
 		$ours = array_filter(
 			array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() ),
@@ -86,7 +88,7 @@ class RegistryTest extends WP_UnitTestCase {
 				return 0 === strpos( $name, 'purplish/' );
 			}
 		);
-		$this->assertSame( array( 'purplish/hanging-rail', 'purplish/story-deck', 'purplish/runway', 'purplish/scroll-lookbook', 'purplish/showfloor', 'purplish/showfloor-look' ), array_values( $ours ) );
+		$this->assertSame( array( 'purplish/hanging-rail', 'purplish/story-deck', 'purplish/runway', 'purplish/scroll-lookbook', 'purplish/showfloor', 'purplish/showfloor-look', 'purplish/wardrobe' ), array_values( $ours ) );
 	}
 
 	/**

@@ -1,0 +1,30 @@
+/**
+ * Wardrobe in the editor: the label always shows as the button, and the
+ * panel shows while the item or a block inside it is selected (is-open).
+ * In the inserter preview the panel sits under the label, open.
+ */
+.wp-block-purplish-wardrobe > .purplish-wardrobe-toggle {
+	display: inline-flex;
+}
+
+.wp-block-purplish-wardrobe:not(.is-open) > .purplish-wardrobe-panel {
+	display: none;
+}
+
+.wp-block-purplish-wardrobe.is-preview {
+	display: block;
+	padding: 24px;
+	list-style: none;
+}
+
+.wp-block-purplish-wardrobe.is-preview > .purplish-wardrobe-panel {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin-top: 16px;
+}
+
+.wp-block-purplish-wardrobe .purplish-wardrobe-toggle [data-rich-text-placeholder] {
+	opacity: 0.6;
+}

@@ -549,5 +549,66 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
+	),
+	'wardrobe' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/wardrobe',
+		'version' => '1.3.0',
+		'title' => 'Wardrobe',
+		'category' => 'purplish',
+		'parent' => array(
+			'core/navigation'
+		),
+		'description' => 'A menu item that opens a big panel of blocks: category links, photo tiles, a look. Goes inside the Navigation block.',
+		'keywords' => array(
+			'mega menu',
+			'dropdown',
+			'menu panel',
+			'submenu',
+			'navigation'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'label' => array(
+				'type' => 'string',
+				'role' => 'content',
+				'default' => ''
+			),
+			'url' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'width' => array(
+				'type' => 'string',
+				'enum' => array(
+					'wide',
+					'content',
+					'full'
+				),
+				'default' => 'wide'
+			),
+			'look' => array(
+				'type' => 'string',
+				'enum' => array(
+					'card',
+					'flat'
+				),
+				'default' => 'card'
+			)
+		),
+		'usesContext' => array(
+			'submenuVisibility',
+			'openSubmenusOnClick',
+			'showSubmenuIcon'
+		),
+		'supports' => array(
+			'html' => false,
+			'reusable' => false
+		),
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
 	)
 );
