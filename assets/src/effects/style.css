@@ -3769,6 +3769,20 @@ body.purplish-active .purplish-group-tint {
 	position: sticky;
 }
 
+/* A bar laid out as a grid lines its blocks up on their middles. */
+.purplish-group-condense.is-layout-grid {
+	align-items: center;
+}
+
+/*
+ * The sticky layer would hold an open Navigation overlay in the bar under
+ * the admin bar, hiding its close button, so it rises while one is open.
+ */
+.purplish-group-condense:has(.is-menu-open),
+.wp-block-template-part:has(> .purplish-group-condense .is-menu-open) {
+	z-index: 100000;
+}
+
 /* The admin bar scrolls away on small screens. */
 @media screen and (max-width: 600px) {
 

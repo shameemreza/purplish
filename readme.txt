@@ -173,6 +173,7 @@ A mega menu item for the Navigation block. Hovering or clicking its label opens 
 * **Opens like your submenus:** on hover or on click, following the Navigation block's setting.
 * **Keyboard:** Enter or Space opens the panel, Tab moves into it, and Escape closes it and puts focus back on the label.
 * **Wardrobe options:** wide, content or full width, and a card or flat look.
+* **A look for each link:** with more than one look card in the panel, hovering a category link shows its look.
 * **Phones:** on small screens and inside the Navigation overlay, the label is a plain link.
 * **Patterns:** Flagship header adds a note bar and a bar with a Wardrobe Shop menu, the site title, search, account and a bag pill that condenses on scroll. Flagship phone menu is the sheet its menu opens on phones.
 

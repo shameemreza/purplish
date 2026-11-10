@@ -17,6 +17,7 @@ import { placement } from '../../assets/src/blocks/wardrobe/place';
 import {
 	CLOSE_DELAY,
 	OPEN_DELAY,
+	looks,
 	wardrobe,
 } from '../../assets/src/blocks/wardrobe/menu';
 
@@ -298,5 +299,32 @@ describe( 'wardrobe', () => {
 
 		open( true );
 		expect( panel.hidden ).toBe( true );
+	} );
+
+	it( 'shows the look card for the link under the pointer or in focus', () => {
+		const panel = document.createElement( 'div' );
+		panel.innerHTML = `<ul class="purplish-wardrobe-links"><li><a href="#">New in</a></li><li><a href="#">Coats</a></li><li><a href="#">Shoes</a></li></ul>
+			<div class="purplish-wardrobe-look">1</div><div class="purplish-wardrobe-look">2</div>`;
+		looks( panel );
+		const [ first, second ] = panel.querySelectorAll(
+			'.purplish-wardrobe-look'
+		);
+		const links = panel.querySelectorAll( 'a' );
+
+		expect( first.classList.contains( 'is-shown' ) ).toBe( true );
+		pointer( links[ 1 ], 'pointerenter' );
+		expect( second.classList.contains( 'is-shown' ) ).toBe( true );
+		expect( first.classList.contains( 'is-shown' ) ).toBe( false );
+		pointer( links[ 2 ], 'pointerenter' );
+		expect( second.classList.contains( 'is-shown' ) ).toBe( true );
+		links[ 0 ].dispatchEvent( new Event( 'focus' ) );
+		expect( first.classList.contains( 'is-shown' ) ).toBe( true );
+	} );
+
+	it( 'leaves a single look card alone', () => {
+		const panel = document.createElement( 'div' );
+		panel.innerHTML = `<ul class="purplish-wardrobe-links"><li><a href="#">New in</a></li></ul><div class="purplish-wardrobe-look">1</div>`;
+		looks( panel );
+		expect( panel.querySelector( '.is-shown' ) ).toBeNull();
 	} );
 } );

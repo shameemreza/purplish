@@ -305,6 +305,32 @@
 	translate: 4px 0;
 }
 
+/*
+ * More than one look card: the first shows until the script shows the card
+ * for the link under the pointer. The cards share one spot and cross-fade.
+ */
+:where(.purplish-wardrobe-panel) .purplish-wardrobe-look ~ .purplish-wardrobe-look {
+	display: none;
+}
+
+.is-ready :where(.purplish-wardrobe-panel) :has(> .purplish-wardrobe-look ~ .purplish-wardrobe-look) {
+	display: grid;
+}
+
+.is-ready :where(.purplish-wardrobe-panel) :has(> .purplish-wardrobe-look ~ .purplish-wardrobe-look) > .purplish-wardrobe-look {
+	display: flex;
+	grid-area: 1 / 1;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.35s, visibility 0s 0.35s;
+}
+
+.is-ready :where(.purplish-wardrobe-panel) :has(> .purplish-wardrobe-look ~ .purplish-wardrobe-look) > .purplish-wardrobe-look.is-shown {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0s;
+}
+
 /* Opening: the panel unrolls from the top and its columns rise in. */
 @media (prefers-reduced-motion: no-preference) {
 
