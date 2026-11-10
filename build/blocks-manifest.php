@@ -214,6 +214,275 @@ return array(
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
 	),
+	'showfloor' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/showfloor',
+		'version' => '1.3.0',
+		'title' => 'Showfloor',
+		'category' => 'purplish',
+		'description' => 'Cut-out looks stand on a turning floor. Visitors turn it, open a look and add its pieces to the cart.',
+		'keywords' => array(
+			'shop the look',
+			'lookbook',
+			'hero',
+			'outfit',
+			'products'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'align' => array(
+				'type' => 'string',
+				'default' => 'full'
+			),
+			'shape' => array(
+				'type' => 'string',
+				'enum' => array(
+					'oval',
+					'flat'
+				),
+				'default' => 'oval'
+			),
+			'depth' => array(
+				'type' => 'string',
+				'enum' => array(
+					'subtle',
+					'strong',
+					'off'
+				),
+				'default' => 'subtle'
+			),
+			'start' => array(
+				'type' => 'string',
+				'enum' => array(
+					'floor',
+					'grid'
+				),
+				'default' => 'floor'
+			),
+			'autoplay' => array(
+				'type' => 'string',
+				'enum' => array(
+					'off',
+					'on'
+				),
+				'default' => 'off'
+			),
+			'speed' => array(
+				'type' => 'number',
+				'default' => 4
+			),
+			'pause' => array(
+				'type' => 'string',
+				'enum' => array(
+					'ring',
+					'plain',
+					'off'
+				),
+				'default' => 'ring'
+			),
+			'phone' => array(
+				'type' => 'string',
+				'enum' => array(
+					'row',
+					'ring'
+				),
+				'default' => 'row'
+			),
+			'toggle' => array(
+				'type' => 'string',
+				'enum' => array(
+					'both',
+					'icons',
+					'text',
+					'off'
+				),
+				'default' => 'both'
+			),
+			'arrows' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'cursor' => array(
+				'type' => 'string',
+				'enum' => array(
+					'label',
+					'ring',
+					'off'
+				),
+				'default' => 'label'
+			),
+			'list' => array(
+				'type' => 'string',
+				'enum' => array(
+					'both',
+					'faces',
+					'names',
+					'numbers',
+					'off'
+				),
+				'default' => 'both'
+			),
+			'shop' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'shopText' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'add' => array(
+				'type' => 'string',
+				'enum' => array(
+					'text',
+					'icon'
+				),
+				'default' => 'text'
+			),
+			'total' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'whole' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'hover' => array(
+				'type' => 'string',
+				'enum' => array(
+					'lift',
+					'spotlight',
+					'peek',
+					'none'
+				),
+				'default' => 'lift'
+			),
+			'close' => array(
+				'type' => 'string',
+				'enum' => array(
+					'both',
+					'icon',
+					'text'
+				),
+				'default' => 'both'
+			),
+			'marks' => array(
+				'type' => 'string',
+				'enum' => array(
+					'highlight',
+					'add'
+				),
+				'default' => 'highlight'
+			),
+			'fly' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			)
+		),
+		'allowedBlocks' => array(
+			'purplish/showfloor-look'
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				)
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
+	),
+	'showfloor-look' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/showfloor-look',
+		'version' => '1.3.0',
+		'title' => 'Look',
+		'category' => 'purplish',
+		'parent' => array(
+			'purplish/showfloor'
+		),
+		'description' => 'One look on the Showfloor: a cut-out image, a name, a short line and the products in it.',
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'id' => array(
+				'type' => 'number',
+				'default' => 0
+			),
+			'url' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'name' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'line' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'products' => array(
+				'type' => 'array',
+				'items' => array(
+					'type' => 'number'
+				),
+				'default' => array(
+					
+				)
+			),
+			'marks' => array(
+				'type' => 'object',
+				'default' => array(
+					
+				)
+			),
+			'face' => array(
+				'type' => 'object',
+				'default' => array(
+					'x' => 0.5,
+					'y' => 0.07
+				)
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'reusable' => false,
+			'lock' => false
+		)
+	),
 	'story-deck' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

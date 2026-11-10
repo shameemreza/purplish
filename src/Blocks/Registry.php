@@ -56,6 +56,8 @@ final class Registry {
 			StoryDeck::class,
 			Runway::class,
 			ScrollLookbook::class,
+			Showfloor::class,
+			ShowfloorLook::class,
 		);
 	}
 
