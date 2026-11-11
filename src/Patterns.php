@@ -225,14 +225,15 @@ final class Patterns {
 	 * @param string $line  Line under the heading, or ''.
 	 * @param string $url   Link URL, or ''.
 	 * @param string $label Link text, or ''.
+	 * @param bool   $dark  True when the section sits on a dark ground.
 	 * @return string
 	 */
-	public static function section_head( $title, $line = '', $url = '', $label = '' ) {
+	public static function section_head( $title, $line = '', $url = '', $label = '', $dark = false ) {
 		$serif   = 'var(--wp--preset--font-family--bodoni-moda, Didot, Georgia, serif)';
 		$size    = 'clamp(2.25rem, 1.5rem + 2.4vw, 3.5rem)';
-		$deep    = '#1f0342';
-		$ink     = '#111111';
-		$body    = '#322f37';
+		$deep    = $dark ? '#ffffff' : '#1f0342';
+		$ink     = $dark ? '#ffffff' : '#111111';
+		$body    = $dark ? '#ddd3f7' : '#322f37';
 		$gap     = 'clamp(24px, 3vw, 40px)';
 		$heading = array(
 			'style' => array(

@@ -271,5 +271,9 @@ class PatternsTest extends WP_UnitTestCase {
 		$line = Patterns::section_head( 'Worn by you', 'Real orders.' );
 		$this->assertStringNotContainsString( '<a ', $line );
 		$this->assertStringContainsString( '"contentSize":"44ch"', $line );
+
+		$dark = Patterns::section_head( 'Worn by you', 'Real orders.', '', '', true );
+		$this->assertStringContainsString( 'style="color:#ffffff;', $dark );
+		$this->assertStringNotContainsString( '#1f0342', $dark );
 	}
 }
