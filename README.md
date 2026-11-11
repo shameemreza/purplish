@@ -29,6 +29,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Showfloor | Purplish's own block: a shop-the-look hero where cut-out looks stand on a turning floor, and visitors open a look to add its pieces to the cart. |
 | Shop and collection pages | Changing Room | Purplish's own block: tops and bottoms turn in two rings around a model, and visitors dress him before they add the outfit to the cart. |
 | Header | Navigation, Group | Purplish's own Wardrobe block: a menu item that opens a big panel under the header, with category links, photo tiles and a featured look, all made of blocks you edit in place. A header that stays at the top and narrows into a floating pill as the page scrolls, and the Flagship header and phone menu patterns that put it all together. |
+| Footer | Heading, Social Icons | A big wordmark that rises from the floor as the page scrolls, social icons in thin rings, and the Flagship footer pattern that puts it together. |
 | Filters and cart | Product Filters, Mini-Cart, Mini-Cart Contents | Active filters that match the filter chips, a count that pops and a product photo that flies into the cart icon when something goes into the cart, and a cart drawer with a spring slide, soft rows and bigger photos. |
 | Cart, checkout and order confirmation | Cart, Proceed to Checkout, Mini-Cart Proceed to Checkout Button, Checkout, checkout Actions, Order Status, Order Summary | Soft rows, bigger photos and sticky totals on the Cart page, soft, filled or underline fields, a focus ring, card or list choices, step numbers, a soft summary card, a side panel, a raised card and bigger photos on the Checkout, a glow ring, light sweep, liquid glass and spectrum ring on Proceed to Checkout, Go to checkout and Place Order, a lock on Place Order, a thank-you moment on the order heading and a receipt card for the order summary. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
@@ -151,17 +152,20 @@ Touch screens get the button looks without the hover parts, and visitors who tur
 
 - **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom. The photo grows inside its own frame, so the caption and the lightbox button stay where they are.
 - **Button, Looks:** a glow ring, a band of light that sweeps across on hover, liquid glass and a spectrum ring, in any mix. Googly eyes, one or two, sit inside the button and follow the mouse. One effect color drives the glow and the glass.
+- **Social Icons, Ring:** each icon sits in a thin round ring in the icon color, and the ring fills on hover. Set the icon color to match the section.
 
 Touch screens and visitors who turn on reduced motion see the plain image and button.
 
 ## Scroll entrances
 
-- **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
+- **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view. Rise from the floor follows the scroll instead: the bottom edge of the heading is the floor, and the heading comes up out of it, made for a big footer wordmark.
 - **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
 - **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view.
 - **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill with frosted glass as the page scrolls, then opens out again at the top.
 
-Each entrance plays once. Condense on scroll follows the scroll both ways. Visitors who turn on reduced motion see the blocks as they are, with the header as a full bar, and nothing stays hidden if the script doesn't load.
+- **Pattern:** Flagship footer is a full store footer for the footer template part. A size help line with an Ask about a size button and a size guide link, four link columns (Shop, Help, Company and social icons in rings), the site name as a big serif wordmark that rises from the floor, and a base row with the year, privacy and terms links, a secure checkout note and a Back to the floor button.
+
+Each entrance plays once. Condense on scroll and Rise from the floor follow the scroll both ways. Visitors who turn on reduced motion see the blocks as they are, with the header as a full bar, and nothing stays hidden if the script doesn't load.
 
 ## Hanging Rail block
 
@@ -278,7 +282,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |
 | Details, review and specifications styles | Yes | No |
 | Matching filter chips, mini-cart count pop | Yes | No |
-| Image hover styles, button looks, and glass, spectrum ring and googly eyes on add to cart | Yes | No |
+| Image hover styles, button looks, social icon rings, and glass, spectrum ring and googly eyes on add to cart | Yes | No |
 | Heading reveals, group and columns entrances, cover scroll effects | Yes | No |
 | Checkout button looks, thank-you moment, receipt card | Yes | No |
 
@@ -286,7 +290,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 

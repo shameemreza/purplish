@@ -96,10 +96,12 @@ On other blocks:
 * **Mini-Cart, Count pop and Fly to cart:** the item count pops each time something goes into the cart, and Fly to cart sends the product photo into the cart icon.
 * **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom.
 * **Button, Looks:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, in any mix.
-* **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view.
+* **Social Icons, Ring:** each icon sits in a thin round ring that fills on hover.
+* **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view. Rise from the floor follows the scroll instead: the heading comes up out of its own bottom edge, made for a big footer wordmark.
 * **Group and Columns, Entrance on scroll:** the section fades up or zooms in, and columns come in one after another.
 * **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls.
 * **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small pill to full size.
+* **Pattern:** Flagship footer is a full store footer for the footer template part: a size help line with a button, four link columns with ringed social icons, the site name as a big wordmark that rises from the floor, and a base row with the year, policy links, a secure checkout note and a back to top button.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 
