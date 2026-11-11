@@ -592,12 +592,18 @@ function glassHighlight( button ) {
 
 const STILL = 1000;
 
+// WooCommerce takes these blocks' inner blocks out of the page and draws
+// them again with React after this script runs, so a button inside them
+// isn't there yet when the script looks.
+const REDRAWN = '.wp-block-woocommerce-cart, .wp-block-woocommerce-checkout';
+
 /**
  * Turns every googly eye on the page toward the mouse, from one listener
  * and at most once a frame. The eyes blink when the mouse moves after a
- * still moment, never on a timer.
+ * still moment, never on a timer. The list is live, so eyes WooCommerce
+ * draws later, such as in the empty cart, follow too.
  *
- * @param {HTMLElement[]} eyes The eyes.
+ * @param {HTMLCollection} eyes The eyes, a live list.
  */
 function lookAt( eyes ) {
 	let pointer = null;
@@ -606,7 +612,7 @@ function lookAt( eyes ) {
 
 	const look = () => {
 		frame = 0;
-		eyes.forEach( ( eye ) => {
+		Array.prototype.forEach.call( eyes, ( eye ) => {
 			const box = eye.getBoundingClientRect();
 			const dx = pointer.clientX - ( box.left + box.width / 2 );
 			const dy = pointer.clientY - ( box.top + box.height / 2 );
@@ -626,7 +632,7 @@ function lookAt( eyes ) {
 	document.addEventListener(
 		'pointermove',
 		( event ) => {
-			if ( 'touch' === event.pointerType ) {
+			if ( 'touch' === event.pointerType || ! eyes.length ) {
 				return;
 			}
 			if ( last && event.timeStamp - last > STILL ) {
@@ -650,34 +656,34 @@ function lookAt( eyes ) {
 }
 
 if ( canHover ) {
-	document
-		.querySelectorAll(
-			'.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button, .purplish-cards-hoverbutton-glass .wc-block-components-product-button__button'
+	// WooCommerce draws the cart and checkout after this script runs, and
+	// the drawer's buttons again when it fills, so the highlight starts on
+	// the first pointer over each button.
+	if (
+		document.querySelector(
+			'.purplish-button-glass, .purplish-cart-glass, .purplish-cards-hoverbutton-glass, .purplish-buybutton-glass, ' +
+				REDRAWN
 		)
-		.forEach( glassHighlight );
-
-	// WooCommerce draws the checkout buttons after this script runs, and
-	// the drawer's again when it fills, so the highlight starts on the
-	// first pointer over each one.
-	if ( document.querySelector( '.purplish-buybutton-glass' ) ) {
+	) {
 		const ready = new WeakSet();
 		document.addEventListener(
 			'pointerover',
 			( event ) => {
 				const button = event.target.closest?.(
-					'.purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button), .purplish-buybutton-glass.wc-block-mini-cart__footer-checkout'
+					'.purplish-button-glass .wp-block-button__link, .purplish-cart-glass .single_add_to_cart_button, .purplish-cards-hoverbutton-glass .wc-block-components-product-button__button, .purplish-buybutton-glass :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button), .purplish-buybutton-glass.wc-block-mini-cart__footer-checkout'
 				);
 				if ( button && ! ready.has( button ) ) {
 					ready.add( button );
 					glassHighlight( button );
+					moveHighlight( button, event );
 				}
 			},
 			{ passive: true }
 		);
 	}
 
-	const eyes = [ ...document.querySelectorAll( '.purplish-eye' ) ];
-	if ( eyes.length ) {
+	const eyes = document.getElementsByClassName( 'purplish-eye' );
+	if ( eyes.length || document.querySelector( REDRAWN ) ) {
 		lookAt( eyes );
 	}
 }
