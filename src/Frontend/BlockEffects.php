@@ -304,8 +304,15 @@ final class BlockEffects {
 			'core/heading'                                => array(
 				'prefix'  => 'heading',
 				'options' => array(
-					'reveal' => array( 'rise', 'focus' ),
+					'reveal' => array( 'rise', 'focus', 'floor' ),
 				),
+			),
+			'core/social-links'                           => array(
+				'prefix'  => 'social',
+				'options' => array(
+					'look' => array( 'ring' ),
+				),
+				'preview' => true,
 			),
 			// Each column comes in on its own, so stacked columns on phones do too.
 			'core/columns'                                => array(

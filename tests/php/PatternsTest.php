@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -84,6 +84,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/scroll-lookbook' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
+		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
 
 		unregister_block_pattern_category( Patterns::CATEGORY );
@@ -201,5 +202,29 @@ class PatternsTest extends WP_UnitTestCase {
 		$menu = Patterns::content( $patterns['flagship-phone-menu']['file'] );
 		$this->assertContains( 'core/navigation-overlay-close', $this->block_names( parse_blocks( $menu ) ) );
 		$this->assertStringContainsString( '"purplish":{"entrance":"fadeup"}', $menu );
+	}
+
+	/**
+	 * The Flagship footer offers itself for footers and carries the fit
+	 * help, three link menus, ring social icons, the store name rising from
+	 * the floor at full width, and the base row. It uses no drawn figures.
+	 */
+	public function test_flagship_footer() {
+		$patterns = Patterns::patterns();
+		$this->assertSame( array( 'core/template-part/footer' ), $patterns['flagship-footer']['blockTypes'] );
+		$this->assertSame( array( 'footer' ), $patterns['flagship-footer']['categories'] );
+
+		$footer = Patterns::content( $patterns['flagship-footer']['file'] );
+		$names  = $this->block_names( parse_blocks( $footer ) );
+		foreach ( array( 'core/columns', 'core/buttons', 'core/navigation', 'core/social-links', 'core/heading', 'core/image' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		$this->assertSame( 3, count( array_keys( $names, 'core/navigation', true ) ) );
+		$this->assertStringContainsString( '"purplish":{"look":"ring"}', $footer );
+		$this->assertStringContainsString( '"fitText":true,"purplish":{"reveal":"floor"}', $footer );
+		$this->assertStringContainsString( '>' . esc_html( get_bloginfo( 'name' ) ) . '</h2>', $footer );
+		$this->assertStringContainsString( 'assets/icons/lock.svg', $footer );
+		$this->assertStringNotContainsString( 'assets/figures/', $footer );
+		$this->assertFileExists( PURPLISH_DIR . 'assets/icons/lock.svg' );
 	}
 }

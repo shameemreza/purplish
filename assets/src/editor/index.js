@@ -23,6 +23,7 @@ import MiniCartPanel from './mini-cart';
 import ImagePanel from './image';
 import ButtonPanel from './button';
 import HeadingPanel from './heading';
+import SocialPanel from './social';
 import ColumnsPanel from './columns';
 import CoverPanel from './cover';
 import BuyButtonPanel, { PlaceOrderPanel } from './buy-button';
@@ -51,6 +52,7 @@ const PANELS = {
 	'core/image': ImagePanel,
 	'core/button': ButtonPanel,
 	'core/heading': HeadingPanel,
+	'core/social-links': SocialPanel,
 	'core/columns': ColumnsPanel,
 	'core/cover': CoverPanel,
 	'woocommerce/order-confirmation-status': OrderStatusPanel,
