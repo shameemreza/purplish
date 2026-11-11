@@ -3894,6 +3894,26 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Group, turn on hover: a seal or badge turns a little, like a stamp, when
+ * the mouse is over it or over the group (or the group around that) it sits
+ * in, so hovering the whole card turns its seal. Rotate and scale only, so
+ * an entrance on the same group keeps its own transform.
+ */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-group-turn {
+		transition: rotate 0.6s cubic-bezier(0.22, 1, 0.36, 1), scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.purplish-group-turn:hover,
+	.wp-block-group:hover > .purplish-group-turn,
+	.wp-block-group:hover > .wp-block-group > .purplish-group-turn {
+		rotate: -8deg;
+		scale: 1.04;
+	}
+}
+
+/*
  * Group, Fade up inside a menu overlay: the menu links rise in one after
  * another each time the menu opens, since an entrance in a hidden overlay
  * would play before anyone sees it.

@@ -130,6 +130,24 @@ final class Patterns {
 				'blockTypes' => array(),
 				'file'       => PURPLISH_DIR . 'patterns/flagship-newsletter.php',
 			),
+			'checkout-header'       => array(
+				'title'      => __( 'Checkout header', 'purplish' ),
+				'categories' => array( 'header' ),
+				'blockTypes' => array( 'core/template-part/header' ),
+				'file'       => PURPLISH_DIR . 'patterns/checkout-header.php',
+			),
+			'guarantee-card'        => array(
+				'title'      => __( 'Money-back guarantee card', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/guarantee-card.php',
+			),
+			'empty-cart'            => array(
+				'title'      => __( 'Empty cart', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/empty-cart.php',
+			),
 		);
 	}
 
