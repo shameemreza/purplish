@@ -166,6 +166,16 @@ It holds Look blocks, one for each look: a cut-out photo, a name, a short line a
 
 Autoplay holds while a visitor uses the floor and never runs for visitors who turn on reduced motion.
 
+= Changing Room block =
+
+It holds Piece blocks: tops and bottoms that turn in two rings around a photo of a model, with a photo for each pair. Visitors dress him and add the outfit to the cart.
+
+* **Dress the model:** visitors drag a piece onto him, swipe or scroll a ring, use the arrow keys, or tap a piece to open its panel with sizes, stock and details.
+* **Add both:** one button adds the top and bottom at the price shown, and asks for a size first when a piece needs one.
+* **Changing Room options:** theme buttons or a Purplish look, color from the piece worn on the buttons, the block or the page, a notice and fly to the mini cart after adding, and a switch for each way to turn a ring.
+
+Visitors who turn on reduced motion get every change at once.
+
 = Wardrobe block =
 
 A mega menu item for the Navigation block. Hovering or clicking its label opens a big panel under the header, made of blocks you edit in place. A new one starts with category links, photo tiles and a featured look.

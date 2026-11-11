@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "purplish/changing-room-piece",
+	"version": "1.3.0",
+	"title": "Piece",
+	"category": "purplish",
+	"parent": [
+		"purplish/changing-room"
+	],
+	"description": "One piece in the Changing Room: a top or a bottom, its product and a flat cut-out image.",
+	"textdomain": "purplish",
+	"attributes": {
+		"slot": {
+			"type": "string",
+			"enum": [
+				"top",
+				"bottom"
+			],
+			"default": "top"
+		},
+		"product": {
+			"type": "number",
+			"default": 0
+		},
+		"id": {
+			"type": "number",
+			"default": 0
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"lock": false
+	}
+}

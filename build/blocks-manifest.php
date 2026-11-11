@@ -1,6 +1,263 @@
 <?php
 // This file is generated. Do not modify it manually.
 return array(
+	'changing-room' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/changing-room',
+		'version' => '1.3.0',
+		'title' => 'Changing Room',
+		'category' => 'purplish',
+		'description' => 'A model stands between two rings of pieces. Visitors turn the rings, drag a piece onto the model or open it, and add the outfit to the cart.',
+		'keywords' => array(
+			'try on',
+			'outfit',
+			'mix and match',
+			'styling',
+			'products'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'align' => array(
+				'type' => 'string',
+				'default' => 'full'
+			),
+			'heading' => array(
+				'type' => 'string',
+				'enum' => array(
+					'off',
+					'on'
+				),
+				'default' => 'off'
+			),
+			'headingText' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'hint' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'tags' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'outfit' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'far' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'drawer' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'specs' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'about' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'wear' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'drag' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'wheel' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'swipe' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'notice' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'fly' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'look' => array(
+				'type' => 'string',
+				'enum' => array(
+					'theme',
+					'glow',
+					'sweep',
+					'glass',
+					'spectrum'
+				),
+				'default' => 'theme'
+			),
+			'color' => array(
+				'type' => 'string',
+				'enum' => array(
+					'last',
+					'top',
+					'bottom',
+					'off'
+				),
+				'default' => 'last'
+			),
+			'area' => array(
+				'type' => 'string',
+				'enum' => array(
+					'accents',
+					'stage',
+					'page'
+				),
+				'default' => 'accents'
+			),
+			'swap' => array(
+				'type' => 'string',
+				'enum' => array(
+					'fade',
+					'reveal',
+					'none'
+				),
+				'default' => 'fade'
+			),
+			'topLabel' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'bottomLabel' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'photos' => array(
+				'type' => 'object',
+				'default' => array(
+					
+				)
+			)
+		),
+		'allowedBlocks' => array(
+			'purplish/changing-room-piece'
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				)
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
+	),
+	'changing-room-piece' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/changing-room-piece',
+		'version' => '1.3.0',
+		'title' => 'Piece',
+		'category' => 'purplish',
+		'parent' => array(
+			'purplish/changing-room'
+		),
+		'description' => 'One piece in the Changing Room: a top or a bottom, its product and a flat cut-out image.',
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'slot' => array(
+				'type' => 'string',
+				'enum' => array(
+					'top',
+					'bottom'
+				),
+				'default' => 'top'
+			),
+			'product' => array(
+				'type' => 'number',
+				'default' => 0
+			),
+			'id' => array(
+				'type' => 'number',
+				'default' => 0
+			),
+			'url' => array(
+				'type' => 'string',
+				'default' => ''
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'reusable' => false,
+			'lock' => false
+		)
+	),
 	'hanging-rail' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
