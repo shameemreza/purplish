@@ -137,6 +137,19 @@ class ScrollEntrancesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A cover's hover look adds to its scroll effect.
+	 */
+	public function test_cover_hover() {
+		$this->assertSame( array( 'purplish-cover', 'purplish-cover-hover-push' ), BlockEffects::classes_for( 'core/cover', array( 'hover' => 'push' ) ) );
+		$both = array(
+			'scroll' => 'pill',
+			'hover'  => 'push',
+		);
+		$this->assertSame( array( 'purplish-cover', 'purplish-cover-scroll-pill', 'purplish-cover-hover-push' ), BlockEffects::classes_for( 'core/cover', $both ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'core/cover', array( 'hover' => 'zoom' ) ) );
+	}
+
+	/**
 	 * The cover's classes go on its wrapper; the image, overlay and inner
 	 * blocks stay as printed.
 	 */

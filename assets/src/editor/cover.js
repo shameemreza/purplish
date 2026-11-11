@@ -11,6 +11,11 @@ const SCROLLS = [
 	{ value: 'pill', label: __( 'Pill reveal', 'purplish' ) },
 ];
 
+const HOVERS = [
+	{ value: '', label: __( 'None', 'purplish' ) },
+	{ value: 'push', label: __( 'Push in', 'purplish' ) },
+];
+
 /**
  * The panel.
  *
@@ -33,6 +38,20 @@ export default function CoverPanel( { saved, setSaved } ) {
 				options={ SCROLLS }
 				onChange={ ( scroll ) =>
 					setSaved( { ...saved, scroll: scroll || undefined } )
+				}
+			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Hover', 'purplish' ) }
+				help={ __(
+					'Push in moves the background image or video in slowly while the mouse is on the cover. Hover the cover here to see it. Touch screens and reduced motion show the plain cover.',
+					'purplish'
+				) }
+				value={ saved.hover || '' }
+				options={ HOVERS }
+				onChange={ ( hover ) =>
+					setSaved( { ...saved, hover: hover || undefined } )
 				}
 			/>
 		</PanelBody>

@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -85,6 +85,9 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
+		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter' ) as $slug ) {
+			$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/' . $slug ), $slug );
+		}
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
 
 		unregister_block_pattern_category( Patterns::CATEGORY );
@@ -226,5 +229,24 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'assets/icons/lock.svg', $footer );
 		$this->assertStringNotContainsString( 'assets/figures/', $footer );
 		$this->assertFileExists( PURPLISH_DIR . 'assets/icons/lock.svg' );
+	}
+
+	/**
+	 * The home pattern is a starter for new pages only, and it carries
+	 * every section pattern's markup.
+	 */
+	public function test_flagship_home_is_a_page_starter() {
+		( new Patterns() )->register_patterns();
+		$home = WP_Block_Patterns_Registry::get_instance()->get_registered( 'purplish/flagship-home' );
+
+		$this->assertSame( array( 'core/post-content' ), $home['blockTypes'] );
+		$this->assertSame( array( 'page' ), $home['postTypes'] );
+		$this->assertArrayNotHasKey( 'postTypes', WP_Block_Patterns_Registry::get_instance()->get_registered( 'purplish/trust-row' ) );
+
+		foreach ( array( 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter' ) as $slug ) {
+			$section = WP_Block_Patterns_Registry::get_instance()->get_registered( 'purplish/' . $slug );
+			$this->assertStringContainsString( trim( $section['content'] ), $home['content'], $slug );
+		}
+		$this->assertStringContainsString( '<!-- wp:purplish/story-deck', $home['content'] );
 	}
 }

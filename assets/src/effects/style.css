@@ -3744,6 +3744,26 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Cover hover, push in: the background moves in slowly while the mouse is
+ * on the cover, and settles back when it leaves. On `transform`, so it
+ * adds to a scroll effect's `scale` instead of replacing it.
+ */
+.purplish-cover-hover-push {
+	overflow: clip;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-cover-hover-push > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.purplish-cover-hover-push:hover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		transform: scale(1.06);
+	}
+}
+
+/*
  * Group, condense on scroll: the section sticks to the top and narrows into
  * a floating pill as the page scrolls, on the page's own scroll timeline. A
  * group can't stick past the template part it sits in, so the part sticks

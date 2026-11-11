@@ -38,8 +38,19 @@ class PageSectionPreviewsTest extends WP_UnitTestCase {
 	public function test_motion_stays_front_end() {
 		$map = BlockEffects::preview_map();
 
-		foreach ( array( 'core/columns', 'core/heading', 'core/cover', 'woocommerce/mini-cart' ) as $name ) {
+		foreach ( array( 'core/columns', 'core/heading', 'woocommerce/mini-cart' ) as $name ) {
 			$this->assertArrayNotHasKey( $name, $map, $name );
 		}
+		$this->assertArrayNotHasKey( 'scroll', $map['core/cover']['options'], 'cover scroll effects' );
+	}
+
+	/**
+	 * A cover's hover look shows in the editor, on its own.
+	 */
+	public function test_cover_hover_previews() {
+		$map = BlockEffects::preview_map();
+
+		$this->assertSame( 'cover', $map['core/cover']['prefix'] );
+		$this->assertSame( array( 'hover' => array( 'push' ) ), $map['core/cover']['options'] );
 	}
 }

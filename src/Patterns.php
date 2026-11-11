@@ -31,54 +31,104 @@ final class Patterns {
 
 	/**
 	 * The patterns Purplish ships, by slug. Each has a `title`, `categories`,
-	 * `blockTypes` (the patterns show when one of these blocks is inserted)
-	 * and the `file` that prints its content.
+	 * `blockTypes` (the patterns show when one of these blocks is inserted),
+	 * optional `postTypes` (the post types it shows for) and the `file` that
+	 * prints its content.
 	 *
-	 * @return array<string, array{title: string, categories: string[], blockTypes: string[], file: string}>
+	 * @return array<string, array{title: string, categories: string[], blockTypes: string[], postTypes?: string[], file: string}>
 	 */
 	public static function patterns() {
 		return array(
-			'hanging-rail'        => array(
+			'hanging-rail'          => array(
 				'title'      => __( 'Hanging rail of new arrivals', 'purplish' ),
 				'categories' => array(),
 				'blockTypes' => array( 'purplish/hanging-rail' ),
 				'file'       => PURPLISH_DIR . 'patterns/hanging-rail.php',
 			),
-			'story-deck'          => array(
+			'story-deck'            => array(
 				'title'      => __( 'Customer stories deck', 'purplish' ),
 				'categories' => array( 'testimonials' ),
 				'blockTypes' => array( 'purplish/story-deck' ),
 				'file'       => PURPLISH_DIR . 'patterns/story-deck.php',
 			),
-			'runway'              => array(
+			'runway'                => array(
 				'title'      => __( 'Runway lookbook', 'purplish' ),
 				'categories' => array(),
 				'blockTypes' => array( 'purplish/runway' ),
 				'file'       => PURPLISH_DIR . 'patterns/runway.php',
 			),
-			'scroll-lookbook'     => array(
+			'scroll-lookbook'       => array(
 				'title'      => __( 'Scroll lookbook storefront', 'purplish' ),
 				'categories' => array(),
 				'blockTypes' => array( 'purplish/scroll-lookbook' ),
 				'file'       => PURPLISH_DIR . 'patterns/scroll-lookbook.php',
 			),
-			'flagship-header'     => array(
+			'flagship-header'       => array(
 				'title'      => __( 'Flagship header', 'purplish' ),
 				'categories' => array( 'header' ),
 				'blockTypes' => array( 'core/template-part/header' ),
 				'file'       => PURPLISH_DIR . 'patterns/flagship-header.php',
 			),
-			'flagship-phone-menu' => array(
+			'flagship-phone-menu'   => array(
 				'title'      => __( 'Flagship phone menu', 'purplish' ),
 				'categories' => array( 'navigation' ),
 				'blockTypes' => array( 'core/template-part/navigation-overlay' ),
 				'file'       => PURPLISH_DIR . 'patterns/flagship-phone-menu.php',
 			),
-			'flagship-footer'     => array(
+			'flagship-footer'       => array(
 				'title'      => __( 'Flagship footer', 'purplish' ),
 				'categories' => array( 'footer' ),
 				'blockTypes' => array( 'core/template-part/footer' ),
 				'file'       => PURPLISH_DIR . 'patterns/flagship-footer.php',
+			),
+			'flagship-home'         => array(
+				'title'      => __( 'Flagship home', 'purplish' ),
+				'categories' => array(),
+				'blockTypes' => array( 'core/post-content' ),
+				'postTypes'  => array( 'page' ),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-home.php',
+			),
+			'flagship-floor'        => array(
+				'title'      => __( 'Flagship floor', 'purplish' ),
+				'categories' => array( 'banner' ),
+				'blockTypes' => array( 'purplish/showfloor' ),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-floor.php',
+			),
+			'flagship-categories'   => array(
+				'title'      => __( 'Shop by category', 'purplish' ),
+				'categories' => array( 'gallery' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-categories.php',
+			),
+			'flagship-just-in'      => array(
+				'title'      => __( 'Just in', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-just-in.php',
+			),
+			'flagship-brand-band'   => array(
+				'title'      => __( 'Brand band', 'purplish' ),
+				'categories' => array( 'banner' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-brand-band.php',
+			),
+			'flagship-best-sellers' => array(
+				'title'      => __( 'Best sellers', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-best-sellers.php',
+			),
+			'trust-row'             => array(
+				'title'      => __( 'Trust row', 'purplish' ),
+				'categories' => array( 'text' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/trust-row.php',
+			),
+			'flagship-newsletter'   => array(
+				'title'      => __( 'Newsletter', 'purplish' ),
+				'categories' => array( 'call-to-action' ),
+				'blockTypes' => array(),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-newsletter.php',
 			),
 		);
 	}
@@ -87,7 +137,7 @@ final class Patterns {
 	 * The patterns to register, after the `purplish_patterns` filter.
 	 * Entries without a title or a readable file are dropped.
 	 *
-	 * @return array<string, array{title: string, categories: string[], blockTypes: string[], file: string}>
+	 * @return array<string, array{title: string, categories: string[], blockTypes: string[], postTypes?: string[], file: string}>
 	 */
 	public static function listed() {
 		/**
@@ -116,6 +166,9 @@ final class Patterns {
 				'blockTypes' => isset( $pattern['blockTypes'] ) ? array_map( 'strval', (array) $pattern['blockTypes'] ) : array(),
 				'file'       => (string) $pattern['file'],
 			);
+			if ( ! empty( $pattern['postTypes'] ) ) {
+				$listed[ $slug ]['postTypes'] = array_map( 'strval', (array) $pattern['postTypes'] );
+			}
 		}
 		return $listed;
 	}
@@ -138,15 +191,16 @@ final class Patterns {
 		);
 
 		foreach ( $patterns as $slug => $pattern ) {
-			register_block_pattern(
-				'purplish/' . $slug,
-				array(
-					'title'      => $pattern['title'],
-					'categories' => array_values( array_unique( array_merge( array( self::CATEGORY ), $pattern['categories'] ) ) ),
-					'blockTypes' => $pattern['blockTypes'],
-					'content'    => self::content( $pattern['file'] ),
-				)
+			$properties = array(
+				'title'      => $pattern['title'],
+				'categories' => array_values( array_unique( array_merge( array( self::CATEGORY ), $pattern['categories'] ) ) ),
+				'blockTypes' => $pattern['blockTypes'],
+				'content'    => self::content( $pattern['file'] ),
 			);
+			if ( ! empty( $pattern['postTypes'] ) ) {
+				$properties['postTypes'] = $pattern['postTypes'];
+			}
+			register_block_pattern( 'purplish/' . $slug, $properties );
 		}
 	}
 

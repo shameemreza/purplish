@@ -76,7 +76,8 @@ final class BlockEffects {
 	 * keeping the wrapper's class but not its style, so the effect color
 	 * goes on a class with a matching rule instead.
 	 *
-	 * `preview` marks a block whose look also shows in the editor.
+	 * `preview` marks a block whose look also shows in the editor, or lists
+	 * the options that do.
 	 *
 	 * `target` names the class of the inner element that gets the classes,
 	 * for a block whose own wrapper loses them when it is drawn again.
@@ -86,7 +87,7 @@ final class BlockEffects {
 	 * of them (`true`) or must not be (`false`). An option whose needs aren't
 	 * met keeps its saved value but prints no class.
 	 *
-	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, needs?: array<string, array<int, array{0: string, 1: string[], 2: bool}>>, rows?: bool, eyes?: string, redrawn?: bool, preview?: bool, target?: string}>
+	 * @return array<string, array{prefix: string, options: array<string, mixed>, legacy?: array<string, string[]>, needs?: array<string, array<int, array{0: string, 1: string[], 2: bool}>>, rows?: bool, eyes?: string, redrawn?: bool, preview?: bool|string[], target?: string}>
 	 */
 	public static function blocks() {
 		return array(
@@ -321,11 +322,14 @@ final class BlockEffects {
 					'entrance' => self::ENTRANCES,
 				),
 			),
+			// Only the hover look shows in the editor; the scroll effects stay front end.
 			'core/cover'                                  => array(
 				'prefix'  => 'cover',
 				'options' => array(
 					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
+					'hover'  => array( 'push' ),
 				),
+				'preview' => array( 'hover' ),
 			),
 			'woocommerce/order-confirmation-status'       => array(
 				'prefix'  => 'thanks',
@@ -462,9 +466,10 @@ final class BlockEffects {
 			if ( empty( $block['preview'] ) ) {
 				continue;
 			}
+			$options      = is_array( $block['preview'] ) ? array_intersect_key( $block['options'], array_flip( $block['preview'] ) ) : $block['options'];
 			$map[ $name ] = array(
 				'prefix'  => $block['prefix'],
-				'options' => $block['options'],
+				'options' => $options,
 				'legacy'  => isset( $block['legacy'] ) ? $block['legacy'] : array(),
 			);
 			if ( isset( $block['needs'] ) ) {
