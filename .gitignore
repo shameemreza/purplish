@@ -4,5 +4,6 @@
 /vendor/
 /node_modules/
 /_trash/
+/.impeccable/
 .DS_Store
 .phpunit.result.cache
