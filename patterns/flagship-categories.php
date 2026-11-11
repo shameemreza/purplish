@@ -1,23 +1,23 @@
 <?php
 /**
- * Pattern: Shop by category. Four tall tiles, each a Cover with a drawn
- * figure and the category name on the photo. The photo pushes in slowly
- * on hover and the tiles rise in one after another.
+ * Pattern: Shop by category. Four tall tiles, each a drawn figure on a
+ * lavender panel with the category name under it. The photo tilts toward
+ * the mouse on hover and the tiles rise in one after another.
  *
  * @package Purplish
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_shop  = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-$purplish_ink   = '#111111';
-$purplish_tint  = '#f2edff';
+$purplish_shop   = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+$purplish_ink    = '#111111';
+$purplish_tint   = '#f2edff';
 $purplish_ground = '#ffffff';
-$purplish_tiles = array(
-	array( __( 'Coats', 'purplish' ), 'long-coat', 0.3 ),
-	array( __( 'Jackets', 'purplish' ), 'puffer', 0.3 ),
-	array( __( 'Trousers', 'purplish' ), 'denim-set', 0.7 ),
-	array( __( 'Shoes', 'purplish' ), 'easy-sunday', 1 ),
+$purplish_tiles  = array(
+	array( __( 'Coats', 'purplish' ), 'long-coat' ),
+	array( __( 'Jackets', 'purplish' ), 'puffer' ),
+	array( __( 'Trousers', 'purplish' ), 'denim-set' ),
+	array( __( 'Shoes', 'purplish' ), 'easy-sunday' ),
 );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Shop by category', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"<?php echo esc_attr( $purplish_ground ); ?>"},"spacing":{"padding":{"top":"clamp(64px, 9vw, 120px)","bottom":"clamp(64px, 9vw, 120px)","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
@@ -29,43 +29,25 @@ $purplish_tiles = array(
 <?php foreach ( $purplish_tiles as $purplish_tile ) : ?>
 	<?php
 	$purplish_url   = \Purplish\Blocks\Showfloor::figure( $purplish_tile[1] );
-	$purplish_pad   = 'clamp(10px, 1.2vw, 16px)';
 	$purplish_attrs = serialize_block_attributes(
 		array(
-			'url'                => $purplish_url,
-			'dimRatio'           => 0,
-			'customOverlayColor' => $purplish_tint,
-			'isUserOverlayColor' => true,
-			'focalPoint'         => array(
-				'x' => 0.5,
-				'y' => $purplish_tile[2],
-			),
-			'contentPosition'    => 'bottom left',
-			'isDark'             => false,
-			'style'              => array(
-				'dimensions' => array( 'aspectRatio' => '3/4' ),
-				'spacing'    => array(
-					'padding' => array(
-						'top'    => $purplish_pad,
-						'bottom' => $purplish_pad,
-						'left'   => $purplish_pad,
-						'right'  => $purplish_pad,
-					),
-				),
-			),
-			'layout'             => array( 'type' => 'constrained' ),
-			'purplish'           => array( 'hover' => 'push' ),
+			'aspectRatio'     => '3/4',
+			'scale'           => 'contain',
+			'linkDestination' => 'custom',
+			'purplish'        => array( 'hover' => 'tilt' ),
 		)
 	);
 	?>
-<!-- wp:group {"style":{"color":{"background":"<?php echo esc_attr( $purplish_tint ); ?>"}},"layout":{"type":"default"},"purplish":{"entrance":"fadeup"}} -->
-<div class="wp-block-group has-background" style="background-color:<?php echo esc_attr( $purplish_tint ); ?>"><!-- wp:cover <?php echo $purplish_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
-<div class="wp-block-cover is-light has-custom-content-position is-position-bottom-left" style="padding-top:clamp(10px, 1.2vw, 16px);padding-right:clamp(10px, 1.2vw, 16px);padding-bottom:clamp(10px, 1.2vw, 16px);padding-left:clamp(10px, 1.2vw, 16px)"><img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( $purplish_url ); ?>" style="object-position:50% <?php echo esc_attr( $purplish_tile[2] * 100 ); ?>%" data-object-fit="cover" data-object-position="50% <?php echo esc_attr( $purplish_tile[2] * 100 ); ?>%"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim" style="background-color:<?php echo esc_attr( $purplish_tint ); ?>"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"layout":{"type":"flex"}} -->
-<div class="wp-block-group"><!-- wp:paragraph {"style":{"color":{"background":"#ffffff","text":"<?php echo esc_attr( $purplish_ink ); ?>"},"elements":{"link":{"color":{"text":"<?php echo esc_attr( $purplish_ink ); ?>"},"typography":{"textDecoration":"none"}}},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"14px","right":"14px"}}},"fontSize":"medium"} -->
-<p class="has-text-color has-background has-link-color has-medium-font-size" style="color:<?php echo esc_attr( $purplish_ink ); ?>;background-color:#ffffff;padding-top:8px;padding-right:14px;padding-bottom:8px;padding-left:14px"><a href="<?php echo esc_url( $purplish_shop ); ?>"><?php echo esc_html( $purplish_tile[0] ); ?></a></p>
+<!-- wp:group {"style":{"spacing":{"blockGap":"12px"}},"layout":{"type":"default"},"purplish":{"entrance":"fadeup"}} -->
+<div class="wp-block-group"><!-- wp:group {"style":{"color":{"background":"<?php echo esc_attr( $purplish_tint ); ?>"}},"layout":{"type":"default"}} -->
+<div class="wp-block-group has-background" style="background-color:<?php echo esc_attr( $purplish_tint ); ?>"><!-- wp:image <?php echo $purplish_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
+<figure class="wp-block-image"><a href="<?php echo esc_url( $purplish_shop ); ?>"><img src="<?php echo esc_url( $purplish_url ); ?>" alt="" style="aspect-ratio:3/4;object-fit:contain"/></a></figure>
+<!-- /wp:image --></div>
+<!-- /wp:group -->
+
+<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"<?php echo esc_attr( $purplish_ink ); ?>"},"typography":{"textDecoration":"none"}}}},"fontSize":"medium"} -->
+<p class="has-link-color has-medium-font-size"><a href="<?php echo esc_url( $purplish_shop ); ?>"><?php echo esc_html( $purplish_tile[0] ); ?> &rarr;</a></p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></div></div>
-<!-- /wp:cover --></div>
 <!-- /wp:group -->
 <?php endforeach; ?>
 </div>

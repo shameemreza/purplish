@@ -1,14 +1,14 @@
 <?php
 /**
- * Pattern: Just in. The newest four products in a row on a lavender band,
- * with the Unfold card effect and add to cart under each card.
+ * Pattern: Just in. The newest four products in a row on a white band,
+ * with the Spotlight card effect and add to cart under each card.
  *
  * @package Purplish
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_ground     = '#f2edff';
+$purplish_ground     = '#ffffff';
 $purplish_query      = array(
 	'perPage'                       => 4,
 	'pages'                         => 1,
@@ -46,7 +46,7 @@ $purplish_collection = array(
 	'collection'           => 'woocommerce/product-collection/new-arrivals',
 	'hideControls'         => array( 'inherit' ),
 	'queryContextIncludes' => array( 'collection' ),
-	'purplish'             => array( 'hover' => 'unfold' ),
+	'purplish'             => array( 'hover' => 'spotlight' ),
 );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Just in', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"<?php echo esc_attr( $purplish_ground ); ?>"},"spacing":{"padding":{"top":"clamp(64px, 9vw, 120px)","bottom":"clamp(64px, 9vw, 120px)","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->

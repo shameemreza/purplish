@@ -1,6 +1,6 @@
 <?php
 /**
- * Pattern: Best sellers. The four best selling products on a white band,
+ * Pattern: Best sellers. The four best selling products on a lavender band,
  * with the second photo on hover, add to cart on the photo, and the name
  * and price on one line under each card.
  *
@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $purplish_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-$purplish_band = '#ffffff';
+$purplish_band = '#f2edff';
 
 $purplish_query      = array(
 	'perPage'                       => 4,

@@ -1,7 +1,7 @@
 <?php
 /**
  * Pattern: Flagship home. A full store front page: the floor first, then
- * shop by category, just in, the brand band, best sellers, customer
+ * shop by category, best sellers, the brand band, just in, customer
  * stories, the trust row and the newsletter. Each section is also its own
  * pattern, so the markup lives in that section's file.
  *
@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_sections = array( 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'story-deck', 'trust-row', 'flagship-newsletter' );
+$purplish_sections = array( 'flagship-floor', 'flagship-categories', 'flagship-best-sellers', 'flagship-brand-band', 'flagship-just-in', 'story-deck', 'trust-row', 'flagship-newsletter' );
 foreach ( $purplish_sections as $purplish_section ) {
 	if ( 'story-deck' === $purplish_section ) {
 		?>
