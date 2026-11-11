@@ -101,6 +101,20 @@ class ScrollEntrancesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Turn on hover is a switch of its own on the group and combines with
+	 * the entrance.
+	 */
+	public function test_group_turn() {
+		$this->assertSame( array( 'purplish-group', 'purplish-group-turn' ), BlockEffects::classes_for( 'core/group', array( 'turn' => true ) ) );
+		$both = array(
+			'entrance' => 'fadeup',
+			'turn'     => true,
+		);
+		$this->assertSame( array( 'purplish-group', 'purplish-group-entrance-fadeup', 'purplish-group-turn' ), BlockEffects::classes_for( 'core/group', $both ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'core/group', array( 'turn' => 'yes' ) ) );
+	}
+
+	/**
 	 * The class goes on the group's wrapper and nothing else in it changes.
 	 */
 	public function test_group_condense_markup() {

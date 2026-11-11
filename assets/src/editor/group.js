@@ -56,6 +56,18 @@ export default function GroupPanel( { saved, setSaved } ) {
 					setSaved( { ...saved, condense: on || undefined } )
 				}
 			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Turn on hover', 'purplish' ) }
+				help={ __(
+					'Made for badges and seals. The section turns a little, like a stamp, when the mouse is over it or over the group around it. Phones and visitors who ask for reduced motion see it still.',
+					'purplish'
+				) }
+				checked={ true === saved.turn }
+				onChange={ ( on ) =>
+					setSaved( { ...saved, turn: on || undefined } )
+				}
+			/>
 		</PanelBody>
 	);
 }

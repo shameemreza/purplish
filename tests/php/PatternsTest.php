@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -85,7 +85,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
-		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter' ) as $slug ) {
+		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart' ) as $slug ) {
 			$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/' . $slug ), $slug );
 		}
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
@@ -248,6 +248,44 @@ class PatternsTest extends WP_UnitTestCase {
 			$this->assertStringContainsString( trim( $section['content'] ), $home['content'], $slug );
 		}
 		$this->assertStringContainsString( '<!-- wp:purplish/story-deck', $home['content'] );
+	}
+
+	/**
+	 * The store patterns: the checkout header offers itself for headers and
+	 * links back to the cart with no menu, search or Mini-Cart; the
+	 * guarantee card turns its seal; the empty cart uses no block that needs
+	 * the Interactivity API, since WooCommerce draws the empty cart again in
+	 * the browser, so its product cards have no add to cart button.
+	 */
+	public function test_store_patterns() {
+		$patterns = Patterns::patterns();
+		$this->assertSame( array( 'core/template-part/header' ), $patterns['checkout-header']['blockTypes'] );
+
+		$header = Patterns::content( $patterns['checkout-header']['file'] );
+		$names  = $this->block_names( parse_blocks( $header ) );
+		$this->assertContains( 'core/site-title', $names );
+		foreach ( array( 'core/navigation', 'core/search', 'woocommerce/mini-cart', 'purplish/wardrobe' ) as $name ) {
+			$this->assertNotContains( $name, $names );
+		}
+		$this->assertStringContainsString( 'href="' . esc_url( wc_get_cart_url() ) . '"', $header );
+
+		$card = Patterns::content( $patterns['guarantee-card']['file'] );
+		$this->assertStringContainsString( '"purplish":{"turn":true}', $card );
+		$this->assertStringContainsString( '"purplish":{"entrance":"fadeup"}', $card );
+		$this->assertStringNotContainsString( 'figures/', $card );
+
+		$empty = Patterns::content( $patterns['empty-cart']['file'] );
+		$names = $this->block_names( parse_blocks( $empty ) );
+		foreach ( array( 'woocommerce/product-collection', 'core/cover', 'core/buttons' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		foreach ( array( 'woocommerce/product-button', 'core/navigation', 'core/search', 'core/query-pagination', 'woocommerce/mini-cart', 'woocommerce/product-filters' ) as $name ) {
+			$this->assertNotContains( $name, $names );
+		}
+		$this->assertStringNotContainsString( '"lightbox"', $empty );
+		$this->assertStringContainsString( '"purplish":{"hover":"spotlight"}', $empty );
+		$this->assertStringContainsString( '"purplish":{"reveal":"rise"}', $empty );
+		$this->assertStringNotContainsString( '"entrance"', $empty );
 	}
 
 	/**

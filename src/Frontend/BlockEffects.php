@@ -184,6 +184,7 @@ final class BlockEffects {
 					'tint'     => true,
 					'entrance' => self::ENTRANCES,
 					'condense' => true,
+					'turn'     => true,
 				),
 				'preview' => true,
 			),
