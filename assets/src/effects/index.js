@@ -146,6 +146,25 @@ if ( canHover ) {
 		.querySelectorAll( '[class*="purplish-image-hover-"]' )
 		.forEach( imageHover );
 
+	// Covers that follow the mouse: the light goes in under the text.
+	document
+		.querySelectorAll(
+			'.purplish-cover-hover-tilt, .purplish-cover-hover-glare'
+		)
+		.forEach( ( cover ) => {
+			cover.insertBefore(
+				imageLight( document, 'glare' ),
+				cover.querySelector( '.wp-block-cover__inner-container' )
+			);
+			follow(
+				cover,
+				styleIn( cover.classList, 'purplish-cover-hover-' ),
+				{
+					photo: () => null,
+				}
+			);
+		} );
+
 	// Classic galleries follow on the slider's viewport, never the sliding strip.
 	const classic = styleIn(
 		document.body.classList,

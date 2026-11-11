@@ -100,8 +100,9 @@ On other blocks:
 * **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view. Rise from the floor follows the scroll instead: the heading comes up out of its own bottom edge, made for a big footer wordmark.
 * **Group and Columns, Entrance on scroll:** the section fades up or zooms in, and columns come in one after another.
 * **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls.
-* **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small pill to full size.
+* **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small pill to full size. On hover, Push in moves the background in, Tilt turns the cover toward the mouse, Lift raises it and Glare runs a light after the mouse.
 * **Pattern:** Flagship footer is a full store footer for the footer template part: a size help line with a button, four link columns with ringed social icons, the site name as a big wordmark that rises from the floor, and a base row with the year, policy links, a secure checkout note and a back to top button.
+* **Patterns:** Flagship home is a full store front page that opens on a Showfloor of eight looks, then shop by category tiles, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each section is also its own pattern, so you can add one to any page.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
 

@@ -53,7 +53,10 @@ function init( root ) {
 	const api = root.dataset.api;
 	const autoMs = Number( root.dataset.speed ) || 4000;
 	const reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' );
-	const small = window.matchMedia( '(max-width: 781px)' );
+	// Same query as the stacked layout in style.css.
+	const small = window.matchMedia(
+		'(max-width: 781px), (max-width: 1023px) and (orientation: portrait)'
+	);
 	const N = looks.length;
 	const mod = ( n ) => ( ( n % N ) + N ) % N;
 	const isGrid = () => root.classList.contains( 'is-grid' );
@@ -426,8 +429,13 @@ function init( root ) {
 		}
 		at.x += ( mouse.x - at.x ) * 0.28;
 		at.y += ( mouse.y - at.y ) * 0.28;
-		cursor.style.setProperty( '--cx', at.x.toFixed( 1 ) + 'px' );
-		cursor.style.setProperty( '--cy', at.y.toFixed( 1 ) + 'px' );
+		// Keep the whole label inside the stage, which clips it.
+		const hw = cursor.offsetWidth / 2 + 4;
+		const hh = cursor.offsetHeight / 2 + 4;
+		const x = Math.min( Math.max( at.x, hw ), stage.clientWidth - hw );
+		const y = Math.min( Math.max( at.y, hh ), stage.clientHeight - hh );
+		cursor.style.setProperty( '--cx', x.toFixed( 1 ) + 'px' );
+		cursor.style.setProperty( '--cy', y.toFixed( 1 ) + 'px' );
 		follow = window.requestAnimationFrame( trail );
 	};
 	function label( key ) {

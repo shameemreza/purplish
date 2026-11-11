@@ -23,6 +23,7 @@ body.purplish-active {
 .purplish-reviews,
 .purplish-specs,
 .purplish-image,
+.purplish-cover,
 .purplish-button,
 .purplish-cart,
 .purplish-buybutton,
@@ -3744,6 +3745,61 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Cover hover, push in: the background moves in slowly while the mouse is
+ * on the cover, and settles back when it leaves. On `transform`, so it
+ * adds to a scroll effect's `scale` instead of replacing it.
+ */
+.purplish-cover-hover-push {
+	overflow: clip;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-cover-hover-push > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.purplish-cover-hover-push:hover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		transform: scale(1.06);
+	}
+}
+
+/*
+ * Cover hover, tilt, lift and glare: the whole cover moves, text and all.
+ * The front script adds the light layer under the text. A transform would
+ * unpin a fixed background, so parallax covers keep still.
+ */
+.purplish-cover > .purplish-image-light {
+	inset: 0;
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.35), transparent 50%);
+	opacity: 0;
+	transition: opacity 0.4s;
+}
+
+.purplish-cover-hover-tilt,
+.purplish-cover-hover-lift {
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-cover-hover-tilt:not(.has-parallax):hover {
+		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg));
+		box-shadow: 30px 40px 64px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
+		transition: transform 0.15s ease-out, box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.purplish-cover-hover-lift:not(.has-parallax):hover {
+		translate: 0 -10px;
+		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	:is(.purplish-cover-hover-tilt, .purplish-cover-hover-glare):hover > .purplish-image-light {
+		opacity: 1;
+	}
+}
+
+/*
  * Group, condense on scroll: the section sticks to the top and narrows into
  * a floating pill as the page scrolls, on the page's own scroll timeline. A
  * group can't stick past the template part it sits in, so the part sticks
@@ -3883,6 +3939,13 @@ body.purplish-active .purplish-group-tint {
  */
 .purplish-heading-reveal-floor {
 	clip-path: inset(-1em -1em 0);
+}
+
+/* A big heading on a tight line has letters that reach far below its box.
+   The clip hides them, but they would still stretch the page, so the
+   parent clips on the block axis. */
+:where(:not(body):has(> .purplish-heading-reveal-floor)) {
+	overflow-y: clip;
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {

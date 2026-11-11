@@ -11,6 +11,14 @@ const SCROLLS = [
 	{ value: 'pill', label: __( 'Pill reveal', 'purplish' ) },
 ];
 
+const HOVERS = [
+	{ value: '', label: __( 'None', 'purplish' ) },
+	{ value: 'push', label: __( 'Push in', 'purplish' ) },
+	{ value: 'tilt', label: __( 'Tilt', 'purplish' ) },
+	{ value: 'lift', label: __( 'Lift', 'purplish' ) },
+	{ value: 'glare', label: __( 'Glare', 'purplish' ) },
+];
+
 /**
  * The panel.
  *
@@ -33,6 +41,20 @@ export default function CoverPanel( { saved, setSaved } ) {
 				options={ SCROLLS }
 				onChange={ ( scroll ) =>
 					setSaved( { ...saved, scroll: scroll || undefined } )
+				}
+			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Hover', 'purplish' ) }
+				help={ __(
+					'Push in moves the background in slowly. Tilt turns the whole cover toward the mouse with a sheen, Lift raises it with a soft shadow, and Glare runs a light after the mouse. Hover the cover here to see it; the sheen and glare follow the mouse on the page. Touch screens and reduced motion show the plain cover.',
+					'purplish'
+				) }
+				value={ saved.hover || '' }
+				options={ HOVERS }
+				onChange={ ( hover ) =>
+					setSaved( { ...saved, hover: hover || undefined } )
 				}
 			/>
 		</PanelBody>
