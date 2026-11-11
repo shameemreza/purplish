@@ -8,6 +8,7 @@ const REVEALS = [
 	{ value: '', label: __( 'None', 'purplish' ) },
 	{ value: 'rise', label: __( 'Rise', 'purplish' ) },
 	{ value: 'focus', label: __( 'Focus', 'purplish' ) },
+	{ value: 'floor', label: __( 'Rise from the floor', 'purplish' ) },
 ];
 
 /**
@@ -25,7 +26,7 @@ export default function HeadingPanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Reveal on scroll', 'purplish' ) }
 				help={ __(
-					'Plays once as the heading scrolls into view: it rises into place, or comes into focus. Visitors who ask for reduced motion see the heading as it is.',
+					'Rise and Focus play once as the heading scrolls into view. Rise from the floor follows the scroll: the bottom edge of the heading is the floor, and the heading comes up out of it, made for a big footer wordmark. Visitors who ask for reduced motion see the heading as it is.',
 					'purplish'
 				) }
 				value={ saved.reveal || '' }

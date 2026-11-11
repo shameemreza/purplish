@@ -74,6 +74,12 @@ final class Patterns {
 				'blockTypes' => array( 'core/template-part/navigation-overlay' ),
 				'file'       => PURPLISH_DIR . 'patterns/flagship-phone-menu.php',
 			),
+			'flagship-footer'     => array(
+				'title'      => __( 'Flagship footer', 'purplish' ),
+				'categories' => array( 'footer' ),
+				'blockTypes' => array( 'core/template-part/footer' ),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-footer.php',
+			),
 		);
 	}
 

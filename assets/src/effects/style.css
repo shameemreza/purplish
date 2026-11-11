@@ -3875,6 +3875,65 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Heading, Rise from the floor: the heading's bottom edge is the floor, and
+ * the heading comes up out of it, sharpening as it rises, in step with the
+ * scroll while it enters the view. The clip moves against the rise so the
+ * floor stays put. Without scroll timelines, or with reduced motion, the
+ * heading sits in place, still cut at the floor.
+ */
+.purplish-heading-reveal-floor {
+	clip-path: inset(-1em -1em 0);
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-heading-reveal-floor {
+			animation: purplish-floor-rise linear both;
+			animation-timeline: view();
+			animation-range: entry 0% entry 100%;
+		}
+	}
+}
+
+@keyframes purplish-floor-rise {
+
+	from {
+		opacity: 0.2;
+		filter: blur(8px);
+		translate: 0 0.45em;
+		clip-path: inset(-1em -1em 0.45em);
+	}
+}
+
+/*
+ * Social Icons, Ring: each icon sits in a thin round ring in the icon
+ * color instead of a filled circle, and the ring fills softly on hover.
+ * At the normal size the ring is 44px, a comfortable tap target.
+ */
+.purplish-social-look-ring .wp-social-link {
+	background-color: transparent;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, currentcolor 24%, transparent);
+	transition: background-color 0.25s, box-shadow 0.25s;
+}
+
+.purplish-social-look-ring .wp-social-link a {
+	padding: 0.5em;
+}
+
+.wp-block-social-links.purplish-social-look-ring .wp-social-link svg {
+	width: 0.8333em;
+	height: 0.8333em;
+}
+
+.purplish-social-look-ring .wp-social-link:hover {
+	transform: none;
+	background-color: color-mix(in srgb, currentcolor 16%, transparent);
+	box-shadow: inset 0 0 0 1px currentcolor;
+}
+
+/*
  * Thank-you moment on the Order confirmation status: the heading rises in
  * and one ring of rays bursts behind it, once. The heading never starts
  * hidden, so it still counts as the page's largest paint from the first

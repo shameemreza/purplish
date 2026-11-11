@@ -48,11 +48,13 @@ class ScrollEntrancesTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * A heading rises or comes into focus, and nothing else.
+	 * A heading rises, comes into focus or rises from the floor, and
+	 * nothing else.
 	 */
 	public function test_heading_reveal() {
 		$this->assertSame( array( 'purplish-heading', 'purplish-heading-reveal-rise' ), BlockEffects::classes_for( 'core/heading', array( 'reveal' => 'rise' ) ) );
 		$this->assertSame( array( 'purplish-heading', 'purplish-heading-reveal-focus' ), BlockEffects::classes_for( 'core/heading', array( 'reveal' => 'focus' ) ) );
+		$this->assertSame( array( 'purplish-heading', 'purplish-heading-reveal-floor' ), BlockEffects::classes_for( 'core/heading', array( 'reveal' => 'floor' ) ) );
 		$this->assertSame( array(), BlockEffects::classes_for( 'core/heading', array( 'reveal' => 'spin' ) ) );
 		$this->assertSame( array(), BlockEffects::classes_for( 'core/heading', array( 'reveal' => true ) ) );
 	}
