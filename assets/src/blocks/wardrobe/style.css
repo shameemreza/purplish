@@ -320,6 +320,10 @@
 .is-ready :where(.purplish-wardrobe-panel) :has(> .purplish-wardrobe-look ~ .purplish-wardrobe-look) > .purplish-wardrobe-look {
 	display: flex;
 	grid-area: 1 / 1;
+
+	/* Stacked in one cell, so the flow layout's gap would only push the
+	   hidden cards down and make the panel scroll. */
+	margin-block: 0;
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity 0.35s, visibility 0s 0.35s;
@@ -341,6 +345,12 @@
 
 	.purplish-wardrobe-panel :is(.purplish-wardrobe-inner > :not(.wp-block-columns), .purplish-wardrobe-inner > .wp-block-columns > .wp-block-column) {
 		transition: opacity 0.6s var(--purplish-wardrobe-ease), translate 0.6s var(--purplish-wardrobe-ease);
+	}
+
+	/* The rising columns start below the scroll box, so hold its scrollbar
+	   back until they land. */
+	.wp-block-purplish-wardrobe > .purplish-wardrobe-panel .purplish-wardrobe-inner {
+		animation: purplish-wardrobe-settle 0.8s step-end;
 	}
 
 	.purplish-wardrobe-inner > .wp-block-columns > .wp-block-column:nth-child(2) {
@@ -365,5 +375,12 @@
 			opacity: 0;
 			translate: 0 14px;
 		}
+	}
+}
+
+@keyframes purplish-wardrobe-settle {
+
+	from {
+		overflow-y: hidden;
 	}
 }
