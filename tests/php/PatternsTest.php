@@ -249,4 +249,27 @@ class PatternsTest extends WP_UnitTestCase {
 		}
 		$this->assertStringContainsString( '<!-- wp:purplish/story-deck', $home['content'] );
 	}
+
+	/**
+	 * A section head is the serif heading alone, or a row with the line
+	 * under the heading and the link beside it, with every value escaped.
+	 */
+	public function test_section_head() {
+		$plain = Patterns::section_head( 'Just in' );
+		$this->assertSame( array( 'core/heading' ), $this->block_names( parse_blocks( $plain ) ) );
+		$this->assertStringContainsString( 'margin-bottom:clamp(24px, 3vw, 40px)', $plain );
+		$this->assertStringContainsString( 'bodoni-moda', $plain );
+
+		$full  = Patterns::section_head( 'Best <b>sellers</b>', 'Back for a second color.', 'https://example.org/shop/', 'Shop all' );
+		$names = $this->block_names( parse_blocks( $full ) );
+		$this->assertSame( 'core/group', $names[0] );
+		$this->assertSame( 2, count( array_keys( $names, 'core/paragraph', true ) ) );
+		$this->assertStringContainsString( 'Best &lt;b&gt;sellers&lt;/b&gt;', $full );
+		$this->assertStringContainsString( '<a href="https://example.org/shop/">Shop all &rarr;</a>', $full );
+		$this->assertStringContainsString( '"flexWrap":"wrap"', $full );
+
+		$line = Patterns::section_head( 'Worn by you', 'Real orders.' );
+		$this->assertStringNotContainsString( '<a ', $line );
+		$this->assertStringContainsString( '"contentSize":"44ch"', $line );
+	}
 }

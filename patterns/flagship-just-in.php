@@ -1,7 +1,7 @@
 <?php
 /**
- * Pattern: Just in. The newest eight products in a four by two grid, with
- * the Unfold card effect and add to cart under each card.
+ * Pattern: Just in. The newest four products in a row, with the Unfold
+ * card effect and add to cart under each card.
  *
  * @package Purplish
  */
@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $purplish_query      = array(
-	'perPage'                       => 8,
+	'perPage'                       => 4,
 	'pages'                         => 1,
 	'offset'                        => 0,
 	'postType'                      => 'product',
@@ -50,9 +50,7 @@ $purplish_collection = array(
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Just in', 'purplish' ); ?>"},"align":"full","style":{"spacing":{"padding":{"top":"clamp(64px, 9vw, 120px)","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:clamp(64px, 9vw, 120px);padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><!-- wp:heading {"style":{"typography":{"letterSpacing":"-0.02em","lineHeight":"1.1"},"spacing":{"margin":{"bottom":"clamp(24px, 3vw, 40px)"}}},"fontSize":"xx-large"} -->
-<h2 class="wp-block-heading has-xx-large-font-size" style="margin-bottom:clamp(24px, 3vw, 40px);letter-spacing:-0.02em;line-height:1.1"><?php esc_html_e( 'Just in', 'purplish' ); ?></h2>
-<!-- /wp:heading -->
+<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><?php echo \Purplish\Patterns::section_head( __( 'Just in', 'purplish' ), __( 'The newest pieces, made in small runs.', 'purplish' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in section_head(). ?>
 
 <!-- wp:woocommerce/product-collection <?php echo serialize_block_attributes( $purplish_collection ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
 <div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template -->

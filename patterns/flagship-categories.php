@@ -21,15 +21,7 @@ $purplish_tiles = array(
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Shop by category', 'purplish' ); ?>"},"align":"full","style":{"spacing":{"padding":{"top":"clamp(64px, 9vw, 120px)","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:clamp(64px, 9vw, 120px);padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><!-- wp:group {"style":{"spacing":{"margin":{"bottom":"clamp(24px, 3vw, 40px)"},"blockGap":"24px"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"bottom"}} -->
-<div class="wp-block-group" style="margin-bottom:clamp(24px, 3vw, 40px)"><!-- wp:heading {"style":{"typography":{"letterSpacing":"-0.02em","lineHeight":"1.1"}},"fontSize":"xx-large"} -->
-<h2 class="wp-block-heading has-xx-large-font-size" style="letter-spacing:-0.02em;line-height:1.1"><?php esc_html_e( 'Shop by category', 'purplish' ); ?></h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"<?php echo esc_attr( $purplish_ink ); ?>"},"typography":{"textDecoration":"underline"}}}},"fontSize":"small"} -->
-<p class="has-link-color has-small-font-size"><a href="<?php echo esc_url( $purplish_shop ); ?>"><?php esc_html_e( 'All clothing', 'purplish' ); ?> &rarr;</a></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
+<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><?php echo \Purplish\Patterns::section_head( __( 'Shop by category', 'purplish' ), '', $purplish_shop, __( 'All clothing', 'purplish' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in section_head(). ?>
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
 <div class="wp-block-group">

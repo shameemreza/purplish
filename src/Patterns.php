@@ -215,4 +215,107 @@ final class Patterns {
 		include $file;
 		return (string) ob_get_clean();
 	}
+
+	/**
+	 * Block markup for a Flagship section head: a serif heading, an optional
+	 * line under it and an optional link on the right. Shared so every
+	 * section in the set opens the same way.
+	 *
+	 * @param string $title Heading text.
+	 * @param string $line  Line under the heading, or ''.
+	 * @param string $url   Link URL, or ''.
+	 * @param string $label Link text, or ''.
+	 * @return string
+	 */
+	public static function section_head( $title, $line = '', $url = '', $label = '' ) {
+		$serif   = 'var(--wp--preset--font-family--bodoni-moda, Didot, Georgia, serif)';
+		$size    = 'clamp(2.25rem, 1.5rem + 2.4vw, 3.5rem)';
+		$deep    = '#1f0342';
+		$ink     = '#111111';
+		$body    = '#322f37';
+		$gap     = 'clamp(24px, 3vw, 40px)';
+		$heading = array(
+			'style' => array(
+				'typography' => array(
+					'fontFamily'    => $serif,
+					'fontSize'      => $size,
+					'fontStyle'     => 'normal',
+					'fontWeight'    => '400',
+					'lineHeight'    => '1.05',
+					'letterSpacing' => '-0.015em',
+				),
+				'color'      => array( 'text' => $deep ),
+				'spacing'    => array(
+					'margin' => array(
+						'top'    => '0',
+						'bottom' => ( '' === $line && '' === $url ) ? $gap : '0',
+					),
+				),
+			),
+		);
+		$margin  = $heading['style']['spacing']['margin']['bottom'];
+		$out     = '<!-- wp:heading ' . serialize_block_attributes( $heading ) . " -->\n"
+			. '<h2 class="wp-block-heading has-text-color" style="color:' . esc_attr( $deep ) . ';margin-top:0;margin-bottom:' . esc_attr( $margin ) . ';font-family:' . esc_attr( $serif ) . ';font-size:' . esc_attr( $size ) . ';font-style:normal;font-weight:400;letter-spacing:-0.015em;line-height:1.05">' . esc_html( $title ) . "</h2>\n"
+			. '<!-- /wp:heading -->';
+		if ( '' === $line && '' === $url ) {
+			return $out . "\n";
+		}
+
+		if ( '' !== $line ) {
+			$copy = array(
+				'style'    => array(
+					'color'   => array( 'text' => $body ),
+					'spacing' => array( 'margin' => array( 'top' => '14px' ) ),
+				),
+				'fontSize' => 'medium',
+			);
+			$wrap = array(
+				'style'  => array( 'spacing' => array( 'blockGap' => '0' ) ),
+				'layout' => array(
+					'type'           => 'constrained',
+					'contentSize'    => '44ch',
+					'justifyContent' => 'left',
+				),
+			);
+			$out  = '<!-- wp:group ' . serialize_block_attributes( $wrap ) . " -->\n<div class=\"wp-block-group\">" . $out . "\n\n"
+				. '<!-- wp:paragraph ' . serialize_block_attributes( $copy ) . " -->\n"
+				. '<p class="has-text-color has-medium-font-size" style="color:' . esc_attr( $body ) . ';margin-top:14px">' . esc_html( $line ) . "</p>\n"
+				. "<!-- /wp:paragraph --></div>\n<!-- /wp:group -->";
+		}
+
+		if ( '' !== $url ) {
+			$link = array(
+				'style'    => array(
+					'elements' => array(
+						'link' => array(
+							'color'      => array( 'text' => $ink ),
+							'typography' => array( 'textDecoration' => 'underline' ),
+						),
+					),
+				),
+				'fontSize' => 'small',
+			);
+			$out .= "\n\n<!-- wp:paragraph " . serialize_block_attributes( $link ) . " -->\n"
+				. '<p class="has-link-color has-small-font-size"><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . " &rarr;</a></p>\n"
+				. '<!-- /wp:paragraph -->';
+		}
+
+		$row = array(
+			'style'  => array(
+				'spacing' => array(
+					'margin'   => array( 'bottom' => $gap ),
+					'blockGap' => '16px 24px',
+				),
+			),
+			'layout' => array(
+				'type'              => 'flex',
+				'flexWrap'          => 'wrap',
+				'justifyContent'    => 'space-between',
+				'verticalAlignment' => 'bottom',
+			),
+		);
+		return '<!-- wp:group ' . serialize_block_attributes( $row ) . " -->\n"
+			. '<div class="wp-block-group" style="margin-bottom:' . esc_attr( $gap ) . '">' . $out . "</div>\n"
+			. "<!-- /wp:group -->\n";
+	}
 }

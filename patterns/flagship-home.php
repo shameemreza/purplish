@@ -16,9 +16,7 @@ foreach ( $purplish_sections as $purplish_section ) {
 		?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Worn by you', 'purplish' ); ?>"},"align":"full","style":{"spacing":{"padding":{"top":"clamp(64px, 9vw, 120px)","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:clamp(64px, 9vw, 120px);padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><!-- wp:heading {"style":{"typography":{"letterSpacing":"-0.02em","lineHeight":"1.1"},"spacing":{"margin":{"bottom":"clamp(24px, 3vw, 40px)"}}},"fontSize":"xx-large"} -->
-<h2 class="wp-block-heading has-xx-large-font-size" style="margin-bottom:clamp(24px, 3vw, 40px);letter-spacing:-0.02em;line-height:1.1"><?php esc_html_e( 'Worn by you', 'purplish' ); ?></h2>
-<!-- /wp:heading -->
+<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><?php echo \Purplish\Patterns::section_head( __( 'Worn by you', 'purplish' ), __( 'Real orders, photographed by the people who wear them.', 'purplish' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in section_head(). ?>
 
 		<?php
 		include __DIR__ . '/story-deck.php';
