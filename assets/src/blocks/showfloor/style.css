@@ -178,7 +178,6 @@
 	left: clamp(20px, 5vw, 72px);
 	top: clamp(32px, 9%, 96px);
 	display: grid;
-	gap: 2px;
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -192,7 +191,11 @@
 	display: flex;
 	align-items: baseline;
 	gap: 0.75rem;
-	padding: 0.3rem 0 0.3rem 0.875rem;
+	box-sizing: border-box;
+	min-width: 44px;
+
+	/* A 44px tall row around one line of text. */
+	padding: calc((44px - 1.2em) / 2) 0 calc((44px - 1.2em) / 2) 0.875rem;
 	font-size: 0.875rem;
 	line-height: 1.2;
 	color: color-mix(in srgb, var(--purplish-showfloor-text) 55%, transparent);
@@ -229,7 +232,7 @@
 }
 
 .purplish-showfloor-name[aria-current="true"]::before {
-	height: 70%;
+	height: 1.2em;
 }
 
 /* View switch */
@@ -807,9 +810,18 @@
 	.purplish-showfloor-title {
 		font-size: clamp(2.75rem, min(6.4vw, 9svh), 6rem);
 	}
+}
 
-	.purplish-showfloor-name {
-		padding-block: 0.15rem;
+/*
+ * One column of 44px rows needs a tall window. Below that the list runs
+ * in columns of four, so it stays clear of the copy.
+ */
+@media (min-width: 1024px) and (max-height: 959px), (min-width: 782px) and (orientation: landscape) and (max-height: 959px) {
+
+	.purplish-showfloor-names {
+		grid-auto-flow: column;
+		grid-template-rows: repeat(4, auto);
+		column-gap: 1.5rem;
 	}
 }
 
@@ -1234,14 +1246,12 @@
 	display: none;
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-names {
-	gap: 6px;
-}
-
 .wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name {
+	min-height: 44px;
 	padding: 0;
 	gap: 0;
 	align-items: center;
+	justify-content: center;
 }
 
 .wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name::before,
@@ -1611,4 +1621,71 @@
 	object-fit: cover;
 	box-shadow: 0 0.75rem 1.875rem rgb(20 20 40 / 25%);
 	pointer-events: none;
+}
+
+/*
+ * Landscape phones: the floor is taller than the window, so the arrows
+ * move up beside the looks where they show without scrolling.
+ */
+@media (min-width: 782px) and (orientation: landscape) and (max-height: 500px) {
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-turn {
+		left: clamp(20px, 5vw, 72px);
+		right: clamp(20px, 4vw, 56px);
+		top: clamp(120px, 28%, 180px);
+		bottom: auto;
+		translate: none;
+		pointer-events: none;
+	}
+
+	.purplish-showfloor-hint {
+		display: none;
+	}
+}
+
+/* Smaller landscape phones: copy on the left, looks and arrows beside it. */
+@media (max-width: 781px) and (orientation: landscape) and (max-height: 500px) {
+
+	.wp-block-purplish-showfloor:not(.is-grid) {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+		grid-template-rows: auto auto;
+	}
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-copy {
+		grid-area: 1 / 1;
+		align-self: center;
+		padding: 8px 16px 8px 20px;
+	}
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-title {
+		font-size: clamp(2rem, 6.5vw, 2.75rem);
+	}
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-stage {
+		grid-area: 1 / 2;
+		align-self: center;
+		height: min(78svh, 340px);
+	}
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-turn {
+		grid-area: 1 / 2;
+		align-self: center;
+		padding: 0 8px;
+		pointer-events: none;
+	}
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-panel {
+		grid-area: 2 / 1 / 3 / 3;
+	}
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-turn > * {
+		pointer-events: auto;
+	}
+
+	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-next {
+		margin-inline-start: auto;
+	}
 }
