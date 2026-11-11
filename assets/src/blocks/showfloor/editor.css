@@ -69,6 +69,14 @@
 	color: var(--purplish-showfloor-base);
 }
 
+/* The preview has no icons, so the stacked layout keeps the words. */
+.wp-block-purplish-showfloor.is-editor .purplish-showfloor-view .purplish-showfloor-label {
+	position: static;
+	width: auto;
+	height: auto;
+	clip-path: none;
+}
+
 /* The Look panel. */
 .purplish-showfloor-look-image {
 	margin-top: 1rem;
