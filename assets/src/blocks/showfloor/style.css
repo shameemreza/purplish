@@ -12,8 +12,11 @@
 	--purplish-showfloor-base: var(--wp--preset--color--base, #fff);
 	--purplish-showfloor-text: currentcolor;
 	--purplish-showfloor-floor: color-mix(in srgb, var(--purplish-showfloor-accent) 8%, var(--purplish-showfloor-base));
+
+	/* view.js sets --purplish-showfloor-top when the block opens the page. */
+	--purplish-showfloor-h: clamp(600px, calc(100svh - var(--purplish-showfloor-top, 8svh)), 900px);
 	position: relative;
-	height: clamp(600px, 92svh, 900px);
+	height: var(--purplish-showfloor-h);
 	overflow: clip;
 	background-color: var(--purplish-showfloor-base);
 	background-image: linear-gradient(180deg, transparent, var(--purplish-showfloor-floor));
@@ -441,7 +444,7 @@
 
 .wp-block-purplish-showfloor.is-grid .purplish-showfloor-figure {
 	position: relative;
-	height: calc((clamp(600px, 92svh, 900px) - 220px) / 2);
+	height: calc((var(--purplish-showfloor-h) - 220px) / 2);
 	translate: none;
 	scale: 1;
 	opacity: 1;
@@ -1066,7 +1069,7 @@
 	content: "";
 	position: absolute;
 	left: 50%;
-	top: calc((clamp(600px, 92svh, 900px) - 220px) / 2 - 6px);
+	top: calc((var(--purplish-showfloor-h) - 220px) / 2 - 6px);
 	width: 90px;
 	height: 12px;
 	translate: -50% 0;
@@ -1624,23 +1627,34 @@
 }
 
 /*
- * Landscape phones: the floor is taller than the window, so the arrows
- * move up beside the looks where they show without scrolling.
+ * The floor runs past the bottom of the window: on landscape phones, or
+ * under a header when 600px doesn't fit (view.js sets is-past-fold). The
+ * arrows move up beside the looks, where they show without scrolling.
  */
-@media (min-width: 782px) and (orientation: landscape) and (max-height: 500px) {
+.wp-block-purplish-showfloor.is-past-fold:not(.is-grid) .purplish-showfloor-turn {
+	left: clamp(20px, 5vw, 72px);
+	right: clamp(20px, 4vw, 56px);
+	top: clamp(120px, 28%, 180px);
+	bottom: auto;
+	translate: none;
+	pointer-events: none;
+}
 
-	.wp-block-purplish-showfloor:not(.is-grid) .purplish-showfloor-turn {
-		left: clamp(20px, 5vw, 72px);
-		right: clamp(20px, 4vw, 56px);
-		top: clamp(120px, 28%, 180px);
-		bottom: auto;
-		translate: none;
-		pointer-events: none;
-	}
+/*
+ * The floor is at its 600px minimum, so the look list steps aside as it
+ * does on short windows.
+ */
+.wp-block-purplish-showfloor.is-past-fold .purplish-showfloor-hint,
+.wp-block-purplish-showfloor.is-past-fold:not(.is-grid) .purplish-showfloor-names {
+	display: none;
+}
 
-	.purplish-showfloor-hint {
-		display: none;
-	}
+.wp-block-purplish-showfloor.is-past-fold:not(.is-grid) .purplish-showfloor-turn > * {
+	pointer-events: auto;
+}
+
+.wp-block-purplish-showfloor.is-past-fold:not(.is-grid) .purplish-showfloor-next {
+	margin-inline-start: auto;
 }
 
 /* Smaller landscape phones: copy on the left, looks and arrows beside it. */
