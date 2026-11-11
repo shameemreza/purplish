@@ -27,6 +27,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
 | Shop and collection pages | Showfloor | Purplish's own block: a shop-the-look hero where cut-out looks stand on a turning floor, and visitors open a look to add its pieces to the cart. |
+| Shop and collection pages | Changing Room | Purplish's own block: tops and bottoms turn in two rings around a model, and visitors dress him before they add the outfit to the cart. |
 | Header | Navigation, Group | Purplish's own Wardrobe block: a menu item that opens a big panel under the header, with category links, photo tiles and a featured look, all made of blocks you edit in place. A header that stays at the top and narrows into a floating pill as the page scrolls, and the Flagship header and phone menu patterns that put it all together. |
 | Filters and cart | Product Filters, Mini-Cart, Mini-Cart Contents | Active filters that match the filter chips, a count that pops and a product photo that flies into the cart icon when something goes into the cart, and a cart drawer with a spring slide, soft rows and bigger photos. |
 | Cart, checkout and order confirmation | Cart, Proceed to Checkout, Mini-Cart Proceed to Checkout Button, Checkout, checkout Actions, Order Status, Order Summary | Soft rows, bigger photos and sticky totals on the Cart page, soft, filled or underline fields, a focus ring, card or list choices, step numbers, a soft summary card, a side panel, a raised card and bigger photos on the Checkout, a glow ring, light sweep, liquid glass and spectrum ring on Proceed to Checkout, Go to checkout and Place Order, a lock on Place Order, a thank-you moment on the order heading and a receipt card for the order summary. |
@@ -235,6 +236,19 @@ A block of Purplish's own, in the Purplish group of the block inserter. It holds
 
 Autoplay holds while a visitor hovers, focuses or drags the floor, opens a look or views the grid, and it never runs for visitors who turn on reduced motion. Hiding the pause button leaves autoplay without a way to stop it, so the block panel says so when you pick that. Without the script the front look shows with its products.
 
+## Changing Room block
+
+A block of Purplish's own, in the Purplish group of the block inserter. It holds Piece blocks, one for each product. A Piece goes in the top ring or the bottom ring and has a flat cut-out of the product with a transparent background. Without a cut-out, it shows the product image. In the middle stands a photo of the model wearing the top and bottom at the front. You add one photo for each pair in the block panel.
+
+- **Dress the model:** visitors drag a piece onto him, swipe or scroll a ring, use the arrow keys, or tap a piece. The ring springs round, and his photo changes to the new pair. The pair he wears stays in the page address, so a shared link opens on the same outfit.
+- **Piece panel:** a tap opens a panel from the side with the cut-out, the price, stock, a size picker for variable products, Details and About tabs, Try it on and Add to cart.
+- **Add both:** one button under the model adds the top and bottom at the price shown. When a piece needs a size, the panel opens and asks for it first.
+- **After adding:** a notice with the photo and a View cart link, and the photo flies into the mini cart. Each can be turned off.
+- **Look and color:** add buttons in your theme's button style or a Purplish look: glow ring, light sweep, liquid glass or spectrum ring. Their color comes from the last piece worn, the top, the bottom, or none, and can tint the buttons and notice, the whole block, or the whole page.
+- **Other options:** a heading, the hint line, the names and prices under the model, pieces further round the ring, the panel and each of its parts, each way to turn a ring, ring labels, and a fade, reveal or instant photo change.
+
+Visitors who turn on reduced motion get every change at once, without the spring, fades or the fly to the cart.
+
 ## Wardrobe block
 
 A block of Purplish's own that goes inside the Navigation block, where you add it like any menu item. It shows a label in the menu, and hovering or clicking the label opens a big panel under the header. The panel holds blocks, so you edit it in place. A new Wardrobe starts with category links, three photo tiles and a featured look, all pointing at your shop page.
@@ -272,7 +286,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook and Showfloor, are in the Purplish group of the block inserter, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image and Button blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 
