@@ -51,6 +51,6 @@ class PageSectionPreviewsTest extends WP_UnitTestCase {
 		$map = BlockEffects::preview_map();
 
 		$this->assertSame( 'cover', $map['core/cover']['prefix'] );
-		$this->assertSame( array( 'hover' => array( 'push' ) ), $map['core/cover']['options'] );
+		$this->assertSame( array( 'hover' => array( 'push', 'tilt', 'lift', 'glare' ) ), $map['core/cover']['options'] );
 	}
 }

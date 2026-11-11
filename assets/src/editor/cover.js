@@ -14,6 +14,9 @@ const SCROLLS = [
 const HOVERS = [
 	{ value: '', label: __( 'None', 'purplish' ) },
 	{ value: 'push', label: __( 'Push in', 'purplish' ) },
+	{ value: 'tilt', label: __( 'Tilt', 'purplish' ) },
+	{ value: 'lift', label: __( 'Lift', 'purplish' ) },
+	{ value: 'glare', label: __( 'Glare', 'purplish' ) },
 ];
 
 /**
@@ -45,7 +48,7 @@ export default function CoverPanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Hover', 'purplish' ) }
 				help={ __(
-					'Push in moves the background image or video in slowly while the mouse is on the cover. Hover the cover here to see it. Touch screens and reduced motion show the plain cover.',
+					'Push in moves the background in slowly. Tilt turns the whole cover toward the mouse with a sheen, Lift raises it with a soft shadow, and Glare runs a light after the mouse. Hover the cover here to see it; the sheen and glare follow the mouse on the page. Touch screens and reduced motion show the plain cover.',
 					'purplish'
 				) }
 				value={ saved.hover || '' }

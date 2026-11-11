@@ -327,7 +327,7 @@ final class BlockEffects {
 				'prefix'  => 'cover',
 				'options' => array(
 					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
-					'hover'  => array( 'push' ),
+					'hover'  => array( 'push', 'tilt', 'lift', 'glare' ),
 				),
 				'preview' => array( 'hover' ),
 			),
