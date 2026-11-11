@@ -13,8 +13,10 @@ const BUMP = { duration: 450, easing: 'ease-out' };
  * @param {HTMLElement}      cart      The Mini-Cart button.
  * @param {number}           way       1 left to right, -1 right to left.
  * @param {string}           className Class of the copy, which styles it.
+ * @param {boolean}          top       Shows the copy in the top layer, above
+ *                                     an open modal dialog.
  */
-export function flyToCart( photo, cart, way, className ) {
+export function flyToCart( photo, cart, way, className, top = false ) {
 	const from = photo.getBoundingClientRect();
 	if ( ! from.width ) {
 		return;
@@ -31,7 +33,13 @@ export function flyToCart( photo, cart, way, className ) {
 		width: from.width + 'px',
 		height: from.height + 'px',
 	} );
+	if ( top && copy.showPopover ) {
+		copy.popover = 'manual';
+	}
 	document.body.append( copy );
+	if ( copy.popover ) {
+		copy.showPopover();
+	}
 
 	const x = to.left + to.width / 2 - ( from.left + from.width / 2 );
 	const y = to.top + to.height / 2 - ( from.top + from.height / 2 );

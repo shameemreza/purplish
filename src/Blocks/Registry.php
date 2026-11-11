@@ -59,6 +59,8 @@ final class Registry {
 			ScrollLookbook::class,
 			Showfloor::class,
 			ShowfloorLook::class,
+			ChangingRoom::class,
+			ChangingRoomPiece::class,
 			Wardrobe::class,
 		);
 	}

@@ -1,0 +1,215 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "purplish/changing-room",
+	"version": "1.3.0",
+	"title": "Changing Room",
+	"category": "purplish",
+	"description": "A model stands between two rings of pieces. Visitors turn the rings, drag a piece onto the model or open it, and add the outfit to the cart.",
+	"keywords": [
+		"try on",
+		"outfit",
+		"mix and match",
+		"styling",
+		"products"
+	],
+	"textdomain": "purplish",
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+		},
+		"heading": {
+			"type": "string",
+			"enum": [
+				"off",
+				"on"
+			],
+			"default": "off"
+		},
+		"headingText": {
+			"type": "string",
+			"default": ""
+		},
+		"hint": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"tags": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"outfit": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"far": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"drawer": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"specs": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"about": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"wear": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"drag": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"wheel": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"swipe": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"notice": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"fly": {
+			"type": "string",
+			"enum": [
+				"on",
+				"off"
+			],
+			"default": "on"
+		},
+		"look": {
+			"type": "string",
+			"enum": [
+				"theme",
+				"glow",
+				"sweep",
+				"glass",
+				"spectrum"
+			],
+			"default": "theme"
+		},
+		"color": {
+			"type": "string",
+			"enum": [
+				"last",
+				"top",
+				"bottom",
+				"off"
+			],
+			"default": "last"
+		},
+		"area": {
+			"type": "string",
+			"enum": [
+				"accents",
+				"stage",
+				"page"
+			],
+			"default": "accents"
+		},
+		"swap": {
+			"type": "string",
+			"enum": [
+				"fade",
+				"reveal",
+				"none"
+			],
+			"default": "fade"
+		},
+		"topLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"bottomLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"photos": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"allowedBlocks": [
+		"purplish/changing-room-piece"
+	],
+	"supports": {
+		"align": [
+			"wide",
+			"full"
+		],
+		"anchor": true,
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			]
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css"
+}

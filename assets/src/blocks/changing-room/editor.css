@@ -1,0 +1,114 @@
+/**
+ * Changing Room in the editor. Each Piece block stands in its ring from
+ * the same custom properties the view script sets on the front end, and
+ * eases to its new place when another piece is selected.
+ */
+.wp-block-purplish-changing-room.is-editor .purplish-changing-room-rings {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+}
+
+.wp-block-purplish-changing-room.is-editor .purplish-changing-room-item {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--w);
+	margin: 0;
+	transform: translate(calc(50cqw + var(--x) * var(--near)), calc((var(--fig-top) + var(--fig-h) * var(--y)) * 1cqh)) translate(-50%, -50%) rotate(var(--r)) scale(var(--s));
+	transition: transform 560ms cubic-bezier(0.3, 0.7, 0.1, 1), opacity 400ms;
+}
+
+.purplish-changing-room-item-top {
+	--w: var(--top-w);
+}
+
+.purplish-changing-room-item-bottom {
+	--w: var(--bottom-w);
+}
+
+.purplish-changing-room-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+	filter: drop-shadow(0 16px 12px rgb(0 0 0 / 14%));
+}
+
+.purplish-changing-room-item.is-selected img {
+	filter: drop-shadow(0 0 1px var(--wp-admin-theme-color, #3858e9)) drop-shadow(0 0 1px var(--wp-admin-theme-color, #3858e9));
+}
+
+.purplish-changing-room-item.is-worn {
+	outline: 1px dashed color-mix(in srgb, currentcolor 45%, transparent);
+	outline-offset: 4px;
+}
+
+.purplish-changing-room-blank {
+	display: grid;
+	place-items: center;
+	aspect-ratio: 3 / 4;
+	padding: 8px;
+	border: 2px dashed color-mix(in srgb, currentcolor 35%, transparent);
+	border-radius: 8px;
+	font-size: 12px;
+	text-align: center;
+}
+
+.wp-block-purplish-changing-room.is-editor .purplish-changing-room-figure:not(:has(img)) {
+	border: 2px dashed color-mix(in srgb, currentcolor 25%, transparent);
+	border-radius: 999px 999px 24px 24px;
+}
+
+.wp-block-purplish-changing-room.is-editor .purplish-changing-room-missing {
+	padding: 0 16%;
+}
+
+/* Block panel */
+.purplish-changing-room-photos {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+	font-size: 11px;
+}
+
+.purplish-changing-room-photos th {
+	padding: 4px;
+	overflow: hidden;
+	font-weight: 500;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.purplish-changing-room-photos td {
+	padding: 4px;
+	text-align: center;
+	vertical-align: top;
+}
+
+.components-button.purplish-changing-room-photo-pick {
+	justify-content: center;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 2 / 3;
+	padding: 0;
+	border: 1px dashed #949494;
+	border-radius: 2px;
+	font-size: 18px;
+}
+
+.purplish-changing-room-photo-pick img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.purplish-changing-room-chosen {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.purplish-changing-room-found {
+	margin: 4px 0 0;
+}

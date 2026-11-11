@@ -1,0 +1,880 @@
+/**
+ * Changing Room. PHP prints the figure, both rings with every piece in its
+ * start place, what he wears and the panel. The view script moves each
+ * piece with custom properties (--x, --y, --s, --r) and sets the page color
+ * (--purplish-cr-color, -on, -ink, -tint). Option classes are
+ * purplish-changing-room-<option>-<value>.
+ */
+@property --purplish-cr-color {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #111;
+}
+
+@property --purplish-cr-tint {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #f4f3f1;
+}
+
+.wp-block-purplish-changing-room {
+	--purplish-cr-color: var(--wp--preset--color--contrast, #111);
+	--purplish-cr-on: var(--wp--preset--color--base, #fff);
+	--purplish-cr-ink: var(--wp--preset--color--contrast, #111);
+	--purplish-cr-tint: #f4f3f1;
+	--purplish-cr-muted: color-mix(in srgb, currentcolor 58%, transparent);
+	--purplish-cr-mono: ui-monospace, "SFMono-Regular", menlo, consolas, monospace;
+	--purplish-cr-ease: cubic-bezier(0.16, 1, 0.3, 1);
+	--purplish-fx: var(--purplish-cr-color);
+	--purplish-fx-on: var(--purplish-cr-on);
+	position: relative;
+	container: purplish-cr / inline-size;
+	overflow: clip;
+	transition: --purplish-cr-tint 0.6s ease, --purplish-cr-color 0.6s ease, background-color 0.6s ease;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.wp-block-purplish-changing-room.purplish-changing-room-color-off {
+	--purplish-fx: initial;
+	--purplish-fx-on: initial;
+}
+
+.purplish-changing-room-area-stage {
+	background-color: var(--purplish-cr-tint);
+}
+
+body.purplish-changing-room-page {
+	background-color: var(--purplish-cr-tint);
+	transition: --purplish-cr-tint 0.6s ease, background-color 0.6s ease;
+}
+
+.wp-block-purplish-changing-room :where(button:not(.wp-element-button)) {
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+.wp-block-purplish-changing-room :focus-visible,
+.purplish-changing-room-drawer :focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 3px;
+}
+
+/* Heading (off by default, so it never repeats the page title) and the hint */
+.purplish-changing-room-head {
+	position: absolute;
+	inset: 0 0 auto;
+	z-index: 5;
+	display: flex;
+	align-items: baseline;
+	gap: 12px 24px;
+	padding: clamp(16px, 2.2cqw, 30px) clamp(16px, 3cqw, 44px);
+	pointer-events: none;
+}
+
+.purplish-changing-room-heading {
+	margin: 0;
+}
+
+.purplish-changing-room-hint,
+.purplish-changing-room-kind,
+.purplish-changing-room-sizes legend,
+.purplish-changing-room-stock,
+.purplish-changing-room-tabs label,
+.purplish-changing-room-specs dt,
+.purplish-changing-room-wear,
+.purplish-changing-room-missing {
+	font-family: var(--purplish-cr-mono);
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.purplish-changing-room-hint {
+	margin: 0 0 0 auto;
+	color: var(--purplish-cr-muted);
+	text-align: right;
+}
+
+.purplish-changing-room-heading-off .purplish-changing-room-hint {
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* Stage and figure. The stage is a size container, so the rings place
+   each piece in stage units. */
+.purplish-changing-room-stage {
+	--fig-top: 6;
+	--fig-h: 82;
+	--near: min(23.5cqw, 350px);
+	--top-w: clamp(104px, 11.5cqw, 178px);
+	--bottom-w: clamp(74px, 8cqw, 124px);
+	position: relative;
+	height: clamp(640px, 90svh, 920px);
+	container-type: size;
+	touch-action: pan-y;
+}
+
+.purplish-changing-room-figure {
+	position: absolute;
+	top: calc(var(--fig-top) * 1%);
+	left: 50%;
+	z-index: 1;
+	height: calc(var(--fig-h) * 1%);
+	aspect-ratio: 2 / 3;
+	translate: -50% 0;
+}
+
+.purplish-changing-room-figure::before {
+	content: "";
+	position: absolute;
+	right: 22%;
+	bottom: 0.5%;
+	left: 24%;
+	height: 6%;
+	border-radius: 50%;
+	background: radial-gradient(closest-side, rgb(0 0 0 / 20%), rgb(0 0 0 / 7%) 60%, transparent);
+}
+
+.wp-block-purplish-changing-room .purplish-changing-room-photo {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	max-width: none;
+	height: 100%;
+	object-fit: contain;
+	pointer-events: none;
+	transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+.purplish-changing-room-swap-fade .purplish-changing-room-photo.is-in {
+	animation: purplish-cr-fade 0.36s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.purplish-changing-room-swap-reveal .purplish-changing-room-photo.is-in {
+	animation: purplish-cr-reveal 0.5s var(--purplish-cr-ease) both;
+}
+
+.wp-block-purplish-changing-room.is-over .purplish-changing-room-photo {
+	opacity: 0.86;
+	filter: brightness(1.04) saturate(0.9);
+}
+
+.purplish-changing-room-missing {
+	position: absolute;
+	inset: 40% 0 auto;
+	margin: 0;
+	color: var(--purplish-cr-muted);
+	text-align: center;
+}
+
+@keyframes purplish-cr-fade {
+
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes purplish-cr-reveal {
+
+	from {
+		clip-path: inset(0 0 100% 0);
+	}
+}
+
+/* Rings */
+.wp-block-purplish-changing-room .purplish-changing-room-ring {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	pointer-events: none;
+}
+
+.purplish-changing-room-ring > li {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: var(--w);
+	margin: 0;
+	transform: translate(calc(50cqw + var(--x) * var(--near)), calc((var(--fig-top) + var(--fig-h) * var(--y)) * 1cqh)) translate(-50%, -50%) rotate(var(--r)) scale(var(--s));
+	will-change: transform, opacity;
+	pointer-events: auto;
+}
+
+.purplish-changing-room-ring-top > li {
+	--w: var(--top-w);
+}
+
+.purplish-changing-room-ring-bottom > li {
+	--w: var(--bottom-w);
+}
+
+.purplish-changing-room-ring > li[inert] {
+	pointer-events: none;
+}
+
+.wp-block-purplish-changing-room .purplish-changing-room-piece {
+	display: block;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	touch-action: none;
+	-webkit-touch-callout: none;
+}
+
+.purplish-changing-room-piece img {
+	display: block;
+	width: 100%;
+	height: auto;
+	filter: drop-shadow(0 16px 12px rgb(0 0 0 / 14%)) drop-shadow(0 2px 2px rgb(0 0 0 / 8%));
+	pointer-events: none;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+@media (hover: hover) {
+
+	.purplish-changing-room-piece:hover img {
+		transform: translateY(-6px) scale(1.03);
+	}
+}
+
+.purplish-changing-room-piece:focus-visible {
+	border-radius: 6px;
+	outline-offset: 6px;
+}
+
+.purplish-changing-room-ring > li.is-source img {
+	opacity: 0.18;
+}
+
+/* A piece in the hand, and a piece on its way to him */
+.purplish-changing-room-ghost,
+.purplish-changing-room-flyon {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+	max-width: none;
+	pointer-events: none;
+	will-change: transform, opacity;
+}
+
+.purplish-changing-room-ghost {
+	filter: drop-shadow(0 24px 18px rgb(0 0 0 / 22%));
+	rotate: -4deg;
+	scale: 1.06;
+	transition: rotate 0.25s var(--purplish-cr-ease), scale 0.25s var(--purplish-cr-ease);
+}
+
+.purplish-changing-room-ghost.is-over {
+	rotate: 0deg;
+	scale: 1.14;
+}
+
+.purplish-changing-room-flyon {
+	filter: drop-shadow(0 24px 24px rgb(0 0 0 / 25%));
+	transform-origin: 0 0;
+}
+
+/* What he wears, and the outfit button between them */
+.purplish-changing-room-wearing {
+	position: absolute;
+	bottom: clamp(16px, 2.4cqw, 32px);
+	left: 50%;
+	z-index: 4;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+	gap: clamp(16px, 2.4cqw, 36px);
+	align-items: center;
+	width: min(760px, calc(100% - 32px));
+	translate: -50% 0;
+}
+
+.purplish-changing-room-tags-off .purplish-changing-room-wearing {
+	grid-template-columns: auto;
+	justify-content: center;
+}
+
+.wp-block-purplish-changing-room .purplish-changing-room-tag {
+	display: grid;
+	grid-template-columns: auto auto;
+	gap: 2px 8px;
+	align-items: baseline;
+	justify-content: start;
+	padding: 6px 0;
+	border: 0;
+	background: none;
+	text-align: left;
+}
+
+.purplish-changing-room-tag-top {
+	justify-self: end;
+}
+
+.purplish-changing-room-tag-bottom {
+	justify-self: start;
+}
+
+.purplish-changing-room-dot {
+	grid-row: span 2;
+	align-self: center;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--dot, #ccc);
+	box-shadow: inset 0 0 0 1px rgb(0 0 0 / 12%);
+	transition: background-color 0.6s ease;
+}
+
+.purplish-changing-room-tag-name {
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.25;
+	text-decoration: underline transparent 1px;
+	text-underline-offset: 3px;
+	transition: text-decoration-color 0.2s ease;
+}
+
+.purplish-changing-room-tag:hover .purplish-changing-room-tag-name {
+	text-decoration-color: currentcolor;
+}
+
+.purplish-changing-room-tag-price {
+	grid-column: 2;
+	font-size: 14px;
+	line-height: 1.3;
+	color: var(--purplish-cr-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.purplish-changing-room-outfit {
+	margin: 0;
+}
+
+/* The add buttons are the theme's own button, so a Purplish button look
+   or the theme's style applies; the page color fills them. */
+.wp-block-purplish-changing-room .purplish-changing-room-outfit-add,
+.purplish-changing-room-drawer .purplish-changing-room-add {
+	display: inline-flex;
+	gap: 0.5em;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+}
+
+.wp-block-purplish-changing-room:not(.purplish-changing-room-color-off) .purplish-changing-room-outfit-add,
+.wp-block-purplish-changing-room:not(.purplish-changing-room-color-off) .purplish-changing-room-add {
+	background-color: var(--purplish-cr-color);
+	color: var(--purplish-cr-on);
+	transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+.purplish-changing-room-total {
+	opacity: 0.85;
+	font-variant-numeric: tabular-nums;
+}
+
+.wp-block-purplish-changing-room .purplish-changing-room-outfit-add:disabled,
+.purplish-changing-room-drawer .purplish-changing-room-add:disabled {
+	opacity: 0.7;
+	cursor: progress;
+}
+
+/* The panel: a modal dialog from the right */
+.wp-block-purplish-changing-room .purplish-changing-room-drawer {
+	--line: #dedad5;
+	--purplish-fx: var(--purplish-cr-color);
+	--purplish-fx-on: var(--purplish-cr-on);
+	--purplish-color: var(--purplish-cr-color);
+	--purplish-color-on: var(--purplish-cr-on);
+	--purplish-cr-muted: #6f6a64;
+	position: fixed;
+	inset: 0 0 0 auto;
+	width: min(480px, 100vw);
+	max-width: none;
+	height: 100dvh;
+	max-height: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: #f4f3f1;
+	color: #111;
+	translate: 100% 0;
+	transition: translate 0.26s cubic-bezier(0.4, 0, 1, 1), display 0.26s allow-discrete, overlay 0.26s allow-discrete;
+	user-select: text;
+	-webkit-user-select: text;
+}
+
+.wp-block-purplish-changing-room.purplish-changing-room-color-off .purplish-changing-room-drawer {
+	--purplish-fx: initial;
+	--purplish-fx-on: initial;
+	--purplish-color: var(--wp--preset--color--contrast, #1e1e1e);
+	--purplish-color-on: #fff;
+}
+
+/* It slides in and out on transitions, so closing needs no script. */
+.wp-block-purplish-changing-room .purplish-changing-room-drawer[open] {
+	display: flex;
+	flex-direction: column;
+	translate: 0 0;
+	transition-timing-function: var(--purplish-cr-ease);
+	transition-duration: 0.5s;
+}
+
+.purplish-changing-room-drawer::backdrop {
+	background: rgb(20 18 16 / 0%);
+	transition: background-color 0.26s ease, display 0.26s allow-discrete, overlay 0.26s allow-discrete;
+}
+
+.purplish-changing-room-drawer[open]::backdrop {
+	background: rgb(20 18 16 / 32%);
+}
+
+@starting-style {
+
+	.wp-block-purplish-changing-room .purplish-changing-room-drawer[open] {
+		translate: 100% 0;
+	}
+
+	.purplish-changing-room-drawer[open]::backdrop {
+		background: rgb(20 18 16 / 0%);
+	}
+}
+
+.purplish-changing-room-drawer-head {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 24px;
+	border-bottom: 1px solid var(--line);
+}
+
+.purplish-changing-room-kind {
+	margin: 0;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-close {
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: 1px solid #111;
+	border-radius: 50%;
+	background: transparent;
+	color: #111;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-close:hover {
+	background: #111;
+	color: #fff;
+}
+
+.purplish-changing-room-scroll {
+	flex: 1;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	padding: 0 24px 28px;
+	scrollbar-color: #cfcac4 transparent;
+	scrollbar-width: thin;
+}
+
+.purplish-changing-room-media {
+	display: grid;
+	place-items: center;
+	padding: 28px 0 6px;
+}
+
+.purplish-changing-room-sheet-img {
+	display: block;
+	width: auto;
+	max-width: 78%;
+	max-height: min(40vh, 360px);
+	filter: drop-shadow(0 18px 14px rgb(0 0 0 / 14%));
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-name {
+	margin: 18px 0 8px;
+	font-size: clamp(24px, 3vw, 30px);
+	font-weight: 800;
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	color: #111;
+	text-wrap: balance;
+}
+
+.purplish-changing-room-price {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 14px;
+	align-items: baseline;
+	margin: 0;
+}
+
+.purplish-changing-room-amount {
+	font-size: 18px;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.purplish-changing-room-stock {
+	color: var(--purplish-cr-muted);
+}
+
+.purplish-changing-room-short {
+	margin: 10px 0 0;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #3d3a36;
+}
+
+.purplish-changing-room-sizes {
+	margin: 24px 0 0;
+	padding: 0;
+	border: 0;
+}
+
+.purplish-changing-room-sizes legend {
+	margin-bottom: 10px;
+	padding: 0;
+}
+
+.purplish-changing-room-picked {
+	color: var(--purplish-cr-muted);
+}
+
+.purplish-changing-room-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-chip {
+	min-width: 50px;
+	height: 50px;
+	padding: 0 10px;
+	border: 1px solid #cfcac4;
+	border-radius: 2px;
+	background: #fff;
+	color: #111;
+	font-size: 14px;
+	font-weight: 600;
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-chip:hover:not(:disabled) {
+	border-color: #111;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-chip[aria-pressed="true"] {
+	border-color: #111;
+	background: #111;
+	color: #fff;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-chip:disabled {
+	background: transparent;
+	color: #a19a93;
+	text-decoration: line-through;
+	cursor: not-allowed;
+}
+
+.purplish-changing-room-note {
+	margin: 12px 0 0;
+	font-size: 13px;
+	color: #8a2d1c;
+}
+
+.purplish-changing-room-note:empty {
+	margin: 0;
+}
+
+.purplish-changing-room-tabs {
+	display: flex;
+	gap: 24px;
+	margin-top: 22px;
+	border-bottom: 1px solid var(--line);
+}
+
+/* Each tab is a radio button, so switching needs no script. */
+.purplish-changing-room-tabs label {
+	position: relative;
+	padding: 12px 0;
+	color: var(--purplish-cr-muted);
+	cursor: pointer;
+}
+
+.purplish-changing-room-tabs input {
+	position: absolute;
+	inset: 0;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.purplish-changing-room-tabs label:has(:checked) {
+	color: #111;
+	box-shadow: inset 0 -2px 0 var(--purplish-cr-color);
+}
+
+.purplish-changing-room-tabs label:has(:focus-visible) {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-changing-room-scroll:has([value="about"]:checked) .purplish-changing-room-specs,
+.purplish-changing-room-scroll:has([value="specs"]:checked) .purplish-changing-room-about {
+	display: none;
+}
+
+.purplish-changing-room-specs {
+	margin: 0;
+}
+
+.purplish-changing-room-specs div {
+	display: grid;
+	grid-template-columns: 112px 1fr;
+	gap: 12px;
+	padding: 13px 0;
+	border-bottom: 1px solid var(--line);
+}
+
+.purplish-changing-room-specs dt {
+	padding-top: 2px;
+	color: var(--purplish-cr-muted);
+}
+
+.purplish-changing-room-specs dd {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.45;
+}
+
+.purplish-changing-room-about {
+	padding-top: 14px;
+}
+
+.purplish-changing-room-desc {
+	max-width: 65ch;
+	font-size: 15px;
+	line-height: 1.55;
+}
+
+.purplish-changing-room-desc p {
+	margin: 0 0 12px;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-link {
+	font-size: 14px;
+	color: #111;
+	text-underline-offset: 3px;
+}
+
+.purplish-changing-room-foot {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+	padding: 14px 24px calc(14px + env(safe-area-inset-bottom));
+	border-top: 1px solid var(--line);
+}
+
+.purplish-changing-room-wear-off .purplish-changing-room-foot {
+	grid-template-columns: 1fr;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-wear {
+	min-height: 52px;
+	border: 1.5px solid #111;
+	border-radius: 2px;
+	background: transparent;
+	color: #111;
+	font-size: 12px;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-wear:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+
+.purplish-changing-room-buy {
+	display: flex;
+	margin: 0;
+}
+
+.purplish-changing-room-drawer .purplish-changing-room-add {
+	width: 100%;
+	min-height: 52px;
+}
+
+/* Added to cart: a notice in the top layer, above the panel too */
+.purplish-changing-room-notice {
+	position: fixed;
+	inset: auto auto clamp(16px, 3vw, 28px) 50%;
+	display: none;
+	gap: 14px;
+	align-items: center;
+	width: max-content;
+	max-width: calc(100vw - 32px);
+	margin: 0;
+	padding: 8px 18px 8px 8px;
+	overflow: visible;
+	border: 0;
+	border-radius: 14px;
+	background: var(--purplish-cr-color);
+	color: var(--purplish-cr-on);
+	box-shadow: 0 22px 40px -18px rgb(0 0 0 / 50%), 0 3px 8px rgb(0 0 0 / 12%);
+	opacity: 0;
+	transform: translateY(8px) scale(0.98);
+	translate: -50% 0;
+	transition: opacity 0.22s cubic-bezier(0.4, 0, 1, 1), transform 0.22s cubic-bezier(0.4, 0, 1, 1), display 0.22s allow-discrete, overlay 0.22s allow-discrete;
+}
+
+.purplish-changing-room-notice:popover-open {
+	display: flex;
+	opacity: 1;
+	transform: none;
+	transition-timing-function: var(--purplish-cr-ease);
+	transition-duration: 0.45s;
+}
+
+@starting-style {
+
+	.purplish-changing-room-notice:popover-open {
+		opacity: 0;
+		transform: translateY(16px) scale(0.96);
+	}
+}
+
+.purplish-changing-room-notice-img {
+	flex: none;
+	width: 46px;
+	height: 46px;
+	padding: 4px;
+	border-radius: 9px;
+	background: rgb(255 255 255 / 92%);
+	object-fit: contain;
+}
+
+.purplish-changing-room-notice-text {
+	display: grid;
+	gap: 1px;
+	min-width: 0;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.3;
+}
+
+.purplish-changing-room-notice-text b {
+	font-weight: 700;
+}
+
+.purplish-changing-room-notice-text span {
+	overflow: hidden;
+	opacity: 0.82;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.wp-block-purplish-changing-room .purplish-changing-room-notice-link {
+	margin-left: 6px;
+	font-size: 14px;
+	font-weight: 600;
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	white-space: nowrap;
+}
+
+/* The copy that flies into the Mini-Cart, in the top layer */
+.purplish-changing-room-flyer {
+	position: fixed;
+	inset: auto;
+	z-index: 99999;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	overflow: visible;
+	border: 0;
+	background: none;
+	object-fit: contain;
+	filter: drop-shadow(0 12px 14px rgb(0 0 0 / 20%));
+	pointer-events: none;
+}
+
+/* Phone: the near pieces only, what he wears under him */
+@container purplish-cr (max-width: 700px) {
+
+	.purplish-changing-room-stage {
+		--fig-top: 13;
+		--near: 36cqw;
+		--top-w: 86px;
+		--bottom-w: 60px;
+		height: clamp(540px, 80svh, 700px);
+	}
+
+	.purplish-changing-room-head {
+		flex-wrap: wrap;
+		padding: 16px;
+	}
+
+	/* With the heading off, the centred rule above still wins. */
+	.purplish-changing-room-hint {
+		flex-basis: 100%;
+		order: 3;
+		margin: 0;
+		font-size: 10px;
+		text-align: left;
+	}
+
+	.purplish-changing-room-wearing {
+		position: static;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px 16px;
+		width: auto;
+		padding: 4px 16px 24px;
+		translate: none;
+	}
+
+	.purplish-changing-room-tags-off .purplish-changing-room-wearing {
+		grid-template-columns: 1fr;
+	}
+
+	.purplish-changing-room-tag-top,
+	.purplish-changing-room-tag-bottom {
+		grid-row: 1;
+		justify-self: stretch;
+	}
+
+	.purplish-changing-room-outfit {
+		display: flex;
+		grid-row: 2;
+		grid-column: 1 / -1;
+	}
+
+	.wp-block-purplish-changing-room .purplish-changing-room-outfit-add {
+		width: 100%;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wp-block-purplish-changing-room,
+	.wp-block-purplish-changing-room *,
+	.purplish-changing-room-drawer,
+	.purplish-changing-room-drawer::backdrop,
+	.purplish-changing-room-notice,
+	body.purplish-changing-room-page {
+		transition-duration: 0.01s !important;
+		transition-delay: 0s !important;
+		animation-duration: 0.01s !important;
+	}
+}
