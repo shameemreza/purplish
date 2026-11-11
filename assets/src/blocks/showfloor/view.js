@@ -71,7 +71,34 @@ function init( root ) {
 	let row = false;
 	let fresh = true;
 
+	/*
+	 * A Showfloor that opens the page takes the window under the header,
+	 * so the arrows and the panel show on load. When even 600px runs past
+	 * the window, is-past-fold moves the arrows up beside the looks.
+	 */
+	function fit() {
+		const s = root.style;
+		if ( small.matches ) {
+			s.removeProperty( '--' + P + 'top' );
+			root.classList.remove( 'is-past-fold' );
+			return;
+		}
+		const tall = window.innerHeight;
+		const top = root.getBoundingClientRect().top + window.scrollY;
+		const hero = top < tall / 3;
+		if ( hero ) {
+			s.setProperty( '--' + P + 'top', Math.round( top ) + 'px' );
+		} else {
+			s.removeProperty( '--' + P + 'top' );
+		}
+		root.classList.toggle(
+			'is-past-fold',
+			root.offsetHeight + ( hero ? top : 0 ) > tall + 1
+		);
+	}
+
 	function measure() {
+		fit();
 		const w = stage.clientWidth;
 		const h = stage.clientHeight;
 		const phone = small.matches;
@@ -743,6 +770,9 @@ function init( root ) {
 
 	root.classList.add( 'is-ready' );
 	new window.ResizeObserver( measure ).observe( stage );
+	// The header above can change height without resizing the stage.
+	window.addEventListener( 'resize', fit );
+	window.addEventListener( 'load', fit );
 	if ( has( 'start-grid' ) ) {
 		root.classList.add( 'is-grid' );
 		if ( ringBtn ) {
