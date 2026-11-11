@@ -1,8 +1,8 @@
 <?php
 /**
- * Pattern: Shop by category. Four tall tiles, each a drawn figure on a
- * lavender panel with the category name under it. The photo tilts toward
- * the mouse on hover and the tiles rise in one after another.
+ * Pattern: Shop by category. Four tall Cover tiles, each a drawn figure
+ * with the category name on the photo over a dark fade. The tile tilts
+ * toward the mouse on hover and the tiles rise in one after another.
  *
  * @package Purplish
  */
@@ -13,6 +13,8 @@ $purplish_shop   = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_perm
 $purplish_ink    = '#111111';
 $purplish_tint   = '#f2edff';
 $purplish_ground = '#ffffff';
+// Clear at the head, dark at the foot, so the name reads on any photo.
+$purplish_fade   = 'linear-gradient(180deg, rgba(31,3,66,0) 50%, rgba(31,3,66,0.72) 100%)';
 $purplish_tiles  = array(
 	array( __( 'Coats', 'purplish' ), 'long-coat' ),
 	array( __( 'Jackets', 'purplish' ), 'puffer' ),
@@ -31,23 +33,34 @@ $purplish_tiles  = array(
 	$purplish_url   = \Purplish\Blocks\Showfloor::figure( $purplish_tile[1] );
 	$purplish_attrs = serialize_block_attributes(
 		array(
-			'aspectRatio'     => '3/4',
-			'scale'           => 'contain',
-			'linkDestination' => 'custom',
+			'url'             => $purplish_url,
+			'dimRatio'        => 100,
+			'customGradient'  => $purplish_fade,
+			'focalPoint'      => array(
+				'x' => 0.5,
+				'y' => 0.3,
+			),
+			'contentPosition' => 'bottom left',
+			'isDark'          => true,
+			'style'           => array(
+				'dimensions' => array( 'aspectRatio' => '3/4' ),
+				'border'     => array(
+					'width' => '1px',
+					'style' => 'solid',
+					'color' => $purplish_tint,
+				),
+			),
+			'layout'          => array( 'type' => 'default' ),
 			'purplish'        => array( 'hover' => 'tilt' ),
 		)
 	);
 	?>
-<!-- wp:group {"style":{"spacing":{"blockGap":"12px"}},"layout":{"type":"default"},"purplish":{"entrance":"fadeup"}} -->
-<div class="wp-block-group"><!-- wp:group {"style":{"color":{"background":"<?php echo esc_attr( $purplish_tint ); ?>"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group has-background" style="background-color:<?php echo esc_attr( $purplish_tint ); ?>"><!-- wp:image <?php echo $purplish_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
-<figure class="wp-block-image"><a href="<?php echo esc_url( $purplish_shop ); ?>"><img src="<?php echo esc_url( $purplish_url ); ?>" alt="" style="aspect-ratio:3/4;object-fit:contain"/></a></figure>
-<!-- /wp:image --></div>
-<!-- /wp:group -->
-
-<!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"<?php echo esc_attr( $purplish_ink ); ?>"},"typography":{"textDecoration":"none"}}}},"fontSize":"medium"} -->
-<p class="has-link-color has-medium-font-size"><a href="<?php echo esc_url( $purplish_shop ); ?>"><?php echo esc_html( $purplish_tile[0] ); ?> &rarr;</a></p>
-<!-- /wp:paragraph --></div>
+<!-- wp:group {"layout":{"type":"default"},"purplish":{"entrance":"fadeup"}} -->
+<div class="wp-block-group"><!-- wp:cover <?php echo $purplish_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
+<div class="wp-block-cover has-border-color has-custom-content-position is-position-bottom-left" style="border-color:<?php echo esc_attr( $purplish_tint ); ?>;border-style:solid;border-width:1px"><img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( $purplish_url ); ?>" style="object-position:50% 30%" data-object-fit="cover" data-object-position="50% 30%"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:<?php echo esc_attr( $purplish_fade ); ?>"></span><div class="wp-block-cover__inner-container"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"#ffffff"},"typography":{"textDecoration":"none"}}}},"fontSize":"large"} -->
+<p class="has-link-color has-large-font-size"><a href="<?php echo esc_url( $purplish_shop ); ?>"><?php echo esc_html( $purplish_tile[0] ); ?> &rarr;</a></p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:cover --></div>
 <!-- /wp:group -->
 <?php endforeach; ?>
 </div>

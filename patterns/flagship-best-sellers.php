@@ -1,8 +1,8 @@
 <?php
 /**
  * Pattern: Best sellers. The four best selling products on a lavender band,
- * with the second photo on hover, add to cart on the photo, and the name
- * and price on one line under each card.
+ * with a thin ring round the card and the second photo on hover, add to
+ * cart on the photo, and the name and price on one line under each card.
  *
  * @package Purplish
  */
@@ -52,6 +52,7 @@ $purplish_collection = array(
 	'purplish'             => array(
 		'overlay'     => true,
 		'hoveron'     => 'all',
+		'hovercard'   => 'ring',
 		'hoverphoto'  => 'second',
 		'hoverbutton' => 'bag',
 	),
