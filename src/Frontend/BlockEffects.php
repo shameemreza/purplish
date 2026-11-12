@@ -19,6 +19,11 @@ final class BlockEffects {
 	const HANDLE = 'purplish-effects';
 
 	/**
+	 * The script that folds a filter sidebar away, loaded only with it.
+	 */
+	const FILTERS_HANDLE = 'purplish-filters';
+
+	/**
 	 * The gallery's hover styles, on block and classic themes.
 	 */
 	const HOVER_STYLES = array( 'tilt', 'zoom', 'lift', 'parallax', 'glare', 'loupe', 'slowzoom' );
@@ -262,6 +267,7 @@ final class BlockEffects {
 				'prefix'  => 'filters',
 				'options' => array(
 					'chips' => true,
+					'hide'  => true,
 				),
 				'preview' => true,
 			),
@@ -527,6 +533,10 @@ final class BlockEffects {
 		$asset = include PURPLISH_DIR . 'build/effects.asset.php';
 		wp_enqueue_style( self::HANDLE, PURPLISH_URL . 'build/style-effects.css', array(), $asset['version'] );
 		wp_style_add_data( self::HANDLE, 'rtl', 'replace' );
+
+		// The Hide filters button's words, for its look in the editor.
+		$label = str_replace( array( '\\', '"', '<', '>' ), '', wp_strip_all_tags( __( 'Hide filters', 'purplish' ), true ) );
+		wp_add_inline_style( self::HANDLE, ':root{--purplish-filters-label:"' . $label . '";}' );
 	}
 
 	/**
@@ -645,7 +655,34 @@ final class BlockEffects {
 			}
 		} while ( $rows && $tags->next_tag( $query ) );
 
-		return self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
+		$html = self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
+		return in_array( 'purplish-filters-hide', $classes, true ) ? self::add_filters_toggle( $html, $block['attrs'] ) : $html;
+	}
+
+	/**
+	 * Prints the Hide filters button before the Product Filters block,
+	 * hidden until the script moves it above the products. It sits outside
+	 * the block because WooCommerce redraws the block's insides when a
+	 * filter changes. With the overlay on every screen there's no sidebar
+	 * to fold, so the block stays as it is.
+	 *
+	 * @param string $html  Rendered block.
+	 * @param array  $attrs The block's attributes.
+	 * @return string
+	 */
+	private static function add_filters_toggle( $html, $attrs ) {
+		if ( isset( $attrs['overlayMode'] ) && 'always' === $attrs['overlayMode'] ) {
+			return $html;
+		}
+
+		$asset = include PURPLISH_DIR . 'build/filters.asset.php';
+		wp_enqueue_script( self::FILTERS_HANDLE, PURPLISH_URL . 'build/filters.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+
+		$hide = __( 'Hide filters', 'purplish' );
+		$knob = '<circle cx="%d" cy="%d" r="1.75" fill="currentColor"/>';
+		$icon = '<svg class="purplish-filters-toggle__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 5h12M2 11h12" stroke="currentColor" stroke-width="1.2"/>' . sprintf( $knob, 10, 5 ) . sprintf( $knob, 6, 11 ) . '</svg>';
+
+		return '<button type="button" class="purplish-filters-toggle" aria-expanded="true" data-hide="' . esc_attr( $hide ) . '" data-show="' . esc_attr__( 'Show filters', 'purplish' ) . '" hidden>' . $icon . '<span class="purplish-filters-toggle__text">' . esc_html( $hide ) . '</span></button>' . $html;
 	}
 
 	/**

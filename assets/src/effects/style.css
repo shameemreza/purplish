@@ -3244,6 +3244,158 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Sidebar can hide. The filters script moves the button above the
+ * products and marks the columns; the fold is a width change, with the
+ * column gap pulled back by a negative margin so the grid meets the edge.
+ * Below 782px, where WooCommerce's overlay takes over, nothing changes.
+ */
+.purplish-filters-toggle {
+	display: none;
+}
+
+@media (min-width: 782px) {
+
+	.purplish-filters-toggle:not([hidden]) {
+		display: inline-flex;
+		gap: 0.5em;
+		align-items: center;
+		padding: 0.35em 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		font-size: 0.875em;
+		letter-spacing: inherit;
+		text-transform: inherit;
+		text-underline-offset: 0.3em;
+		cursor: pointer;
+	}
+
+	.wp-block-column > .purplish-filters-toggle:not([hidden]) {
+		display: flex;
+		width: fit-content;
+		margin-inline-start: auto;
+	}
+
+	.purplish-filters-toggle.is-beside {
+		margin-inline-end: 1.25em;
+	}
+
+	.purplish-filters-toggle:hover {
+		text-decoration: underline;
+	}
+
+	.purplish-filters-toggle:focus-visible {
+		outline: 2px solid currentcolor;
+		outline-offset: 3px;
+	}
+
+	.purplish-filters-toggle__icon {
+		flex: none;
+		overflow: visible;
+	}
+
+	.purplish-filters-toggle__icon path {
+		fill: none;
+	}
+
+	.purplish-filters-toggle.is-folded .purplish-filters-toggle__icon circle:first-of-type {
+		transform: translateX(-4px);
+	}
+
+	.purplish-filters-toggle.is-folded .purplish-filters-toggle__icon circle:last-of-type {
+		transform: translateX(4px);
+	}
+
+	.purplish-filters-row > .purplish-filters-side.is-folded {
+		flex-basis: 0 !important;
+		flex-grow: 0 !important;
+		min-width: 0;
+		margin-inline-end: calc(-1 * var(--purplish-filters-gap, 0px));
+		overflow: hidden;
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	.purplish-filters-row > .purplish-filters-side.is-folded:last-child {
+		margin-inline-start: calc(-1 * var(--purplish-filters-gap, 0px));
+		margin-inline-end: 0;
+	}
+
+	.purplish-filters-row.is-folded > .wp-block-column:not(.purplish-filters-side) {
+		flex-grow: 1 !important;
+	}
+}
+
+@media (min-width: 782px) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-toggle__icon circle {
+		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.purplish-filters-row > .purplish-filters-side {
+		transition:
+			flex-basis 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			flex-grow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.25s ease 0.2s,
+			visibility 0s;
+	}
+
+	.purplish-filters-row > .purplish-filters-side.is-folded {
+		transition:
+			flex-basis 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			flex-grow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.15s ease,
+			visibility 0s linear 0.4s;
+	}
+
+	.purplish-filters-row.is-instant > .purplish-filters-side,
+	.purplish-filters-row.is-instant .purplish-filters-toggle__icon circle {
+		transition: none;
+	}
+}
+
+/*
+ * In the editor, the button shows where it will sit: beside Sort by, or
+ * at the top of the filters when the products have no Sort by.
+ */
+.wp-block-columns:has(.purplish-filters-hide) .block-editor-block-list__block.wp-block-woocommerce-catalog-sorting::before,
+.wp-block-columns:not(:has(.wp-block-woocommerce-catalog-sorting)) .block-editor-block-list__block.purplish-filters-hide::before {
+	content: var(--purplish-filters-label, "");
+	display: inline-block;
+	margin-inline-end: 1.25em;
+	padding: 0.35em 0 0.35em 1.6em;
+	background:
+		radial-gradient(circle, currentcolor 1.6px, transparent 2px) 2px calc(50% - 3px) / 16px 16px no-repeat,
+		radial-gradient(circle, currentcolor 1.6px, transparent 2px) -2px calc(50% + 3px) / 16px 16px no-repeat,
+		linear-gradient(currentcolor, currentcolor) 0 calc(50% - 3px) / 16px 1.2px no-repeat,
+		linear-gradient(currentcolor, currentcolor) 0 calc(50% + 3px) / 16px 1.2px no-repeat;
+	font-size: 0.875em;
+	line-height: inherit;
+	vertical-align: middle;
+}
+
+/* Sort by stacks its parts in the editor; the label sits on their left. */
+.wp-block-columns:has(.purplish-filters-hide) .block-editor-block-list__block.wp-block-woocommerce-catalog-sorting {
+	display: flex;
+	align-items: center;
+}
+
+/* The filters block is a flex row in the editor: the label gets a row. */
+.wp-block-columns:not(:has(.wp-block-woocommerce-catalog-sorting)) .block-editor-block-list__block.purplish-filters-hide {
+	flex-wrap: wrap;
+}
+
+.wp-block-columns:not(:has(.wp-block-woocommerce-catalog-sorting)) .block-editor-block-list__block.purplish-filters-hide::before {
+	flex: 0 0 100%;
+	align-self: flex-start;
+	box-sizing: border-box;
+	margin: 0 0 0.5em;
+}
+
+/*
  * Mini-cart count pop, once each time the count goes up. WooCommerce
  * centers the badge with `transform`, so the pop moves `scale` and the
  * bag `rotate`. The ring takes the badge's own color.

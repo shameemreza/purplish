@@ -1,7 +1,8 @@
 /**
- * The scripts package's webpack config with the four 1.0 bundles kept by
- * name, plus the scripts each block lists in its block.json. A new block is
- * a new folder in assets/src/blocks and nothing else here.
+ * The scripts package's webpack config with the four 1.0 bundles and the
+ * filters script kept by name, plus the scripts each block lists in its
+ * block.json. A new block is a new folder in assets/src/blocks and nothing
+ * else here.
  */
 const { existsSync, readdirSync } = require( 'fs' );
 const { join } = require( 'path' );
@@ -28,6 +29,7 @@ module.exports = {
 		editor: './assets/src/editor/index.js',
 		frontend: './assets/src/frontend/index.js',
 		effects: './assets/src/effects/index.js',
+		filters: './assets/src/filters/index.js',
 		...( hasBlocks() ? defaultConfig.entry() : {} ),
 	} ),
 };
