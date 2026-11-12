@@ -45,6 +45,7 @@ final class Registry {
 		add_filter( 'block_categories_all', array( $this, 'add_category' ) );
 		Wardrobe::hooks();
 		ShelfTag::hooks();
+		ColorDots::hooks();
 	}
 
 	/**
@@ -64,6 +65,7 @@ final class Registry {
 			ChangingRoomPiece::class,
 			Wardrobe::class,
 			ShelfTag::class,
+			ColorDots::class,
 		);
 	}
 

@@ -24,6 +24,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo, and button motion. |
 | Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a Best seller, New arrival or Featured tag on the photo that shows only on the cards its rule matches. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
+| Shop and collection pages | Color Dots | Purplish's own Color Dots block: the colors a product comes in, as small dots beside the name or swatches under the price. |
 | Shop and collection pages | Product Collection, Product Filters, Shelf Tag | The Atelier shop pattern: a quiet shop page with accordion filters that fold away, three columns of tall photos with a Best seller tag, and numbered pages. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
@@ -134,6 +135,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Shelf Tag block:** a small tag that shows only on the cards its rule matches. The rules are best sellers (the store's top 1 to 50 by sales, 8 by default), new products (published in the last 1 to 365 days, 30 by default) and featured products. Pick a chip, a pill or frosted glass, the corner, your own words in place of Best seller, New arrival or Featured, and a light that passes over the tag once on hover. In the editor, the tag shows faded on the cards it leaves out. Best sellers are worked out again after each order, and at least every six hours.
 - **Sold out:** on the Stock Indicator block, Only when sold out hides the indicator on every other stock state and shows Out of stock in a pill, a chip or glass, in the corner you pick. Grey out sold-out cards turns the photo grey and soft, and brings some of it back on hover.
+
+### Color dots
+
+- **Color Dots block:** the colors a product comes in, on its card. With a color attribute, each color gets a dot in the color set for that term in WooCommerce's color swatches, or else in the page color of a variation in that color. Without one, each page color its variations have gets a dot, so it works even if your store never set colors up. Pick Dots, small enough to sit beside the name, or Swatches, bigger with a ring on hover. Set how many show, from 1 to 12 (4 by default); the rest show as a count, such as +2. A product in one color shows no dots unless Show a single color is on. Screen readers hear the color names, and each dot shows its name on hover.
 
 ### Shop page pattern
 
@@ -325,7 +330,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, Shelf Tag joins them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, Shelf Tag and Color Dots join them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 
@@ -349,6 +354,7 @@ Purplish has a small set of PHP hooks, front-end events and CSS custom propertie
 | `purplish_detected_color` | Filter | The hex color the photo detector picked, with the attachment ID, before it's saved. Return an empty string to save no color. |
 | `purplish_block_classes` | Filter | The classes Purplish adds to a block's wrapper, with the block name and its saved Purplish options. |
 | `purplish_shelf_tag_show` | Filter | Whether a Shelf Tag shows on a product card, with the product and the tag's block attributes. |
+| `purplish_color_dots_colors` | Filter | The colors a product card shows as Color Dots, each with a `name` (may be empty) and a hex `color`, with the product object. |
 | `purplish_scroll_lookbook_config` | Filter | Scroll Lookbook numbers that aren't in the block panel, with the block attributes: `smoothing` (how fast the film catches up with the scroll, 1 to 30, default 9) and `hold` (the longest the opening video plays, 0 to 30 seconds, default 5). |
 | `purplish_loaded` | Action | Fires once Purplish has added its own hooks. |
 

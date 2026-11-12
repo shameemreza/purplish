@@ -258,6 +258,71 @@ return array(
 			'lock' => false
 		)
 	),
+	'color-dots' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/color-dots',
+		'version' => '1.3.0',
+		'title' => 'Color Dots',
+		'category' => 'purplish',
+		'description' => 'Shows the colors a product comes in, as small dots or swatches on product cards. Colors come from the color attribute or the Purplish page color of each variation.',
+		'keywords' => array(
+			'swatches',
+			'colors',
+			'variations',
+			'colorways'
+		),
+		'textdomain' => 'purplish',
+		'ancestor' => array(
+			'woocommerce/product-template',
+			'core/post-template',
+			'woocommerce/single-product'
+		),
+		'usesContext' => array(
+			'postId',
+			'postType'
+		),
+		'attributes' => array(
+			'look' => array(
+				'type' => 'string',
+				'enum' => array(
+					'dots',
+					'swatches'
+				),
+				'default' => 'dots'
+			),
+			'limit' => array(
+				'type' => 'number',
+				'default' => 4
+			),
+			'single' => array(
+				'type' => 'boolean',
+				'default' => false
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'reusable' => false,
+			'color' => array(
+				'background' => false,
+				'text' => true
+			),
+			'typography' => array(
+				'fontSize' => true
+			),
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true
+			)
+		),
+		'example' => array(
+			'attributes' => array(
+				'look' => 'dots'
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'style' => 'file:./style-index.css'
+	),
 	'hanging-rail' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
