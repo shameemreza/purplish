@@ -175,10 +175,29 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// The soft card draws its own edges, so the line and the
+			// chevron wait for it to be off.
 			'core/accordion'                              => array(
 				'prefix'  => 'accordion',
 				'options' => array(
 					'soft' => true,
+					'line' => array( 'draw' ),
+					'icon' => array( 'chevron' ),
+				),
+				'needs'   => array(
+					'line' => array(
+						array( 'soft', array( true ), false ),
+					),
+					'icon' => array(
+						array( 'soft', array( true ), false ),
+					),
+				),
+				'preview' => true,
+			),
+			'core/query-pagination'                       => array(
+				'prefix'  => 'pages',
+				'options' => array(
+					'look' => array( 'boxed', 'underline' ),
 				),
 				'preview' => true,
 			),
