@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -85,7 +85,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
-		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop' ) as $slug ) {
+		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop' ) as $slug ) {
 			$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/' . $slug ), $slug );
 		}
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
@@ -384,6 +384,121 @@ class PatternsTest extends WP_UnitTestCase {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * The Flagship shop: a hero with the category photo and the count in
+	 * brackets, tabs, the filter bar with Sort by beside it, the grid
+	 * switch, the Flagship card with its badges and dots, Load more, the
+	 * trust row and a promo band. Offered in templates only.
+	 */
+	public function test_flagship_shop() {
+		( new Patterns() )->register_patterns();
+		$shop = WP_Block_Patterns_Registry::get_instance()->get_registered( 'purplish/flagship-shop' );
+
+		$this->assertSame( array( 'woocommerce/product-collection' ), $shop['blockTypes'] );
+		$this->assertSame( array( 'wp_template' ), $shop['postTypes'] );
+		$this->assertContains( 'woo-commerce', $shop['categories'] );
+
+		$blocks = parse_blocks( $shop['content'] );
+		$names  = $this->block_names( $blocks );
+		foreach ( array( 'woocommerce/breadcrumbs', 'core/cover', 'woocommerce/product-results-count', 'core/query-title', 'core/term-description', 'core/terms-query', 'woocommerce/catalog-sorting', 'woocommerce/product-collection', 'woocommerce/product-filters', 'woocommerce/product-sale-badge', 'purplish/shelf-tag', 'woocommerce/product-stock-indicator', 'purplish/color-dots', 'woocommerce/product-button', 'core/query-pagination', 'core/pattern' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		foreach ( $names as $name ) {
+			$this->assertTrue( \WP_Block_Type_Registry::get_instance()->is_registered( $name ), $name . ' is registered' );
+		}
+
+		$hero = $this->find_block( $blocks, 'core/cover' );
+		$this->assertTrue( $hero['attrs']['purplish']['termphoto'] );
+		$this->assertStringContainsString( ' is-light ', $hero['innerHTML'] );
+		$this->assertSame(
+			array(
+				'show'   => 'brackets',
+				'motion' => 'roll',
+			),
+			$this->find_block( $blocks, 'woocommerce/product-results-count' )['attrs']['purplish']
+		);
+		$this->assertSame( 'archive', $this->find_block( $blocks, 'core/query-title' )['attrs']['type'] );
+		$this->assertSame( 'bodoni-moda', $this->find_block( $blocks, 'core/query-title' )['attrs']['fontFamily'] );
+
+		$tabs = $this->find_block( $blocks, 'core/terms-query' );
+		$this->assertSame( array( 'look' => 'tabs' ), $tabs['attrs']['purplish'] );
+		$this->assertSame( 'product_cat', $tabs['attrs']['termQuery']['taxonomy'] );
+		// Terms Query saves no spacing, so the row's padding is on a group.
+		$this->assertArrayNotHasKey( 'style', $tabs['attrs'] );
+
+		$collection = $this->find_block( $blocks, 'woocommerce/product-collection' );
+		$this->assertTrue( $collection['attrs']['query']['inherit'] );
+		$this->assertSame( 4, $collection['attrs']['displayLayout']['columns'] );
+		$this->assertSame(
+			array(
+				'overlay'   => true,
+				'hoveron'   => 'card',
+				'hovercard' => 'lift',
+				'grid'      => '2',
+			),
+			$collection['attrs']['purplish']
+		);
+		// Sort by sits outside the collection, where the grid switch finds it.
+		$this->assertNull( $this->find_block( $collection['innerBlocks'], 'woocommerce/catalog-sorting' ) );
+		$this->assertSame(
+			array(
+				'layout' => 'bar',
+				'hover'  => true,
+				'open'   => 'grow',
+				'chips'  => true,
+			),
+			$this->find_block( $blocks, 'woocommerce/product-filters' )['attrs']['purplish']
+		);
+		$this->assertSame( 'percentage', $this->find_block( $blocks, 'woocommerce/product-sale-badge' )['attrs']['badgeContent'] );
+		$this->assertSame( 'new', $this->find_block( $blocks, 'purplish/shelf-tag' )['attrs']['rule'] );
+		$this->assertSame(
+			array(
+				'soldout' => 'pill',
+				'grey'    => true,
+			),
+			$this->find_block( $blocks, 'woocommerce/product-stock-indicator' )['attrs']['purplish']
+		);
+		$this->assertSame( array( 'more' => 'fade' ), $this->find_block( $blocks, 'core/query-pagination' )['attrs']['purplish'] );
+		$this->assertSame( 'purplish/trust-row', $this->find_block( $blocks, 'core/pattern' )['attrs']['slug'] );
+	}
+
+	/**
+	 * The Flagship shop's bar gets Size and Color filters only when the
+	 * store has those attributes.
+	 */
+	public function test_flagship_shop_attribute_filters() {
+		$attribute_ids = static function ( $content ) {
+			$ids  = array();
+			$walk = static function ( $blocks ) use ( &$walk, &$ids ) {
+				foreach ( $blocks as $block ) {
+					if ( 'woocommerce/product-filter-attribute' === $block['blockName'] ) {
+						$ids[] = $block['attrs']['attributeId'];
+					}
+					$walk( $block['innerBlocks'] );
+				}
+			};
+			$walk( parse_blocks( $content ) );
+			return $ids;
+		};
+		$file          = PURPLISH_DIR . 'patterns/flagship-shop.php';
+
+		foreach ( array( 'pa_size', 'pa_color' ) as $name ) {
+			$this->assertSame( 0, (int) wc_attribute_taxonomy_id_by_name( $name ), $name . ' starts absent' );
+			// Another test's rolled-back attribute can leave its taxonomy registered, which blocks the slug.
+			if ( taxonomy_exists( $name ) ) {
+				unregister_taxonomy( $name );
+			}
+		}
+		$this->assertSame( array(), $attribute_ids( Patterns::content( $file ) ) );
+
+		$size  = wc_create_attribute( array( 'name' => 'Size' ) );
+		$color = wc_create_attribute( array( 'name' => 'Color' ) );
+		$this->assertSame( array( $size, $color ), $attribute_ids( Patterns::content( $file ) ) );
+
+		wc_delete_attribute( $size );
+		wc_delete_attribute( $color );
 	}
 
 	/**
