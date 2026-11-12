@@ -11,7 +11,7 @@ import {
 import * as components from '@wordpress/components';
 import { useSettings } from '@wordpress/block-editor';
 import { useInstanceId } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 
 // WordPress 7.1 ships the segmented control under its experimental name
 // only; newer versions under the stable one.
@@ -258,13 +258,76 @@ function HoverControls( { saved, save } ) {
 }
 
 /**
+ * Grid switch: the second column count shoppers can switch to.
+ *
+ * @param {Object}                    props            Control props.
+ * @param {Object}                    props.saved      The block's saved `purplish` attribute.
+ * @param {(changes: Object) => void} props.save       Saves changes to it.
+ * @param {Object}                    props.attributes The block's attributes.
+ */
+function GridSwitch( { saved, save, attributes } ) {
+	const layout = ( attributes && attributes.displayLayout ) || {};
+	const own = Number( layout.columns ) || 0;
+	const grid = 'flex' === layout.type && own > 0;
+	const roster = 'roster' === saved.hover;
+	let help = sprintf(
+		/* translators: %d: the grid's own column count. */
+		__(
+			'Two buttons beside Sort by switch the grid between its %d columns and these. The choice lasts for the visit. Phones keep their grid.',
+			'purplish'
+		),
+		own
+	);
+	if ( ! grid ) {
+		help = __( 'Needs the Grid layout.', 'purplish' );
+	} else if ( roster ) {
+		help = __( 'Roster lays the cards out as its own list.', 'purplish' );
+	}
+	const counts = [ '2', '3', '4', '5', '6' ].filter(
+		( count ) => Number( count ) !== own
+	);
+	return (
+		<SelectControl
+			__next40pxDefaultSize
+			__nextHasNoMarginBottom
+			label={ __( 'Grid switch', 'purplish' ) }
+			help={ help }
+			value={
+				grid && ! roster && counts.includes( saved.grid )
+					? saved.grid
+					: ''
+			}
+			disabled={ ! grid || roster }
+			options={ [
+				{ label: __( 'Off', 'purplish' ), value: '' },
+				...counts.map( ( count ) => ( {
+					label: sprintf(
+						/* translators: %s: a column count. */
+						_n(
+							'%s column',
+							'%s columns',
+							Number( count ),
+							'purplish'
+						),
+						count
+					),
+					value: count,
+				} ) ),
+			] }
+			onChange={ ( value ) => save( { grid: value || undefined } ) }
+		/>
+	);
+}
+
+/**
  * The panel.
  *
- * @param {Object}                  props          Panel props.
- * @param {Object}                  props.saved    The block's saved `purplish` attribute.
- * @param {(saved: Object) => void} props.setSaved Saves a new `purplish` attribute.
+ * @param {Object}                  props            Panel props.
+ * @param {Object}                  props.saved      The block's saved `purplish` attribute.
+ * @param {(saved: Object) => void} props.setSaved   Saves a new `purplish` attribute.
+ * @param {Object}                  props.attributes The block's attributes.
  */
-export default function CardsPanel( { saved, setSaved } ) {
+export default function CardsPanel( { saved, setSaved, attributes } ) {
 	const [ palette ] = useSettings( 'color.palette' );
 	const colorId = useInstanceId( CardsPanel, 'purplish-effect-color' );
 	const save = ( changes ) => setSaved( { ...saved, ...changes } );
@@ -349,6 +412,11 @@ export default function CardsPanel( { saved, setSaved } ) {
 					clearable
 				/>
 			</BaseControl>
+			<GridSwitch
+				saved={ saved }
+				save={ save }
+				attributes={ attributes }
+			/>
 		</PanelBody>
 	);
 }

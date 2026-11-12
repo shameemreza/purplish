@@ -63,6 +63,7 @@ On shop and collection pages, select the Product Collection block:
 * **Details on the photo:** the title, price and add to cart sit on the bottom of the photo over a soft shade. They show on hover, and always on touch screens.
 * **Effect color:** one color for the button fill, the card effects and the hover looks. On a product page with a variation color, the variation color wins.
 * **Card effect:** one of 23 effects for the whole collection. Cards can fan out like a hand, hang from a clothes line, or stack in a coverflow.
+* **Grid switch:** two buttons after Sort by let shoppers switch between the grid's columns and a second count you pick, like four columns or two bigger cards. The choice lasts for the visit, and phones keep their grid.
 
 Effects on hover: Spotlight, Color reveal, Fan deck, Expanded cards, Magnetic panel, Card folder, Bookmark and Roster.
 

@@ -24,6 +24,16 @@ final class BlockEffects {
 	const FILTERS_HANDLE = 'purplish-filters';
 
 	/**
+	 * Script handle for the grid switch on Product Collection.
+	 */
+	const GRID_HANDLE = 'purplish-grid';
+
+	/**
+	 * Where the grid switch keeps the shopper's choice for the visit.
+	 */
+	const GRID_KEY = 'purplish-cards-grid';
+
+	/**
 	 * The gallery's hover styles, on block and classic themes.
 	 */
 	const HOVER_STYLES = array( 'tilt', 'zoom', 'lift', 'parallax', 'glare', 'loupe', 'slowzoom' );
@@ -148,6 +158,8 @@ final class BlockEffects {
 					'hovercard'   => array( 'lift', 'tilt', 'ring', 'torch' ),
 					'hoverphoto'  => array( 'push', 'drift', 'glare', 'bloom', 'second' ),
 					'hoverbutton' => array( 'bag', 'glow', 'sweep', 'spectrum', 'glass' ),
+					// The second column count shoppers can switch to.
+					'grid'        => array( '2', '3', '4', '5', '6' ),
 				),
 				// Each hover look plays only where the target says, and not
 				// on a card effect that already moves that part.
@@ -170,6 +182,9 @@ final class BlockEffects {
 					),
 					'hoverbutton' => array(
 						array( 'hoveron', array( 'button', 'all' ), true ),
+						array( 'hover', array( 'roster' ), false ),
+					),
+					'grid'        => array(
 						array( 'hover', array( 'roster' ), false ),
 					),
 				),
@@ -486,6 +501,8 @@ final class BlockEffects {
 	public function register() {
 		add_filter( 'register_block_type_args', array( $this, 'add_attribute' ), 10, 2 );
 		add_filter( 'render_block', array( $this, 'add_classes' ), 10, 2 );
+		// After WooCommerce marks the collection's first tag as its own.
+		add_filter( 'render_block_woocommerce/product-collection', array( $this, 'add_grid_switch' ), 20, 2 );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_classic' ), 20 );
 		add_filter( 'body_class', array( $this, 'classic_body_classes' ) );
@@ -696,6 +713,77 @@ final class BlockEffects {
 			$html = Markup::filter_toggles( $html );
 		}
 		return in_array( 'purplish-filters-hide', $classes, true ) ? self::add_filters_toggle( $html, $block['attrs'] ) : $html;
+	}
+
+	/**
+	 * Prints the grid switch before Product Collection, hidden until the
+	 * script moves it beside Sort by. It sits outside the block because
+	 * WooCommerce redraws the block when a filter or a page changes. The
+	 * small script after it puts back the shopper's choice before the grid
+	 * draws, so the grid doesn't jump. Only a grid with its own column
+	 * count, and a different one to switch to, gets it. It runs after
+	 * WooCommerce's own filters, which put the collection's data on the
+	 * first tag they find.
+	 *
+	 * @param string $html  Rendered block.
+	 * @param array  $block Parsed block.
+	 * @return string
+	 */
+	public function add_grid_switch( $html, $block ) {
+		$attrs   = isset( $block['attrs'] ) && is_array( $block['attrs'] ) ? $block['attrs'] : array();
+		$saved   = isset( $attrs['purplish'] ) ? $attrs['purplish'] : array();
+		$columns = 0;
+		foreach ( self::classes_for( 'woocommerce/product-collection', $saved ) as $class ) {
+			if ( 0 === strpos( $class, 'purplish-cards-grid-' ) ) {
+				$columns = (int) substr( $class, 20 );
+			}
+		}
+		$layout = isset( $attrs['displayLayout'] ) && is_array( $attrs['displayLayout'] ) ? $attrs['displayLayout'] : array();
+		$own    = isset( $layout['columns'] ) ? (int) $layout['columns'] : 0;
+		if ( ! $columns || '' === trim( (string) $html ) || ! isset( $layout['type'] ) || 'flex' !== $layout['type'] || $own < 1 || $own === $columns ) {
+			return $html;
+		}
+
+		$asset = include PURPLISH_DIR . 'build/grid.asset.php';
+		wp_enqueue_script( self::GRID_HANDLE, PURPLISH_URL . 'build/grid.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+
+		// Bigger cards first, with big squares; smaller cards after.
+		$sizes = $own < $columns ? array(
+			'own'   => $own,
+			'other' => $columns,
+		) : array(
+			'other' => $columns,
+			'own'   => $own,
+		);
+		$items = '';
+		foreach ( $sizes as $size => $count ) {
+			$big    = min( $own, $columns ) === $count;
+			$label  = $big ? __( 'Larger cards', 'purplish' ) : __( 'Smaller cards', 'purplish' );
+			$items .= '<button type="button" class="purplish-grid-switch__button" data-size="' . esc_attr( $size ) . '" aria-pressed="' . ( 'own' === $size ? 'true' : 'false' ) . '" aria-label="' . esc_attr( $label ) . '" title="' . esc_attr( $label ) . '">' . self::grid_icon( $big ? 2 : 3 ) . '</button>';
+		}
+
+		$switch = '<div class="purplish-grid-switch" role="group" aria-label="' . esc_attr__( 'Card size', 'purplish' ) . '" hidden>' . $items . '</div>';
+		$recall = wp_get_inline_script_tag( 'try{if("other"===sessionStorage.getItem(' . wp_json_encode( self::GRID_KEY ) . '))document.documentElement.dataset.purplishGrid="other"}catch(e){}' );
+
+		return $switch . $recall . $html;
+	}
+
+	/**
+	 * A square of squares, for a grid switch button.
+	 *
+	 * @param int $per_row Squares per row: 2 for big cards, 3 for small.
+	 * @return string
+	 */
+	private static function grid_icon( $per_row ) {
+		$size  = 2 === $per_row ? 6 : 3.6;
+		$step  = 2 === $per_row ? 8 : 5.2;
+		$cells = '';
+		for ( $row = 0; $row < $per_row; $row++ ) {
+			for ( $col = 0; $col < $per_row; $col++ ) {
+				$cells .= sprintf( '<rect x="%s" y="%s" width="%s" height="%s" rx="0.6"/>', 1 + $col * $step, 1 + $row * $step, $size, $size );
+			}
+		}
+		return '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false">' . $cells . '</svg>';
 	}
 
 	/**
