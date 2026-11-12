@@ -72,6 +72,11 @@ Effects as cards scroll into view: Clothes line, Parallax, Zoom reveal and Unfol
 
 * **Hover:** one look each for the card, the photo and the add to cart button, alongside any card effect. Photo looks include Second photo, which swaps in the product's first gallery photo.
 
+Inside the card, two more pieces sit on the photo when you put them in the Product Image block:
+
+* **Shelf Tag block:** a small tag for best sellers, new arrivals or featured products. It shows only on the cards its rule matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
+* **Sold out:** the Stock Indicator block can show only on sold-out products, in the same three looks, and grey out their photos.
+
 = Small details =
 
 On the Add to Cart + Options block:
