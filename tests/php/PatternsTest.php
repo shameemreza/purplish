@@ -342,8 +342,8 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertSame( 3, $collection['attrs']['displayLayout']['columns'] );
 		$this->assertSame(
 			array(
-				'hoveron'    => 'photo',
-				'hoverphoto' => 'push',
+				'hoveron'   => 'card',
+				'hovercard' => 'lift',
 			),
 			$collection['attrs']['purplish']
 		);

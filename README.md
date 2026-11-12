@@ -137,7 +137,7 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 ### Shop page pattern
 
-- **Pattern:** Atelier shop is a quiet shop page for the Product Catalog and product category templates. It has breadcrumbs, the category name as an uppercase serif title with its description under it, and accordion filters on the left (Categories, Shop by price, Availability) that fold away with Hide filters. Sort by sits on the right, then three columns of tall photos with a Best seller tag and a slow zoom on hover, and numbered pages with Back and Next. The products follow the page, so on a category template it shows that category. Find it in the Site Editor's pattern inserter under Purplish or WooCommerce. It's offered in templates only, since Sort by and the results only work on shop pages. The title uses Purple's Bodoni Moda, and other themes keep their own font.
+- **Pattern:** Atelier shop is a quiet shop page for the Product Catalog and product category templates. It has breadcrumbs, the category name as an uppercase serif title with its description under it, and accordion filters on the left (Categories, Shop by price, Availability) that fold away with Hide filters. Sort by sits on the right, then three columns of tall photos with a Best seller tag, cards that lift on hover, and numbered pages with Back and Next. The products follow the page, so on a category template it shows that category. Find it in the Site Editor's pattern inserter under Purplish or WooCommerce. It's offered in templates only, since Sort by and the results only work on shop pages. The title uses Purple's Bodoni Moda, and other themes keep their own font.
 
 ## Filters and mini-cart
 

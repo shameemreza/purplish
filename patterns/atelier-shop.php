@@ -3,7 +3,7 @@
  * Pattern: Atelier shop. A quiet shop page: breadcrumbs, an uppercase serif
  * title with the category's description, accordion filters on the left
  * that can fold away, Sort by on the right, three columns of tall photos
- * with a Best seller tag and a slow photo zoom on hover, and numbered pages.
+ * with a Best seller tag, cards that lift on hover, and numbered pages.
  * The collection follows the page's query, so on a category template it
  * shows that category. The title uses Purple's Bodoni Moda; a theme
  * without it keeps its own font.
@@ -20,12 +20,12 @@ $purplish_rule  = 'color-mix(in srgb, currentcolor 14%, transparent)';
  * uppercase heading and a hairline under it. A closure, since the file is included each time the pattern renders.
  */
 $purplish_accordion = static function ( $title, $inner, $first = false ) use ( $purplish_rule ) {
-	$pad = $first ? '"top":"0","bottom":"var:preset|spacing|20"' : '"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"';
-	$css = $first ? 'padding-top:0;padding-bottom:var(--wp--preset--spacing--20)' : 'padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)';
+	$pad = $first ? '"top":"0","bottom":"0.7rem"' : '"top":"0.7rem","bottom":"0.7rem"';
+	$css = $first ? 'padding-top:0;padding-bottom:0.7rem' : 'padding-top:0.7rem;padding-bottom:0.7rem';
 	return '<!-- wp:accordion {"style":{"spacing":{"blockGap":"0"}}} -->
 <div role="group" class="wp-block-accordion"><!-- wp:accordion-item {"style":{"border":{"bottom":{"color":"' . $purplish_rule . '","width":"1px"}}}} -->
-<div class="wp-block-accordion-item" style="border-bottom-color:' . $purplish_rule . ';border-bottom-width:1px"><!-- wp:accordion-heading {"level":4,"style":{"typography":{"fontSize":"0.75rem","textTransform":"uppercase","letterSpacing":"0.06em","fontWeight":"500"},"spacing":{"padding":{' . $pad . '}}}} -->
-<h4 class="wp-block-accordion-heading has-icon has-icon-right" style="font-size:0.75rem;font-weight:500;text-transform:uppercase"><button type="button" class="wp-block-accordion-heading__toggle" style="' . $css . '"><span class="wp-block-accordion-heading__toggle-title" style="letter-spacing:0.06em">' . esc_html( $title ) . '</span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h4>
+<div class="wp-block-accordion-item" style="border-bottom-color:' . $purplish_rule . ';border-bottom-width:1px"><!-- wp:accordion-heading {"level":4,"style":{"typography":{"fontSize":"0.6875rem","textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"},"spacing":{"padding":{' . $pad . '}}}} -->
+<h4 class="wp-block-accordion-heading has-icon has-icon-right" style="font-size:0.6875rem;font-weight:600;text-transform:uppercase"><button type="button" class="wp-block-accordion-heading__toggle" style="' . $css . '"><span class="wp-block-accordion-heading__toggle-title" style="letter-spacing:0.05em">' . esc_html( $title ) . '</span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h4>
 <!-- /wp:accordion-heading -->
 
 <!-- wp:accordion-panel {"style":{"spacing":{"blockGap":"0"}}} -->
@@ -75,8 +75,8 @@ $purplish_collection = array(
 	'collection'    => 'woocommerce/product-collection/product-catalog',
 	'align'         => 'wide',
 	'purplish'      => array(
-		'hoveron'    => 'photo',
-		'hoverphoto' => 'push',
+		'hoveron'   => 'card',
+		'hovercard' => 'lift',
 	),
 );
 $purplish_title      = array(
