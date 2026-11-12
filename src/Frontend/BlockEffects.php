@@ -285,8 +285,24 @@ final class BlockEffects {
 			'woocommerce/product-filters'                 => array(
 				'prefix'  => 'filters',
 				'options' => array(
-					'chips' => true,
-					'hide'  => true,
+					'chips'  => true,
+					'hide'   => true,
+					'layout' => array( 'bar' ),
+					'hover'  => true,
+					'open'   => array( 'grow', 'fold', 'cascade' ),
+				),
+				'needs'   => array(
+					// A bar has no sidebar to fold.
+					'hide'  => array(
+						array( 'layout', array( 'bar' ), false ),
+					),
+					// Only a bar's lists drop down.
+					'hover' => array(
+						array( 'layout', array( 'bar' ), true ),
+					),
+					'open'  => array(
+						array( 'layout', array( 'bar' ), true ),
+					),
 				),
 				'preview' => true,
 			),
@@ -675,7 +691,21 @@ final class BlockEffects {
 		} while ( $rows && $tags->next_tag( $query ) );
 
 		$html = self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
+		if ( in_array( 'purplish-filters-layout-bar', $classes, true ) ) {
+			self::enqueue_filters();
+			$html = Markup::filter_toggles( $html );
+		}
 		return in_array( 'purplish-filters-hide', $classes, true ) ? self::add_filters_toggle( $html, $block['attrs'] ) : $html;
+	}
+
+	/**
+	 * Loads the script for the Product Filters options.
+	 *
+	 * @return void
+	 */
+	private static function enqueue_filters() {
+		$asset = include PURPLISH_DIR . 'build/filters.asset.php';
+		wp_enqueue_script( self::FILTERS_HANDLE, PURPLISH_URL . 'build/filters.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 	}
 
 	/**
@@ -694,8 +724,7 @@ final class BlockEffects {
 			return $html;
 		}
 
-		$asset = include PURPLISH_DIR . 'build/filters.asset.php';
-		wp_enqueue_script( self::FILTERS_HANDLE, PURPLISH_URL . 'build/filters.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+		self::enqueue_filters();
 
 		$hide = __( 'Hide filters', 'purplish' );
 		$knob = '<circle cx="%d" cy="%d" r="1.75" fill="currentColor"/>';

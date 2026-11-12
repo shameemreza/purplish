@@ -1,4 +1,7 @@
 /**
+ * The Product Filters options that need a script: Layout: Bar (see
+ * ./bar.js) and Sidebar can hide.
+ *
  * Sidebar can hide, on the Product Filters block. The button the server
  * prints before the block moves above the products, beside Sort by when
  * the grid has it, and folds the filters' column away. The choice lasts
@@ -6,6 +9,7 @@
  * WooCommerce's own overlay.
  */
 import { placeToggle, sides } from './place';
+import { watchBars } from './bar';
 
 const KEY = 'purplish-filters-folded';
 const wide = window.matchMedia( '(min-width: 782px)' );
@@ -92,3 +96,6 @@ document
 			}
 		} ).observe( main, { childList: true, subtree: true } );
 	} );
+
+// WooCommerce's overlay shows up to 782px wide.
+watchBars( document, window.matchMedia( '(width > 782px)' ) );

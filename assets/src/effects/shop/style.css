@@ -159,3 +159,300 @@
 		font-size: 0.75rem !important;
 	}
 }
+
+/*
+ * Product Filters, Layout: Bar. Plain filters get a label button from the
+ * server; on every screen it opens the filter's list, with a chevron like
+ * the Accordion's icon.
+ */
+.purplish-filters-bar-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5em;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	text-align: inherit;
+	text-transform: inherit;
+	cursor: pointer;
+}
+
+.purplish-filters-bar-toggle::after {
+	content: "";
+	flex: none;
+	width: 0.4em;
+	height: 0.4em;
+	border-right: 1.5px solid;
+	border-bottom: 1.5px solid;
+	transform: translateY(-25%) rotate(45deg);
+}
+
+.purplish-filters-bar-toggle[aria-expanded="true"]::after {
+	transform: translateY(25%) rotate(-135deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-bar-toggle::after {
+		transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+	}
+}
+
+/*
+ * Past WooCommerce's overlay breakpoint, the filters sit in one row and
+ * each list drops down under its label. The theme's spacing and borders
+ * for stacked filters are written inline, so the row's resets win with
+ * !important. Active filters take the line under the row, and Clear
+ * filters sits at its end.
+ */
+@media (width > 782px) {
+
+	:is(.purplish-filters-layout-bar.is-filter-drawer-disabled .wc-block-product-filters__content, .purplish-filters-layout-bar.is-mobile-overlay .wc-block-product-filters__overlay-content) {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		gap: 0.5rem 1.75rem;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-spacer {
+		display: none;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) [data-block-name] {
+		position: relative;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-accordion-item {
+		border-width: 0 !important;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-heading, .wp-block-heading:has(> .purplish-filters-bar-toggle)) {
+		margin: 0 !important;
+		font-size: inherit;
+		font-weight: 500;
+		line-height: inherit;
+		letter-spacing: inherit;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-heading__toggle, .purplish-filters-bar-toggle) {
+		gap: 0.45em;
+		width: auto;
+		padding-block: 0.5rem !important;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 30;
+		box-sizing: border-box;
+		min-width: 15rem;
+		max-width: min(22rem, 90vw);
+		margin: 0;
+		padding: 1rem 1.25rem;
+		border: 1px solid color-mix(in srgb, currentcolor 14%, transparent);
+		border-radius: 2px;
+		background: var(--wp--preset--color--base, Canvas);
+		box-shadow: 0 18px 40px -22px rgb(0 0 0 / 30%);
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-woocommerce-product-filter-active {
+		flex-basis: 100%;
+		order: 1;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-woocommerce-product-filter-clear-button {
+		margin-inline-start: auto;
+	}
+}
+
+/*
+ * A list opens and closes with a short motion, and closing is quicker than
+ * opening. Each Open style has one pose that a list starts from and goes
+ * back to: Slide (no class), Grow, Fold or Cascade. A closing list keeps
+ * its box, see-through and out of the mouse's way, until the fade ends;
+ * core and themes strip a closed Accordion panel's box at once, so the row
+ * puts it back. Reduced motion keeps the fade only.
+ */
+@media (width > 782px) {
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		transform-origin: top left;
+		transition: opacity 0.22s ease;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		height: auto;
+		padding: 1rem 1.25rem !important;
+		border: 1px solid color-mix(in srgb, currentcolor 14%, transparent) !important;
+		box-shadow: 0 18px 40px -22px rgb(0 0 0 / 30%) !important;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.14s ease-out, display 0.18s allow-discrete, content-visibility 0.18s allow-discrete;
+	}
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			opacity: 0;
+		}
+	}
+}
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	/* Slide: a small drop from under the label. */
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.22s ease, translate 0.3s cubic-bezier(0.32, 0.72, 0, 1), scale 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		transition: opacity 0.14s ease-out, translate 0.18s ease-out, scale 0.18s ease-out, display 0.18s allow-discrete, content-visibility 0.18s allow-discrete;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: 0 -8px;
+		scale: 0.98;
+	}
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: 0 -8px;
+			scale: 0.98;
+		}
+	}
+
+	/* Grow: the list unrolls from its top edge, a touch past full. */
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		transform-origin: top center;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.2s ease, scale 0.36s cubic-bezier(0.34, 1.4, 0.64, 1);
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: none;
+		scale: 1 0.5;
+	}
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: none;
+			scale: 1 0.5;
+		}
+	}
+
+	/* Fold: the list swings down from its top edge, like a flap. */
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		transform: perspective(800px) rotateX(0deg);
+		transform-origin: top center;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.2s ease, transform 0.42s cubic-bezier(0.34, 1.3, 0.64, 1);
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		transition: opacity 0.14s ease-out, transform 0.18s ease-out, display 0.18s allow-discrete, content-visibility 0.18s allow-discrete;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: none;
+		scale: none;
+		transform: perspective(800px) rotateX(-70deg);
+	}
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: none;
+			scale: none;
+			transform: perspective(800px) rotateX(-70deg);
+		}
+	}
+
+	/* Cascade: the list fades in, and its options slide in one by one. */
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.2s ease;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: none;
+		scale: none;
+	}
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: none;
+			scale: none;
+		}
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item, .wc-block-product-filter-checkbox-list__show-more, .wc-block-product-filter-chips__show-more) {
+		animation: purplish-filters-cascade 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(2 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 35ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(3 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 70ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(4 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 105ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(5 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 140ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(6 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 175ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(7 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 210ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(8 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 245ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :is(:nth-child(n + 9 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)), .wc-block-product-filter-checkbox-list__show-more, .wc-block-product-filter-chips__show-more) {
+		animation-delay: 280ms;
+	}
+}
+
+@keyframes purplish-filters-cascade {
+
+	from {
+		opacity: 0;
+		translate: -10px 0;
+	}
+}
+
+/*
+ * In the editor, a bar shows its filters side by side with every list
+ * open, so each one stays editable.
+ */
+.purplish-filters-layout-bar .wc-block-product-filters__overlay-content > .block-editor-inner-blocks > .block-editor-block-list__layout {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	gap: 1rem 2rem;
+}
+
+.purplish-filters-layout-bar .block-editor-block-list__layout > .wp-block-woocommerce-product-filter-active {
+	flex-basis: 100%;
+}
