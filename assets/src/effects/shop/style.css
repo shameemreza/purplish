@@ -1024,3 +1024,29 @@
 		transform: scale(0.85);
 	}
 }
+
+/*
+ * Flagship shop: Sort by and the grid switch share the filter bar's row.
+ * Sort by sits outside Product Collection, where the grid switch can stay
+ * beside it through filters and pages, so it is lifted onto the bar's
+ * line on the right and the bar leaves it room. Below the bar's width the
+ * two keep their own rows, and so does the editor.
+ */
+@media (width > 782px) {
+
+	body:not(.editor-styles-wrapper) .purplish-shop-flagship .purplish-shop-results {
+		position: relative;
+	}
+
+	body:not(.editor-styles-wrapper) .purplish-shop-flagship .purplish-shop-sorting {
+		position: absolute;
+		z-index: 3;
+		top: 0;
+		right: var(--wp--preset--spacing--50, 0);
+		min-height: 2.5rem;
+	}
+
+	body:not(.editor-styles-wrapper) .purplish-shop-flagship .purplish-shop-results .purplish-filters-layout-bar {
+		padding-right: 16rem;
+	}
+}

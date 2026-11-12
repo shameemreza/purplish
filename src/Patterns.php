@@ -155,6 +155,13 @@ final class Patterns {
 				'postTypes'  => array( 'wp_template' ),
 				'file'       => PURPLISH_DIR . 'patterns/atelier-shop.php',
 			),
+			'flagship-shop'         => array(
+				'title'      => __( 'Flagship shop', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array( 'woocommerce/product-collection' ),
+				'postTypes'  => array( 'wp_template' ),
+				'file'       => PURPLISH_DIR . 'patterns/flagship-shop.php',
+			),
 		);
 	}
 
