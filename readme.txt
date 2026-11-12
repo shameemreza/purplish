@@ -101,6 +101,7 @@ On other blocks:
 * **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
 * **Pagination, Page numbers:** each number in a small box, or the current page on a line, in the page color.
 * **Pagination, Load more:** in a Product Collection, a Load more button adds the next page under the products, on its own or over a fade. It takes the outline style and the Button block's looks, shows a short spinner, and brings the new cards in one after another. It goes away once every product shows. A reload or the Back button keeps the same products.
+* **Terms Query, Look and Mark the current term:** on a category page, the list marks that category and its parent. Tabs puts the terms in a row with a line, pill or dot on the current one. Category photos shows each category's photo in a circle, rounded square, square or arch, with a ring around the current one and a choice of hover and scroll entrance.
 * **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out.
 * **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
 * **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.

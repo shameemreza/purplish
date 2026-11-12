@@ -11,6 +11,7 @@ import GalleryPanel from './gallery';
 import CardsPanel from './cards';
 import AccordionPanel from './accordion';
 import PaginationPanel from './pagination';
+import TermsPanel from './terms';
 import GroupPanel from './group';
 import ChipsPanel from './chips';
 import BadgePanel from './badge';
@@ -41,6 +42,7 @@ const PANELS = {
 	'woocommerce/product-collection': CardsPanel,
 	'core/accordion': AccordionPanel,
 	'core/query-pagination': PaginationPanel,
+	'core/terms-query': TermsPanel,
 	'core/group': GroupPanel,
 	'woocommerce/add-to-cart-with-options-variation-selector-attribute':
 		ChipsPanel,

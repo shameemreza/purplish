@@ -730,7 +730,7 @@ if ( ! reduced && window.CSS?.supports( 'animation-timeline: view()' ) ) {
 }
 
 const ENTRANCES =
-	'.purplish-heading-reveal-rise, .purplish-heading-reveal-focus, .purplish-group[class*="purplish-group-entrance-"], [class*="purplish-columns-entrance-"] > .wp-block-column';
+	'.purplish-heading-reveal-rise, .purplish-heading-reveal-focus, .purplish-group[class*="purplish-group-entrance-"], [class*="purplish-columns-entrance-"] > .wp-block-column, [class*="purplish-terms-entrance-"] .wp-block-term';
 
 /**
  * Holds back each block below the view and lets it in once, when enough of

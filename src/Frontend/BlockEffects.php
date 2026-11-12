@@ -217,6 +217,29 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			'core/terms-query'                            => array(
+				'prefix'  => 'terms',
+				'options' => array(
+					'current'  => true,
+					'look'     => array( 'tabs', 'photos' ),
+					'shape'    => array( 'circle', 'rounded', 'square', 'arch' ),
+					'hover'    => array( 'ring', 'morph', 'turn', 'still' ),
+					'tab'      => array( 'pill', 'dot' ),
+					'entrance' => self::ENTRANCES,
+				),
+				'needs'   => array(
+					'shape' => array(
+						array( 'look', array( 'photos' ), true ),
+					),
+					'hover' => array(
+						array( 'look', array( 'photos' ), true ),
+					),
+					'tab'   => array(
+						array( 'look', array( 'tabs' ), true ),
+					),
+				),
+				'preview' => true,
+			),
 			// The entrance waits for a class the front script adds.
 			'core/group'                                  => array(
 				'prefix'  => 'group',
