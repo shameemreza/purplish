@@ -232,6 +232,30 @@ class PatternsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * From WooCommerce 11.3 Shop by category lists the store's four biggest
+	 * product categories through a Terms Query: each tile is a Featured
+	 * Category with the category's name and a button to its page, tilting on
+	 * hover. It uses no drawn figures.
+	 */
+	public function test_flagship_categories_from_terms() {
+		if ( version_compare( WC_VERSION, '11.3', '<' ) ) {
+			$this->markTestSkipped( 'Needs WooCommerce 11.3.' );
+		}
+
+		$tiles = Patterns::content( Patterns::patterns()['flagship-categories']['file'] );
+		$names = $this->block_names( parse_blocks( $tiles ) );
+		foreach ( array( 'core/terms-query', 'core/term-template', 'woocommerce/featured-category', 'woocommerce/category-title', 'core/button' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		$this->assertNotContains( 'core/cover', $names );
+		$this->assertStringContainsString( '"termQuery":{"perPage":4,"taxonomy":"product_cat","order":"desc","orderBy":"count"', $tiles );
+		$this->assertStringContainsString( '"bindings":{"url":{"source":"core/term-data","args":{"field":"link"}}}', $tiles );
+		$this->assertStringContainsString( '"purplish":{"hover":"tilt"}', $tiles );
+		$this->assertStringContainsString( '"purplish":{"entrance":"fadeup"}', $tiles );
+		$this->assertStringNotContainsString( 'assets/figures/', $tiles );
+	}
+
+	/**
 	 * The home pattern is a starter for new pages only, and it carries
 	 * every section pattern's markup.
 	 */

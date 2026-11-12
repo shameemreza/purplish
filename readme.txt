@@ -22,7 +22,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 
 = Built to stay out of your way =
 
-* **Works on the blocks you already use:** Purplish adds a panel to 19 WooCommerce blocks, from the Product Gallery to the Checkout, and to 8 core blocks, like Group, Cover and Button. It replaces nothing.
+* **Works on the blocks you already use:** Purplish adds a panel to 22 WooCommerce blocks, from the Product Gallery to the Checkout, and to 8 core blocks, like Group, Cover and Button. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
 * **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
@@ -72,6 +72,11 @@ Effects as cards scroll into view: Clothes line, Parallax, Zoom reveal and Unfol
 
 * **Hover:** one look each for the card, the photo and the add to cart button, alongside any card effect. Photo looks include Second photo, which swaps in the product's first gallery photo.
 
+Inside the card, two more pieces sit on the photo when you put them in the Product Image block:
+
+* **Shelf Tag block:** a small tag for best sellers, new arrivals or featured products. It shows only on the cards its rule matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
+* **Sold out:** the Stock Indicator block can show only on sold-out products, in the same three looks, and grey out their photos.
+
 = Small details =
 
 On the Add to Cart + Options block:
@@ -101,9 +106,9 @@ On other blocks:
 * **Group and Columns, Entrance on scroll:** the section fades up or zooms in, and columns come in one after another.
 * **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls.
 * **Group, Turn on hover:** made for badges and seals. The section turns a little, like a stamp, when the mouse is over it or over the group around it.
-* **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small pill to full size. On hover, Push in moves the background in, Tilt turns the cover toward the mouse, Lift raises it and Glare runs a light after the mouse.
+* **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small pill to full size. On hover, Push in moves the background in, Tilt turns the cover toward the mouse, Lift raises it and Glare runs a light after the mouse. Featured Category and Featured Product get the same looks.
 * **Pattern:** Flagship footer is a full store footer for the footer template part: a size help line with a button, four link columns with ringed social icons, the site name as a big wordmark that rises from the floor, and a base row with the year, policy links, a secure checkout note and a back to top button.
-* **Patterns:** Flagship home is a full store front page that opens on a Showfloor of eight looks, then shop by category tiles, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each section is also its own pattern, so you can add one to any page.
+* **Patterns:** Flagship home is a full store front page that opens on a Showfloor of eight looks, then your four biggest product categories as tiles with their own image and a Shop now button, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each section is also its own pattern, so you can add one to any page.
 * **Patterns for the cart and checkout:** Empty cart goes in the Cart block's empty cart area, with category tiles and your best sellers so the visit doesn't end there. Checkout header is a calm bar for the Checkout Header template part, with Bag, Checkout and Done steps and a Secure checkout note. Money-back guarantee card goes under the Cart or Checkout block.
 
 Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.

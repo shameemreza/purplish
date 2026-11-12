@@ -205,6 +205,22 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// Sold out only: the indicator hides on every other stock state.
+			'woocommerce/product-stock-indicator'         => array(
+				'prefix'  => 'stock',
+				'options' => array(
+					'soldout' => array( 'pill', 'chip', 'glass' ),
+					'corner'  => array( 'top-left', 'top-right', 'bottom-left', 'bottom-right' ),
+					'grey'    => true,
+				),
+				// The corner only places the sold-out look.
+				'needs'   => array(
+					'corner' => array(
+						array( 'soldout', array( 'pill', 'chip', 'glass' ), true ),
+					),
+				),
+				'preview' => true,
+			),
 			'woocommerce/product-gallery-thumbnails'      => array(
 				'prefix'  => 'thumbs',
 				'options' => array(
@@ -325,6 +341,23 @@ final class BlockEffects {
 			),
 			// Only the hover look shows in the editor; the scroll effects stay front end.
 			'core/cover'                                  => array(
+				'prefix'  => 'cover',
+				'options' => array(
+					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
+					'hover'  => array( 'push', 'tilt', 'lift', 'glare' ),
+				),
+				'preview' => array( 'hover' ),
+			),
+			// Since WooCommerce 11.3 both style like a cover, so they take its looks.
+			'woocommerce/featured-category'               => array(
+				'prefix'  => 'cover',
+				'options' => array(
+					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
+					'hover'  => array( 'push', 'tilt', 'lift', 'glare' ),
+				),
+				'preview' => array( 'hover' ),
+			),
+			'woocommerce/featured-product'                => array(
 				'prefix'  => 'cover',
 				'options' => array(
 					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),

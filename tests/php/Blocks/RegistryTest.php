@@ -13,6 +13,7 @@ use Purplish\Blocks\HangingRail;
 use Purplish\Blocks\Registry;
 use Purplish\Blocks\Runway;
 use Purplish\Blocks\ScrollLookbook;
+use Purplish\Blocks\ShelfTag;
 use Purplish\Blocks\Showfloor;
 use Purplish\Blocks\ShowfloorLook;
 use Purplish\Blocks\StoryDeck;
@@ -75,6 +76,8 @@ class RegistryTest extends WP_UnitTestCase {
 		$this->assertSame( 10, has_action( 'init', array( $registry, 'register_blocks' ) ) );
 		$this->assertSame( 10, has_filter( 'block_categories_all', array( $registry, 'add_category' ) ) );
 		$this->assertSame( 10, has_filter( 'block_type_metadata', array( Wardrobe::class, 'allow_in_navigation' ) ) );
+		$this->assertSame( 10, has_action( 'woocommerce_recorded_sales', array( ShelfTag::class, 'forget_ranks' ) ) );
+		$this->assertSame( 10, has_action( 'rest_api_init', array( ShelfTag::class, 'add_rest_field' ) ) );
 	}
 
 	/**
@@ -82,7 +85,7 @@ class RegistryTest extends WP_UnitTestCase {
 	 * else under Purplish's name does.
 	 */
 	public function test_ships_its_blocks() {
-		$this->assertSame( array( HangingRail::class, StoryDeck::class, Runway::class, ScrollLookbook::class, Showfloor::class, ShowfloorLook::class, ChangingRoom::class, ChangingRoomPiece::class, Wardrobe::class ), Registry::blocks() );
+		$this->assertSame( array( HangingRail::class, StoryDeck::class, Runway::class, ScrollLookbook::class, Showfloor::class, ShowfloorLook::class, ChangingRoom::class, ChangingRoomPiece::class, Wardrobe::class, ShelfTag::class ), Registry::blocks() );
 
 		$ours = array_filter(
 			array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() ),
@@ -90,7 +93,7 @@ class RegistryTest extends WP_UnitTestCase {
 				return 0 === strpos( $name, 'purplish/' );
 			}
 		);
-		$this->assertSame( array( 'purplish/hanging-rail', 'purplish/story-deck', 'purplish/runway', 'purplish/scroll-lookbook', 'purplish/showfloor', 'purplish/showfloor-look', 'purplish/changing-room', 'purplish/changing-room-piece', 'purplish/wardrobe' ), array_values( $ours ) );
+		$this->assertSame( array( 'purplish/hanging-rail', 'purplish/story-deck', 'purplish/runway', 'purplish/scroll-lookbook', 'purplish/showfloor', 'purplish/showfloor-look', 'purplish/changing-room', 'purplish/changing-room-piece', 'purplish/wardrobe', 'purplish/shelf-tag' ), array_values( $ours ) );
 	}
 
 	/**

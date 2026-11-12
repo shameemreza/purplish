@@ -14,6 +14,7 @@ import GroupPanel from './group';
 import ChipsPanel from './chips';
 import BadgePanel from './badge';
 import ThumbsPanel from './thumbs';
+import StockPanel, { StockView } from './stock';
 import AccordionGroupPanel from './accordion-group';
 import DetailsPanel from './details';
 import ReviewsPanel from './reviews';
@@ -43,6 +44,7 @@ const PANELS = {
 		ChipsPanel,
 	'woocommerce/product-sale-badge': BadgePanel,
 	'woocommerce/product-gallery-thumbnails': ThumbsPanel,
+	'woocommerce/product-stock-indicator': StockPanel,
 	'woocommerce/accordion-group': AccordionGroupPanel,
 	'core/details': DetailsPanel,
 	'woocommerce/product-reviews': ReviewsPanel,
@@ -55,6 +57,8 @@ const PANELS = {
 	'core/social-links': SocialPanel,
 	'core/columns': ColumnsPanel,
 	'core/cover': CoverPanel,
+	'woocommerce/featured-category': CoverPanel,
+	'woocommerce/featured-product': CoverPanel,
 	'woocommerce/order-confirmation-status': OrderStatusPanel,
 	'woocommerce/order-confirmation-summary': OrderSummaryPanel,
 	'woocommerce/proceed-to-checkout-block': BuyButtonPanel,
@@ -63,6 +67,14 @@ const PANELS = {
 	'woocommerce/mini-cart-checkout-button-block': BuyButtonPanel,
 	'woocommerce/cart': CartPagePanel,
 	'woocommerce/checkout': CheckoutPagePanel,
+};
+
+/**
+ * Editor views that stand in for the block's own while a Purplish option
+ * needs data the block's view doesn't have.
+ */
+const VIEWS = {
+	'woocommerce/product-stock-indicator': StockView,
 };
 
 addFilter(
@@ -88,10 +100,15 @@ const withPurplishPanel = createHigherOrderComponent(
 		if ( ! Panel ) {
 			return <BlockEdit { ...props } />;
 		}
+		const View = VIEWS[ props.name ];
 
 		return (
 			<>
-				<BlockEdit { ...props } />
+				{ View ? (
+					<View { ...props } BlockEdit={ BlockEdit } />
+				) : (
+					<BlockEdit { ...props } />
+				) }
 				<InspectorControls>
 					<Panel
 						saved={ props.attributes.purplish || {} }

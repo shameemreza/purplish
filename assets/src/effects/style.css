@@ -37,6 +37,15 @@ body[class*="purplish-classic-gallery-"] {
 	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, #fff));
 }
 
+/*
+ * A Featured Category in a Terms Query is a small tile, like Shop by
+ * category. WooCommerce's 48px side padding would leave the name a sliver
+ * on a phone, so the padding follows the tile's width up to that.
+ */
+.wp-block-term .wc-block-featured-category__inner-blocks {
+	padding-inline: min(48px, 10%);
+}
+
 /* Gallery: one big photo, no thumbnail strip. */
 .purplish-gallery-nothumbs .wc-block-product-gallery-thumbnails,
 body.purplish-classic-gallery-nothumbs .woocommerce-product-gallery .flex-control-thumbs {
@@ -3014,13 +3023,21 @@ body.purplish-active .purplish-group-tint {
 	border-radius: 999px;
 }
 
+/*
+ * A discount amount ("Save $20.00") wraps onto two lines: the circle takes
+ * the width of its longest word, never less than 4.25em, instead of
+ * growing to fit the whole line.
+ */
 .purplish-badge-shape-circle .wc-block-components-product-sale-badge {
 	display: inline-grid;
 	place-items: center;
+	inline-size: min-content;
 	min-width: 4.25em;
 	aspect-ratio: 1;
 	padding: 0.5em;
 	border-radius: 50%;
+	line-height: 1.15;
+	text-align: center;
 }
 
 /*
@@ -3085,6 +3102,106 @@ body.purplish-active .purplish-group-tint {
 .wc-block-product-gallery-large-image .purplish-badge-corner-bottom-right {
 	right: 12px;
 	bottom: 12px;
+}
+
+/*
+ * Stock Indicator, sold out only. Every other stock state hides, and the
+ * sold-out line takes one of the Shelf Tag looks. The looks sit in :where()
+ * so colors and type set in the block's Styles win. In the editor the
+ * other states stay, faded, like a Shelf Tag whose rule leaves a card out.
+ */
+.purplish-stock[class*="purplish-stock-soldout-"]:not(.wc-block-components-product-stock-indicator--out-of-stock):not(.block-editor-block-list__block) {
+	display: none;
+}
+
+.block-editor-block-list__block.purplish-stock[class*="purplish-stock-soldout-"]:not(.wc-block-components-product-stock-indicator--out-of-stock) {
+	opacity: 0.38;
+	outline: 1px dashed currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-stock[class*="purplish-stock-soldout-"] {
+	box-sizing: border-box;
+	width: fit-content;
+	max-width: 100%;
+	margin: 0;
+	white-space: nowrap;
+	line-height: 1.2;
+}
+
+:where(.purplish-stock-soldout-pill) {
+	padding: 0.4em 0.85em;
+	border-radius: 999px;
+	background: #1d1a24;
+	color: #fff;
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+}
+
+:where(.purplish-stock-soldout-chip) {
+	padding: 0.45em 0.8em;
+	border-radius: 2px;
+	background: #fff;
+	color: #1d1a24;
+	font-size: 0.625rem;
+	font-weight: 500;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+}
+
+:where(.purplish-stock-soldout-glass) {
+	padding: 0.4em 0.85em;
+	border-radius: 999px;
+	background: rgb(255 255 255 / 0.6);
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.55), 0 0 0 1px rgb(29 26 36 / 0.08), 0 2px 8px rgb(29 26 36 / 0.08);
+	color: #1d1a24;
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	-webkit-backdrop-filter: blur(10px) saturate(1.4);
+	backdrop-filter: blur(10px) saturate(1.4);
+}
+
+/* On the photo, inside Product Image, in the same corners as Shelf Tag. */
+.wc-block-components-product-image__inner-container:has(> .purplish-stock) {
+	gap: 0.375rem;
+}
+
+.wc-block-components-product-image__inner-container > :where(.purplish-stock[class*="purplish-stock-soldout-"]) {
+	flex: none;
+	margin: 0.5rem 0.5rem 0;
+}
+
+.wc-block-components-product-image__inner-container > .purplish-stock-corner-top-right,
+.wc-block-components-product-image__inner-container > .purplish-stock-corner-bottom-right {
+	align-self: flex-end;
+}
+
+.wc-block-components-product-image__inner-container > [class*="purplish-stock-corner-bottom-"] {
+	order: 1;
+	margin: auto 0.5rem 0.5rem;
+}
+
+/*
+ * Grey out sold-out cards: the photo goes grey and soft, and comes back a
+ * little on hover so the shopper can still see the piece.
+ */
+.wc-block-product:has(.purplish-stock-grey.wc-block-components-product-stock-indicator--out-of-stock) .wc-block-components-product-image img {
+	filter: grayscale(1);
+	opacity: 0.55;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+	.wc-block-product:has(.purplish-stock-grey.wc-block-components-product-stock-indicator--out-of-stock) .wc-block-components-product-image img {
+		transition: filter 0.45s ease, opacity 0.45s ease;
+	}
+
+	.wc-block-product:has(.purplish-stock-grey.wc-block-components-product-stock-indicator--out-of-stock):hover .wc-block-components-product-image img {
+		filter: grayscale(0.35);
+		opacity: 0.85;
+	}
 }
 
 /* Gallery thumbnail shapes. */
@@ -3680,16 +3797,19 @@ body.purplish-active .purplish-group-tint {
 			view-timeline-name: --purplish-cover;
 		}
 
-		.purplish-cover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		.purplish-cover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
 			animation: linear both;
 			animation-timeline: --purplish-cover;
 		}
 
-		.purplish-cover-scroll-slowzoom > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		.purplish-cover-scroll-slowzoom > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover-scroll-slowzoom > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
 			animation-name: purplish-cover-zoom;
 		}
 
-		.purplish-cover-scroll-parallax > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		.purplish-cover-scroll-parallax > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover-scroll-parallax > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
 			scale: 1.2;
 			animation-name: purplish-cover-drift;
 		}
@@ -3700,7 +3820,8 @@ body.purplish-active .purplish-group-tint {
 			animation-range: entry 0% entry 100%;
 		}
 
-		.purplish-cover-scroll-pill > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+		.purplish-cover-scroll-pill > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover-scroll-pill > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
 			animation-name: purplish-cover-settle;
 			animation-fill-mode: backwards;
 			animation-range: entry 0% entry 100%;
@@ -3755,11 +3876,13 @@ body.purplish-active .purplish-group-tint {
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
 
-	.purplish-cover-hover-push > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+	.purplish-cover-hover-push > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+	.purplish-cover-hover-push > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
 		transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
-	.purplish-cover-hover-push:hover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax) {
+	.purplish-cover-hover-push:hover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+	.purplish-cover-hover-push:hover > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
 		transform: scale(1.06);
 	}
 }
@@ -3767,9 +3890,11 @@ body.purplish-active .purplish-group-tint {
 /*
  * Cover hover, tilt, lift and glare: the whole cover moves, text and all.
  * The front script adds the light layer under the text. A transform would
- * unpin a fixed background, so parallax covers keep still.
+ * unpin a fixed background, so parallax covers keep still. Featured
+ * Category and Featured Product mark parallax on their photo instead.
  */
-.purplish-cover > .purplish-image-light {
+.purplish-cover > .purplish-image-light,
+.purplish-cover > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > .purplish-image-light {
 	inset: 0;
 	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.35), transparent 50%);
 	opacity: 0;
@@ -3783,18 +3908,19 @@ body.purplish-active .purplish-group-tint {
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
 
-	.purplish-cover-hover-tilt:not(.has-parallax):hover {
+	.purplish-cover-hover-tilt:not(.has-parallax, :has(> * > .has-parallax)):hover {
 		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg));
 		box-shadow: 30px 40px 64px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
 		transition: transform 0.15s ease-out, box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
-	.purplish-cover-hover-lift:not(.has-parallax):hover {
+	.purplish-cover-hover-lift:not(.has-parallax, :has(> * > .has-parallax)):hover {
 		translate: 0 -10px;
 		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
 	}
 
-	:is(.purplish-cover-hover-tilt, .purplish-cover-hover-glare):hover > .purplish-image-light {
+	:is(.purplish-cover-hover-tilt, .purplish-cover-hover-glare):hover > .purplish-image-light,
+	:is(.purplish-cover-hover-tilt, .purplish-cover-hover-glare):hover > * > .purplish-image-light {
 		opacity: 1;
 	}
 }
