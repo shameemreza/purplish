@@ -32,6 +32,36 @@ class BlockEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The Stock Indicator's sold-out look, corner and grey become classes,
+	 * and the corner needs a sold-out look to place.
+	 */
+	public function test_stock_classes() {
+		$this->assertSame(
+			array( 'purplish-stock', 'purplish-stock-soldout-pill', 'purplish-stock-corner-top-right', 'purplish-stock-grey' ),
+			BlockEffects::classes_for(
+				'woocommerce/product-stock-indicator',
+				array(
+					'soldout' => 'pill',
+					'corner'  => 'top-right',
+					'grey'    => true,
+				)
+			)
+		);
+		$this->assertSame(
+			array( 'purplish-stock', 'purplish-stock-grey' ),
+			BlockEffects::classes_for(
+				'woocommerce/product-stock-indicator',
+				array(
+					'corner' => 'top-right',
+					'grey'   => true,
+				)
+			),
+			'no corner without a look'
+		);
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-stock-indicator', array( 'soldout' => 'banner' ) ) );
+	}
+
+	/**
 	 * Unknown options, wrong types and other blocks give no classes.
 	 */
 	public function test_unknown_input() {
