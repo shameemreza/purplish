@@ -24,6 +24,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo, and button motion. |
 | Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a Best seller, New arrival or Featured tag on the photo that shows only on the cards its rule matches. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
+| Shop and collection pages | Product Collection, Product Filters, Shelf Tag | The Atelier shop pattern: a quiet shop page with accordion filters that fold away, three columns of tall photos with a Best seller tag, and numbered pages. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
@@ -37,7 +38,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
 | Scroll motion | Heading, Group, Columns, Cover, Featured Category, Featured Product | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
-| Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
+| Page sections | Accordion, Accordion Group, Details, Group, Pagination | A soft style for both accordions and the Details block, a drawn heading line and chevron for the Accordion, boxed or underlined page numbers, and sections that take the page color. |
 
 ## How it works
 
@@ -134,6 +135,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 - **Shelf Tag block:** a small tag that shows only on the cards its rule matches. The rules are best sellers (the store's top 1 to 50 by sales, 8 by default), new products (published in the last 1 to 365 days, 30 by default) and featured products. Pick a chip, a pill or frosted glass, the corner, your own words in place of Best seller, New arrival or Featured, and a light that passes over the tag once on hover. In the editor, the tag shows faded on the cards it leaves out. Best sellers are worked out again after each order, and at least every six hours.
 - **Sold out:** on the Stock Indicator block, Only when sold out hides the indicator on every other stock state and shows Out of stock in a pill, a chip or glass, in the corner you pick. Grey out sold-out cards turns the photo grey and soft, and brings some of it back on hover.
 
+### Shop page pattern
+
+- **Pattern:** Atelier shop is a quiet shop page for the Product Catalog and product category templates. It has breadcrumbs, the category name as an uppercase serif title with its description under it, and accordion filters on the left (Categories, Shop by price, Availability) that fold away with Hide filters. Sort by sits on the right, then three columns of tall photos with a Best seller tag, cards that lift on hover with Add to cart on the photo, and numbered pages with Back and Next. The products follow the page, so on a category template it shows that category. Find it in the Site Editor's pattern inserter under Purplish or WooCommerce. It's offered in templates only, since Sort by and the results only work on shop pages. The title uses Purple's Bodoni Moda, and other themes keep their own font.
+
 ## Filters and mini-cart
 
 - **Product Filters, Matching chips:** the active filters take the look of a selected chip, with its colors, corners and letter case, and a chip fades into its selected color when picked.
@@ -154,9 +159,11 @@ Touch screens get the button looks without the hover parts, and visitors who tur
 ## Page sections
 
 - **Accordion, Soft style:** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
+- **Accordion, Heading line and Icon:** Drawn puts a hairline under each item and a line in the page color that draws across on hover and stays while the item is open. Chevron swaps the plus for a small arrow that turns over when the item opens. Both are for when Soft style is off.
 - **Accordion Group, Soft style:** the same soft cards on WooCommerce's own accordion, with its icon in a round button that fills with the page color when open.
 - **Details, Soft style:** the block becomes a soft card, and a round plus turns into an x that fills with the page color when open.
 - **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
+- **Pagination, Page numbers:** Boxed puts each number and Previous and Next in a small box, with the current page filled in the page color. Underline puts the current page on a line in the page color and makes the other numbers lighter.
 
 ## Images and buttons
 
@@ -306,7 +313,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Gallery: full-screen and slide styles, frosted arrows | Yes | No |
 | Product cards, card effects and card hover looks | Yes | No |
 | Title focus, glow ring, halo, mesh background, color dots | Yes | No |
-| Accordion and Group styles | Yes | No |
+| Accordion, Group and page number styles | Yes | No |
 | Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |
 | Details, review and specifications styles | Yes | No |
 | Matching filter chips, mini-cart count pop | Yes | No |
@@ -318,7 +325,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, Shelf Tag joins them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, Shelf Tag joins them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 

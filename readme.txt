@@ -77,6 +77,8 @@ Inside the card, two more pieces sit on the photo when you put them in the Produ
 * **Shelf Tag block:** a small tag for best sellers, new arrivals or featured products. It shows only on the cards its rule matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
 * **Sold out:** the Stock Indicator block can show only on sold-out products, in the same three looks, and grey out their photos.
 
+* **Pattern:** Atelier shop is a quiet shop page for your shop and category templates: an uppercase serif title, accordion filters that fold away, Sort by, three columns of tall photos with a Best seller tag, cards that lift on hover with Add to cart on the photo, and numbered pages.
+
 = Small details =
 
 On the Add to Cart + Options block:
@@ -92,7 +94,9 @@ On the Add to Cart + Options block:
 On other blocks:
 
 * **Accordion, Accordion Group and Details, Soft style:** each item becomes a soft card, and its icon fills with the page color when open.
+* **Accordion, Heading line and Icon:** a hairline under each item with a line that draws across on hover, and a chevron in place of the plus.
 * **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
+* **Pagination, Page numbers:** each number in a small box, or the current page on a line, in the page color.
 * **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out.
 * **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
 * **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.

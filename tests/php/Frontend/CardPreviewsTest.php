@@ -30,6 +30,7 @@ class CardPreviewsTest extends WP_UnitTestCase {
 			'core/details',
 			'woocommerce/product-reviews',
 			'woocommerce/product-specifications',
+			'core/query-pagination',
 		) as $name ) {
 			$this->assertArrayHasKey( $name, $map, $name );
 			$this->assertSame( $blocks[ $name ]['prefix'], $map[ $name ]['prefix'], $name );

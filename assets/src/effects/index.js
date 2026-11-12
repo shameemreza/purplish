@@ -25,6 +25,7 @@ import { flyToCart } from '../shared/fly';
 import { throwStrips } from '../shared/throw';
 import { settleStrips } from '../shared/settle';
 import './style.css';
+import './shop/style.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 const canHover =

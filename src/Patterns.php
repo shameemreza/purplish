@@ -148,6 +148,13 @@ final class Patterns {
 				'blockTypes' => array(),
 				'file'       => PURPLISH_DIR . 'patterns/empty-cart.php',
 			),
+			'atelier-shop'          => array(
+				'title'      => __( 'Atelier shop', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array( 'woocommerce/product-collection' ),
+				'postTypes'  => array( 'wp_template' ),
+				'file'       => PURPLISH_DIR . 'patterns/atelier-shop.php',
+			),
 		);
 	}
 

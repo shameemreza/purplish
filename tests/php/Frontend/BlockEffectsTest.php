@@ -172,6 +172,55 @@ class BlockEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The accordion's drawn line and chevron become their classes, and both
+	 * wait for the soft style to be off, since it draws its own edges.
+	 */
+	public function test_accordion_line_and_icon() {
+		$this->assertSame(
+			array( 'purplish-accordion', 'purplish-accordion-line-draw', 'purplish-accordion-icon-chevron' ),
+			BlockEffects::classes_for(
+				'core/accordion',
+				array(
+					'line' => 'draw',
+					'icon' => 'chevron',
+				)
+			)
+		);
+		$this->assertSame(
+			array( 'purplish-accordion', 'purplish-accordion-soft' ),
+			BlockEffects::classes_for(
+				'core/accordion',
+				array(
+					'soft' => true,
+					'line' => 'draw',
+					'icon' => 'chevron',
+				)
+			)
+		);
+		$this->assertSame(
+			array(),
+			BlockEffects::classes_for(
+				'core/accordion',
+				array(
+					'line' => 'thick',
+					'icon' => 'arrow',
+				)
+			)
+		);
+	}
+
+	/**
+	 * The page numbers looks become their classes, and a look outside the
+	 * list is ignored.
+	 */
+	public function test_pagination_looks() {
+		foreach ( array( 'boxed', 'underline' ) as $look ) {
+			$this->assertSame( array( 'purplish-pages', 'purplish-pages-look-' . $look ), BlockEffects::classes_for( 'core/query-pagination', array( 'look' => $look ) ) );
+		}
+		$this->assertSame( array(), BlockEffects::classes_for( 'core/query-pagination', array( 'look' => 'pill' ) ) );
+	}
+
+	/**
 	 * Every motion pack value on the cards and the gallery becomes its class,
 	 * and a slide style outside the list is ignored.
 	 */

@@ -19,6 +19,7 @@ body.purplish-active {
 .purplish-gallery,
 .purplish-cards,
 .purplish-accordion,
+.purplish-pages,
 .purplish-details,
 .purplish-reviews,
 .purplish-specs,
@@ -593,7 +594,8 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		translate: 0 0;
 	}
 
-	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"]) .wc-block-product:hover .wc-block-components-product-image img {
+	/* A card or photo look of its own already answers the hover. */
+	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"], [class*="purplish-cards-hovercard-"]) .wc-block-product:hover .wc-block-components-product-image img {
 		transform: scale(1.06);
 	}
 
@@ -3322,7 +3324,12 @@ body.purplish-active .purplish-group-tint {
 		margin-inline-end: 0;
 	}
 
-	.purplish-filters-row.is-folded > .wp-block-column:not(.purplish-filters-side) {
+	/*
+	 * Always free to grow, so the products fill the room the filters give
+	 * up on every frame of the fold. Open, the two columns overflow the
+	 * row by the gap, so the grow changes nothing there.
+	 */
+	.purplish-filters-row > .wp-block-column:not(.purplish-filters-side) {
 		flex-grow: 1 !important;
 	}
 }
