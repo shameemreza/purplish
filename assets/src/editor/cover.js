@@ -1,7 +1,7 @@
 /**
  * Purplish panel on the Cover block.
  */
-import { PanelBody, SelectControl } from '@wordpress/components';
+import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const SCROLLS = [
@@ -25,8 +25,9 @@ const HOVERS = [
  * @param {Object}                  props          Panel props.
  * @param {Object}                  props.saved    The block's saved `purplish` attribute.
  * @param {(saved: Object) => void} props.setSaved Saves a new `purplish` attribute.
+ * @param {boolean}                 props.photo    Whether to offer the category photo.
  */
-export default function CoverPanel( { saved, setSaved } ) {
+export default function CoverPanel( { saved, setSaved, photo = false } ) {
 	return (
 		<PanelBody title={ __( 'Purplish', 'purplish' ) }>
 			<SelectControl
@@ -57,6 +58,29 @@ export default function CoverPanel( { saved, setSaved } ) {
 					setSaved( { ...saved, hover: hover || undefined } )
 				}
 			/>
+			{ photo && (
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Use the category photo', 'purplish' ) }
+					help={ __(
+						'On a product category or brand page, the cover shows that page’s photo. Other pages, and categories without a photo, keep this cover’s image.',
+						'purplish'
+					) }
+					checked={ true === saved.termphoto }
+					onChange={ ( on ) =>
+						setSaved( { ...saved, termphoto: on || undefined } )
+					}
+				/>
+			) }
 		</PanelBody>
 	);
+}
+
+/**
+ * The panel on core Cover, which also offers the category photo.
+ *
+ * @param {Object} props Panel props.
+ */
+export function PagePhotoCoverPanel( props ) {
+	return <CoverPanel { ...props } photo />;
 }

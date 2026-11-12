@@ -26,7 +26,8 @@ class FeaturedCoverLooksTest extends WP_UnitTestCase {
 
 		foreach ( array( 'woocommerce/featured-category', 'woocommerce/featured-product' ) as $name ) {
 			$this->assertSame( $blocks['core/cover']['prefix'], $blocks[ $name ]['prefix'], $name );
-			$this->assertSame( $blocks['core/cover']['options'], $blocks[ $name ]['options'], $name );
+			// The category photo is Cover's own: these blocks already show a term's or product's photo.
+			$this->assertSame( array_diff_key( $blocks['core/cover']['options'], array( 'termphoto' => true ) ), $blocks[ $name ]['options'], $name );
 
 			$args = ( new BlockEffects() )->add_attribute( array(), $name );
 			$this->assertSame( 'object', $args['attributes']['purplish']['type'], $name );

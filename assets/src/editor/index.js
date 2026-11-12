@@ -12,6 +12,7 @@ import CardsPanel from './cards';
 import AccordionPanel from './accordion';
 import PaginationPanel from './pagination';
 import TermsPanel from './terms';
+import CountPanel, { CountView } from './count';
 import GroupPanel from './group';
 import ChipsPanel from './chips';
 import BadgePanel from './badge';
@@ -28,7 +29,7 @@ import ButtonPanel from './button';
 import HeadingPanel from './heading';
 import SocialPanel from './social';
 import ColumnsPanel from './columns';
-import CoverPanel from './cover';
+import CoverPanel, { PagePhotoCoverPanel } from './cover';
 import BuyButtonPanel, { PlaceOrderPanel } from './buy-button';
 import DrawerPanel from './drawer';
 import CartPagePanel from './cart-page';
@@ -43,6 +44,7 @@ const PANELS = {
 	'core/accordion': AccordionPanel,
 	'core/query-pagination': PaginationPanel,
 	'core/terms-query': TermsPanel,
+	'woocommerce/product-results-count': CountPanel,
 	'core/group': GroupPanel,
 	'woocommerce/add-to-cart-with-options-variation-selector-attribute':
 		ChipsPanel,
@@ -60,7 +62,7 @@ const PANELS = {
 	'core/heading': HeadingPanel,
 	'core/social-links': SocialPanel,
 	'core/columns': ColumnsPanel,
-	'core/cover': CoverPanel,
+	'core/cover': PagePhotoCoverPanel,
 	'woocommerce/featured-category': CoverPanel,
 	'woocommerce/featured-product': CoverPanel,
 	'woocommerce/order-confirmation-status': OrderStatusPanel,
@@ -79,6 +81,7 @@ const PANELS = {
  */
 const VIEWS = {
 	'woocommerce/product-stock-indicator': StockView,
+	'woocommerce/product-results-count': CountView,
 };
 
 addFilter(

@@ -217,6 +217,19 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// Hero counts: the number on its own, in brackets or with "products".
+			'woocommerce/product-results-count'           => array(
+				'prefix'  => 'count',
+				'options' => array(
+					'show'   => array( 'number', 'brackets', 'products' ),
+					'look'   => array( 'pill', 'outline' ),
+					'motion' => array( 'roll', 'pop' ),
+				),
+				'needs'   => array(
+					'motion' => array( array( 'show', array( 'number', 'brackets', 'products' ), true ) ),
+				),
+				'preview' => true,
+			),
 			'core/terms-query'                            => array(
 				'prefix'  => 'terms',
 				'options' => array(
@@ -423,8 +436,9 @@ final class BlockEffects {
 			'core/cover'                                  => array(
 				'prefix'  => 'cover',
 				'options' => array(
-					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
-					'hover'  => array( 'push', 'tilt', 'lift', 'glare' ),
+					'scroll'    => array( 'slowzoom', 'parallax', 'pill' ),
+					'hover'     => array( 'push', 'tilt', 'lift', 'glare' ),
+					'termphoto' => true,
 				),
 				'preview' => array( 'hover' ),
 			),
