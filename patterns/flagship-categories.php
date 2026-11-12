@@ -1,8 +1,13 @@
 <?php
 /**
- * Pattern: Shop by category. Four tall Cover tiles, each a drawn figure
- * with the category name on the photo over a dark fade. The tile tilts
- * toward the mouse on hover and the tiles rise in one after another.
+ * Pattern: Shop by category. Four tall tiles with the category name on the
+ * photo over a dark fade. The tile tilts toward the mouse on hover and the
+ * tiles rise in one after another.
+ *
+ * From WooCommerce 11.3 the tiles come from a Terms Query: the store's four
+ * biggest product categories, each a Featured Category with its own image,
+ * name and link. Before 11.3 Featured Category can't read the category from
+ * a Terms Query, so the tiles stay hand-built covers with drawn figures.
  *
  * @package Purplish
  */
@@ -13,8 +18,11 @@ $purplish_shop   = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_perm
 $purplish_ink    = '#111111';
 $purplish_tint   = '#f2edff';
 $purplish_ground = '#ffffff';
+// A category without an image shows this under the fade.
+$purplish_deep   = '#4b1d8f';
 // Clear at the head, dark at the foot, so the name reads on any photo.
 $purplish_fade   = 'linear-gradient(180deg, rgba(31,3,66,0) 50%, rgba(31,3,66,0.72) 100%)';
+$purplish_terms  = defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '11.3', '>=' );
 $purplish_tiles  = array(
 	array( __( 'Coats', 'purplish' ), 'long-coat' ),
 	array( __( 'Jackets', 'purplish' ), 'puffer' ),
@@ -26,6 +34,23 @@ $purplish_tiles  = array(
 <div class="wp-block-group alignfull has-background" style="background-color:<?php echo esc_attr( $purplish_ground ); ?>;margin-top:0;margin-bottom:0;padding-top:clamp(64px, 9vw, 120px);padding-right:0;padding-bottom:clamp(64px, 9vw, 120px);padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><?php echo \Purplish\Patterns::section_head( __( 'Shop by category', 'purplish' ), '', $purplish_shop, __( 'All clothing', 'purplish' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in section_head(). ?>
 
+<?php if ( $purplish_terms ) : ?>
+<!-- wp:terms-query {"termQuery":{"perPage":4,"taxonomy":"product_cat","order":"desc","orderBy":"count","include":[],"hideEmpty":true,"showNested":false,"inherit":false}} -->
+<div class="wp-block-terms-query"><!-- wp:term-template {"style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
+<!-- wp:group {"layout":{"type":"default"},"purplish":{"entrance":"fadeup"}} -->
+<div class="wp-block-group"><!-- wp:woocommerce/featured-category {"verticalAlignment":"bottom","contentAlign":"left","dimRatio":100,"imageFit":"cover","focalPoint":{"x":0.5,"y":0.3},"overlayColor":"transparent","overlayGradient":"<?php echo esc_attr( $purplish_fade ); ?>","style":{"color":{"background":"<?php echo esc_attr( $purplish_deep ); ?>","text":"#ffffff"},"dimensions":{"aspectRatio":"3/4"},"border":{"width":"1px","style":"solid","color":"<?php echo esc_attr( $purplish_tint ); ?>"},"spacing":{"padding":{"top":"0","right":"0","bottom":"8px","left":"0"},"blockGap":"12px"}},"purplish":{"hover":"tilt"}} -->
+<!-- wp:woocommerce/category-title {"level":3,"textAlign":"left","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} /-->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
+<div class="wp-block-buttons"><!-- wp:button {"metadata":{"bindings":{"url":{"source":"core/term-data","args":{"field":"link"}}}},"className":"is-style-outline","style":{"color":{"text":"#ffffff"},"border":{"color":"#ffffff","width":"1px"}},"fontSize":"small"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-text-color has-border-color has-small-font-size has-custom-font-size wp-element-button" style="border-color:#ffffff;border-width:1px;color:#ffffff"><?php echo esc_html__( 'Shop now', 'purplish' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+<!-- /wp:woocommerce/featured-category --></div>
+<!-- /wp:group -->
+<!-- /wp:term-template --></div>
+<!-- /wp:terms-query -->
+<?php else : ?>
 <!-- wp:group {"style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
 <div class="wp-block-group">
 <?php foreach ( $purplish_tiles as $purplish_tile ) : ?>
@@ -64,6 +89,7 @@ $purplish_tiles  = array(
 <!-- /wp:group -->
 <?php endforeach; ?>
 </div>
-<!-- /wp:group --></div>
+<!-- /wp:group -->
+<?php endif; ?></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
