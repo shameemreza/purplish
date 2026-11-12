@@ -38,7 +38,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
 | Scroll motion | Heading, Group, Columns, Cover, Featured Category, Featured Product | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
-| Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
+| Page sections | Accordion, Accordion Group, Details, Group, Pagination | A soft style for both accordions and the Details block, a drawn heading line and chevron for the Accordion, boxed or underlined page numbers, and sections that take the page color. |
 
 ## How it works
 
@@ -159,9 +159,11 @@ Touch screens get the button looks without the hover parts, and visitors who tur
 ## Page sections
 
 - **Accordion, Soft style:** each item becomes a soft card, and the plus turns into an x that fills with the page color when the item is open.
+- **Accordion, Heading line and Icon:** Drawn puts a hairline under each item and a line in the page color that draws across on hover and stays while the item is open. Chevron swaps the plus for a small arrow that turns over when the item opens. Both are for when Soft style is off.
 - **Accordion Group, Soft style:** the same soft cards on WooCommerce's own accordion, with its icon in a round button that fills with the page color when open.
 - **Details, Soft style:** the block becomes a soft card, and a round plus turns into an x that fills with the page color when open.
 - **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
+- **Pagination, Page numbers:** Boxed puts each number and Previous and Next in a small box, with the current page filled in the page color. Underline puts the current page on a line in the page color and makes the other numbers lighter.
 
 ## Images and buttons
 
@@ -311,7 +313,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Gallery: full-screen and slide styles, frosted arrows | Yes | No |
 | Product cards, card effects and card hover looks | Yes | No |
 | Title focus, glow ring, halo, mesh background, color dots | Yes | No |
-| Accordion and Group styles | Yes | No |
+| Accordion, Group and page number styles | Yes | No |
 | Grayed-out look, badge shape and corner, thumbnail shape | Yes | No |
 | Details, review and specifications styles | Yes | No |
 | Matching filter chips, mini-cart count pop | Yes | No |
@@ -323,7 +325,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, Shelf Tag joins them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, Shelf Tag joins them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 
