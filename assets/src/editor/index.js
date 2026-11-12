@@ -55,6 +55,8 @@ const PANELS = {
 	'core/social-links': SocialPanel,
 	'core/columns': ColumnsPanel,
 	'core/cover': CoverPanel,
+	'woocommerce/featured-category': CoverPanel,
+	'woocommerce/featured-product': CoverPanel,
 	'woocommerce/order-confirmation-status': OrderStatusPanel,
 	'woocommerce/order-confirmation-summary': OrderSummaryPanel,
 	'woocommerce/proceed-to-checkout-block': BuyButtonPanel,

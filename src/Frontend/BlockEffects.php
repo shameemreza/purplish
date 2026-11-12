@@ -332,6 +332,23 @@ final class BlockEffects {
 				),
 				'preview' => array( 'hover' ),
 			),
+			// Since WooCommerce 11.3 both style like a cover, so they take its looks.
+			'woocommerce/featured-category'               => array(
+				'prefix'  => 'cover',
+				'options' => array(
+					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
+					'hover'  => array( 'push', 'tilt', 'lift', 'glare' ),
+				),
+				'preview' => array( 'hover' ),
+			),
+			'woocommerce/featured-product'                => array(
+				'prefix'  => 'cover',
+				'options' => array(
+					'scroll' => array( 'slowzoom', 'parallax', 'pill' ),
+					'hover'  => array( 'push', 'tilt', 'lift', 'glare' ),
+				),
+				'preview' => array( 'hover' ),
+			),
 			'woocommerce/order-confirmation-status'       => array(
 				'prefix'  => 'thanks',
 				'options' => array(

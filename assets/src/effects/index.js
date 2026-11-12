@@ -152,10 +152,24 @@ if ( canHover ) {
 			'.purplish-cover-hover-tilt, .purplish-cover-hover-glare'
 		)
 		.forEach( ( cover ) => {
-			cover.insertBefore(
-				imageLight( document, 'glare' ),
-				cover.querySelector( '.wp-block-cover__inner-container' )
+			// Featured Category and Product hold their photo and text in a
+			// wrapper, so the light goes in there, right after the photo.
+			const wrapper = cover.querySelector(
+				':scope > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper)'
 			);
+			const photo =
+				wrapper?.querySelector(
+					':scope > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image)'
+				) ||
+				wrapper?.querySelector( ':scope > .background-dim__overlay' );
+			if ( photo ) {
+				photo.after( imageLight( document, 'glare' ) );
+			} else {
+				cover.insertBefore(
+					imageLight( document, 'glare' ),
+					cover.querySelector( '.wp-block-cover__inner-container' )
+				);
+			}
 			follow(
 				cover,
 				styleIn( cover.classList, 'purplish-cover-hover-' ),
