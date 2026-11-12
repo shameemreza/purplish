@@ -3014,13 +3014,21 @@ body.purplish-active .purplish-group-tint {
 	border-radius: 999px;
 }
 
+/*
+ * A discount amount ("Save $20.00") wraps onto two lines: the circle takes
+ * the width of its longest word, never less than 4.25em, instead of
+ * growing to fit the whole line.
+ */
 .purplish-badge-shape-circle .wc-block-components-product-sale-badge {
 	display: inline-grid;
 	place-items: center;
+	inline-size: min-content;
 	min-width: 4.25em;
 	aspect-ratio: 1;
 	padding: 0.5em;
 	border-radius: 50%;
+	line-height: 1.15;
+	text-align: center;
 }
 
 /*
