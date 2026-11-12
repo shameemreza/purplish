@@ -3322,7 +3322,12 @@ body.purplish-active .purplish-group-tint {
 		margin-inline-end: 0;
 	}
 
-	.purplish-filters-row.is-folded > .wp-block-column:not(.purplish-filters-side) {
+	/*
+	 * Always free to grow, so the products fill the room the filters give
+	 * up on every frame of the fold. Open, the two columns overflow the
+	 * row by the gap, so the grow changes nothing there.
+	 */
+	.purplish-filters-row > .wp-block-column:not(.purplish-filters-side) {
 		flex-grow: 1 !important;
 	}
 }
