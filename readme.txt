@@ -77,7 +77,7 @@ Inside the card, two more pieces sit on the photo when you put them in the Produ
 * **Shelf Tag block:** a small tag for best sellers, new arrivals or featured products. It shows only on the cards its rule matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
 * **Sold out:** the Stock Indicator block can show only on sold-out products, in the same three looks, and grey out their photos.
 
-* **Pattern:** Atelier shop is a quiet shop page for your shop and category templates: an uppercase serif title, accordion filters that fold away, Sort by, three columns of tall photos with a Best seller tag, cards that lift on hover, and numbered pages.
+* **Pattern:** Atelier shop is a quiet shop page for your shop and category templates: an uppercase serif title, accordion filters that fold away, Sort by, three columns of tall photos with a Best seller tag, cards that lift on hover with Add to cart on the photo, and numbered pages.
 
 = Small details =
 

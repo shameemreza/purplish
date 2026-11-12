@@ -3,7 +3,8 @@
  * Pattern: Atelier shop. A quiet shop page: breadcrumbs, an uppercase serif
  * title with the category's description, accordion filters on the left
  * that can fold away, Sort by on the right, three columns of tall photos
- * with a Best seller tag, cards that lift on hover, and numbered pages.
+ * with a Best seller tag, cards that lift on hover with Add to cart on
+ * the photo, and numbered pages.
  * The collection follows the page's query, so on a category template it
  * shows that category. The title uses Purple's Bodoni Moda; a theme
  * without it keeps its own font.
@@ -75,6 +76,7 @@ $purplish_collection = array(
 	'collection'    => 'woocommerce/product-collection/product-catalog',
 	'align'         => 'wide',
 	'purplish'      => array(
+		'overlay'   => true,
 		'hoveron'   => 'card',
 		'hovercard' => 'lift',
 	),
@@ -149,13 +151,15 @@ echo $purplish_accordion(
 <!-- /wp:group -->
 
 <!-- wp:woocommerce/product-template -->
-<!-- wp:woocommerce/product-image {"showSaleBadge":false,"isDescendentOfQueryLoop":true,"aspectRatio":"3/4","scale":"cover"} -->
+<!-- wp:woocommerce/product-image {"showSaleBadge":false,"isDescendentOfQueryLoop":true,"aspectRatio":"3/4","scale":"cover","style":{"border":{"radius":"0px"}}} -->
 <!-- wp:purplish/shelf-tag {"rule":"bestseller","top":8} /-->
 <!-- /wp:woocommerce/product-image -->
 
 <!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"0.8125rem","fontStyle":"normal","fontWeight":"500","textTransform":"uppercase","letterSpacing":"0.03em","lineHeight":"1.4"},"spacing":{"margin":{"top":"0.85rem","bottom":"0.25rem"}},"elements":{"link":{"color":{"text":"inherit"}}}},"__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
 
 <!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"style":{"typography":{"fontSize":"0.875rem","fontWeight":"600"}}} /-->
+
+<!-- wp:woocommerce/product-button {"isDescendentOfQueryLoop":true} /-->
 <!-- /wp:woocommerce/product-template -->
 
 <!-- wp:query-pagination {"paginationArrow":"chevron","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}},"typography":{"fontSize":"0.8125rem","textTransform":"uppercase","letterSpacing":"0.04em"}},"layout":{"type":"flex","justifyContent":"center"}} -->

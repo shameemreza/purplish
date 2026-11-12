@@ -329,19 +329,19 @@ class PatternsTest extends WP_UnitTestCase {
 
 		$blocks = parse_blocks( $shop['content'] );
 		$names  = $this->block_names( $blocks );
-		foreach ( array( 'woocommerce/breadcrumbs', 'core/query-title', 'core/term-description', 'woocommerce/product-collection', 'woocommerce/product-filters', 'woocommerce/catalog-sorting', 'woocommerce/product-template', 'purplish/shelf-tag', 'core/query-pagination-numbers' ) as $name ) {
+		foreach ( array( 'woocommerce/breadcrumbs', 'core/query-title', 'core/term-description', 'woocommerce/product-collection', 'woocommerce/product-filters', 'woocommerce/catalog-sorting', 'woocommerce/product-template', 'purplish/shelf-tag', 'woocommerce/product-button', 'core/query-pagination-numbers' ) as $name ) {
 			$this->assertContains( $name, $names );
 		}
 		foreach ( $names as $name ) {
 			$this->assertTrue( \WP_Block_Type_Registry::get_instance()->is_registered( $name ), $name . ' is registered' );
 		}
-		$this->assertNotContains( 'woocommerce/product-button', $names );
 
 		$collection = $this->find_block( $blocks, 'woocommerce/product-collection' );
 		$this->assertTrue( $collection['attrs']['query']['inherit'] );
 		$this->assertSame( 3, $collection['attrs']['displayLayout']['columns'] );
 		$this->assertSame(
 			array(
+				'overlay'   => true,
 				'hoveron'   => 'card',
 				'hovercard' => 'lift',
 			),
