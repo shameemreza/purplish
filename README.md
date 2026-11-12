@@ -39,7 +39,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
 | Scroll motion | Heading, Group, Columns, Cover, Featured Category, Featured Product | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
-| Page sections | Accordion, Accordion Group, Details, Group, Pagination | A soft style for both accordions and the Details block, a drawn heading line and chevron for the Accordion, boxed or underlined page numbers, and sections that take the page color. |
+| Page sections | Accordion, Accordion Group, Details, Group, Pagination | A soft style for both accordions and the Details block, a drawn heading line and chevron for the Accordion, boxed or underlined page numbers, a Load more button for product grids, and sections that take the page color. |
 
 ## How it works
 
@@ -174,6 +174,7 @@ Touch screens get the button looks without the hover parts, and visitors who tur
 - **Details, Soft style:** the block becomes a soft card, and a round plus turns into an x that fills with the page color when open.
 - **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
 - **Pagination, Page numbers:** Boxed puts each number and Previous and Next in a small box, with the current page filled in the page color. Underline puts the current page on a line in the page color and makes the other numbers lighter.
+- **Pagination, Load more:** inside a Product Collection, the page numbers become a Load more button that adds the next page under the products, without leaving the page. Pick Button, or Button over a fade, where the last row fades out under it. The button takes the theme's outline style and the Button block's looks (glow ring, light sweep, liquid glass, spectrum ring, googly eyes). After a click it shows a small spinner for a moment, then the new cards come in one after another and focus moves to the first of them; reduced motion skips the pause and adds them at once. Once every product shows, the button goes away. The URL keeps up, so a reload or the Back button shows the same products. It stops at 200 products, where the page numbers come back. With full page reloads on the collection, or if the page loads in full anyway, it lands on the new cards.
 
 ## Images and buttons
 

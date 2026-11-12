@@ -47,19 +47,20 @@ const LOOKS = [
 ];
 
 /**
- * The panel.
+ * The Button block's looks, also offered on the Load more button.
  *
- * @param {Object}                  props          Panel props.
- * @param {Object}                  props.saved    The block's saved `purplish` attribute.
- * @param {(saved: Object) => void} props.setSaved Saves a new `purplish` attribute.
+ * @param {Object}                    props        Control props.
+ * @param {Object}                    props.looks  The saved looks.
+ * @param {(changes: Object) => void} props.change Saves changed looks.
  */
-export default function ButtonPanel( { saved, setSaved } ) {
+export function ButtonLooks( { looks, change } ) {
 	const [ palette ] = useSettings( 'color.palette' );
-	const colorId = useInstanceId( ButtonPanel, 'purplish-effect-color' );
-	const save = ( changes ) => setSaved( { ...saved, ...changes } );
+	const colorId = useInstanceId( ButtonLooks, 'purplish-effect-color' );
+	const saved = looks;
+	const save = change;
 
 	return (
-		<PanelBody title={ __( 'Purplish', 'purplish' ) }>
+		<>
 			{ LOOKS.map( ( look ) => (
 				<ToggleControl
 					key={ look.key }
@@ -95,6 +96,24 @@ export default function ButtonPanel( { saved, setSaved } ) {
 					clearable
 				/>
 			</BaseControl>
+		</>
+	);
+}
+
+/**
+ * The panel.
+ *
+ * @param {Object}                  props          Panel props.
+ * @param {Object}                  props.saved    The block's saved `purplish` attribute.
+ * @param {(saved: Object) => void} props.setSaved Saves a new `purplish` attribute.
+ */
+export default function ButtonPanel( { saved, setSaved } ) {
+	return (
+		<PanelBody title={ __( 'Purplish', 'purplish' ) }>
+			<ButtonLooks
+				looks={ saved }
+				change={ ( changes ) => setSaved( { ...saved, ...changes } ) }
+			/>
 		</PanelBody>
 	);
 }
