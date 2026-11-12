@@ -22,7 +22,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 
 = Built to stay out of your way =
 
-* **Works on the blocks you already use:** Purplish adds a panel to 21 WooCommerce blocks, from the Product Gallery to the Checkout, and to 8 core blocks, like Group, Cover and Button. It replaces nothing.
+* **Works on the blocks you already use:** Purplish adds a panel to 22 WooCommerce blocks, from the Product Gallery to the Checkout, and to 8 core blocks, like Group, Cover and Button. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
 * **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
@@ -71,6 +71,11 @@ Effects in a carousel (a grid stays as it is): Deck, Arc, Spotlight carousel, Gr
 Effects as cards scroll into view: Clothes line, Parallax, Zoom reveal and Unfold (Unfold needs the Grid layout).
 
 * **Hover:** one look each for the card, the photo and the add to cart button, alongside any card effect. Photo looks include Second photo, which swaps in the product's first gallery photo.
+
+Inside the card, two more pieces sit on the photo when you put them in the Product Image block:
+
+* **Shelf Tag block:** a small tag for best sellers, new arrivals or featured products. It shows only on the cards its rule matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
+* **Sold out:** the Stock Indicator block can show only on sold-out products, in the same three looks, and grey out their photos.
 
 = Small details =
 

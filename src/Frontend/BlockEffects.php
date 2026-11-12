@@ -205,6 +205,22 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// Sold out only: the indicator hides on every other stock state.
+			'woocommerce/product-stock-indicator'         => array(
+				'prefix'  => 'stock',
+				'options' => array(
+					'soldout' => array( 'pill', 'chip', 'glass' ),
+					'corner'  => array( 'top-left', 'top-right', 'bottom-left', 'bottom-right' ),
+					'grey'    => true,
+				),
+				// The corner only places the sold-out look.
+				'needs'   => array(
+					'corner' => array(
+						array( 'soldout', array( 'pill', 'chip', 'glass' ), true ),
+					),
+				),
+				'preview' => true,
+			),
 			'woocommerce/product-gallery-thumbnails'      => array(
 				'prefix'  => 'thumbs',
 				'options' => array(

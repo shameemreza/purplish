@@ -471,6 +471,110 @@ return array(
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
 	),
+	'shelf-tag' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/shelf-tag',
+		'version' => '1.3.0',
+		'title' => 'Shelf Tag',
+		'category' => 'purplish',
+		'description' => 'A small tag on product cards, such as New arrival or Best seller. It shows only on the products its rule matches, and sits on the photo inside the Product Image block.',
+		'keywords' => array(
+			'badge',
+			'label',
+			'new',
+			'best seller',
+			'featured'
+		),
+		'textdomain' => 'purplish',
+		'ancestor' => array(
+			'woocommerce/product-template',
+			'core/post-template',
+			'woocommerce/single-product'
+		),
+		'usesContext' => array(
+			'postId',
+			'postType'
+		),
+		'attributes' => array(
+			'rule' => array(
+				'type' => 'string',
+				'enum' => array(
+					'bestseller',
+					'new',
+					'featured'
+				),
+				'default' => 'bestseller'
+			),
+			'top' => array(
+				'type' => 'number',
+				'default' => 8
+			),
+			'days' => array(
+				'type' => 'number',
+				'default' => 30
+			),
+			'label' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'look' => array(
+				'type' => 'string',
+				'enum' => array(
+					'chip',
+					'pill',
+					'glass'
+				),
+				'default' => 'chip'
+			),
+			'corner' => array(
+				'type' => 'string',
+				'enum' => array(
+					'top-right',
+					'top-left',
+					'bottom-left',
+					'bottom-right'
+				),
+				'default' => 'top-right'
+			),
+			'shine' => array(
+				'type' => 'boolean',
+				'default' => false
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'reusable' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'typography' => array(
+				'fontSize' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalLetterSpacing' => true,
+				'__experimentalTextTransform' => true
+			),
+			'spacing' => array(
+				'padding' => true,
+				'margin' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true
+			),
+			'shadow' => true
+		),
+		'example' => array(
+			'attributes' => array(
+				'rule' => 'bestseller'
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'style' => 'file:./style-index.css'
+	),
 	'showfloor' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

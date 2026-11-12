@@ -1,0 +1,121 @@
+/**
+ * Shelf Tag. The looks sit in :where() so colors, type and borders set in
+ * the block's Styles win without a fight. Inside the Product Image block
+ * the tag lines up in its corner of the photo; anywhere else it sits in
+ * the card's flow like a short label.
+ */
+.wp-block-purplish-shelf-tag {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	box-sizing: border-box;
+	width: fit-content;
+	max-width: 100%;
+	overflow: hidden;
+	isolation: isolate;
+	white-space: nowrap;
+	line-height: 1.2;
+}
+
+.purplish-shelf-tag-text {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Chip: a small white label with wide, upper case letters. */
+:where(.wp-block-purplish-shelf-tag.purplish-shelf-tag-look-chip) {
+	--purplish-shine: color-mix(in srgb, currentcolor 16%, transparent);
+	padding: 0.45em 0.8em;
+	border-radius: 2px;
+	background: #fff;
+	color: #1d1a24;
+	font-size: 0.625rem;
+	font-weight: 500;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+}
+
+/* Pill: dark and round, in sentence case. */
+:where(.wp-block-purplish-shelf-tag.purplish-shelf-tag-look-pill) {
+	--purplish-shine: rgb(255 255 255 / 0.42);
+	padding: 0.4em 0.85em;
+	border-radius: 999px;
+	background: #1d1a24;
+	color: #fff;
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+}
+
+/* Glass: frosted, so the photo shows through. */
+:where(.wp-block-purplish-shelf-tag.purplish-shelf-tag-look-glass) {
+	--purplish-shine: rgb(255 255 255 / 0.7);
+	padding: 0.4em 0.85em;
+	border-radius: 999px;
+	background: rgb(255 255 255 / 0.6);
+	box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.55), 0 0 0 1px rgb(29 26 36 / 0.08), 0 2px 8px rgb(29 26 36 / 0.08);
+	color: #1d1a24;
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	-webkit-backdrop-filter: blur(10px) saturate(1.4);
+	backdrop-filter: blur(10px) saturate(1.4);
+}
+
+/*
+ * On the photo. Product Image lays its inner blocks out as a column over
+ * the photo, so the corner is the side the tag lines up to, and the bottom
+ * corners take the space above them. Logical sides follow the language.
+ */
+.wc-block-components-product-image__inner-container:has(> .wp-block-purplish-shelf-tag) {
+	gap: 0.375rem;
+}
+
+.wc-block-components-product-image__inner-container > .wp-block-purplish-shelf-tag {
+	flex: none;
+	margin: 0.5rem 0.5rem 0;
+	align-self: flex-end;
+}
+
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-corner-top-left,
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-corner-bottom-left {
+	align-self: flex-start;
+}
+
+.wc-block-components-product-image__inner-container > [class*="purplish-shelf-tag-corner-bottom-"] {
+	order: 1;
+	margin: auto 0.5rem 0.5rem;
+}
+
+.wc-block-components-product-image__inner-container > [class*="purplish-shelf-tag-corner-bottom-"] ~ [class*="purplish-shelf-tag-corner-bottom-"] {
+	margin-block-start: 0;
+}
+
+/*
+ * Shine: one pass of light when the card is hovered. It snaps back with no
+ * transition when the pointer leaves, so it never plays in reverse.
+ */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-shelf-tag-shine::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(105deg, transparent 25%, var(--purplish-shine, rgb(255 255 255 / 0.5)) 50%, transparent 75%);
+		transform: translateX(-110%);
+		pointer-events: none;
+	}
+
+	:is(.wc-block-product, .wp-block-post, .wc-block-components-product-image):hover .purplish-shelf-tag-shine::after {
+		transform: translateX(110%);
+		transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+}
+
+/* Editor only: the tag on a card its rule leaves out. */
+.wp-block-purplish-shelf-tag.is-purplish-hidden {
+	opacity: 0.38;
+	outline: 1px dashed currentcolor;
+	outline-offset: 2px;
+}
