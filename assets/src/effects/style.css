@@ -593,7 +593,8 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		translate: 0 0;
 	}
 
-	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"]) .wc-block-product:hover .wc-block-components-product-image img {
+	/* A card or photo look of its own already answers the hover. */
+	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"], [class*="purplish-cards-hovercard-"]) .wc-block-product:hover .wc-block-components-product-image img {
 		transform: scale(1.06);
 	}
 
