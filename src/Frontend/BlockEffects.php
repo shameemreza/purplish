@@ -213,6 +213,7 @@ final class BlockEffects {
 				'prefix'  => 'pages',
 				'options' => array(
 					'look' => array( 'boxed', 'underline' ),
+					'more' => array( 'button', 'fade' ),
 				),
 				'preview' => true,
 			),

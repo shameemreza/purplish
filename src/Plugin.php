@@ -83,6 +83,7 @@ final class Plugin {
 		( new Frontend\BlockOptions() )->register();
 		( new Frontend\BlockEffects() )->register();
 		( new Frontend\SecondPhoto() )->register();
+		( new Frontend\LoadMore() )->register();
 		( new Admin\Settings() )->register();
 		( new Blocks\Registry() )->register();
 		( new Patterns() )->register();
