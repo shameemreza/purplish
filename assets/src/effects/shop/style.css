@@ -456,3 +456,117 @@
 .purplish-filters-layout-bar .block-editor-block-list__layout > .wp-block-woocommerce-product-filter-active {
 	flex-basis: 100%;
 }
+
+/*
+ * Grid switch, on Product Collection. The two buttons sit after Sort by,
+ * or above the grid. The page's `data-purplish-grid` says the shopper
+ * picked the second column count, which the collection's class names;
+ * the widths match WooCommerce's own for each count. Phones keep their
+ * grid, where both counts give two cards a row.
+ */
+.purplish-grid-switch {
+	display: flex;
+	gap: 0.25rem;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.purplish-grid-switch[hidden] {
+	display: none;
+}
+
+.purplish-grid-switch:not(.is-beside) {
+	margin-block-end: 1.25rem;
+}
+
+.purplish-grid-switch__button {
+	display: inline-grid;
+	place-items: center;
+	inline-size: 2rem;
+	block-size: 2rem;
+	padding: 0;
+	border: 1px solid color-mix(in srgb, currentcolor 18%, transparent);
+	border-radius: 4px;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+	opacity: 0.55;
+	transition:
+		opacity 0.15s ease,
+		border-color 0.15s ease,
+		scale 0.12s ease-out;
+}
+
+.purplish-grid-switch__button:hover,
+.purplish-grid-switch__button[aria-pressed="true"] {
+	opacity: 1;
+}
+
+.purplish-grid-switch__button[aria-pressed="true"] {
+	border-color: currentcolor;
+}
+
+.purplish-grid-switch__button:active {
+	scale: 0.94;
+}
+
+.purplish-grid-switch__button:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+@media (width < 600px) {
+
+	.purplish-grid-switch {
+		display: none;
+	}
+}
+
+@media (width >= 600px) {
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-2 .wc-block-product-template__responsive {
+		grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(50% - 0.625em)), 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-3 .wc-block-product-template__responsive {
+		grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(33.33333% - 0.83333em)), 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-4 .wc-block-product-template__responsive {
+		grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(25% - 0.9375em)), 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-5 .wc-block-product-template__responsive {
+		grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(20% - 1em)), 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-6 .wc-block-product-template__responsive {
+		grid-template-columns: repeat(auto-fill, minmax(max(150px, calc(16.66667% - 1.04167em)), 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-2 .wc-block-product-template.is-flex-container > li {
+		width: calc(50% - 0.625em);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-3 .wc-block-product-template.is-flex-container > li {
+		width: calc(33.33333% - 0.83333em);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-4 .wc-block-product-template.is-flex-container > li {
+		width: calc(25% - 0.9375em);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-5 .wc-block-product-template.is-flex-container > li {
+		width: calc(20% - 1em);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-grid-6 .wc-block-product-template.is-flex-container > li {
+		width: calc(16.66667% - 1.04167em);
+	}
+}
+
+/* The cards move to their new places as the grid switches. */
+:root.is-purplish-regrid::view-transition-group(*) {
+	animation-duration: 0.4s;
+	animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}

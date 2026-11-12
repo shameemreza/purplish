@@ -140,6 +140,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Color Dots block:** the colors a product comes in, on its card. With a color attribute, each color gets a dot in the color set for that term in WooCommerce's color swatches, or else in the page color of a variation in that color. Without one, each page color its variations have gets a dot, so it works even if your store never set colors up. Pick Dots, small enough to sit beside the name, or Swatches, bigger with a ring on hover. Set how many show, from 1 to 12 (4 by default); the rest show as a count, such as +2. A product in one color shows no dots unless Show a single color is on. Screen readers hear the color names, and each dot shows its name on hover.
 
+### Grid switch
+
+- **Product Collection, Grid switch:** two small buttons after Sort by let shoppers switch the grid between its own column count and a second one you pick, like four columns or two bigger cards. The choice lasts for the visit and is in place before the grid draws, so it holds through filters, page numbers and the next page. The cards move to their new places, and reduced motion switches at once. Without Sort by on the page, the buttons sit above the grid. It needs the Grid layout, and phones keep their grid.
+
 ### Shop page pattern
 
 - **Pattern:** Atelier shop is a quiet shop page for the Product Catalog and product category templates. It has breadcrumbs, the category name as an uppercase serif title with its description under it, and accordion filters on the left (Categories, Shop by price, Availability) that fold away with Hide filters. Sort by sits on the right, then three columns of tall photos with a Best seller tag, cards that lift on hover with Add to cart on the photo, and numbered pages with Back and Next. The products follow the page, so on a category template it shows that category. Find it in the Site Editor's pattern inserter under Purplish or WooCommerce. It's offered in templates only, since Sort by and the results only work on shop pages. The title uses Purple's Bodoni Moda, and other themes keep their own font.
