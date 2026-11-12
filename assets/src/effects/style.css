@@ -37,6 +37,15 @@ body[class*="purplish-classic-gallery-"] {
 	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, #fff));
 }
 
+/*
+ * A Featured Category in a Terms Query is a small tile, like Shop by
+ * category. WooCommerce's 48px side padding would leave the name a sliver
+ * on a phone, so the padding follows the tile's width up to that.
+ */
+.wp-block-term .wc-block-featured-category__inner-blocks {
+	padding-inline: min(48px, 10%);
+}
+
 /* Gallery: one big photo, no thumbnail strip. */
 .purplish-gallery-nothumbs .wc-block-product-gallery-thumbnails,
 body.purplish-classic-gallery-nothumbs .woocommerce-product-gallery .flex-control-thumbs {
