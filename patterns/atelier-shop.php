@@ -14,18 +14,17 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_rule  = 'color-mix(in srgb, currentcolor 14%, transparent)';
-
 /*
  * One accordion around a filter, closed by default, with a small
- * uppercase heading and a hairline under it. A closure, since the file is included each time the pattern renders.
+ * uppercase heading, Purplish's drawn line under it and a chevron. A
+ * closure, since the file is included each time the pattern renders.
  */
-$purplish_accordion = static function ( $title, $inner, $first = false ) use ( $purplish_rule ) {
+$purplish_accordion = static function ( $title, $inner, $first = false ) {
 	$pad = $first ? '"top":"0","bottom":"0.7rem"' : '"top":"0.7rem","bottom":"0.7rem"';
 	$css = $first ? 'padding-top:0;padding-bottom:0.7rem' : 'padding-top:0.7rem;padding-bottom:0.7rem';
-	return '<!-- wp:accordion {"style":{"spacing":{"blockGap":"0"}}} -->
-<div role="group" class="wp-block-accordion"><!-- wp:accordion-item {"style":{"border":{"bottom":{"color":"' . $purplish_rule . '","width":"1px"}}}} -->
-<div class="wp-block-accordion-item" style="border-bottom-color:' . $purplish_rule . ';border-bottom-width:1px"><!-- wp:accordion-heading {"level":4,"style":{"typography":{"fontSize":"0.6875rem","textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"},"spacing":{"padding":{' . $pad . '}}}} -->
+	return '<!-- wp:accordion {"purplish":{"line":"draw","icon":"chevron"},"style":{"spacing":{"blockGap":"0"}}} -->
+<div role="group" class="wp-block-accordion"><!-- wp:accordion-item -->
+<div class="wp-block-accordion-item"><!-- wp:accordion-heading {"level":4,"style":{"typography":{"fontSize":"0.6875rem","textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"},"spacing":{"padding":{' . $pad . '}}}} -->
 <h4 class="wp-block-accordion-heading has-icon has-icon-right" style="font-size:0.6875rem;font-weight:600;text-transform:uppercase"><button type="button" class="wp-block-accordion-heading__toggle" style="' . $css . '"><span class="wp-block-accordion-heading__toggle-title" style="letter-spacing:0.05em">' . esc_html( $title ) . '</span><span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span></button></h4>
 <!-- /wp:accordion-heading -->
 
@@ -162,7 +161,7 @@ echo $purplish_accordion(
 <!-- wp:woocommerce/product-button {"isDescendentOfQueryLoop":true} /-->
 <!-- /wp:woocommerce/product-template -->
 
-<!-- wp:query-pagination {"paginationArrow":"chevron","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}},"typography":{"fontSize":"0.8125rem","textTransform":"uppercase","letterSpacing":"0.04em"}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination {"purplish":{"look":"boxed"},"paginationArrow":"chevron","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"},"blockGap":"0.375rem"},"typography":{"fontSize":"0.8125rem","textTransform":"uppercase","letterSpacing":"0.04em"}},"layout":{"type":"flex","justifyContent":"center"}} -->
 <!-- wp:query-pagination-previous {"label":"<?php echo esc_attr__( 'Back', 'purplish' ); ?>"} /-->
 
 <!-- wp:query-pagination-numbers /-->

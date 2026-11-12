@@ -356,6 +356,14 @@ class PatternsTest extends WP_UnitTestCase {
 		);
 		$this->assertSame( 'bestseller', $this->find_block( $blocks, 'purplish/shelf-tag' )['attrs']['rule'] );
 		$this->assertSame( 'archive', $this->find_block( $blocks, 'core/query-title' )['attrs']['type'] );
+		$this->assertSame(
+			array(
+				'line' => 'draw',
+				'icon' => 'chevron',
+			),
+			$this->find_block( $blocks, 'core/accordion' )['attrs']['purplish']
+		);
+		$this->assertSame( array( 'look' => 'boxed' ), $this->find_block( $blocks, 'core/query-pagination' )['attrs']['purplish'] );
 	}
 
 	/**
