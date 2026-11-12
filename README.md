@@ -24,6 +24,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo, and button motion. |
 | Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a Best seller, New arrival or Featured tag on the photo that shows only on the cards its rule matches. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
+| Shop and collection pages | Product Collection, Product Filters, Shelf Tag | The Atelier shop pattern: a quiet shop page with accordion filters that fold away, three columns of tall photos with a Best seller tag, and numbered pages. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
@@ -133,6 +134,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Shelf Tag block:** a small tag that shows only on the cards its rule matches. The rules are best sellers (the store's top 1 to 50 by sales, 8 by default), new products (published in the last 1 to 365 days, 30 by default) and featured products. Pick a chip, a pill or frosted glass, the corner, your own words in place of Best seller, New arrival or Featured, and a light that passes over the tag once on hover. In the editor, the tag shows faded on the cards it leaves out. Best sellers are worked out again after each order, and at least every six hours.
 - **Sold out:** on the Stock Indicator block, Only when sold out hides the indicator on every other stock state and shows Out of stock in a pill, a chip or glass, in the corner you pick. Grey out sold-out cards turns the photo grey and soft, and brings some of it back on hover.
+
+### Shop page pattern
+
+- **Pattern:** Atelier shop is a quiet shop page for the Product Catalog and product category templates. It has breadcrumbs, the category name as an uppercase serif title with its description under it, and accordion filters on the left (Categories, Shop by price, Availability) that fold away with Hide filters. Sort by sits on the right, then three columns of tall photos with a Best seller tag and a slow zoom on hover, and numbered pages with Back and Next. The products follow the page, so on a category template it shows that category. Find it in the Site Editor's pattern inserter under Purplish or WooCommerce. It's offered in templates only, since Sort by and the results only work on shop pages. The title uses Purple's Bodoni Moda, and other themes keep their own font.
 
 ## Filters and mini-cart
 

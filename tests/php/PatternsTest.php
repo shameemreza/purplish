@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -85,7 +85,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
-		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart' ) as $slug ) {
+		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop' ) as $slug ) {
 			$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/' . $slug ), $slug );
 		}
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
@@ -310,6 +310,72 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( '"purplish":{"hover":"spotlight"}', $empty );
 		$this->assertStringContainsString( '"purplish":{"reveal":"rise"}', $empty );
 		$this->assertStringNotContainsString( '"entrance"', $empty );
+	}
+
+	/**
+	 * The Atelier shop is offered in templates only, next to Product
+	 * Collection, and holds the full shop page: a title from the archive,
+	 * filters that fold away with chips, Sort by, a three column grid that
+	 * follows the page's query with a Best seller tag, the photo zoom on
+	 * hover, and numbered pages. Every block in it exists.
+	 */
+	public function test_atelier_shop() {
+		( new Patterns() )->register_patterns();
+		$shop = WP_Block_Patterns_Registry::get_instance()->get_registered( 'purplish/atelier-shop' );
+
+		$this->assertSame( array( 'woocommerce/product-collection' ), $shop['blockTypes'] );
+		$this->assertSame( array( 'wp_template' ), $shop['postTypes'] );
+		$this->assertContains( 'woo-commerce', $shop['categories'] );
+
+		$blocks = parse_blocks( $shop['content'] );
+		$names  = $this->block_names( $blocks );
+		foreach ( array( 'woocommerce/breadcrumbs', 'core/query-title', 'core/term-description', 'woocommerce/product-collection', 'woocommerce/product-filters', 'woocommerce/catalog-sorting', 'woocommerce/product-template', 'purplish/shelf-tag', 'core/query-pagination-numbers' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		foreach ( $names as $name ) {
+			$this->assertTrue( \WP_Block_Type_Registry::get_instance()->is_registered( $name ), $name . ' is registered' );
+		}
+		$this->assertNotContains( 'woocommerce/product-button', $names );
+
+		$collection = $this->find_block( $blocks, 'woocommerce/product-collection' );
+		$this->assertTrue( $collection['attrs']['query']['inherit'] );
+		$this->assertSame( 3, $collection['attrs']['displayLayout']['columns'] );
+		$this->assertSame(
+			array(
+				'hoveron'    => 'photo',
+				'hoverphoto' => 'push',
+			),
+			$collection['attrs']['purplish']
+		);
+		$this->assertSame(
+			array(
+				'hide'  => true,
+				'chips' => true,
+			),
+			$this->find_block( $blocks, 'woocommerce/product-filters' )['attrs']['purplish']
+		);
+		$this->assertSame( 'bestseller', $this->find_block( $blocks, 'purplish/shelf-tag' )['attrs']['rule'] );
+		$this->assertSame( 'archive', $this->find_block( $blocks, 'core/query-title' )['attrs']['type'] );
+	}
+
+	/**
+	 * The first block with a name, searched depth first.
+	 *
+	 * @param array  $blocks Parsed blocks.
+	 * @param string $name   Block name.
+	 * @return array|null
+	 */
+	private function find_block( $blocks, $name ) {
+		foreach ( $blocks as $block ) {
+			if ( $name === $block['blockName'] ) {
+				return $block;
+			}
+			$found = $this->find_block( $block['innerBlocks'], $name );
+			if ( $found ) {
+				return $found;
+			}
+		}
+		return null;
 	}
 
 	/**
