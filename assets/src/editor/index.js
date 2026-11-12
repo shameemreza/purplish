@@ -111,6 +111,7 @@ const withPurplishPanel = createHigherOrderComponent(
 				) }
 				<InspectorControls>
 					<Panel
+						attributes={ props.attributes }
 						saved={ props.attributes.purplish || {} }
 						setSaved={ ( purplish ) =>
 							props.setAttributes( { purplish } )

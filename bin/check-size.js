@@ -1,6 +1,7 @@
 /**
  * Speed rule 2: a block's front script stays under 5 KB gzipped. Fails when
- * a `build/blocks/<block>/view.js` is over the limit, and prints every front
+ * a `build/blocks/<block>/view.js`, or a script that loads only with one
+ * option, is over the limit, and prints every front
  * script and stylesheet with its gzipped size so a pull request can quote
  * the numbers. Run after `npm run build`.
  */
@@ -20,6 +21,9 @@ const blocks = fs.existsSync( path.join( BUILD, 'blocks' ) )
 			.map( ( block ) => path.join( 'blocks', block, 'view.js' ) )
 			.filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) )
 	: [];
+const options = [ 'filters.js' ].filter( ( file ) =>
+	fs.existsSync( path.join( BUILD, file ) )
+);
 const shared = [
 	'effects.js',
 	'frontend.js',
@@ -47,12 +51,14 @@ const row = ( file, limited ) => {
 
 process.stdout.write( 'Block front scripts, gzipped:\n' );
 blocks.forEach( ( file ) => row( file, true ) );
+process.stdout.write( '\nOption front scripts, gzipped:\n' );
+options.forEach( ( file ) => row( file, true ) );
 process.stdout.write( '\nShared front files, gzipped:\n' );
 shared.forEach( ( file ) => row( file, false ) );
 
 if ( over ) {
 	process.stderr.write(
-		`\n${ over } block front script(s) over 5 KB gzipped. Move motion to CSS or trim the script.\n`
+		`\n${ over } front script(s) over 5 KB gzipped. Move motion to CSS or trim the script.\n`
 	);
 	process.exit( 1 );
 }
