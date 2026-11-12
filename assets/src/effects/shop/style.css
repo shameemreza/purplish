@@ -951,3 +951,76 @@
 		animation-name: purplish-enter-zoomin;
 	}
 }
+
+/* Product Results Count: just the number, in brackets or with "products". */
+[class*="purplish-count-show-"] .woocommerce-result-count > .screen-reader-text {
+	position: absolute;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.purplish-count-number {
+	display: inline-block;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.purplish-count-digit {
+	display: inline-block;
+}
+
+.purplish-count-look-pill .woocommerce-result-count,
+.purplish-count-look-outline .woocommerce-result-count {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.25em 0.8em;
+	border-radius: 999px;
+	line-height: 1.3;
+}
+
+.purplish-count-look-pill .woocommerce-result-count {
+	background: var(--purplish-color-soft);
+	color: var(--purplish-color);
+}
+
+.purplish-count-look-outline .woocommerce-result-count {
+	box-shadow: inset 0 0 0 1px color-mix(in oklab, currentcolor 35%, transparent);
+}
+
+/* The number's key changes with the total, so a filter plays it again. */
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	.purplish-count-motion-roll .purplish-count-number {
+		overflow: hidden;
+	}
+
+	.purplish-count-motion-roll .purplish-count-digit {
+		animation: purplish-count-roll 0.5s cubic-bezier(0.23, 1, 0.32, 1) calc(var(--i, 0) * 45ms) both;
+	}
+
+	.purplish-count-motion-pop .purplish-count-number {
+		animation: purplish-count-pop 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+	}
+}
+
+@keyframes purplish-count-roll {
+
+	from {
+		opacity: 0;
+		transform: translateY(0.9em);
+	}
+}
+
+@keyframes purplish-count-pop {
+
+	from {
+		opacity: 0;
+		transform: scale(0.85);
+	}
+}

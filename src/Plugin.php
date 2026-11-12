@@ -85,6 +85,8 @@ final class Plugin {
 		( new Frontend\SecondPhoto() )->register();
 		( new Frontend\LoadMore() )->register();
 		( new Frontend\CurrentTerm() )->register();
+		( new Frontend\ResultsCount() )->register();
+		( new Frontend\TermPhoto() )->register();
 		( new Admin\Settings() )->register();
 		( new Blocks\Registry() )->register();
 		( new Patterns() )->register();
