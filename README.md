@@ -279,6 +279,21 @@ A block of Purplish's own that goes inside the Navigation block, where you add i
 
 The panel sits centered under the header, stays inside the window and scrolls when the window is short. Visitors who turn on reduced motion see it open without the unroll. Without the script the label is a plain link.
 
+## Abilities for AI agents
+
+Purplish registers four abilities with the WordPress Abilities API, in a category named Purplish. The REST API lists them at `/wp-json/wp-abilities/v1/abilities`, and the [MCP Adapter](https://github.com/WordPress/mcp-adapter) plugin hands them to AI agents as tools. An agent can ask what Purplish can do, read the options a page uses, set them on a block and add a pattern.
+
+| Ability | What it does |
+|---|---|
+| `purplish/get-design-catalog` | Lists Purplish's own blocks, the options it adds to each WooCommerce and core block with the values each option takes, the page options and the patterns. Set `type` to `blocks`, `options` or `patterns` for one part. |
+| `purplish/get-page-designs` | Lists every block on a page, post, template or template part that takes Purplish options, with its path, its saved options and the classes they print. |
+| `purplish/set-block-design` | Sets one block's Purplish options, found by `path` or `anchor`, such as `{"hover": "tilt"}`. `null` clears an option. A value the catalog doesn't list is refused. |
+| `purplish/insert-pattern` | Adds a Purplish pattern at the `start` or `end`, or `after` the block at a path. |
+
+- **Pages and templates:** give `post_id` for a page or post. For a template or template part the Site Editor hasn't saved yet, give `template`, such as `purple//single-product`, and set `template_type` to `wp_template_part` for a part.
+- **Permissions:** the catalog needs the `edit_posts` capability. The other three need permission to edit that page, or `edit_theme_options` for a template.
+- **What changes:** only the block's Purplish options, and each change saves a revision. Product data, sale badge text and the rest of WooCommerce's settings belong to WooCommerce's own abilities.
+
 ## Block and classic themes
 
 Purplish is built for block themes. Classic themes get a smaller set under WooCommerce > Settings > Products > Purplish.

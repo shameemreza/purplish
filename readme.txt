@@ -200,6 +200,10 @@ A mega menu item for the Navigation block. Hovering or clicking its label opens 
 
 Visitors who turn on reduced motion see the panel open without motion.
 
+= Abilities for AI agents =
+
+Purplish registers four abilities with the WordPress Abilities API, so an AI agent can work with it through the REST API or the MCP Adapter plugin. An agent can list what Purplish can do on your store, read the Purplish options a page or template uses, set them on a block, and add a Purplish pattern. Every value is checked against the options Purplish offers, only Purplish's own options change, and each change saves a revision.
+
 = Block and classic themes =
 
 Purplish is built for block themes and tested with the free [Purple](https://wordpress.org/themes/purple/) theme. On a block theme, every option sits in a Purplish panel on the block it changes, in the Site Editor.
@@ -276,6 +280,10 @@ No. Purplish reads the photos on your own server, with the image tools PHP alrea
 = Does it change WooCommerce's blocks or templates? =
 
 No. Purplish adds a panel to WooCommerce's own blocks and styles the parts you choose. Deactivate it, and your store looks exactly as it did before.
+
+= Can an AI agent design my store with Purplish? =
+
+Yes. Purplish registers four abilities in the Abilities API: get the design catalog, get the designs on a page, set a block's design and insert a pattern. Add the MCP Adapter plugin to offer them to an agent. Running them needs the same permission as editing that page or template in WordPress.
 
 = Where do I report a security issue? =
 

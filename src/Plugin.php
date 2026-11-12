@@ -86,6 +86,7 @@ final class Plugin {
 		( new Admin\Settings() )->register();
 		( new Blocks\Registry() )->register();
 		( new Patterns() )->register();
+		( new Abilities() )->register();
 
 		if ( is_admin() ) {
 			( new Admin\VariationField() )->register();
