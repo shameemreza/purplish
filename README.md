@@ -23,6 +23,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo, and button motion. |
+| Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a Best seller, New arrival or Featured tag on the photo that shows only on the cards its rule matches. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
 | Shop and collection pages | Runway | Purplish's own block: product photos stand in a line that fades into the distance, and visitors walk it with the product cards beside it. |
 | Shop and collection pages | Scroll Lookbook | Purplish's own block: a full-screen video or photo that plays as visitors scroll, stopping at each product with its card beside it. |
@@ -35,7 +36,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Cart, checkout and order confirmation | Cart, Proceed to Checkout, Mini-Cart Proceed to Checkout Button, Checkout, checkout Actions, Order Status, Order Summary | Soft rows, bigger photos and sticky totals on the Cart page, soft, filled or underline fields, a focus ring, card or list choices, step numbers, a soft summary card, a side panel, a raised card and bigger photos on the Checkout, a glow ring, light sweep, liquid glass and spectrum ring on Proceed to Checkout, Go to checkout and Place Order, a lock on Place Order, a thank-you moment on the order heading and a receipt card for the order summary. |
 | Any page | Image, Button | The 7 gallery hover styles on any image, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any button. |
 | Any page | Story Deck | Purplish's own block: customer stories on a deck of cards that visitors flick through, with the story beside the top card. |
-| Scroll motion | Heading, Group, Columns, Cover | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
+| Scroll motion | Heading, Group, Columns, Cover, Featured Category, Featured Product | Headings that rise or come into focus, sections and columns that fade up or zoom in, and covers with a slow zoom, parallax or pill reveal as the page scrolls. |
 | Page sections | Accordion, Accordion Group, Details, Group | A soft style for both accordions and the Details block, and sections that take the page color. |
 
 ## How it works
@@ -126,6 +127,13 @@ Under the card effect, pick where a hover look plays: the card, the photo, the a
 
 When the card effect already moves a part on hover, that part's look is skipped: Spotlight, Fan deck, Expanded cards, Magnetic panel, Card folder, Deck, Depth, Overlap and Clothes line skip the card look, Color reveal and Bookmark skip the photo look, and Roster has no hover looks. Without an effect color, the looks use your theme's text color. Collections saved with button motion keep it, as the Bag and sweep look.
 
+### Shelf tags and sold out
+
+Two more pieces go inside the card's Product Image block and sit on the photo:
+
+- **Shelf Tag block:** a small tag that shows only on the cards its rule matches. The rules are best sellers (the store's top 1 to 50 by sales, 8 by default), new products (published in the last 1 to 365 days, 30 by default) and featured products. Pick a chip, a pill or frosted glass, the corner, your own words in place of Best seller, New arrival or Featured, and a light that passes over the tag once on hover. In the editor, the tag shows faded on the cards it leaves out. Best sellers are worked out again after each order, and at least every six hours.
+- **Sold out:** on the Stock Indicator block, Only when sold out hides the indicator on every other stock state and shows Out of stock in a pill, a chip or glass, in the corner you pick. Grey out sold-out cards turns the photo grey and soft, and brings some of it back on hover.
+
 ## Filters and mini-cart
 
 - **Product Filters, Matching chips:** the active filters take the look of a selected chip, with its colors, corners and letter case, and a chip fades into its selected color when picked.
@@ -161,7 +169,7 @@ Touch screens and visitors who turn on reduced motion see the plain image and bu
 
 - **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view. Rise from the floor follows the scroll instead: the bottom edge of the heading is the floor, and the heading comes up out of it, made for a big footer wordmark.
 - **Group and Columns, Entrance on scroll:** the section fades up or zooms in as it scrolls into view, and columns come in one after another.
-- **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view. Hover adds four looks: Push in moves the background in slowly, Tilt turns the whole cover toward the mouse with a sheen, Lift raises it with a soft shadow, and Glare runs a light after the mouse.
+- **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small rounded pill to its full size as it comes into view. Hover adds four looks: Push in moves the background in slowly, Tilt turns the whole cover toward the mouse with a sheen, Lift raises it with a soft shadow, and Glare runs a light after the mouse. Featured Category and Featured Product get the same scroll and hover looks, on their background photo.
 - **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill with frosted glass as the page scrolls, then opens out again at the top.
 - **Group, Turn on hover:** made for badges and seals. The section turns a little, like a stamp, when the mouse is over it or over the group around it. Phones and visitors who ask for reduced motion see it still.
 
@@ -294,7 +302,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor and Changing Room, are in the Purplish group of the block inserter, Shelf Tag joins them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 
@@ -317,6 +325,7 @@ Purplish has a small set of PHP hooks, front-end events and CSS custom propertie
 | `purplish_color_set` | Filter | The color set of a variation or simple product, with the product object. Return `null` for no color. A set with only `color` gets the other parts worked out from it. |
 | `purplish_detected_color` | Filter | The hex color the photo detector picked, with the attachment ID, before it's saved. Return an empty string to save no color. |
 | `purplish_block_classes` | Filter | The classes Purplish adds to a block's wrapper, with the block name and its saved Purplish options. |
+| `purplish_shelf_tag_show` | Filter | Whether a Shelf Tag shows on a product card, with the product and the tag's block attributes. |
 | `purplish_scroll_lookbook_config` | Filter | Scroll Lookbook numbers that aren't in the block panel, with the block attributes: `smoothing` (how fast the film catches up with the scroll, 1 to 30, default 9) and `hold` (the longest the opening video plays, 0 to 30 seconds, default 5). |
 | `purplish_loaded` | Action | Fires once Purplish has added its own hooks. |
 
