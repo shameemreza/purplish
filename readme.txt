@@ -79,6 +79,7 @@ Inside the card, two more pieces sit on the photo when you put them in the Produ
 * **Sold out:** the Stock Indicator block can show only on sold-out products, in the same three looks, and grey out their photos.
 
 * **Color Dots block:** the colors a product comes in, as small dots beside the name or swatches under the price, from your color attribute or each variation's page color.
+* **Swap the photo:** tap a Color Dots dot, or point at it, to see that color's photo on the card, with a ring on the chosen dot and a fade, wipe or slide.
 
 * **Pattern:** Atelier shop is a quiet shop page for your shop and category templates: an uppercase serif title, accordion filters that fold away, Sort by, three columns of tall photos with a Best seller tag, cards that lift on hover with Add to cart on the photo, and numbered pages.
 

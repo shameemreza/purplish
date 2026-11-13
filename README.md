@@ -24,7 +24,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo, and button motion. |
 | Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a Best seller, New arrival or Featured tag on the photo that shows only on the cards its rule matches. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
-| Shop and collection pages | Color Dots | Purplish's own Color Dots block: the colors a product comes in, as small dots beside the name or swatches under the price. |
+| Shop and collection pages | Color Dots | Purplish's own Color Dots block: the colors a product comes in, as small dots beside the name or swatches under the price. A dot can swap the card's photo to that color. |
 | Shop and collection pages | Product Collection, Product Filters, Shelf Tag | The Atelier shop pattern: a quiet shop page with accordion filters that fold away, three columns of tall photos with a Best seller tag, and numbered pages. |
 | Shop and collection pages | Product Collection, Product Filters, Terms Query, Shelf Tag | The Flagship shop pattern: a photo header with the category's own photo and a big serif title, category tabs, filters in one row with Sort by, four columns of grey tiles with color dots and sale, new and sold-out tags, Load more, and a store offer band. |
 | Shop and collection pages | Hanging Rail | Purplish's own block: products hang from pegs, binder clips or tape on a rope, and slide along it as the page scrolls. |
@@ -141,6 +141,7 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 ### Color dots
 
 - **Color Dots block:** the colors a product comes in, on its card. With a color attribute, each color gets a dot in the color set for that term in WooCommerce's color swatches, or else in the page color of a variation in that color. Without one, each page color its variations have gets a dot, so it works even if your store never set colors up. Pick Dots, small enough to sit beside the name, or Swatches, bigger with a ring on hover. Set how many show, from 1 to 12 (4 by default); the rest show as a count, such as +2. A product in one color shows no dots unless Show a single color is on. Screen readers hear the color names, and each dot shows its name on hover.
+- **Swap the photo:** on Color Dots, each dot can show its color's variation photo on the card. On hover shows a color while the pointer is over its dot, and a click or tap keeps it, with a ring on the dot. On tap changes the photo only on a click or tap. A second click goes back to the main photo. Pick the motion: fade, wipe or slide. A color without its own photo shows the main one, and a product without variation photos keeps plain dots and loads no script. Reduced motion swaps at once.
 
 ### Grid switch
 
@@ -365,7 +366,7 @@ Purplish has a small set of PHP hooks, front-end events and CSS custom propertie
 | `purplish_detected_color` | Filter | The hex color the photo detector picked, with the attachment ID, before it's saved. Return an empty string to save no color. |
 | `purplish_block_classes` | Filter | The classes Purplish adds to a block's wrapper, with the block name and its saved Purplish options. |
 | `purplish_shelf_tag_show` | Filter | Whether a Shelf Tag shows on a product card, with the product and the tag's block attributes. |
-| `purplish_color_dots_colors` | Filter | The colors a product card shows as Color Dots, each with a `name` (may be empty) and a hex `color`, with the product object. |
+| `purplish_color_dots_colors` | Filter | The colors a product card shows as Color Dots, each with a `name` (may be empty), a hex `color` and an `image` attachment ID for Swap the photo (0 for the main photo), with the product object. |
 | `purplish_scroll_lookbook_config` | Filter | Scroll Lookbook numbers that aren't in the block panel, with the block attributes: `smoothing` (how fast the film catches up with the scroll, 1 to 30, default 9) and `hold` (the longest the opening video plays, 0 to 30 seconds, default 5). |
 | `purplish_loaded` | Action | Fires once Purplish has added its own hooks. |
 
