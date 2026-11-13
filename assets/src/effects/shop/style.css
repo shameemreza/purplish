@@ -1050,3 +1050,42 @@
 		padding-right: 16rem;
 	}
 }
+
+/*
+ * Boutique shop: a dense row of small category photos, centered while
+ * they fit, and Clear all as a small text link beside the active filters.
+ */
+.purplish-shop-boutique .purplish-terms-look-photos .wp-block-term-template {
+	justify-content: safe center;
+}
+
+.purplish-shop-boutique .purplish-terms-look-photos .wp-block-term {
+	width: clamp(4.5rem, 8vw, 5.75rem);
+}
+
+.purplish-shop-boutique .wc-block-product-filter-clear-button .wp-block-button__link {
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-decoration: underline;
+	text-transform: uppercase;
+	text-underline-offset: 0.25em;
+}
+
+/* WooCommerce gives the trail a bottom margin, which drops the count. */
+.purplish-shop-boutique .wc-block-breadcrumbs .woocommerce-breadcrumb {
+	margin-bottom: 0;
+}
+
+/* Two cards a row on phones, where the grid would drop to one. */
+@media (width < 600px) {
+
+	.purplish-shop-boutique .wc-block-product-template.wc-block-product-template__responsive {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 0.75rem;
+	}
+}

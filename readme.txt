@@ -86,6 +86,8 @@ Inside the card, two more pieces sit on the photo when you put them in the Produ
 
 * **Pattern:** Flagship shop is a big, photo-led shop page for your shop and category templates: the category's photo behind a large serif title, category tabs, filter dropdowns in one row with Sort by, four columns of grey tiles with color dots and sale, new and sold-out tags, Load more, and a store offer band.
 
+* **Pattern:** Boutique shop is a dense shop page for your shop and category templates: round category photos with a ring on the current one, a filter sidebar that can hide with Color swatches and their names, four columns with an Add to cart bar on the photo, color swatches under each card, and numbered pages.
+
 = Small details =
 
 On the Add to Cart + Options block:
