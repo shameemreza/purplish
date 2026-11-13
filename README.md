@@ -22,7 +22,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
-| Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo, and button motion. |
+| Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo as a small button or a full-width bar, and button motion. |
 | Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a Best seller, New arrival or Featured tag on the photo that shows only on the cards its rule matches. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
 | Shop and collection pages | Color Dots | Purplish's own Color Dots block: the colors a product comes in, as small dots beside the name or swatches under the price. A dot can swap the card's photo to that color. |
 | Shop and collection pages | Product Collection, Product Filters, Shelf Tag | The Atelier shop pattern: a quiet shop page with accordion filters that fold away, three columns of tall photos with a Best seller tag, and numbered pages. |
@@ -91,7 +91,7 @@ Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it
 
 ## Product cards
 
-On the Product Collection block, add to cart can sit on the photo as a small frosted button. Or the title, price and add to cart can all sit on the photo over a soft shade. One effect color drives the button fill, the card effects and the hover looks. Then pick one card effect for the whole collection:
+On the Product Collection block, add to cart can sit on the photo as a small frosted button, or as a full-width bar across the bottom of the photo that slides up from its edge on hover (Button look: Pill or Bar). Or the title, price and add to cart can all sit on the photo over a soft shade. One effect color drives the button fill, the card effects and the hover looks. Then pick one card effect for the whole collection:
 
 | When it plays | Effect | What shoppers see |
 |---|---|---|
