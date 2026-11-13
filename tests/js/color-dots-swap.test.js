@@ -8,6 +8,7 @@
  */
 import { beforeEach, describe, expect, it } from '@jest/globals';
 import {
+	altFor,
 	cardOf,
 	chosen,
 	photoOf,
@@ -142,5 +143,60 @@ describe( 'picking', () => {
 		const dots = dot( 'a', 0 ).parentElement;
 		warm( dots );
 		expect( dots.dataset.purplishWarm ).toBe( '1' );
+	} );
+} );
+
+describe( 'alt text', () => {
+	it( 'works out the alt without touching the photo', () => {
+		expect( altFor( photo( 'a' ), dot( 'a', 0 ) ) ).toBe( 'Coat, Navy' );
+		expect( altFor( photo( 'a' ), dot( 'a', 1 ) ) ).toBe( 'Coat' );
+		expect( altFor( photo( 'a' ), null ) ).toBe( 'Coat' );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat' );
+	} );
+
+	it( 'names the color while its photo shows, then puts the alt back', () => {
+		show( photo( 'a' ), dot( 'a', 0 ), 'fade', true );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat, Navy' );
+
+		show( photo( 'a' ), null, 'fade', true );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat' );
+	} );
+
+	it( 'follows a press from the keyboard, a click or a tap', () => {
+		pick( dot( 'a', 0 ), true );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat, Navy' );
+
+		pick( dot( 'a', 0 ), true );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat' );
+	} );
+
+	it( 'follows a hover preview and settles back', () => {
+		preview( dot( 'a', 0 ), false );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat, Navy' );
+
+		settle( dot( 'a', 0 ).parentElement, false );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat' );
+	} );
+
+	it( 'uses the translated pattern from the block', () => {
+		dot( 'a', 0 ).parentElement.dataset.alt = '%2$s: %1$s';
+		show( photo( 'a' ), dot( 'a', 0 ), 'fade', true );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Navy: Coat' );
+	} );
+
+	it( 'leaves an empty alt empty, since the photo is decorative', () => {
+		photo( 'a' ).setAttribute( 'alt', '' );
+		show( photo( 'a' ), dot( 'a', 0 ), 'fade', true );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( '' );
+	} );
+
+	it( 'leaves the alt alone for a dot without its own photo', () => {
+		show( photo( 'a' ), dot( 'a', 1 ), 'fade', true );
+		expect( photo( 'a' ).getAttribute( 'alt' ) ).toBe( 'Coat' );
+	} );
+
+	it( 'keeps the other cards as they were', () => {
+		show( photo( 'a' ), dot( 'a', 0 ), 'fade', true );
+		expect( photo( 'b' ).getAttribute( 'alt' ) ).toBe( 'Coat' );
 	} );
 } );

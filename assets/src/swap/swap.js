@@ -52,6 +52,33 @@ export function wanted( photo, dot ) {
 }
 
 /**
+ * The photo's alt text for a dot: the alt it started with, plus the
+ * color's name while the dot's own photo shows, so a screen reader hears
+ * what the photo shows now. An empty alt stays empty, since that photo
+ * is decorative.
+ *
+ * @param {HTMLImageElement} photo The card's photo.
+ * @param {HTMLElement|null} dot   A dot, or null for the main photo.
+ * @return {string} The alt text.
+ */
+export function altFor( photo, dot ) {
+	const own =
+		undefined !== photo.dataset.purplishAlt
+			? photo.dataset.purplishAlt
+			: photo.getAttribute( 'alt' ) || '';
+	const name =
+		dot && dot.dataset.src ? dot.getAttribute( 'aria-label' ) || '' : '';
+	if ( ! own || ! name ) {
+		return own;
+	}
+	const dots = dot.closest( '.purplish-color-dots-swap' );
+	const pattern = ( dots && dots.dataset.alt ) || '%1$s, %2$s';
+	return pattern.replace( /%([12])\$s/g, ( match, place ) =>
+		'1' === place ? own : name
+	);
+}
+
+/**
  * Shows a dot's photo on the card. The old photo stays on top until the
  * new one is ready, then leaves with the motion; reduced motion swaps at
  * once.
@@ -70,6 +97,7 @@ export function show( photo, dot, motion, reduced ) {
 	if ( undefined === photo.dataset.purplishSrc ) {
 		photo.dataset.purplishSrc = photo.getAttribute( 'src' ) || '';
 		photo.dataset.purplishSrcset = photo.getAttribute( 'srcset' ) || '';
+		photo.dataset.purplishAlt = photo.getAttribute( 'alt' ) || '';
 	}
 
 	photo.parentElement
@@ -95,6 +123,10 @@ export function show( photo, dot, motion, reduced ) {
 		photo.removeAttribute( 'srcset' );
 	}
 	photo.setAttribute( 'src', next.src );
+	const alt = altFor( photo, dot );
+	if ( alt !== ( photo.getAttribute( 'alt' ) || '' ) ) {
+		photo.setAttribute( 'alt', alt );
+	}
 
 	if ( layer ) {
 		const leave = () => {

@@ -537,6 +537,8 @@ class ColorDotsTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'purplish-color-dots-swap purplish-color-dots-swap-hover', $out );
 		$this->assertStringContainsString( 'role="group"', $out );
 		$this->assertStringContainsString( 'data-motion="wipe"', $out );
+		// The swap names the color in the photo's alt text with this pattern.
+		$this->assertStringContainsString( 'data-alt="%1$s, %2$s"', $out );
 		$this->assertSame( 2, substr_count( $out, '<button type="button" class="purplish-color-dots-dot"' ) );
 		$this->assertSame( 2, substr_count( $out, 'aria-pressed="false"' ) );
 		$this->assertStringContainsString( 'aria-label="Navy" title="Navy" data-src="' . esc_url( wp_get_attachment_image_url( $navy, 'large' ) ) . '"', $out );
@@ -604,6 +606,7 @@ class ColorDotsTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'role="img"', $out );
 		$this->assertStringNotContainsString( '<button', $out );
 		$this->assertStringNotContainsString( 'purplish-color-dots-swap', $out );
+		$this->assertStringNotContainsString( 'data-alt', $out );
 		$this->assertFalse( wp_script_is( ColorDots::SWAP_HANDLE, 'enqueued' ) );
 
 		ColorDots::forget();
