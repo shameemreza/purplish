@@ -59,7 +59,7 @@ Select the Product Gallery block and choose how the photos behave:
 
 On shop and collection pages, select the Product Collection block:
 
-* **Add to cart on the photo:** a small frosted button sits on the photo, and the title and price share one line. It shows on hover, and always on touch screens.
+* **Add to cart on the photo:** a small frosted button sits on the photo, or a full-width bar runs across its bottom edge and slides up on hover, and the title and price share one line. It shows on hover, and always on touch screens.
 * **Details on the photo:** the title, price and add to cart sit on the bottom of the photo over a soft shade. They show on hover, and always on touch screens.
 * **Effect color:** one color for the button fill, the card effects and the hover looks. On a product page with a variation color, the variation color wins.
 * **Card effect:** one of 23 effects for the whole collection. Cards can fan out like a hand, hang from a clothes line, or stack in a coverflow.
