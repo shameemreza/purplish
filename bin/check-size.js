@@ -21,8 +21,8 @@ const blocks = fs.existsSync( path.join( BUILD, 'blocks' ) )
 			.map( ( block ) => path.join( 'blocks', block, 'view.js' ) )
 			.filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) )
 	: [];
-const options = [ 'filters.js', 'grid.js', 'more.js' ].filter( ( file ) =>
-	fs.existsSync( path.join( BUILD, file ) )
+const options = [ 'filters.js', 'grid.js', 'more.js', 'swap.js' ].filter(
+	( file ) => fs.existsSync( path.join( BUILD, file ) )
 );
 const shared = [
 	'effects.js',

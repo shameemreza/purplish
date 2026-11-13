@@ -42,6 +42,7 @@ class ColorDotsTest extends WP_UnitTestCase {
 	public function tear_down() {
 		remove_all_filters( 'purplish_color_dots_colors' );
 		ColorDots::forget();
+		wp_dequeue_script( ColorDots::SWAP_HANDLE );
 		wp_set_current_user( 0 );
 		parent::tear_down();
 	}
@@ -83,12 +84,15 @@ class ColorDotsTest extends WP_UnitTestCase {
 	 * with an optional photo color.
 	 *
 	 * @param array $attributes Taxonomy => term slugs used for variations.
-	 * @param array $rows       Each: taxonomy => slug, plus `auto` for a photo color.
+	 * @param array $rows       Each: taxonomy => slug, plus `auto` for a photo color
+	 *                          and `image` for a variation photo.
+	 * @param int   $main       The product's own photo.
 	 * @return WC_Product_Variable
 	 */
-	private function variable( $attributes, $rows ) {
+	private function variable( $attributes, $rows, $main = 0 ) {
 		$product = new WC_Product_Variable();
 		$product->set_name( 'Trousers' );
+		$product->set_image_id( $main );
 		$product->set_status( 'publish' );
 		$list = array();
 		foreach ( $attributes as $taxonomy => $slugs ) {
@@ -112,8 +116,10 @@ class ColorDotsTest extends WP_UnitTestCase {
 		foreach ( $rows as $row ) {
 			$variation = new WC_Product_Variation();
 			$variation->set_parent_id( $id );
-			$auto = isset( $row['auto'] ) ? $row['auto'] : '';
-			unset( $row['auto'] );
+			$auto  = isset( $row['auto'] ) ? $row['auto'] : '';
+			$image = isset( $row['image'] ) ? $row['image'] : 0;
+			unset( $row['auto'], $row['image'] );
+			$variation->set_image_id( $image );
 			$variation->set_attributes( $row );
 			$variation->set_regular_price( '50' );
 			if ( $auto ) {
@@ -160,6 +166,8 @@ class ColorDotsTest extends WP_UnitTestCase {
 		$this->assertSame( 'dots', $type->attributes['look']['default'] );
 		$this->assertSame( 4, $type->attributes['limit']['default'] );
 		$this->assertFalse( $type->attributes['single']['default'] );
+		$this->assertSame( 'off', $type->attributes['swap']['default'] );
+		$this->assertSame( 'fade', $type->attributes['motion']['default'] );
 		$this->assertEmpty( $type->view_script_handles, 'no front script' );
 		$this->assertNotEmpty( $type->style_handles );
 		$this->assertNotEmpty( $type->editor_script_handles );
@@ -219,10 +227,12 @@ class ColorDotsTest extends WP_UnitTestCase {
 				array(
 					'name'  => 'Navy',
 					'color' => '#2f3647',
+					'image' => 0,
 				),
 				array(
 					'name'  => 'Olive',
 					'color' => '#6d6b4a',
+					'image' => 0,
 				),
 			),
 			ColorDots::colors( $product )
@@ -309,6 +319,7 @@ class ColorDotsTest extends WP_UnitTestCase {
 				array(
 					'name'  => 'Ink',
 					'color' => '#222222',
+					'image' => 0,
 				),
 			),
 			ColorDots::colors( $product )
@@ -433,9 +444,172 @@ class ColorDotsTest extends WP_UnitTestCase {
 				array(
 					'name'  => '',
 					'color' => '#d90324',
+					'image' => 0,
 				),
 			),
 			$data['purplish_colors']
 		);
+	}
+
+	/**
+	 * A photo for a test.
+	 *
+	 * @return int Attachment ID.
+	 */
+	private function photo() {
+		return self::factory()->attachment->create_upload_object( DIR_TESTDATA . '/images/canola.jpg' );
+	}
+
+	/**
+	 * Two colors, Navy with a photo on its second variation and Olive with
+	 * the product's own photo, so only Navy has a photo of its own.
+	 *
+	 * @return array{0: WC_Product_Variable, 1: int} The product and Navy's photo.
+	 */
+	private function two_colors_with_photo() {
+		$this->attribute(
+			'color',
+			array(
+				'Navy'  => '#2f3647',
+				'Olive' => '#6d6b4a',
+			)
+		);
+		$this->attribute(
+			'size',
+			array(
+				'Small' => '',
+				'Large' => '',
+			)
+		);
+		$main    = $this->photo();
+		$navy    = $this->photo();
+		$product = $this->variable(
+			array(
+				'pa_color' => array( 'navy', 'olive' ),
+				'pa_size'  => array( 'small', 'large' ),
+			),
+			array(
+				array(
+					'pa_color' => 'navy',
+					'pa_size'  => 'small',
+				),
+				array(
+					'pa_color' => 'navy',
+					'pa_size'  => 'large',
+					'image'    => $navy,
+				),
+				array(
+					'pa_color' => 'olive',
+					'pa_size'  => 'small',
+					'image'    => $main,
+				),
+			),
+			$main
+		);
+		return array( $product, $navy );
+	}
+
+	/**
+	 * Each color keeps the first variation photo that isn't the main one.
+	 */
+	public function test_colors_keep_variation_photo() {
+		list( $product, $navy ) = $this->two_colors_with_photo();
+
+		$this->assertSame( array( $navy, 0 ), wp_list_pluck( ColorDots::colors( $product ), 'image' ) );
+	}
+
+	/**
+	 * With Swap the photo on, the dots are buttons in a group: each says
+	 * its color, starts unpressed and carries its photo when it has one,
+	 * and the swap script loads.
+	 */
+	public function test_render_swap() {
+		list( $product, $navy ) = $this->two_colors_with_photo();
+
+		$out = $this->render(
+			array(
+				'swap'   => 'hover',
+				'motion' => 'wipe',
+			),
+			$product->get_id()
+		);
+
+		$this->assertStringContainsString( 'purplish-color-dots-swap purplish-color-dots-swap-hover', $out );
+		$this->assertStringContainsString( 'role="group"', $out );
+		$this->assertStringContainsString( 'data-motion="wipe"', $out );
+		$this->assertSame( 2, substr_count( $out, '<button type="button" class="purplish-color-dots-dot"' ) );
+		$this->assertSame( 2, substr_count( $out, 'aria-pressed="false"' ) );
+		$this->assertStringContainsString( 'aria-label="Navy" title="Navy" data-src="' . esc_url( wp_get_attachment_image_url( $navy, 'large' ) ) . '"', $out );
+		$this->assertStringContainsString( 'aria-label="Olive" title="Olive"></button>', $out );
+		$this->assertSame( 1, substr_count( $out, 'data-src=' ) );
+		$this->assertTrue( wp_script_is( ColorDots::SWAP_HANDLE, 'enqueued' ) );
+	}
+
+	/**
+	 * Dots without names are numbered, and an unknown motion falls back
+	 * to fade.
+	 */
+	public function test_render_swap_without_names() {
+		$product = new WC_Product_Simple();
+		$product->save();
+		$photo = $this->photo();
+		add_filter(
+			'purplish_color_dots_colors',
+			static function () use ( $photo ) {
+				return array(
+					array(
+						'color' => '#222222',
+						'image' => $photo,
+					),
+					array( 'color' => '#8a9a7b' ),
+				);
+			}
+		);
+
+		$out = $this->render(
+			array(
+				'swap'   => 'tap',
+				'motion' => 'spin',
+			),
+			$product->get_id()
+		);
+
+		$this->assertStringContainsString( 'purplish-color-dots-swap-tap', $out );
+		$this->assertStringContainsString( 'data-motion="fade"', $out );
+		$this->assertStringContainsString( 'aria-label="Color 1"', $out );
+		$this->assertStringContainsString( 'aria-label="Color 2"', $out );
+	}
+
+	/**
+	 * Without a photo to swap to, or with the option off or unknown, the
+	 * dots stay plain and no script loads.
+	 */
+	public function test_render_swap_needs_photo() {
+		$this->attribute(
+			'color',
+			array(
+				'Navy'  => '#2f3647',
+				'Olive' => '#6d6b4a',
+			)
+		);
+		$plain = $this->variable(
+			array( 'pa_color' => array( 'navy', 'olive' ) ),
+			array(
+				array( 'pa_color' => 'navy' ),
+				array( 'pa_color' => 'olive' ),
+			)
+		);
+
+		$out = $this->render( array( 'swap' => 'tap' ), $plain->get_id() );
+		$this->assertStringContainsString( 'role="img"', $out );
+		$this->assertStringNotContainsString( '<button', $out );
+		$this->assertStringNotContainsString( 'purplish-color-dots-swap', $out );
+		$this->assertFalse( wp_script_is( ColorDots::SWAP_HANDLE, 'enqueued' ) );
+
+		ColorDots::forget();
+		list( $product ) = $this->two_colors_with_photo();
+		$this->assertStringNotContainsString( '<button', $this->render( array(), $product->get_id() ) );
+		$this->assertStringNotContainsString( '<button', $this->render( array( 'swap' => 'always' ), $product->get_id() ) );
+		$this->assertFalse( wp_script_is( ColorDots::SWAP_HANDLE, 'enqueued' ) );
 	}
 }

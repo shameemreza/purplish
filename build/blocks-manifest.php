@@ -265,7 +265,7 @@ return array(
 		'version' => '1.3.0',
 		'title' => 'Color Dots',
 		'category' => 'purplish',
-		'description' => 'Shows the colors a product comes in, as small dots or swatches on product cards. Colors come from the color attribute or the Purplish page color of each variation.',
+		'description' => 'Shows the colors a product comes in, as small dots or swatches on product cards. Colors come from the color attribute or the Purplish page color of each variation. A dot can swap the card photo to that color.',
 		'keywords' => array(
 			'swatches',
 			'colors',
@@ -298,6 +298,24 @@ return array(
 			'single' => array(
 				'type' => 'boolean',
 				'default' => false
+			),
+			'swap' => array(
+				'type' => 'string',
+				'enum' => array(
+					'off',
+					'hover',
+					'tap'
+				),
+				'default' => 'off'
+			),
+			'motion' => array(
+				'type' => 'string',
+				'enum' => array(
+					'fade',
+					'wipe',
+					'slide'
+				),
+				'default' => 'fade'
 			)
 		),
 		'supports' => array(
