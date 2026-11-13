@@ -321,6 +321,24 @@ describe( 'wardrobe', () => {
 		expect( first.classList.contains( 'is-shown' ) ).toBe( true );
 	} );
 
+	it( 'shows a look card when Tab moves into it', () => {
+		const panel = document.createElement( 'div' );
+		panel.innerHTML = `<ul class="purplish-wardrobe-links"><li><a href="#">New in</a></li><li><a href="#">Coats</a></li></ul>
+			<div class="purplish-wardrobe-look"><a href="#one">Shop</a></div><div class="purplish-wardrobe-look"><a href="#two">Shop</a></div>`;
+		document.body.append( panel );
+		looks( panel );
+		const [ first, second ] = panel.querySelectorAll(
+			'.purplish-wardrobe-look'
+		);
+
+		second.querySelector( 'a' ).focus();
+		expect( second.classList.contains( 'is-shown' ) ).toBe( true );
+		expect( first.classList.contains( 'is-shown' ) ).toBe( false );
+		first.querySelector( 'a' ).focus();
+		expect( first.classList.contains( 'is-shown' ) ).toBe( true );
+		panel.remove();
+	} );
+
 	it( 'leaves a single look card alone', () => {
 		const panel = document.createElement( 'div' );
 		panel.innerHTML = `<ul class="purplish-wardrobe-links"><li><a href="#">New in</a></li></ul><div class="purplish-wardrobe-look">1</div>`;

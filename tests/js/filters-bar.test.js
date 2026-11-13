@@ -51,7 +51,7 @@ const page = ( overlay = 'is-mobile-overlay', more = '' ) => {
 				'Price'
 			) }
 		</div>
-	</div><p id="away">Products</p>`;
+	</div><p id="away">Products</p><a id="next" href="#products">Products</a>`;
 	document
 		.querySelectorAll( '.wp-block-accordion-heading__toggle' )
 		.forEach( ( toggle ) =>
@@ -160,6 +160,34 @@ describe( 'watchBars', () => {
 		expect( document.activeElement ).toBe( label( 'size' ) );
 	} );
 
+	it( 'closes a list when Tab moves focus past it', () => {
+		label( 'color' ).click();
+		label( 'color' ).focus();
+		document.getElementById( 'color-box' ).focus();
+		expect( states() ).toBe( 'true,false,false' );
+		document.getElementById( 'next' ).focus();
+		expect( states() ).toBe( 'false,false,false' );
+
+		label( 'price' ).click();
+		label( 'price' ).focus();
+		document.getElementById( 'next' ).focus();
+		expect( states() ).toBe( 'false,false,false' );
+	} );
+
+	it( 'closes a list when Tab moves on to the next label', () => {
+		label( 'color' ).click();
+		label( 'color' ).focus();
+		label( 'size' ).focus();
+		expect( states() ).toBe( 'false,false,false' );
+	} );
+
+	it( 'keeps a list open when focus leaves the page or lands on nothing', () => {
+		label( 'color' ).click();
+		document.getElementById( 'color-box' ).focus();
+		document.getElementById( 'color-box' ).blur();
+		expect( states() ).toBe( 'true,false,false' );
+	} );
+
 	it( 'lets several lists open in the overlay, and leaves Escape to it', () => {
 		wide.matches = false;
 		label( 'color' ).click();
@@ -168,6 +196,9 @@ describe( 'watchBars', () => {
 		document.dispatchEvent(
 			new window.KeyboardEvent( 'keydown', { key: 'Escape' } )
 		);
+		expect( states() ).toBe( 'true,true,false' );
+		document.getElementById( 'color-box' ).focus();
+		document.getElementById( 'next' ).focus();
 		expect( states() ).toBe( 'true,true,false' );
 	} );
 

@@ -116,6 +116,12 @@ class ShowfloorTest extends WP_UnitTestCase {
 		$this->assertSame( '4000', $tags->get_attribute( 'data-speed' ) );
 		$this->assertSame( Showfloor::strings(), json_decode( $tags->get_attribute( 'data-strings' ), true ) );
 
+		// A group role, so screen readers read the stage's arrow key hint.
+		$this->assertTrue( $tags->next_tag( array( 'class_name' => 'purplish-showfloor-stage' ) ) );
+		$this->assertSame( 'group', $tags->get_attribute( 'role' ) );
+		$this->assertSame( '0', $tags->get_attribute( 'tabindex' ) );
+		$this->assertSame( 'Looks. Use the arrow keys to turn.', $tags->get_attribute( 'aria-label' ) );
+
 		$looks = array();
 		while ( $tags->next_tag( array( 'class_name' => 'purplish-showfloor-look' ) ) ) {
 			$looks[] = array(
