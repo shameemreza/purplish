@@ -284,6 +284,30 @@ body.purplish-changing-room-page {
 .purplish-changing-room-flyon {
 	filter: drop-shadow(0 24px 24px rgb(0 0 0 / 25%));
 	transform-origin: 0 0;
+	animation: purplish-cr-flyon 620ms linear forwards;
+}
+
+/* From the ring onto him (--a to --b, set by the script), a beat, then gone */
+@keyframes purplish-cr-flyon {
+
+	0% {
+		transform: var(--a);
+		animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	52% {
+		transform: var(--b);
+	}
+
+	66% {
+		transform: var(--b);
+		animation-timing-function: ease-out;
+	}
+
+	100% {
+		transform: var(--b);
+		opacity: 0;
+	}
 }
 
 /* What he wears, and the outfit button between them */

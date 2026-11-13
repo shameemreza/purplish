@@ -50,6 +50,8 @@ function room( root ) {
 	const worn = ( slot ) => data[ slot ][ state[ slot ] ];
 	const look = () =>
 		data.looks[ worn( 'top' ).id + '|' + worn( 'bottom' ).id ];
+	const wearing = () =>
+		fill( S.wearing, worn( 'top' ).name, worn( 'bottom' ).name );
 	const colorOf = ( p ) => ( p.sizes[ p.pick ] || {} ).c || p.c;
 	const sized = ( p ) => ( p.sizes[ p.pick ] || p ).n;
 
@@ -151,22 +153,19 @@ function room( root ) {
 
 	/* Wearing: the piece flies onto him, then the photo changes under it */
 	let token = 0;
-	// The photo's alt text names the outfit it shows. A pair without a
-	// photo keeps the last photo on screen, which no longer matches.
-	const photoAlt = () =>
-		fill( S.wearing, worn( 'top' ).name, worn( 'bottom' ).name );
+	const photos = () => figure.querySelectorAll( '.' + P + 'photo' );
 	function showLook( delay ) {
 		const my = ++token;
 		const url = look()[ 0 ];
 		$( 'missing' ).hidden = !! url;
+		// The photo's alt text names the outfit it shows. A pair without a
+		// photo keeps the last photo on screen, which doesn't match it.
 		if ( ! url ) {
-			figure
-				.querySelectorAll( '.' + P + 'photo' )
-				.forEach( ( old ) => ( old.alt = '' ) );
+			photos().forEach( ( old ) => ( old.alt = '' ) );
 			return;
 		}
 		const img = picture( 'photo', url );
-		img.alt = photoAlt();
+		img.alt = wearing();
 		Promise.all( [
 			img.decode().catch( () => {} ),
 			new Promise( ( r ) => later( r, still() ? 0 : delay ) ),
@@ -182,12 +181,7 @@ function room( root ) {
 				img.classList.remove( 'is-in' );
 			};
 			figure.prepend( img );
-			figure.querySelectorAll( '.' + P + 'photo' ).forEach( ( old ) => {
-				if ( old !== img ) {
-					old.alt = '';
-					img.before( old );
-				}
-			} );
+			photos().forEach( ( old ) => old !== img && img.before( old ) );
 			if ( still() ) {
 				done();
 			} else {
@@ -205,21 +199,16 @@ function room( root ) {
 		const w = f.width * ( top ? 0.47 : 0.31 );
 		const s = w / from.width;
 		const el = picture( 'flyon', p.img );
-		el.style.width = from.width + 'px';
-		document.body.append( el );
-		const a = `translate(${ from.left }px, ${ from.top }px)`;
-		const b = `translate(${ f.left + f.width * 0.515 - w / 2 }px, ${
+		// The flight itself is the purplish-cr-flyon keyframes in the stylesheet.
+		el.style.cssText = `width:${ from.width }px;--a:translate(${
+			from.left
+		}px,${ from.top }px);--b:translate(${
+			f.left + f.width * 0.515 - w / 2
+		}px,${
 			f.top + f.height * ( top ? 0.36 : 0.715 ) - ( from.height * s ) / 2
 		}px) scale(${ s })`;
-		el.animate(
-			[
-				{ transform: a, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' },
-				{ transform: b, offset: 0.52 },
-				{ transform: b, offset: 0.66, easing: 'ease-out' },
-				{ transform: b, opacity: 0 },
-			],
-			{ duration: 620, fill: 'forwards' }
-		).finished.then( () => el.remove() );
+		hook( el, 'animationend', () => el.remove() );
+		document.body.append( el );
 	}
 
 	function wear( slot, i, from, delay = 180 ) {
@@ -283,11 +272,7 @@ function room( root ) {
 		if ( outfit ) {
 			$( 'total' ).textContent = look()[ 1 ];
 		}
-		live.textContent = fill(
-			S.wearing,
-			worn( 'top' ).name,
-			worn( 'bottom' ).name
-		);
+		live.textContent = wearing();
 	}
 	SLOTS.forEach( ( slot ) =>
 		hook( $( 'tag-' + slot ), 'click', () => open( worn( slot ) ) )
@@ -344,7 +329,7 @@ function room( root ) {
 				S.two,
 				fill( S.and, sized( parts[ 0 ] ), sized( parts[ 1 ] ) )
 			);
-			fly( figure.querySelector( '.' + P + 'photo' ) );
+			fly( photos()[ 0 ] );
 		} else {
 			toast( parts[ 0 ], S.failed, parts.map( sized ).join( ', ' ) );
 		}
@@ -353,7 +338,12 @@ function room( root ) {
 
 	/* Added to cart: a notice above everything, and the fly into the Mini-Cart */
 	let toastTimer = 0;
-	const hideToast = () => toastEl.hidePopover();
+	// While focus is in the notice it checks again later, so the View cart
+	// link can be reached from the keyboard too.
+	const hideToast = () =>
+		toastEl.matches( ':focus-within' )
+			? ( toastTimer = later( hideToast, 1800 ) )
+			: toastEl.hidePopover();
 	function toast( p, title, what ) {
 		live.textContent = title + ' ' + what;
 		if ( ! toastEl || ! toastEl.showPopover ) {
@@ -363,29 +353,14 @@ function room( root ) {
 		$( 'notice-text b' ).textContent = title;
 		$( 'notice-text span' ).textContent = what;
 		tint( toastEl, p );
-		hideToast();
+		toastEl.hidePopover();
 		toastEl.showPopover();
 		clearTimeout( toastTimer );
 		toastTimer = later( hideToast, 3600 );
 	}
-	// The notice waits while the mouse is on it or focus is in it, so the
-	// View cart link can be reached from the keyboard too.
-	const holdToast = () => clearTimeout( toastTimer );
-	const releaseToast = () => {
-		clearTimeout( toastTimer );
-		toastTimer = later( hideToast, 1800 );
-	};
-	hook( toastEl, 'pointerenter', holdToast );
+	hook( toastEl, 'pointerenter', () => clearTimeout( toastTimer ) );
 	hook( toastEl, 'pointerleave', () => {
-		if ( ! toastEl.contains( toastEl.ownerDocument.activeElement ) ) {
-			releaseToast();
-		}
-	} );
-	hook( toastEl, 'focusin', holdToast );
-	hook( toastEl, 'focusout', ( event ) => {
-		if ( ! toastEl.contains( event.relatedTarget ) ) {
-			releaseToast();
-		}
+		toastTimer = later( hideToast, 1800 );
 	} );
 	function fly( photo ) {
 		const cart = document.querySelector( '.wc-block-mini-cart__button' );
@@ -468,9 +443,7 @@ function room( root ) {
 			window.location.href = p.link;
 		} else if ( p.sizes.length && ! p.sizes[ p.pick ] ) {
 			note( S.pick );
-			const chip = drawer.querySelector(
-				'.' + P + 'chip:not(:disabled)'
-			);
+			const chip = $( 'chip:not(:disabled)', drawer );
 			if ( chip ) {
 				chip.focus();
 			}
@@ -591,6 +564,7 @@ function room( root ) {
 		const dx = e.clientX - box.left;
 		const dy = e.clientY - box.top;
 		let ghost = null;
+		let over = false;
 		follow(
 			( ev ) => {
 				if ( ! ghost ) {
@@ -610,7 +584,7 @@ function room( root ) {
 					p.li.classList.add( 'is-source' );
 				}
 				ghost.style.transform = `translate(${ ev.clientX - dx }px, ${ ev.clientY - dy }px)`;
-				const over = overHim( ev.clientX, ev.clientY );
+				over = overHim( ev.clientX, ev.clientY );
 				ghost.classList.toggle( 'is-over', over );
 				root.classList.toggle( 'is-over', over );
 			},
@@ -618,17 +592,12 @@ function room( root ) {
 				if ( ! ghost ) {
 					return false;
 				}
-				const over =
-					root.classList.contains( 'is-over' ) &&
-					ev.type === 'pointerup';
 				root.classList.remove( 'is-over' );
 				p.li.classList.remove( 'is-source' );
-				if ( over ) {
-					const from = ghost.getBoundingClientRect();
-					ghost.remove();
+				const from = ghost.getBoundingClientRect();
+				ghost.remove();
+				if ( over && ev.type === 'pointerup' ) {
 					wear( p.slot, p.i, from, 150 );
-				} else {
-					ghost.remove();
 				}
 				return true;
 			}
