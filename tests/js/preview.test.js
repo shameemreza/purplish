@@ -430,3 +430,39 @@ describe( 'details on the photo', () => {
 		).toEqual( [ 'purplish-cards', 'purplish-cards-hover-roster' ] );
 	} );
 } );
+
+describe( 'button look', () => {
+	const cards = {
+		prefix: 'cards',
+		options: { overlay: true, buttonlook: [ 'bar' ], details: true },
+		legacy: {},
+		needs: {
+			overlay: [ [ 'details', [ true ], false ] ],
+			buttonlook: [
+				[ 'overlay', [ true ], true ],
+				[ 'details', [ true ], false ],
+			],
+		},
+	};
+
+	it( 'shows the bar with the button on the photo', () => {
+		expect(
+			classesFor( cards, { overlay: true, buttonlook: 'bar' } )
+		).toEqual( [
+			'purplish-cards',
+			'purplish-cards-overlay',
+			'purplish-cards-buttonlook-bar',
+		] );
+	} );
+
+	it( 'needs the button on the photo, and not details on the photo', () => {
+		expect( classesFor( cards, { buttonlook: 'bar' } ) ).toEqual( [] );
+		expect(
+			classesFor( cards, {
+				overlay: true,
+				details: true,
+				buttonlook: 'bar',
+			} )
+		).toEqual( [ 'purplish-cards', 'purplish-cards-details' ] );
+	} );
+} );

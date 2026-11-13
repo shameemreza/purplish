@@ -344,7 +344,7 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 								'purplish'
 							)
 						: __(
-								'Title and price on one line, and add to cart as a small frosted button on the photo. It shows on hover, and always on touch screens.',
+								'Title and price on one line, and add to cart on the photo. It shows on hover, and always on touch screens.',
 								'purplish'
 							)
 				}
@@ -352,6 +352,40 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 				disabled={ true === saved.details }
 				onChange={ ( overlay ) => save( { overlay } ) }
 			/>
+			{ true === saved.overlay && true !== saved.details && (
+				<ToggleGroupControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					isBlock
+					label={ __( 'Button look', 'purplish' ) }
+					help={
+						'bar' === saved.buttonlook
+							? __(
+									'A full-width bar across the bottom of the photo that slides up on hover.',
+									'purplish'
+								)
+							: __(
+									'A small frosted button on the bottom right of the photo.',
+									'purplish'
+								)
+					}
+					value={ 'bar' === saved.buttonlook ? 'bar' : 'pill' }
+					onChange={ ( look ) =>
+						save( {
+							buttonlook: 'bar' === look ? 'bar' : undefined,
+						} )
+					}
+				>
+					<ToggleGroupControlOption
+						value="pill"
+						label={ __( 'Pill', 'purplish' ) }
+					/>
+					<ToggleGroupControlOption
+						value="bar"
+						label={ __( 'Bar', 'purplish' ) }
+					/>
+				</ToggleGroupControl>
+			) }
 			<ToggleControl
 				__nextHasNoMarginBottom
 				label={ __( 'Details on the photo', 'purplish' ) }

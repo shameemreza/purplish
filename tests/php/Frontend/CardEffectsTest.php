@@ -143,4 +143,47 @@ class CardEffectsTest extends WP_UnitTestCase {
 			$this->assertSame( array(), BlockEffects::classes_for( $name, array( 'details' => $bad ) ) );
 		}
 	}
+
+	/**
+	 * The bar look prints its class with the button on the photo only, not
+	 * on its own and not with details on the photo, and takes no other value.
+	 */
+	public function test_button_look_bar() {
+		$name = 'woocommerce/product-collection';
+
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-overlay', 'purplish-cards-buttonlook-bar' ),
+			BlockEffects::classes_for(
+				$name,
+				array(
+					'overlay'    => true,
+					'buttonlook' => 'bar',
+				)
+			)
+		);
+		$this->assertSame( array(), BlockEffects::classes_for( $name, array( 'buttonlook' => 'bar' ) ) );
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-details' ),
+			BlockEffects::classes_for(
+				$name,
+				array(
+					'overlay'    => true,
+					'details'    => true,
+					'buttonlook' => 'bar',
+				)
+			)
+		);
+		foreach ( array( 'pill', 'Bar', true, array( 'bar' ) ) as $bad ) {
+			$this->assertSame(
+				array( 'purplish-cards', 'purplish-cards-overlay' ),
+				BlockEffects::classes_for(
+					$name,
+					array(
+						'overlay'    => true,
+						'buttonlook' => $bad,
+					)
+				)
+			);
+		}
+	}
 }

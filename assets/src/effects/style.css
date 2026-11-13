@@ -608,6 +608,92 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
+ * Cards, the bar look: the button on the photo runs across the photo's
+ * bottom edge, flush with its sides and rounded to its bottom corners.
+ * The wrapper clips everything below that edge, so with a mouse the bar
+ * slides up out of it on hover or focus. Touch screens always see it.
+ * After an add, View cart sits above the bar as a small frosted chip.
+ */
+.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 8px;
+	clip-path: polygon(0 -100vh, 100% -100vh, 100% 100%, 0 100%);
+}
+
+@supports (anchor-scope: --purplish-photo) {
+
+	.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button {
+		right: anchor(inside);
+		bottom: anchor(inside);
+		left: anchor(inside);
+	}
+}
+
+.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button__button {
+	justify-content: center;
+	width: 100%;
+	min-height: 48px;
+	border-radius: 0 0 20px 20px;
+	font-weight: 500;
+	box-shadow: inset 0 1px 0 rgb(0 0 0 / 0.06);
+}
+
+.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button > span:has(.added_to_cart) {
+	order: -1;
+	align-self: flex-end;
+	margin-right: 12px;
+}
+
+.purplish-cards-buttonlook-bar .wc-block-product .added_to_cart {
+	display: inline-block;
+	padding: 0.25rem 0.75rem;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	color: #1e1e1e;
+	background: rgb(255 255 255 / 0.85);
+	backdrop-filter: blur(10px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-cards-overlay.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button {
+		opacity: 1;
+		translate: none;
+	}
+
+	.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button__button {
+		translate: 0 100%;
+	}
+
+	.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button > span:has(.added_to_cart) {
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+
+	.purplish-cards-buttonlook-bar .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button {
+		translate: 0 0;
+	}
+
+	.purplish-cards-buttonlook-bar .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button > span:has(.added_to_cart) {
+		opacity: 1;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+
+	.purplish-cards-buttonlook-bar .wc-block-product .wc-block-components-product-button__button {
+		opacity: 0;
+		translate: none;
+	}
+
+	.purplish-cards-buttonlook-bar .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button {
+		opacity: 1;
+	}
+}
+
+/*
  * Cards, details on the photo: the title, price and add to cart sit on the
  * bottom of the photo over a soft shade, the button as the frosted pill
  * beside the price. With a mouse they show on hover or focus; touch screens
