@@ -62,6 +62,30 @@ class BlockEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Names under swatches on the Chips filter becomes a class on the
+	 * chips wrapper, next to WooCommerce's swatch style.
+	 */
+	public function test_swatch_names() {
+		$name = 'woocommerce/product-filter-chips';
+
+		$this->assertSame( array( 'purplish-swatches', 'purplish-swatches-names' ), BlockEffects::classes_for( $name, array( 'names' => true ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( $name, array( 'names' => 'yes' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( $name, array( 'names' => false ) ) );
+
+		$html = '<div class="wp-block-woocommerce-product-filter-chips wc-block-product-filter-chips is-style-swatch"><button class="wc-block-product-filter-chips__item" aria-checked="false"></button></div>';
+		$out  = ( new BlockEffects() )->add_classes(
+			$html,
+			array(
+				'blockName' => $name,
+				'attrs'     => array( 'purplish' => array( 'names' => true ) ),
+			)
+		);
+
+		$this->assertStringContainsString( 'class="wp-block-woocommerce-product-filter-chips wc-block-product-filter-chips is-style-swatch purplish-swatches purplish-swatches-names"', $out );
+		$this->assertStringContainsString( '<button class="wc-block-product-filter-chips__item" aria-checked="false">', $out );
+	}
+
+	/**
 	 * Unknown options, wrong types and other blocks give no classes.
 	 */
 	public function test_unknown_input() {
