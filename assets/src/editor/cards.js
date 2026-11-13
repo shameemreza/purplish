@@ -320,6 +320,60 @@ function GridSwitch( { saved, save, attributes } ) {
 }
 
 /**
+ * How the cards move when filters, sorting or a page change swap the
+ * results. WooCommerce's Force page reload loads a new page instead, so
+ * there's nothing to move.
+ *
+ * @param {Object}                    props            Control props.
+ * @param {Object}                    props.saved      The block's saved `purplish` attribute.
+ * @param {(changes: Object) => void} props.save       Saves changes to it.
+ * @param {Object}                    props.attributes The block's attributes.
+ */
+function ResultsChange( { saved, save, attributes } ) {
+	const reload = !! ( attributes && attributes.forcePageReload );
+	const looks = {
+		fade: __( 'The new results fade in.', 'purplish' ),
+		rise: __( 'The cards come up one after another.', 'purplish' ),
+		move: __(
+			'Cards that stay glide to their new places, and new ones fade in.',
+			'purplish'
+		),
+	};
+	const look = Object.keys( looks ).includes( saved.results )
+		? saved.results
+		: '';
+	let help = look
+		? looks[ look ]
+		: __(
+				'How the cards change when shoppers filter, sort or change page. Visitors who ask for reduced motion see the swap without motion.',
+				'purplish'
+			);
+	if ( reload ) {
+		help = __(
+			'Force page reload is on, so each change loads a new page.',
+			'purplish'
+		);
+	}
+	return (
+		<SelectControl
+			__next40pxDefaultSize
+			__nextHasNoMarginBottom
+			label={ __( 'Results change', 'purplish' ) }
+			help={ help }
+			value={ reload ? '' : look }
+			disabled={ reload }
+			options={ [
+				{ label: __( 'Instant', 'purplish' ), value: '' },
+				{ label: __( 'Fade', 'purplish' ), value: 'fade' },
+				{ label: __( 'Rise', 'purplish' ), value: 'rise' },
+				{ label: __( 'Move', 'purplish' ), value: 'move' },
+			] }
+			onChange={ ( value ) => save( { results: value || undefined } ) }
+		/>
+	);
+}
+
+/**
  * The panel.
  *
  * @param {Object}                  props            Panel props.
@@ -447,6 +501,11 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 				/>
 			</BaseControl>
 			<GridSwitch
+				saved={ saved }
+				save={ save }
+				attributes={ attributes }
+			/>
+			<ResultsChange
 				saved={ saved }
 				save={ save }
 				attributes={ attributes }

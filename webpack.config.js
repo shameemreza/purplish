@@ -32,6 +32,7 @@ module.exports = {
 		filters: './assets/src/filters/index.js',
 		grid: './assets/src/grid/index.js',
 		more: './assets/src/more/index.js',
+		results: './assets/src/results/index.js',
 		swap: './assets/src/swap/index.js',
 		...( hasBlocks() ? defaultConfig.entry() : {} ),
 	} ),
