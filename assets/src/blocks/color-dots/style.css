@@ -1,7 +1,8 @@
 /**
  * Color Dots. Sizes are in em, so the block's font size sets them, and the
  * looks sit in :where() so the block's Styles win. A hairline ring in the
- * text color keeps white and cream dots visible on light tiles.
+ * text color keeps white and cream dots visible on light tiles. With Swap
+ * the photo on, the dots are buttons and the old photo leaves with a motion.
  */
 .wp-block-purplish-color-dots {
 	display: flex;
@@ -54,6 +55,135 @@
 
 	.purplish-color-dots-look-swatches .purplish-color-dots-dot:hover {
 		outline-color: currentcolor;
+	}
+}
+
+/*
+ * Swap the photo: each dot is a button. A ring a little off the edge marks
+ * the chosen color, and the tap area reaches past the dot.
+ */
+button.purplish-color-dots-dot {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+	appearance: none;
+}
+
+button.purplish-color-dots-dot::before {
+	content: "";
+	position: absolute;
+	inset: -5px;
+}
+
+.purplish-color-dots-swap .purplish-color-dots-dot {
+	outline: 1px solid transparent;
+	outline-offset: 2px;
+	transition: outline-color 0.2s ease, outline-offset 0.2s ease;
+}
+
+.purplish-color-dots-swap .purplish-color-dots-dot[aria-pressed="true"],
+.purplish-color-dots-dot.is-purplish-chosen {
+	outline: 1.5px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-color-dots-swap .purplish-color-dots-dot:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 3px;
+}
+
+@media (hover: hover) {
+
+	.purplish-color-dots-swap .purplish-color-dots-dot:hover {
+		outline-color: color-mix(in srgb, currentcolor 55%, transparent);
+	}
+}
+
+/*
+ * The old photo sits over the new one until it's ready, then leaves:
+ * fade, wipe up or slide out. With slide, the new photo slides in behind
+ * it. The hover look's second photo stays away while a color is shown.
+ */
+.wc-block-components-product-image:has(> a > .purplish-swap-old, > .purplish-swap-old) {
+	overflow: hidden;
+}
+
+.wc-block-components-product-image img.purplish-swap-old {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	pointer-events: none;
+}
+
+.purplish-swap-old.is-fade.is-going {
+	animation: purplish-swap-fade 0.32s ease forwards;
+}
+
+.purplish-swap-old.is-wipe.is-going {
+	animation: purplish-swap-wipe 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.purplish-swap-old.is-slide.is-going {
+	animation: purplish-swap-slide-out 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.wc-block-components-product-image img.is-purplish-slide-in {
+	animation: purplish-swap-slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes purplish-swap-fade {
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes purplish-swap-wipe {
+
+	from {
+		clip-path: inset(0 0 0 0);
+	}
+
+	to {
+		clip-path: inset(0 0 100% 0);
+	}
+}
+
+@keyframes purplish-swap-slide-out {
+
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes purplish-swap-slide-in {
+
+	from {
+		transform: translateX(100%);
+	}
+}
+
+.wc-block-product:has(.purplish-color-dots-swap .purplish-color-dots-dot[aria-pressed="true"]) .purplish-second-photo,
+.wc-block-product:has(.purplish-color-dots-swap-hover:hover) .purplish-second-photo {
+	opacity: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-color-dots-swap .purplish-color-dots-dot {
+		transition: none;
+	}
+
+	.purplish-swap-old,
+	.wc-block-components-product-image img.is-purplish-slide-in {
+		animation: none !important;
 	}
 }
 

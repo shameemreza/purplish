@@ -3,6 +3,7 @@
  * `purplish_colors` field, the same list the server prints, so the dots in
  * the editor match the store. A product with one color shows its dot faded
  * when Show a single color is off, since the front end leaves it out.
+ * With Swap the photo on, the first dot wears the chosen ring.
  */
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import {
@@ -17,6 +18,18 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 const LOOKS = [
 	{ value: 'dots', label: __( 'Dots', 'purplish' ) },
 	{ value: 'swatches', label: __( 'Swatches', 'purplish' ) },
+];
+
+const SWAPS = [
+	{ value: 'off', label: __( 'Off', 'purplish' ) },
+	{ value: 'hover', label: __( 'On hover', 'purplish' ) },
+	{ value: 'tap', label: __( 'On tap', 'purplish' ) },
+];
+
+const MOTIONS = [
+	{ value: 'fade', label: __( 'Fade', 'purplish' ) },
+	{ value: 'wipe', label: __( 'Wipe', 'purplish' ) },
+	{ value: 'slide', label: __( 'Slide', 'purplish' ) },
 ];
 
 // Shown where there is no product yet, such as the inserter preview.
@@ -54,7 +67,8 @@ export function label( colors ) {
  * @param {Object}                    props.context       Card context.
  */
 export default function Edit( { attributes, setAttributes, context } ) {
-	const { look, limit, single } = attributes;
+	const { look, limit, single, swap, motion } = attributes;
+	const swaps = swap && 'off' !== swap;
 	const postId = context.postId;
 
 	const colors = useSelect(
@@ -141,6 +155,39 @@ export default function Edit( { attributes, setAttributes, context } ) {
 							setAttributes( { single: value } )
 						}
 					/>
+					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Swap the photo', 'purplish' ) }
+						help={
+							'hover' === swap
+								? __(
+										'A dot shows its color on the photo while the pointer is over it. A click or tap keeps it.',
+										'purplish'
+									)
+								: __(
+										'A click or tap on a dot shows that color on the photo. Uses each variation photo.',
+										'purplish'
+									)
+						}
+						value={ swap || 'off' }
+						options={ SWAPS }
+						onChange={ ( value ) =>
+							setAttributes( { swap: value } )
+						}
+					/>
+					{ swaps && (
+						<SelectControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Swap motion', 'purplish' ) }
+							value={ motion || 'fade' }
+							options={ MOTIONS }
+							onChange={ ( value ) =>
+								setAttributes( { motion: value } )
+							}
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>
@@ -149,7 +196,12 @@ export default function Edit( { attributes, setAttributes, context } ) {
 						{ list.slice( 0, max ).map( ( entry, index ) => (
 							<span
 								key={ index }
-								className="purplish-color-dots-dot"
+								className={
+									'purplish-color-dots-dot' +
+									( swaps && ! hidden && 0 === index
+										? ' is-purplish-chosen'
+										: '' )
+								}
 								style={ { '--purplish-dot': entry.color } }
 								title={ entry.name || undefined }
 							/>

@@ -16,7 +16,8 @@ defined( 'ABSPATH' ) || exit;
  * A product with a color attribute gets one dot per color; the dot takes
  * the term's swatch color, then the page color of a variation in that
  * color. Without a color attribute, each distinct page color gets a dot,
- * so the dots work in stores that never set one up.
+ * so the dots work in stores that never set one up. With Swap the photo on,
+ * each dot is a button that shows its color's variation photo on the card.
  *
  * @since 1.3.0
  */
@@ -28,8 +29,15 @@ final class ColorDots implements Block {
 	 * @var array<string, string[]>
 	 */
 	const OPTIONS = array(
-		'look' => array( 'dots', 'swatches' ),
+		'look'   => array( 'dots', 'swatches' ),
+		'swap'   => array( 'off', 'hover', 'tap' ),
+		'motion' => array( 'fade', 'wipe', 'slide' ),
 	);
+
+	/**
+	 * The script that swaps the card photo.
+	 */
+	const SWAP_HANDLE = 'purplish-swap';
 
 	/**
 	 * The most dots a card can show before the rest become "+N".
@@ -130,7 +138,7 @@ final class ColorDots implements Block {
 	 * color (when the store hides those) gets no dot.
 	 *
 	 * @param \WC_Product $product The card's product.
-	 * @return array<int, array{name: string, color: string}>
+	 * @return array<int, array{name: string, color: string, image: int}>
 	 */
 	public static function colors( $product ) {
 		$id = $product->get_id();
@@ -147,6 +155,7 @@ final class ColorDots implements Block {
 				$colors[] = array(
 					'name'  => '',
 					'color' => $color,
+					'image' => 0,
 				);
 			}
 		}
@@ -156,7 +165,8 @@ final class ColorDots implements Block {
 		 *
 		 * @since 1.3.0
 		 *
-		 * @param array[]     $colors  Each with a `name` (may be empty) and a hex `color`.
+		 * @param array[]     $colors  Each with a `name` (may be empty), a hex `color`
+		 *                             and the `image` ID of its photo (0 for the main photo).
 		 * @param \WC_Product $product The card's product.
 		 */
 		$colors = apply_filters( 'purplish_color_dots_colors', $colors, $product );
@@ -168,6 +178,7 @@ final class ColorDots implements Block {
 				$clean[] = array(
 					'name'  => isset( $entry['name'] ) ? wp_strip_all_tags( (string) $entry['name'] ) : '',
 					'color' => $color,
+					'image' => isset( $entry['image'] ) ? absint( $entry['image'] ) : 0,
 				);
 			}
 		}
@@ -179,14 +190,16 @@ final class ColorDots implements Block {
 	/**
 	 * One color per color term, or per distinct page color when the
 	 * product has no color attribute, in the order the variations come.
+	 * Each color keeps the first variation photo that differs from the main one.
 	 *
 	 * @param \WC_Product_Variable $product Variable product.
-	 * @return array<int, array{name: string, color: string}>
+	 * @return array<int, array{name: string, color: string, image: int}>
 	 */
 	private static function variation_colors( $product ) {
 		$attribute = self::color_attribute( $product );
 		$key       = sanitize_title( $attribute );
 		$taxonomy  = '' !== $attribute && taxonomy_is_product_attribute( $attribute );
+		$main      = (int) $product->get_image_id();
 		$groups    = array();
 
 		foreach ( $product->get_visible_children() as $child_id ) {
@@ -197,7 +210,12 @@ final class ColorDots implements Block {
 
 			$picked = $variation->get_attributes();
 			$value  = '' !== $key && isset( $picked[ $key ] ) ? (string) $picked[ $key ] : '';
+			$image  = (int) $variation->get_image_id( 'edit' );
+			$image  = $image === $main ? 0 : $image;
 			if ( '' !== $value && isset( $groups[ 'term:' . $value ] ) ) {
+				if ( ! $groups[ 'term:' . $value ]['image'] ) {
+					$groups[ 'term:' . $value ]['image'] = $image;
+				}
 				continue;
 			}
 
@@ -225,7 +243,10 @@ final class ColorDots implements Block {
 				$groups[ $group ] = array(
 					'name'  => $name,
 					'color' => $color,
+					'image' => $image,
 				);
+			} elseif ( ! $groups[ $group ]['image'] ) {
+				$groups[ $group ]['image'] = $image;
 			}
 		}
 
@@ -278,31 +299,85 @@ final class ColorDots implements Block {
 			return '';
 		}
 
-		$limit = self::limit( $attributes );
-		$dots  = '';
-		foreach ( array_slice( $colors, 0, $limit ) as $entry ) {
-			$dots .= sprintf(
+		$limit  = self::limit( $attributes );
+		$shown  = array_slice( $colors, 0, $limit );
+		$swap   = self::swaps( $attributes, $shown ) ? self::option( $attributes, 'swap' ) : 'off';
+		$dots   = '';
+		$number = 0;
+		foreach ( $shown as $entry ) {
+			++$number;
+			$dots .= 'off' === $swap ? sprintf(
 				'<span class="purplish-color-dots-dot" style="--purplish-dot:%1$s"%2$s></span>',
 				esc_attr( $entry['color'] ),
 				'' === $entry['name'] ? '' : ' title="' . esc_attr( $entry['name'] ) . '"'
-			);
+			) : self::button( $entry, $number );
 		}
 		$rest = count( $colors ) - $limit;
 		if ( $rest > 0 ) {
 			$dots .= sprintf( '<span class="purplish-color-dots-more">+%d</span>', $rest );
 		}
 
-		return sprintf(
-			'<div %1$s>%2$s</div>',
-			get_block_wrapper_attributes(
-				array(
-					'class'      => 'purplish-color-dots-look-' . self::option( $attributes, 'look' ),
-					'role'       => 'img',
-					'aria-label' => self::label( $colors ),
-				)
-			),
-			$dots
+		$wrapper = array(
+			'class'      => 'purplish-color-dots-look-' . self::option( $attributes, 'look' ),
+			'role'       => 'img',
+			'aria-label' => self::label( $colors ),
 		);
+		if ( 'off' !== $swap ) {
+			$wrapper['class']      .= ' purplish-color-dots-swap purplish-color-dots-swap-' . $swap;
+			$wrapper['role']        = 'group';
+			$wrapper['data-motion'] = self::option( $attributes, 'motion' );
+			self::enqueue_swap();
+		}
+
+		return sprintf( '<div %1$s>%2$s</div>', get_block_wrapper_attributes( $wrapper ), $dots );
+	}
+
+	/**
+	 * Whether the dots swap the photo: the option is on and at least one
+	 * shown color has a photo of its own.
+	 *
+	 * @param array   $attributes Block attributes.
+	 * @param array[] $shown      The colors with a dot.
+	 * @return bool
+	 */
+	public static function swaps( $attributes, $shown ) {
+		return 'off' !== self::option( $attributes, 'swap' ) && count( array_filter( wp_list_pluck( $shown, 'image' ) ) ) > 0;
+	}
+
+	/**
+	 * A dot as a button that shows its color's photo. A color without a
+	 * photo of its own carries none, and the script shows the main photo.
+	 *
+	 * @param array $entry  The color.
+	 * @param int   $number Its place among the dots, from 1.
+	 * @return string
+	 */
+	private static function button( $entry, $number ) {
+		/* translators: %d: the color's place among the dots, from 1. */
+		$name  = '' === $entry['name'] ? sprintf( __( 'Color %d', 'purplish' ), $number ) : $entry['name'];
+		$photo = '';
+		$src   = $entry['image'] ? wp_get_attachment_image_url( $entry['image'], 'large' ) : '';
+		if ( $src ) {
+			$srcset = wp_get_attachment_image_srcset( $entry['image'], 'large' );
+			$photo  = ' data-src="' . esc_url( $src ) . '"' . ( $srcset ? ' data-srcset="' . esc_attr( $srcset ) . '"' : '' );
+		}
+
+		return sprintf(
+			'<button type="button" class="purplish-color-dots-dot" style="--purplish-dot:%1$s" aria-pressed="false" aria-label="%2$s" title="%2$s"%3$s></button>',
+			esc_attr( $entry['color'] ),
+			esc_attr( $name ),
+			$photo
+		);
+	}
+
+	/**
+	 * Loads the swap script once, after the page.
+	 *
+	 * @return void
+	 */
+	private static function enqueue_swap() {
+		$asset = include PURPLISH_DIR . 'build/swap.asset.php';
+		wp_enqueue_script( self::SWAP_HANDLE, PURPLISH_URL . 'build/swap.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 	}
 
 	/**
@@ -327,6 +402,7 @@ final class ColorDots implements Block {
 						'properties' => array(
 							'name'  => array( 'type' => 'string' ),
 							'color' => array( 'type' => 'string' ),
+							'image' => array( 'type' => 'integer' ),
 						),
 					),
 				),

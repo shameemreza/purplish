@@ -5,7 +5,7 @@
   "version": "1.3.0",
   "title": "Color Dots",
   "category": "purplish",
-  "description": "Shows the colors a product comes in, as small dots or swatches on product cards. Colors come from the color attribute or the Purplish page color of each variation.",
+  "description": "Shows the colors a product comes in, as small dots or swatches on product cards. Colors come from the color attribute or the Purplish page color of each variation. A dot can swap the card photo to that color.",
   "keywords": [
     "swatches",
     "colors",
@@ -38,6 +38,24 @@
     "single": {
       "type": "boolean",
       "default": false
+    },
+    "swap": {
+      "type": "string",
+      "enum": [
+        "off",
+        "hover",
+        "tap"
+      ],
+      "default": "off"
+    },
+    "motion": {
+      "type": "string",
+      "enum": [
+        "fade",
+        "wipe",
+        "slide"
+      ],
+      "default": "fade"
     }
   },
   "supports": {
