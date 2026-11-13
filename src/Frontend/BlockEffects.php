@@ -341,6 +341,14 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// Only shows on an attribute with swatches, where WooCommerce hides the names.
+			'woocommerce/product-filter-chips'            => array(
+				'prefix'  => 'swatches',
+				'options' => array(
+					'names' => true,
+				),
+				'preview' => true,
+			),
 			// On the parent, the only block that holds both kinds of chips.
 			'woocommerce/product-filters'                 => array(
 				'prefix'  => 'filters',

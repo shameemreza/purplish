@@ -49,11 +49,12 @@ class StoreWideTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The chips on their own, as Add to Cart + Options uses them on the
-	 * product page, get no option and no class.
+	 * Matching chips stays on the filters block. The chips on their own,
+	 * as Add to Cart + Options also uses them on the product page, only
+	 * take Names under swatches.
 	 */
 	public function test_chips_block_is_left_alone() {
-		$this->assertArrayNotHasKey( 'woocommerce/product-filter-chips', BlockEffects::blocks() );
+		$this->assertSame( array( 'names' ), array_keys( BlockEffects::blocks()['woocommerce/product-filter-chips']['options'] ) );
 
 		$html = '<div class="wp-block-woocommerce-product-filter-chips wc-block-product-filter-chips"></div>';
 		$out  = ( new BlockEffects() )->add_classes(

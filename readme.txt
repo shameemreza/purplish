@@ -114,6 +114,7 @@ On other blocks:
 * **Product Filters, Matching chips:** the active filters take the look of a selected chip, and a chip fades into its selected color when picked.
 * **Product Filters, Sidebar can hide:** a Hide filters button beside Sort by folds the filter sidebar away, and the products take the width. The choice lasts for the visit, and phones keep the filter overlay.
 * **Product Filters, Layout: Bar:** the filters sit in one row above the products, and each one opens as a dropdown under its label, on a click or on hover, with four open styles. Phones keep the filter overlay.
+* **Chips filter, Names under swatches:** a color filter shown as swatches gets each color's name under its swatch, and a check on the chosen ones.
 * **Mini-Cart, Count pop and Fly to cart:** the item count pops each time something goes into the cart, and Fly to cart sends the product photo into the cart icon.
 * **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom.
 * **Button, Looks:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, in any mix.

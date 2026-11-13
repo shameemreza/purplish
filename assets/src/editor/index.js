@@ -23,6 +23,7 @@ import DetailsPanel from './details';
 import ReviewsPanel from './reviews';
 import SpecsPanel from './specs';
 import FiltersPanel from './filters';
+import FilterChipsPanel from './filter-chips';
 import MiniCartPanel from './mini-cart';
 import ImagePanel from './image';
 import ButtonPanel from './button';
@@ -56,6 +57,7 @@ const PANELS = {
 	'woocommerce/product-reviews': ReviewsPanel,
 	'woocommerce/product-specifications': SpecsPanel,
 	'woocommerce/product-filters': FiltersPanel,
+	'woocommerce/product-filter-chips': FilterChipsPanel,
 	'woocommerce/mini-cart': MiniCartPanel,
 	'core/image': ImagePanel,
 	'core/button': ButtonPanel,
