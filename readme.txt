@@ -64,6 +64,7 @@ On shop and collection pages, select the Product Collection block:
 * **Effect color:** one color for the button fill, the card effects and the hover looks. On a product page with a variation color, the variation color wins.
 * **Card effect:** one of 23 effects for the whole collection. Cards can fan out like a hand, hang from a clothes line, or stack in a coverflow.
 * **Grid switch:** two buttons after Sort by let shoppers switch between the grid's columns and a second count you pick, like four columns or two bigger cards. The choice lasts for the visit, and phones keep their grid.
+* **Results change:** when shoppers filter, sort or change page, the new cards fade in, rise one after another, or move, where the cards that stay slide to their new places. Reduced motion shows them at once.
 
 Effects on hover: Spotlight, Color reveal, Fan deck, Expanded cards, Magnetic panel, Card folder, Bookmark and Roster.
 

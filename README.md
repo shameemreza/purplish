@@ -147,6 +147,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Product Collection, Grid switch:** two small buttons after Sort by let shoppers switch the grid between its own column count and a second one you pick, like four columns or two bigger cards. The choice lasts for the visit and is in place before the grid draws, so it holds through filters, page numbers and the next page. The cards move to their new places, and reduced motion switches at once. Without Sort by on the page, the buttons sit above the grid. It needs the Grid layout, and phones keep their grid.
 
+### Results change
+
+- **Product Collection, Results change:** how the cards change when shoppers filter, sort or change page. Fade brings the new results in softly. Rise brings the cards up one after another. Move slides the cards that stay to their new places and fades the new ones in, so shoppers can see what stayed. Load more keeps its own motion, and Force page reload turns the option off, since each change then loads a new page. Reduced motion shows the new results at once. The script is about 1 KB and loads only on a collection that uses it.
+
 ### Shop page pattern
 
 - **Pattern:** Atelier shop is a quiet shop page for the Product Catalog and product category templates. It has breadcrumbs, the category name as an uppercase serif title with its description under it, and accordion filters on the left (Categories, Shop by price, Availability) that fold away with Hide filters. Sort by sits on the right, then three columns of tall photos with a Best seller tag, cards that lift on hover with Add to cart on the photo, and numbered pages with Back and Next. The products follow the page, so on a category template it shows that category. Find it in the Site Editor's pattern inserter under Purplish or WooCommerce. It's offered in templates only, since Sort by and the results only work on shop pages. The title uses Purple's Bodoni Moda, and other themes keep their own font.
