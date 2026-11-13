@@ -162,6 +162,13 @@ final class Patterns {
 				'postTypes'  => array( 'wp_template' ),
 				'file'       => PURPLISH_DIR . 'patterns/flagship-shop.php',
 			),
+			'boutique-shop'         => array(
+				'title'      => __( 'Boutique shop', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array( 'woocommerce/product-collection' ),
+				'postTypes'  => array( 'wp_template' ),
+				'file'       => PURPLISH_DIR . 'patterns/boutique-shop.php',
+			),
 		);
 	}
 

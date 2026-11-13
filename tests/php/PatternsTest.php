@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop', 'boutique-shop' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -496,6 +496,124 @@ class PatternsTest extends WP_UnitTestCase {
 		$size  = wc_create_attribute( array( 'name' => 'Size' ) );
 		$color = wc_create_attribute( array( 'name' => 'Color' ) );
 		$this->assertSame( array( $size, $color ), $attribute_ids( Patterns::content( $file ) ) );
+
+		wc_delete_attribute( $size );
+		wc_delete_attribute( $color );
+	}
+
+	/**
+	 * The Boutique shop is a shop template pattern: a band of round category
+	 * photos, a sidebar of filters that can hide, and a four-column grid.
+	 */
+	public function test_boutique_shop() {
+		( new Patterns() )->register_patterns();
+		$shop = WP_Block_Patterns_Registry::get_instance()->get_registered( 'purplish/boutique-shop' );
+
+		$this->assertSame( array( 'woocommerce/product-collection' ), $shop['blockTypes'] );
+		$this->assertSame( array( 'wp_template' ), $shop['postTypes'] );
+		$this->assertContains( 'woo-commerce', $shop['categories'] );
+
+		$blocks = parse_blocks( $shop['content'] );
+		$names  = $this->block_names( $blocks );
+		foreach ( array( 'woocommerce/breadcrumbs', 'woocommerce/product-results-count', 'core/terms-query', 'woocommerce/featured-category', 'core/term-name', 'woocommerce/product-collection', 'woocommerce/product-filters', 'woocommerce/product-filter-active', 'woocommerce/product-filter-removable-chips', 'woocommerce/product-filter-clear-button', 'woocommerce/product-filter-taxonomy', 'woocommerce/product-filter-price', 'woocommerce/product-filter-status', 'core/accordion', 'woocommerce/catalog-sorting', 'woocommerce/product-image', 'purplish/color-dots', 'woocommerce/product-button', 'core/query-pagination' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		foreach ( $names as $name ) {
+			$this->assertTrue( \WP_Block_Type_Registry::get_instance()->is_registered( $name ), $name . ' is registered' );
+		}
+
+		$this->assertSame( array( 'show' => 'brackets' ), $this->find_block( $blocks, 'woocommerce/product-results-count' )['attrs']['purplish'] );
+
+		$photos = $this->find_block( $blocks, 'core/terms-query' );
+		$this->assertSame(
+			array(
+				'current' => true,
+				'look'    => 'photos',
+				'shape'   => 'circle',
+				'hover'   => 'ring',
+			),
+			$photos['attrs']['purplish']
+		);
+		$this->assertSame( 'product_cat', $photos['attrs']['termQuery']['taxonomy'] );
+		// Wide, so a full row of photos fits inside the band.
+		$this->assertSame( 'wide', $photos['attrs']['align'] );
+
+		$collection = $this->find_block( $blocks, 'woocommerce/product-collection' );
+		$this->assertTrue( $collection['attrs']['query']['inherit'] );
+		$this->assertSame( 4, $collection['attrs']['displayLayout']['columns'] );
+		$this->assertSame(
+			array(
+				'overlay'    => true,
+				'buttonlook' => 'bar',
+				'color'      => '#c4161c',
+				'results'    => 'move',
+			),
+			$collection['attrs']['purplish']
+		);
+		// The filters sit inside the collection, so they filter its grid.
+		$filters = $this->find_block( $collection['innerBlocks'], 'woocommerce/product-filters' );
+		$this->assertSame(
+			array(
+				'hide'  => true,
+				'chips' => true,
+			),
+			$filters['attrs']['purplish']
+		);
+		$this->assertSame(
+			array(
+				'line' => 'draw',
+				'icon' => 'chevron',
+			),
+			$this->find_block( $filters['innerBlocks'], 'core/accordion' )['attrs']['purplish']
+		);
+		$this->assertStringContainsString( 'wc-block-product-filter-clear-button', serialize_blocks( array( $this->find_block( $filters['innerBlocks'], 'woocommerce/product-filter-clear-button' ) ) ) );
+		$this->assertSame(
+			array(
+				'look'   => 'swatches',
+				'limit'  => 6,
+				'swap'   => 'hover',
+				'motion' => 'fade',
+			),
+			$this->find_block( $blocks, 'purplish/color-dots' )['attrs']
+		);
+		$this->assertSame( array( 'look' => 'underline' ), $this->find_block( $blocks, 'core/query-pagination' )['attrs']['purplish'] );
+	}
+
+	/**
+	 * The Boutique sidebar gets Color swatches and a Size list only when the
+	 * store has those attributes, with Color first and open.
+	 */
+	public function test_boutique_shop_attribute_filters() {
+		$file = PURPLISH_DIR . 'patterns/boutique-shop.php';
+		$find = function ( $content ) {
+			$found = array();
+			$walk  = static function ( $blocks ) use ( &$walk, &$found ) {
+				foreach ( $blocks as $block ) {
+					if ( 'woocommerce/product-filter-attribute' === $block['blockName'] ) {
+						$found[] = $block;
+					}
+					$walk( $block['innerBlocks'] );
+				}
+			};
+			$walk( parse_blocks( $content ) );
+			return $found;
+		};
+
+		foreach ( array( 'pa_size', 'pa_color' ) as $name ) {
+			$this->assertSame( 0, (int) wc_attribute_taxonomy_id_by_name( $name ), $name . ' starts absent' );
+			if ( taxonomy_exists( $name ) ) {
+				unregister_taxonomy( $name );
+			}
+		}
+		$this->assertSame( array(), $find( Patterns::content( $file ) ) );
+
+		$size    = wc_create_attribute( array( 'name' => 'Size' ) );
+		$color   = wc_create_attribute( array( 'name' => 'Color' ) );
+		$filters = $find( Patterns::content( $file ) );
+		$this->assertSame( array( $color, $size ), wp_list_pluck( wp_list_pluck( $filters, 'attrs' ), 'attributeId' ) );
+		$this->assertNotNull( $this->find_block( $filters[0]['innerBlocks'], 'woocommerce/product-filter-chips' ) );
+		$this->assertTrue( $this->find_block( $filters[0]['innerBlocks'], 'core/accordion-item' )['attrs']['openByDefault'] );
+		$this->assertNotNull( $this->find_block( $filters[1]['innerBlocks'], 'woocommerce/product-filter-checkbox-list' ) );
 
 		wc_delete_attribute( $size );
 		wc_delete_attribute( $color );
