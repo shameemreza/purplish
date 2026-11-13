@@ -3304,6 +3304,88 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Names under swatches. WooCommerce draws the swatch, hides the name
+ * and rings the chosen button. The name and count come back under the
+ * swatch, the ring moves onto the swatch, and a chosen one gets a check
+ * drawn with borders so its shadow shows on light and dark colors.
+ */
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__item {
+	width: 5em;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+}
+
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__label {
+	flex-direction: column;
+	gap: 0.45em;
+}
+
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__swatch {
+	position: relative;
+	box-shadow: 0 0 0 2px Canvas, 0 0 0 3px transparent;
+}
+
+@media (hover: hover) {
+
+	.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__item:hover .wc-block-product-filter-chips__swatch {
+		box-shadow: 0 0 0 2px Canvas, 0 0 0 3px color-mix(in srgb, currentcolor 40%, transparent);
+	}
+}
+
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__item:focus-visible .wc-block-product-filter-chips__swatch {
+	box-shadow: 0 0 0 2px Canvas, 0 0 0 4px color-mix(in srgb, currentcolor 70%, transparent);
+}
+
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__item[aria-checked="true"] .wc-block-product-filter-chips__swatch {
+	box-shadow: 0 0 0 2px Canvas, 0 0 0 3.5px var(--wc-product-filter-chips-selected-border, var(--wc-product-filter-chips-text, CanvasText));
+}
+
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__item[aria-checked="true"] .wc-block-product-filter-chips__swatch::after {
+	position: absolute;
+	top: 42%;
+	left: 50%;
+	width: 0.34em;
+	height: 0.66em;
+	border: solid #fff;
+	border-width: 0 0.14em 0.14em 0;
+	content: "";
+	filter: drop-shadow(0 0 1px rgb(0 0 0 / 0.75)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.3));
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.purplish-swatches-names.is-style-swatch :is(.wc-block-product-filter-chips__text, .wc-block-product-filter-chips__count) {
+	position: static;
+	width: auto;
+	height: auto;
+	overflow: visible;
+	clip-path: none;
+	font-size: 0.75em;
+	letter-spacing: normal;
+	line-height: 1.25;
+	text-align: center;
+	text-transform: none;
+	white-space: normal;
+	overflow-wrap: break-word;
+}
+
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__count {
+	margin-top: -0.35em;
+	opacity: 0.65;
+}
+
+.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__item[aria-checked="true"] .wc-block-product-filter-chips__text {
+	font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-swatches-names.is-style-swatch .wc-block-product-filter-chips__swatch {
+		transition: box-shadow 0.2s ease;
+	}
+}
+
+/*
  * Matching chips. The effects script copies a chip's look into the
  * `--purplish-chip-*` variables on the filters block; the fallbacks are
  * WooCommerce's own selected chip.
