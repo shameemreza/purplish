@@ -529,7 +529,7 @@ final class Showfloor implements Block {
 		);
 
 		return sprintf(
-			'<section %1$s><div class="purplish-showfloor-stage" tabindex="0" aria-label="%2$s"><div class="purplish-showfloor-floor" aria-hidden="true"></div><ul class="purplish-showfloor-ring">%3$s</ul><div class="purplish-showfloor-cursor" aria-hidden="true"><span>%4$s</span></div></div>%5$s%6$s%7$s%8$s%9$s%10$s</section>',
+			'<section %1$s><div class="purplish-showfloor-stage" role="group" tabindex="0" aria-label="%2$s"><div class="purplish-showfloor-floor" aria-hidden="true"></div><ul class="purplish-showfloor-ring">%3$s</ul><div class="purplish-showfloor-cursor" aria-hidden="true"><span>%4$s</span></div></div>%5$s%6$s%7$s%8$s%9$s%10$s</section>',
 			$wrapper,
 			esc_attr__( 'Looks. Use the arrow keys to turn.', 'purplish' ),
 			$figures,

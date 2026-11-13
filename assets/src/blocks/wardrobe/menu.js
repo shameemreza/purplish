@@ -121,7 +121,8 @@ export function wardrobe( item ) {
  * With more than one look card in the panel, the card that matches the
  * link under the pointer or in focus shows: the first link's card, the
  * second link's card, and so on. Links past the last card keep the card
- * that shows.
+ * that shows. Tab moving into a card shows that card, so every card's own
+ * links can be reached from the keyboard.
  *
  * @param {HTMLElement} panel The panel.
  */
@@ -142,5 +143,8 @@ export function looks( panel ) {
 				link.addEventListener( 'focus', () => show( index ) );
 			}
 		} );
+	cards.forEach( ( card, index ) =>
+		card.addEventListener( 'focusin', () => show( index ) )
+	);
 	show( 0 );
 }

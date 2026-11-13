@@ -701,14 +701,16 @@
 	position: relative;
 	flex: none;
 	margin: 0;
-	padding-block: 0.6em 0.75em;
 }
 
 .purplish-terms-look-tabs .wp-block-term > * {
 	margin: 0;
 }
 
+/* The padding sits on the link, so the whole tab takes the tap. */
 .purplish-terms-look-tabs .wp-block-term a {
+	display: block;
+	padding-block: 0.6em 0.75em;
 	color: color-mix(in srgb, currentcolor 62%, transparent);
 	text-decoration: none;
 	white-space: nowrap;

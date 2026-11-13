@@ -225,7 +225,10 @@ body.purplish-changing-room-page {
 	padding: 0;
 	border: 0;
 	background: none;
-	touch-action: none;
+
+	/* A finger moving up or down on a piece scrolls the page; across, it
+	   picks the piece up. */
+	touch-action: pan-y;
 	-webkit-touch-callout: none;
 }
 

@@ -101,6 +101,7 @@ class ChangingRoomTest extends WP_UnitTestCase {
 		$this->assertTrue( $tags->next_tag( array( 'class_name' => 'purplish-changing-room-photo' ) ) );
 		$this->assertSame( 'eager', $tags->get_attribute( 'loading' ) );
 		$this->assertSame( 'high', $tags->get_attribute( 'fetchpriority' ) );
+		$this->assertSame( 'Wearing the Linen Jacket and Chinos.', $tags->get_attribute( 'alt' ), 'the photo names the outfit it shows' );
 
 		$rings = array();
 		while ( $tags->next_tag( array( 'class_name' => 'purplish-changing-room-ring' ) ) ) {

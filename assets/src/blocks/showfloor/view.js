@@ -662,14 +662,17 @@ function init( root ) {
 			mark.classList.toggle( 'is-added', ok )
 		);
 	} );
-	dialog.addEventListener( 'pointerover', ( e ) => {
+	// A marker and its row light up together, under the mouse or on focus.
+	const lightHit = ( e ) => {
 		const hit = e.target.closest(
 			'.' + P + 'mark, .' + P + 'tag-pieces li'
 		);
 		if ( hit ) {
 			light( hit.dataset.piece );
 		}
-	} );
+	};
+	dialog.addEventListener( 'pointerover', lightHit );
+	dialog.addEventListener( 'focusin', lightHit );
 
 	// Add to cart, with the button text following along.
 	const text = ( btn, key ) => {

@@ -3,8 +3,9 @@
  * list. A filter in a core Accordion keeps the Accordion's own button; a
  * plain filter gets a button from the server, which this opens and closes.
  * Where the filters sit in a row, one list is open at a time, and a click
- * outside or Escape closes it. With Open on hover, a list also opens when
- * the mouse rests on its label and closes soon after the mouse leaves it.
+ * outside, Escape, or Tab moving past it closes it. With Open on hover, a
+ * list also opens when the mouse rests on its label and closes soon after
+ * the mouse leaves it.
  * Listeners sit on the document, so they still work after WooCommerce
  * redraws the filters.
  */
@@ -278,6 +279,22 @@ export function watchBars( doc, wide ) {
 	);
 
 	watchHover( doc, wide );
+
+	// Tab past an open list closes it, so it doesn't cover the products
+	// while focus is under it. Focus that goes nowhere, such as a click on
+	// the list's padding or another window, leaves it open.
+	doc.addEventListener( 'focusout', ( event ) => {
+		const next = event.relatedTarget;
+		if ( ! ( next instanceof window.Node ) ) {
+			return;
+		}
+		openInRows( doc, wide, null )
+			.filter(
+				( open ) =>
+					within( open, event.target ) && ! within( open, next )
+			)
+			.forEach( close );
+	} );
 
 	doc.addEventListener( 'keydown', ( event ) => {
 		if ( 'Escape' !== event.key ) {

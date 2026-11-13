@@ -151,14 +151,22 @@ function room( root ) {
 
 	/* Wearing: the piece flies onto him, then the photo changes under it */
 	let token = 0;
+	// The photo's alt text names the outfit it shows. A pair without a
+	// photo keeps the last photo on screen, which no longer matches.
+	const photoAlt = () =>
+		fill( S.wearing, worn( 'top' ).name, worn( 'bottom' ).name );
 	function showLook( delay ) {
 		const my = ++token;
 		const url = look()[ 0 ];
 		$( 'missing' ).hidden = !! url;
 		if ( ! url ) {
+			figure
+				.querySelectorAll( '.' + P + 'photo' )
+				.forEach( ( old ) => ( old.alt = '' ) );
 			return;
 		}
 		const img = picture( 'photo', url );
+		img.alt = photoAlt();
 		Promise.all( [
 			img.decode().catch( () => {} ),
 			new Promise( ( r ) => later( r, still() ? 0 : delay ) ),
@@ -174,9 +182,12 @@ function room( root ) {
 				img.classList.remove( 'is-in' );
 			};
 			figure.prepend( img );
-			figure
-				.querySelectorAll( '.' + P + 'photo' )
-				.forEach( ( old ) => old !== img && img.before( old ) );
+			figure.querySelectorAll( '.' + P + 'photo' ).forEach( ( old ) => {
+				if ( old !== img ) {
+					old.alt = '';
+					img.before( old );
+				}
+			} );
 			if ( still() ) {
 				done();
 			} else {
@@ -357,9 +368,24 @@ function room( root ) {
 		clearTimeout( toastTimer );
 		toastTimer = later( hideToast, 3600 );
 	}
-	hook( toastEl, 'pointerenter', () => clearTimeout( toastTimer ) );
-	hook( toastEl, 'pointerleave', () => {
+	// The notice waits while the mouse is on it or focus is in it, so the
+	// View cart link can be reached from the keyboard too.
+	const holdToast = () => clearTimeout( toastTimer );
+	const releaseToast = () => {
+		clearTimeout( toastTimer );
 		toastTimer = later( hideToast, 1800 );
+	};
+	hook( toastEl, 'pointerenter', holdToast );
+	hook( toastEl, 'pointerleave', () => {
+		if ( ! toastEl.contains( toastEl.ownerDocument.activeElement ) ) {
+			releaseToast();
+		}
+	} );
+	hook( toastEl, 'focusin', holdToast );
+	hook( toastEl, 'focusout', ( event ) => {
+		if ( ! toastEl.contains( event.relatedTarget ) ) {
+			releaseToast();
+		}
 	} );
 	function fly( photo ) {
 		const cart = document.querySelector( '.wc-block-mini-cart__button' );
@@ -568,11 +594,13 @@ function room( root ) {
 		follow(
 			( ev ) => {
 				if ( ! ghost ) {
+					const mx = Math.abs( ev.clientX - e.clientX );
+					const my = Math.abs( ev.clientY - e.clientY );
+					// A finger going mostly up or down is scrolling the
+					// page, which the browser handles.
 					if (
-						Math.hypot(
-							ev.clientX - e.clientX,
-							ev.clientY - e.clientY
-						) < 8
+						Math.hypot( mx, my ) < 8 ||
+						( 'mouse' !== e.pointerType && my > mx )
 					) {
 						return;
 					}
