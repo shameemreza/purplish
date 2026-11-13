@@ -162,6 +162,8 @@ final class BlockEffects {
 					'hoverbutton' => array( 'bag', 'glow', 'sweep', 'spectrum', 'glass' ),
 					// The second column count shoppers can switch to.
 					'grid'        => array( '2', '3', '4', '5', '6' ),
+					// How the cards move when the results change in place.
+					'results'     => array( 'fade', 'rise', 'move' ),
 				),
 				// Each hover look plays only where the target says, and not
 				// on a card effect that already moves that part.
