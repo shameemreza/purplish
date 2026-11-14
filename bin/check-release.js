@@ -1,0 +1,332 @@
+/**
+ * Release check: catches the slips that are easy to miss before a tag.
+ * Versions that disagree, a translation template with the wrong slug or
+ * missing strings, a version with no changelog entry, requirements that
+ * differ between files, a committed build that doesn't match the source,
+ * and local paths or test site names in the files that ship.
+ *
+ * Run `npm run check:release` before tagging; it builds first. CI runs
+ * this file right after its own build. The template's strings are only
+ * compared where WP-CLI is installed; CI skips that one check.
+ */
+const fs = require( 'fs' );
+const os = require( 'os' );
+const path = require( 'path' );
+const { execFileSync } = require( 'child_process' );
+
+const ROOT = path.join( __dirname, '..' );
+const SLUG = 'purplish';
+const POT = 'languages/purplish.pot';
+// The same arguments make every template, so a regenerated one matches.
+const MAKE_POT = [
+	'i18n',
+	'make-pot',
+	'.',
+	null,
+	`--slug=${ SLUG }`,
+	'--exclude=node_modules,vendor,planning,_trash,tests,bin',
+	'--skip-audit',
+];
+// Strings that only belong on Shameem's machine or a test site.
+const LOCAL = [
+	/\/Users\//,
+	/\/home\/[a-z]/,
+	/https?:\/\/localhost/,
+	/https?:\/\/[\w.-]+\.test\b/,
+	/127\.0\.0\.1/,
+	/violetloom/,
+	/purplish-shop-gaps/,
+];
+const DEBUG =
+	/\b(var_dump|print_r|error_log)\s*\(|console\.log\s*\(|\bdebugger\s*;/;
+
+const read = ( file ) => fs.readFileSync( path.join( ROOT, file ), 'utf8' );
+const git = ( ...args ) =>
+	execFileSync( 'git', args, { cwd: ROOT, encoding: 'utf8' } );
+const field = ( text, name ) => {
+	const match = text.match(
+		new RegExp( `^[\\s*]*${ name }:[ \\t]*(.+?)\\s*$`, 'mi' )
+	);
+	return match ? match[ 1 ] : null;
+};
+
+const plugin = read( 'purplish.php' );
+const readme = read( 'readme.txt' );
+const changelog = read( 'CHANGELOG.md' );
+const readmeMd = read( 'README.md' );
+const pot = read( POT );
+const pkg = JSON.parse( read( 'package.json' ) );
+const lock = JSON.parse( read( 'package-lock.json' ) );
+const version = field( plugin, 'Version' );
+
+/**
+ * The entries of a .pot file as "context|single|plural" keys, so a string
+ * that moves to another line doesn't count as a change.
+ *
+ * @param {string} text The file.
+ * @return {Set<string>} One key per entry, the header left out.
+ */
+const potStrings = ( text ) => {
+	const keys = new Set();
+	for ( const block of text.split( /\n\s*\n/ ) ) {
+		const parts = {};
+		let current = null;
+		for ( const line of block.split( '\n' ) ) {
+			const start = line.match(
+				/^(msgctxt|msgid_plural|msgid)\s+"(.*)"$/
+			);
+			if ( start ) {
+				current = start[ 1 ];
+				parts[ current ] = start[ 2 ];
+			} else if ( current && /^".*"$/.test( line ) ) {
+				parts[ current ] += line.slice( 1, -1 );
+			} else if ( ! line.startsWith( '#' ) ) {
+				current = null;
+			}
+		}
+		if ( parts.msgid ) {
+			keys.add(
+				[ parts.msgctxt, parts.msgid, parts.msgid_plural ].join( '|' )
+			);
+		}
+	}
+	return keys;
+};
+
+/**
+ * Files that go to WordPress.org: tracked files minus .distignore, whose
+ * lines are either `/top-level-path` or a name that matches anywhere.
+ *
+ * @return {string[]} Paths relative to the plugin folder.
+ */
+const shipped = () => {
+	const rules = read( '.distignore' )
+		.split( '\n' )
+		.map( ( line ) => line.trim() )
+		.filter( ( line ) => line && ! line.startsWith( '#' ) );
+	return git( 'ls-files' )
+		.split( '\n' )
+		.filter( Boolean )
+		.filter(
+			( file ) =>
+				! rules.some( ( rule ) =>
+					rule.startsWith( '/' )
+						? file === rule.slice( 1 ) ||
+							file.startsWith( rule.slice( 1 ) + '/' )
+						: file.split( '/' ).includes( rule )
+				)
+		);
+};
+
+const checks = {
+	'Version matches everywhere': () => {
+		const found = {
+			'purplish.php Version': version,
+			PURPLISH_VERSION: ( plugin.match(
+				/define\(\s*'PURPLISH_VERSION',\s*'([^']+)'/
+			) || [] )[ 1 ],
+			'readme.txt Stable tag': field( readme, 'Stable tag' ),
+			'package.json': pkg.version,
+			'package-lock.json': lock.version,
+			'package-lock.json packages': lock.packages?.[ '' ]?.version,
+			[ `${ POT } Project-Id-Version` ]: ( pot.match(
+				/"Project-Id-Version: .* ([\d.]+)\\n"/
+			) || [] )[ 1 ],
+		};
+		return Object.entries( found )
+			.filter( ( [ , value ] ) => value !== version )
+			.map(
+				( [ where, value ] ) =>
+					`${ where } is ${ value }, not ${ version }`
+			);
+	},
+
+	'Translation template header': () => {
+		const problems = [];
+		const bugs = ( pot.match( /"Report-Msgid-Bugs-To: (.*)\\n"/ ) ||
+			[] )[ 1 ];
+		if ( bugs !== `https://wordpress.org/support/plugin/${ SLUG }` ) {
+			problems.push(
+				`Report-Msgid-Bugs-To is ${ bugs }; regenerate with npm run make-pot`
+			);
+		}
+		if ( ! pot.includes( `"X-Domain: ${ SLUG }\\n"` ) ) {
+			problems.push( `X-Domain isn't ${ SLUG }` );
+		}
+		return problems;
+	},
+
+	'Translation template has every string': () => {
+		const out = path.join(
+			fs.mkdtempSync( path.join( os.tmpdir(), 'purplish-pot-' ) ),
+			'purplish.pot'
+		);
+		try {
+			execFileSync(
+				'wp',
+				MAKE_POT.map( ( arg ) => ( arg === null ? out : arg ) ),
+				{ cwd: ROOT, stdio: 'ignore' }
+			);
+		} catch ( error ) {
+			if ( process.env.CI ) {
+				return { skipped: 'WP-CLI is not installed here' };
+			}
+			return [ `WP-CLI couldn't make a template: ${ error.message }` ];
+		}
+		const want = potStrings( fs.readFileSync( out, 'utf8' ) );
+		const have = potStrings( pot );
+		const missing = [ ...want ].filter( ( key ) => ! have.has( key ) );
+		const extra = [ ...have ].filter( ( key ) => ! want.has( key ) );
+		return missing.length || extra.length
+			? [
+					`${ missing.length } strings missing and ${ extra.length } gone; run npm run make-pot`,
+				]
+			: [];
+	},
+
+	'Changelog entries for this version': () => {
+		const problems = [];
+		const notes = readme.split( /^== Changelog ==$/m )[ 1 ] || '';
+		const first = ( notes.match( /^= ([^=]+?) =$/m ) || [] )[ 1 ];
+		if ( first !== version ) {
+			problems.push(
+				`readme.txt's first changelog entry is ${ first }, not ${ version }`
+			);
+		}
+		const top = changelog.match(
+			/^## \[([^\]]+)\] - (\d{4}-\d{2}-\d{2})$/m
+		);
+		if ( ! top || top[ 1 ] !== version ) {
+			problems.push(
+				`CHANGELOG.md's first entry is ${ top?.[ 1 ] }, not ${ version } with a date`
+			);
+		}
+		return problems;
+	},
+
+	'Requirements match across files': () => {
+		const row = ( name ) => {
+			const match = readmeMd.match(
+				new RegExp(
+					`^\\|\\s*${ name }\\s*\\|\\s*([^|]+?)\\s*\\|\\s*([^|]+?)\\s*\\|`,
+					'm'
+				)
+			);
+			return match ? { min: match[ 1 ], tested: match[ 2 ] } : {};
+		};
+		const wp = row( 'WordPress' );
+		const php = row( 'PHP' );
+		const wc = row( 'WooCommerce' );
+		const pairs = [
+			[
+				'WordPress minimum',
+				field( plugin, 'Requires at least' ),
+				field( readme, 'Requires at least' ),
+				wp.min,
+			],
+			[ 'WordPress tested', field( readme, 'Tested up to' ), wp.tested ],
+			[
+				'PHP minimum',
+				field( plugin, 'Requires PHP' ),
+				field( readme, 'Requires PHP' ),
+				php.min,
+			],
+			[
+				'WooCommerce minimum',
+				field( plugin, 'WC requires at least' ),
+				wc.min,
+			],
+			[
+				'WooCommerce tested',
+				field( plugin, 'WC tested up to' ),
+				wc.tested,
+			],
+		];
+		return pairs
+			.filter(
+				( [ , ...values ] ) =>
+					new Set( values ).size !== 1 || ! values[ 0 ]
+			)
+			.map(
+				( [ name, ...values ] ) =>
+					`${ name } differs (purplish.php/readme.txt/README.md order): ${ values.join( ' vs ' ) }`
+			);
+	},
+
+	'readme.txt follows the directory rules': () => {
+		const problems = [];
+		const tags = ( field( readme, 'Tags' ) || '' )
+			.split( ',' )
+			.filter( Boolean );
+		if ( tags.length > 5 ) {
+			problems.push( `${ tags.length } tags; WordPress.org shows 5` );
+		}
+		if ( ! /^\d+\.\d+$/.test( field( readme, 'Tested up to' ) || '' ) ) {
+			problems.push( 'Tested up to should be a major version like 7.1' );
+		}
+		const short = readme.split( /\n\s*\n/ )[ 1 ]?.trim() || '';
+		if ( short.length > 150 ) {
+			problems.push(
+				`short description is ${ short.length } characters; the limit is 150`
+			);
+		}
+		return problems;
+	},
+
+	'Committed build matches the source': () => {
+		const changed = git( 'status', '--porcelain', '--', 'build' ).trim();
+		return changed
+			? [ `build/ changes after a fresh build; commit it:\n${ changed }` ]
+			: [];
+	},
+
+	'Shipped files are clean': () => {
+		const problems = [];
+		for ( const file of shipped() ) {
+			if (
+				/\.md$|^(tests|planning|node_modules|vendor|bin)\//.test( file )
+			) {
+				problems.push( `${ file } ships; add it to .distignore` );
+				continue;
+			}
+			if ( ! /\.(php|js|css|json|txt|pot|svg|html)$/.test( file ) ) {
+				continue;
+			}
+			const text = read( file );
+			const local = LOCAL.find( ( pattern ) => pattern.test( text ) );
+			if ( local ) {
+				problems.push(
+					`${ file } has a local name or path (${ local })`
+				);
+			}
+			if ( ! file.startsWith( 'build/' ) && DEBUG.test( text ) ) {
+				problems.push(
+					`${ file } has debug output (${ text.match( DEBUG )[ 0 ] })`
+				);
+			}
+		}
+		return problems;
+	},
+};
+
+let failed = 0;
+for ( const [ name, check ] of Object.entries( checks ) ) {
+	const result = check();
+	if ( result.skipped ) {
+		process.stdout.write( `-  ${ name }: skipped, ${ result.skipped }\n` );
+	} else if ( result.length ) {
+		failed++;
+		process.stdout.write( `x  ${ name }\n` );
+		result.forEach( ( problem ) =>
+			process.stdout.write( `     ${ problem }\n` )
+		);
+	} else {
+		process.stdout.write( `ok ${ name }\n` );
+	}
+}
+process.stdout.write(
+	failed
+		? `\n${ failed } check(s) failed for ${ version }.\n`
+		: `\nReady to release ${ version }.\n`
+);
+process.exitCode = failed ? 1 : 0;
