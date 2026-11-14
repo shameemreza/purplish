@@ -66,6 +66,12 @@ jobs:
       - name: Block script sizes
         run: npm run check:size
 
+      # Versions, changelogs, requirements, the translation template header,
+      # the committed build and the shipped files. The template's strings
+      # need WP-CLI, so that one check only runs locally.
+      - name: Release checks
+        run: node bin/check-release.js
+
   phpunit:
     name: PHPUnit on PHP ${{ matrix.php }}, WooCommerce ${{ matrix.woocommerce }}
     runs-on: ubuntu-24.04

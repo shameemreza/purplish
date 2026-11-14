@@ -61,6 +61,9 @@ Every change has to pass these, and CI runs the same ones:
 | `npm run test:js` | Jest |
 | `npm run build` | The scripts in `build/` |
 | `npm run check:size` | Each block's front script is under 5 KB gzipped (run after the build) |
+| `npm run check:release` | The version, changelog entries, requirements, translation template, committed build and shipped files all agree (builds first) |
+
+When a change adds, edits or removes a translatable string, run `npm run make-pot` (needs WP-CLI) to regenerate `languages/purplish.pot`. It sets the purplish slug, so the template never takes its name from the folder you work in.
 
 Anything that moves or loads on the front end also follows the speed list in the pull request template: CSS before script, no libraries, a still version for reduced motion, and a PageSpeed mobile run before and after.
 
