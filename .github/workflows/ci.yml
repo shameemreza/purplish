@@ -68,7 +68,8 @@ jobs:
 
       # Versions, changelogs, requirements, the translation template header,
       # the committed build and the shipped files. The template's strings
-      # need WP-CLI, so that one check only runs locally.
+      # need WP-CLI and the pull request check needs tags and the GitHub
+      # CLI, so those two only run locally.
       - name: Release checks
         run: node bin/check-release.js
 

@@ -3,11 +3,13 @@
  * Versions that disagree, a translation template with the wrong slug or
  * missing strings, a version with no changelog entry, requirements that
  * differ between files, a committed build that doesn't match the source,
- * and local paths or test site names in the files that ship.
+ * local paths or test site names in the files that ship, and a pull
+ * request since the last tag that left something it found undecided.
  *
  * Run `npm run check:release` before tagging; it builds first. CI runs
  * this file right after its own build. The template's strings are only
- * compared where WP-CLI is installed; CI skips that one check.
+ * compared where WP-CLI is installed, and pull requests are only read
+ * where the GitHub CLI is; CI skips those two checks.
  */
 const fs = require( 'fs' );
 const os = require( 'os' );
@@ -116,6 +118,28 @@ const shipped = () => {
 						: file.split( '/' ).includes( rule )
 				)
 		);
+};
+
+/**
+ * What a pull request body says under "Found while testing", comments left
+ * out, or null when it has no such section.
+ *
+ * @param {string} body The body.
+ * @return {string[]|null} The section's lines.
+ */
+const foundWhileTesting = ( body ) => {
+	const match = ( body || '' )
+		.replace( /<!--[\s\S]*?-->/g, '' )
+		.match(
+			/^#{2,3} Found while testing:?[ \t]*\r?\n([\s\S]*?)(?=^#{1,3} |(?![\s\S]))/m
+		);
+	if ( ! match ) {
+		return null;
+	}
+	return match[ 1 ]
+		.split( /\r?\n/ )
+		.map( ( line ) => line.replace( /^\s*[-*]\s*/, '' ).trim() )
+		.filter( Boolean );
 };
 
 const checks = {
@@ -303,6 +327,92 @@ const checks = {
 				problems.push(
 					`${ file } has debug output (${ text.match( DEBUG )[ 0 ] })`
 				);
+			}
+		}
+		return problems;
+	},
+
+	'Pull requests since the last tag settled what they found': () => {
+		// Squash merges end their subject with the pull request's number.
+		// Those merged before the template had the section are left out.
+		const added = git(
+			'log',
+			'--reverse',
+			'--format=%H',
+			'-S',
+			'Found while testing',
+			'--',
+			'.github/PULL_REQUEST_TEMPLATE.md'
+		)
+			.split( '\n' )
+			.filter( Boolean )[ 0 ];
+		if ( ! added ) {
+			return [];
+		}
+		let tag;
+		try {
+			tag = execFileSync( 'git', [ 'describe', '--tags', '--abbrev=0' ], {
+				cwd: ROOT,
+				encoding: 'utf8',
+				stdio: [ 'ignore', 'pipe', 'ignore' ],
+			} ).trim();
+		} catch {
+			if ( process.env.CI ) {
+				return { skipped: 'this checkout has no tags' };
+			}
+			return [
+				'no release tag found; fetch the tags with git fetch --tags',
+			];
+		}
+		const after = ( range ) =>
+			git( 'log', '--format=%H %s', range )
+				.split( '\n' )
+				.filter( Boolean );
+		const sinceTemplate = new Set(
+			after( `${ added }~1..HEAD` ).map(
+				( line ) => line.split( ' ' )[ 0 ]
+			)
+		);
+		const numbers = after( `${ tag }..HEAD` )
+			.filter( ( line ) => sinceTemplate.has( line.split( ' ' )[ 0 ] ) )
+			.map( ( line ) => ( line.match( /\(#(\d+)\)$/ ) || [] )[ 1 ] )
+			.filter( Boolean );
+		const problems = [];
+		for ( const number of numbers ) {
+			let body;
+			try {
+				body = execFileSync(
+					'gh',
+					[ 'pr', 'view', number, '--json', 'body', '--jq', '.body' ],
+					{
+						cwd: ROOT,
+						encoding: 'utf8',
+						stdio: [ 'ignore', 'pipe', 'ignore' ],
+					}
+				);
+			} catch ( error ) {
+				if ( process.env.CI ) {
+					return { skipped: 'the GitHub CLI is not signed in here' };
+				}
+				return [ `couldn't read #${ number }: ${ error.message }` ];
+			}
+			const lines = foundWhileTesting( body );
+			if ( ! lines || ! lines.length ) {
+				problems.push(
+					`#${ number } has no answer under "Found while testing"; write None, or each problem with "fixed here", its issue or "no change: <reason>"`
+				);
+			} else if ( ! (
+				1 === lines.length && /^none\.?$/i.test( lines[ 0 ] )
+			) ) {
+				lines
+					.filter(
+						( line ) => ! /fixed here|#\d+|no change:/i.test( line )
+					)
+					.forEach( ( line ) =>
+						problems.push(
+							`#${ number } left "${ line }" undecided; fix it, open an issue or write "no change: <reason>"`
+						)
+					);
 			}
 		}
 		return problems;

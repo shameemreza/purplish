@@ -209,4 +209,36 @@ class FilterBarTest extends WP_UnitTestCase {
 		$this->assertStringNotContainsString( 'purplish-filters-toggle', $out );
 		$this->assertStringNotContainsString( 'purplish-filters-hide', $out );
 	}
+
+	/**
+	 * A sticky block loads the filters script, with or without Purplish
+	 * options, so it can stay below a pinned theme header. Other positions
+	 * load nothing.
+	 */
+	public function test_sticky_loads_the_script() {
+		$effects = new BlockEffects();
+		$html    = self::block( self::PLAIN );
+
+		$this->assertSame( $html, $effects->sticky_filters( $html, array( 'attrs' => array() ) ) );
+		$effects->sticky_filters( $html, array( 'attrs' => array( 'style' => array( 'position' => array( 'type' => 'fixed' ) ) ) ) );
+		$this->assertFalse( wp_script_is( BlockEffects::FILTERS_HANDLE, 'enqueued' ) );
+
+		$this->assertSame(
+			$html,
+			$effects->sticky_filters(
+				$html,
+				array(
+					'attrs' => array(
+						'style' => array(
+							'position' => array(
+								'type' => 'sticky',
+								'top'  => 'var(--wp--preset--spacing--10)',
+							),
+						),
+					),
+				)
+			)
+		);
+		$this->assertTrue( wp_script_is( BlockEffects::FILTERS_HANDLE, 'enqueued' ) );
+	}
 }
