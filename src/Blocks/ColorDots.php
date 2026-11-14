@@ -326,6 +326,8 @@ final class ColorDots implements Block {
 			$wrapper['class']      .= ' purplish-color-dots-swap purplish-color-dots-swap-' . $swap;
 			$wrapper['role']        = 'group';
 			$wrapper['data-motion'] = self::option( $attributes, 'motion' );
+			/* translators: The photo's alt text while a color's photo shows. 1: the photo's own alt text, 2: the color's name. */
+			$wrapper['data-alt'] = __( '%1$s, %2$s', 'purplish' );
 			self::enqueue_swap();
 		}
 
