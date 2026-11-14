@@ -437,7 +437,7 @@ Purplish's own blocks read their sizes and colors from properties on the block w
 
 ## Why I made it
 
-> Purplish started with one small idea from [a chat on X](https://x.com/shameemdev/status/2116510521612755209) with [Luigi Teschio](https://x.com/gigitux): let the product page take the color of the variation a shopper picks. Building it showed me how much more WooCommerce's blocks can do with a few good options, so I kept going. The [Purplish website](https://purplish.io/) runs on WooCommerce, the Purple theme and Purplish itself.
+> Purplish started with one small idea from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209) with [Luigi Teschio](https://x.com/gigitux): let the product page take the color of the variation a shopper picks. Building it showed me how much more WooCommerce's blocks can do with a few good options, so I kept going. I built the [Purplish plugin site](https://purplish.io/) with WooCommerce, the Purple theme and Purplish itself.
 >
 > Shameem Reza
 
