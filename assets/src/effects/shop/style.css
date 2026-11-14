@@ -234,6 +234,18 @@
 }
 
 /*
+ * A sticky Product Filters block, like the sidebar in the Atelier and
+ * Boutique shop patterns, is its own stacking context at z-index 10, so
+ * the open overlay can't rise above a sticky or fixed theme header. While
+ * the overlay is open, the block drops back into the page flow. Two
+ * classes beat core's one-class sticky rule, so pages saved with the
+ * sticky setting are covered too.
+ */
+.wc-block-product-filters.is-overlay-opened {
+	position: static;
+}
+
+/*
  * Past WooCommerce's overlay breakpoint, the filters sit in one row and
  * each list drops down under its label. The theme's spacing and borders
  * for stacked filters are written inline, so the row's resets win with
