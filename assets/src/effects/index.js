@@ -45,6 +45,37 @@ function styleIn( classes, prefix ) {
 }
 
 /**
+ * The photo of the slide that covers most of the frame, for sliders that
+ * don't mark the slide on screen (Blocksy's flexy).
+ *
+ * @param {HTMLElement} frame  The frame.
+ * @param {NodeList}    slides The slides.
+ * @return {HTMLImageElement|null} The photo.
+ */
+function mostShown( frame, slides ) {
+	const box = frame.getBoundingClientRect();
+	let best = null;
+	let most = 0;
+	slides.forEach( ( slide ) => {
+		const r = slide.getBoundingClientRect();
+		const shown =
+			Math.max(
+				0,
+				Math.min( r.right, box.right ) - Math.max( r.left, box.left )
+			) *
+			Math.max(
+				0,
+				Math.min( r.bottom, box.bottom ) - Math.max( r.top, box.top )
+			);
+		if ( shown > most ) {
+			most = shown;
+			best = slide;
+		}
+	} );
+	return best?.querySelector( 'img' ) || null;
+}
+
+/**
  * The photo on screen inside a frame. The block gallery scrolls its strip
  * sideways, so it's the shown slide nearest the strip's left edge; on
  * classic, FlexSlider marks it.
@@ -59,7 +90,10 @@ function shownPhoto( frame ) {
 	if ( ! strip ) {
 		return (
 			frame.querySelector( '.flex-active-slide img' ) ||
-			frame.querySelector( '.woocommerce-product-gallery__image img' )
+			mostShown( frame, frame.querySelectorAll( '.flexy-item' ) ) ||
+			frame.querySelector(
+				'.woocommerce-product-gallery__image img, .ct-media-container img'
+			)
 		);
 	}
 	const left = strip.getBoundingClientRect().left;
@@ -190,10 +224,12 @@ if ( canHover ) {
 			const gallery = document.querySelector(
 				'.woocommerce-product-gallery'
 			);
+			// Blocksy's flexy slider has its own viewport, and a single
+			// photo sits in its container with no slider.
 			const target =
-				gallery?.querySelector( '.flex-viewport' ) ||
+				gallery?.querySelector( '.flex-viewport, .flexy-view' ) ||
 				gallery?.querySelector(
-					'.woocommerce-product-gallery__wrapper'
+					'.woocommerce-product-gallery__wrapper, .ct-product-gallery-container'
 				);
 			if ( target ) {
 				target.classList.add( 'purplish-hover-target' );
