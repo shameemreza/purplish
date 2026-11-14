@@ -22,7 +22,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 
 = Built to stay out of your way =
 
-* **Works on the blocks you already use:** Purplish adds a panel to 22 WooCommerce blocks, from the Product Gallery to the Checkout, and to 8 core blocks, like Group, Cover and Button. It replaces nothing.
+* **Works on the blocks you already use:** Purplish adds a panel to 24 WooCommerce blocks, from the Product Gallery to the Checkout, and to 11 core blocks, like Group, Cover and Button. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
 * **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
