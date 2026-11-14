@@ -1,6 +1,7 @@
 /**
  * The Product Filters options that need a script: Layout: Bar (see
- * ./bar.js) and Sidebar can hide.
+ * ./bar.js), Sidebar can hide, and a sticky block staying below a pinned
+ * theme header (see ./sticky.js).
  *
  * Sidebar can hide, on the Product Filters block. The button the server
  * prints before the block moves above the products, beside Sort by when
@@ -10,6 +11,7 @@
  */
 import { placeToggle, sides } from './place';
 import { watchBars } from './bar';
+import { watchSticky } from './sticky';
 
 const KEY = 'purplish-filters-folded';
 const wide = window.matchMedia( '(min-width: 782px)' );
@@ -99,3 +101,5 @@ document
 
 // WooCommerce's overlay shows up to 782px wide.
 watchBars( document, window.matchMedia( '(width > 782px)' ) );
+
+watchSticky( document, window );

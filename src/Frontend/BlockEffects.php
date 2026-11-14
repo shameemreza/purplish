@@ -557,6 +557,7 @@ final class BlockEffects {
 		add_filter( 'render_block', array( $this, 'add_classes' ), 10, 2 );
 		// After WooCommerce marks the collection's first tag as its own.
 		add_filter( 'render_block_woocommerce/product-collection', array( $this, 'add_grid_switch' ), 20, 2 );
+		add_filter( 'render_block_woocommerce/product-filters', array( $this, 'sticky_filters' ), 10, 2 );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_classic' ), 20 );
 		add_filter( 'body_class', array( $this, 'classic_body_classes' ) );
@@ -838,6 +839,24 @@ final class BlockEffects {
 			}
 		}
 		return '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false">' . $cells . '</svg>';
+	}
+
+	/**
+	 * Loads the filters script for a sticky Product Filters block, like the
+	 * sidebar in the Atelier and Boutique shop patterns, so it can stay
+	 * below a theme header that stays at the top of the window. It reads the
+	 * block's saved setting, with or without Purplish options, so pages saved
+	 * with older pattern markup are covered too.
+	 *
+	 * @param string $html  Rendered block.
+	 * @param array  $block Parsed block.
+	 * @return string
+	 */
+	public function sticky_filters( $html, $block ) {
+		if ( isset( $block['attrs']['style']['position']['type'] ) && 'sticky' === $block['attrs']['style']['position']['type'] ) {
+			self::enqueue_filters();
+		}
+		return $html;
 	}
 
 	/**
