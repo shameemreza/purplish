@@ -66,6 +66,33 @@ Anything that moves or loads on the front end also follows the speed list in the
 
 Commit the `build/` folder with your change. WordPress.org installs the plugin from the repo files, with no build step.
 
+## Accessibility and touch
+
+Anything a shopper can click, tap, drag, hover or read on the front end has to work three ways before it ships: with a keyboard alone, with a screen reader, and on a phone. Search engines and AI agents read the same alt text and names a screen reader does, so this check covers them too.
+
+Keyboard:
+
+- Every control is a real `<button>`, link or form field, or has the role and keys of one. Tab reaches it, Enter or Space uses it, and Escape closes what it opened.
+- Focus is always visible, and anything that shows on hover also shows on focus (`:focus-visible` or `:focus-within`).
+- Closing a popup puts focus back where it was, and an open list closes when Tab moves past it.
+- Anything that hides on a timer waits while focus or the pointer is inside it.
+
+Screen reader:
+
+- An image that shows something has alt text that matches what's on screen, and the alt text changes when the photo does. A decorative image gets `alt=""`.
+- Every control has a name a screen reader can say. An icon button gets a label.
+- A change without a page load is announced, through `aria-pressed`, `aria-expanded`, `aria-current` or a live region.
+- Text that only shows on hover is still in the markup.
+
+Touch:
+
+- Every tap area is at least 24px square, even when the thing you see is smaller.
+- Hover styles sit inside `@media (hover: hover)`, so nothing stays highlighted after a tap.
+- A drag leaves vertical swipes to the page (`touch-action: pan-y`), and anything you can drag also works with a tap or a key.
+- A button hidden until hover can't be tapped while it's hidden.
+
+To test, go through the feature with the mouse put away, then with VoiceOver (Command F5 on a Mac) or NVDA, then on a phone or in the iOS Simulator. Chrome's Lighthouse accessibility audit catches missing names and alt text, but it can't tell you whether the feature makes sense, so it doesn't replace the three passes.
+
 ## How a change gets in
 
 1. Open an issue, or comment on an existing one, so the change has a record.
