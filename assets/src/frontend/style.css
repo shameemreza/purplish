@@ -52,10 +52,19 @@ body.purplish-active.purplish-part-button :is(.single_add_to_cart_button, :where
 	color: var(--purplish-on);
 }
 
-body.purplish-active.purplish-part-button :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:hover, :focus-visible, .purplish-hover) {
+body.purplish-active.purplish-part-button :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:focus-visible, .purplish-hover) {
 	background-color: color-mix(in oklab, var(--purplish-accent) 88%, var(--purplish-on));
 	border-color: color-mix(in oklab, var(--purplish-accent) 88%, var(--purplish-on));
 	color: var(--purplish-on);
+}
+
+@media (hover: hover) {
+
+	body.purplish-active.purplish-part-button :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):hover {
+		background-color: color-mix(in oklab, var(--purplish-accent) 88%, var(--purplish-on));
+		border-color: color-mix(in oklab, var(--purplish-accent) 88%, var(--purplish-on));
+		color: var(--purplish-on);
+	}
 }
 
 /*
@@ -518,10 +527,19 @@ body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-bl
 	transition: box-shadow 0.3s ease;
 }
 
-body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:hover, :focus-visible, .purplish-hover) {
+body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:focus-visible, .purplish-hover) {
 	box-shadow:
 		0 0 0 5px color-mix(in oklab, var(--purplish-accent) 55%, transparent),
 		0 0 32px color-mix(in oklab, var(--purplish-accent) 70%, transparent);
+}
+
+@media (hover: hover) {
+
+	body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):hover {
+		box-shadow:
+			0 0 0 5px color-mix(in oklab, var(--purplish-accent) 55%, transparent),
+			0 0 32px color-mix(in oklab, var(--purplish-accent) 70%, transparent);
+	}
 }
 
 /*

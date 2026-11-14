@@ -188,8 +188,11 @@
 	cursor: pointer;
 }
 
-.wp-block-purplish-runway .purplish-runway-nav button:hover {
-	background: color-mix(in srgb, currentcolor 10%, transparent);
+@media (hover: hover) {
+
+	.wp-block-purplish-runway .purplish-runway-nav button:hover {
+		background: color-mix(in srgb, currentcolor 10%, transparent);
+	}
 }
 
 .wp-block-purplish-runway .purplish-runway-nav svg {

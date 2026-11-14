@@ -254,8 +254,11 @@ body.purplish-active .wp-block-purplish-story-deck {
 	cursor: pointer;
 }
 
-.purplish-deck-nav button:hover {
-	background: color-mix(in srgb, currentcolor 10%, transparent);
+@media (hover: hover) {
+
+	.purplish-deck-nav button:hover {
+		background: color-mix(in srgb, currentcolor 10%, transparent);
+	}
 }
 
 .purplish-deck-nav button:focus-visible {

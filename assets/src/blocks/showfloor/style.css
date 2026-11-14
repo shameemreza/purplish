@@ -218,8 +218,11 @@
 	transition: height 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.purplish-showfloor-name:hover {
-	color: var(--purplish-showfloor-ink);
+@media (hover: hover) {
+
+	.purplish-showfloor-name:hover {
+		color: var(--purplish-showfloor-ink);
+	}
 }
 
 .purplish-showfloor-name-n {
@@ -375,8 +378,11 @@
 	text-decoration: none;
 }
 
-.purplish-showfloor-piece-name a:hover {
-	text-decoration: underline;
+@media (hover: hover) {
+
+	.purplish-showfloor-piece-name a:hover {
+		text-decoration: underline;
+	}
 }
 
 .purplish-showfloor-piece-price {
@@ -392,9 +398,12 @@
 	white-space: nowrap;
 }
 
-.purplish-showfloor-add:hover {
-	background: var(--purplish-showfloor-ink);
-	color: var(--purplish-showfloor-base);
+@media (hover: hover) {
+
+	.purplish-showfloor-add:hover {
+		background: var(--purplish-showfloor-ink);
+		color: var(--purplish-showfloor-base);
+	}
 }
 
 .purplish-showfloor-add.is-added {
@@ -552,9 +561,15 @@
 	animation-delay: calc(380ms + var(--i, 0) * 90ms);
 }
 
-.purplish-showfloor-mark:hover,
 .purplish-showfloor-mark.is-lit {
 	background: var(--purplish-showfloor-accent);
+}
+
+@media (hover: hover) {
+
+	.purplish-showfloor-mark:hover {
+		background: var(--purplish-showfloor-accent);
+	}
 }
 
 @keyframes purplish-showfloor-pop {
@@ -1060,9 +1075,15 @@
 	transition: opacity 300ms, filter 300ms;
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-figure:hover,
 .wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-figure:focus-visible {
 	translate: 0 -12px;
+}
+
+@media (hover: hover) {
+
+	.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-figure:hover {
+		translate: 0 -12px;
+	}
 }
 
 .wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-look::after {
@@ -1079,14 +1100,17 @@
 	pointer-events: none;
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:hover)::after {
-	scale: 0.75;
-	opacity: 0.6;
-}
+@media (hover: hover) {
 
-.wp-block-purplish-showfloor.purplish-showfloor-hover-spotlight.is-grid .purplish-showfloor-ring:has(.purplish-showfloor-figure:hover) .purplish-showfloor-look:not(:has(.purplish-showfloor-figure:hover)) {
-	opacity: 0.3;
-	filter: grayscale(0.7);
+	.wp-block-purplish-showfloor.purplish-showfloor-hover-lift.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:hover)::after {
+		scale: 0.75;
+		opacity: 0.6;
+	}
+
+	.wp-block-purplish-showfloor.purplish-showfloor-hover-spotlight.is-grid .purplish-showfloor-ring:has(.purplish-showfloor-figure:hover) .purplish-showfloor-look:not(:has(.purplish-showfloor-figure:hover)) {
+		opacity: 0.3;
+		filter: grayscale(0.7);
+	}
 }
 
 .purplish-showfloor-grid-peek {
@@ -1120,9 +1144,17 @@
 	object-fit: cover;
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:is(:hover, :focus-visible)) .purplish-showfloor-grid-peek {
+.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:focus-visible) .purplish-showfloor-grid-peek {
 	opacity: 1;
 	translate: -50% 0;
+}
+
+@media (hover: hover) {
+
+	.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:hover) .purplish-showfloor-grid-peek {
+		opacity: 1;
+		translate: -50% 0;
+	}
 }
 
 /* Drag cursor, from Runway's ring: follows the mouse with a little lag. */
@@ -1285,8 +1317,11 @@
 	translate: calc(var(--fx, 0.5) * -100%) calc(var(--fy, 0.07) * -100%);
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:hover .purplish-showfloor-name-face {
-	opacity: 1;
+@media (hover: hover) {
+
+	.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:hover .purplish-showfloor-name-face {
+		opacity: 1;
+	}
 }
 
 .wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name[aria-current="true"] {
@@ -1356,8 +1391,11 @@
 	transition: scale 200ms cubic-bezier(0.3, 1.5, 0.5, 1);
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-marks-add .purplish-showfloor-mark:hover::after {
-	scale: 1.15;
+@media (hover: hover) {
+
+	.wp-block-purplish-showfloor.purplish-showfloor-marks-add .purplish-showfloor-mark:hover::after {
+		scale: 1.15;
+	}
 }
 
 .wp-block-purplish-showfloor.purplish-showfloor-marks-add .purplish-showfloor-mark.is-added {
@@ -1388,8 +1426,11 @@
 	transition: background-color 200ms, scale 160ms;
 }
 
-.purplish-showfloor-whole:hover {
-	background: var(--purplish-showfloor-accent);
+@media (hover: hover) {
+
+	.purplish-showfloor-whole:hover {
+		background: var(--purplish-showfloor-accent);
+	}
 }
 
 .purplish-showfloor-whole:active {

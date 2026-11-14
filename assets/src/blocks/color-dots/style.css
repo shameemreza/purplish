@@ -183,9 +183,15 @@ button.purplish-color-dots-dot::before {
 	}
 }
 
-.wc-block-product:has(.purplish-color-dots-swap .purplish-color-dots-dot[aria-pressed="true"]) .purplish-second-photo,
-.wc-block-product:has(.purplish-color-dots-swap-hover:hover) .purplish-second-photo {
+.wc-block-product:has(.purplish-color-dots-swap .purplish-color-dots-dot[aria-pressed="true"]) .purplish-second-photo {
 	opacity: 0 !important;
+}
+
+@media (hover: hover) {
+
+	.wc-block-product:has(.purplish-color-dots-swap-hover:hover) .purplish-second-photo {
+		opacity: 0 !important;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {

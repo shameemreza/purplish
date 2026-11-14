@@ -369,8 +369,11 @@ body.purplish-changing-room-page {
 	transition: text-decoration-color 0.2s ease;
 }
 
-.purplish-changing-room-tag:hover .purplish-changing-room-tag-name {
-	text-decoration-color: currentcolor;
+@media (hover: hover) {
+
+	.purplish-changing-room-tag:hover .purplish-changing-room-tag-name {
+		text-decoration-color: currentcolor;
+	}
 }
 
 .purplish-changing-room-tag-price {
@@ -501,9 +504,12 @@ body.purplish-changing-room-page {
 	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.purplish-changing-room-drawer .purplish-changing-room-close:hover {
-	background: #111;
-	color: #fff;
+@media (hover: hover) {
+
+	.purplish-changing-room-drawer .purplish-changing-room-close:hover {
+		background: #111;
+		color: #fff;
+	}
 }
 
 .purplish-changing-room-scroll {
@@ -598,8 +604,11 @@ body.purplish-changing-room-page {
 	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.purplish-changing-room-drawer .purplish-changing-room-chip:hover:not(:disabled) {
-	border-color: #111;
+@media (hover: hover) {
+
+	.purplish-changing-room-drawer .purplish-changing-room-chip:hover:not(:disabled) {
+		border-color: #111;
+	}
 }
 
 .purplish-changing-room-drawer .purplish-changing-room-chip[aria-pressed="true"] {

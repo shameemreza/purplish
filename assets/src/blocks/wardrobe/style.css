@@ -191,10 +191,17 @@
 	transition: translate 0.4s var(--purplish-wardrobe-ease), color 0.2s;
 }
 
-:where(.purplish-wardrobe-panel) .purplish-wardrobe-links a:hover,
 :where(.purplish-wardrobe-panel) .purplish-wardrobe-links a:focus-visible {
 	translate: 8px 0;
 	color: var(--purplish-wardrobe-accent);
+}
+
+@media (hover: hover) {
+
+	:where(.purplish-wardrobe-panel) .purplish-wardrobe-links a:hover {
+		translate: 8px 0;
+		color: var(--purplish-wardrobe-accent);
+	}
 }
 
 :where(.purplish-wardrobe-panel) .purplish-wardrobe-all a {
@@ -218,8 +225,11 @@
 	transition: scale 1.2s var(--purplish-wardrobe-ease);
 }
 
-:where(.purplish-wardrobe-panel) .purplish-wardrobe-tile:hover img {
-	scale: 1.06;
+@media (hover: hover) {
+
+	:where(.purplish-wardrobe-panel) .purplish-wardrobe-tile:hover img {
+		scale: 1.06;
+	}
 }
 
 :where(.purplish-wardrobe-panel) .purplish-wardrobe-tile figcaption {
@@ -266,8 +276,11 @@
 	transition: translate 0.6s var(--purplish-wardrobe-ease);
 }
 
-:where(.purplish-wardrobe-look):hover .wp-block-image img {
-	translate: 0 -6px;
+@media (hover: hover) {
+
+	:where(.purplish-wardrobe-look):hover .wp-block-image img {
+		translate: 0 -6px;
+	}
 }
 
 :where(.purplish-wardrobe-look) > p {
@@ -301,8 +314,11 @@
 	transition: translate 0.4s var(--purplish-wardrobe-ease);
 }
 
-:where(.purplish-wardrobe-look) > .purplish-wardrobe-look-go a:hover::after {
-	translate: 4px 0;
+@media (hover: hover) {
+
+	:where(.purplish-wardrobe-look) > .purplish-wardrobe-look-go a:hover::after {
+		translate: 4px 0;
+	}
 }
 
 /*

@@ -81,9 +81,12 @@ body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only
 	transition: background-color 0.25s, color 0.25s, scale 0.2s;
 }
 
-.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:hover:not(:disabled) {
-	background: var(--purplish-color);
-	color: var(--purplish-color-on);
+@media (hover: hover) {
+
+	.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:hover:not(:disabled) {
+		background: var(--purplish-color);
+		color: var(--purplish-color-on);
+	}
 }
 
 .purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:active {
@@ -304,10 +307,13 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	transition: background-color 0.25s, color 0.25s, rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button:hover {
-	background: var(--purplish-color);
-	color: var(--purplish-color-on);
-	rotate: 90deg;
+@media (hover: hover) {
+
+	.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button:hover {
+		background: var(--purplish-color);
+		color: var(--purplish-color-on);
+		rotate: 90deg;
+	}
 }
 
 /* Snap stack: the view opens with a soft blur, each photo is dealt in. */
@@ -455,10 +461,16 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	transition: opacity 0.25s, box-shadow 0.25s, translate 0.25s;
 }
 
-.purplish-filmstrip button:hover,
 .purplish-filmstrip button:focus-visible,
 .purplish-filmstrip button[aria-current="true"] {
 	opacity: 1;
+}
+
+@media (hover: hover) {
+
+	.purplish-filmstrip button:hover {
+		opacity: 1;
+	}
 }
 
 .purplish-filmstrip button[aria-current="true"] {
@@ -946,8 +958,15 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		outline-offset 0.3s ease;
 }
 
-[class*="purplish-cards-hovercard-"] .wc-block-product:is(:hover, :focus-within) {
+[class*="purplish-cards-hovercard-"] .wc-block-product:focus-within {
 	z-index: 1;
+}
+
+@media (hover: hover) {
+
+	[class*="purplish-cards-hovercard-"] .wc-block-product:hover {
+		z-index: 1;
+	}
 }
 
 /* A carousel clips its strip top and bottom; give the lifted card room. */
@@ -1235,8 +1254,11 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 			animation-timeline: view(inline);
 		}
 
-		.purplish-cards-hover-deck .wc-block-product:hover {
-			animation: none;
+		@media (hover: hover) {
+
+			.purplish-cards-hover-deck .wc-block-product:hover {
+				animation: none;
+			}
 		}
 	}
 }
@@ -1700,8 +1722,15 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 			animation-timeline: view(inline 0);
 		}
 
-		.purplish-cards-hover-depth .wc-block-product-template.is-horizontal .wc-block-product:is(:hover, :focus-within) {
+		.purplish-cards-hover-depth .wc-block-product-template.is-horizontal .wc-block-product:focus-within {
 			animation: none;
+		}
+
+		@media (hover: hover) {
+
+			.purplish-cards-hover-depth .wc-block-product-template.is-horizontal .wc-block-product:hover {
+				animation: none;
+			}
 		}
 	}
 }
@@ -1769,11 +1798,21 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	rotate: -1deg;
 }
 
-.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product:is(:hover, :focus-within) {
+.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product:focus-within {
 	z-index: 2;
 	rotate: 0deg;
 	translate: 0 -10px;
 	scale: 1.03;
+}
+
+@media (hover: hover) {
+
+	.purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product:hover {
+		z-index: 2;
+		rotate: 0deg;
+		translate: 0 -10px;
+		scale: 1.03;
+	}
 }
 
 /*
@@ -2822,8 +2861,11 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	font-weight: 600;
 }
 
-.purplish-accordion-soft .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
-	text-decoration: none;
+@media (hover: hover) {
+
+	.purplish-accordion-soft .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
+		text-decoration: none;
+	}
 }
 
 .purplish-accordion-soft .wp-block-accordion-heading__toggle-icon {
@@ -3470,8 +3512,11 @@ body.purplish-active .purplish-group-tint {
 		margin-inline-end: 1.25em;
 	}
 
-	.purplish-filters-toggle:hover {
-		text-decoration: underline;
+	@media (hover: hover) {
+
+		.purplish-filters-toggle:hover {
+			text-decoration: underline;
+		}
 	}
 
 	.purplish-filters-toggle:focus-visible {
@@ -3871,11 +3916,21 @@ body.purplish-active .purplish-group-tint {
 	transition: box-shadow 0.3s ease;
 }
 
-.purplish-button-glow .wp-block-button__link:is(:hover, :focus-visible),
-:is(.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-glow.wc-block-mini-cart__footer-checkout):is(:hover, :focus-visible) {
+.purplish-button-glow .wp-block-button__link:focus-visible,
+:is(.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-glow.wc-block-mini-cart__footer-checkout):focus-visible {
 	box-shadow:
 		0 0 0 5px color-mix(in oklab, var(--purplish-color) 55%, transparent),
 		0 0 32px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+}
+
+@media (hover: hover) {
+
+	.purplish-button-glow .wp-block-button__link:hover,
+	:is(.purplish-buybutton-glow :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-glow.wc-block-mini-cart__footer-checkout):hover {
+		box-shadow:
+			0 0 0 5px color-mix(in oklab, var(--purplish-color) 55%, transparent),
+			0 0 32px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+	}
 }
 
 /*
@@ -3915,11 +3970,21 @@ body.purplish-active .purplish-group-tint {
 	transition: opacity 0.3s ease, --purplish-spin 0s linear 0.3s;
 }
 
-:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), :is(.purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-spectrum.wc-block-mini-cart__footer-checkout)):is(:hover, :focus-visible, .purplish-hover)::before,
-.purplish-cards-hoverbutton-spectrum .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button::before {
+:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), :is(.purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-spectrum.wc-block-mini-cart__footer-checkout)):is(:focus-visible, .purplish-hover)::before,
+.purplish-cards-hoverbutton-spectrum .wc-block-product:focus-within .wc-block-components-product-button__button::before {
 	--purplish-spin: 360deg;
 	opacity: 1;
 	transition: opacity 0.2s ease, --purplish-spin 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+
+	:is(.purplish-button-spectrum .wp-block-button__link, :is(.purplish-cart-spectrum, .purplish-cards-hoverbutton-spectrum) :is(.single_add_to_cart_button, .wc-block-components-product-button__button), :is(.purplish-buybutton-spectrum :is(.wc-block-cart__submit-button, .wc-block-components-checkout-place-order-button).wc-block-components-button, .purplish-buybutton-spectrum.wc-block-mini-cart__footer-checkout)):hover::before,
+	.purplish-cards-hoverbutton-spectrum .wc-block-product:hover .wc-block-components-product-button__button::before {
+		--purplish-spin: 360deg;
+		opacity: 1;
+		transition: opacity 0.2s ease, --purplish-spin 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+	}
 }
 
 /*
@@ -4482,10 +4547,13 @@ body.purplish-active .purplish-group-tint {
 	height: 0.8333em;
 }
 
-.purplish-social-look-ring .wp-social-link:hover {
-	transform: none;
-	background-color: color-mix(in srgb, currentcolor 16%, transparent);
-	box-shadow: inset 0 0 0 1px currentcolor;
+@media (hover: hover) {
+
+	.purplish-social-look-ring .wp-social-link:hover {
+		transform: none;
+		background-color: color-mix(in srgb, currentcolor 16%, transparent);
+		box-shadow: inset 0 0 0 1px currentcolor;
+	}
 }
 
 /*
@@ -4654,14 +4722,30 @@ body.purplish-active .purplish-group-tint {
 	padding: 12px;
 }
 
-.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:is(:hover, .purplish-hover),
-.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:is(:hover, .purplish-hover),
-.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row:is(:hover, .purplish-hover) {
+.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row.purplish-hover,
+.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row.purplish-hover,
+.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row.purplish-hover {
 	background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%);
 }
 
-:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row:is(:hover, .purplish-hover) > td {
+@media (hover: hover) {
+
+	.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:hover,
+	.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:hover,
+	.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row:hover {
+		background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%);
+	}
+}
+
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row.purplish-hover > td {
 	background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%) !important;
+}
+
+@media (hover: hover) {
+
+	:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row:hover > td {
+		background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%) !important;
+	}
 }
 
 /*
@@ -4900,15 +4984,26 @@ body.purplish-active .purplish-group-tint {
 	box-shadow: none;
 }
 
-.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):hover {
-	border-color: color-mix(in srgb, currentcolor 45%, transparent);
+@media (hover: hover) {
+
+	.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):hover {
+		border-color: color-mix(in srgb, currentcolor 45%, transparent);
+	}
 }
 
-.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)),
-.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)):hover {
+.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)) {
 	border-color: var(--purplish-color);
 	background-color: var(--purplish-choice-tint);
 	box-shadow: 0 0 0 1px var(--purplish-color), 0 10px 24px -14px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+}
+
+@media (hover: hover) {
+
+	.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)):hover {
+		border-color: var(--purplish-color);
+		background-color: var(--purplish-choice-tint);
+		box-shadow: 0 0 0 1px var(--purplish-color), 0 10px 24px -14px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+	}
 }
 
 /* List: one rounded box with a line between every option. */
