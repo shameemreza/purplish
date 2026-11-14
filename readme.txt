@@ -29,198 +29,48 @@ Think of a product page that takes the color of the variation a shopper picks, a
 * **Your photos stay on your server:** no outside requests, no tracking and no account to sign up for.
 * **Quiet admin:** no banners, notices or upsells.
 
-= Product page colors =
+= What Purplish adds to WooCommerce blocks =
 
-When a shopper picks another color on a WooCommerce product page, the photo changes and nothing else does. The button, the sale badge and the price look the same for the orange sweater and the navy one.
+* **Product page colors:** when a shopper picks a variation, the add to cart button, the selected option and the sale badge take its color, and the sale price and a soft background tint can too. Purplish reads the color from the product in the photo, or you set it by hand. The photo changes with a transition, like Blur, Wipe or Color wash.
+* **Product gallery:** hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, and rounded or circle thumbnails.
+* **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, a hover look for the card, the photo and the button, and one effect color for all of it.
+* **Shop page:** a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs or category photos with the current one marked.
+* **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, and color names under swatches.
+* **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, and a title and price that rise into place.
+* **Mini-Cart:** a count that pops, a photo that flies into the cart icon, and a drawer that opens with a soft spring.
+* **Cart, checkout and order confirmation:** soft rows and bigger photos in the cart, checkout fields and choices in your style, button looks on Place Order, a thank-you moment, and the order details on a paper receipt.
+* **Page sections:** soft accordions, reviews as cards or chat bubbles, striped specification tables, pill, circle or price tag sale badges, boxed page numbers, ringed social icons, and a line through options that can't be bought.
+* **Scroll and hover:** headings that rise or come into focus, sections and columns that come in as they scroll into view, a header that condenses into a floating pill, a seal that turns on hover, Cover scroll and hover looks, and the gallery's hover styles on any Image block.
 
-With Purplish, the page follows the color. Pick blue, and the add to cart button, the selected option and the sale badge turn blue. Pick orange, and they turn orange. Each variation has a Page color setting:
+Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops. Nothing moves on its own unless you turn on Showfloor's autoplay. Visitors who turn on reduced motion on their device get the colors without the animation.
 
-* **Automatic:** the default. Purplish finds the product in the photo, not the wall behind it, and takes its color. If the color attribute has a swatch color, that comes first.
-* **Custom:** pick a color or type a hex code. Purplish uses it exactly as you set it.
-* **Off:** the variation keeps your theme's colors.
+= Purplish blocks =
 
-A photo's color is often too dark or too pale for a button, so Purplish keeps the hue and adjusts it for each use, with readable text on the button. Simple products get one color for the whole page.
+Find them in the Purplish group of the block inserter.
 
-You pick what takes the color: the add to cart button, the selected option and the sale badge (all three on by default), the sale price and a soft background tint. The page opens in the default variation's color, so there's no flash of your theme's colors first.
+* **Hanging Rail:** the products from a Product Collection hang on a rope and slide along it as the page scrolls, on wooden pegs, binder clips or tape.
+* **Story Deck:** customer stories as a deck of photo cards that visitors drag, swipe or click through.
+* **Runway:** every product photo becomes a look in a line that gets smaller toward the back, with the product cards beside it.
+* **Scroll Lookbook:** a story of Cover shots. As visitors scroll, the camera holds at each shot and brings in that product's card.
+* **Showfloor:** shop the look on a turning oval floor of looks, with a numbered marker on each piece and one button that adds the whole look to the cart.
+* **Changing Room:** tops and bottoms turn in two rings around a photo of a model. Visitors dress the model and add the outfit to the cart.
+* **Wardrobe:** a mega menu item for the Navigation block that opens a big panel of category links, photo tiles and a look for each link.
+* **Shelf Tag:** a best seller, new arrival or featured tag on the product photo, as a chip, a pill or frosted glass.
+* **Color Dots:** the colors a product comes in, as dots or swatches on its card. Tap or point at one to see that color's photo.
 
-When the color changes, the photo changes with a transition: Blur (the default), Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
+= Patterns =
 
-= Product gallery =
+Purplish's 21 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
 
-Select the Product Gallery block and choose how the photos behave:
-
-* **Hover style:** 3D tilt leans the photo toward the mouse, Zoom magnifies the spot under it, and Loupe shows a round magnifier. Lift, Parallax, Glare and Slow zoom add softer motion. Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it.
-* **Full-screen style:** the view that opens when a shopper clicks the photo. Pick Snap stack, Zoom from photo, Filmstrip, Cinema or Classic fade. It needs the gallery's "Open pop-up when clicked" setting.
-* **Slide style:** how the next photo comes in: 3D media gallery, Circular slider, Reel slider or Image tunnel.
-* **Layout:** hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover.
-* **Thumbnail shape:** select the Thumbnails block inside the gallery for rounded or circle thumbnails.
-
-= Product cards =
-
-On shop and collection pages, select the Product Collection block:
-
-* **Add to cart on the photo:** a small frosted button sits on the photo, or a full-width bar runs across its bottom edge and slides up on hover, and the title and price share one line. It shows on hover, and always on touch screens.
-* **Details on the photo:** the title, price and add to cart sit on the bottom of the photo over a soft shade. They show on hover, and always on touch screens.
-* **Effect color:** one color for the button fill, the card effects and the hover looks. On a product page with a variation color, the variation color wins.
-* **Card effect:** one of 23 effects for the whole collection. Cards can fan out like a hand, hang from a clothes line, or stack in a coverflow.
-* **Grid switch:** two buttons after Sort by let shoppers switch between the grid's columns and a second count you pick, like four columns or two bigger cards. The choice lasts for the visit, and phones keep their grid.
-* **Results change:** when shoppers filter, sort or change page, the new cards fade in, rise one after another, or move, where the cards that stay slide to their new places. Reduced motion shows them at once.
-
-Effects on hover: Spotlight, Color reveal, Fan deck, Expanded cards, Magnetic panel, Card folder, Bookmark and Roster.
-
-Effects in a carousel (a grid stays as it is): Deck, Arc, Spotlight carousel, Grow, Tilt, Depth, Overlap, Momentum, Wheel, Helix and Reel. Momentum, Helix and Reel can also be dragged with the mouse.
-
-Effects as cards scroll into view: Clothes line, Parallax, Zoom reveal and Unfold (Unfold needs the Grid layout).
-
-* **Hover:** one look each for the card, the photo and the add to cart button, alongside any card effect. Photo looks include Second photo, which swaps in the product's first gallery photo.
-
-Inside the card, two more pieces sit on the photo when you put them in the Product Image block:
-
-* **Shelf Tag block:** a small tag for best sellers, new arrivals or featured products. It shows only on the cards its rule matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
-* **Sold out:** the Stock Indicator block can show only on sold-out products, in the same three looks, and grey out their photos.
-
-* **Color Dots block:** the colors a product comes in, as small dots beside the name or swatches under the price, from your color attribute or each variation's page color.
-* **Swap the photo:** tap a Color Dots dot, or point at it, to see that color's photo on the card, with a ring on the chosen dot and a fade, wipe or slide. It works from the keyboard, and the photo's alt text names the color for screen readers.
-
-* **Pattern:** Atelier shop is a quiet shop page for your shop and category templates: an uppercase serif title, accordion filters that fold away, Sort by, three columns of tall photos with a Best seller tag, cards that lift on hover with Add to cart on the photo, and numbered pages.
-
-* **Pattern:** Flagship shop is a big, photo-led shop page for your shop and category templates: the category's photo behind a large serif title, category tabs, filter dropdowns in one row with Sort by, four columns of grey tiles with color dots and sale, new and sold-out tags, Load more, and a store offer band.
-
-* **Pattern:** Boutique shop is a dense shop page for your shop and category templates: round category photos with a ring on the current one, a filter sidebar that can hide with Color swatches and their names, four columns with an Add to cart bar on the photo, color swatches under each card, and numbered pages.
-
-= Small details =
-
-On the Add to Cart + Options block:
-
-* **Title and price rise:** after the photo changes, the title and price rise into place. Or pick Title comes into focus, and the title sharpens into view.
-* **Glow ring:** a soft ring in the page color around the add to cart button.
-* **Halo:** a ring leaves the button and fades each time a product goes into the cart.
-* **Mesh background:** soft blobs of the color sit over the background tint and move each time the color changes.
-* **Color dots:** each color option shows a dot in its own color, like Orange or Blue.
-* **Liquid glass and spectrum ring:** the add to cart button gets a frosted fill with a highlight that follows the mouse, and a rainbow ring that travels once around its edge on hover.
-* **Googly eyes:** one or two eyes inside the add to cart button follow the mouse.
-
-On other blocks:
-
-* **Accordion, Accordion Group and Details, Soft style:** each item becomes a soft card, and its icon fills with the page color when open.
-* **Accordion, Heading line and Icon:** a hairline under each item with a line that draws across on hover, and a chevron in place of the plus.
-* **Group, Take the page color:** on product pages, the section's background becomes a soft version of the color the shopper picks.
-* **Pagination, Page numbers:** each number in a small box, or the current page on a line, in the page color.
-* **Pagination, Load more:** in a Product Collection, a Load more button adds the next page under the products, on its own or over a fade. It takes the outline style and the Button block's looks, shows a short spinner, and brings the new cards in one after another. It goes away once every product shows. A reload or the Back button keeps the same products.
-* **Terms Query, Look and Mark the current term:** on a category page, the list marks that category and its parent. Tabs puts the terms in a row with a line, pill or dot on the current one. Category photos shows each category's photo in a circle, rounded square, square or arch, with a ring around the current one and a choice of hover and scroll entrance.
-* **Product Results Count, Count:** for a shop hero, the count shows as just the number, in brackets or "23 products", with a pill or outline look and a roll or pop when the number changes. Screen readers still hear the full sentence.
-* **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out.
-* **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
-* **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
-* **Product Specifications, Table style:** every other row shaded, or each row on its own soft card.
-* **Product Filters, Matching chips:** the active filters take the look of a selected chip, and a chip fades into its selected color when picked.
-* **Product Filters, Sidebar can hide:** a Hide filters button beside Sort by folds the filter sidebar away, and the products take the width. The choice lasts for the visit, and phones keep the filter overlay.
-* **Product Filters, Layout: Bar:** the filters sit in one row above the products, and each one opens as a dropdown under its label, on a click or on hover, with four open styles. Phones keep the filter overlay.
-* **Chips filter, Names under swatches:** a color filter shown as swatches gets each color's name under its swatch, and a check on the chosen ones.
-* **Mini-Cart, Count pop and Fly to cart:** the item count pops each time something goes into the cart, and Fly to cart sends the product photo into the cart icon.
-* **Image, Hover style:** the gallery's 7 hover styles on any image block, from 3D tilt to Slow zoom.
-* **Button, Looks:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, in any mix.
-* **Social Icons, Ring:** each icon sits in a thin round ring that fills on hover.
-* **Heading, Reveal on scroll:** the heading rises into place or comes into focus as it scrolls into view. Rise from the floor follows the scroll instead: the heading comes up out of its own bottom edge, made for a big footer wordmark.
-* **Group and Columns, Entrance on scroll:** the section fades up or zooms in, and columns come in one after another.
-* **Group, Condense on scroll:** made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls.
-* **Group, Turn on hover:** made for badges and seals. The section turns a little, like a stamp, when the mouse is over it or over the group around it.
-* **Cover, Scroll effect:** the background slowly zooms or drifts with the scroll, or the cover opens from a small pill to full size. On hover, Push in moves the background in, Tilt turns the cover toward the mouse, Lift raises it and Glare runs a light after the mouse. Featured Category and Featured Product get the same looks. Use the category photo shows the category's own photo on its page.
-* **Pattern:** Flagship footer is a full store footer for the footer template part: a size help line with a button, four link columns with ringed social icons, the site name as a big wordmark that rises from the floor, and a base row with the year, policy links, a secure checkout note and a back to top button.
-* **Patterns:** Flagship home is a full store front page that opens on a Showfloor of eight looks, then your four biggest product categories as tiles with their own image and a Shop now button, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each section is also its own pattern, so you can add one to any page.
-* **Patterns for the cart and checkout:** Empty cart goes in the Cart block's empty cart area, with category tiles and your best sellers so the visit doesn't end there. Checkout header is a calm bar for the Checkout Header template part, with Bag, Checkout and Done steps and a Secure checkout note. Money-back guarantee card goes under the Cart or Checkout block.
-
-Nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops. Visitors who turn on reduced motion on their device get the colors without the animation.
-
-= Cart, checkout and order confirmation =
-
-* **Proceed to Checkout, Place Order and Go to checkout, Looks:** the glow ring, light sweep, liquid glass and spectrum ring from the Button block, in any mix, with one effect color. Place Order can also show a small lock before its label. Place Order is in the checkout's Actions block, and Go to checkout is in the Mini-Cart drawer.
-* **Mini-Cart drawer, Looks:** the drawer opens with a soft spring and the items follow one after another. Items can sit on soft rounded rows, with bigger photos.
-* **Cart, Looks:** items on soft rounded rows, bigger product photos, and totals that stay in view while a long cart scrolls.
-* **Checkout, Looks:** soft, filled or underline fields, a focus ring in the effect color, shipping and payment choices as cards or one list with the picked one tinted, step numbers as badges or a timeline, the order summary on a soft rounded card with a bigger total, a tinted side panel, the whole checkout on a raised card, and bigger order photos. Labels still float, and nothing on the checkout moves.
-* **Order Status, Thank-you moment:** when the order confirmation page opens, the heading rises into place and a burst of rays in the effect color flashes behind it once.
-* **Order Summary, Receipt card:** the order number, date, total and payment method sit on a paper receipt with a torn bottom edge and a dashed line between rows.
-
-= Hanging Rail block =
-
-A block of Purplish's own, in the Purplish group of the block inserter. It holds a heading, a short line and one Product Collection, so you pick the products the way you already do.
-
-* **Products on a rope:** the section holds still while the page scrolls, and the products slide along a rope that sags between them, swinging on their clips.
-* **Clip and rope:** a wooden peg, a binder clip or a strip of tape, on a rope that sags a little or more.
-* **Scroll length:** short, medium or long, scaled to how many products there are.
-* **Pattern:** Hanging rail of new arrivals adds the block with a heading, a short line and your 8 newest products.
-
-Visitors who turn on reduced motion see the products as a row they can scroll sideways, with the rope and clips still drawn.
-
-= Story Deck block =
-
-Each story is a group with a photo, a quote, the customer's name and, if you want, a button to the product. The photos become a deck of cards, and the top card's story sits beside it.
-
-* **Flick through:** visitors drag or swipe the top card away, or use the previous and next buttons or the arrow keys. After the last story the deck starts again.
-* **Deck options:** cards on the left or right, rounded or square, fanned like a hand of cards or flat. On phones the cards sit above the story.
-* **Pattern:** Customer stories deck adds the block with three sample stories, each with a Shop this button.
-
-The deck never moves on its own. Visitors who turn on reduced motion switch stories with a short fade.
-
-= Runway block =
-
-It holds a heading, a short line and one Product Collection, so you pick the products the way you already do. Every product photo becomes a look, and the looks stand in one line that gets smaller and softer toward the back.
-
-* **Walk the line:** visitors drag or swipe, tap a look further back, or use the previous and next buttons or the arrow keys. After the last look the first one returns.
-* **Product rail:** the product cards sit beside the line and follow the look at the front. On phones they run under it as one row.
-* **Runway options:** every product photo or the featured one, framed or cutout photos, look numbers, and photos that fly into the mini cart.
-* **Pattern:** Runway lookbook adds the block with a heading, a short line and your 6 newest products.
-
-The line never moves on its own, and a normal mouse wheel still scrolls the page past it. Visitors who turn on reduced motion step one look at a time with a short fade.
-
-= Scroll Lookbook block =
-
-It holds Cover blocks, one Product Collection and a Group. Each Cover is a shot: as visitors scroll, the camera moves from shot to shot, holds at each one and brings in that product's card on the side away from the subject.
-
-* **Shots and cards:** each Cover holds a video or a photo, and the first Product Collection gives the cards. Each card's button takes its product's Purplish color.
-* **Scroll Lookbook options:** a chapter list on or off, a timecode on or off, and a short, medium or long scroll for each stop.
-* **Pattern:** Scroll lookbook storefront adds the block with an opening shot, three shots and a closing line.
-
-The opening video plays once and stops within 5 seconds, and nothing loops. Visitors who turn on reduced motion get each shot with its card beside it as a plain page.
-
-= Showfloor block =
-
-It holds Look blocks, one for each look: a cut-out photo, a name, a short line and the products in it. The looks stand on a turning oval floor, and the one at the front shows its pieces and their total beside it.
-
-* **Turn and open:** visitors drag, swipe, tap a look or its name, or use the buttons or arrow keys. Opening a look shows it as a price tag with a numbered marker on each piece.
-* **Add the whole look:** one button adds every piece at the price shown. Variable products link to their page instead.
-* **Showfloor options:** an oval floor or a flat row, three depths, a floor and grid switch, a look list with faces, names or numbers, a swipe row or small floor on phones, and photos that fly into the mini cart.
-* **Autoplay:** off by default, every 3 to 8 seconds, with a pause button that can show a timer ring or be hidden.
-* **Drawn figures:** eight figures drawn for Purplish fill the block's preview in the inserter. A look with no products shows its figure and name only.
-
-Autoplay holds while a visitor uses the floor and never runs for visitors who turn on reduced motion.
-
-= Changing Room block =
-
-It holds Piece blocks: tops and bottoms that turn in two rings around a photo of a model, with a photo for each pair. Visitors dress him and add the outfit to the cart.
-
-* **Dress the model:** visitors drag a piece onto him, swipe or scroll a ring, use the arrow keys, or tap a piece to open its panel with sizes, stock and details.
-* **Add both:** one button adds the top and bottom at the price shown, and asks for a size first when a piece needs one.
-* **Changing Room options:** theme buttons or a Purplish look, color from the piece worn on the buttons, the block or the page, a notice and fly to the mini cart after adding, and a switch for each way to turn a ring.
-
-Visitors who turn on reduced motion get every change at once.
-
-= Wardrobe block =
-
-A mega menu item for the Navigation block. Hovering or clicking its label opens a big panel under the header, made of blocks you edit in place. A new one starts with category links, photo tiles and a featured look.
-
-* **Opens like your submenus:** on hover or on click, following the Navigation block's setting.
-* **Keyboard:** Enter or Space opens the panel, Tab moves into it, and Escape closes it and puts focus back on the label.
-* **Wardrobe options:** wide, content or full width, and a card or flat look.
-* **A look for each link:** with more than one look card in the panel, hovering a category link shows its look.
-* **Phones:** on small screens and inside the Navigation overlay, the label is a plain link.
-* **Patterns:** Flagship header adds a note bar and a bar with a Wardrobe Shop menu, the site title, search, account and a bag pill that condenses on scroll. Flagship phone menu is the sheet its menu opens on phones.
-
-Visitors who turn on reduced motion see the panel open without motion.
+* **Store front:** Flagship home is a full front page with a Showfloor, category tiles, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each of those sections is also its own pattern.
+* **Header and footer:** Flagship header has a Wardrobe Shop menu and a bag pill that condenses on scroll, with Flagship phone menu for small screens. Flagship footer ends on the site name as a big wordmark that rises from the floor.
+* **Shop pages:** Flagship shop is big and photo-led, Atelier shop is quiet with accordion filters, and Boutique shop is dense with a filter sidebar and color swatches.
+* **Product showcases:** Hanging rail of new arrivals, Customer stories deck, Runway lookbook and Scroll lookbook storefront.
+* **Cart and checkout:** Empty cart with category tiles and best sellers, Checkout header with Bag, Checkout and Done steps, and a Money-back guarantee card.
 
 = Abilities for AI agents =
 
-Purplish registers four abilities with the WordPress Abilities API, so an AI agent can work with it through the REST API or the MCP Adapter plugin. An agent can list what Purplish can do on your store, read the Purplish options a page or template uses, set them on a block, and add a Purplish pattern. Every value is checked against the options Purplish offers, only Purplish's own options change, and each change saves a revision.
+Purplish registers four abilities with the WordPress Abilities API. Through the REST API or the MCP Adapter plugin, an AI agent can list what Purplish can do, read the options a page uses, set them on a block and add a pattern. Only Purplish's own options change, and each change saves a revision.
 
 = Block and classic themes =
 
@@ -230,13 +80,13 @@ Classic themes get a smaller set under WooCommerce > Settings > Products > Purpl
 
 = Why I made it =
 
-> Purplish started with one small idea from a chat on X: let the product page take the color of the variation a shopper picks. Building it showed me how much more WooCommerce's blocks can do with a few good options, so I kept going. The [Purplish website](https://purplish.io/) runs on WooCommerce, the Purple theme and Purplish itself.
+> Purplish started with one small idea from a discussion on X: let the product page take the color of the variation a shopper picks. Building it showed me how much more WooCommerce's blocks can do with a few good options, so I kept going. I built the [Purplish plugin site](https://purplish.io/) with WooCommerce, the Purple theme and Purplish itself.
 >
 > Shameem Reza
 
 = Source code =
 
-The code is on [GitHub](https://github.com/shameemreza/purplish). The readable source of the scripts ships in `assets/src`, next to the built files in `build`. To build them, run `npm ci` and `npm run build`.
+The code is on [GitHub](https://github.com/shameemreza/purplish), with [every option explained](https://github.com/shameemreza/purplish#what-you-can-design) in the README. The readable source of the scripts ships in `assets/src`, next to the built files in `build`. To build them, run `npm ci` and `npm run build`.
 
 == Installation ==
 
@@ -278,6 +128,66 @@ Set the variation's Page color to Custom and pick the color. A busy photo, like 
 = Why do some option buttons have no color dot? =
 
 An option gets a dot only when every variation with it has the same color. A size, or an option that comes in several colors, has no single color to show. On the picked option, the dot turns the button's text color so it stays visible.
+
+= How does Purplish pick a variation's color? =
+
+Each variation has a Page color setting. Automatic, the default, finds the product in the photo, not the wall behind it, and takes its color. If the color attribute has a swatch color, that comes first. Custom uses the color you pick, exactly as you set it. Off keeps your theme's colors. A photo's color is often too dark or too pale for a button, so Purplish keeps the hue and adjusts it for each use, with readable text on the button. The page opens in the default variation's color, so there's no flash of your theme's colors first.
+
+= Which photo transitions are there? =
+
+When the color changes, the photo changes with Blur (the default), Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
+
+= Which gallery styles are there? =
+
+Hover styles: 3D tilt, Zoom, Loupe, Lift, Parallax, Glare and Slow zoom. Any of them replaces WooCommerce's own hover zoom, and touch screens skip it. Full-screen styles, for the lightbox that opens when a shopper clicks the photo: Snap stack, Zoom from photo, Filmstrip, Cinema and Classic fade. They need the gallery's "Open pop-up when clicked" setting. Slide styles: 3D media gallery, Circular slider, Reel slider and Image tunnel.
+
+= Which card effects are there? =
+
+There are 23. On hover: Spotlight, Color reveal, Fan deck, Expanded cards, Magnetic panel, Card folder, Bookmark and Roster. In a carousel (a grid stays as it is): Deck, Arc, Spotlight carousel, Grow, Tilt, Depth, Overlap, Momentum, Wheel, Helix and Reel, and the last three can also be dragged with the mouse. As cards scroll into view: Clothes line, Parallax, Zoom reveal and Unfold, which needs the Grid layout.
+
+= How do I show a best seller tag on WooCommerce product cards? =
+
+Put the Shelf Tag block inside the Product Image block of your Product Collection and pick its rule: best sellers, new arrivals or featured products. The tag shows only on the cards it matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
+
+= How do I show a sold out label on product cards? =
+
+Put WooCommerce's Stock Indicator block inside the Product Image block and turn on Only when sold out in the Purplish panel. It takes the same three looks as the Shelf Tag and can grey out the photo.
+
+= How do I show color swatches on WooCommerce product cards? =
+
+Add the Color Dots block to the card. It shows the colors a product comes in, as small dots beside the name or swatches under the price, from your color attribute or each variation's page color. Shoppers can tap or point at a dot to see that color's photo on the card, with a fade, wipe or slide. It works from the keyboard, and the photo's alt text names the color for screen readers.
+
+= How do I make a WooCommerce category grid with images? =
+
+Select the Terms Query block and set its Look to Category photos. Each category shows its photo in a circle, rounded square, square or arch, with a ring around the current one, and you can add a hover and a scroll entrance. For big tiles, add the Shop by category pattern: your four biggest categories, each with its photo and a Shop now button.
+
+= Can I add a mega menu to a block theme? =
+
+Yes. Add the Wardrobe block to your Navigation block. Hovering or clicking its label opens a big panel under the header, made of blocks you edit in place. With more than one look card in the panel, hovering a category link shows its look. Enter or Space opens it, Escape closes it and puts focus back on the label, and on phones the label is a plain link.
+
+= How do I add a Load more button to the WooCommerce shop page? =
+
+Select the Pagination block in your Product Collection and pick Load more in the Purplish panel. The button adds the next page under the products, on its own or over a fade, and the new cards come in one after another. It takes the Button block's looks, and a reload or the Back button keeps the same products.
+
+= Can the product filters sit in a bar above the products? =
+
+Yes. Select the Product Filters block and set Layout to Bar. Each filter opens as a dropdown under its label, on a click or on hover, with four open styles. To keep the sidebar instead, turn on Sidebar can hide for a Hide filters button beside Sort by. Phones keep the filter overlay either way.
+
+= How do I style the WooCommerce checkout? =
+
+Select the Checkout block and open the Purplish panel. Fields can be soft, filled or underlined, with a focus ring in the effect color. Shipping and payment choices can sit on cards, step numbers can be badges or a timeline, and the order summary can sit on a soft card with a bigger total. Place Order gets the Button block's looks and a small lock. Nothing on the checkout moves.
+
+= Can I change the cart drawer and the order confirmation page? =
+
+Yes. The Mini-Cart drawer can open with a soft spring, with the items on soft rows, and Fly to cart sends the product photo into the cart icon. On the order confirmation page, the Order Status heading can rise with a burst of rays behind it once, and the Order Summary can sit on a paper receipt with a torn bottom edge.
+
+= Can shoppers add a whole outfit to the cart at once? =
+
+Yes, with two blocks. On a Showfloor, one button adds every piece of a look at the price shown, and variable products link to their page instead. In the Changing Room, Add both adds the top and the bottom and asks for a size first when a piece needs one.
+
+= Does anything move on its own? =
+
+Only Showfloor's autoplay, and it's off by default. When you turn it on, it moves every 3 to 8 seconds, holds while a visitor uses the floor, and has a pause button. The Scroll Lookbook's opening video plays once and stops within 5 seconds. Visitors who turn on reduced motion get neither.
 
 = Can I turn it off for one variation or product? =
 
@@ -346,33 +256,4 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 * Fix: Carousel card effects now turn the right way on right-to-left sites.
 * Fix: The Clothes line card effect stays inside phone screens.
 
-= 1.1.0 =
-
-* New: Hanging Rail block. Products hang from pegs, binder clips or tape on a rope and slide along it as the page scrolls. Comes with the Hanging rail of new arrivals pattern.
-* New: Story Deck block. Customer stories on a deck of cards that visitors flick through. Comes with the Customer stories deck pattern.
-* New: Runway block. Product photos stand in a line that fades into the distance, with the product cards beside it. Comes with the Runway lookbook pattern.
-* New: Scroll Lookbook block. A full-screen video or photo that plays as visitors scroll and stops at each product with its card. Comes with the Scroll lookbook storefront pattern.
-* New: Grayed-out look for options that can't be bought, a pill, circle or price tag sale badge in any corner, and rounded or circle gallery thumbnails.
-* New: Soft style for the Accordion Group and Details blocks, and soft card or chat bubble reviews and striped or card-style specifications.
-* New: Matching chips for active Product Filters, and a count pop on the Mini-Cart.
-* New: The gallery's 7 hover styles on any Image block, and a glow ring, light sweep, liquid glass, spectrum ring and googly eyes on any Button and on add to cart.
-* New: Scroll reveals for headings, scroll entrances for groups and columns, and slow zoom, parallax or pill reveal for covers.
-* New: Four more card effects on the Product Collection block: Bookmark, Roster, Depth and Overlap, for 18 in all.
-* New: Hooks and front-end events for developers, listed in the README on GitHub.
-* Fix: The gallery loupe sat away from the mouse on right-to-left sites.
-
-= 1.0.0 =
-
-* New: Page color field on each variation and simple product: Automatic, Custom or Off.
-* New: Colors read from product photos in the background, adjusted into a button color, a sale price color and a page tint. Swatch colors come first.
-* New: The product page follows the color a shopper picks, on block and classic themes.
-* New: Parts that take the color: add to cart button, selected option, sale badge, sale price and page background tint.
-* New: Photo transition: Blur, Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
-* New: Purplish panel on WooCommerce's blocks in the Site Editor, and a settings section for classic themes.
-* New: Gallery options: hide thumbnails, rounded corners and frosted arrows on hover.
-* New: Gallery hover styles: 3D tilt, Zoom, Lift, Parallax, Glare, Loupe and Slow zoom.
-* New: Gallery full-screen styles: Snap stack, Classic fade, Zoom from photo, Filmstrip and Cinema.
-* New: Gallery slide styles: 3D media gallery, Circular slider, Reel slider and Image tunnel.
-* New: Product card options: button on the photo, button motion, an effect color and fourteen card effects.
-* New: Title and price rise, title focus, glow ring, halo after adding to cart, mesh background and color dots on options.
-* New: Soft style for the Accordion block, and Take the page color for Group blocks.
+[See changelog for all versions](https://github.com/shameemreza/purplish/blob/main/CHANGELOG.md).

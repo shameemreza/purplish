@@ -119,6 +119,12 @@ jobs:
           curl -fsSL "https://downloads.wordpress.org/plugin/woocommerce.${WOOCOMMERCE_VERSION}.zip" -o /tmp/woocommerce.zip
           unzip -q /tmp/woocommerce.zip -d "$WP_CORE_DIR/wp-content/plugins/"
 
+      # ReadmeTest runs the WordPress.org readme parser that ships in Plugin Check.
+      - name: Install Plugin Check
+        run: |
+          curl -fsSL "https://downloads.wordpress.org/plugin/plugin-check.latest-stable.zip" -o /tmp/plugin-check.zip
+          unzip -q /tmp/plugin-check.zip -d "$WP_CORE_DIR/wp-content/plugins/"
+
       # Purplish runs from the plugins folder, as on a real site, so
       # WooCommerce can identify it by its plugin ID.
       - name: Link Purplish into the plugins folder
