@@ -36,7 +36,7 @@ $purplish_tiles  = array(
 
 <?php if ( $purplish_terms ) : ?>
 <!-- wp:terms-query {"termQuery":{"perPage":4,"taxonomy":"product_cat","order":"desc","orderBy":"count","include":[],"hideEmpty":true,"showNested":false,"inherit":false}} -->
-<div class="wp-block-terms-query"><!-- wp:term-template {"style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
+<div class="wp-block-terms-query"><!-- wp:term-template {"style":{"spacing":{"blockGap":"16px"}},"className":"purplish-category-grid","layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
 <!-- wp:group {"layout":{"type":"default"},"purplish":{"entrance":"fadeup"}} -->
 <div class="wp-block-group"><!-- wp:woocommerce/featured-category {"verticalAlignment":"bottom","contentAlign":"left","dimRatio":100,"imageFit":"cover","focalPoint":{"x":0.5,"y":0.3},"overlayColor":"transparent","overlayGradient":"<?php echo esc_attr( $purplish_fade ); ?>","style":{"color":{"background":"<?php echo esc_attr( $purplish_deep ); ?>","text":"#ffffff"},"dimensions":{"aspectRatio":"3/4"},"border":{"width":"1px","style":"solid","color":"<?php echo esc_attr( $purplish_tint ); ?>"},"spacing":{"padding":{"top":"0","right":"0","bottom":"8px","left":"0"},"blockGap":"12px"}},"purplish":{"hover":"tilt"}} -->
 <!-- wp:woocommerce/category-title {"level":3,"textAlign":"left","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"large"} /-->
@@ -51,8 +51,8 @@ $purplish_tiles  = array(
 <!-- /wp:term-template --></div>
 <!-- /wp:terms-query -->
 <?php else : ?>
-<!-- wp:group {"style":{"spacing":{"blockGap":"16px"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
-<div class="wp-block-group">
+<!-- wp:group {"style":{"spacing":{"blockGap":"16px"}},"className":"purplish-category-grid","layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
+<div class="wp-block-group purplish-category-grid">
 <?php foreach ( $purplish_tiles as $purplish_tile ) : ?>
 	<?php
 	$purplish_url   = \Purplish\Blocks\Showfloor::figure( $purplish_tile[1] );

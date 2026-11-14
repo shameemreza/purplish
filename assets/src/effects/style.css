@@ -51,6 +51,34 @@ body[class*="purplish-classic-gallery-"] {
 }
 
 /*
+ * Flagship's Shop by category: four tiles in two columns or four, never
+ * three, so no tile sits alone on a row. One column only where two would
+ * break the names.
+ */
+:has(> .purplish-category-grid) {
+	container-type: inline-size;
+}
+
+/* The tiles are a list; classic themes like Storefront indent lists. */
+.wp-block-term-template.purplish-category-grid {
+	margin-inline: 0;
+}
+
+@container (min-width: 18rem) {
+
+	:is(.wp-block-term-template, .wp-block-group).purplish-category-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@container (min-width: 39rem) {
+
+	:is(.wp-block-term-template, .wp-block-group).purplish-category-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+/*
  * Gallery: one big photo, no thumbnail strip. Classic covers WooCommerce's
  * FlexSlider and themes with their own slider, like Blocksy's flexy.
  */
