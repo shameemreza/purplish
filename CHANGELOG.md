@@ -2,6 +2,37 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-11-14
+
+### Added
+
+- Showfloor, a shop-the-look block. Cut-out looks stand on a floor that turns, and visitors add one piece or the whole look to the cart.
+- Showfloor looks can come from a pattern, with eight drawn figures in the plugin.
+- Wardrobe, a mega menu item for the Navigation block that opens a panel of blocks.
+- Changing Room, a try-on block. Tops and bottoms turn in two rings around a model, and visitors drag a piece on, check its sizes and add the outfit to the cart.
+- Shelf Tag, a block for Best seller, New arrival and Featured tags on product cards.
+- Color Dots, a block that shows the colors a product comes in on its card. A dot can swap the card photo to its color.
+- Flagship patterns: a full store home page with each section also its own pattern, plus a header, a phone menu and a footer.
+- Three shop page patterns: Flagship, Atelier and Boutique.
+- Empty cart, Checkout header and Money-back guarantee card patterns.
+- Condense on scroll for the Group block, a sticky header that narrows into a floating pill as the page scrolls. Group also gets Turn on hover.
+- Rise from the floor for the Heading block, and a Ring look for Social Icons.
+- Push in, Tilt, Lift and Glare on hover for the Cover block. Featured Category and Featured Product get the same hovers and the Cover scroll looks, and a Cover can use the category photo on category pages.
+- Product Filters can sit in one row with a dropdown for each, fold the sidebar away, and show color names under swatches.
+- Product Collection gets a grid switch for shoppers, cards that move when the results change, and an add to cart bar on the photo.
+- Load more and page number looks for Pagination, Tabs and Category photos looks for Terms Query, and count looks for Product Results Count.
+- A sold-out look for the Stock Indicator, and a drawn line and chevron for the Accordion.
+- Abilities for AI agents: read the design catalog and a page's designs, set a block's design and insert a pattern.
+
+### Fixed
+
+- The Circle sale badge stays small when WooCommerce shows a discount amount.
+- Googly eyes and liquid glass now follow the mouse on buttons inside the Cart and Checkout blocks.
+- Keyboard, screen reader and touch gaps across the blocks and effects. Hover looks stay off after a tap on phones.
+- The page tint, Cart rows and Flagship's Best sellers and Just in stay readable in a theme's dark style.
+- The classic gallery options now work on Blocksy's product gallery.
+- Gallery hover styles follow the mouse over the photo on themes that keep WooCommerce's gallery.
+
 ## [1.2.1] - 2026-11-08
 
 ### Fixed

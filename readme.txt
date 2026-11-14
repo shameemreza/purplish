@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce blocks, blocks, design, product gallery
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,25 +235,30 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 
 == Changelog ==
 
-= 1.2.1 =
+= 1.3.0 =
 
-* Fix: Details on the photo now works on product cards that keep the title, price and add to cart in groups, like the Purple theme's shop grid.
-
-= 1.2.0 =
-
-* New: The glow ring, light sweep, liquid glass and spectrum ring from the Button block on Proceed to Checkout, Place Order and the Mini-Cart's Go to checkout button.
-* New: Mini-Cart drawer looks: the drawer opens with a soft spring, and items sit on soft rounded rows with bigger photos. Fly to cart sends the product photo into the cart icon on add to cart.
-* New: Cart looks: soft rounded rows, bigger photos, and totals that stay in view while a long cart scrolls.
-* New: Checkout looks: soft, filled or underline fields, a focus ring in the effect color, a soft order summary card and bigger order photos.
-* New: Checkout layout looks: shipping and payment choices as cards or a list, a tinted side panel and a raised card, plus a bigger total in the soft summary.
-* New: Checkout step numbers as badges or a timeline, and a lock icon on Place Order.
-* New: A thank-you moment on the order confirmation page, and the order summary as a paper receipt.
-* New: Hover looks on product cards: one look each for the card, the photo and the add to cart button, alongside any card effect.
-* New: Five more card effects on the Product Collection block: Unfold, Momentum, Wheel, Helix and Reel, for 23 in all. Momentum, Helix and Reel can be dragged with the mouse.
-* New: Details on the photo for product cards: the title, price and add to cart on the photo, over a soft shade.
-* New: Purplish options show on the editor canvas as you pick them. The few that play on an action, like Fly to cart, show on the store.
-* Fix: The Parallax card effect didn't move, and Zoom reveal finished before the card was in view.
-* Fix: Carousel card effects now turn the right way on right-to-left sites.
-* Fix: The Clothes line card effect stays inside phone screens.
+* New: Showfloor, a shop-the-look block. Cut-out looks stand on a floor that turns, and visitors add one piece or the whole look to the cart.
+* New: Showfloor looks can come from a pattern, with eight drawn figures in the plugin.
+* New: Wardrobe, a mega menu item for the Navigation block that opens a panel of blocks.
+* New: Changing Room, a try-on block. Tops and bottoms turn in two rings around a model, and visitors drag a piece on, check its sizes and add the outfit to the cart.
+* New: Shelf Tag, a block for Best seller, New arrival and Featured tags on product cards.
+* New: Color Dots, a block that shows the colors a product comes in on its card. A dot can swap the card photo to its color.
+* New: Flagship patterns: a full store home page with each section also its own pattern, plus a header, a phone menu and a footer.
+* New: Three shop page patterns: Flagship, Atelier and Boutique.
+* New: Empty cart, Checkout header and Money-back guarantee card patterns.
+* New: Condense on scroll for the Group block, a sticky header that narrows into a floating pill as the page scrolls. Group also gets Turn on hover.
+* New: Rise from the floor for the Heading block, and a Ring look for Social Icons.
+* New: Push in, Tilt, Lift and Glare on hover for the Cover block. Featured Category and Featured Product get the same hovers and the Cover scroll looks, and a Cover can use the category photo on category pages.
+* New: Product Filters can sit in one row with a dropdown for each, fold the sidebar away, and show color names under swatches.
+* New: Product Collection gets a grid switch for shoppers, cards that move when the results change, and an add to cart bar on the photo.
+* New: Load more and page number looks for Pagination, Tabs and Category photos looks for Terms Query, and count looks for Product Results Count.
+* New: A sold-out look for the Stock Indicator, and a drawn line and chevron for the Accordion.
+* New: Abilities for AI agents: read the design catalog and a page's designs, set a block's design and insert a pattern.
+* Fix: The Circle sale badge stays small when WooCommerce shows a discount amount.
+* Fix: Googly eyes and liquid glass now follow the mouse on buttons inside the Cart and Checkout blocks.
+* Fix: Keyboard, screen reader and touch gaps across the blocks and effects. Hover looks stay off after a tap on phones.
+* Fix: The page tint, Cart rows and Flagship's Best sellers and Just in stay readable in a theme's dark style.
+* Fix: The classic gallery options now work on Blocksy's product gallery.
+* Fix: Gallery hover styles follow the mouse over the photo on themes that keep WooCommerce's gallery.
 
 [See changelog for all versions](https://github.com/shameemreza/purplish/blob/main/CHANGELOG.md).
