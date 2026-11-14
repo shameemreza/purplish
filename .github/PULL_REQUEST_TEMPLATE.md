@@ -9,6 +9,11 @@ Closes #
 - [ ] CI passed
 - [ ] Tested by hand: 
 
+## Found while testing
+
+<!-- Anything wrong you saw while testing, even if this pull request didn't cause it. Write None, or one line each that ends with "fixed here" or the new issue's number, like #123. Nothing is left to decide after the merge, and `npm run check:release` checks this section in every pull request since the last tag. -->
+
+
 ## Speed
 
 For anything that moves or loads on the front end. Tick what applies and say why in a line when one can't be met.
