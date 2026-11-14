@@ -71,6 +71,9 @@
     "spacing": {
       "margin": true,
       "padding": true
+    },
+    "interactivity": {
+      "clientNavigation": true
     }
   },
   "example": {
