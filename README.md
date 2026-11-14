@@ -357,7 +357,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 |---|---|---|
 | WordPress | 7.0 | 7.1 |
 | PHP | 7.4 | 8.3 |
-| WooCommerce | 11.0 | 11.2 |
+| WooCommerce | 11.0 | 11.3.0 |
 
 ## For developers
 
