@@ -224,16 +224,43 @@ if ( canHover ) {
 			const gallery = document.querySelector(
 				'.woocommerce-product-gallery'
 			);
-			// Blocksy's flexy slider has its own viewport, and a single
-			// photo sits in its container with no slider.
-			const target =
-				gallery?.querySelector( '.flex-viewport, .flexy-view' ) ||
-				gallery?.querySelector(
-					'.woocommerce-product-gallery__wrapper, .ct-product-gallery-container'
-				);
-			if ( target ) {
+			if ( ! gallery ) {
+				return;
+			}
+			const attach = ( target ) => {
 				target.classList.add( 'purplish-hover-target' );
 				follow( target, classic );
+			};
+			// Blocksy's flexy slider has its own viewport, and a single
+			// photo sits in its container with no slider.
+			const frame = () =>
+				gallery.querySelector( '.flex-viewport, .flexy-view' );
+			if ( frame() ) {
+				attach( frame() );
+				return;
+			}
+			// FlexSlider builds its viewport after load, and only for more
+			// than one photo, so wait for it instead of taking the strip.
+			if (
+				window.wc_single_product_params?.flexslider_enabled &&
+				gallery.querySelectorAll(
+					'.woocommerce-product-gallery__image'
+				).length > 1
+			) {
+				const watch = new window.MutationObserver( () => {
+					if ( frame() ) {
+						watch.disconnect();
+						attach( frame() );
+					}
+				} );
+				watch.observe( gallery, { childList: true, subtree: true } );
+				return;
+			}
+			const single = gallery.querySelector(
+				'.woocommerce-product-gallery__wrapper, .ct-product-gallery-container'
+			);
+			if ( single ) {
+				attach( single );
 			}
 		} );
 	}
