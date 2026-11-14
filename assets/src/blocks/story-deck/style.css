@@ -89,6 +89,12 @@ body.purplish-active .wp-block-purplish-story-deck {
 	outline: none;
 }
 
+/* The arrow keys move focus to the new top story, so its card gets a ring. */
+.wp-block-purplish-story-deck.purplish-deck-on .purplish-deck-stories > .purplish-deck-story:focus-visible .purplish-deck-card {
+	outline: 2px solid currentcolor;
+	outline-offset: 4px;
+}
+
 .purplish-deck-side-right.purplish-deck-on .purplish-deck-stories > .purplish-deck-story {
 	padding-inline: 0 calc(var(--purplish-deck-card) + var(--purplish-deck-gap));
 }

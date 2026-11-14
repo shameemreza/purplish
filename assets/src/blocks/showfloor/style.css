@@ -1120,7 +1120,7 @@
 	object-fit: cover;
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:hover) .purplish-showfloor-grid-peek {
+.wp-block-purplish-showfloor.purplish-showfloor-hover-peek.is-grid .purplish-showfloor-look:has(.purplish-showfloor-figure:is(:hover, :focus-visible)) .purplish-showfloor-grid-peek {
 	opacity: 1;
 	translate: -50% 0;
 }
@@ -1315,10 +1315,26 @@
 	transition: opacity 180ms, translate 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:hover .purplish-showfloor-name-t,
 .wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:focus-visible .purplish-showfloor-name-t {
 	opacity: 1;
 	translate: 0 0;
+}
+
+@media (hover: hover) {
+
+	.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name:hover .purplish-showfloor-name-t {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+/* Touch screens can't hover, so the front look's name stays out. */
+@media (hover: none) {
+
+	.wp-block-purplish-showfloor.purplish-showfloor-list-faces .purplish-showfloor-name[aria-current="true"] .purplish-showfloor-name-t {
+		opacity: 1;
+		translate: 0 0;
+	}
 }
 
 /* Markers that add to the cart: a small plus, then a tick. */

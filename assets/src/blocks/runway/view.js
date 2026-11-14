@@ -441,7 +441,11 @@ function runway( block ) {
 		const moved = ( event.clientX - done.x ) * way;
 		if ( done.moved < 6 ) {
 			target = done.from;
-			pick( event );
+			// A cancel means the browser took the touch to scroll the
+			// page, so it isn't a tap on a look.
+			if ( 'pointercancel' !== event.type ) {
+				pick( event );
+			}
 		} else if ( reduced.matches ) {
 			if ( Math.abs( moved ) > 40 ) {
 				step( moved > 0 ? 1 : -1 );

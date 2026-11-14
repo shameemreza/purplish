@@ -416,7 +416,7 @@ final class ChangingRoom implements Block {
 		);
 		$photo_attrs = array(
 			'class'         => 'purplish-changing-room-photo',
-			'alt'           => '',
+			'alt'           => $alt,
 			'sizes'         => '(max-width: 700px) 80vw, 560px',
 			'loading'       => 'eager',
 			'fetchpriority' => 'high',
@@ -426,7 +426,7 @@ final class ChangingRoom implements Block {
 		if ( $start['id'] ) {
 			$photo = wp_get_attachment_image( $start['id'], 'large', false, $photo_attrs );
 		} elseif ( '' !== $start['url'] ) {
-			$photo = sprintf( '<img class="purplish-changing-room-photo" src="%s" alt="" fetchpriority="high" draggable="false">', esc_url( $start['url'] ) );
+			$photo = sprintf( '<img class="purplish-changing-room-photo" src="%1$s" alt="%2$s" fetchpriority="high" draggable="false">', esc_url( $start['url'] ), esc_attr( $alt ) );
 		} else {
 			$photo = '';
 		}

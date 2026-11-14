@@ -73,10 +73,23 @@ button.purplish-color-dots-dot {
 	appearance: none;
 }
 
+/* At least 24px to tap, however small the dot. */
 button.purplish-color-dots-dot::before {
 	content: "";
 	position: absolute;
-	inset: -5px;
+	inset: min(-5px, calc((var(--purplish-dot-size) - 24px) / 2));
+}
+
+/* On touch, the dots spread out so each tap area has its own 24px. */
+@media (pointer: coarse) {
+
+	:where(.purplish-color-dots-swap) {
+		gap: max(0.35em, calc(24px - var(--purplish-dot-size)));
+	}
+
+	:where(.purplish-color-dots-swap.purplish-color-dots-look-swatches) {
+		gap: max(0.5em, calc(24px - var(--purplish-dot-size)));
+	}
 }
 
 .purplish-color-dots-swap .purplish-color-dots-dot {

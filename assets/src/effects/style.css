@@ -90,9 +90,10 @@ body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only
 	scale: 0.92;
 }
 
+/* On a mouse, the arrows show on hover, and when Tab reaches them. */
 @media (hover: hover) and (pointer: fine) {
 
-	.purplish-gallery-arrows .wc-block-product-gallery-large-image:not(:hover) .wc-block-next-previous-buttons {
+	.purplish-gallery-arrows .wc-block-product-gallery-large-image:not(:hover, :focus-within) .wc-block-next-previous-buttons {
 		opacity: 0;
 		translate: 0 8px;
 	}
@@ -584,9 +585,12 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 @media (hover: hover) and (pointer: fine) {
 
+	/* Hidden, it takes no clicks, so a tap on a touch screen laptop can't
+	   add to the cart without the shopper seeing the button. */
 	.purplish-cards-overlay .wc-block-product .wc-block-components-product-button {
 		opacity: 0;
 		translate: 0 16px;
+		pointer-events: none;
 		transition: opacity 0.3s ease-out, translate 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
 	}
 
@@ -594,6 +598,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	.purplish-cards-overlay .wc-block-product:focus-within .wc-block-components-product-button {
 		opacity: 1;
 		translate: 0 0;
+		pointer-events: auto;
 	}
 
 	/* A card or photo look of its own already answers the hover. */
@@ -821,12 +826,14 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	.purplish-cards-details :where(.wc-block-product, .wc-block-product > .wp-block-group):has(> :is(.wc-block-components-product-image, .wp-block-woocommerce-product-image)) :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
 		opacity: 0;
 		translate: 0 12px;
+		pointer-events: none;
 		transition: opacity 0.3s ease-out, translate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
 	}
 
 	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) :is(.wp-block-post-title, .wp-block-woocommerce-product-price, .wp-block-woocommerce-product-button) {
 		opacity: 1;
 		translate: 0 0;
+		pointer-events: auto;
 	}
 
 	.purplish-cards-details .wc-block-product:is(:hover, :focus-within) .wp-block-woocommerce-product-price {
@@ -1165,7 +1172,8 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 /*
  * Cards, color reveal: photos sit in a soft wash of the effect color, and
- * the hovered one wipes into full color.
+ * the hovered or focused one wipes into full color. Touch screens get the
+ * plain photo.
  */
 .purplish-cards-hover-reveal .wc-block-components-product-image {
 	position: relative;
@@ -1188,6 +1196,10 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	.purplish-cards-hover-reveal .wc-block-product:hover .wc-block-components-product-image::after {
 		clip-path: inset(0 0 0 100%);
 	}
+}
+
+.purplish-cards-hover-reveal .wc-block-product:focus-within .wc-block-components-product-image::after {
+	clip-path: inset(0 0 0 100%);
 }
 
 @media (hover: none) {
@@ -3275,7 +3287,7 @@ body.purplish-active .purplish-group-tint {
 
 /*
  * Grey out sold-out cards: the photo goes grey and soft, and comes back a
- * little on hover so the shopper can still see the piece.
+ * little on hover or keyboard focus so the shopper can still see the piece.
  */
 .wc-block-product:has(.purplish-stock-grey.wc-block-components-product-stock-indicator--out-of-stock) .wc-block-components-product-image img {
 	filter: grayscale(1);
@@ -3292,6 +3304,11 @@ body.purplish-active .purplish-group-tint {
 		filter: grayscale(0.35);
 		opacity: 0.85;
 	}
+}
+
+.wc-block-product:has(.purplish-stock-grey.wc-block-components-product-stock-indicator--out-of-stock):focus-within .wc-block-components-product-image img {
+	filter: grayscale(0.35);
+	opacity: 0.85;
 }
 
 /* Gallery thumbnail shapes. */
