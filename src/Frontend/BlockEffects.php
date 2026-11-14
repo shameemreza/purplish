@@ -988,6 +988,11 @@ final class BlockEffects {
 		$asset = include PURPLISH_DIR . 'build/effects.asset.php';
 		wp_enqueue_style( self::HANDLE, PURPLISH_URL . 'build/style-effects.css', array(), $asset['version'] );
 		wp_style_add_data( self::HANDLE, 'rtl', 'replace' );
+		// Soft fills mix toward white unless the theme's page is dark.
+		$ground = \Purplish\Color\Ground::dark();
+		if ( '' !== $ground ) {
+			wp_add_inline_style( self::HANDLE, ':root{--purplish-ground:' . $ground . ';}' );
+		}
 		wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/effects.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 		wp_set_script_translations( self::HANDLE, 'purplish' );
 	}

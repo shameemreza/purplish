@@ -200,4 +200,46 @@ class ToneTest extends WP_UnitTestCase {
 			$this->assertSame( $source, Tone::ink( $source ) );
 		}
 	}
+
+	/**
+	 * On a dark page the tint is the page lifted a little, so light text
+	 * still reads on it.
+	 *
+	 * @dataProvider provide_colors
+	 *
+	 * @param string $source Source color.
+	 */
+	public function test_tint_follows_a_dark_page( $source ) {
+		foreach ( array( '#111111', '#1a0e30', '#2d2d2d' ) as $ground ) {
+			$tint = Tone::tint( $source, $ground );
+
+			$this->assertEqualsWithDelta( Tone::to_oklch( $ground )[0] + Tone::TINT_DARK_LIFT, Tone::to_oklch( $tint )[0], 0.01 );
+			$this->assertSame( Contrast::WHITE, Contrast::on( $tint ) );
+			$this->assertGreaterThanOrEqual( 7, Contrast::ratio( '#ffffff', $tint ) );
+		}
+	}
+
+	/**
+	 * On a dark page ink is lightened so it reads on the page.
+	 *
+	 * @dataProvider provide_colors
+	 *
+	 * @param string $source Source color.
+	 */
+	public function test_ink_lightens_on_a_dark_page( $source ) {
+		$ink = Tone::ink( $source, '#111111' );
+
+		$this->assertGreaterThanOrEqual( Tone::INK_MIN_LIGHTNESS_DARK - 0.01, Tone::to_oklch( $ink )[0] );
+		$this->assertGreaterThanOrEqual( 4.5, Contrast::ratio( $ink, '#111111' ) );
+	}
+
+	/**
+	 * An empty or broken ground keeps the light page colors.
+	 */
+	public function test_no_ground_keeps_light_colors() {
+		foreach ( array( '', 'nope' ) as $ground ) {
+			$this->assertSame( Tone::tint( '#3357b7' ), Tone::tint( '#3357b7', $ground ) );
+			$this->assertSame( Tone::ink( '#c9a7ff' ), Tone::ink( '#c9a7ff', $ground ) );
+		}
+	}
 }

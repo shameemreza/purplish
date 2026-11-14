@@ -64,10 +64,21 @@ final class Tone {
 	const INK_MAX_LIGHTNESS = 0.5;
 
 	/**
+	 * The least lightness for text on a dark page.
+	 */
+	const INK_MIN_LIGHTNESS_DARK = 0.78;
+
+	/**
 	 * Lightness and the most chroma of the page tint.
 	 */
 	const TINT_LIGHTNESS  = 0.955;
 	const TINT_MAX_CHROMA = 0.025;
+
+	/**
+	 * On a dark page the tint sits this much lighter than the page, so it
+	 * shows without fighting the theme's light text.
+	 */
+	const TINT_DARK_LIFT = 0.05;
 
 	/**
 	 * A photo color tuned into a usable accent: same hue, lightness and
@@ -128,12 +139,14 @@ final class Tone {
 
 	/**
 	 * The color darkened enough to read as text on a light page, such as a
-	 * sale price: lightness capped, hue and chroma kept.
+	 * sale price: lightness capped, hue and chroma kept. On a dark page it's
+	 * lightened instead.
 	 *
-	 * @param string $hex Source color.
+	 * @param string $hex    Source color.
+	 * @param string $ground Dark page background, or empty for a light page.
 	 * @return string Hex color, or an empty string when the source isn't a hex color.
 	 */
-	public static function ink( $hex ) {
+	public static function ink( $hex, $ground = '' ) {
 		$lch = self::to_oklch( $hex );
 		if ( null === $lch ) {
 			return '';
@@ -141,24 +154,36 @@ final class Tone {
 
 		list( $lightness, $chroma, $hue ) = $lch;
 
+		if ( null !== self::to_oklch( $ground ) ) {
+			return self::from_oklch( max( self::INK_MIN_LIGHTNESS_DARK, $lightness ), $chroma, $hue );
+		}
+
 		return self::from_oklch( min( self::INK_MAX_LIGHTNESS, $lightness ), $chroma, $hue );
 	}
 
 	/**
-	 * A very pale color of the same hue, for the page background.
+	 * A very pale color of the same hue, for the page background. On a dark
+	 * page it's the page background lifted a little toward the hue instead.
 	 *
-	 * @param string $hex Source color.
+	 * @param string $hex    Source color.
+	 * @param string $ground Dark page background, or empty for a light page.
 	 * @return string Hex color, or an empty string when the source isn't a hex color.
 	 */
-	public static function tint( $hex ) {
+	public static function tint( $hex, $ground = '' ) {
 		$lch = self::to_oklch( $hex );
 		if ( null === $lch ) {
 			return '';
 		}
 
 		list( , $chroma, $hue ) = $lch;
+		$chroma                 = min( self::TINT_MAX_CHROMA, $chroma * 0.25 );
 
-		return self::from_oklch( self::TINT_LIGHTNESS, min( self::TINT_MAX_CHROMA, $chroma * 0.25 ), $hue );
+		$page = self::to_oklch( $ground );
+		if ( null !== $page ) {
+			return self::from_oklch( $page[0] + self::TINT_DARK_LIFT, $chroma, $hue );
+		}
+
+		return self::from_oklch( self::TINT_LIGHTNESS, $chroma, $hue );
 	}
 
 	/**

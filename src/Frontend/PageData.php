@@ -8,6 +8,7 @@
 namespace Purplish\Frontend;
 
 use Purplish\Color\Contrast;
+use Purplish\Color\Ground;
 use Purplish\Color\Resolver;
 use Purplish\Color\Tone;
 use Purplish\Options;
@@ -180,8 +181,8 @@ final class PageData {
 		return array(
 			'color' => $accent,
 			'on'    => Contrast::on( $accent ),
-			'ink'   => Tone::ink( $accent ),
-			'tint'  => Tone::tint( $accent ),
+			'ink'   => Tone::ink( $accent, Ground::dark() ),
+			'tint'  => Tone::tint( $accent, Ground::dark() ),
 		);
 	}
 
