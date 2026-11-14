@@ -399,16 +399,18 @@ const checks = {
 			const lines = foundWhileTesting( body );
 			if ( ! lines || ! lines.length ) {
 				problems.push(
-					`#${ number } has no answer under "Found while testing"; write None, or each problem with "fixed here" or its issue`
+					`#${ number } has no answer under "Found while testing"; write None, or each problem with "fixed here", its issue or "no change: <reason>"`
 				);
 			} else if ( ! (
 				1 === lines.length && /^none\.?$/i.test( lines[ 0 ] )
 			) ) {
 				lines
-					.filter( ( line ) => ! /fixed here|#\d+/i.test( line ) )
+					.filter(
+						( line ) => ! /fixed here|#\d+|no change:/i.test( line )
+					)
 					.forEach( ( line ) =>
 						problems.push(
-							`#${ number } left "${ line }" undecided; fix it or open an issue`
+							`#${ number } left "${ line }" undecided; fix it, open an issue or write "no change: <reason>"`
 						)
 					);
 			}

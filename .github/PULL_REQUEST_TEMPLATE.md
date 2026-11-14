@@ -11,7 +11,7 @@ Closes #
 
 ## Found while testing
 
-<!-- Anything wrong you saw while testing, even if this pull request didn't cause it. Write None, or one line each that ends with "fixed here" or the new issue's number, like #123. Nothing is left to decide after the merge, and `npm run check:release` checks this section in every pull request since the last tag. -->
+<!-- Anything wrong you saw while testing, even if this pull request didn't cause it. Write None, or one line each that ends with "fixed here", the new issue's number (like #123), or "no change:" and the reason, for something Purplish can't fix, like a theme that turns sticky off. Nothing is left to decide after the merge, and `npm run check:release` checks this section in every pull request since the last tag. -->
 
 
 ## Speed
