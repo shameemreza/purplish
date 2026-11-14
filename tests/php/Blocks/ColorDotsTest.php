@@ -584,7 +584,8 @@ class ColorDotsTest extends WP_UnitTestCase {
 
 	/**
 	 * Without a photo to swap to, or with the option off or unknown, the
-	 * dots stay plain and no script loads.
+	 * dots stay plain. With the option on, the script still loads, for a
+	 * card with photos that Load more brings in later.
 	 */
 	public function test_render_swap_needs_photo() {
 		$this->attribute(
@@ -607,8 +608,9 @@ class ColorDotsTest extends WP_UnitTestCase {
 		$this->assertStringNotContainsString( '<button', $out );
 		$this->assertStringNotContainsString( 'purplish-color-dots-swap', $out );
 		$this->assertStringNotContainsString( 'data-alt', $out );
-		$this->assertFalse( wp_script_is( ColorDots::SWAP_HANDLE, 'enqueued' ) );
+		$this->assertTrue( wp_script_is( ColorDots::SWAP_HANDLE, 'enqueued' ) );
 
+		wp_dequeue_script( ColorDots::SWAP_HANDLE );
 		ColorDots::forget();
 		list( $product ) = $this->two_colors_with_photo();
 		$this->assertStringNotContainsString( '<button', $this->render( array(), $product->get_id() ) );
