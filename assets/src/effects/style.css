@@ -8,12 +8,13 @@
  * Effect colors. The page accent while a variation color is active;
  * otherwise the block's own effect color, then the theme's text color.
  * Purplish's page colors are registered properties, which never fall
- * back, so these unregistered names carry the fallbacks.
+ * back, so these unregistered names carry the fallbacks. Soft fills mix
+ * toward --purplish-ground, set only when the theme's page is dark.
  */
 body.purplish-active {
 	--purplish-fx: var(--purplish-accent);
 	--purplish-fx-on: var(--purplish-on);
-	--purplish-fx-tint: color-mix(in oklab, var(--purplish-tint) 55%, #fff);
+	--purplish-fx-tint: color-mix(in oklab, var(--purplish-tint) 55%, var(--purplish-ground, #fff));
 }
 
 .purplish-gallery,
@@ -37,7 +38,7 @@ body.purplish-active {
 body[class*="purplish-classic-gallery-"] {
 	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
 	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
-	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
 }
 
 /*
