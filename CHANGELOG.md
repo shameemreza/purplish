@@ -2,6 +2,12 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.3.1] - 2026-11-14
+
+### Fixed
+
+- On phones, the filters in the Atelier and Boutique shop patterns opened under a sticky or fixed theme header, which covered the close button and the first filter. They now open above it, on pages built from the 1.3.0 patterns too.
+
 ## [1.3.0] - 2026-11-14
 
 ### Added
