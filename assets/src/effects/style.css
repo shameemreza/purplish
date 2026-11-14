@@ -50,16 +50,20 @@ body[class*="purplish-classic-gallery-"] {
 	padding-inline: min(48px, 10%);
 }
 
-/* Gallery: one big photo, no thumbnail strip. */
+/*
+ * Gallery: one big photo, no thumbnail strip. Classic covers WooCommerce's
+ * FlexSlider and themes with their own slider, like Blocksy's flexy.
+ */
 .purplish-gallery-nothumbs .wc-block-product-gallery-thumbnails,
-body.purplish-classic-gallery-nothumbs .woocommerce-product-gallery .flex-control-thumbs {
+body.purplish-classic-gallery-nothumbs .woocommerce-product-gallery :is(.flex-control-thumbs, .flexy-pills) {
 	display: none;
 }
 
 /* Gallery: rounded corners on the large photo. */
 .purplish-gallery-rounded .wc-block-product-gallery-large-image,
-body.purplish-classic-gallery-rounded .woocommerce-product-gallery .flex-viewport,
-body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only-child {
+body.purplish-classic-gallery-rounded .woocommerce-product-gallery :is(.flex-viewport, .flexy-view),
+body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only-child,
+body.purplish-classic-gallery-rounded .ct-product-gallery-container > .ct-media-container {
 	border-radius: 24px;
 	overflow: hidden;
 }
@@ -116,7 +120,7 @@ body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only
 /* Styles that grow the photo clip it, each slide on its own. */
 :is(.purplish-gallery-hover-zoom, .purplish-gallery-hover-parallax, .purplish-gallery-hover-slowzoom) :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image),
 :is(.purplish-classic-gallery-hover-zoom, .purplish-classic-gallery-hover-parallax, .purplish-classic-gallery-hover-slowzoom) .purplish-hover-target,
-:is(.purplish-classic-gallery-hover-zoom, .purplish-classic-gallery-hover-parallax, .purplish-classic-gallery-hover-slowzoom) .purplish-hover-target .woocommerce-product-gallery__image {
+:is(.purplish-classic-gallery-hover-zoom, .purplish-classic-gallery-hover-parallax, .purplish-classic-gallery-hover-slowzoom) .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) {
 	overflow: hidden;
 }
 
@@ -158,20 +162,20 @@ body.purplish-classic-gallery-hover-lift .purplish-hover-target {
 
 /* Zoom: the photo magnifies around the mouse. */
 .purplish-gallery-hover-zoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
-body.purplish-classic-gallery-hover-zoom .purplish-hover-target .woocommerce-product-gallery__image img {
+body.purplish-classic-gallery-hover-zoom .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) img {
 	transform-origin: var(--purplish-mx, 50%) var(--purplish-my, 50%);
 	transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Parallax: the photo drifts against the mouse inside its frame. */
 .purplish-gallery-hover-parallax :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
-body.purplish-classic-gallery-hover-parallax .purplish-hover-target .woocommerce-product-gallery__image img {
+body.purplish-classic-gallery-hover-parallax .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) img {
 	transition: translate 0.45s ease-out, scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Slow zoom: a gentle push in while hovered, a quicker settle after. */
 .purplish-gallery-hover-slowzoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
-body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target .woocommerce-product-gallery__image img {
+body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) img {
 	transition: scale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -225,19 +229,19 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	}
 
 	.purplish-gallery-hover-zoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
-	body.purplish-classic-gallery-hover-zoom .purplish-hover-target:hover .woocommerce-product-gallery__image img {
+	body.purplish-classic-gallery-hover-zoom .purplish-hover-target:hover :is(.woocommerce-product-gallery__image, .ct-media-container) img {
 		scale: 2.2;
 		cursor: zoom-in;
 	}
 
 	.purplish-gallery-hover-parallax .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
-	body.purplish-classic-gallery-hover-parallax .purplish-hover-target:hover .woocommerce-product-gallery__image img {
+	body.purplish-classic-gallery-hover-parallax .purplish-hover-target:hover :is(.woocommerce-product-gallery__image, .ct-media-container) img {
 		translate: calc(var(--purplish-dx, 0) * -8%) calc(var(--purplish-dy, 0) * -8%);
 		scale: 1.12;
 	}
 
 	.purplish-gallery-hover-slowzoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
-	body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target:hover .woocommerce-product-gallery__image img {
+	body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target:hover :is(.woocommerce-product-gallery__image, .ct-media-container) img {
 		scale: 1.1;
 		transition: scale 6s cubic-bezier(0.2, 0.6, 0.2, 1);
 	}
