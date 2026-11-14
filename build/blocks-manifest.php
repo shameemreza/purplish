@@ -331,6 +331,9 @@ return array(
 			'spacing' => array(
 				'margin' => true,
 				'padding' => true
+			),
+			'interactivity' => array(
+				'clientNavigation' => true
 			)
 		),
 		'example' => array(
@@ -648,7 +651,10 @@ return array(
 				'style' => true,
 				'width' => true
 			),
-			'shadow' => true
+			'shadow' => true,
+			'interactivity' => array(
+				'clientNavigation' => true
+			)
 		),
 		'example' => array(
 			'attributes' => array(

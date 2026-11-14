@@ -293,6 +293,13 @@ final class ColorDots implements Block {
 	 * @return string
 	 */
 	public function render( $attributes, $content, $block ) {
+		// Every card in the grid shares these options, and Load more brings
+		// cards in without loading scripts, so a card on a later page that
+		// swaps needs the script even when no card on the first page does.
+		if ( 'off' !== self::option( $attributes, 'swap' ) ) {
+			self::enqueue_swap();
+		}
+
 		$product = self::product( $block );
 		$colors  = $product ? self::colors( $product ) : array();
 		if ( ! $colors || ( 1 === count( $colors ) && empty( $attributes['single'] ) ) ) {
@@ -328,7 +335,6 @@ final class ColorDots implements Block {
 			$wrapper['data-motion'] = self::option( $attributes, 'motion' );
 			/* translators: The photo's alt text while a color's photo shows. 1: the photo's own alt text, 2: the color's name. */
 			$wrapper['data-alt'] = __( '%1$s, %2$s', 'purplish' );
-			self::enqueue_swap();
 		}
 
 		return sprintf( '<div %1$s>%2$s</div>', get_block_wrapper_attributes( $wrapper ), $dots );

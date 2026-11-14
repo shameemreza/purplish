@@ -92,7 +92,10 @@
       "style": true,
       "width": true
     },
-    "shadow": true
+    "shadow": true,
+    "interactivity": {
+      "clientNavigation": true
+    }
   },
   "example": {
     "attributes": {
