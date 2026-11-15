@@ -1051,7 +1051,8 @@
  * grid switch picked, and phones get two. Each card is a column with the
  * button at its foot, so the buttons in a row line up. A carousel keeps
  * its own layout. The counts skip the editor's hidden copy of the card
- * being edited.
+ * being edited. The cells stay square, so a card look's rounded corner
+ * can't bend the lines.
  */
 .purplish-cards-ruled {
 	--purplish-rule: color-mix(in srgb, currentcolor 14%, transparent);
@@ -1069,6 +1070,7 @@
 	padding: 1.25rem;
 	border-inline-end: 1px solid var(--purplish-rule);
 	border-block-end: 1px solid var(--purplish-rule);
+	border-radius: 0;
 }
 
 .purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li > .wp-block-button,

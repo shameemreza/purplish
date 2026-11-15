@@ -287,7 +287,7 @@ function RingSettings( { saved, save } ) {
 				'ringinset',
 				__( 'Ring inside the card', 'purplish' ),
 				__(
-					'Draws the ring just inside the card’s edge, so it stays in its cell with Ruled cards.',
+					'Draws the ring just inside the card’s edge, so it doesn’t reach the cards next to it. Ruled cards always draw it inside.',
 					'purplish'
 				)
 			) }

@@ -136,7 +136,7 @@ When the card effect already moves a part on hover, that part's look is skipped:
 
 - **Product Collection, Ruled cards:** thin lines between the cards instead of the gap, with no line on the outer edges at any column count, the grid switch's count included. Each card's add to cart sits at its foot, so the buttons in a row line up. Phones show two cards a row, and the Carousel layout keeps its own spacing.
 - **Product Collection, Photo wash:** a light tint of the effect color behind each photo, with the photo blended into it, so studio photos on white take the tint instead of sitting in white boxes. The tint mixes into white, so a dark page doesn't darken the photos.
-- **Ring settings:** under the Ring card look, Ring inside the card keeps the ring inside its cell with Ruled cards, Square ring follows the theme's corner size (square without one), and Full color ring uses the effect color at full strength.
+- **Ring settings:** under the Ring card look, Ring inside the card draws the ring just inside the card's edge (Ruled cards always do, and keep their corners square), Square ring follows the theme's corner size (square without one), and Full color ring uses the effect color at full strength.
 - **Card hover fills the button:** hovering anywhere on a card fills its add to cart button with the effect color and underlines the name, so the card reads as one link.
 
 ### Shelf tags and sold out

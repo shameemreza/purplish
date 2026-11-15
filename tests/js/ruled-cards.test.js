@@ -138,4 +138,31 @@ describe( 'Ruled cards', () => {
 		);
 		expect( back ).toHaveLength( 5 );
 	} );
+
+	it( 'keeps the cells square, so a rounded card look can’t bend the lines', () => {
+		const cell = rules.find(
+			( rule ) =>
+				rule.selectors.includes(
+					'.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li'
+				) && rule.body.includes( 'border-inline-end: 1px solid' )
+		);
+		expect( cell.body ).toContain( 'border-radius: 0' );
+	} );
+
+	it( 'draws the Ring card look inside the cell, at rest and on hover', () => {
+		const effects = readFileSync(
+			join( __dirname, '../../assets/src/effects/style.css' ),
+			'utf8'
+		).replace( /\/\*[\s\S]*?\*\//g, '' );
+		const inside = [
+			...effects.matchAll( /([^{}]+)\{([^{}]*)\}/g ),
+		].filter(
+			( [ , selector, body ] ) =>
+				selector.includes(
+					'.purplish-cards-ruled.purplish-cards-hovercard-ring'
+				) && /outline-offset: -\d+px/.test( body )
+		);
+		expect( inside ).toHaveLength( 2 );
+		expect( inside[ 1 ][ 1 ] ).toContain( ':hover' );
+	} );
 } );

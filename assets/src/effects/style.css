@@ -1056,10 +1056,11 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
- * Ring settings. Inset draws the ring inside the card, so it stays in a
- * ruled cell; square follows the theme's corner token, square without one.
+ * Ring settings. Inset draws the ring inside the card; Ruled cards always
+ * do, so the ring never crosses into the next cell. Square follows the
+ * theme's corner token, square without one.
  */
-.purplish-cards-ringinset .wc-block-product {
+:is(.purplish-cards-ringinset, .purplish-cards-ruled.purplish-cards-hovercard-ring) .wc-block-product {
 	outline-offset: -4px;
 }
 
@@ -1141,7 +1142,7 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		outline-offset: 6px;
 	}
 
-	.purplish-cards-ringinset .wc-block-product:is(:hover, :focus-within) {
+	:is(.purplish-cards-ringinset, .purplish-cards-ruled.purplish-cards-hovercard-ring) .wc-block-product:is(:hover, :focus-within) {
 		outline-offset: -8px;
 	}
 
