@@ -186,4 +186,74 @@ class CardEffectsTest extends WP_UnitTestCase {
 			);
 		}
 	}
+
+	/**
+	 * Ruled, Photo wash and Card hover fills the button print their classes,
+	 * and Roster, which lays the cards out as a list, turns off Ruled and
+	 * the button fill.
+	 */
+	public function test_ruled_wash_and_cardfill() {
+		$saved = array(
+			'ruled'    => true,
+			'wash'     => true,
+			'cardfill' => true,
+		);
+
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-ruled', 'purplish-cards-wash', 'purplish-cards-cardfill' ),
+			BlockEffects::classes_for( 'woocommerce/product-collection', $saved )
+		);
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-hover-roster', 'purplish-cards-wash' ),
+			BlockEffects::classes_for( 'woocommerce/product-collection', $saved + array( 'hover' => 'roster' ) )
+		);
+		$this->assertSame(
+			array( 'purplish-gallery', 'purplish-gallery-wash' ),
+			BlockEffects::classes_for( 'woocommerce/product-gallery', array( 'wash' => true ) )
+		);
+	}
+
+	/**
+	 * The ring settings print only while the Ring card look plays: on the
+	 * card or all, with no card effect that moves the card.
+	 */
+	public function test_ring_settings_need_the_ring() {
+		$settings = array(
+			'ringinset'  => true,
+			'ringsquare' => true,
+			'ringstrong' => true,
+		);
+		$ring     = array(
+			'hoveron'   => 'card',
+			'hovercard' => 'ring',
+		);
+
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-hoveron-card', 'purplish-cards-hovercard-ring', 'purplish-cards-ringinset', 'purplish-cards-ringsquare', 'purplish-cards-ringstrong' ),
+			BlockEffects::classes_for( 'woocommerce/product-collection', $ring + $settings )
+		);
+		$this->assertContains(
+			'purplish-cards-ringinset',
+			BlockEffects::classes_for( 'woocommerce/product-collection', array( 'hoveron' => 'all' ) + $ring + $settings )
+		);
+
+		$off = array(
+			'lift'       => array(
+				'hoveron'   => 'card',
+				'hovercard' => 'lift',
+			),
+			'photo only' => array(
+				'hoveron'   => 'photo',
+				'hovercard' => 'ring',
+			),
+			'mover'      => $ring + array( 'hover' => 'fan' ),
+			'no ring'    => array(),
+		);
+		foreach ( $off as $label => $saved ) {
+			$classes = BlockEffects::classes_for( 'woocommerce/product-collection', $saved + $settings );
+			foreach ( array_keys( $settings ) as $option ) {
+				$this->assertNotContains( 'purplish-cards-' . $option, $classes, $label );
+			}
+		}
+	}
 }

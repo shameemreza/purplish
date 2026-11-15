@@ -55,6 +55,15 @@ final class BlockEffects {
 	const CARD_MOVERS = array( 'magnetic', 'spotlight', 'fan', 'expand', 'folder', 'deck', 'depth', 'overlap', 'clothesline', 'roster' );
 
 	/**
+	 * The ring settings play only while the Ring card hover look does.
+	 */
+	const RING_NEEDS = array(
+		array( 'hovercard', array( 'ring' ), true ),
+		array( 'hoveron', array( 'card', 'all' ), true ),
+		array( 'hover', self::CARD_MOVERS, false ),
+	);
+
+	/**
 	 * Card effects that already change the photo on hover.
 	 */
 	const PHOTO_CHANGERS = array( 'reveal', 'bookmark', 'roster' );
@@ -115,6 +124,8 @@ final class BlockEffects {
 					'hover'      => self::HOVER_STYLES,
 					'fullscreen' => array( 'snap', 'fade', 'zoom', 'filmstrip', 'cinema' ),
 					'slider'     => array( 'cube', 'circle', 'reel', 'tunnel' ),
+					// A tint behind the photos, with the photos multiplied into it.
+					'wash'       => true,
 				),
 				// Switches saved before task 23, read as the style they became.
 				'legacy'  => array(
@@ -164,6 +175,15 @@ final class BlockEffects {
 					'grid'        => array( '2', '3', '4', '5', '6' ),
 					// How the cards move when the results change in place.
 					'results'     => array( 'fade', 'rise', 'move' ),
+					// Hairlines between the cards instead of the gap.
+					'ruled'       => true,
+					'wash'        => true,
+					// Ring settings: inside the card, square, full color.
+					'ringinset'   => true,
+					'ringsquare'  => true,
+					'ringstrong'  => true,
+					// Hovering anywhere on a card fills its button.
+					'cardfill'    => true,
 				),
 				// Each hover look plays only where the target says, and not
 				// on a card effect that already moves that part.
@@ -193,6 +213,15 @@ final class BlockEffects {
 						array( 'hover', array( 'roster' ), false ),
 					),
 					'grid'        => array(
+						array( 'hover', array( 'roster' ), false ),
+					),
+					'ruled'       => array(
+						array( 'hover', array( 'roster' ), false ),
+					),
+					'ringinset'   => self::RING_NEEDS,
+					'ringsquare'  => self::RING_NEEDS,
+					'ringstrong'  => self::RING_NEEDS,
+					'cardfill'    => array(
 						array( 'hover', array( 'roster' ), false ),
 					),
 				),

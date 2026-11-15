@@ -19,6 +19,14 @@ const OPTIONS = [
 			'purplish'
 		),
 	},
+	{
+		key: 'wash',
+		label: __( 'Photo wash', 'purplish' ),
+		help: __(
+			'A light tint of the page’s accent color behind the photos, with the photos blended into it, so photos on a white background take the tint.',
+			'purplish'
+		),
+	},
 ];
 
 export const HOVERS = [

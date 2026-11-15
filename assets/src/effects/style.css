@@ -96,6 +96,26 @@ body.purplish-classic-gallery-rounded .ct-product-gallery-container > .ct-media-
 	overflow: hidden;
 }
 
+/*
+ * Gallery and Cards, Photo wash: a light tint of the effect color behind
+ * each photo, with the photo multiplied into it, so a studio photo on
+ * white takes the tint instead of sitting in a white box. The tint mixes
+ * into white, not the page, so a dark page doesn't darken the photos.
+ */
+:is(.purplish-gallery-wash, .purplish-cards-wash) {
+	--purplish-wash: color-mix(in oklab, var(--purplish-color, currentcolor) 8%, #fff);
+}
+
+.purplish-gallery-wash :is(.wc-block-product-gallery-large-image, .wc-block-product-gallery-thumbnails__thumbnail),
+.purplish-cards-wash .wc-block-components-product-image {
+	background-color: var(--purplish-wash);
+}
+
+.purplish-gallery-wash :is(.wc-block-product-gallery-large-image, .wc-block-product-gallery-thumbnails__thumbnail) img,
+.purplish-cards-wash .wc-block-components-product-image img {
+	mix-blend-mode: multiply;
+}
+
 /* Gallery: round frosted arrows that show when the shopper hovers the photo. */
 .purplish-gallery-arrows .wc-block-next-previous-buttons {
 	gap: 8px;
@@ -1035,6 +1055,19 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	outline-offset: 10px;
 }
 
+/*
+ * Ring settings. Inset draws the ring inside the card; Ruled cards always
+ * do, so the ring never crosses into the next cell. Square follows the
+ * theme's corner token, square without one.
+ */
+:is(.purplish-cards-ringinset, .purplish-cards-ruled.purplish-cards-hovercard-ring) .wc-block-product {
+	outline-offset: -4px;
+}
+
+.purplish-cards-ringsquare .wc-block-product {
+	border-radius: var(--wp--custom--purplish--radius, 0);
+}
+
 [class*="purplish-cards-hoverphoto-"] .wc-block-components-product-image {
 	position: relative;
 	overflow: clip;
@@ -1107,6 +1140,30 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	.purplish-cards-hovercard-ring .wc-block-product:is(:hover, :focus-within) {
 		outline-color: color-mix(in oklab, var(--purplish-color) 35%, transparent);
 		outline-offset: 6px;
+	}
+
+	:is(.purplish-cards-ringinset, .purplish-cards-ruled.purplish-cards-hovercard-ring) .wc-block-product:is(:hover, :focus-within) {
+		outline-offset: -8px;
+	}
+
+	.purplish-cards-ringstrong .wc-block-product:is(:hover, :focus-within) {
+		outline-color: var(--purplish-color);
+	}
+
+	/*
+	 * Card hover fills the button: the whole card runs the button's fill
+	 * and underlines the name, so the card reads as one link.
+	 */
+	.purplish-cards-cardfill .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button {
+		border-color: var(--purplish-color);
+		background-color: var(--purplish-color);
+		color: var(--purplish-color-on);
+	}
+
+	.purplish-cards-cardfill .wc-block-product:is(:hover, :focus-within) .wp-block-post-title a {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
 	}
 
 	:is(.purplish-cards-hovercard-tilt, .purplish-cards-hovercard-torch) .wc-block-product:hover::after,

@@ -85,7 +85,7 @@ On other blocks:
 | Hover style | 3D tilt leans the photo toward the mouse, Zoom magnifies the spot under it, Loupe shows a round magnifier. Lift, Parallax, Glare and Slow zoom add softer motion. |
 | Full-screen style | Snap stack is tinted to the page color, Zoom from photo grows out of the photo, Filmstrip adds small photos along the bottom, Cinema uses a dark screen, Classic fade keeps it plain. |
 | Slide style | 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, Image tunnel comes out of the distance. |
-| Layout | Hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover. |
+| Layout | Hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover. Photo wash puts a light tint of the page color behind the photos and blends them into it, so photos shot on white take the tint. |
 | Thumbnail shape | On the Thumbnails block inside the gallery: rounded or circle. |
 
 Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it. The full-screen style needs the gallery's "Open pop-up when clicked" setting.
@@ -131,6 +131,13 @@ Under the card effect, pick where a hover look plays: the card, the photo, the a
 | Button | Bag and sweep, Glow ring, Sweep, Spectrum ring, Liquid glass |
 
 When the card effect already moves a part on hover, that part's look is skipped: Spotlight, Fan deck, Expanded cards, Magnetic panel, Card folder, Deck, Depth, Overlap and Clothes line skip the card look, Color reveal and Bookmark skip the photo look, and Roster has no hover looks. Without an effect color, the looks use your theme's text color. Collections saved with button motion keep it, as the Bag and sweep look.
+
+### Ruled cards and the ring
+
+- **Product Collection, Ruled cards:** thin lines between the cards instead of the gap, with no line on the outer edges at any column count, the grid switch's count included. Each card's add to cart sits at its foot, so the buttons in a row line up. Phones show two cards a row, and the Carousel layout keeps its own spacing.
+- **Product Collection, Photo wash:** a light tint of the effect color behind each photo, with the photo blended into it, so studio photos on white take the tint instead of sitting in white boxes. The tint mixes into white, so a dark page doesn't darken the photos.
+- **Ring settings:** under the Ring card look, Ring inside the card draws the ring just inside the card's edge (Ruled cards always do, and keep their corners square), Square ring follows the theme's corner size (square without one), and Full color ring uses the effect color at full strength.
+- **Card hover fills the button:** hovering anywhere on a card fills its add to cart button with the effect color and underlines the name, so the card reads as one link.
 
 ### Shelf tags and sold out
 

@@ -1052,6 +1052,257 @@
 	padding-block: 0.5em;
 }
 
+/*
+ * Cards, Ruled: no gap, a hairline between cards and none on the outer
+ * edges, like a ledger. The grid keeps its column count, or the one the
+ * grid switch picked, and phones get two. Each card is a column with the
+ * button at its foot, so the buttons in a row line up. A carousel keeps
+ * its own layout. The counts skip the editor's hidden copy of the card
+ * being edited. The cells stay square, so a card look's rounded corner
+ * can't bend the lines.
+ */
+.purplish-cards-ruled {
+	--purplish-rule: color-mix(in srgb, currentcolor 14%, transparent);
+}
+
+.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) {
+	gap: 0;
+}
+
+.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 1.25rem;
+	border-inline-end: 1px solid var(--purplish-rule);
+	border-block-end: 1px solid var(--purplish-rule);
+	border-radius: 0;
+}
+
+.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li > .wp-block-button,
+.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li > .wc-block-components-product-button {
+	margin-block-start: auto;
+}
+
+@media (width >= 600px) {
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).is-flex-container.columns-2 > li {
+		width: calc(100% / 2);
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-2 > li:nth-child(2n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-2 > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])),
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-2 > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).is-flex-container.columns-3 > li {
+		width: calc(100% / 3);
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-3 > li:nth-child(3n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-3 > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])),
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-3 > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).is-flex-container.columns-4 > li {
+		width: calc(100% / 4);
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-4 > li:nth-child(4n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-4 > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])),
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-4 > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-5 {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).is-flex-container.columns-5 > li {
+		width: calc(100% / 5);
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-5 > li:nth-child(5n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-5 > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])),
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-5 > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-6 {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).is-flex-container.columns-6 > li {
+		width: calc(100% / 6);
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-6 > li:nth-child(6n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-6 > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])),
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-6 > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal).is-flex-container > li {
+		width: calc(100% / 2);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) > li {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])),
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal).is-flex-container > li {
+		width: calc(100% / 3);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) > li {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) > li:nth-child(3n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])),
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal).is-flex-container > li {
+		width: calc(100% / 4);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) > li {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) > li:nth-child(4n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])),
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal).is-flex-container > li {
+		width: calc(100% / 5);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) > li {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) > li:nth-child(5n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])),
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal).is-flex-container > li {
+		width: calc(100% / 6);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) > li {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) > li:nth-child(6n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])),
+	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+}
+
+@media (width < 600px) {
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal)[class*="columns-"] {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).is-flex-container[class*="columns-"] > li {
+		width: 50%;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])),
+	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])) ~ li {
+		border-block-end: 0;
+	}
+}
+
 /* Product Results Count: just the number, in brackets or with "products". */
 [class*="purplish-count-show-"] .woocommerce-result-count > .screen-reader-text {
 	position: absolute;
