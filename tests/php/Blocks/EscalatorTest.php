@@ -60,6 +60,7 @@ class EscalatorTest extends WP_UnitTestCase {
 				'hover'   => 'zoom',
 				'color'   => 'red',
 				'radius'  => 99,
+				'cart'    => 'neon',
 			)
 		);
 
@@ -72,6 +73,7 @@ class EscalatorTest extends WP_UnitTestCase {
 		$this->assertSame( 'none', $options['hover'] );
 		$this->assertSame( '', $options['color'] );
 		$this->assertSame( 48, $options['radius'] );
+		$this->assertSame( 'off', $options['cart'] );
 		$this->assertNull( Escalator::options( array() )['radius'] );
 		$this->assertSame( 2, Escalator::options( array( 'columns' => 2 ) )['columns'] );
 	}
@@ -208,6 +210,70 @@ class EscalatorTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * With a cart look, each product gets an add to cart button on its
+	 * photo and the wrapper carries the look, the Store API address and the
+	 * button's words. A product that needs a choice first links to its
+	 * page. Copies keep their button out of the Tab order. Photos and the
+	 * default print no button.
+	 */
+	public function test_cart() {
+		$coat     = $this->product( 'Wool Coat', 'coat' );
+		$variable = new \WC_Product_Variable();
+		$variable->set_name( 'Puffer' );
+		$variable->set_image_id( $this->photo( 'puffer' ) );
+		$variable = $variable->save();
+
+		$html = render_block(
+			array(
+				'blockName' => self::NAME,
+				'attrs'     => array(
+					'count' => 4,
+					'cart'  => 'filled',
+				),
+			)
+		);
+		$tags = new WP_HTML_Tag_Processor( $html );
+		$tags->next_tag();
+		$this->assertTrue( $tags->has_class( 'purplish-escalator-cart-filled' ) );
+		$this->assertStringContainsString( 'wc/store/v1/', $tags->get_attribute( 'data-api' ) );
+		$this->assertSame( Escalator::strings(), json_decode( $tags->get_attribute( 'data-strings' ), true ) );
+
+		$this->assertSame( 1, substr_count( $html, '<button type="button" class="purplish-escalator-cart" data-product="' . $coat . '">' ) );
+		$this->assertStringContainsString( '<span class="screen-reader-text">Wool Coat</span></button>', $html );
+		$this->assertSame( 1, substr_count( $html, '<a class="purplish-escalator-cart is-link" href="' . esc_url( get_permalink( $variable ) ) . '">' ) );
+		$tabbed = 0;
+		$copies = 0;
+		$tags   = new WP_HTML_Tag_Processor( $html );
+		while ( $tags->next_tag( array( 'class_name' => 'purplish-escalator-cart' ) ) ) {
+			if ( '-1' === $tags->get_attribute( 'tabindex' ) ) {
+				++$copies;
+			} else {
+				++$tabbed;
+			}
+		}
+		$this->assertSame( 2, $tabbed, 'one button a product in the Tab order' );
+		$this->assertGreaterThan( 0, $copies );
+
+		foreach ( array(
+			array( 'count' => 4 ),
+			array(
+				'source' => 'photos',
+				'images' => array( $this->photo( 'a' ) ),
+				'cart'   => 'filled',
+			),
+		) as $attrs ) {
+			$plain = render_block(
+				array(
+					'blockName' => self::NAME,
+					'attrs'     => $attrs,
+				)
+			);
+			$this->assertStringNotContainsString( 'purplish-escalator-cart', $plain );
+			$this->assertStringNotContainsString( 'data-api', $plain );
+		}
+	}
+
+	/**
 	 * One category without a category picked, or no photos, prints nothing.
 	 */
 	public function test_nothing_to_show() {
@@ -235,7 +301,8 @@ class EscalatorTest extends WP_UnitTestCase {
 
 	/**
 	 * Both hero patterns hold an Escalator, one with products and one with
-	 * photos, beside a heading and two buttons.
+	 * photos, beside a heading and two buttons with the light sweep. The
+	 * products one has add to cart buttons.
 	 */
 	public function test_patterns() {
 		$patterns = Patterns::patterns();
@@ -250,9 +317,10 @@ class EscalatorTest extends WP_UnitTestCase {
 			$this->assertSame( $source, isset( $found['attrs']['source'] ) ? $found['attrs']['source'] : 'products' );
 			$this->assertNotNull( $this->find( $blocks, 'core/buttons' ), $slug );
 			$this->assertNotSame( 'none', $found['attrs']['hover'], $slug );
-			$button = $this->find( $blocks, 'core/button' );
-			$this->assertTrue( $button['attrs']['purplish']['glow'], $slug );
-			$this->assertTrue( $button['attrs']['purplish']['sweep'], $slug );
+			foreach ( $this->find_all( $blocks, 'core/button' ) as $button ) {
+				$this->assertSame( array( 'sweep' => true ), $button['attrs']['purplish'], $slug );
+			}
+			$this->assertSame( 'products' === $source ? 'filled' : null, isset( $found['attrs']['cart'] ) ? $found['attrs']['cart'] : null, $slug );
 		}
 	}
 
@@ -274,6 +342,24 @@ class EscalatorTest extends WP_UnitTestCase {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Every block with a name, inner blocks included.
+	 *
+	 * @param array  $blocks Parsed blocks.
+	 * @param string $name   Block name.
+	 * @return array[]
+	 */
+	private function find_all( $blocks, $name ) {
+		$found = array();
+		foreach ( $blocks as $block ) {
+			if ( $name === $block['blockName'] ) {
+				$found[] = $block;
+			}
+			$found = array_merge( $found, $this->find_all( $block['innerBlocks'], $name ) );
+		}
+		return $found;
 	}
 
 	/**

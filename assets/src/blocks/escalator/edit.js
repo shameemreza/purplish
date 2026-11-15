@@ -55,6 +55,14 @@ const HOVERS = [
 	{ value: 'push', label: __( 'Push in', 'purplish' ) },
 ];
 
+const CARTS = [
+	{ value: 'off', label: __( 'None', 'purplish' ) },
+	{ value: 'filled', label: __( 'Filled', 'purplish' ) },
+	{ value: 'glass', label: __( 'Liquid glass', 'purplish' ) },
+	{ value: 'sweep', label: __( 'Light sweep', 'purplish' ) },
+	{ value: 'spectrum', label: __( 'Spectrum ring', 'purplish' ) },
+];
+
 const COLUMNS = [
 	{ value: '3', label: __( 'Three', 'purplish' ) },
 	{ value: '2', label: __( 'Two', 'purplish' ) },
@@ -206,6 +214,22 @@ export default function Edit( { attributes, setAttributes } ) {
 							checked={ 'off' !== attributes.details }
 							onChange={ ( on ) =>
 								setAttributes( { details: on ? 'on' : 'off' } )
+							}
+						/>
+					) }
+					{ ! photos && (
+						<SelectControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Add to cart button', 'purplish' ) }
+							help={ __(
+								'On the photo, shown when a visitor points at a tile or tabs to it, and always on touch screens. Filled fills it with the effect color, Liquid glass frosts the photo behind it, Light sweep passes a band of light over it, and Spectrum ring runs a rainbow round its edge. Products that need a choice first link to their page.',
+								'purplish'
+							) }
+							value={ attributes.cart || 'off' }
+							options={ CARTS }
+							onChange={ ( value ) =>
+								setAttributes( { cart: value } )
 							}
 						/>
 					) }

@@ -89,6 +89,17 @@
       ],
       "default": "none"
     },
+    "cart": {
+      "type": "string",
+      "enum": [
+        "off",
+        "filled",
+        "glass",
+        "sweep",
+        "spectrum"
+      ],
+      "default": "off"
+    },
     "color": {
       "type": "string"
     },

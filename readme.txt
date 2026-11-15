@@ -57,7 +57,7 @@ Find them in the Purplish group of the block inserter.
 * **Wardrobe:** a mega menu item for the Navigation block that opens a big panel of category links, photo tiles and a look for each link.
 * **Shelf Tag:** a best seller, new arrival or featured tag on the product photo, as a chip, a pill or frosted glass.
 * **Color Dots:** the colors a product comes in, as dots or swatches on its card. Tap or point at one to see that color's photo.
-* **Escalator:** photos or products ride two or three columns that move in opposite directions, with a hover look for each tile, for a store home page hero.
+* **Escalator:** photos or products ride two or three columns that move in opposite directions, with a hover look and an add to cart button for each tile, for a store home page hero.
 
 = Patterns =
 

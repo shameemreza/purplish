@@ -1,8 +1,8 @@
 <?php
 /**
  * Pattern: Escalator hero with photos. A heading, a short line, two buttons and two
- * notes on the left, and an Escalator on the right. The main button has the
- * glow ring and light sweep.
+ * notes on the left, and an Escalator on the right. Both buttons have the
+ * light sweep.
  *
  * @package Purplish
  */
@@ -23,11 +23,11 @@ $purplish_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permal
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
-<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--40)"><!-- wp:button {"purplish":{"glow":true,"sweep":true}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--40)"><!-- wp:button {"purplish":{"sweep":true}} -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $purplish_shop ); ?>"><?php echo esc_html__( 'Shop new arrivals', 'purplish' ); ?></a></div>
 <!-- /wp:button -->
 
-<!-- wp:button {"className":"is-style-outline"} -->
+<!-- wp:button {"className":"is-style-outline","purplish":{"sweep":true}} -->
 <div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( add_query_arg( 'orderby', 'popularity', $purplish_shop ) ); ?>"><?php echo esc_html__( 'See best sellers', 'purplish' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->

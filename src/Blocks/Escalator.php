@@ -13,8 +13,9 @@ defined( 'ABSPATH' ) || exit;
  * Prints photos or products as tiles in two or three columns that drift
  * in opposite directions. Each column holds its tiles twice, so the loop
  * closes without a jump; the second copy is hidden from screen readers and
- * the Tab key but still takes clicks, since it is often the copy on screen. The stylesheet moves the columns, and the view script only
- * runs the pause button.
+ * the Tab key but still takes clicks, since it is often the copy on screen.
+ * The stylesheet moves the columns, and the view script runs the pause
+ * button and the add to cart buttons.
  *
  * @since 1.3.2
  */
@@ -32,6 +33,7 @@ final class Escalator implements Block {
 		'speed'   => array( 'medium', 'slow', 'fast' ),
 		'details' => array( 'on', 'off' ),
 		'hover'   => array( 'none', 'ring', 'lift', 'sweep', 'push' ),
+		'cart'    => array( 'off', 'filled', 'glass', 'sweep', 'spectrum' ),
 	);
 
 	/**
@@ -124,25 +126,45 @@ final class Escalator implements Block {
 		if ( 'none' !== $options['hover'] ) {
 			$classes .= ' purplish-escalator-hover-' . $options['hover'];
 		}
+		$cart = 'products' === $options['source'] && 'off' !== $options['cart'];
+		if ( $cart ) {
+			$classes .= ' purplish-escalator-cart-' . $options['cart'];
+		}
 		$style = '--purplish-escalator-height:' . $options['height'] . 'px;';
 		if ( '' !== $options['color'] ) {
-			$style .= '--purplish-effect:' . $options['color'] . ';';
+			$style .= '--purplish-effect:' . $options['color'] . ';--purplish-effect-on:' . \Purplish\Color\Contrast::on( $options['color'] ) . ';';
 		}
 		if ( null !== $options['radius'] ) {
 			$style .= '--purplish-escalator-radius:' . $options['radius'] . 'px;';
 		}
-		$wrapper = get_block_wrapper_attributes(
-			array(
-				'class' => $classes,
-				'style' => $style,
-			)
+		$extra = array(
+			'class' => $classes,
+			'style' => $style,
 		);
+		if ( $cart ) {
+			$extra['data-api']     = esc_url_raw( rest_url( 'wc/store/v1/' ) );
+			$extra['data-strings'] = wp_json_encode( self::strings() );
+		}
+		$wrapper = get_block_wrapper_attributes( $extra );
 
 		return sprintf(
 			'<div %1$s><div class="purplish-escalator-stage">%2$s</div><button type="button" class="purplish-escalator-pause" aria-pressed="false" hidden><span class="screen-reader-text">%3$s</span><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path class="purplish-escalator-pause-bars" d="M9 7v10M15 7v10"/><path class="purplish-escalator-pause-go" d="M9 6.5 18 12l-9 5.5z"/></svg></button></div>',
 			$wrapper,
 			$columns,
 			esc_html__( 'Pause the moving tiles', 'purplish' )
+		);
+	}
+
+	/**
+	 * The strings the view script shows on the add to cart button.
+	 *
+	 * @return array<string, string>
+	 */
+	public static function strings() {
+		return array(
+			'adding' => __( 'Adding', 'purplish' ),
+			'added'  => __( 'Added', 'purplish' ),
+			'again'  => __( 'Try again', 'purplish' ),
 		);
 	}
 
@@ -208,15 +230,17 @@ final class Escalator implements Block {
 	}
 
 	/**
-	 * A tile's markup with its link taken out of the Tab order.
+	 * A tile's markup with its links and buttons taken out of the Tab order.
 	 *
 	 * @param string $html Tile markup.
 	 * @return string
 	 */
 	private static function untabbed( $html ) {
 		$tags = new \WP_HTML_Tag_Processor( $html );
-		while ( $tags->next_tag( 'a' ) ) {
-			$tags->set_attribute( 'tabindex', '-1' );
+		while ( $tags->next_tag() ) {
+			if ( in_array( $tags->get_tag(), array( 'A', 'BUTTON' ), true ) ) {
+				$tags->set_attribute( 'tabindex', '-1' );
+			}
 		}
 		return $tags->get_updated_html();
 	}
@@ -310,8 +334,8 @@ final class Escalator implements Block {
 
 	/**
 	 * Tiles from store products: the main photo linked to the product, with
-	 * the name and price when Details is on. Products without a photo are
-	 * skipped.
+	 * the name and price when Details is on, and an add to cart button on
+	 * the photo when Cart is on. Products without a photo are skipped.
 	 *
 	 * @param array $options The block's options.
 	 * @return array[]
@@ -335,9 +359,39 @@ final class Escalator implements Block {
 			) : sprintf( '<span class="screen-reader-text">%s</span>', esc_html( $product->get_name() ) );
 
 			$tiles[] = array(
-				'html' => sprintf( '<a class="purplish-escalator-link" href="%1$s">%2$s%3$s</a>', esc_url( $product->get_permalink() ), self::frame( $photo ), $details ),
+				'html' => sprintf( '<a class="purplish-escalator-link" href="%1$s">%2$s%3$s</a>', esc_url( $product->get_permalink() ), self::frame( $photo ), $details )
+					. ( 'off' === $options['cart'] ? '' : self::cart_button( $product ) ),
 			);
 		}
 		return $tiles;
+	}
+
+	/**
+	 * The add to cart button on a product's photo. Products that need a
+	 * choice first, or can't be bought now, get a link to their page with
+	 * WooCommerce's own label instead.
+	 *
+	 * @param \WC_Product $product Product.
+	 * @return string
+	 */
+	public static function cart_button( $product ) {
+		$bag  = '<svg class="purplish-escalator-cart-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path class="purplish-escalator-cart-bag" d="M6 8h12l1 12H5zM9 8V7a3 3 0 0 1 6 0v1"/><path class="purplish-escalator-cart-tick" d="m8 13.5 3 3 5-6"/></svg>';
+		$name = sprintf( '<span class="screen-reader-text">%s</span>', esc_html( wp_strip_all_tags( $product->get_name() ) ) );
+		if ( Showfloor::addable( $product ) ) {
+			return sprintf(
+				'<button type="button" class="purplish-escalator-cart" data-product="%1$d">%2$s<span class="purplish-escalator-cart-text">%3$s</span> %4$s</button>',
+				$product->get_id(),
+				$bag,
+				esc_html__( 'Add to cart', 'purplish' ),
+				$name
+			);
+		}
+		return sprintf(
+			'<a class="purplish-escalator-cart is-link" href="%1$s">%2$s<span class="purplish-escalator-cart-text">%3$s</span> %4$s</a>',
+			esc_url( $product->get_permalink() ),
+			$bag,
+			esc_html( $product->add_to_cart_text() ),
+			$name
+		);
 	}
 }

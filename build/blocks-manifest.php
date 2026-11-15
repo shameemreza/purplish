@@ -437,6 +437,17 @@ return array(
 				),
 				'default' => 'none'
 			),
+			'cart' => array(
+				'type' => 'string',
+				'enum' => array(
+					'off',
+					'filled',
+					'glass',
+					'sweep',
+					'spectrum'
+				),
+				'default' => 'off'
+			),
 			'color' => array(
 				'type' => 'string'
 			),
