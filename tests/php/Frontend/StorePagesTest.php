@@ -68,6 +68,46 @@ class StorePagesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The receipt slip takes the block's background: a palette pick, a
+	 * gradient or a safe custom value. No background keeps today's tint.
+	 */
+	public function test_receipt_takes_the_block_background() {
+		$html    = '<div class="wp-block-woocommerce-order-confirmation-summary has-background" style="background-color:#f3efe6"><ul></ul></div>';
+		$block   = function ( $attrs ) {
+			return array(
+				'blockName' => 'woocommerce/order-confirmation-summary',
+				'attrs'     => array_merge( array( 'purplish' => array( 'receipt' => true ) ), $attrs ),
+			);
+		};
+		$effects = new BlockEffects();
+
+		$out = $effects->add_classes( $html, $block( array( 'style' => array( 'color' => array( 'background' => '#f3efe6' ) ) ) ) );
+		$this->assertStringContainsString( 'purplish-summary-paper', $out );
+		$this->assertStringContainsString( 'background-color:#f3efe6;--purplish-paper:#f3efe6;', $out );
+
+		$this->assertSame( 'var(--wp--preset--color--base-2)', BlockEffects::paper( array( 'backgroundColor' => 'base-2' ) ) );
+		$this->assertSame( 'var(--wp--preset--gradient--dawn)', BlockEffects::paper( array( 'gradient' => 'dawn' ) ) );
+		$this->assertSame( 'var(--wp--preset--color--accent)', BlockEffects::paper( array( 'style' => array( 'color' => array( 'background' => 'var:preset|color|accent' ) ) ) ) );
+		$this->assertSame( '', BlockEffects::paper( array( 'style' => array( 'color' => array( 'background' => 'red;}body{display:none' ) ) ) ) );
+		$this->assertSame( '', BlockEffects::paper( array() ) );
+
+		$plain = $effects->add_classes( $html, $block( array() ) );
+		$this->assertStringContainsString( 'purplish-summary-receipt', $plain );
+		$this->assertStringNotContainsString( 'purplish-summary-paper', $plain );
+		$this->assertStringNotContainsString( '--purplish-paper', $plain );
+
+		// Without the receipt, the background is left alone.
+		$off = $effects->add_classes(
+			$html,
+			array(
+				'blockName' => 'woocommerce/order-confirmation-summary',
+				'attrs'     => array( 'backgroundColor' => 'base-2' ),
+			)
+		);
+		$this->assertStringNotContainsString( '--purplish-paper', $off );
+	}
+
+	/**
 	 * Both checkout buttons take the four looks, which combine, and nothing
 	 * else.
 	 */

@@ -94,6 +94,7 @@ final class BlockOptions {
 		wp_add_inline_script( self::HANDLE, 'window.purplishPage = ' . wp_json_encode( self::page_preview() ) . ';', 'before' );
 		// Catalog Sorting's preview leaves out average rating the way the shop does.
 		wp_add_inline_script( self::HANDLE, 'window.purplishRated = ' . wp_json_encode( CatalogSorting::any_rated() ) . ';', 'before' );
+		wp_add_inline_script( self::HANDLE, 'window.purplishMeter = ' . wp_json_encode( FreeDelivery::sample() ) . ';', 'before' );
 	}
 
 	/**

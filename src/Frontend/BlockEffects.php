@@ -288,7 +288,9 @@ final class BlockEffects {
 					'look'     => array( 'tabs', 'photos' ),
 					'shape'    => array( 'circle', 'rounded', 'square', 'arch' ),
 					'hover'    => array( 'ring', 'morph', 'turn', 'still' ),
-					'tab'      => array( 'pill', 'dot' ),
+					'tab'      => array( 'pill', 'dot', 'chip' ),
+					// Pill and Chip tabs can wrap onto more rows instead of scrolling.
+					'wrap'     => true,
 					'entrance' => self::ENTRANCES,
 				),
 				'needs'   => array(
@@ -300,6 +302,10 @@ final class BlockEffects {
 					),
 					'tab'   => array(
 						array( 'look', array( 'tabs' ), true ),
+					),
+					'wrap'  => array(
+						array( 'look', array( 'tabs' ), true ),
+						array( 'tab', array( 'pill', 'chip' ), true ),
 					),
 				),
 				'preview' => true,
@@ -431,6 +437,7 @@ final class BlockEffects {
 					'spring' => true,
 					'rows'   => true,
 					'photos' => true,
+					'meter'  => true,
 				),
 				'preview' => true,
 			),
@@ -552,6 +559,7 @@ final class BlockEffects {
 					'rows'   => true,
 					'photos' => true,
 					'sticky' => true,
+					'meter'  => true,
 				),
 				'redrawn' => true,
 				'preview' => true,
@@ -794,9 +802,19 @@ final class BlockEffects {
 			$classes[] = self::color_class( $color );
 			$color     = '';
 		}
+		// The receipt slip takes the block's own background, and the block
+		// lets go of it.
+		$paper = in_array( 'purplish-summary-receipt', $classes, true ) ? self::paper( $block['attrs'] ) : '';
+		if ( '' !== $paper ) {
+			$classes[] = 'purplish-summary-paper';
+		}
 		do {
 			foreach ( $classes as $class ) {
 				$tags->add_class( $class );
+			}
+			if ( '' !== $paper ) {
+				$style = trim( (string) $tags->get_attribute( 'style' ) );
+				$tags->set_attribute( 'style', ( '' === $style ? '' : rtrim( $style, ';' ) . ';' ) . '--purplish-paper:' . $paper . ';' );
 			}
 			if ( $color ) {
 				$style = trim( (string) $tags->get_attribute( 'style' ) );
@@ -971,6 +989,38 @@ final class BlockEffects {
 
 		$eye = '<span class="purplish-eye"></span>';
 		return Markup::prepend_inside( $html, $blocks[ $name ]['eyes'], '<span class="purplish-eyes" aria-hidden="true">' . ( 'two' === $saved['eyes'] ? $eye . $eye : $eye ) . '</span>' );
+	}
+
+	/**
+	 * A block's background from its color settings, as a CSS value: a
+	 * palette color or gradient, or a custom one. '' when it has none, or
+	 * when the custom value isn't safe CSS.
+	 *
+	 * @param array $attrs Block attributes.
+	 * @return string
+	 */
+	public static function paper( $attrs ) {
+		foreach ( array(
+			'gradient'        => 'gradient',
+			'backgroundColor' => 'color',
+		) as $key => $preset ) {
+			if ( ! empty( $attrs[ $key ] ) && is_string( $attrs[ $key ] ) ) {
+				return 'var(--wp--preset--' . $preset . '--' . sanitize_key( $attrs[ $key ] ) . ')';
+			}
+		}
+		foreach ( array( 'gradient', 'background' ) as $key ) {
+			$value = isset( $attrs['style']['color'][ $key ] ) && is_string( $attrs['style']['color'][ $key ] ) ? trim( $attrs['style']['color'][ $key ] ) : '';
+			if ( '' === $value ) {
+				continue;
+			}
+			// A palette pick saved as `var:preset|color|slug`.
+			if ( preg_match( '/^var:preset\|(color|gradient)\|([a-z0-9-]+)$/', $value, $match ) ) {
+				return 'var(--wp--preset--' . $match[1] . '--' . $match[2] . ')';
+			}
+			$safe = safecss_filter_attr( 'background:' . $value );
+			return ( '' !== $safe && false === strpbrk( $value, ';{}<>' ) ) ? $value : '';
+		}
+		return '';
 	}
 
 	/**

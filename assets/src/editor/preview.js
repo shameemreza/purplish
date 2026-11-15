@@ -21,6 +21,7 @@
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 import { moveHighlight, clearHighlight } from '../shared/glass';
 import {
@@ -40,6 +41,7 @@ import {
 	HOVER_BUTTONS,
 	pageClasses,
 	pageStyle,
+	paperOf,
 } from './preview-classes';
 
 const MAP = window.purplishPreview || {};
@@ -49,6 +51,18 @@ const FRAME = '.wc-block-product-gallery-large-image';
 const GALLERY_HOVER = 'purplish-gallery-hover-';
 const IMAGE_HOVER = 'purplish-image-hover-';
 const MATCHING_CHIPS = 'purplish-filters-chips';
+const RECEIPT = 'purplish-summary-receipt';
+const SAMPLE = window.purplishMeter || {};
+/**
+ * Where each block's sample meter goes: inside the drawer's footer, past
+ * its block wrapper, so it takes the footer's padding; or the top of the
+ * Cart.
+ */
+const METERS = {
+	'purplish-drawer-meter':
+		'.wc-block-mini-cart__footer, .wp-block-woocommerce-mini-cart-footer-block',
+	'purplish-cartpage-meter': '',
+};
 const CARD = '.wc-block-product';
 const CARD_PHOTO = '.wc-block-components-product-image';
 const CARD_FOLLOW = [
@@ -185,6 +199,71 @@ function useEyes( clientId, button, count ) {
 				.forEach( ( pair ) => pair.remove() );
 		};
 	}, [ clientId, button, count ] );
+}
+
+/**
+ * Adds a sample free shipping meter where the store prints the real one,
+ * and adds it again when the editor draws that part again. The editor has
+ * no cart, so the sample sits at 60% of the store's minimum.
+ *
+ * @param {string} clientId The block's client ID.
+ * @param {string} where    Selector of the part it goes into, '' for the block itself, or null for none.
+ */
+function useMeter( clientId, where ) {
+	useEffect( () => {
+		const block = where !== null && canvasElement( clientId );
+		if ( ! block ) {
+			return;
+		}
+		const doc = block.ownerDocument;
+		const place = () => {
+			const target = where
+				? where
+						.split( ', ' )
+						.map( ( part ) => block.querySelector( part ) )
+						.find( Boolean )
+				: block;
+			if (
+				! target ||
+				target.querySelector( ':scope > .purplish-meter' )
+			) {
+				return;
+			}
+			const meter = doc.createElement( 'div' );
+			meter.className =
+				'purplish-meter' + ( where ? '' : ' purplish-meter-page' );
+			meter.setAttribute( 'contenteditable', 'false' );
+			meter.style.setProperty(
+				'--purplish-meter',
+				String( SAMPLE.share || 0.6 )
+			);
+			const text = doc.createElement( 'p' );
+			text.className = 'purplish-meter-text';
+			/* translators: %s: amount left to spend, such as $12.00. */
+			const [ before, after = '' ] = __(
+				'Spend %s more for free shipping.',
+				'purplish'
+			).split( '%s' );
+			const amount = doc.createElement( 'strong' );
+			amount.textContent = SAMPLE.amount || '';
+			text.append( before, amount, after );
+			const bar = doc.createElement( 'div' );
+			bar.className = 'purplish-meter-bar';
+			bar.setAttribute( 'aria-hidden', 'true' );
+			bar.appendChild( doc.createElement( 'span' ) );
+			meter.append( text, bar );
+			target.prepend( meter );
+		};
+		place();
+		const watch = new doc.defaultView.MutationObserver( place );
+		watch.observe( block, { childList: true, subtree: true } );
+		return () => {
+			watch.disconnect();
+			block
+				.querySelectorAll( '.purplish-meter' )
+				.forEach( ( meter ) => meter.remove() );
+		};
+	}, [ clientId, where ] );
 }
 
 /**
@@ -419,6 +498,10 @@ const withPurplishPreview = createHigherOrderComponent(
 		);
 
 		useChips( props.clientId, classes.includes( MATCHING_CHIPS ) );
+		const meter = Object.keys( METERS ).find( ( name ) =>
+			classes.includes( name )
+		);
+		useMeter( props.clientId, meter ? METERS[ meter ] : null );
 		useImageHover( props.clientId, styleIn( classes, IMAGE_HOVER ) );
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';
@@ -428,10 +511,17 @@ const withPurplishPreview = createHigherOrderComponent(
 
 		const gallery = styleIn( classes, GALLERY_HOVER );
 		const wrapperProps = props.wrapperProps || {};
+		const paper = classes.includes( RECEIPT )
+			? paperOf( props.attributes )
+			: '';
 		return (
 			<BlockListBlock
 				{ ...props }
-				className={ [ props.className, ...classes ]
+				className={ [
+					props.className,
+					...classes,
+					paper && 'purplish-summary-paper',
+				]
 					.filter( Boolean )
 					.join( ' ' ) }
 				wrapperProps={ {
@@ -446,7 +536,11 @@ const withPurplishPreview = createHigherOrderComponent(
 						),
 						card,
 					} ),
-					style: { ...wrapperProps.style, ...colorStyle( saved ) },
+					style: {
+						...wrapperProps.style,
+						...colorStyle( saved ),
+						...( paper ? { '--purplish-paper': paper } : {} ),
+					},
 				} }
 			/>
 		);

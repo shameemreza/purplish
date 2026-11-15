@@ -121,6 +121,23 @@ class CurrentTermTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Chip is a tab style, and Wrap prints only on Pill or Chip tabs.
+	 */
+	public function test_chip_and_wrap() {
+		$chip = array(
+			'look' => 'tabs',
+			'tab'  => 'chip',
+			'wrap' => true,
+		);
+		$this->assertSame( array( 'purplish-terms', 'purplish-terms-look-tabs', 'purplish-terms-tab-chip', 'purplish-terms-wrap' ), BlockEffects::classes_for( CurrentTerm::BLOCK, $chip ) );
+		$this->assertContains( 'purplish-terms-wrap', BlockEffects::classes_for( CurrentTerm::BLOCK, array_merge( $chip, array( 'tab' => 'pill' ) ) ) );
+
+		foreach ( array( array( 'tab' => 'dot' ), array( 'tab' => null ), array( 'look' => 'photos' ) ) as $change ) {
+			$this->assertNotContains( 'purplish-terms-wrap', BlockEffects::classes_for( CurrentTerm::BLOCK, array_filter( array_merge( $chip, $change ) ) ) );
+		}
+	}
+
+	/**
 	 * The option or a look turns the mark on.
 	 */
 	public function test_wants() {

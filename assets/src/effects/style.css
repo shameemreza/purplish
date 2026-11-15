@@ -4746,16 +4746,21 @@ body.purplish-active .purplish-group-tint {
  * narrow slip with one line per detail, the value at the end, dashed rules
  * between them and a torn bottom edge. The slip is the list, not the
  * block, so the block keeps the theme's layout and the slip starts where
- * the text does. The paper is a light wash of the text color, so it works
- * on light and dark themes.
+ * the text does. The paper is the block's own background when it has one,
+ * which the block then drops; otherwise a light wash of the text color, so
+ * it works on light and dark themes.
  */
+.wc-block-order-confirmation-summary.purplish-summary-receipt.purplish-summary-paper {
+	background: none !important;
+}
+
 .wc-block-order-confirmation-summary.purplish-summary-receipt ul {
 	box-sizing: border-box;
 	flex-direction: column;
 	gap: 0;
 	max-width: 30rem;
 	padding: 1.25em 1.5em 2em;
-	background: color-mix(in oklab, currentcolor 5%, transparent);
+	background: var(--purplish-paper, color-mix(in oklab, currentcolor 5%, transparent));
 	border-radius: 0.375em 0.375em 0 0;
 	mask:
 		conic-gradient(from -45deg at bottom, #000 90deg, #0000 0) bottom / 1em 0.5em repeat-x,
@@ -4924,6 +4929,59 @@ body.purplish-active .purplish-group-tint {
 			top: calc(var(--wp-admin--admin-bar--height, 0px) + 32px);
 			align-self: flex-start;
 		}
+	}
+}
+
+/*
+ * Free shipping meter in the drawer's footer and above the Cart page: the
+ * amount left, then a thin bar in the effect color. The bar fills to the
+ * share of the minimum, and eases to a new share when the cart changes,
+ * except for visitors who ask for reduced motion.
+ */
+.purplish-meter {
+	display: grid;
+	gap: 0.5rem;
+	margin-block-end: 1rem;
+}
+
+.purplish-meter[hidden] {
+	display: none;
+}
+
+.purplish-meter-text {
+	margin: 0;
+	font-size: 0.875em;
+	line-height: 1.4;
+}
+
+.purplish-meter-text strong {
+	font-weight: 600;
+}
+
+.purplish-meter-bar {
+	block-size: 6px;
+	border-radius: 999px;
+	background: color-mix(in srgb, currentcolor 12%, transparent);
+	overflow: hidden;
+}
+
+.purplish-meter-bar > span {
+	display: block;
+	inline-size: calc(var(--purplish-meter, 0) * 100%);
+	block-size: 100%;
+	border-radius: inherit;
+	background: var(--purplish-effect, currentcolor);
+	transition: inline-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.purplish-meter-page {
+	margin-block-end: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-meter-bar > span {
+		transition: none;
 	}
 }
 
