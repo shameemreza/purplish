@@ -140,6 +140,8 @@ final class BlockEffects {
 					'overlay'     => true,
 					// The button on the photo as a full-width bar instead of the pill.
 					'buttonlook'  => array( 'bar' ),
+					// The button under the card with a thin edge, filled on hover.
+					'buttonstyle' => array( 'outline' ),
 					'details'     => true,
 					'motion'      => true,
 					'hover'       => array(
@@ -194,6 +196,11 @@ final class BlockEffects {
 					),
 					'buttonlook'  => array(
 						array( 'overlay', array( true ), true ),
+						array( 'details', array( true ), false ),
+					),
+					// Only for the button under the card.
+					'buttonstyle' => array(
+						array( 'overlay', array( true ), false ),
 						array( 'details', array( true ), false ),
 					),
 					// Roster lays the names out as its own list.

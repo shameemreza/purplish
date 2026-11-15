@@ -22,7 +22,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
-| Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo as a small button or a full-width bar, and button motion. |
+| Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo as a small button or a full-width bar, an outline button under the card, and button motion. |
 | Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a Best seller, New arrival or Featured tag on the photo that shows only on the cards its rule matches. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
 | Shop and collection pages | Color Dots | Purplish's own Color Dots block: the colors a product comes in, as small dots beside the name or swatches under the price. A dot can swap the card's photo to that color. |
 | Shop and collection pages | Product Collection, Product Filters, Shelf Tag | The Atelier shop pattern: a quiet shop page with accordion filters that fold away, three columns of tall photos with a Best seller tag, and numbered pages. |
@@ -138,6 +138,7 @@ When the card effect already moves a part on hover, that part's look is skipped:
 - **Product Collection, Photo wash:** a light tint of the effect color behind each photo, with the photo blended into it, so studio photos on white take the tint instead of sitting in white boxes. The tint mixes into white, so a dark page doesn't darken the photos.
 - **Ring settings:** under the Ring card look, Ring inside the card draws the ring just inside the card's edge (Ruled cards always do, and keep their corners square), Square ring follows the theme's corner size (square without one), and Full color ring uses the effect color at full strength.
 - **Card hover fills the button:** hovering anywhere on a card fills its add to cart button with the effect color and underlines the name, so the card reads as one link.
+- **Product Collection, Outline button:** add to cart under the card runs the card's width with a thin edge in the text color and no fill, and fills with the effect color on hover and keyboard focus. It's off while add to cart or the details sit on the photo.
 
 ### Shelf tags and sold out
 

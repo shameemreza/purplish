@@ -494,6 +494,20 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 					/>
 				</ToggleGroupControl>
 			) }
+			{ true !== saved.overlay && true !== saved.details && (
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Outline button', 'purplish' ) }
+					help={ __(
+						'Add to cart runs the width of the card with a thin edge in the text color and no fill. It fills with the effect color on hover and keyboard focus.',
+						'purplish'
+					) }
+					checked={ 'outline' === saved.buttonstyle }
+					onChange={ ( on ) =>
+						save( { buttonstyle: on ? 'outline' : undefined } )
+					}
+				/>
+			) }
 			<ToggleControl
 				__nextHasNoMarginBottom
 				label={ __( 'Details on the photo', 'purplish' ) }
