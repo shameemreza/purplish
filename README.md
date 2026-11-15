@@ -148,6 +148,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Product Collection, Grid switch:** two small buttons after Sort by let shoppers switch the grid between its own column count and a second one you pick, like four columns or two bigger cards. The choice lasts for the visit and is in place before the grid draws, so it holds through filters, page numbers and the next page. The cards move to their new places, and reduced motion switches at once. Without Sort by on the page, the buttons sit above the grid. It needs the Grid layout, and phones keep their grid.
 
+### Sort by
+
+- **Catalog Sorting, Orderings:** pick which orderings Sort by lists: popularity, average rating, latest, and price low to high or high to low. Default sorting always shows, and an ordering a shopper already sorted by stays in the list. Average rating only once a product has one leaves rating out until a product in your store has a rating, so a store without reviews never offers an order that changes nothing. Large makes the select at least 44px tall, as easy to tap as the other shop controls. The editor shows the same list and size.
+
 ### Results change
 
 - **Product Collection, Results change:** how the cards change when shoppers filter, sort or change page. Fade brings the new results in softly. Rise brings the cards up one after another. Move slides the cards that stay to their new places and fades the new ones in, so shoppers can see what stayed. Load more keeps its own motion, and Force page reload turns the option off, since each change then loads a new page. Reduced motion shows the new results at once. The script is about 1 KB and loads only on a collection that uses it.
