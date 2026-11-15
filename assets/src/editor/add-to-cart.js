@@ -158,7 +158,7 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Glow ring on the button', 'purplish' ) }
 				help={ __(
-					'A soft ring of the color around the add to cart button.',
+					'A soft ring of the color around the add to cart button. Products without a page color, and variable products before a pick, use the theme’s button color.',
 					'purplish'
 				) }
 				checked={ true === options.glow }

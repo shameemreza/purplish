@@ -264,9 +264,45 @@ final class PageData {
 	 */
 	private function current() {
 		if ( false === $this->data ) {
-			$this->data = is_product() ? self::for_product( wc_get_product( get_queried_object_id() ), self::options() ) : null;
+			$this->data = is_product() ? self::for_page( wc_get_product( get_queried_object_id() ), self::options() ) : null;
 		}
 		return $this->data;
+	}
+
+	/**
+	 * The data for a product page: the product's colors, or, when it has
+	 * none and the glow ring is on, data without colors, so the ring still
+	 * shows in the theme's button color.
+	 *
+	 * @param \WC_Product|false|null                     $product Product.
+	 * @param array{parts: string[], transition: string} $options Options.
+	 * @return array|null
+	 */
+	public static function for_page( $product, $options ) {
+		$data = self::for_product( $product, $options );
+		if ( null === $data && ! empty( $options['glow'] ) && $product instanceof \WC_Product ) {
+			$data = array(
+				'variations' => array(),
+				'default'    => null,
+				'options'    => $options,
+			);
+		}
+		return $data;
+	}
+
+	/**
+	 * The theme's button background, for the glow ring on products without
+	 * a page color: a hex color or a color preset, otherwise empty.
+	 *
+	 * @return string
+	 */
+	public static function button_color() {
+		$color = wp_get_global_styles( array( 'elements', 'button', 'color', 'background' ) );
+		$color = is_string( $color ) ? trim( $color ) : '';
+		if ( sanitize_hex_color( $color ) || preg_match( '/^var\(--wp--preset--color--[a-z0-9-]+\)$/', $color ) ) {
+			return $color;
+		}
+		return '';
 	}
 
 	/**
@@ -301,6 +337,10 @@ final class PageData {
 					sanitize_hex_color( $data['default']['tint'] )
 				)
 			);
+		}
+		$button = empty( $data['options']['glow'] ) ? '' : self::button_color();
+		if ( '' !== $button ) {
+			wp_add_inline_style( self::HANDLE, 'body{--purplish-glow-fallback:' . $button . '}' );
 		}
 	}
 
