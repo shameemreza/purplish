@@ -1,0 +1,1 @@
+(()=>{"use strict";document.querySelectorAll(".wp-block-purplish-escalator").forEach(function(e){const s=e.querySelector(".purplish-escalator-pause");s&&s.hidden&&(s.hidden=!1,s.addEventListener("click",()=>{const t=!e.classList.contains("is-paused");e.classList.toggle("is-paused",t),s.setAttribute("aria-pressed",t?"true":"false")}))})})();

@@ -344,6 +344,128 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'style' => 'file:./style-index.css'
 	),
+	'escalator' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/escalator',
+		'version' => '1.3.2',
+		'title' => 'Escalator',
+		'category' => 'purplish',
+		'description' => 'Photos or products ride two or three columns that move in opposite directions, like the up and down escalators in a department store.',
+		'keywords' => array(
+			'hero',
+			'products',
+			'photos',
+			'gallery',
+			'marquee'
+		),
+		'textdomain' => 'purplish',
+		'attributes' => array(
+			'source' => array(
+				'type' => 'string',
+				'enum' => array(
+					'products',
+					'photos'
+				),
+				'default' => 'products'
+			),
+			'query' => array(
+				'type' => 'string',
+				'enum' => array(
+					'newest',
+					'best',
+					'sale',
+					'featured',
+					'category'
+				),
+				'default' => 'newest'
+			),
+			'category' => array(
+				'type' => 'integer',
+				'default' => 0
+			),
+			'images' => array(
+				'type' => 'array',
+				'items' => array(
+					'type' => 'integer'
+				),
+				'default' => array(
+					
+				)
+			),
+			'count' => array(
+				'type' => 'integer',
+				'default' => 9
+			),
+			'columns' => array(
+				'type' => 'integer',
+				'enum' => array(
+					2,
+					3
+				),
+				'default' => 3
+			),
+			'speed' => array(
+				'type' => 'string',
+				'enum' => array(
+					'medium',
+					'slow',
+					'fast'
+				),
+				'default' => 'medium'
+			),
+			'height' => array(
+				'type' => 'integer',
+				'default' => 560
+			),
+			'details' => array(
+				'type' => 'string',
+				'enum' => array(
+					'on',
+					'off'
+				),
+				'default' => 'on'
+			),
+			'hover' => array(
+				'type' => 'string',
+				'enum' => array(
+					'none',
+					'ring',
+					'lift',
+					'sweep',
+					'push'
+				),
+				'default' => 'none'
+			),
+			'color' => array(
+				'type' => 'string'
+			),
+			'radius' => array(
+				'type' => 'integer'
+			)
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'anchor' => true,
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'spacing' => array(
+				'margin' => array(
+					'top',
+					'bottom'
+				)
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
+	),
 	'hanging-rail' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

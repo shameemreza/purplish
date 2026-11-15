@@ -66,6 +66,7 @@ final class Registry {
 			Wardrobe::class,
 			ShelfTag::class,
 			ColorDots::class,
+			Escalator::class,
 		);
 	}
 
