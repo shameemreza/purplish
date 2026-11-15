@@ -1045,6 +1045,13 @@
 	}
 }
 
+/* Catalog Sorting, Large: as easy to tap as the other shop controls. */
+.purplish-sorting-size-large select.orderby {
+	box-sizing: border-box;
+	min-block-size: 44px;
+	padding-block: 0.5em;
+}
+
 /* Product Results Count: just the number, in brackets or with "products". */
 [class*="purplish-count-show-"] .woocommerce-result-count > .screen-reader-text {
 	position: absolute;
