@@ -3593,6 +3593,21 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Tap size: chips and the phone button that opens the filters are at least
+ * 44px tall, the smallest target a thumb hits easily.
+ */
+.purplish-filters-tap :is(.wc-block-product-filter-chips__item, .wc-block-product-filter-removable-chips__item) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+}
+
+.purplish-filters-tap .wc-block-product-filters__open-overlay {
+	min-height: 44px;
+}
+
+/*
  * Sidebar can hide. The filters script moves the button above the
  * products and marks the columns; the fold is a width change, with the
  * column gap pulled back by a negative margin so the grid meets the edge.
@@ -3995,6 +4010,21 @@ body.purplish-active .purplish-group-tint {
 		opacity: 1;
 		scale: 1;
 	}
+}
+
+/*
+ * Large buy row: the quantity box and the add to cart button share one
+ * 52px height. WooCommerce draws the quantity edge on the block's wrapper,
+ * so the wrapper takes the height, edge included, and the box fills it.
+ */
+.purplish-cart-large .wc-block-add-to-cart-with-options__quantity-selector {
+	display: flex;
+	box-sizing: border-box;
+	min-height: 52px;
+}
+
+.purplish-cart-large .single_add_to_cart_button {
+	min-height: 52px;
 }
 
 /*
