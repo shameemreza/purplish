@@ -2,6 +2,25 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.3.2] - 2026-11-15
+
+### Added
+
+- Escalator, a block of photo or product tiles that drift past in opposite columns, with a pause button, a hover look and an add to cart button on each tile. Two hero patterns use it.
+- Product Collection can rule its cards with thin lines in place of the gap, wash its photos in the effect color, fill the add to cart button when a shopper points at the card, and use an outline button that fills on hover. The Product Gallery gets the photo wash too.
+- Three Ring settings for product cards: inside the card, square corners, and full color on hover.
+- The Mini-Cart drawer and the Cart page can show how much more the cart needs for free shipping, and hide each item's short description.
+- Chip tabs for Terms Query that can wrap onto more rows, and an order receipt printed on the block's background color.
+- Catalog Sorting can choose which orderings to list, leave out average rating until a product has a rating, and use a larger 44px select.
+- A 44px tap size for Product Filters chips and the phone filters button, and a larger buy row for Add to Cart with Options.
+- A theme can set Purplish's corners and shadow once in theme.json, under `settings.custom.purplish`.
+
+### Fixed
+
+- The second photo shows again on product cards with WooCommerce 11.3.
+- The main photo stays hidden under the second photo on hover.
+- The Glow ring works on products without a page color. It uses the theme's button color.
+
 ## [1.3.1] - 2026-11-14
 
 ### Fixed

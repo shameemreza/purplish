@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce blocks, blocks, design, product gallery
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -238,6 +238,20 @@ Purplish doesn't collect, store or send personal data. It sets no cookies and ma
 Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209): set each variation's color by hand, or read it from the photo.
 
 == Changelog ==
+
+= 1.3.2 =
+
+* New: Escalator, a block of photo or product tiles that drift past in opposite columns, with a pause button, a hover look and an add to cart button on each tile. Two hero patterns use it.
+* New: Product Collection can rule its cards with thin lines in place of the gap, wash its photos in the effect color, fill the add to cart button when a shopper points at the card, and use an outline button that fills on hover. The Product Gallery gets the photo wash too.
+* New: Three Ring settings for product cards: inside the card, square corners, and full color on hover.
+* New: The Mini-Cart drawer and the Cart page can show how much more the cart needs for free shipping, and hide each item's short description.
+* New: Chip tabs for Terms Query that can wrap onto more rows, and an order receipt printed on the block's background color.
+* New: Catalog Sorting can choose which orderings to list, leave out average rating until a product has a rating, and use a larger 44px select.
+* New: A 44px tap size for Product Filters chips and the phone filters button, and a larger buy row for Add to Cart with Options.
+* New: A theme can set Purplish's corners and shadow once in theme.json, under `settings.custom.purplish`.
+* Fix: The second photo shows again on product cards with WooCommerce 11.3.
+* Fix: The main photo stays hidden under the second photo on hover.
+* Fix: The Glow ring works on products without a page color. It uses the theme's button color.
 
 = 1.3.1 =
 
