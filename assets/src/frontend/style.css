@@ -519,26 +519,38 @@ body.purplish-mesh-b::before {
 	}
 }
 
-/* Glow ring: a ring of the accent around the add to cart button. */
-body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button) {
+/*
+ * Glow ring: a ring of the accent around the add to cart button. Without
+ * a page color, as on a variable product before a pick, it takes the
+ * theme's button color, which the page data prints.
+ */
+body.purplish-glow {
+	--purplish-glow: var(--purplish-glow-fallback, #32373c);
+}
+
+body.purplish-active.purplish-glow {
+	--purplish-glow: var(--purplish-accent);
+}
+
+body.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button) {
 	box-shadow:
-		0 0 0 3px color-mix(in oklab, var(--purplish-accent) 45%, transparent),
-		0 0 22px color-mix(in oklab, var(--purplish-accent) 55%, transparent);
+		0 0 0 3px color-mix(in oklab, var(--purplish-glow) 45%, transparent),
+		0 0 22px color-mix(in oklab, var(--purplish-glow) 55%, transparent);
 	transition: box-shadow 0.3s ease;
 }
 
-body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:focus-visible, .purplish-hover) {
+body.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):is(:focus-visible, .purplish-hover) {
 	box-shadow:
-		0 0 0 5px color-mix(in oklab, var(--purplish-accent) 55%, transparent),
-		0 0 32px color-mix(in oklab, var(--purplish-accent) 70%, transparent);
+		0 0 0 5px color-mix(in oklab, var(--purplish-glow) 55%, transparent),
+		0 0 32px color-mix(in oklab, var(--purplish-glow) 70%, transparent);
 }
 
 @media (hover: hover) {
 
-	body.purplish-active.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):hover {
+	body.purplish-glow :is(.single_add_to_cart_button, :where(.wp-block-woocommerce-add-to-cart-with-options) .wc-block-components-product-button__button):hover {
 		box-shadow:
-			0 0 0 5px color-mix(in oklab, var(--purplish-accent) 55%, transparent),
-			0 0 32px color-mix(in oklab, var(--purplish-accent) 70%, transparent);
+			0 0 0 5px color-mix(in oklab, var(--purplish-glow) 55%, transparent),
+			0 0 32px color-mix(in oklab, var(--purplish-glow) 70%, transparent);
 	}
 }
 

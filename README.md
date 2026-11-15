@@ -65,7 +65,7 @@ On the same block:
 
 - **Photo transition:** Blur, Fade, Zoom, Slide, Flip, Wipe, Circle reveal, Color wash or None.
 - **Title and price rise:** after the photo changes, the title and price rise into place, or the title comes into focus.
-- **Glow ring and halo:** a soft ring in the page color around the add to cart button, and a ring that leaves it each time a product goes into the cart.
+- **Glow ring and halo:** a soft ring in the page color around the add to cart button, in the theme's button color on products without a page color, and a ring that leaves it each time a product goes into the cart.
 - **Mesh background:** soft blobs of the color over the background tint, which move each time the color changes.
 - **Color dots:** each color option shows a dot in its own color. Sizes, and options that come in several colors, get no dot.
 - **Liquid glass and spectrum ring:** the add to cart button gets a frosted fill with a highlight that follows the mouse, and a rainbow ring that travels once around its edge on hover.

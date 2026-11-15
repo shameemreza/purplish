@@ -320,4 +320,99 @@ class PageDataTest extends WP_UnitTestCase {
 		$this->assertNotContains( 'purplish-halo', $classes );
 		$this->assertNotContains( 'purplish-rise', $classes );
 	}
+
+	/**
+	 * The page's body classes and inline styles with the given block
+	 * options, on the given product's page.
+	 *
+	 * @param \WC_Product $product Product.
+	 * @param array       $options Block options.
+	 * @return array{classes: string[], styles: string}
+	 */
+	private function render_page( $product, $options ) {
+		$this->go_to( get_permalink( $product->get_id() ) );
+		wp_styles()->remove( PageData::HANDLE );
+
+		$block_options = new \ReflectionProperty( PageData::class, 'block_options' );
+		$block_options->setAccessible( true );
+		try {
+			PageData::use_block_options( $options );
+			$page = new PageData();
+			$page->enqueue();
+			$classes = $page->body_class( array() );
+		} finally {
+			$block_options->setValue( null, null );
+		}
+
+		$after = wp_styles()->get_data( PageData::HANDLE, 'after' );
+		return array(
+			'classes' => $classes,
+			'styles'  => is_array( $after ) ? implode( "\n", $after ) : '',
+		);
+	}
+
+	/**
+	 * With no page color, the glow ring still shows, in the theme's
+	 * button color.
+	 */
+	public function test_glow_without_page_color() {
+		$product = new \WC_Product_Simple();
+		$product->save();
+
+		$page = $this->render_page( $product, array( 'glow' => true ) );
+		$this->assertContains( 'purplish-glow', $page['classes'] );
+		$this->assertNotContains( 'purplish-active', $page['classes'] );
+		$this->assertTrue( wp_style_is( PageData::HANDLE, 'enqueued' ) );
+		$this->assertMatchesRegularExpression( '/body\{--purplish-glow-fallback:[^;}]+\}/', $page['styles'] );
+
+		$page = $this->render_page( $product, array( 'glow' => false ) );
+		$this->assertSame( array(), $page['classes'], 'nothing without the glow' );
+	}
+
+	/**
+	 * A product with a color keeps it, and the fallback is there for a
+	 * variable product before a pick.
+	 */
+	public function test_glow_with_page_color() {
+		$product = new \WC_Product_Simple();
+		$product->update_meta_data( Meta::AUTO_COLOR, '#0d317c' );
+		$product->save();
+
+		$page = $this->render_page( $product, array( 'glow' => true ) );
+		$this->assertContains( 'purplish-active', $page['classes'] );
+		$this->assertContains( 'purplish-glow', $page['classes'] );
+		$this->assertStringContainsString( '--purplish-accent:', $page['styles'] );
+		$this->assertStringContainsString( '--purplish-glow-fallback:', $page['styles'] );
+	}
+
+	/**
+	 * The theme's button color is passed on as a hex or a color preset,
+	 * and anything else is left out.
+	 */
+	public function test_button_color() {
+		$set = static function ( $color ) {
+			return static function ( $theme_json ) use ( $color ) {
+				return $theme_json->update_with(
+					array(
+						'version' => 3,
+						'styles'  => array( 'elements' => array( 'button' => array( 'color' => array( 'background' => $color ) ) ) ),
+					)
+				);
+			};
+		};
+
+		foreach ( array(
+			'#1f0342'                        => '#1f0342',
+			'var:preset|color|theme-3'       => 'var(--wp--preset--color--theme-3)',
+			'red;}body{display:none'         => '',
+			'url(https://example.org/x.png)' => '',
+		) as $saved => $expected ) {
+			$filter = $set( $saved );
+			add_filter( 'wp_theme_json_data_theme', $filter );
+			wp_clean_theme_json_cache();
+			$this->assertSame( $expected, PageData::button_color(), $saved );
+			remove_filter( 'wp_theme_json_data_theme', $filter );
+		}
+		wp_clean_theme_json_cache();
+	}
 }
