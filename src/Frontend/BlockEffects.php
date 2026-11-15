@@ -407,6 +407,8 @@ final class BlockEffects {
 					'layout' => array( 'bar' ),
 					'hover'  => true,
 					'open'   => array( 'grow', 'fold', 'cascade' ),
+					// Chips and the phone filters button at least 44px tall.
+					'tap'    => true,
 				),
 				'needs'   => array(
 					// A bar has no sidebar to fold.
@@ -474,6 +476,8 @@ final class BlockEffects {
 					'glass'    => true,
 					'spectrum' => true,
 					'eyes'     => self::EYES,
+					// The quantity box and the button at one taller height.
+					'large'    => true,
 				),
 				'eyes'    => 'single_add_to_cart_button',
 				'preview' => true,
