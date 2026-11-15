@@ -435,6 +435,26 @@ Purplish's own blocks read their sizes and colors from properties on the block w
 | Scroll Lookbook | `--purplish-lookbook-card-radius`, `--purplish-lookbook-card-paper`, `--purplish-lookbook-card-ink` (card text color), `--purplish-lookbook-gap`, `--purplish-lookbook-edge` |
 | Wardrobe | `--purplish-wardrobe-radius`, `--purplish-wardrobe-gap` (space between the header and the panel), `--purplish-wardrobe-pad` (space inside the panel), `--purplish-wardrobe-width` (panel width), `--purplish-wardrobe-tint` (tile and look card background) |
 
+### Theme corners and shadow
+
+A theme can set Purplish's corners and shadow once, in `theme.json`. The checkout, Mini-Cart drawer and cart page looks, the Ring card effect and the filter bar's lists read them, and keep their own values when a theme sets neither:
+
+```
+{
+	"version": 3,
+	"settings": {
+		"custom": {
+			"purplish": {
+				"radius": "2px",
+				"shadow": "none"
+			}
+		}
+	}
+}
+```
+
+WordPress prints these as `--wp--custom--purplish--radius` and `--wp--custom--purplish--shadow`. The radius goes on every rounded corner, so `0` gives square corners. Checkboxes keep their small corners when the radius is bigger. The shadow is the soft one under the picked shipping or payment card, the side panel's summary, the raised checkout card and the filter bar's lists. The picked card keeps its ring either way.
+
 ## Why I made it
 
 > Purplish started with one small idea from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209) with [Luigi Teschio](https://x.com/gigitux): let the product page take the color of the variation a shopper picks. Building it showed me how much more WooCommerce's blocks can do with a few good options, so I kept going. I built the [Purplish plugin site](https://purplish.io/) with WooCommerce, the Purple theme and Purplish itself.
