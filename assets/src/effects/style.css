@@ -764,6 +764,36 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
+ * Outline button: add to cart runs the width of the card with a thin edge
+ * in the card's text color and no fill. It fills with the effect color on
+ * hover and keyboard focus, as Card hover fills the button does.
+ */
+.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button {
+	justify-content: center;
+	width: 100%;
+	min-height: 44px;
+	border: 1px solid currentcolor;
+	background-color: transparent;
+	color: inherit;
+}
+
+.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button:is(:hover, :focus-visible, .purplish-hover) {
+	border-color: var(--purplish-color);
+	background-color: var(--purplish-color);
+	color: var(--purplish-color-on);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button {
+		transition:
+			background-color 0.2s ease,
+			border-color 0.2s ease,
+			color 0.2s ease;
+	}
+}
+
+/*
  * Cards, details on the photo: the title, price and add to cart sit on the
  * bottom of the photo over a soft shade, the button as the frosted pill
  * beside the price. With a mouse they show on hover or focus; touch screens
@@ -3593,6 +3623,21 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Tap size: chips and the phone button that opens the filters are at least
+ * 44px tall, the smallest target a thumb hits easily.
+ */
+.purplish-filters-tap :is(.wc-block-product-filter-chips__item, .wc-block-product-filter-removable-chips__item) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+}
+
+.purplish-filters-tap .wc-block-product-filters__open-overlay {
+	min-height: 44px;
+}
+
+/*
  * Sidebar can hide. The filters script moves the button above the
  * products and marks the columns; the fold is a width change, with the
  * column gap pulled back by a negative margin so the grid meets the edge.
@@ -3995,6 +4040,21 @@ body.purplish-active .purplish-group-tint {
 		opacity: 1;
 		scale: 1;
 	}
+}
+
+/*
+ * Large buy row: the quantity box and the add to cart button share one
+ * 52px height. WooCommerce draws the quantity edge on the block's wrapper,
+ * so the wrapper takes the height, edge included, and the box fills it.
+ */
+.purplish-cart-large .wc-block-add-to-cart-with-options__quantity-selector {
+	display: flex;
+	box-sizing: border-box;
+	min-height: 52px;
+}
+
+.purplish-cart-large .single_add_to_cart_button {
+	min-height: 52px;
 }
 
 /*
@@ -4869,6 +4929,14 @@ body.purplish-active .purplish-group-tint {
 	:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row:hover > td {
 		background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%) !important;
 	}
+}
+
+/*
+ * Cart page and drawer, Hide short descriptions: each item keeps its name,
+ * price, quantity and variation details.
+ */
+:is(.purplish-cartpage-hidedesc, .purplish-drawer-hidedesc) .wc-block-components-product-metadata__description {
+	display: none;
 }
 
 /*

@@ -140,6 +140,8 @@ final class BlockEffects {
 					'overlay'     => true,
 					// The button on the photo as a full-width bar instead of the pill.
 					'buttonlook'  => array( 'bar' ),
+					// The button under the card with a thin edge, filled on hover.
+					'buttonstyle' => array( 'outline' ),
 					'details'     => true,
 					'motion'      => true,
 					'hover'       => array(
@@ -194,6 +196,11 @@ final class BlockEffects {
 					),
 					'buttonlook'  => array(
 						array( 'overlay', array( true ), true ),
+						array( 'details', array( true ), false ),
+					),
+					// Only for the button under the card.
+					'buttonstyle' => array(
+						array( 'overlay', array( true ), false ),
 						array( 'details', array( true ), false ),
 					),
 					// Roster lays the names out as its own list.
@@ -407,6 +414,8 @@ final class BlockEffects {
 					'layout' => array( 'bar' ),
 					'hover'  => true,
 					'open'   => array( 'grow', 'fold', 'cascade' ),
+					// Chips and the phone filters button at least 44px tall.
+					'tap'    => true,
 				),
 				'needs'   => array(
 					// A bar has no sidebar to fold.
@@ -434,10 +443,12 @@ final class BlockEffects {
 			'woocommerce/mini-cart-contents'              => array(
 				'prefix'  => 'drawer',
 				'options' => array(
-					'spring' => true,
-					'rows'   => true,
-					'photos' => true,
-					'meter'  => true,
+					'spring'   => true,
+					'rows'     => true,
+					'photos'   => true,
+					'meter'    => true,
+					// No short description under each item's name.
+					'hidedesc' => true,
 				),
 				'preview' => true,
 			),
@@ -474,6 +485,8 @@ final class BlockEffects {
 					'glass'    => true,
 					'spectrum' => true,
 					'eyes'     => self::EYES,
+					// The quantity box and the button at one taller height.
+					'large'    => true,
 				),
 				'eyes'    => 'single_add_to_cart_button',
 				'preview' => true,
@@ -556,10 +569,12 @@ final class BlockEffects {
 			'woocommerce/cart'                            => array(
 				'prefix'  => 'cartpage',
 				'options' => array(
-					'rows'   => true,
-					'photos' => true,
-					'sticky' => true,
-					'meter'  => true,
+					'rows'     => true,
+					'photos'   => true,
+					'sticky'   => true,
+					'meter'    => true,
+					// No short description under each item's name.
+					'hidedesc' => true,
 				),
 				'redrawn' => true,
 				'preview' => true,

@@ -114,6 +114,16 @@ export default function FiltersPanel( { saved, setSaved, attributes } ) {
 			/>
 			<ToggleControl
 				__nextHasNoMarginBottom
+				label={ __( 'Tap size', 'purplish' ) }
+				help={ __(
+					'Chips and the button that opens the filters on phones are at least 44px tall, easy to hit with a thumb.',
+					'purplish'
+				) }
+				checked={ true === saved.tap }
+				onChange={ ( on ) => setSaved( { ...saved, tap: on } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
 				label={ __( 'Sidebar can hide', 'purplish' ) }
 				help={
 					bar

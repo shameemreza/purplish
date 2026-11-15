@@ -38,6 +38,14 @@ const LOOKS = [
 			'purplish'
 		),
 	},
+	{
+		key: 'hidedesc',
+		label: __( 'Hide short descriptions', 'purplish' ),
+		help: __(
+			'Each item shows its name, price and quantity without the product’s short description. Variation details such as color and size stay.',
+			'purplish'
+		),
+	},
 	meterLook(
 		__(
 			'Shows how much more the cart needs for free shipping, with a bar, above the cart.',

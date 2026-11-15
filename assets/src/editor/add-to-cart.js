@@ -166,6 +166,16 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 			/>
 			<ToggleControl
 				__nextHasNoMarginBottom
+				label={ __( 'Large buy row', 'purplish' ) }
+				help={ __(
+					'The quantity box and the add to cart button share one 52px height.',
+					'purplish'
+				) }
+				checked={ true === options.large }
+				onChange={ ( large ) => save( { large } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
 				label={ __( 'Liquid glass button', 'purplish' ) }
 				help={ __(
 					'A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button.',
