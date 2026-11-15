@@ -764,6 +764,36 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 /*
+ * Outline button: add to cart runs the width of the card with a thin edge
+ * in the card's text color and no fill. It fills with the effect color on
+ * hover and keyboard focus, as Card hover fills the button does.
+ */
+.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button {
+	justify-content: center;
+	width: 100%;
+	min-height: 44px;
+	border: 1px solid currentcolor;
+	background-color: transparent;
+	color: inherit;
+}
+
+.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button:is(:hover, :focus-visible, .purplish-hover) {
+	border-color: var(--purplish-color);
+	background-color: var(--purplish-color);
+	color: var(--purplish-color-on);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button {
+		transition:
+			background-color 0.2s ease,
+			border-color 0.2s ease,
+			color 0.2s ease;
+	}
+}
+
+/*
  * Cards, details on the photo: the title, price and add to cart sit on the
  * bottom of the photo over a soft shade, the button as the frosted pill
  * beside the price. With a mouse they show on hover or focus; touch screens
