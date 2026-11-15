@@ -96,6 +96,26 @@ body.purplish-classic-gallery-rounded .ct-product-gallery-container > .ct-media-
 	overflow: hidden;
 }
 
+/*
+ * Gallery and Cards, Photo wash: a light tint of the effect color behind
+ * each photo, with the photo multiplied into it, so a studio photo on
+ * white takes the tint instead of sitting in a white box. The tint mixes
+ * into white, not the page, so a dark page doesn't darken the photos.
+ */
+:is(.purplish-gallery-wash, .purplish-cards-wash) {
+	--purplish-wash: color-mix(in oklab, var(--purplish-color, currentcolor) 8%, #fff);
+}
+
+.purplish-gallery-wash :is(.wc-block-product-gallery-large-image, .wc-block-product-gallery-thumbnails__thumbnail),
+.purplish-cards-wash .wc-block-components-product-image {
+	background-color: var(--purplish-wash);
+}
+
+.purplish-gallery-wash :is(.wc-block-product-gallery-large-image, .wc-block-product-gallery-thumbnails__thumbnail) img,
+.purplish-cards-wash .wc-block-components-product-image img {
+	mix-blend-mode: multiply;
+}
+
 /* Gallery: round frosted arrows that show when the shopper hovers the photo. */
 .purplish-gallery-arrows .wc-block-next-previous-buttons {
 	gap: 8px;
@@ -1030,9 +1050,22 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 }
 
 .purplish-cards-hovercard-ring .wc-block-product {
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 	outline: 1px solid transparent;
 	outline-offset: 10px;
+}
+
+/*
+ * Ring settings. Inset draws the ring inside the card; Ruled cards always
+ * do, so the ring never crosses into the next cell. Square follows the
+ * theme's corner token, square without one.
+ */
+:is(.purplish-cards-ringinset, .purplish-cards-ruled.purplish-cards-hovercard-ring) .wc-block-product {
+	outline-offset: -4px;
+}
+
+.purplish-cards-ringsquare .wc-block-product {
+	border-radius: var(--wp--custom--purplish--radius, 0);
 }
 
 [class*="purplish-cards-hoverphoto-"] .wc-block-components-product-image {
@@ -1107,6 +1140,30 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	.purplish-cards-hovercard-ring .wc-block-product:is(:hover, :focus-within) {
 		outline-color: color-mix(in oklab, var(--purplish-color) 35%, transparent);
 		outline-offset: 6px;
+	}
+
+	:is(.purplish-cards-ringinset, .purplish-cards-ruled.purplish-cards-hovercard-ring) .wc-block-product:is(:hover, :focus-within) {
+		outline-offset: -8px;
+	}
+
+	.purplish-cards-ringstrong .wc-block-product:is(:hover, :focus-within) {
+		outline-color: var(--purplish-color);
+	}
+
+	/*
+	 * Card hover fills the button: the whole card runs the button's fill
+	 * and underlines the name, so the card reads as one link.
+	 */
+	.purplish-cards-cardfill .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-button__button {
+		border-color: var(--purplish-color);
+		background-color: var(--purplish-color);
+		color: var(--purplish-color-on);
+	}
+
+	.purplish-cards-cardfill .wc-block-product:is(:hover, :focus-within) .wp-block-post-title a {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
 	}
 
 	:is(.purplish-cards-hovercard-tilt, .purplish-cards-hovercard-torch) .wc-block-product:hover::after,
@@ -4759,16 +4816,16 @@ body.purplish-active .purplish-group-tint {
 
 :is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td:first-child {
 	padding-inline-start: 16px;
-	border-start-start-radius: 16px;
-	border-end-start-radius: 16px;
+	border-start-start-radius: var(--wp--custom--purplish--radius, 16px);
+	border-end-start-radius: var(--wp--custom--purplish--radius, 16px);
 }
 
 /* A flex cell would end at its own content, short of the row's height. */
 :is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td:last-child {
 	display: table-cell;
 	padding-inline-end: 20px;
-	border-start-end-radius: 16px;
-	border-end-end-radius: 16px;
+	border-start-end-radius: var(--wp--custom--purplish--radius, 16px);
+	border-end-end-radius: var(--wp--custom--purplish--radius, 16px);
 }
 
 .purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
@@ -4777,7 +4834,7 @@ body.purplish-active .purplish-group-tint {
 	margin-block-end: 10px;
 	padding: 14px;
 	border: 0;
-	border-radius: 16px;
+	border-radius: var(--wp--custom--purplish--radius, 16px);
 	background: var(--purplish-color-soft);
 	transition: background-color 0.25s ease;
 }
@@ -4821,7 +4878,7 @@ body.purplish-active .purplish-group-tint {
 :is(.purplish-cartpage-photos, .purplish-drawer-photos) .wc-block-cart-item__image img {
 	aspect-ratio: 1;
 	height: auto;
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 	object-fit: cover;
 }
 
@@ -4942,7 +4999,7 @@ body.purplish-active .purplish-group-tint {
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-soft :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-blocks-components-select__container, .wc-block-components-textarea) {
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-soft :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea):not(:focus) {
@@ -4953,21 +5010,21 @@ body.purplish-active .purplish-group-tint {
 /* The option box is the group's ::after. Pseudo-elements can't go in :is(). */
 .purplish-checkoutpage.purplish-checkoutpage-fields-soft :is(.wc-block-components-radio-control--highlight-checked, .wc-block-components-radio-control__option--checked-option-highlighted, .wc-block-components-radio-control-accordion-option--checked-option-highlighted),
 .purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-components-radio-control--highlight-checked::after {
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option:first-child::after {
-	border-start-start-radius: 12px;
-	border-start-end-radius: 12px;
+	border-start-start-radius: var(--wp--custom--purplish--radius, 12px);
+	border-start-end-radius: var(--wp--custom--purplish--radius, 12px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option:last-child::after {
-	border-end-start-radius: 12px;
-	border-end-end-radius: 12px;
+	border-end-start-radius: var(--wp--custom--purplish--radius, 12px);
+	border-end-end-radius: var(--wp--custom--purplish--radius, 12px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-soft .wc-block-components-checkbox .wc-block-components-checkbox__input[type="checkbox"] {
-	border-radius: 6px;
+	border-radius: min(6px, var(--wp--custom--purplish--radius, 6px));
 }
 
 /*
@@ -4975,7 +5032,7 @@ body.purplish-active .purplish-group-tint {
  * shows where it ends. The tint sits over WooCommerce's own background.
  */
 .purplish-checkoutpage.purplish-checkoutpage-fields-filled :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-blocks-components-select__container, .wc-block-components-textarea) {
-	border-radius: 10px 10px 2px 2px;
+	border-radius: var(--wp--custom--purplish--radius, 10px) var(--wp--custom--purplish--radius, 10px) min(2px, var(--wp--custom--purplish--radius, 2px)) min(2px, var(--wp--custom--purplish--radius, 2px));
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-filled :is(.wc-block-components-text-input input:not([type="checkbox"], [type="radio"]), .wc-blocks-components-select__select, .wc-block-components-textarea) {
@@ -4988,7 +5045,7 @@ body.purplish-active .purplish-group-tint {
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-components-radio-control--highlight-checked {
-	border-radius: 10px;
+	border-radius: var(--wp--custom--purplish--radius, 10px);
 	background-color: var(--purplish-field-tint);
 }
 
@@ -4996,15 +5053,15 @@ body.purplish-active .purplish-group-tint {
 .purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-components-radio-control--highlight-checked.wc-block-components-radio-control--highlight-checked::after,
 .purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option.wc-block-components-radio-control-accordion-option::after {
 	border-color: transparent;
-	border-radius: 10px;
+	border-radius: var(--wp--custom--purplish--radius, 10px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-filled :is(.wc-block-components-radio-control__option--checked-option-highlighted, .wc-block-components-radio-control-accordion-option--checked-option-highlighted) {
-	border-radius: 10px;
+	border-radius: var(--wp--custom--purplish--radius, 10px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-fields-filled .wc-block-components-checkbox .wc-block-components-checkbox__input[type="checkbox"] {
-	border-radius: 5px;
+	border-radius: min(5px, var(--wp--custom--purplish--radius, 5px));
 	background-image: linear-gradient(var(--purplish-field-tint), var(--purplish-field-tint));
 }
 
@@ -5044,7 +5101,7 @@ body.purplish-active .purplish-group-tint {
 .purplish-checkoutpage-summary :is(.wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block, .checkout-order-summary-block-fill) {
 	--wc-separator-color: color-mix(in oklab, var(--purplish-color) 18%, transparent);
 	border-color: transparent;
-	border-radius: 20px;
+	border-radius: var(--wp--custom--purplish--radius, 20px);
 	background-color: color-mix(in oklab, var(--purplish-color) 8%, transparent);
 }
 
@@ -5062,7 +5119,7 @@ body.purplish-active .purplish-group-tint {
 	max-width: 64px;
 	aspect-ratio: 1;
 	height: auto;
-	border-radius: 10px;
+	border-radius: var(--wp--custom--purplish--radius, 10px);
 	object-fit: cover;
 }
 
@@ -5099,7 +5156,7 @@ body.purplish-active .purplish-group-tint {
 
 .purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option) {
 	border: 1px solid var(--purplish-choice-line);
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 	box-shadow: none;
 }
 
@@ -5113,7 +5170,8 @@ body.purplish-active .purplish-group-tint {
 .purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)) {
 	border-color: var(--purplish-color);
 	background-color: var(--purplish-choice-tint);
-	box-shadow: 0 0 0 1px var(--purplish-color), 0 10px 24px -14px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+	outline: 1px solid var(--purplish-color);
+	box-shadow: var(--wp--custom--purplish--shadow, 0 10px 24px -14px color-mix(in oklab, var(--purplish-color) 70%, transparent));
 }
 
 @media (hover: hover) {
@@ -5121,20 +5179,20 @@ body.purplish-active .purplish-group-tint {
 	.purplish-checkoutpage.purplish-checkoutpage-choices-cards .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)):hover {
 		border-color: var(--purplish-color);
 		background-color: var(--purplish-choice-tint);
-		box-shadow: 0 0 0 1px var(--purplish-color), 0 10px 24px -14px color-mix(in oklab, var(--purplish-color) 70%, transparent);
+		box-shadow: var(--wp--custom--purplish--shadow, 0 10px 24px -14px color-mix(in oklab, var(--purplish-color) 70%, transparent));
 	}
 }
 
 /* List: one rounded box with a line between every option. */
 .purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked {
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 	background-color: transparent;
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked::after {
 	margin: 0;
 	border: 1px solid var(--purplish-choice-line);
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):not(:first-child)::after {
@@ -5148,13 +5206,13 @@ body.purplish-active .purplish-group-tint {
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):first-child {
-	border-start-start-radius: 12px;
-	border-start-end-radius: 12px;
+	border-start-start-radius: var(--wp--custom--purplish--radius, 12px);
+	border-start-end-radius: var(--wp--custom--purplish--radius, 12px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option, .wc-block-components-radio-control-accordion-option):last-child {
-	border-end-start-radius: 12px;
-	border-end-end-radius: 12px;
+	border-end-start-radius: var(--wp--custom--purplish--radius, 12px);
+	border-end-end-radius: var(--wp--custom--purplish--radius, 12px);
 }
 
 .purplish-checkoutpage.purplish-checkoutpage-choices-list .wc-block-checkout__form .wc-block-components-radio-control--highlight-checked > :is(.wc-block-components-radio-control__option-checked, .wc-block-components-radio-control-accordion-option:has(> .wc-block-components-radio-control__option-checked)) {
@@ -5172,7 +5230,7 @@ body.purplish-active .purplish-group-tint {
 	flex-basis: 408px;
 	width: 408px;
 	padding: 24px;
-	border-radius: 24px;
+	border-radius: var(--wp--custom--purplish--radius, 24px);
 	background-color: color-mix(in oklab, var(--purplish-color) 7%, transparent);
 }
 
@@ -5183,7 +5241,7 @@ body.purplish-active .purplish-group-tint {
 /* With Soft summary, the summary turns into a card in the page color. */
 .purplish-checkoutpage-side.purplish-checkoutpage-summary .wc-block-components-sidebar-layout.is-large .wp-block-woocommerce-checkout-order-summary-block {
 	background-color: var(--wp--preset--color--base, #fff);
-	box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 12px 28px -18px rgb(0 0 0 / 0.35);
+	box-shadow: var(--wp--custom--purplish--shadow, 0 1px 2px rgb(0 0 0 / 0.05), 0 12px 28px -18px rgb(0 0 0 / 0.35));
 }
 
 /*
@@ -5193,9 +5251,9 @@ body.purplish-active .purplish-group-tint {
 .purplish-checkoutpage-cards .wc-block-components-sidebar-layout {
 	padding: clamp(16px, 4vw, 40px);
 	border: 1px solid color-mix(in srgb, currentcolor 8%, transparent);
-	border-radius: 24px;
+	border-radius: var(--wp--custom--purplish--radius, 24px);
 	background-color: var(--wp--preset--color--base, #fff);
-	box-shadow: 0 1px 3px rgb(0 0 0 / 0.06), 0 24px 48px -24px rgb(0 0 0 / 0.25);
+	box-shadow: var(--wp--custom--purplish--shadow, 0 1px 3px rgb(0 0 0 / 0.06), 0 24px 48px -24px rgb(0 0 0 / 0.25));
 }
 
 /*
@@ -5217,7 +5275,7 @@ body.purplish-active .purplish-group-tint {
 .purplish-checkoutpage-summary .wc-block-components-sidebar-layout:not(.is-large) .wc-block-components-checkout-order-summary__title {
 	padding-inline: 16px;
 	border-color: transparent;
-	border-radius: 14px;
+	border-radius: var(--wp--custom--purplish--radius, 14px);
 	background-color: color-mix(in oklab, var(--purplish-color) 8%, transparent);
 }
 

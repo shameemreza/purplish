@@ -13,6 +13,7 @@ import AccordionPanel from './accordion';
 import PaginationPanel from './pagination';
 import TermsPanel from './terms';
 import CountPanel, { CountView } from './count';
+import CatalogSortingPanel, { CatalogSortingView } from './catalog-sorting';
 import GroupPanel from './group';
 import ChipsPanel from './chips';
 import BadgePanel from './badge';
@@ -46,6 +47,7 @@ const PANELS = {
 	'core/query-pagination': PaginationPanel,
 	'core/terms-query': TermsPanel,
 	'woocommerce/product-results-count': CountPanel,
+	'woocommerce/catalog-sorting': CatalogSortingPanel,
 	'core/group': GroupPanel,
 	'woocommerce/add-to-cart-with-options-variation-selector-attribute':
 		ChipsPanel,
@@ -84,6 +86,7 @@ const PANELS = {
 const VIEWS = {
 	'woocommerce/product-stock-indicator': StockView,
 	'woocommerce/product-results-count': CountView,
+	'woocommerce/catalog-sorting': CatalogSortingView,
 };
 
 addFilter(

@@ -85,7 +85,7 @@ On other blocks:
 | Hover style | 3D tilt leans the photo toward the mouse, Zoom magnifies the spot under it, Loupe shows a round magnifier. Lift, Parallax, Glare and Slow zoom add softer motion. |
 | Full-screen style | Snap stack is tinted to the page color, Zoom from photo grows out of the photo, Filmstrip adds small photos along the bottom, Cinema uses a dark screen, Classic fade keeps it plain. |
 | Slide style | 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, Image tunnel comes out of the distance. |
-| Layout | Hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover. |
+| Layout | Hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover. Photo wash puts a light tint of the page color behind the photos and blends them into it, so photos shot on white take the tint. |
 | Thumbnail shape | On the Thumbnails block inside the gallery: rounded or circle. |
 
 Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it. The full-screen style needs the gallery's "Open pop-up when clicked" setting.
@@ -132,6 +132,13 @@ Under the card effect, pick where a hover look plays: the card, the photo, the a
 
 When the card effect already moves a part on hover, that part's look is skipped: Spotlight, Fan deck, Expanded cards, Magnetic panel, Card folder, Deck, Depth, Overlap and Clothes line skip the card look, Color reveal and Bookmark skip the photo look, and Roster has no hover looks. Without an effect color, the looks use your theme's text color. Collections saved with button motion keep it, as the Bag and sweep look.
 
+### Ruled cards and the ring
+
+- **Product Collection, Ruled cards:** thin lines between the cards instead of the gap, with no line on the outer edges at any column count, the grid switch's count included. Each card's add to cart sits at its foot, so the buttons in a row line up. Phones show two cards a row, and the Carousel layout keeps its own spacing.
+- **Product Collection, Photo wash:** a light tint of the effect color behind each photo, with the photo blended into it, so studio photos on white take the tint instead of sitting in white boxes. The tint mixes into white, so a dark page doesn't darken the photos.
+- **Ring settings:** under the Ring card look, Ring inside the card draws the ring just inside the card's edge (Ruled cards always do, and keep their corners square), Square ring follows the theme's corner size (square without one), and Full color ring uses the effect color at full strength.
+- **Card hover fills the button:** hovering anywhere on a card fills its add to cart button with the effect color and underlines the name, so the card reads as one link.
+
 ### Shelf tags and sold out
 
 Two more pieces go inside the card's Product Image block and sit on the photo:
@@ -147,6 +154,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 ### Grid switch
 
 - **Product Collection, Grid switch:** two small buttons after Sort by let shoppers switch the grid between its own column count and a second one you pick, like four columns or two bigger cards. The choice lasts for the visit and is in place before the grid draws, so it holds through filters, page numbers and the next page. The cards move to their new places, and reduced motion switches at once. Without Sort by on the page, the buttons sit above the grid. It needs the Grid layout, and phones keep their grid.
+
+### Sort by
+
+- **Catalog Sorting, Orderings:** pick which orderings Sort by lists: popularity, average rating, latest, and price low to high or high to low. Default sorting always shows, and an ordering a shopper already sorted by stays in the list. Average rating only once a product has one leaves rating out until a product in your store has a rating, so a store without reviews never offers an order that changes nothing. Large makes the select at least 44px tall, as easy to tap as the other shop controls. The editor shows the same list and size.
 
 ### Results change
 
@@ -435,6 +446,26 @@ Purplish's own blocks read their sizes and colors from properties on the block w
 | Runway | `--purplish-runway-mist` (stage and rail background), `--purplish-runway-paper` (the floor fade and every other card), `--purplish-runway-edge` (space at the edges) |
 | Scroll Lookbook | `--purplish-lookbook-card-radius`, `--purplish-lookbook-card-paper`, `--purplish-lookbook-card-ink` (card text color), `--purplish-lookbook-gap`, `--purplish-lookbook-edge` |
 | Wardrobe | `--purplish-wardrobe-radius`, `--purplish-wardrobe-gap` (space between the header and the panel), `--purplish-wardrobe-pad` (space inside the panel), `--purplish-wardrobe-width` (panel width), `--purplish-wardrobe-tint` (tile and look card background) |
+
+### Theme corners and shadow
+
+A theme can set Purplish's corners and shadow once, in `theme.json`. The checkout, Mini-Cart drawer and cart page looks, the Ring card effect and the filter bar's lists read them, and keep their own values when a theme sets neither:
+
+```
+{
+	"version": 3,
+	"settings": {
+		"custom": {
+			"purplish": {
+				"radius": "2px",
+				"shadow": "none"
+			}
+		}
+	}
+}
+```
+
+WordPress prints these as `--wp--custom--purplish--radius` and `--wp--custom--purplish--shadow`. The radius goes on every rounded corner, so `0` gives square corners. Checkboxes keep their small corners when the radius is bigger. The shadow is the soft one under the picked shipping or payment card, the side panel's summary, the raised checkout card and the filter bar's lists. The picked card keeps its ring either way.
 
 ## Why I made it
 
