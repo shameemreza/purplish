@@ -1072,6 +1072,17 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	transition: opacity 0.45s ease;
 }
 
+@keyframes purplish-first-photo-out {
+
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
 .purplish-cards-hoverbutton-glow .wc-block-components-product-button__button {
 	transition: box-shadow 0.35s ease;
 }
@@ -1104,6 +1115,15 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 		opacity: 1;
 	}
 
+	/*
+	 * The main photo steps aside, so it can't show through a see-through
+	 * second photo or a multiplied card. Not while a color dot shows its
+	 * own photo, which hides the second photo instead.
+	 */
+	.purplish-cards-hoverphoto-second .wc-block-product:is(:hover, :focus-within):not(:has(.purplish-color-dots-swap .purplish-color-dots-dot[aria-pressed="true"], .purplish-color-dots-swap-hover:hover)) .wc-block-components-product-image:has(.purplish-second-photo) img:not(.purplish-second-photo, .purplish-swap-old) {
+		opacity: 0;
+	}
+
 	.purplish-cards-hoverphoto-bloom .wc-block-product:is(:hover, :focus-within) .wc-block-components-product-image img {
 		filter: none;
 	}
@@ -1118,6 +1138,14 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 
 /* Looks that move: off under reduced motion and on touch screens. */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	/*
+	 * The main photo fades out with the second photo's timing. An animation,
+	 * not a transition, so card looks that animate the photo keep theirs.
+	 */
+	.purplish-cards-hoverphoto-second .wc-block-product:is(:hover, :focus-within):not(:has(.purplish-color-dots-swap .purplish-color-dots-dot[aria-pressed="true"], .purplish-color-dots-swap-hover:hover)) .wc-block-components-product-image:has(.purplish-second-photo) img:not(.purplish-second-photo, .purplish-swap-old) {
+		animation: purplish-first-photo-out 0.45s ease;
+	}
 
 	.purplish-cards-hovercard-lift .wc-block-product:is(:hover, :focus-within) {
 		transform: translateY(-6px);
