@@ -22,7 +22,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 
 = Built to stay out of your way =
 
-* **Works on the blocks you already use:** Purplish adds a panel to 24 WooCommerce blocks, from the Product Gallery to the Checkout, and to 11 core blocks, like Group, Cover and Button. It replaces nothing.
+* **Works on the blocks you already use:** Purplish adds a panel to 25 WooCommerce blocks, from the Product Gallery to the Checkout, and to 11 core blocks, like Group, Cover and Button. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
 * **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
@@ -34,7 +34,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 * **Product page colors:** when a shopper picks a variation, the add to cart button, the selected option and the sale badge take its color, and the sale price and a soft background tint can too. Purplish reads the color from the product in the photo, or you set it by hand. The photo changes with a transition, like Blur, Wipe or Color wash.
 * **Product gallery:** hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, a photo wash, and rounded or circle thumbnails.
 * **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, ruled cards with thin lines in place of the gap, a photo wash, a hover look for the card, the photo and the button, and one effect color for all of it.
-* **Shop page:** a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs or category photos with the current one marked.
+* **Shop page:** a choice of which orderings Sort by lists, a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs or category photos with the current one marked.
 * **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, and color names under swatches.
 * **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, and a title and price that rise into place.
 * **Mini-Cart:** a count that pops, a photo that flies into the cart icon, and a drawer that opens with a soft spring.
@@ -104,6 +104,8 @@ Install Purplish. Each variation takes its color from its photo by default, and 
 = Does Purplish work with my theme? =
 
 Yes. Block themes get every option through WooCommerce's product blocks. Classic themes get the page colors, the photo transition, the title and price rise, and three gallery options.
+
+A block theme can match Purplish's corners and shadow to its own in `theme.json`, under `settings.custom.purplish` (`radius` and `shadow`). The README on GitHub has an example.
 
 = Does it work with simple products? =
 

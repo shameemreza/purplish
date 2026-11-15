@@ -267,6 +267,20 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// Which orderings show, and a select big enough to tap.
+			'woocommerce/catalog-sorting'                 => array(
+				'prefix'  => 'sorting',
+				'options' => array(
+					'hidepopularity' => true,
+					'hiderating'     => true,
+					'hidedate'       => true,
+					'hideprice'      => true,
+					'hidepricedesc'  => true,
+					'rated'          => true,
+					'size'           => array( 'large' ),
+				),
+				'preview' => true,
+			),
 			'core/terms-query'                            => array(
 				'prefix'  => 'terms',
 				'options' => array(

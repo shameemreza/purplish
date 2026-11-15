@@ -155,6 +155,10 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Product Collection, Grid switch:** two small buttons after Sort by let shoppers switch the grid between its own column count and a second one you pick, like four columns or two bigger cards. The choice lasts for the visit and is in place before the grid draws, so it holds through filters, page numbers and the next page. The cards move to their new places, and reduced motion switches at once. Without Sort by on the page, the buttons sit above the grid. It needs the Grid layout, and phones keep their grid.
 
+### Sort by
+
+- **Catalog Sorting, Orderings:** pick which orderings Sort by lists: popularity, average rating, latest, and price low to high or high to low. Default sorting always shows, and an ordering a shopper already sorted by stays in the list. Average rating only once a product has one leaves rating out until a product in your store has a rating, so a store without reviews never offers an order that changes nothing. Large makes the select at least 44px tall, as easy to tap as the other shop controls. The editor shows the same list and size.
+
 ### Results change
 
 - **Product Collection, Results change:** how the cards change when shoppers filter, sort or change page. Fade brings the new results in softly. Rise brings the cards up one after another. Move slides the cards that stay to their new places and fades the new ones in, so shoppers can see what stayed. Load more keeps its own motion, and Force page reload turns the option off, since each change then loads a new page. Reduced motion shows the new results at once. The script is about 1 KB and loads only on a collection that uses it.
@@ -441,6 +445,26 @@ Purplish's own blocks read their sizes and colors from properties on the block w
 | Runway | `--purplish-runway-mist` (stage and rail background), `--purplish-runway-paper` (the floor fade and every other card), `--purplish-runway-edge` (space at the edges) |
 | Scroll Lookbook | `--purplish-lookbook-card-radius`, `--purplish-lookbook-card-paper`, `--purplish-lookbook-card-ink` (card text color), `--purplish-lookbook-gap`, `--purplish-lookbook-edge` |
 | Wardrobe | `--purplish-wardrobe-radius`, `--purplish-wardrobe-gap` (space between the header and the panel), `--purplish-wardrobe-pad` (space inside the panel), `--purplish-wardrobe-width` (panel width), `--purplish-wardrobe-tint` (tile and look card background) |
+
+### Theme corners and shadow
+
+A theme can set Purplish's corners and shadow once, in `theme.json`. The checkout, Mini-Cart drawer and cart page looks, the Ring card effect and the filter bar's lists read them, and keep their own values when a theme sets neither:
+
+```
+{
+	"version": 3,
+	"settings": {
+		"custom": {
+			"purplish": {
+				"radius": "2px",
+				"shadow": "none"
+			}
+		}
+	}
+}
+```
+
+WordPress prints these as `--wp--custom--purplish--radius` and `--wp--custom--purplish--shadow`. The radius goes on every rounded corner, so `0` gives square corners. Checkboxes keep their small corners when the radius is bigger. The shadow is the soft one under the picked shipping or payment card, the side panel's summary, the raised checkout card and the filter bar's lists. The picked card keeps its ring either way.
 
 ## Why I made it
 
