@@ -95,7 +95,8 @@ final class SecondPhoto {
 
 		// WooCommerce prints this container after the photo, with or
 		// without the product link, so the second photo goes right before it.
-		$marker = '<div class="wc-block-components-product-image__inner-container">';
+		// No closing bracket: WooCommerce 11.3 adds attributes after the class.
+		$marker = '<div class="wc-block-components-product-image__inner-container"';
 		$at     = strpos( $block_content, $marker );
 		if ( false === $at ) {
 			return $block_content;
