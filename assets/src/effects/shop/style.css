@@ -298,9 +298,9 @@
 		margin: 0;
 		padding: 1rem 1.25rem;
 		border: 1px solid color-mix(in srgb, currentcolor 14%, transparent);
-		border-radius: 2px;
+		border-radius: var(--wp--custom--purplish--radius, 2px);
 		background: var(--wp--preset--color--base, Canvas);
-		box-shadow: 0 18px 40px -22px rgb(0 0 0 / 30%);
+		box-shadow: var(--wp--custom--purplish--shadow, 0 18px 40px -22px rgb(0 0 0 / 30%));
 	}
 
 	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-woocommerce-product-filter-active {
@@ -332,7 +332,7 @@
 		height: auto;
 		padding: 1rem 1.25rem !important;
 		border: 1px solid color-mix(in srgb, currentcolor 14%, transparent) !important;
-		box-shadow: 0 18px 40px -22px rgb(0 0 0 / 30%) !important;
+		box-shadow: var(--wp--custom--purplish--shadow, 0 18px 40px -22px rgb(0 0 0 / 30%)) !important;
 		opacity: 0;
 		pointer-events: none;
 		transition: opacity 0.14s ease-out, display 0.18s allow-discrete, content-visibility 0.18s allow-discrete;
