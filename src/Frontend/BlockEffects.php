@@ -443,10 +443,12 @@ final class BlockEffects {
 			'woocommerce/mini-cart-contents'              => array(
 				'prefix'  => 'drawer',
 				'options' => array(
-					'spring' => true,
-					'rows'   => true,
-					'photos' => true,
-					'meter'  => true,
+					'spring'   => true,
+					'rows'     => true,
+					'photos'   => true,
+					'meter'    => true,
+					// No short description under each item's name.
+					'hidedesc' => true,
 				),
 				'preview' => true,
 			),
@@ -567,10 +569,12 @@ final class BlockEffects {
 			'woocommerce/cart'                            => array(
 				'prefix'  => 'cartpage',
 				'options' => array(
-					'rows'   => true,
-					'photos' => true,
-					'sticky' => true,
-					'meter'  => true,
+					'rows'     => true,
+					'photos'   => true,
+					'sticky'   => true,
+					'meter'    => true,
+					// No short description under each item's name.
+					'hidedesc' => true,
 				),
 				'redrawn' => true,
 				'preview' => true,
