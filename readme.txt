@@ -57,14 +57,16 @@ Find them in the Purplish group of the block inserter.
 * **Wardrobe:** a mega menu item for the Navigation block that opens a big panel of category links, photo tiles and a look for each link.
 * **Shelf Tag:** a best seller, new arrival or featured tag on the product photo, as a chip, a pill or frosted glass.
 * **Color Dots:** the colors a product comes in, as dots or swatches on its card. Tap or point at one to see that color's photo.
+* **Escalator:** photos or products ride two or three columns that move in opposite directions, with a hover look and an add to cart button for each tile, for a store home page hero.
 
 = Patterns =
 
-Purplish's 21 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
+Purplish's 23 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
 
 * **Store front:** Flagship home is a full front page with a Showfloor, category tiles, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each of those sections is also its own pattern.
 * **Header and footer:** Flagship header has a Wardrobe Shop menu and a bag pill that condenses on scroll, with Flagship phone menu for small screens. Flagship footer ends on the site name as a big wordmark that rises from the floor.
 * **Shop pages:** Flagship shop is big and photo-led, Atelier shop is quiet with accordion filters, and Boutique shop is dense with a filter sidebar and color swatches.
+* **Heroes:** Escalator hero with products and Escalator hero with photos.
 * **Product showcases:** Hanging rail of new arrivals, Customer stories deck, Runway lookbook and Scroll lookbook storefront.
 * **Cart and checkout:** Empty cart with category tiles and best sellers, Checkout header with Bag, Checkout and Done steps, and a Money-back guarantee card.
 

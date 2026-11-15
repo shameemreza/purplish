@@ -1,0 +1,453 @@
+/**
+ * Escalator: columns of tiles that drift up and down in turn. Each column
+ * holds its tiles twice, so moving the track by half its height closes the
+ * loop. Fonts and colors come from the theme.
+ */
+.wp-block-purplish-escalator {
+	--purplish-escalator-gap: 12px;
+	--purplish-color: var(--purplish-effect, currentcolor);
+	position: relative;
+	height: var(--purplish-escalator-height, 560px);
+}
+
+.purplish-escalator-stage {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--purplish-escalator-gap);
+	height: 100%;
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+	mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+}
+
+.purplish-escalator-columns-2 .purplish-escalator-stage {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.purplish-escalator-column {
+	min-width: 0;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-set {
+	display: flex;
+	flex-direction: column;
+	gap: var(--purplish-escalator-gap);
+	margin: 0;
+	padding: 0 0 var(--purplish-escalator-gap);
+	list-style: none;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-tile {
+	margin: 0;
+}
+
+/* The frame clips the photo to its corners, so a hover look stays inside. */
+.purplish-escalator-frame {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--purplish-escalator-radius, var(--wp--custom--purplish--radius, 12px));
+	background: color-mix(in srgb, currentcolor 6%, transparent);
+}
+
+.purplish-escalator-photo {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-link {
+	display: block;
+	border-radius: var(--purplish-escalator-radius, var(--wp--custom--purplish--radius, 12px));
+	color: inherit;
+	text-decoration: none;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-link:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-escalator-name,
+.purplish-escalator-price {
+	display: block;
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	line-height: 1.4;
+}
+
+.purplish-escalator-name {
+	margin-top: 8px;
+	overflow: hidden;
+	font-weight: 600;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.purplish-escalator-price del {
+	opacity: 0.6;
+}
+
+.purplish-escalator-price ins {
+	text-decoration: none;
+}
+
+/*
+ * Hover looks. The ring is drawn inside the frame so the stage's edges
+ * never clip it. Tiles are still while pointed at, since the columns stop.
+ */
+.purplish-escalator-frame::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	pointer-events: none;
+}
+
+@media (hover: hover) {
+
+	.purplish-escalator-hover-ring .purplish-escalator-tile:hover .purplish-escalator-frame::after {
+		box-shadow: inset 0 0 0 3px var(--purplish-color);
+	}
+}
+
+.purplish-escalator-hover-ring .purplish-escalator-link:focus-visible .purplish-escalator-frame::after {
+	box-shadow: inset 0 0 0 3px var(--purplish-color);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-escalator-hover-lift .purplish-escalator-frame {
+		transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.purplish-escalator-hover-push .purplish-escalator-photo {
+		transition: scale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.purplish-escalator-hover-sweep .purplish-escalator-frame::after {
+		background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.45) 50%, transparent 65%);
+		translate: -110% 0;
+	}
+
+	.purplish-escalator-hover-lift .purplish-escalator-tile:is(:hover, :focus-within) .purplish-escalator-frame {
+		translate: 0 -6px;
+		box-shadow: 0 22px 40px -22px color-mix(in srgb, var(--purplish-color) 60%, #000);
+	}
+
+	.purplish-escalator-hover-push .purplish-escalator-tile:is(:hover, :focus-within) .purplish-escalator-photo {
+		scale: 1.08;
+		transition-duration: 4s;
+	}
+
+	.purplish-escalator-hover-sweep .purplish-escalator-tile:is(:hover, :focus-within) .purplish-escalator-frame::after {
+		translate: 110% 0;
+		transition: translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+}
+
+/*
+ * Add to cart: a bar across the foot of the photo. The photo is always
+ * 4:5, so the tile's width places the bar without wrapping the link. It
+ * shows on hover and keyboard focus where there's a mouse, and always on
+ * touch screens and in the editor.
+ */
+@property --purplish-escalator-spin {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-tile {
+	position: relative;
+	container-type: inline-size;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-cart {
+	display: flex;
+	position: absolute;
+	top: calc(125cqw - 54px);
+	right: 10px;
+	left: 10px;
+	z-index: 1;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	box-sizing: border-box;
+	min-height: 44px;
+	margin: 0;
+	padding: 0 14px;
+	overflow: hidden;
+	border: 0;
+	border-radius: max(0px, calc(var(--purplish-escalator-radius, var(--wp--custom--purplish--radius, 12px)) - 4px));
+	background: var(--purplish-color);
+	color: var(--purplish-effect-on, var(--wp--preset--color--base, #fff));
+	font: inherit;
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	isolation: isolate;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-cart:focus-visible {
+	outline: 2px solid var(--purplish-color);
+	outline-offset: 3px;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-cart:disabled {
+	cursor: progress;
+}
+
+.purplish-escalator-cart-text {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.purplish-escalator-cart-icon {
+	flex: none;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.purplish-escalator-cart-tick {
+	opacity: 0;
+	stroke-dasharray: 14;
+	stroke-dashoffset: 14;
+}
+
+.purplish-escalator-cart.is-added .purplish-escalator-cart-tick {
+	opacity: 1;
+	stroke-dashoffset: 0;
+}
+
+.purplish-escalator-cart.is-added .purplish-escalator-cart-bag {
+	opacity: 0;
+}
+
+/* Liquid glass: the photo shows through, frosted, with a light edge. */
+.purplish-escalator-cart-glass .purplish-escalator-cart {
+	background: color-mix(in oklab, var(--purplish-color) 10%, rgb(255 255 255 / 0.9));
+	color: color-mix(in oklab, var(--purplish-color) 45%, #111);
+	box-shadow:
+		inset 0 0 0 1px rgb(255 255 255 / 0.6),
+		inset 0 1px 0 rgb(255 255 255 / 0.8),
+		0 10px 24px -12px rgb(0 0 0 / 0.35);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+
+	.purplish-escalator-cart-glass .purplish-escalator-cart {
+		background: color-mix(in oklab, var(--purplish-color) 10%, rgb(255 255 255 / 0.55));
+		backdrop-filter: blur(14px) saturate(1.6);
+	}
+}
+
+/* Light sweep: a band of light in the text color crosses the bar. */
+.purplish-escalator-cart-sweep .purplish-escalator-cart::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, currentcolor 35%, transparent) 50%, transparent 70%);
+	translate: -120% 0;
+	pointer-events: none;
+}
+
+/* Spectrum ring: a rainbow edge that runs once round the bar. */
+.purplish-escalator-cart-spectrum .purplish-escalator-cart::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	padding: 2px;
+	border-radius: inherit;
+	background: conic-gradient(from var(--purplish-escalator-spin), #ff4d6d, #ffb703, #8ac926, #1fb5d6, #6a4cff, #ff4d6d);
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.purplish-escalator-cart-spectrum .purplish-escalator-tile:focus-within .purplish-escalator-cart::before,
+.purplish-escalator-cart-spectrum .purplish-escalator-cart.is-added::before {
+	opacity: 1;
+}
+
+@media (hover: hover) {
+
+	.purplish-escalator-cart-spectrum .purplish-escalator-tile:hover .purplish-escalator-cart::before {
+		opacity: 1;
+	}
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.wp-block-purplish-escalator .purplish-escalator-cart {
+		opacity: 0;
+	}
+
+	.wp-block-purplish-escalator .purplish-escalator-tile:is(:hover, :focus-within) .purplish-escalator-cart,
+	.wp-block-purplish-escalator .purplish-escalator-cart.is-added,
+	.editor-styles-wrapper .wp-block-purplish-escalator .purplish-escalator-cart {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.wp-block-purplish-escalator .purplish-escalator-cart {
+		transition: opacity 0.2s ease, background-color 0.3s ease;
+	}
+
+	.purplish-escalator-cart-tick {
+		transition: stroke-dashoffset 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.05s, opacity 0.1s;
+	}
+
+	.purplish-escalator-cart-bag {
+		transition: opacity 0.15s;
+	}
+
+	.purplish-escalator-cart-spectrum .purplish-escalator-cart::before {
+		transition: opacity 0.3s ease, --purplish-escalator-spin 0s linear 0.3s;
+	}
+
+	.purplish-escalator-cart-spectrum .purplish-escalator-tile:is(:hover, :focus-within) .purplish-escalator-cart::before {
+		--purplish-escalator-spin: 360deg;
+		transition: opacity 0.2s ease, --purplish-escalator-spin 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+	}
+
+	.purplish-escalator-cart-sweep .purplish-escalator-tile:is(:hover, :focus-within) .purplish-escalator-cart::after {
+		translate: 120% 0;
+		transition: translate 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+	}
+}
+
+/* The copy of a photo that flies into the Mini-Cart. */
+.purplish-escalator-fly {
+	position: fixed;
+	z-index: 99999;
+	max-width: none;
+	margin: 0;
+	border-radius: 0.375rem;
+	object-fit: cover;
+	box-shadow: 0 0.75rem 1.875rem rgb(20 20 40 / 25%);
+	pointer-events: none;
+}
+
+/* Pause: a round button in the corner, in the block's own colors. */
+.wp-block-purplish-escalator .purplish-escalator-pause {
+	display: grid;
+	position: absolute;
+	right: 12px;
+	bottom: 12px;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 1px solid color-mix(in srgb, currentcolor 20%, transparent);
+	border-radius: 50%;
+	background: var(--wp--preset--color--base, #fff);
+	color: var(--wp--preset--color--contrast, #1e1e1e);
+	cursor: pointer;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-pause[hidden] {
+	display: none;
+}
+
+.wp-block-purplish-escalator .purplish-escalator-pause:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-escalator-pause-bars {
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 2.4;
+	stroke-linecap: round;
+}
+
+.purplish-escalator-pause-go {
+	display: none;
+	fill: currentcolor;
+}
+
+.wp-block-purplish-escalator.is-paused .purplish-escalator-pause-bars {
+	display: none;
+}
+
+.wp-block-purplish-escalator.is-paused .purplish-escalator-pause-go {
+	display: block;
+}
+
+@media (max-width: 600px) {
+
+	.wp-block-purplish-escalator {
+		--purplish-escalator-gap: 8px;
+		height: min(var(--purplish-escalator-height, 560px), 440px);
+	}
+
+	.purplish-escalator-columns-3 .purplish-escalator-stage {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.purplish-escalator-columns-3 .purplish-escalator-column:nth-child(3) {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-escalator-track {
+		animation: purplish-escalator-up var(--purplish-escalator-time, 30s) linear var(--purplish-escalator-start, 0s) infinite;
+	}
+
+	.purplish-escalator-down .purplish-escalator-track {
+		animation-name: purplish-escalator-down;
+	}
+
+	.wp-block-purplish-escalator:is(:hover, :focus-within, .is-paused) .purplish-escalator-track {
+		animation-play-state: paused;
+	}
+}
+
+/* Standing still, the copy that closes the loop isn't needed. */
+@media (prefers-reduced-motion: reduce) {
+
+	.wp-block-purplish-escalator .purplish-escalator-set + .purplish-escalator-set,
+	.wp-block-purplish-escalator .purplish-escalator-pause {
+		display: none;
+	}
+
+	.purplish-escalator-down .purplish-escalator-track {
+		transform: translateY(calc(var(--purplish-escalator-height, 560px) * -0.25));
+	}
+}
+
+@keyframes purplish-escalator-up {
+
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		transform: translateY(-50%);
+	}
+}
+
+@keyframes purplish-escalator-down {
+
+	from {
+		transform: translateY(-50%);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}

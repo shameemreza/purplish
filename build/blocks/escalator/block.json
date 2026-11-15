@@ -1,0 +1,131 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "purplish/escalator",
+  "version": "1.3.2",
+  "title": "Escalator",
+  "category": "purplish",
+  "description": "Photos or products ride two or three columns that move in opposite directions, like the up and down escalators in a department store.",
+  "keywords": [
+    "hero",
+    "products",
+    "photos",
+    "gallery",
+    "marquee"
+  ],
+  "textdomain": "purplish",
+  "attributes": {
+    "source": {
+      "type": "string",
+      "enum": [
+        "products",
+        "photos"
+      ],
+      "default": "products"
+    },
+    "query": {
+      "type": "string",
+      "enum": [
+        "newest",
+        "best",
+        "sale",
+        "featured",
+        "category"
+      ],
+      "default": "newest"
+    },
+    "category": {
+      "type": "integer",
+      "default": 0
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "default": []
+    },
+    "count": {
+      "type": "integer",
+      "default": 9
+    },
+    "columns": {
+      "type": "integer",
+      "enum": [
+        2,
+        3
+      ],
+      "default": 3
+    },
+    "speed": {
+      "type": "string",
+      "enum": [
+        "medium",
+        "slow",
+        "fast"
+      ],
+      "default": "medium"
+    },
+    "height": {
+      "type": "integer",
+      "default": 560
+    },
+    "details": {
+      "type": "string",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "default": "on"
+    },
+    "hover": {
+      "type": "string",
+      "enum": [
+        "none",
+        "ring",
+        "lift",
+        "sweep",
+        "push"
+      ],
+      "default": "none"
+    },
+    "cart": {
+      "type": "string",
+      "enum": [
+        "off",
+        "filled",
+        "glass",
+        "sweep",
+        "spectrum"
+      ],
+      "default": "off"
+    },
+    "color": {
+      "type": "string"
+    },
+    "radius": {
+      "type": "integer"
+    }
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "anchor": true,
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": [
+        "top",
+        "bottom"
+      ]
+    }
+  },
+  "editorScript": "file:./index.js",
+  "viewScript": "file:./view.js",
+  "style": "file:./style-index.css"
+}
