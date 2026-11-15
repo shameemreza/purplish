@@ -4872,6 +4872,14 @@ body.purplish-active .purplish-group-tint {
 }
 
 /*
+ * Cart page and drawer, Hide short descriptions: each item keeps its name,
+ * price, quantity and variation details.
+ */
+:is(.purplish-cartpage-hidedesc, .purplish-drawer-hidedesc) .wc-block-components-product-metadata__description {
+	display: none;
+}
+
+/*
  * Bigger photos, rounded: 120px on a wide Cart page, 96px in the drawer
  * and 80px on a phone, where the row has no more room.
  */
