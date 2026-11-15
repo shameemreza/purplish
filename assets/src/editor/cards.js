@@ -253,6 +253,60 @@ function HoverControls( { saved, save } ) {
 						/>
 					);
 				} ) }
+			{ partsOf( target ).includes( 'card' ) &&
+				! moves &&
+				'ring' === values.hovercard && (
+					<RingSettings saved={ saved } save={ save } />
+				) }
+		</>
+	);
+}
+
+/**
+ * Ring settings, under the Ring card look.
+ *
+ * @param {Object}                    props       Control props.
+ * @param {Object}                    props.saved The block's saved `purplish` attribute.
+ * @param {(changes: Object) => void} props.save  Saves changed keys.
+ */
+function RingSettings( { saved, save } ) {
+	const toggle = ( key, label, help ) => (
+		<ToggleControl
+			key={ key }
+			__nextHasNoMarginBottom
+			label={ label }
+			help={ help }
+			checked={ true === saved[ key ] }
+			onChange={ ( on ) => save( { [ key ]: on || undefined } ) }
+		/>
+	);
+
+	return (
+		<>
+			{ toggle(
+				'ringinset',
+				__( 'Ring inside the card', 'purplish' ),
+				__(
+					'Draws the ring just inside the card’s edge, so it stays in its cell with Ruled cards.',
+					'purplish'
+				)
+			) }
+			{ toggle(
+				'ringsquare',
+				__( 'Square ring', 'purplish' ),
+				__(
+					'Uses the theme’s corner size from theme.json, or square corners without one.',
+					'purplish'
+				)
+			) }
+			{ toggle(
+				'ringstrong',
+				__( 'Full color ring', 'purplish' ),
+				__(
+					'The effect color at full strength instead of a light tint.',
+					'purplish'
+				)
+			) }
 		</>
 	);
 }
@@ -459,6 +513,34 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 					save( { details: details || undefined } )
 				}
 			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Ruled cards', 'purplish' ) }
+				help={
+					'roster' === saved.hover
+						? __(
+								'Roster shows the cards as its own list, so it keeps its spacing.',
+								'purplish'
+							)
+						: __(
+								'Thin lines between the cards instead of the gap, with no line on the outer edges. Each card’s button sits at its foot, so the buttons in a row line up. Phones show two cards a row. The Carousel layout keeps its own spacing.',
+								'purplish'
+							)
+				}
+				checked={ true === saved.ruled && 'roster' !== saved.hover }
+				disabled={ 'roster' === saved.hover }
+				onChange={ ( ruled ) => save( { ruled: ruled || undefined } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Photo wash', 'purplish' ) }
+				help={ __(
+					'A light tint of the effect color behind each photo, with the photo blended into it, so photos on a white background take the tint.',
+					'purplish'
+				) }
+				checked={ true === saved.wash }
+				onChange={ ( wash ) => save( { wash: wash || undefined } ) }
+			/>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
@@ -482,7 +564,24 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 				) ) }
 			</SelectControl>
 			{ 'roster' !== saved.hover && (
-				<HoverControls saved={ saved } save={ save } />
+				<>
+					<HoverControls saved={ saved } save={ save } />
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __(
+							'Card hover fills the button',
+							'purplish'
+						) }
+						help={ __(
+							'Hovering anywhere on a card fills its add to cart button with the effect color and underlines the name. Off on touch screens.',
+							'purplish'
+						) }
+						checked={ true === saved.cardfill }
+						onChange={ ( cardfill ) =>
+							save( { cardfill: cardfill || undefined } )
+						}
+					/>
+				</>
 			) }
 			<BaseControl
 				__nextHasNoMarginBottom

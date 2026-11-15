@@ -32,8 +32,8 @@ Think of a product page that takes the color of the variation a shopper picks, a
 = What Purplish adds to WooCommerce blocks =
 
 * **Product page colors:** when a shopper picks a variation, the add to cart button, the selected option and the sale badge take its color, and the sale price and a soft background tint can too. Purplish reads the color from the product in the photo, or you set it by hand. The photo changes with a transition, like Blur, Wipe or Color wash.
-* **Product gallery:** hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, and rounded or circle thumbnails.
-* **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, a hover look for the card, the photo and the button, and one effect color for all of it.
+* **Product gallery:** hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, a photo wash, and rounded or circle thumbnails.
+* **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, ruled cards with thin lines in place of the gap, a photo wash, a hover look for the card, the photo and the button, and one effect color for all of it.
 * **Shop page:** a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs or category photos with the current one marked.
 * **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, and color names under swatches.
 * **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, and a title and price that rise into place.
