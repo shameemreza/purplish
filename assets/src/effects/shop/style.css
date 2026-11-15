@@ -866,6 +866,54 @@
 }
 
 /*
+ * Chip tab: each term is a chip with a hairline edge, at least 44px tall
+ * so it's easy to tap. The current chip fills with the effect color.
+ */
+.purplish-terms-look-tabs.purplish-terms-tab-chip .wp-block-term-template {
+	gap: 0.5rem;
+	padding: 0.125rem;
+	box-shadow: none;
+}
+
+.purplish-terms-look-tabs.purplish-terms-tab-chip .wp-block-term::after {
+	display: none;
+}
+
+.purplish-terms-look-tabs.purplish-terms-tab-chip .wp-block-term a {
+	display: flex;
+	box-sizing: border-box;
+	align-items: center;
+	min-block-size: 44px;
+	padding: 0.4em 1.1em;
+	border: 1px solid color-mix(in srgb, currentcolor 20%, transparent);
+	border-radius: 999px;
+	transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.purplish-terms-look-tabs.purplish-terms-tab-chip .wp-block-term:focus-within a {
+	border-color: color-mix(in srgb, currentcolor 55%, transparent);
+}
+
+@media (hover: hover) {
+
+	.purplish-terms-look-tabs.purplish-terms-tab-chip .wp-block-term:hover a {
+		border-color: color-mix(in srgb, currentcolor 55%, transparent);
+	}
+}
+
+.purplish-terms-look-tabs.purplish-terms-tab-chip .wp-block-term:is(.current-term, .current-term-ancestor) a {
+	border-color: var(--purplish-color);
+	background: var(--purplish-color);
+	color: var(--purplish-color-on);
+}
+
+/* Wrap: Pill and Chip tabs flow onto more rows instead of scrolling. */
+.purplish-terms-look-tabs.purplish-terms-wrap .wp-block-term-template {
+	flex-wrap: wrap;
+	overflow-x: visible;
+}
+
+/*
  * Terms Query, category photos: each term's Featured Category becomes a
  * photo in a circle (the default), rounded square, square or arch, with
  * the name under it. The photo and the name both open the term. A ring in

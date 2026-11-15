@@ -239,3 +239,27 @@ export function colorStyle( saved ) {
 		'--purplish-effect-on': onColor( color ),
 	};
 }
+
+/**
+ * A block's background from its color settings, as a CSS value, as the
+ * server reads it for the receipt slip: a palette gradient or color, or a
+ * custom one. '' when it has none.
+ *
+ * @param {Object} attributes The block's attributes.
+ * @return {string} The background.
+ */
+export function paperOf( attributes ) {
+	const attrs = attributes || {};
+	if ( attrs.gradient ) {
+		return `var(--wp--preset--gradient--${ attrs.gradient })`;
+	}
+	if ( attrs.backgroundColor ) {
+		return `var(--wp--preset--color--${ attrs.backgroundColor })`;
+	}
+	const color = ( attrs.style && attrs.style.color ) || {};
+	const value = color.gradient || color.background || '';
+	const preset = /^var:preset\|(color|gradient)\|([a-z0-9-]+)$/.exec( value );
+	return preset
+		? `var(--wp--preset--${ preset[ 1 ] }--${ preset[ 2 ] })`
+		: value;
+}

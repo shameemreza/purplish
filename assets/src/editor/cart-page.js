@@ -11,6 +11,8 @@ import { useSettings } from '@wordpress/block-editor';
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
+import meterLook from './meter';
+
 const LOOKS = [
 	{
 		key: 'rows',
@@ -36,6 +38,12 @@ const LOOKS = [
 			'purplish'
 		),
 	},
+	meterLook(
+		__(
+			'Shows how much more the cart needs for free shipping, with a bar, above the cart.',
+			'purplish'
+		)
+	),
 ];
 
 /**
@@ -67,7 +75,7 @@ export default function CartPagePanel( { saved, setSaved } ) {
 				id={ colorId }
 				label={ __( 'Effect color', 'purplish' ) }
 				help={ __(
-					"Tints the soft rows. Without one, they use a light tint of the theme's text color.",
+					"Tints the soft rows and fills the meter's bar. Without one, the rows take a light tint of the theme's text color and the bar takes the text color.",
 					'purplish'
 				) }
 			>

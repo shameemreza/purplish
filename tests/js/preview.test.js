@@ -11,6 +11,7 @@ import {
 	onColor,
 	pageClasses,
 	pageStyle,
+	paperOf,
 } from '../../assets/src/editor/preview-classes';
 
 const buyButton = {
@@ -464,5 +465,33 @@ describe( 'button look', () => {
 				buttonlook: 'bar',
 			} )
 		).toEqual( [ 'purplish-cards', 'purplish-cards-details' ] );
+	} );
+} );
+
+describe( 'paperOf', () => {
+	it( 'reads a palette color or gradient', () => {
+		expect( paperOf( { backgroundColor: 'accent-2' } ) ).toBe(
+			'var(--wp--preset--color--accent-2)'
+		);
+		expect( paperOf( { backgroundColor: 'base', gradient: 'dusk' } ) ).toBe(
+			'var(--wp--preset--gradient--dusk)'
+		);
+	} );
+
+	it( 'reads a custom color, or a palette pick saved in style', () => {
+		expect(
+			paperOf( { style: { color: { background: '#f4efe4' } } } )
+		).toBe( '#f4efe4' );
+		expect(
+			paperOf( {
+				style: { color: { background: 'var:preset|color|base' } },
+			} )
+		).toBe( 'var(--wp--preset--color--base)' );
+	} );
+
+	it( 'gives nothing without a background', () => {
+		expect( paperOf( {} ) ).toBe( '' );
+		expect( paperOf( { style: { color: { text: '#000' } } } ) ).toBe( '' );
+		expect( paperOf( undefined ) ).toBe( '' );
 	} );
 } );

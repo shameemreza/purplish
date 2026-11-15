@@ -69,14 +69,29 @@ export default function TermsPanel( { saved, setSaved } ) {
 					name="tab"
 					label={ __( 'Tab style', 'purplish' ) }
 					help={ __(
-						'Line draws in under a tab on hover and stays under the current one. Pill fills the current tab. Dot puts a small dot under it.',
+						'Line draws in under a tab on hover and stays under the current one. Pill fills the current tab. Dot puts a small dot under it. Chip gives each tab a thin edge and a 44px height, and fills the current one.',
 						'purplish'
 					) }
 					options={ [
 						{ value: '', label: __( 'Line', 'purplish' ) },
 						{ value: 'pill', label: __( 'Pill', 'purplish' ) },
 						{ value: 'dot', label: __( 'Dot', 'purplish' ) },
+						{ value: 'chip', label: __( 'Chip', 'purplish' ) },
 					] }
+				/>
+			) }
+			{ 'tabs' === look && [ 'pill', 'chip' ].includes( saved.tab ) && (
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Wrap onto more rows', 'purplish' ) }
+					help={ __(
+						'Shows every tab, on as many rows as it takes. Off, the tabs stay in one row that scrolls sideways.',
+						'purplish'
+					) }
+					checked={ true === saved.wrap }
+					onChange={ ( wrap ) =>
+						setSaved( { ...saved, wrap: wrap || undefined } )
+					}
 				/>
 			) }
 			{ 'photos' === look && (

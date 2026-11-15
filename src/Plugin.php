@@ -88,6 +88,7 @@ final class Plugin {
 		( new Frontend\CurrentTerm() )->register();
 		( new Frontend\ResultsCount() )->register();
 		( new Frontend\TermPhoto() )->register();
+		( new Frontend\FreeDelivery() )->register();
 		( new Admin\Settings() )->register();
 		( new Blocks\Registry() )->register();
 		( new Patterns() )->register();

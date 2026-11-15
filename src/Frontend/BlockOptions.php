@@ -92,6 +92,7 @@ final class BlockOptions {
 		wp_set_script_translations( self::HANDLE, 'purplish' );
 		wp_add_inline_script( self::HANDLE, 'window.purplishPreview = ' . wp_json_encode( BlockEffects::preview_map() ) . ';', 'before' );
 		wp_add_inline_script( self::HANDLE, 'window.purplishPage = ' . wp_json_encode( self::page_preview() ) . ';', 'before' );
+		wp_add_inline_script( self::HANDLE, 'window.purplishMeter = ' . wp_json_encode( FreeDelivery::sample() ) . ';', 'before' );
 	}
 
 	/**

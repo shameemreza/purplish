@@ -34,11 +34,11 @@ Think of a product page that takes the color of the variation a shopper picks, a
 * **Product page colors:** when a shopper picks a variation, the add to cart button, the selected option and the sale badge take its color, and the sale price and a soft background tint can too. Purplish reads the color from the product in the photo, or you set it by hand. The photo changes with a transition, like Blur, Wipe or Color wash.
 * **Product gallery:** hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, and rounded or circle thumbnails.
 * **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, a hover look for the card, the photo and the button, and one effect color for all of it.
-* **Shop page:** a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs or category photos with the current one marked.
+* **Shop page:** a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs, chips or category photos with the current one marked.
 * **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, and color names under swatches.
 * **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, and a title and price that rise into place.
-* **Mini-Cart:** a count that pops, a photo that flies into the cart icon, and a drawer that opens with a soft spring.
-* **Cart, checkout and order confirmation:** soft rows and bigger photos in the cart, checkout fields and choices in your style, button looks on Place Order, a thank-you moment, and the order details on a paper receipt.
+* **Mini-Cart:** a count that pops, a photo that flies into the cart icon, a drawer that opens with a soft spring, and a free shipping meter.
+* **Cart, checkout and order confirmation:** soft rows, bigger photos and a free shipping meter in the cart, checkout fields and choices in your style, button looks on Place Order, a thank-you moment, and the order details on a paper receipt.
 * **Page sections:** soft accordions, reviews as cards or chat bubbles, striped specification tables, pill, circle or price tag sale badges, boxed page numbers, ringed social icons, and a line through options that can't be bought.
 * **Scroll and hover:** headings that rise or come into focus, sections and columns that come in as they scroll into view, a header that condenses into a floating pill, a seal that turns on hover, Cover scroll and hover looks, and the gallery's hover styles on any Image block.
 
@@ -179,7 +179,7 @@ Select the Checkout block and open the Purplish panel. Fields can be soft, fille
 
 = Can I change the cart drawer and the order confirmation page? =
 
-Yes. The Mini-Cart drawer can open with a soft spring, with the items on soft rows, and Fly to cart sends the product photo into the cart icon. On the order confirmation page, the Order Status heading can rise with a burst of rays behind it once, and the Order Summary can sit on a paper receipt with a torn bottom edge.
+Yes. The Mini-Cart drawer can open with a soft spring, with the items on soft rows, and Fly to cart sends the product photo into the cart icon. On the order confirmation page, the Order Status heading can rise with a burst of rays behind it once, and the Order Summary can sit on a paper receipt with a torn bottom edge, printed on the block's background color. The drawer and the Cart page can show how much more the cart needs for free shipping.
 
 = Can shoppers add a whole outfit to the cart at once? =
 

@@ -1,6 +1,6 @@
 /**
  * The scripts package's webpack config with the four 1.0 bundles and the
- * filters, grid, load more and photo swap scripts kept by name, plus the scripts each block lists in its
+ * filters, grid, free shipping meter, load more and photo swap scripts kept by name, plus the scripts each block lists in its
  * block.json. A new block is a new folder in assets/src/blocks and nothing
  * else here.
  */
@@ -31,6 +31,7 @@ module.exports = {
 		effects: './assets/src/effects/index.js',
 		filters: './assets/src/filters/index.js',
 		grid: './assets/src/grid/index.js',
+		meter: './assets/src/meter/index.js',
 		more: './assets/src/more/index.js',
 		results: './assets/src/results/index.js',
 		swap: './assets/src/swap/index.js',
