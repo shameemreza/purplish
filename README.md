@@ -136,7 +136,7 @@ When the card effect already moves a part on hover, that part's look is skipped:
 
 ### Ruled cards and the ring
 
-- **Product Collection, Ruled cards:** thin lines between the cards instead of the gap, with no line on the outer edges at any column count, the grid switch's count included. Each card's add to cart sits at its foot, so the buttons in a row line up. Phones show two cards a row, and the Carousel layout keeps its own spacing.
+- **Product Collection, Ruled cards:** thin lines between the cards instead of the gap, with no line on the outer edges at any column count, the grid switch's count included. Each card's add to cart sits at its foot, so the buttons in a row line up. Tablet columns sets the cards a row from 600 to 1023 pixels wide, with the lines counted for it, and Closing rule keeps the line under the last row. Phones show two cards a row, and the Carousel layout keeps its own spacing.
 - **Product Collection, Photo wash:** a light tint of the effect color behind each photo, with the photo blended into it, so studio photos on white take the tint instead of sitting in white boxes. The tint mixes into white, so a dark page doesn't darken the photos.
 - **Ring settings:** under the Ring card look, Ring inside the card draws the ring just inside the card's edge (Ruled cards always do, and keep their corners square), Square ring follows the theme's corner size (square without one), and Full color ring uses the effect color at full strength.
 - **Card hover fills the button:** hovering anywhere on a card fills its add to cart button with the effect color and underlines the name, so the card reads as one link.
@@ -185,7 +185,7 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Proceed to Checkout, Place Order and Go to checkout, Looks:** the glow ring, light sweep, liquid glass and spectrum ring from the Button block, in any mix. One effect color drives the glow and the glass. Place Order can also show a small lock before its label. Place Order is in the checkout's Actions block, and Go to checkout is in the Mini-Cart drawer.
 - **Mini-Cart drawer, Looks:** the drawer opens with a soft spring and the items follow one after another. Items can sit on soft rounded rows, with bigger photos.
-- **Mini-Cart drawer and Cart, Free shipping meter:** how much more the cart needs for free shipping, with a bar in the effect color, above the drawer's subtotal and above the Cart page. It counts down to the minimum on your Free shipping method, counting the cart the way WooCommerce does, and updates as items change. A full bar says the order ships free. Without a Free shipping method that has a minimum order amount, no meter shows. Screen readers hear the new amount, and the bar fills without motion for visitors who ask for reduced motion.
+- **Mini-Cart drawer and Cart, Free shipping meter:** how much more the cart needs for free shipping, with a bar in the effect color, above the drawer's subtotal and above the Cart page or at the top of its totals column. It counts down to the minimum on your Free shipping method, counting the cart the way WooCommerce does, and updates as items change. The sentence uses the method's name, such as "Spend $12.00 more for Free UK delivery.", and Meter text and Text once it ships free take your own wording, with `%s` for the amount. A full bar says the order ships free. Without a Free shipping method that has a minimum order amount, no meter shows. Screen readers hear the new amount, and the bar fills without motion for visitors who ask for reduced motion.
 - **Mini-Cart drawer and Cart, Hide short descriptions:** each item shows its name, price and quantity without the product's short description, so rows stay short in a narrow drawer. Variation details such as color and size stay.
 - **Cart, Looks:** items on soft rounded rows, bigger product photos, and totals that stay in view while a long cart scrolls.
 - **Checkout, Looks:** soft, filled or underline fields, a focus ring in the effect color, shipping and payment choices as cards or one list with the picked one tinted, step numbers as badges or a timeline, the order summary on a soft rounded card with a bigger total, a tinted side panel, the whole checkout on a raised card, and bigger order photos. Labels still float, and nothing on the checkout moves.
@@ -466,9 +466,9 @@ Purplish's own blocks read their sizes and colors from properties on the block w
 | Scroll Lookbook | `--purplish-lookbook-card-radius`, `--purplish-lookbook-card-paper`, `--purplish-lookbook-card-ink` (card text color), `--purplish-lookbook-gap`, `--purplish-lookbook-edge` |
 | Wardrobe | `--purplish-wardrobe-radius`, `--purplish-wardrobe-gap` (space between the header and the panel), `--purplish-wardrobe-pad` (space inside the panel), `--purplish-wardrobe-width` (panel width), `--purplish-wardrobe-tint` (tile and look card background) |
 
-### Theme corners and shadow
+### Theme corners, shadow and colors
 
-A theme can set Purplish's corners and shadow once, in `theme.json`. The checkout, Mini-Cart drawer and cart page looks, the Ring card effect and the filter bar's lists read them, and keep their own values when a theme sets neither:
+A theme can set Purplish's corners, shadow, photo wash and ruled lines once, in `theme.json`. The checkout, Mini-Cart drawer and cart page looks, the Ring card effect, the filter bar's lists, Photo wash and Ruled cards read them, and keep their own values when a theme sets none:
 
 ```
 {
@@ -477,14 +477,16 @@ A theme can set Purplish's corners and shadow once, in `theme.json`. The checkou
 		"custom": {
 			"purplish": {
 				"radius": "2px",
-				"shadow": "none"
+				"shadow": "none",
+				"wash": "#f3ead7",
+				"rule": "#d9d4cc"
 			}
 		}
 	}
 }
 ```
 
-WordPress prints these as `--wp--custom--purplish--radius` and `--wp--custom--purplish--shadow`. The radius goes on every rounded corner, so `0` gives square corners. Checkboxes keep their small corners when the radius is bigger. The shadow is the soft one under the picked shipping or payment card, the side panel's summary, the raised checkout card and the filter bar's lists. The picked card keeps its ring either way.
+WordPress prints these as `--wp--custom--purplish--radius`, `--wp--custom--purplish--shadow`, `--wp--custom--purplish--wash` and `--wp--custom--purplish--rule`. The radius goes on every rounded corner, so `0` gives square corners. Checkboxes keep their small corners when the radius is bigger. The shadow is the soft one under the picked shipping or payment card, the side panel's summary, the raised checkout card and the filter bar's lists. The picked card keeps its ring either way. The wash is the color behind gallery and card photos with Photo wash on, in place of the tint of the effect color, so it stays the same for every variation. The rule is the color of the lines between ruled cards.
 
 ## Why I made it
 
