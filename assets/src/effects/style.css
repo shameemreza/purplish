@@ -777,6 +777,17 @@ body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
 	color: inherit;
 }
 
+/*
+ * WooCommerce sets no border and an auto width on the product button at the
+ * same weight as the rule above, and block templates load its CSS after this
+ * file. These two hold one class higher; the rest stays low so other card
+ * looks can still size the button.
+ */
+.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button .wc-block-components-product-button__button {
+	width: 100%;
+	border-style: solid;
+}
+
 .purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button:is(:hover, :focus-visible, .purplish-hover) {
 	border-color: var(--purplish-color);
 	background-color: var(--purplish-color);
