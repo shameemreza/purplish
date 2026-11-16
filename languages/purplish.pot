@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.3.2\n"
+"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/purplish\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-15T16:37:23+00:00\n"
+"POT-Creation-Date: 2026-11-16T03:25:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -1077,7 +1077,7 @@ msgstr ""
 #: assets/src/blocks/showfloor/choices.js:57
 #: assets/src/editor/add-to-cart.js:85
 #: assets/src/editor/add-to-cart.js:128
-#: assets/src/editor/cards.js:569
+#: assets/src/editor/cards.js:607
 #: assets/src/editor/checkout-page.js:16
 #: assets/src/editor/checkout-page.js:23
 #: assets/src/editor/checkout-page.js:29
@@ -1095,6 +1095,7 @@ msgstr ""
 #: build/editor.js:1
 #: build/editor.js:3
 #: build/editor.js:5
+#: build/editor.js:6
 #: build/editor.js:7
 msgid "None"
 msgstr ""
@@ -1819,42 +1820,50 @@ msgstr ""
 msgid "Long coats and soft layers."
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:711
-#: src/Frontend/BlockEffects.php:966
+#: src/Frontend/BlockEffects.php:732
+#: src/Frontend/BlockEffects.php:987
 msgid "Hide filters"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:892
+#: src/Frontend/BlockEffects.php:913
 msgid "Larger cards"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:892
+#: src/Frontend/BlockEffects.php:913
 msgid "Smaller cards"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:896
+#: src/Frontend/BlockEffects.php:917
 msgid "Card size"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:970
+#: src/Frontend/BlockEffects.php:991
 msgid "Show filters"
 msgstr ""
 
 #. translators: %s: amount left to spend, such as $12.00.
-#: src/Frontend/FreeDelivery.php:193
-#: assets/src/meter/index.js:28
+#: src/Frontend/FreeDelivery.php:208
+#: assets/src/editor/meter.js:70
+#: assets/src/meter/index.js:31
+#: build/editor.js:6
 #: build/meter.js:1
 msgid "Your order ships free."
 msgstr ""
 
 #. translators: %s: amount left to spend, such as $12.00.
-#: src/Frontend/FreeDelivery.php:193
-#: assets/src/editor/preview.js:243
-#: assets/src/meter/index.js:32
+#: src/Frontend/FreeDelivery.php:208
+#: assets/src/editor/preview.js:249
+#: assets/src/meter/index.js:37
 #: build/editor.js:7
 #: build/meter.js:2
 #, php-format,js-format
 msgid "Spend %s more for free shipping."
+msgstr ""
+
+#. translators: 1: amount left to spend, such as $12.00, 2: the store's name for its free shipping, such as Free UK delivery.
+#: src/Frontend/FreeDelivery.php:235
+#, php-format
+msgid "Spend %1$s more for %2$s."
 msgstr ""
 
 #: src/Frontend/LoadMore.php:271
@@ -2452,7 +2461,7 @@ msgstr ""
 #: assets/src/blocks/escalator/edit.js:60
 #: assets/src/editor/checkout-page.js:18
 #: build/blocks/escalator/index.js:1
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Filled"
 msgstr ""
 
@@ -2609,10 +2618,10 @@ msgstr ""
 #: assets/src/blocks/escalator/edit.js:330
 #: assets/src/editor/button.js:86
 #: assets/src/editor/buy-button.js:84
-#: assets/src/editor/cards.js:603
-#: assets/src/editor/cart-page.js:84
+#: assets/src/editor/cards.js:641
+#: assets/src/editor/cart-page.js:87
 #: assets/src/editor/checkout-page.js:144
-#: assets/src/editor/drawer.js:85
+#: assets/src/editor/drawer.js:88
 #: assets/src/editor/order-confirmation.js:42
 #: build/blocks/escalator/index.js:2
 #: build/editor.js:3
@@ -4095,96 +4104,121 @@ msgstr ""
 msgid "Thin lines between the cards instead of the gap, with no line on the outer edges. Each card’s button sits at its foot, so the buttons in a row line up. Phones show two cards a row. The Carousel layout keeps its own spacing."
 msgstr ""
 
-#: assets/src/editor/cards.js:550
+#: assets/src/editor/cards.js:553
+#: build/editor.js:7
+msgid "Tablet columns"
+msgstr ""
+
+#: assets/src/editor/cards.js:554
+#: build/editor.js:7
+msgid "Cards a row from 600 to 1023 pixels wide, with the lines counted for it. Pick fewer than the grid’s columns so names don’t wrap. The editor’s Tablet preview shows it."
+msgstr ""
+
+#: assets/src/editor/cards.js:564
+#: build/editor.js:7
+msgid "Same as the grid"
+msgstr ""
+
+#: assets/src/editor/cards.js:574
+#: build/editor.js:7
+msgid "Closing rule"
+msgstr ""
+
+#: assets/src/editor/cards.js:575
+#: build/editor.js:7
+msgid "Keeps the line under the last row, so the grid ends closed, like a ledger."
+msgstr ""
+
+#: assets/src/editor/cards.js:588
 #: assets/src/editor/gallery.js:24
 #: build/editor.js:1
 #: build/editor.js:7
 msgid "Photo wash"
 msgstr ""
 
-#: assets/src/editor/cards.js:551
+#: assets/src/editor/cards.js:589
 #: build/editor.js:7
 msgid "A light tint of the effect color behind each photo, with the photo blended into it, so photos on a white background take the tint."
 msgstr ""
 
-#: assets/src/editor/cards.js:561
+#: assets/src/editor/cards.js:599
 #: build/editor.js:7
 msgid "Card effect"
 msgstr ""
 
-#: assets/src/editor/cards.js:562
+#: assets/src/editor/cards.js:600
 #: build/editor.js:7
 msgid "Carousel effects need the Carousel layout and leave a grid as it is. Roster and Unfold need the Grid layout, and Roster shows the plain grid on phones and touch screens. Momentum, Helix and Reel can also be dragged with the mouse. Visitors who ask for reduced motion see no movement."
 msgstr ""
 
-#: assets/src/editor/cards.js:585
+#: assets/src/editor/cards.js:623
 #: build/editor.js:7
 msgid "Card hover fills the button"
 msgstr ""
 
-#: assets/src/editor/cards.js:589
+#: assets/src/editor/cards.js:627
 #: build/editor.js:7
 msgid "Hovering anywhere on a card fills its add to cart button with the effect color and underlines the name. Off on touch screens."
 msgstr ""
 
-#: assets/src/editor/cards.js:604
+#: assets/src/editor/cards.js:642
 #: build/editor.js:7
 msgid "Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs, the card folder, the bookmark and the hover looks. Without one, the hover looks use the theme’s text color. On a product page with a variation color, that color is used instead."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:19
 #: assets/src/editor/drawer.js:28
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Soft rows"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:20
 #: assets/src/editor/drawer.js:29
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Each item sits on its own rounded card in a light tint of the effect color."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:27
 #: assets/src/editor/checkout-page.js:69
 #: assets/src/editor/drawer.js:36
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Bigger photos"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:28
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Item photos grow from 80 to 120 pixels, or 64 to 80 on phones, with rounded corners."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:35
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Sticky totals"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:36
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "The totals and the checkout button stay in view while a long cart scrolls, when they sit beside the items."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:43
 #: assets/src/editor/drawer.js:44
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Hide short descriptions"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:44
 #: assets/src/editor/drawer.js:45
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Each item shows its name, price and quantity without the product’s short description. Variation details such as color and size stay."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:50
-#: build/editor.js:5
-msgid "Shows how much more the cart needs for free shipping, with a bar, above the cart."
+#: build/editor.js:6
+msgid "Shows how much more the cart needs for free shipping, with a bar, above the cart or at the top of the totals column."
 msgstr ""
 
-#: assets/src/editor/cart-page.js:85
-#: assets/src/editor/drawer.js:86
+#: assets/src/editor/cart-page.js:88
+#: assets/src/editor/drawer.js:89
 #: build/editor.js:7
 msgid "Tints the soft rows and fills the meter's bar. Without one, the rows take a light tint of the theme's text color and the bar takes the text color."
 msgstr ""
@@ -4287,13 +4321,13 @@ msgid "Large"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:17
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Soft"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:19
 #: assets/src/editor/pagination.js:43
-#: build/editor.js:5
+#: build/editor.js:6
 #: build/editor.js:7
 msgid "Underline"
 msgstr ""
@@ -4301,66 +4335,67 @@ msgstr ""
 #: assets/src/editor/checkout-page.js:24
 #: assets/src/editor/specs.js:10
 #: build/editor.js:5
+#: build/editor.js:6
 msgid "Cards"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:25
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "List"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:30
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Badges"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:31
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Timeline"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:37
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Focus ring"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:38
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "The field a shopper is typing in gets a ring in the effect color."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:45
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Soft summary"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:46
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "The order summary sits on a rounded card in a light tint of the effect color, with a bigger, bolder total."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:53
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Side panel"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:54
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "On wide screens, the order summary column sits on a rounded panel in a light tint of the effect color."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:61
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Raised card"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:62
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "The whole checkout sits on a raised card in the page color. Looks best when the checkout is placed on a tinted section."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:70
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Photos in the order summary grow from 48 to 64 pixels, with rounded corners."
 msgstr ""
 
@@ -4527,22 +4562,22 @@ msgid "The block becomes a soft card, and a round plus turns into an x that fill
 msgstr ""
 
 #: assets/src/editor/drawer.js:20
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Spring slide"
 msgstr ""
 
 #: assets/src/editor/drawer.js:21
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "The drawer opens with a soft settle, then the items and the footer follow one after another. Visitors who ask for reduced motion see the plain drawer. It plays on the store, not in the editor."
 msgstr ""
 
 #: assets/src/editor/drawer.js:37
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Item photos grow from 64 to 96 pixels, or to 80 on phones, with rounded corners."
 msgstr ""
 
 #: assets/src/editor/drawer.js:51
-#: build/editor.js:5
+#: build/editor.js:6
 msgid "Shows how much more the cart needs for free shipping, with a bar, above the subtotal."
 msgstr ""
 
@@ -4833,19 +4868,51 @@ msgstr ""
 msgid "Rise and Focus play once as the heading scrolls into view. Rise from the floor follows the scroll: the bottom edge of the heading is the floor, and the heading comes up out of it, made for a big footer wordmark. Visitors who ask for reduced motion see the heading as it is."
 msgstr ""
 
-#: assets/src/editor/meter.js:17
+#: assets/src/editor/meter.js:18
 #: build/editor.js:5
 msgid "Free shipping meter"
 msgstr ""
 
-#: assets/src/editor/meter.js:21
+#: assets/src/editor/meter.js:22
 #: build/editor.js:5
 msgid "It counts down to the minimum on your Free shipping method, as WooCommerce counts the cart, and updates as the cart changes. The editor shows a sample cart."
 msgstr ""
 
-#: assets/src/editor/meter.js:25
+#: assets/src/editor/meter.js:26
 #: build/editor.js:5
 msgid "Your store has no Free shipping method with a minimum order amount, so the store shows no meter. Add one in WooCommerce, Settings, Shipping."
+msgstr ""
+
+#: assets/src/editor/meter.js:51
+#: build/editor.js:5
+msgid "Meter text"
+msgstr ""
+
+#. translators: %s: the placeholder to type, %s.
+#: assets/src/editor/meter.js:54
+#: build/editor.js:6
+#, js-format
+msgid "Use %s where the amount left goes. Leave it empty to use the name of your Free shipping method."
+msgstr ""
+
+#: assets/src/editor/meter.js:69
+#: build/editor.js:6
+msgid "Text once it ships free"
+msgstr ""
+
+#: assets/src/editor/meter.js:80
+#: build/editor.js:6
+msgid "Meter placement"
+msgstr ""
+
+#: assets/src/editor/meter.js:84
+#: build/editor.js:6
+msgid "Above the cart"
+msgstr ""
+
+#: assets/src/editor/meter.js:88
+#: build/editor.js:6
+msgid "Top of the totals column"
 msgstr ""
 
 #: assets/src/editor/mini-cart.js:19

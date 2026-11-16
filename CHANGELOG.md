@@ -2,6 +2,18 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.3.3] - 2026-11-16
+
+### Added
+
+- The free shipping meter names your Free shipping method, takes your own wording, and can sit at the top of the Cart's totals column.
+- Ruled cards can take their own column count on tablets, with the lines counted for it, and a Closing rule keeps the line under the last row.
+- A theme can set the photo wash and the ruled cards' line colors in theme.json, under `settings.custom.purplish`.
+
+### Fixed
+
+- The outline add to cart button on product cards keeps its edge and full width when WooCommerce's button styles load after Purplish's.
+
 ## [1.3.2] - 2026-11-15
 
 ### Added

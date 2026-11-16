@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce blocks, blocks, design, product gallery
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,7 +107,7 @@ Install Purplish. Each variation takes its color from its photo by default, and 
 
 Yes. Block themes get every option through WooCommerce's product blocks. Classic themes get the page colors, the photo transition, the title and price rise, and three gallery options.
 
-A block theme can match Purplish's corners and shadow to its own in `theme.json`, under `settings.custom.purplish` (`radius` and `shadow`). The README on GitHub has an example.
+A block theme can match Purplish's corners, shadow, photo wash and ruled lines to its own in `theme.json`, under `settings.custom.purplish` (`radius`, `shadow`, `wash` and `rule`). The README on GitHub has an example.
 
 = Does it work with simple products? =
 
@@ -239,6 +239,13 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 
 == Changelog ==
 
+= 1.3.3 =
+
+* New: The free shipping meter names your Free shipping method, takes your own wording, and can sit at the top of the Cart's totals column.
+* New: Ruled cards can take their own column count on tablets, with the lines counted for it, and a Closing rule keeps the line under the last row.
+* New: A theme can set the photo wash and the ruled cards' line colors in theme.json, under `settings.custom.purplish`.
+* Fix: The outline add to cart button on product cards keeps its edge and full width when WooCommerce's button styles load after Purplish's.
+
 = 1.3.2 =
 
 * New: Escalator, a block of photo or product tiles that drift past in opposite columns, with a pause button, a hover look and an add to cart button on each tile. Two hero patterns use it.
@@ -256,31 +263,5 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 = 1.3.1 =
 
 * Fix: On phones, the Atelier and Boutique shop filters now open above a sticky or fixed theme header, so the close button and the first filter can be tapped again. Pages built from the 1.3.0 patterns get the fix too.
-
-= 1.3.0 =
-
-* New: Showfloor, a shop-the-look block. Cut-out looks stand on a floor that turns, and visitors add one piece or the whole look to the cart.
-* New: Showfloor looks can come from a pattern, with eight drawn figures in the plugin.
-* New: Wardrobe, a mega menu item for the Navigation block that opens a panel of blocks.
-* New: Changing Room, a try-on block. Tops and bottoms turn in two rings around a model, and visitors drag a piece on, check its sizes and add the outfit to the cart.
-* New: Shelf Tag, a block for Best seller, New arrival and Featured tags on product cards.
-* New: Color Dots, a block that shows the colors a product comes in on its card. A dot can swap the card photo to its color.
-* New: Flagship patterns: a full store home page with each section also its own pattern, plus a header, a phone menu and a footer.
-* New: Three shop page patterns: Flagship, Atelier and Boutique.
-* New: Empty cart, Checkout header and Money-back guarantee card patterns.
-* New: Condense on scroll for the Group block, a sticky header that narrows into a floating pill as the page scrolls. Group also gets Turn on hover.
-* New: Rise from the floor for the Heading block, and a Ring look for Social Icons.
-* New: Push in, Tilt, Lift and Glare on hover for the Cover block. Featured Category and Featured Product get the same hovers and the Cover scroll looks, and a Cover can use the category photo on category pages.
-* New: Product Filters can sit in one row with a dropdown for each, fold the sidebar away, and show color names under swatches.
-* New: Product Collection gets a grid switch for shoppers, cards that move when the results change, and an add to cart bar on the photo.
-* New: Load more and page number looks for Pagination, Tabs and Category photos looks for Terms Query, and count looks for Product Results Count.
-* New: A sold-out look for the Stock Indicator, and a drawn line and chevron for the Accordion.
-* New: Abilities for AI agents: read the design catalog and a page's designs, set a block's design and insert a pattern.
-* Fix: The Circle sale badge stays small when WooCommerce shows a discount amount.
-* Fix: Googly eyes and liquid glass now follow the mouse on buttons inside the Cart and Checkout blocks.
-* Fix: Keyboard, screen reader and touch gaps across the blocks and effects. Hover looks stay off after a tap on phones.
-* Fix: The page tint, Cart rows and Flagship's Best sellers and Just in stay readable in a theme's dark style.
-* Fix: The classic gallery options now work on Blocksy's product gallery.
-* Fix: Gallery hover styles follow the mouse over the photo on themes that keep WooCommerce's gallery.
 
 [See changelog for all versions](https://github.com/shameemreza/purplish/blob/main/CHANGELOG.md).
