@@ -1,7 +1,8 @@
 /*
  * A theme sets its corners and its shadow once, in theme.json under
  * settings.custom.purplish, and the checkout, drawer, cart page, card ring
- * and filter bar looks follow.
+ * and filter bar looks follow. The photo wash and the ruled cards' lines
+ * take their colors from there too.
  */
 import { describe, expect, it } from '@jest/globals';
 import { readFileSync } from 'fs';
@@ -9,6 +10,8 @@ import { join } from 'path';
 
 const RADIUS = '--wp--custom--purplish--radius';
 const SHADOW = '--wp--custom--purplish--shadow';
+const WASH = '--wp--custom--purplish--wash';
+const RULE = '--wp--custom--purplish--rule';
 
 const FOLLOWS =
 	/purplish-checkoutpage|purplish-(?:drawer|cartpage)-(?:rows|photos)|purplish-cards-hovercard-ring|purplish-filters-layout-bar/;
@@ -48,10 +51,23 @@ const declarations = ( file ) => {
 	return found;
 };
 
-const all = [
+const every = [
 	...declarations( 'assets/src/effects/style.css' ),
 	...declarations( 'assets/src/effects/shop/style.css' ),
-].filter( ( { selector } ) => FOLLOWS.test( selector ) );
+];
+
+const all = every.filter( ( { selector } ) => FOLLOWS.test( selector ) );
+
+/**
+ * The values a stylesheet gives one custom property.
+ *
+ * @param {string} name The custom property.
+ * @return {string[]} Its values, one per rule.
+ */
+const setsOf = ( name ) =>
+	every
+		.filter( ( { property } ) => property === name )
+		.map( ( { value } ) => value );
 
 describe( 'theme tokens', () => {
 	it( 'reads every corner from the radius token', () => {
@@ -97,6 +113,18 @@ describe( 'theme tokens', () => {
 
 		expect( picked.map( ( { value } ) => value ) ).toEqual( [
 			'1px solid var(--purplish-color)',
+		] );
+	} );
+
+	it( 'takes the photo wash from the theme, or tints the effect color', () => {
+		expect( setsOf( '--purplish-wash' ) ).toEqual( [
+			`var(${ WASH }, color-mix(in oklab, var(--purplish-color, currentcolor) 8%, #fff))`,
+		] );
+	} );
+
+	it( 'takes the ruled cards’ line color from the theme, or the text color', () => {
+		expect( setsOf( '--purplish-rule' ) ).toEqual( [
+			`var(${ RULE }, color-mix(in srgb, currentcolor 14%, transparent))`,
 		] );
 	} );
 } );
