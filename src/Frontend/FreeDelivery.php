@@ -51,13 +51,15 @@ final class FreeDelivery {
 	 * @return string
 	 */
 	public function drawer( $html, $block ) {
-		$meter = self::wanted( $block ) ? self::markup( self::color( $block ) ) : '';
+		$meter = self::wanted( $block ) ? self::markup( self::color( $block ), '', self::saved( $block ) ) : '';
 		return '' === $meter ? $html : Markup::prepend_inside( $html, 'wc-block-mini-cart__footer', $meter );
 	}
 
 	/**
 	 * Adds the meter before the Cart block, at the block's width. React
 	 * redraws everything inside the block, so the meter sits beside it.
+	 * Placed in the totals column, it prints hidden there and the script
+	 * moves it to the top of the column once WooCommerce draws it.
 	 *
 	 * @param string $html  Rendered block.
 	 * @param array  $block Parsed block.
@@ -75,8 +77,20 @@ final class FreeDelivery {
 				$align = $tags->has_class( $class ) ? ' ' . $class : $align;
 			}
 		}
-		$meter = self::markup( self::color( $block ), 'purplish-meter-page' . $align );
+		$saved = self::saved( $block );
+		$extra = isset( $saved['meterplace'] ) && 'totals' === $saved['meterplace'] ? 'purplish-meter-totals' : 'purplish-meter-page' . $align;
+		$meter = self::markup( self::color( $block ), $extra, $saved );
 		return '' === $meter ? $html : $meter . $html;
+	}
+
+	/**
+	 * The block's saved Purplish options.
+	 *
+	 * @param array $block Parsed block.
+	 * @return array
+	 */
+	private static function saved( $block ) {
+		return isset( $block['attrs']['purplish'] ) && is_array( $block['attrs']['purplish'] ) ? $block['attrs']['purplish'] : array();
 	}
 
 	/**
@@ -143,6 +157,7 @@ final class FreeDelivery {
 		$left = $method ? 0.4 * (float) wc_format_decimal( $method->min_amount ) : 20;
 		return array(
 			'ready'  => null !== $method,
+			'left'   => self::sentences( $method )['left'],
 			'amount' => function_exists( 'wc_price' ) ? html_entity_decode( wp_strip_all_tags( wc_price( $left ) ), ENT_QUOTES, 'UTF-8' ) : '',
 			'share'  => 0.6,
 		);
@@ -194,13 +209,47 @@ final class FreeDelivery {
 	}
 
 	/**
+	 * The meter's two sentences: the block's own wording when it has some,
+	 * else the countdown names the Free shipping method by its title, so
+	 * the meter and the shipping options call it the same thing. A title
+	 * left as WooCommerce's default keeps the plain sentence.
+	 *
+	 * @param \WC_Shipping_Method|null $method The Free shipping method.
+	 * @param array                    $saved  The block's saved options.
+	 * @return array{left: string, done: string} The amount-left sentence has `%s` for the amount.
+	 */
+	public static function sentences( $method, $saved = array() ) {
+		$own = array();
+		foreach ( array(
+			'left' => 'metertext',
+			'done' => 'meterdone',
+		) as $key => $option ) {
+			$own[ $key ] = isset( $saved[ $option ] ) && is_string( $saved[ $option ] ) ? sanitize_text_field( $saved[ $option ] ) : '';
+		}
+
+		$left  = self::sentence( false );
+		$title = $method ? trim( wp_strip_all_tags( (string) $method->get_title() ) ) : '';
+		$plain = $method ? array( 'free shipping', strtolower( (string) $method->get_method_title() ) ) : array();
+		if ( '' !== $title && ! in_array( strtolower( $title ), $plain, true ) ) {
+			/* translators: 1: amount left to spend, such as $12.00, 2: the store's name for its free shipping, such as Free UK delivery. */
+			$left = sprintf( __( 'Spend %1$s more for %2$s.', 'purplish' ), '%s', $title );
+		}
+
+		return array(
+			'left' => '' !== $own['left'] ? $own['left'] : $left,
+			'done' => '' !== $own['done'] ? $own['done'] : self::sentence( true ),
+		);
+	}
+
+	/**
 	 * The meter, or '' when the store has no minimum to count down to.
 	 *
 	 * @param string $color Effect color, or ''.
 	 * @param string $extra Extra class.
+	 * @param array  $saved The block's saved options, for its wording.
 	 * @return string
 	 */
-	public static function markup( $color = '', $extra = '' ) {
+	public static function markup( $color = '', $extra = '', $saved = array() ) {
 		$method = self::method();
 		if ( ! $method ) {
 			return '';
@@ -214,9 +263,10 @@ final class FreeDelivery {
 		$share     = $done ? 1 : max( 0, min( 1, $counted / $min ) );
 		$minor     = 10 ** wc_get_price_decimals();
 
-		$text = esc_html( self::sentence( true ) );
+		$says = self::sentences( $method, $saved );
+		$text = esc_html( $says['done'] );
 		if ( ! $done ) {
-			$parts = explode( '%s', esc_html( self::sentence( false ) ), 2 );
+			$parts = explode( '%s', esc_html( $says['left'] ), 2 );
 			$text  = $parts[0] . '<strong>' . wp_kses_post( wc_price( $min - $counted ) ) . '</strong>' . ( isset( $parts[1] ) ? $parts[1] : '' );
 		}
 
@@ -224,7 +274,7 @@ final class FreeDelivery {
 
 		$style = '--purplish-meter:' . round( $share, 4 ) . ';' . ( $color ? '--purplish-effect:' . $color . ';' : '' );
 		return sprintf(
-			'<div class="%1$s" data-min="%2$d" data-tax="%3$d" data-discounts="%4$d" data-either="%5$d" data-endpoint="%6$s" style="%7$s"%8$s><p class="purplish-meter-text" role="status">%9$s</p><div class="purplish-meter-bar" aria-hidden="true"><span></span></div></div>',
+			'<div class="%1$s" data-min="%2$d" data-tax="%3$d" data-discounts="%4$d" data-either="%5$d" data-endpoint="%6$s" data-left="%10$s" data-done="%11$s" style="%7$s"%8$s><p class="purplish-meter-text" role="status">%9$s</p><div class="purplish-meter-bar" aria-hidden="true"><span></span></div></div>',
 			esc_attr( trim( 'purplish-meter ' . ( $done ? 'is-done ' : '' ) . $extra ) ),
 			(int) round( $min * $minor ),
 			$cart->display_prices_including_tax() ? 1 : 0,
@@ -233,7 +283,9 @@ final class FreeDelivery {
 			esc_url( rest_url( 'wc/store/v1/cart' ) ),
 			esc_attr( $style ),
 			$cart->is_empty() ? ' hidden' : '',
-			$text
+			$text,
+			esc_attr( $says['left'] ),
+			esc_attr( $says['done'] )
 		);
 	}
 

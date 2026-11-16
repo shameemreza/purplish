@@ -11,7 +11,7 @@ import { useSettings } from '@wordpress/block-editor';
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
-import meterLook from './meter';
+import meterLook, { MeterSettings } from './meter';
 
 const LOOKS = [
 	{
@@ -48,7 +48,7 @@ const LOOKS = [
 	},
 	meterLook(
 		__(
-			'Shows how much more the cart needs for free shipping, with a bar, above the cart.',
+			'Shows how much more the cart needs for free shipping, with a bar, above the cart or at the top of the totals column.',
 			'purplish'
 		)
 	),
@@ -78,6 +78,9 @@ export default function CartPagePanel( { saved, setSaved } ) {
 					onChange={ ( on ) => save( { [ look.key ]: on } ) }
 				/>
 			) ) }
+			{ true === saved.meter && (
+				<MeterSettings saved={ saved } save={ save } placement />
+			) }
 			<BaseControl
 				__nextHasNoMarginBottom
 				id={ colorId }

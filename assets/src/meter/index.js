@@ -13,25 +13,28 @@ import { counted, money, offersFree, standing } from './math';
 const METER = '.purplish-meter';
 
 /**
- * The meter's sentence, with the amount in bold.
+ * The meter's sentence, with the amount in bold. The server prints the
+ * block's wording on the meter; these are for a meter without it.
  *
- * @param {HTMLElement} text   The sentence element.
+ * @param {HTMLElement} meter  The meter.
  * @param {string}      amount The amount left, formatted, or '' when the cart ships free.
  */
-function write( text, amount ) {
+function write( meter, amount ) {
+	const text = meter.querySelector( '.purplish-meter-text' );
 	const key = amount || 'done';
 	if ( text.dataset.said === key ) {
 		return;
 	}
 	text.dataset.said = key;
 	if ( ! amount ) {
-		text.textContent = __( 'Your order ships free.', 'purplish' );
+		text.textContent =
+			meter.dataset.done || __( 'Your order ships free.', 'purplish' );
 		return;
 	}
-	/* translators: %s: amount left to spend, such as $12.00. */
-	const [ before, after = '' ] = __(
-		'Spend %s more for free shipping.',
-		'purplish'
+	const [ before, after = '' ] = (
+		meter.dataset.left ||
+		/* translators: %s: amount left to spend, such as $12.00. */
+		__( 'Spend %s more for free shipping.', 'purplish' )
 	).split( '%s' );
 	const strong = document.createElement( 'strong' );
 	strong.textContent = amount;
@@ -60,10 +63,7 @@ function draw( cart ) {
 		);
 		meter.classList.toggle( 'is-done', now.done );
 		meter.style.setProperty( '--purplish-meter', now.share.toFixed( 4 ) );
-		write(
-			meter.querySelector( '.purplish-meter-text' ),
-			now.done ? '' : money( now.left, cart.totals )
-		);
+		write( meter, now.done ? '' : money( now.left, cart.totals ) );
 	} );
 }
 
@@ -119,7 +119,35 @@ function watchStore() {
 	} );
 }
 
+/**
+ * Moves a Cart page meter set to the totals column to the top of that
+ * column, and back in whenever WooCommerce draws the column again. The
+ * server prints it before the Cart block, where it stays hidden.
+ */
+function placeInTotals() {
+	document
+		.querySelectorAll( '.purplish-meter-totals' )
+		.forEach( ( meter ) => {
+			const cart = meter.nextElementSibling;
+			if ( ! cart || ! cart.matches( '.wp-block-woocommerce-cart' ) ) {
+				return;
+			}
+			const place = () => {
+				const column = cart.querySelector( '.wc-block-cart__sidebar' );
+				if ( column && column.firstElementChild !== meter ) {
+					column.prepend( meter );
+				}
+			};
+			place();
+			new window.MutationObserver( place ).observe( cart, {
+				childList: true,
+				subtree: true,
+			} );
+		} );
+}
+
 if ( document.querySelector( METER ) ) {
+	placeInTotals();
 	document.body.addEventListener( 'wc-blocks_added_to_cart', refresh );
 	document.body.addEventListener( 'wc-blocks_removed_from_cart', refresh );
 	window.addEventListener( 'wc-blocks_store_sync_required', refresh );

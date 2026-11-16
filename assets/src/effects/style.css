@@ -5057,6 +5057,15 @@ body.purplish-active .purplish-group-tint {
 	margin-block-end: 1.5rem;
 }
 
+/* Set to the totals column, it waits hidden until the script moves it there. */
+.purplish-meter-totals {
+	display: none;
+}
+
+.wc-block-cart__sidebar > .purplish-meter-totals:not([hidden]) {
+	display: grid;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
 	.purplish-meter-bar > span {

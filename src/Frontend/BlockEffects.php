@@ -569,12 +569,19 @@ final class BlockEffects {
 			'woocommerce/cart'                            => array(
 				'prefix'  => 'cartpage',
 				'options' => array(
-					'rows'     => true,
-					'photos'   => true,
-					'sticky'   => true,
-					'meter'    => true,
+					'rows'       => true,
+					'photos'     => true,
+					'sticky'     => true,
+					'meter'      => true,
+					// The meter at the top of the totals column instead of above the cart.
+					'meterplace' => array( 'totals' ),
 					// No short description under each item's name.
-					'hidedesc' => true,
+					'hidedesc'   => true,
+				),
+				'needs'   => array(
+					'meterplace' => array(
+						array( 'meter', array( true ), true ),
+					),
 				),
 				'redrawn' => true,
 				'preview' => true,
