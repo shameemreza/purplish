@@ -1109,9 +1109,10 @@
  * being edited. The cells stay square, so a card look's rounded corner
  * can't bend the lines. The last row has no rule under it, unless Closing
  * rule keeps it, and a tablet count, when set, runs from 600px to 1023px.
+ * A theme's settings.custom.purplish.rule sets the line color.
  */
 .purplish-cards-ruled {
-	--purplish-rule: color-mix(in srgb, currentcolor 14%, transparent);
+	--purplish-rule: var(--wp--custom--purplish--rule, color-mix(in srgb, currentcolor 14%, transparent));
 }
 
 .purplish-cards-ruled.purplish-cards-ruledclose {

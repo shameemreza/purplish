@@ -101,9 +101,10 @@ body.purplish-classic-gallery-rounded .ct-product-gallery-container > .ct-media-
  * each photo, with the photo multiplied into it, so a studio photo on
  * white takes the tint instead of sitting in a white box. The tint mixes
  * into white, not the page, so a dark page doesn't darken the photos.
+ * A theme's settings.custom.purplish.wash replaces the tint.
  */
 :is(.purplish-gallery-wash, .purplish-cards-wash) {
-	--purplish-wash: color-mix(in oklab, var(--purplish-color, currentcolor) 8%, #fff);
+	--purplish-wash: var(--wp--custom--purplish--wash, color-mix(in oklab, var(--purplish-color, currentcolor) 8%, #fff));
 }
 
 .purplish-gallery-wash :is(.wc-block-product-gallery-large-image, .wc-block-product-gallery-thumbnails__thumbnail),
