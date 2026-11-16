@@ -214,6 +214,43 @@ class CardEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The tablet count and Closing rule print only with Ruled cards, and
+	 * not under Roster.
+	 */
+	public function test_ruled_tablet_and_closing_rule() {
+		$saved = array(
+			'tablet'     => '3',
+			'ruledclose' => true,
+		);
+
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-ruled', 'purplish-cards-tablet-3', 'purplish-cards-ruledclose' ),
+			BlockEffects::classes_for( 'woocommerce/product-collection', $saved + array( 'ruled' => true ) )
+		);
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-collection', $saved ) );
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-hover-roster' ),
+			BlockEffects::classes_for(
+				'woocommerce/product-collection',
+				$saved + array(
+					'ruled' => true,
+					'hover' => 'roster',
+				)
+			)
+		);
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-ruled' ),
+			BlockEffects::classes_for(
+				'woocommerce/product-collection',
+				array(
+					'ruled'  => true,
+					'tablet' => '6',
+				)
+			)
+		);
+	}
+
+	/**
 	 * The ring settings print only while the Ring card look plays: on the
 	 * card or all, with no card effect that moves the card.
 	 */

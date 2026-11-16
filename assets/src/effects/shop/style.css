@@ -1107,10 +1107,15 @@
  * button at its foot, so the buttons in a row line up. A carousel keeps
  * its own layout. The counts skip the editor's hidden copy of the card
  * being edited. The cells stay square, so a card look's rounded corner
- * can't bend the lines.
+ * can't bend the lines. The last row has no rule under it, unless Closing
+ * rule keeps it, and a tablet count, when set, runs from 600px to 1023px.
  */
 .purplish-cards-ruled {
 	--purplish-rule: color-mix(in srgb, currentcolor 14%, transparent);
+}
+
+.purplish-cards-ruled.purplish-cards-ruledclose {
+	--purplish-ruled-foot: 1px;
 }
 
 .purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) {
@@ -1149,7 +1154,7 @@
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-2 > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])),
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-2 > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-3 {
@@ -1166,7 +1171,7 @@
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-3 > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])),
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-3 > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-4 {
@@ -1183,7 +1188,7 @@
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-4 > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])),
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-4 > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-5 {
@@ -1200,7 +1205,7 @@
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-5 > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])),
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-5 > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-6 {
@@ -1217,7 +1222,7 @@
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-6 > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])),
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal).columns-6 > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) {
@@ -1239,7 +1244,7 @@
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])),
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-2 .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) {
@@ -1261,7 +1266,7 @@
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])),
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-3 .wc-block-product-template:not(.is-horizontal) > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) {
@@ -1283,7 +1288,7 @@
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])),
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-4 .wc-block-product-template:not(.is-horizontal) > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) {
@@ -1305,7 +1310,7 @@
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])),
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-5 .wc-block-product-template:not(.is-horizontal) > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) {
@@ -1327,7 +1332,103 @@
 
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])),
 	:root[data-purplish-grid="other"] .purplish-cards-ruled.purplish-cards-grid-6 .wc-block-product-template:not(.is-horizontal) > li:nth-child(6n+1 of :not([style*="display: none"])):nth-last-child(-n+6 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
+	}
+}
+
+/*
+ * Ruled cards on a tablet: the tablet count, with the right edge and the
+ * last row counted for it. A count a shopper picks with the grid switch
+ * wins.
+ */
+@media (width >= 600px) and (width < 1024px) {
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-2 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-2 .wc-block-product-template:not(.is-horizontal)[class*="columns-"].is-flex-container > li {
+		width: calc(100% / 2);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-2 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(n of :not([style*="display: none"])) {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-2 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(2n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-2 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])),
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-2 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])) ~ li {
+		border-block-end-width: var(--purplish-ruled-foot, 0);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-3 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-3 .wc-block-product-template:not(.is-horizontal)[class*="columns-"].is-flex-container > li {
+		width: calc(100% / 3);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-3 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(n of :not([style*="display: none"])) {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-3 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(3n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-3 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])),
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-3 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(3n+1 of :not([style*="display: none"])):nth-last-child(-n+3 of :not([style*="display: none"])) ~ li {
+		border-block-end-width: var(--purplish-ruled-foot, 0);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-4 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-4 .wc-block-product-template:not(.is-horizontal)[class*="columns-"].is-flex-container > li {
+		width: calc(100% / 4);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-4 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(n of :not([style*="display: none"])) {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-4 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(4n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-4 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])),
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-4 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(4n+1 of :not([style*="display: none"])):nth-last-child(-n+4 of :not([style*="display: none"])) ~ li {
+		border-block-end-width: var(--purplish-ruled-foot, 0);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-5 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-5 .wc-block-product-template:not(.is-horizontal)[class*="columns-"].is-flex-container > li {
+		width: calc(100% / 5);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-5 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(n of :not([style*="display: none"])) {
+		border-inline-end: 1px solid var(--purplish-rule);
+		border-block-end: 1px solid var(--purplish-rule);
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-5 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(5n of :not([style*="display: none"])) {
+		border-inline-end: 0;
+	}
+
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-5 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])),
+	:root:not([data-purplish-grid="other"]) .purplish-cards-ruled.purplish-cards-tablet-5 .wc-block-product-template:not(.is-horizontal)[class*="columns-"] > li:nth-child(5n+1 of :not([style*="display: none"])):nth-last-child(-n+5 of :not([style*="display: none"])) ~ li {
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 }
 
@@ -1347,7 +1448,7 @@
 
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])),
 	.purplish-cards-ruled .wc-block-product-template:not(.is-horizontal) > li:nth-child(2n+1 of :not([style*="display: none"])):nth-last-child(-n+2 of :not([style*="display: none"])) ~ li {
-		border-block-end: 0;
+		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 }
 

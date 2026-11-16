@@ -64,6 +64,14 @@ final class BlockEffects {
 	);
 
 	/**
+	 * The tablet count and the closing rule play only with Ruled cards.
+	 */
+	const RULED_NEEDS = array(
+		array( 'ruled', array( true ), true ),
+		array( 'hover', array( 'roster' ), false ),
+	);
+
+	/**
 	 * Card effects that already change the photo on hover.
 	 */
 	const PHOTO_CHANGERS = array( 'reveal', 'bookmark', 'roster' );
@@ -179,6 +187,10 @@ final class BlockEffects {
 					'results'     => array( 'fade', 'rise', 'move' ),
 					// Hairlines between the cards instead of the gap.
 					'ruled'       => true,
+					// Ruled cards: the column count from 600px to 1023px, and
+					// a rule kept under the last row.
+					'tablet'      => array( '2', '3', '4', '5' ),
+					'ruledclose'  => true,
 					'wash'        => true,
 					// Ring settings: inside the card, square, full color.
 					'ringinset'   => true,
@@ -225,6 +237,8 @@ final class BlockEffects {
 					'ruled'       => array(
 						array( 'hover', array( 'roster' ), false ),
 					),
+					'tablet'      => self::RULED_NEEDS,
+					'ruledclose'  => self::RULED_NEEDS,
 					'ringinset'   => self::RING_NEEDS,
 					'ringsquare'  => self::RING_NEEDS,
 					'ringstrong'  => self::RING_NEEDS,
