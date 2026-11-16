@@ -55,12 +55,14 @@ const RECEIPT = 'purplish-summary-receipt';
 const SAMPLE = window.purplishMeter || {};
 /**
  * Where each block's sample meter goes: inside the drawer's footer, past
- * its block wrapper, so it takes the footer's padding; or the top of the
- * Cart.
+ * its block wrapper, so it takes the footer's padding; the top of the
+ * Cart's totals column; or the top of the Cart. The first match wins.
  */
 const METERS = {
 	'purplish-drawer-meter':
 		'.wc-block-mini-cart__footer, .wp-block-woocommerce-mini-cart-footer-block',
+	'purplish-cartpage-meterplace-totals':
+		'.wc-block-cart__sidebar, .wp-block-woocommerce-cart-totals-block',
 	'purplish-cartpage-meter': '',
 };
 const CARD = '.wc-block-product';
@@ -208,8 +210,9 @@ function useEyes( clientId, button, count ) {
  *
  * @param {string} clientId The block's client ID.
  * @param {string} where    Selector of the part it goes into, '' for the block itself, or null for none.
+ * @param {string} left     The block's own amount-left sentence, with `%s`, or ''.
  */
-function useMeter( clientId, where ) {
+function useMeter( clientId, where, left ) {
 	useEffect( () => {
 		const block = where !== null && canvasElement( clientId );
 		if ( ! block ) {
@@ -239,10 +242,11 @@ function useMeter( clientId, where ) {
 			);
 			const text = doc.createElement( 'p' );
 			text.className = 'purplish-meter-text';
-			/* translators: %s: amount left to spend, such as $12.00. */
-			const [ before, after = '' ] = __(
-				'Spend %s more for free shipping.',
-				'purplish'
+			const [ before, after = '' ] = (
+				left ||
+				SAMPLE.left ||
+				/* translators: %s: amount left to spend, such as $12.00. */
+				__( 'Spend %s more for free shipping.', 'purplish' )
 			).split( '%s' );
 			const amount = doc.createElement( 'strong' );
 			amount.textContent = SAMPLE.amount || '';
@@ -263,7 +267,7 @@ function useMeter( clientId, where ) {
 				.querySelectorAll( '.purplish-meter' )
 				.forEach( ( meter ) => meter.remove() );
 		};
-	}, [ clientId, where ] );
+	}, [ clientId, where, left ] );
 }
 
 /**
@@ -501,7 +505,14 @@ const withPurplishPreview = createHigherOrderComponent(
 		const meter = Object.keys( METERS ).find( ( name ) =>
 			classes.includes( name )
 		);
-		useMeter( props.clientId, meter ? METERS[ meter ] : null );
+		useMeter(
+			props.clientId,
+			meter ? METERS[ meter ] : null,
+			( saved &&
+				'string' === typeof saved.metertext &&
+				saved.metertext ) ||
+				''
+		);
 		useImageHover( props.clientId, styleIn( classes, IMAGE_HOVER ) );
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';

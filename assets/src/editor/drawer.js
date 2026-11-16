@@ -12,7 +12,7 @@ import { useSettings } from '@wordpress/block-editor';
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
-import meterLook from './meter';
+import meterLook, { MeterSettings } from './meter';
 
 const LOOKS = [
 	{
@@ -79,6 +79,9 @@ export default function DrawerPanel( { saved, setSaved } ) {
 					onChange={ ( on ) => save( { [ look.key ]: on } ) }
 				/>
 			) ) }
+			{ true === saved.meter && (
+				<MeterSettings saved={ saved } save={ save } />
+			) }
 			<BaseControl
 				__nextHasNoMarginBottom
 				id={ colorId }

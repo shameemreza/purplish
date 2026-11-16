@@ -63,14 +63,15 @@ class FreeDeliveryTest extends WP_UnitTestCase {
 	 *
 	 * @param string $requires What the method needs.
 	 * @param string $min      Minimum order amount.
+	 * @param string $title    The method's title.
 	 */
-	private function free_shipping( $requires = 'min_amount', $min = '50' ) {
+	private function free_shipping( $requires = 'min_amount', $min = '50', $title = 'Free shipping' ) {
 		$zone = new \WC_Shipping_Zone( 0 );
 		$id   = $zone->add_shipping_method( 'free_shipping' );
 		update_option(
 			'woocommerce_free_shipping_' . $id . '_settings',
 			array(
-				'title'            => 'Free shipping',
+				'title'            => $title,
 				'requires'         => $requires,
 				'min_amount'       => $min,
 				'ignore_discounts' => 'no',
@@ -85,6 +86,46 @@ class FreeDeliveryTest extends WP_UnitTestCase {
 	public function test_meter_option() {
 		$this->assertSame( array( 'purplish-drawer', 'purplish-drawer-meter' ), BlockEffects::classes_for( 'woocommerce/mini-cart-contents', array( 'meter' => true ) ) );
 		$this->assertSame( array( 'purplish-cartpage', 'purplish-cartpage-meter' ), BlockEffects::classes_for( 'woocommerce/cart', array( 'meter' => true ) ) );
+		$this->assertSame(
+			array( 'purplish-cartpage', 'purplish-cartpage-meter', 'purplish-cartpage-meterplace-totals' ),
+			BlockEffects::classes_for(
+				'woocommerce/cart',
+				array(
+					'meter'      => true,
+					'meterplace' => 'totals',
+				)
+			)
+		);
+		// The placement means nothing without the meter.
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/cart', array( 'meterplace' => 'totals' ) ) );
+	}
+
+	/**
+	 * The countdown names the Free shipping method by its title, unless the
+	 * title is WooCommerce's default. The block's own wording wins over both.
+	 */
+	public function test_wording() {
+		$this->free_shipping( 'min_amount', '50', 'Free UK delivery' );
+		$html = FreeDelivery::markup();
+		$this->assertStringContainsString( 'Spend <strong>' . wp_kses_post( wc_price( 20 ) ) . '</strong> more for Free UK delivery.', $html );
+		$this->assertStringContainsString( 'data-left="Spend %s more for Free UK delivery."', $html );
+		$this->assertStringContainsString( 'data-done="Your order ships free."', $html );
+
+		$own  = array(
+			'metertext' => 'Only %s to go for <b>free</b> delivery',
+			'meterdone' => 'Delivery is on us.',
+		);
+		$html = FreeDelivery::markup( '', '', $own );
+		$this->assertStringContainsString( 'Only <strong>' . wp_kses_post( wc_price( 20 ) ) . '</strong> to go for free delivery', $html );
+		$this->assertStringContainsString( 'data-done="Delivery is on us."', $html );
+
+		WC()->cart->add_to_cart( $this->product, 1 );
+		WC()->cart->calculate_totals();
+		$this->assertStringContainsString( '>Delivery is on us.</p>', FreeDelivery::markup( '', '', $own ) );
+
+		$sentences = FreeDelivery::sentences( null, array( 'metertext' => '' ) );
+		$this->assertSame( 'Spend %s more for free shipping.', $sentences['left'] );
+		$this->assertSame( 'Your order ships free.', $sentences['done'] );
 	}
 
 	/**
@@ -149,6 +190,20 @@ class FreeDeliveryTest extends WP_UnitTestCase {
 
 		$narrow = '<div class="wp-block-woocommerce-cart is-loading"></div>';
 		$this->assertStringStartsWith( '<div class="purplish-meter purplish-meter-page"', ( new FreeDelivery() )->cart( $narrow, $this->block( 'woocommerce/cart' ) ) );
+
+		$totals = ( new FreeDelivery() )->cart(
+			self::CART,
+			$this->block(
+				'woocommerce/cart',
+				array(
+					'purplish' => array(
+						'meter'      => true,
+						'meterplace' => 'totals',
+					),
+				)
+			)
+		);
+		$this->assertStringStartsWith( '<div class="purplish-meter purplish-meter-totals"', $totals );
 
 		$off = array(
 			'blockName' => 'woocommerce/cart',

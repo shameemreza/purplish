@@ -1,8 +1,9 @@
 /**
- * The Free shipping meter switch, shared by the drawer and Cart page
- * panels.
+ * The Free shipping meter switch and its wording, shared by the drawer and
+ * Cart page panels.
  */
-import { __ } from '@wordpress/i18n';
+import { SelectControl, TextControl } from '@wordpress/components';
+import { __, sprintf } from '@wordpress/i18n';
 
 /**
  * The switch, for the panels' list of looks.
@@ -28,4 +29,71 @@ export default function meterLook( where ) {
 					),
 		].join( ' ' ),
 	};
+}
+
+/**
+ * The meter's wording and, on the Cart page, where it sits. Empty fields
+ * keep the store's own sentences, which name the Free shipping method by
+ * its title.
+ *
+ * @param {Object}                    props           Panel props.
+ * @param {Object}                    props.saved     The block's saved `purplish` attribute.
+ * @param {(changes: Object) => void} props.save      Saves changed options.
+ * @param {boolean}                   props.placement Whether to offer the placement choice.
+ */
+export function MeterSettings( { saved, save, placement = false } ) {
+	const sample = window.purplishMeter || {};
+	return (
+		<>
+			<TextControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Meter text', 'purplish' ) }
+				help={ sprintf(
+					/* translators: %s: the placeholder to type, %s. */
+					__(
+						'Use %s where the amount left goes. Leave it empty to use the name of your Free shipping method.',
+						'purplish'
+					),
+					'%s'
+				) }
+				placeholder={ sample.left || '' }
+				value={ saved.metertext || '' }
+				onChange={ ( text ) =>
+					save( { metertext: text || undefined } )
+				}
+			/>
+			<TextControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Text once it ships free', 'purplish' ) }
+				placeholder={ __( 'Your order ships free.', 'purplish' ) }
+				value={ saved.meterdone || '' }
+				onChange={ ( text ) =>
+					save( { meterdone: text || undefined } )
+				}
+			/>
+			{ placement && (
+				<SelectControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Meter placement', 'purplish' ) }
+					value={ saved.meterplace || '' }
+					options={ [
+						{
+							label: __( 'Above the cart', 'purplish' ),
+							value: '',
+						},
+						{
+							label: __( 'Top of the totals column', 'purplish' ),
+							value: 'totals',
+						},
+					] }
+					onChange={ ( place ) =>
+						save( { meterplace: place || undefined } )
+					}
+				/>
+			) }
+		</>
+	);
 }
