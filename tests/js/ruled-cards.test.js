@@ -23,16 +23,22 @@ const rules = [ ...css.matchAll( /([^{}]+)\{([^{}]*)\}/g ) ].map(
 // counts skip. On the store every card is shown.
 const SHOWN = ' of :not([style*="display: none"])';
 
+// The last row's rule goes to 0 unless Closing rule sets the width.
+const CLEARS = {
+	'border-inline-end': 'border-inline-end: 0',
+	'border-block-end': 'border-block-end-width: var(--purplish-ruled-foot, 0)',
+};
+
 /**
  * The selectors that clear a border for one column count.
  *
- * @param {string} scope    `columns-N` or `purplish-cards-grid-N`.
+ * @param {string} scope    `columns-N`, `purplish-cards-grid-N` or `purplish-cards-tablet-N`.
  * @param {string} property The border that's cleared.
  * @return {string[]} The selectors.
  */
 const clearing = ( scope, property ) =>
 	rules
-		.filter( ( rule ) => rule.body.includes( `${ property }: 0` ) )
+		.filter( ( rule ) => rule.body.includes( CLEARS[ property ] ) )
 		.flatMap( ( rule ) => rule.selectors )
 		.filter(
 			( selector ) =>
@@ -78,6 +84,11 @@ const scopes = [ 2, 3, 4, 5, 6 ].flatMap( ( n ) => [
 	[ `purplish-cards-grid-${ n }`, n ],
 ] );
 
+const tablets = [ 2, 3, 4, 5 ].map( ( n ) => [
+	`purplish-cards-tablet-${ n }`,
+	n,
+] );
+
 describe( 'Ruled cards', () => {
 	it.each( scopes )( '%s sets its own column count', ( scope, columns ) => {
 		const rule = rules.find(
@@ -96,7 +107,47 @@ describe( 'Ruled cards', () => {
 		expect( rule.body ).toContain( `repeat(${ columns }, minmax(0, 1fr))` );
 	} );
 
-	it.each( scopes )(
+	it.each( tablets )(
+		'%s sets its count from 600px to 1023px',
+		( scope, columns ) => {
+			const at = css.indexOf(
+				'@media (width >= 600px) and (width < 1024px)'
+			);
+			const block = css.slice( at, css.indexOf( '@media', at + 1 ) );
+			expect( at ).toBeGreaterThan( -1 );
+			expect( block ).toContain(
+				`${ scope } .wc-block-product-template:not(.is-horizontal)[class*="columns-"] {\n\t\tgrid-template-columns: repeat(${ columns }, minmax(0, 1fr));`
+			);
+		}
+	);
+
+	it( 'puts both rules back on every card before the tablet count clears them', () => {
+		const back = rules.filter(
+			( rule ) =>
+				rule.selectors.some(
+					( one ) =>
+						one.includes( 'purplish-cards-tablet-' ) &&
+						one.endsWith( `li:nth-child(n${ SHOWN })` )
+				) &&
+				rule.body.includes( 'border-inline-end: 1px solid' ) &&
+				rule.body.includes( 'border-block-end: 1px solid' )
+		);
+		expect( back ).toHaveLength( 4 );
+	} );
+
+	it( 'keeps the last row’s rule with Closing rule', () => {
+		const close = rules.find( ( rule ) =>
+			rule.selectors.includes(
+				'.purplish-cards-ruled.purplish-cards-ruledclose'
+			)
+		);
+		expect( close.body ).toMatch( /--purplish-ruled-foot:\s*1px/ );
+		expect( css ).not.toMatch(
+			/purplish-cards-ruled[^{}]*\{[^{}]*border-block-end: 0/
+		);
+	} );
+
+	it.each( [ ...scopes, ...tablets ] )(
 		'%s leaves no rule on the outer edges',
 		( scope, columns ) => {
 			const side = clearing( scope, 'border-inline-end' );
@@ -133,7 +184,7 @@ describe( 'Ruled cards', () => {
 		const back = rules.filter(
 			( rule ) =>
 				rule.selectors.some( ( one ) =>
-					one.includes( 'data-purplish-grid="other"' )
+					one.includes( ':root[data-purplish-grid="other"]' )
 				) && rule.body.includes( 'border-inline-end: 1px solid' )
 		);
 		expect( back ).toHaveLength( 5 );

@@ -545,6 +545,44 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 				disabled={ 'roster' === saved.hover }
 				onChange={ ( ruled ) => save( { ruled: ruled || undefined } ) }
 			/>
+			{ true === saved.ruled && 'roster' !== saved.hover && (
+				<>
+					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Tablet columns', 'purplish' ) }
+						help={ __(
+							'Cards a row from 600 to 1023 pixels wide, with the lines counted for it. Pick fewer than the grid’s columns so names don’t wrap. The editor’s Tablet preview shows it.',
+							'purplish'
+						) }
+						value={ saved.tablet || '' }
+						onChange={ ( tablet ) =>
+							save( { tablet: tablet || undefined } )
+						}
+					>
+						<option value="">
+							{ __( 'Same as the grid', 'purplish' ) }
+						</option>
+						{ [ '2', '3', '4', '5' ].map( ( count ) => (
+							<option key={ count } value={ count }>
+								{ count }
+							</option>
+						) ) }
+					</SelectControl>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Closing rule', 'purplish' ) }
+						help={ __(
+							'Keeps the line under the last row, so the grid ends closed, like a ledger.',
+							'purplish'
+						) }
+						checked={ true === saved.ruledclose }
+						onChange={ ( ruledclose ) =>
+							save( { ruledclose: ruledclose || undefined } )
+						}
+					/>
+				</>
+			) }
 			<ToggleControl
 				__nextHasNoMarginBottom
 				label={ __( 'Photo wash', 'purplish' ) }
