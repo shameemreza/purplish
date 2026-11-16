@@ -37,6 +37,16 @@ describe( 'outline card button', () => {
 		expect( rest ).toMatch( /min-height:\s*44px/ );
 	} );
 
+	it( 'keeps its edge and full width over WooCommerce button styles', () => {
+		// WooCommerce: `.wp-block-button.wc-block-components-product-button
+		// .wc-block-components-product-button__button`, three classes.
+		const held = rule(
+			'.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button .wc-block-components-product-button__button'
+		);
+		expect( held ).toMatch( /border-style:\s*solid/ );
+		expect( held ).toMatch( /width:\s*100%/ );
+	} );
+
 	it( 'fills with the effect color on hover and keyboard focus', () => {
 		const on = rule(
 			BUTTON + ':is(:hover, :focus-visible, .purplish-hover)'
