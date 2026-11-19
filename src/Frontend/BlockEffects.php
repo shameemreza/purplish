@@ -37,6 +37,11 @@ final class BlockEffects {
 	const GRID_HANDLE = 'purplish-grid';
 
 	/**
+	 * The script for the sticky Add to Cart bar on phones, loaded only with it.
+	 */
+	const BAR_HANDLE = 'purplish-bar';
+
+	/**
 	 * Where the grid switch keeps the shopper's choice for the visit.
 	 */
 	const GRID_KEY = 'purplish-cards-grid';
@@ -509,6 +514,8 @@ final class BlockEffects {
 					'eyes'     => self::EYES,
 					// The quantity box and the button at one taller height.
 					'large'    => true,
+					// A bar with the button at the foot of a phone screen.
+					'sticky'   => true,
 				),
 				'eyes'    => 'single_add_to_cart_button',
 				'preview' => true,
@@ -871,6 +878,9 @@ final class BlockEffects {
 		} while ( $rows && $tags->next_tag( $query ) );
 
 		$html = self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
+		if ( in_array( 'purplish-cart-sticky', $classes, true ) ) {
+			$html .= self::buy_bar( $classes );
+		}
 		if ( in_array( 'purplish-filters-layout-bar', $classes, true ) ) {
 			self::enqueue_filters();
 			$html = Markup::filter_toggles( $html );
@@ -975,6 +985,35 @@ final class BlockEffects {
 	private static function enqueue_filters() {
 		$asset = include PURPLISH_DIR . 'build/filters.asset.php';
 		wp_enqueue_script( self::FILTERS_HANDLE, PURPLISH_URL . 'build/filters.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+	}
+
+	/**
+	 * The sticky bar for Add to Cart + Options, printed hidden after the
+	 * block: the product's name and price. The script adds a copy of the
+	 * block's button, moves the bar to the end of the page and shows it on
+	 * phones once the block scrolls up out of view. The bar carries the
+	 * block's other classes, so its button takes the same looks.
+	 *
+	 * @param string[] $classes The block's Purplish classes.
+	 * @return string
+	 */
+	public static function buy_bar( $classes ) {
+		$product = function_exists( 'wc_get_product' ) ? wc_get_product( get_the_ID() ) : null;
+		if ( ! $product ) {
+			return '';
+		}
+
+		$asset = include PURPLISH_DIR . 'build/bar.asset.php';
+		wp_enqueue_script( self::BAR_HANDLE, PURPLISH_URL . 'build/bar.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+
+		$looks = array_diff( $classes, array( 'purplish-cart-sticky' ) );
+		return sprintf(
+			'<div class="%1$s" data-pick="%2$s" hidden><div class="purplish-bar-text"><p class="purplish-bar-name">%3$s</p><div class="purplish-bar-price">%4$s</div></div></div>',
+			esc_attr( implode( ' ', array_merge( array( 'purplish-bar' ), $looks ) ) ),
+			esc_attr__( 'Select options', 'purplish' ),
+			esc_html( $product->get_name() ),
+			wp_kses_post( $product->get_price_html() )
+		);
 	}
 
 	/**

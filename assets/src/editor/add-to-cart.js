@@ -176,6 +176,16 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 			/>
 			<ToggleControl
 				__nextHasNoMarginBottom
+				label={ __( 'Sticky bar on phones', 'purplish' ) }
+				help={ __(
+					'Once the add to cart button scrolls up out of view on a phone, a bar with the name, price and button stays at the bottom of the screen. On variable products it scrolls back to the options until a shopper picks them. The editor shows a sample under the block.',
+					'purplish'
+				) }
+				checked={ true === options.sticky }
+				onChange={ ( sticky ) => save( { sticky } ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
 				label={ __( 'Liquid glass button', 'purplish' ) }
 				help={ __(
 					'A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button.',
