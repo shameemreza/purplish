@@ -22,6 +22,7 @@ const blocks = fs.existsSync( path.join( BUILD, 'blocks' ) )
 			.filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) )
 	: [];
 const options = [
+	'bar.js',
 	'filters.js',
 	'grid.js',
 	'more.js',

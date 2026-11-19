@@ -65,6 +65,7 @@ const METERS = {
 		'.wc-block-cart__sidebar, .wp-block-woocommerce-cart-totals-block',
 	'purplish-cartpage-meter': '',
 };
+const STICKY = 'purplish-cart-sticky';
 const CARD = '.wc-block-product';
 const CARD_PHOTO = '.wc-block-components-product-image';
 const CARD_FOLLOW = [
@@ -268,6 +269,72 @@ function useMeter( clientId, where, left ) {
 				.forEach( ( meter ) => meter.remove() );
 		};
 	}, [ clientId, where, left ] );
+}
+
+/**
+ * Adds a sample of the sticky Add to Cart bar under the block, with the
+ * canvas's own title, price and button. While the template loads, the
+ * editor swaps the block's element for a new one, so each change on the
+ * canvas looks the block up again. On the front end the bar sits at the
+ * foot of a phone screen.
+ *
+ * @param {string}   clientId The block's client ID.
+ * @param {string[]} classes  The block's Purplish classes, or none without the bar.
+ */
+function useBar( clientId, classes ) {
+	const key = classes.join( ' ' );
+	useEffect( () => {
+		const first = key && canvasElement( clientId );
+		if ( ! first ) {
+			return;
+		}
+		const doc = first.ownerDocument;
+		const find = () => doc.getElementById( 'block-' + clientId );
+		const place = () => {
+			const block = find();
+			const button = block?.querySelector( EYES_BUTTONS.cart );
+			if ( ! button || block.querySelector( ':scope > .purplish-bar' ) ) {
+				return;
+			}
+			const bar = doc.createElement( 'div' );
+			bar.className = [
+				'purplish-bar',
+				'is-sample',
+				...key.split( ' ' ).filter( ( name ) => name !== STICKY ),
+			].join( ' ' );
+			bar.setAttribute( 'contenteditable', 'false' );
+			bar.inert = true;
+			const text = doc.createElement( 'div' );
+			text.className = 'purplish-bar-text';
+			const name = doc.createElement( 'p' );
+			name.className = 'purplish-bar-name';
+			name.textContent =
+				doc.querySelector( '.wp-block-post-title' )?.textContent ||
+				__( 'Product name', 'purplish' );
+			const price = doc.createElement( 'div' );
+			price.className = 'purplish-bar-price';
+			const shown = doc.querySelector(
+				'.wp-block-woocommerce-product-price .wc-block-components-product-price'
+			);
+			if ( shown ) {
+				price.append( ...shown.cloneNode( true ).childNodes );
+			}
+			text.append( name, price );
+			const copy = button.cloneNode( true );
+			copy.classList.add( 'single_add_to_cart_button' );
+			bar.append( text, copy );
+			block.append( bar );
+		};
+		place();
+		const watch = new doc.defaultView.MutationObserver( place );
+		watch.observe( doc.body, { childList: true, subtree: true } );
+		return () => {
+			watch.disconnect();
+			find()
+				?.querySelectorAll( ':scope > .purplish-bar' )
+				.forEach( ( bar ) => bar.remove() );
+		};
+	}, [ clientId, key ] );
 }
 
 /**
@@ -514,6 +581,7 @@ const withPurplishPreview = createHigherOrderComponent(
 				''
 		);
 		useImageHover( props.clientId, styleIn( classes, IMAGE_HOVER ) );
+		useBar( props.clientId, classes.includes( STICKY ) ? classes : [] );
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';
 		if ( ! classes.length && ! hover ) {
