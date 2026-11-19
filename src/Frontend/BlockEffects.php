@@ -24,7 +24,7 @@ final class BlockEffects {
 	 * `build/style-effects-<part>.css`, named for the class prefix its rules
 	 * hang off.
 	 */
-	const PARTS = array( 'gallery', 'cards', 'accordion', 'pages', 'terms', 'count', 'details', 'reviews', 'specs', 'image', 'cover', 'button', 'cart', 'buybutton', 'thanks', 'drawer', 'cartpage', 'checkoutpage', 'classic', 'group', 'chips', 'badge', 'stock', 'thumbs', 'swatches', 'filters', 'minicart', 'eyes', 'heading', 'columns', 'social', 'summary', 'meter', 'sorting' );
+	const PARTS = array( 'gallery', 'cards', 'accordion', 'pages', 'terms', 'count', 'details', 'reviews', 'specs', 'image', 'cover', 'button', 'cart', 'buybutton', 'thanks', 'drawer', 'cartpage', 'checkoutpage', 'classic', 'group', 'chips', 'badge', 'stock', 'thumbs', 'swatches', 'filters', 'minicart', 'eyes', 'heading', 'columns', 'social', 'summary', 'meter', 'sorting', 'extras' );
 
 	/**
 	 * The script that folds a filter sidebar away, loaded only with it.
@@ -522,6 +522,8 @@ final class BlockEffects {
 					'large'    => true,
 					// A bar with the button at the foot of a phone screen.
 					'sticky'   => true,
+					// Other products to tick under the button (Extras).
+					'extras'   => true,
 				),
 				'eyes'    => 'single_add_to_cart_button',
 				'preview' => true,
@@ -885,6 +887,9 @@ final class BlockEffects {
 		} while ( $rows && $tags->next_tag( $query ) );
 
 		$html = self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
+		if ( in_array( Extras::CLASS_NAME, $classes, true ) ) {
+			$html = Extras::render( $html, $block['attrs']['purplish'] );
+		}
 		if ( in_array( 'purplish-cart-sticky', $classes, true ) ) {
 			$html .= self::buy_bar( $classes );
 		}

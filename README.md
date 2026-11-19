@@ -18,7 +18,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 
 | Area | Block | What you can design |
 |---|---|---|
-| Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background, color dots, liquid glass, a spectrum ring and googly eyes on the button, a large buy row, and a sticky bar on phones. |
+| Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background, color dots, liquid glass, a spectrum ring and googly eyes on the button, a large buy row, a sticky bar on phones, and matching extras under the button. |
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
@@ -73,6 +73,7 @@ On the same block:
 - **Googly eyes:** one or two eyes inside the add to cart button follow the mouse and blink when it moves again after a pause.
 - **Large buy row:** the quantity box and the add to cart button share one 52px height, with the quantity box's edge counted in.
 - **Sticky bar on phones:** once the add to cart button scrolls up off a phone screen, a slim bar with the product's name, price and button stays at the bottom. Its price follows the picked variation. On a variable product, the button scrolls back to the options until a shopper picks them all. The bar takes the button's looks, keeps clear of the iPhone home bar, and shows without sliding when reduced motion is on. The editor shows a sample under the block.
+- **Matching extras:** a short list of other products under the add to cart button, each with a checkbox. Ticked ones go into the cart with the product on the same click. Pick the products yourself, use each product's Cross-sells, or let Auto match take products from the same category, then the same tags, best sellers first. Picks and Cross-sells can fall back to Auto match. Show them as cards, compact rows or tiles, change or hide the title, turn the photo, a See more details link and a short description on or off, and show 1 to 6. Only simple products in stock show. The editor shows the real list, or the store's best sellers.
 
 On other blocks:
 

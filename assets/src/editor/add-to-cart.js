@@ -1,11 +1,13 @@
 /**
  * Purplish panel on the Add to Cart + Options block: which parts follow the
- * picked color, and the photo transition.
+ * picked color, and the photo transition. Matching extras get a panel of
+ * their own.
  */
 import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import { EYES, EYES_HELP } from './eyes';
+import ExtrasPanel from './extras';
 
 const DEFAULTS = {
 	parts: [ 'button', 'chip', 'badge' ],
@@ -45,194 +47,200 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 	const save = ( changes ) => setSaved( { ...options, ...changes } );
 
 	return (
-		<PanelBody title={ __( 'Purplish', 'purplish' ) }>
-			<p>
-				{ __(
-					'Parts of the product page that take the color of the variation a shopper picks.',
-					'purplish'
-				) }{ ' ' }
-				{ __( 'The editor shows them in a sample color.', 'purplish' ) }
-			</p>
-			{ PARTS.map( ( part ) => (
-				<ToggleControl
-					key={ part.key }
+		<>
+			<PanelBody title={ __( 'Purplish', 'purplish' ) }>
+				<p>
+					{ __(
+						'Parts of the product page that take the color of the variation a shopper picks.',
+						'purplish'
+					) }{ ' ' }
+					{ __(
+						'The editor shows them in a sample color.',
+						'purplish'
+					) }
+				</p>
+				{ PARTS.map( ( part ) => (
+					<ToggleControl
+						key={ part.key }
+						__nextHasNoMarginBottom
+						label={ part.label }
+						checked={ options.parts.includes( part.key ) }
+						onChange={ ( on ) =>
+							save( {
+								parts: on
+									? [ ...options.parts, part.key ]
+									: options.parts.filter(
+											( key ) => key !== part.key
+										),
+							} )
+						}
+					/>
+				) ) }
+				<SelectControl
+					__next40pxDefaultSize
 					__nextHasNoMarginBottom
-					label={ part.label }
-					checked={ options.parts.includes( part.key ) }
-					onChange={ ( on ) =>
+					label={ __( 'Photo transition', 'purplish' ) }
+					help={ __(
+						'Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect.',
+						'purplish'
+					) }
+					value={ options.transition }
+					options={ [
+						{
+							value: 'none',
+							label: __( 'None', 'purplish' ),
+						},
+						{
+							value: 'fade',
+							label: __( 'Fade', 'purplish' ),
+						},
+						{
+							value: 'blur',
+							label: __( 'Blur', 'purplish' ),
+						},
+						{
+							value: 'zoom',
+							label: __( 'Zoom', 'purplish' ),
+						},
+						{
+							value: 'slide',
+							label: __( 'Slide', 'purplish' ),
+						},
+						{
+							value: 'flip',
+							label: __( 'Flip', 'purplish' ),
+						},
+						{
+							value: 'wipe',
+							label: __( 'Wipe', 'purplish' ),
+						},
+						{
+							value: 'circle',
+							label: __( 'Circle reveal', 'purplish' ),
+						},
+						{
+							value: 'wash',
+							label: __( 'Color wash', 'purplish' ),
+						},
+					] }
+					onChange={ ( transition ) => save( { transition } ) }
+				/>
+				<SelectControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Title on a color change', 'purplish' ) }
+					value={ titleEffect( options ) }
+					options={ [
+						{ value: '', label: __( 'None', 'purplish' ) },
+						{
+							value: 'rise',
+							label: __( 'Title and price rise', 'purplish' ),
+						},
+						{
+							value: 'focus',
+							label: __( 'Title comes into focus', 'purplish' ),
+						},
+					] }
+					onChange={ ( effect ) =>
 						save( {
-							parts: on
-								? [ ...options.parts, part.key ]
-								: options.parts.filter(
-										( key ) => key !== part.key
-									),
+							rise: 'rise' === effect,
+							focus: 'focus' === effect,
 						} )
 					}
 				/>
-			) ) }
-			<SelectControl
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
-				label={ __( 'Photo transition', 'purplish' ) }
-				help={ __(
-					'Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect.',
-					'purplish'
+				{ options.parts.includes( 'tint' ) && (
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Mesh background', 'purplish' ) }
+						help={ __(
+							'Soft blobs of the color over the tint, which move to a new place on each color change.',
+							'purplish'
+						) }
+						checked={ true === options.mesh }
+						onChange={ ( mesh ) => save( { mesh } ) }
+					/>
 				) }
-				value={ options.transition }
-				options={ [
-					{
-						value: 'none',
-						label: __( 'None', 'purplish' ),
-					},
-					{
-						value: 'fade',
-						label: __( 'Fade', 'purplish' ),
-					},
-					{
-						value: 'blur',
-						label: __( 'Blur', 'purplish' ),
-					},
-					{
-						value: 'zoom',
-						label: __( 'Zoom', 'purplish' ),
-					},
-					{
-						value: 'slide',
-						label: __( 'Slide', 'purplish' ),
-					},
-					{
-						value: 'flip',
-						label: __( 'Flip', 'purplish' ),
-					},
-					{
-						value: 'wipe',
-						label: __( 'Wipe', 'purplish' ),
-					},
-					{
-						value: 'circle',
-						label: __( 'Circle reveal', 'purplish' ),
-					},
-					{
-						value: 'wash',
-						label: __( 'Color wash', 'purplish' ),
-					},
-				] }
-				onChange={ ( transition ) => save( { transition } ) }
-			/>
-			<SelectControl
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
-				label={ __( 'Title on a color change', 'purplish' ) }
-				value={ titleEffect( options ) }
-				options={ [
-					{ value: '', label: __( 'None', 'purplish' ) },
-					{
-						value: 'rise',
-						label: __( 'Title and price rise', 'purplish' ),
-					},
-					{
-						value: 'focus',
-						label: __( 'Title comes into focus', 'purplish' ),
-					},
-				] }
-				onChange={ ( effect ) =>
-					save( {
-						rise: 'rise' === effect,
-						focus: 'focus' === effect,
-					} )
-				}
-			/>
-			{ options.parts.includes( 'tint' ) && (
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ __( 'Mesh background', 'purplish' ) }
+					label={ __( 'Glow ring on the button', 'purplish' ) }
 					help={ __(
-						'Soft blobs of the color over the tint, which move to a new place on each color change.',
+						'A soft ring of the color around the add to cart button. Products without a page color, and variable products before a pick, use the theme’s button color.',
 						'purplish'
 					) }
-					checked={ true === options.mesh }
-					onChange={ ( mesh ) => save( { mesh } ) }
+					checked={ true === options.glow }
+					onChange={ ( glow ) => save( { glow } ) }
 				/>
-			) }
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Glow ring on the button', 'purplish' ) }
-				help={ __(
-					'A soft ring of the color around the add to cart button. Products without a page color, and variable products before a pick, use the theme’s button color.',
-					'purplish'
-				) }
-				checked={ true === options.glow }
-				onChange={ ( glow ) => save( { glow } ) }
-			/>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Large buy row', 'purplish' ) }
-				help={ __(
-					'The quantity box and the add to cart button share one 52px height.',
-					'purplish'
-				) }
-				checked={ true === options.large }
-				onChange={ ( large ) => save( { large } ) }
-			/>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Sticky bar on phones', 'purplish' ) }
-				help={ __(
-					'Once the add to cart button scrolls up out of view on a phone, a bar with the name, price and button stays at the bottom of the screen. On variable products it scrolls back to the options until a shopper picks them. The editor shows a sample under the block.',
-					'purplish'
-				) }
-				checked={ true === options.sticky }
-				onChange={ ( sticky ) => save( { sticky } ) }
-			/>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Liquid glass button', 'purplish' ) }
-				help={ __(
-					'A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button.',
-					'purplish'
-				) }
-				checked={ true === options.glass }
-				onChange={ ( glass ) => save( { glass } ) }
-			/>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Spectrum ring on the button', 'purplish' ) }
-				help={ __(
-					'A rainbow ring travels once around the button on hover.',
-					'purplish'
-				) }
-				checked={ true === options.spectrum }
-				onChange={ ( spectrum ) => save( { spectrum } ) }
-			/>
-			<SelectControl
-				__next40pxDefaultSize
-				__nextHasNoMarginBottom
-				label={ __( 'Googly eyes on the button', 'purplish' ) }
-				help={ EYES_HELP }
-				value={ options.eyes || '' }
-				options={ EYES }
-				onChange={ ( eyes ) => save( { eyes: eyes || undefined } ) }
-			/>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Halo after adding to cart', 'purplish' ) }
-				help={ __(
-					'A ring leaves the button and fades each time the product goes into the cart.',
-					'purplish'
-				) }
-				checked={ true === options.halo }
-				onChange={ ( halo ) => save( { halo } ) }
-			/>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Color dots on options', 'purplish' ) }
-				help={ __(
-					'A dot in each color before its name on the option buttons.',
-					'purplish'
-				) }
-				checked={ true === options.dots }
-				onChange={ ( dots ) => save( { dots } ) }
-			/>
-		</PanelBody>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Large buy row', 'purplish' ) }
+					help={ __(
+						'The quantity box and the add to cart button share one 52px height.',
+						'purplish'
+					) }
+					checked={ true === options.large }
+					onChange={ ( large ) => save( { large } ) }
+				/>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Sticky bar on phones', 'purplish' ) }
+					help={ __(
+						'Once the add to cart button scrolls up out of view on a phone, a bar with the name, price and button stays at the bottom of the screen. On variable products it scrolls back to the options until a shopper picks them. The editor shows a sample under the block.',
+						'purplish'
+					) }
+					checked={ true === options.sticky }
+					onChange={ ( sticky ) => save( { sticky } ) }
+				/>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Liquid glass button', 'purplish' ) }
+					help={ __(
+						'A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button.',
+						'purplish'
+					) }
+					checked={ true === options.glass }
+					onChange={ ( glass ) => save( { glass } ) }
+				/>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Spectrum ring on the button', 'purplish' ) }
+					help={ __(
+						'A rainbow ring travels once around the button on hover.',
+						'purplish'
+					) }
+					checked={ true === options.spectrum }
+					onChange={ ( spectrum ) => save( { spectrum } ) }
+				/>
+				<SelectControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Googly eyes on the button', 'purplish' ) }
+					help={ EYES_HELP }
+					value={ options.eyes || '' }
+					options={ EYES }
+					onChange={ ( eyes ) => save( { eyes: eyes || undefined } ) }
+				/>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Halo after adding to cart', 'purplish' ) }
+					help={ __(
+						'A ring leaves the button and fades each time the product goes into the cart.',
+						'purplish'
+					) }
+					checked={ true === options.halo }
+					onChange={ ( halo ) => save( { halo } ) }
+				/>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __( 'Color dots on options', 'purplish' ) }
+					help={ __(
+						'A dot in each color before its name on the option buttons.',
+						'purplish'
+					) }
+					checked={ true === options.dots }
+					onChange={ ( dots ) => save( { dots } ) }
+				/>
+			</PanelBody>
+			<ExtrasPanel saved={ options } setSaved={ setSaved } />
+		</>
 	);
 }

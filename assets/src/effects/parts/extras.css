@@ -1,0 +1,200 @@
+/**
+ * Matching extras under Add to Cart + Options: cards, compact rows or
+ * tiles. Each takes the theme's radius, rule and wash from theme.json
+ * (custom.purplish), and a ticked one takes the selected color of the
+ * variation chips above it. BlockEffects loads this file only on pages
+ * that show the list, after style.css.
+ */
+
+.purplish-extras {
+	--purplish-extras-radius: var(--wp--custom--purplish--radius, 12px);
+	--purplish-extras-rule: var(--wp--custom--purplish--rule, color-mix(in srgb, currentcolor 14%, transparent));
+	--purplish-extras-wash: var(--wp--custom--purplish--wash, color-mix(in srgb, currentcolor 4%, transparent));
+	--purplish-extras-on: var(--wc-product-filter-chips-selected-border, currentcolor);
+	min-inline-size: 0;
+	margin: var(--wp--style--block-gap, 1.25rem) 0 0;
+	padding: 0;
+	border: 0;
+}
+
+.purplish-extras-title {
+	margin-block-end: 0.75em;
+	padding: 0;
+	font-size: var(--wp--preset--font-size--medium, 1.125rem);
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.purplish-extras-list {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.purplish-extra {
+	position: relative;
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	box-sizing: border-box;
+	min-block-size: 44px;
+	padding: 0.75rem 0.875rem;
+	border: 1px solid var(--purplish-extras-rule);
+	border-radius: var(--purplish-extras-radius);
+	transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.purplish-extra:has(.purplish-extra-check:checked) {
+	border-color: var(--purplish-extras-on);
+	background-color: var(--purplish-extras-wash);
+	box-shadow: inset 0 0 0 1px var(--purplish-extras-on);
+}
+
+.purplish-extra:has(.purplish-extra-check:focus-visible) {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-extra-check {
+	position: relative;
+	z-index: 1;
+	flex: none;
+	inline-size: 1.25rem;
+	block-size: 1.25rem;
+	margin: 0;
+	accent-color: var(--purplish-extras-on);
+	cursor: pointer;
+}
+
+.purplish-extras .purplish-extra-photo {
+	flex: none;
+	inline-size: 56px;
+	block-size: 56px;
+	max-inline-size: none;
+	object-fit: cover;
+	border-radius: max(0px, calc(var(--purplish-extras-radius) - 4px));
+}
+
+.purplish-extra-text {
+	display: grid;
+	flex: 1;
+	align-content: start;
+	gap: 0.125rem;
+	min-inline-size: 0;
+}
+
+.purplish-extra-name {
+	font-weight: 600;
+	line-height: 1.35;
+	cursor: pointer;
+}
+
+/* The label covers the whole card, so a tap anywhere ticks it. */
+.purplish-extra-name::after {
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	content: "";
+}
+
+.purplish-extra-desc {
+	margin: 0;
+	font-size: 0.875em;
+	line-height: 1.45;
+	color: color-mix(in srgb, currentcolor 72%, transparent);
+}
+
+.purplish-extra-link {
+	position: relative;
+	z-index: 1;
+	justify-self: start;
+	font-size: 0.875em;
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+
+.purplish-extra-price {
+	flex: none;
+	margin-inline-start: auto;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+/* Compact rows: one bordered list, rows split by a rule. */
+.purplish-extras-compact .purplish-extras-list {
+	gap: 0;
+	overflow: hidden;
+	border: 1px solid var(--purplish-extras-rule);
+	border-radius: var(--purplish-extras-radius);
+}
+
+.purplish-extras-compact .purplish-extra {
+	gap: 0.625rem;
+	padding-block: 0.5rem;
+	border: 0;
+	border-radius: 0;
+}
+
+.purplish-extras-compact .purplish-extra + .purplish-extra {
+	border-block-start: 1px solid var(--purplish-extras-rule);
+}
+
+.purplish-extras-compact .purplish-extra:has(.purplish-extra-check:checked) {
+	box-shadow: inset 3px 0 0 var(--purplish-extras-on);
+}
+
+.purplish-extras-compact .purplish-extra-photo {
+	inline-size: 36px;
+	block-size: 36px;
+}
+
+.purplish-extras-compact .purplish-extra-desc {
+	display: none;
+}
+
+/* Tiles: photo on top, two or three across. */
+.purplish-extras-tiles .purplish-extras-list {
+	grid-template-columns: repeat(auto-fill, minmax(max(140px, calc((100% - 1rem) / 3)), 1fr));
+}
+
+.purplish-extras-tiles .purplish-extra {
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: stretch;
+	padding: 0.5rem 0.5rem 0.75rem;
+}
+
+.purplish-extras-tiles .purplish-extra-check {
+	position: absolute;
+	inset-block-start: 0.875rem;
+	inset-inline-start: 0.875rem;
+}
+
+.purplish-extras-tiles .purplish-extra-photo {
+	inline-size: 100%;
+	block-size: auto;
+	aspect-ratio: 1;
+}
+
+.purplish-extras-tiles .purplish-extra-text {
+	padding-inline: 0.25rem;
+}
+
+.purplish-extras-tiles .purplish-extra-price {
+	margin-block-start: auto;
+	margin-inline-start: 0;
+	padding-inline: 0.25rem;
+}
+
+/* Without a photo the tile's box has room to spare for the checkbox. */
+.purplish-extras-tiles .purplish-extra:not(:has(.purplish-extra-photo)) {
+	padding-block-start: 2.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-extra {
+		transition: none;
+	}
+}
