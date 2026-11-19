@@ -213,6 +213,39 @@ class FreeDeliveryTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * With no country on the package (WooCommerce's "No location by
+	 * default"), the meter counts down to the store's own zone. An address
+	 * the shopper enters takes over.
+	 */
+	public function test_no_address_uses_store_zone() {
+		$zone = new \WC_Shipping_Zone();
+		$zone->set_zone_name( 'Store country' );
+		$zone->add_location( WC()->countries->get_base_country(), 'country' );
+		$zone->save();
+		$id = $zone->add_shipping_method( 'free_shipping' );
+		update_option(
+			'woocommerce_free_shipping_' . $id . '_settings',
+			array(
+				'requires'   => 'min_amount',
+				'min_amount' => '50',
+			)
+		);
+		\WC_Cache_Helper::get_transient_version( 'shipping', true );
+
+		WC()->customer->set_shipping_country( '' );
+		WC()->customer->set_shipping_state( '' );
+		WC()->customer->set_shipping_postcode( '' );
+		$method = FreeDelivery::method();
+		$this->assertNotNull( $method );
+		$this->assertSame( $id, $method->instance_id );
+
+		WC()->customer->set_shipping_country( 'GB' === WC()->countries->get_base_country() ? 'FR' : 'GB' );
+		$this->assertNull( FreeDelivery::method() );
+
+		$zone->delete();
+	}
+
+	/**
 	 * The editor's sample: the store's minimum for its own address.
 	 */
 	public function test_editor_sample() {
