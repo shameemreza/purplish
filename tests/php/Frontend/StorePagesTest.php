@@ -220,7 +220,7 @@ class StorePagesTest extends WP_UnitTestCase {
 			),
 			$map['woocommerce/checkout-actions-block']
 		);
-		$this->assertSame( BlockEffects::BUY_BUTTON_LOOKS, $map['woocommerce/proceed-to-checkout-block']['options'] );
+		$this->assertSame( BlockEffects::BUY_BUTTON_LOOKS + array( 'total' => true ), $map['woocommerce/proceed-to-checkout-block']['options'] );
 	}
 
 	/**

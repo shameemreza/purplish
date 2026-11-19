@@ -66,6 +66,9 @@ const METERS = {
 	'purplish-cartpage-meter': '',
 };
 const STICKY = 'purplish-cart-sticky';
+const TOTAL = 'purplish-buybutton-total';
+const CART_TOTAL =
+	'.wc-block-components-totals-footer-item .wc-block-components-totals-item__value';
 const CARD = '.wc-block-product';
 const CARD_PHOTO = '.wc-block-components-product-image';
 const CARD_FOLLOW = [
@@ -338,6 +341,52 @@ function useBar( clientId, classes ) {
 }
 
 /**
+ * Shows the Cart's sample total on Proceed to Checkout, which the front end
+ * shows only while WooCommerce pins the button on phones. Like the sticky
+ * bar sample, it looks the block up again on each change on the canvas.
+ *
+ * @param {string}  clientId The block's client ID.
+ * @param {boolean} on       Whether Total in the sticky bar is on.
+ */
+function useTotal( clientId, on ) {
+	useEffect( () => {
+		const first = on && canvasElement( clientId );
+		if ( ! first ) {
+			return;
+		}
+		const doc = first.ownerDocument;
+		const find = () => doc.getElementById( 'block-' + clientId );
+		const paint = () => {
+			const block = find();
+			const total = doc.querySelector( CART_TOTAL )?.textContent.trim();
+			const text = total ? JSON.stringify( '· ' + total ) : '';
+			if (
+				! block ||
+				block.style.getPropertyValue( '--purplish-total' ) === text
+			) {
+				return;
+			}
+			if ( text ) {
+				block.style.setProperty( '--purplish-total', text );
+			} else {
+				block.style.removeProperty( '--purplish-total' );
+			}
+		};
+		paint();
+		const watch = new doc.defaultView.MutationObserver( paint );
+		watch.observe( doc.body, {
+			childList: true,
+			subtree: true,
+			characterData: true,
+		} );
+		return () => {
+			watch.disconnect();
+			find()?.style.removeProperty( '--purplish-total' );
+		};
+	}, [ clientId, on ] );
+}
+
+/**
  * Gives the active filter chips the look of a selected chip while the
  * block has matching chips on.
  *
@@ -582,6 +631,7 @@ const withPurplishPreview = createHigherOrderComponent(
 		);
 		useImageHover( props.clientId, styleIn( classes, IMAGE_HOVER ) );
 		useBar( props.clientId, classes.includes( STICKY ) ? classes : [] );
+		useTotal( props.clientId, classes.includes( TOTAL ) );
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';
 		if ( ! classes.length && ! hover ) {

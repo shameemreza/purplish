@@ -53,22 +53,31 @@ const LOCK = {
 	),
 };
 
+const TOTAL = {
+	key: 'total',
+	label: __( 'Total in the sticky bar', 'purplish' ),
+	help: __(
+		'On phones, while WooCommerce pins Proceed to Checkout to the bottom of the screen, the order total shows after the label. The editor shows it on the button.',
+		'purplish'
+	),
+};
+
 /**
  * The panel.
  *
  * @param {Object}                  props          Panel props.
  * @param {Object}                  props.saved    The block's saved `purplish` attribute.
  * @param {(saved: Object) => void} props.setSaved Saves a new `purplish` attribute.
- * @param {boolean}                 [props.lock]   Offers the lock icon too (Place Order only).
+ * @param {Object[]}                [props.extras] Switches only this button has.
  */
-export default function BuyButtonPanel( { saved, setSaved, lock = false } ) {
+export default function BuyButtonPanel( { saved, setSaved, extras = [] } ) {
 	const [ palette ] = useSettings( 'color.palette' );
 	const colorId = useInstanceId( BuyButtonPanel, 'purplish-effect-color' );
 	const save = ( changes ) => setSaved( { ...saved, ...changes } );
 
 	return (
 		<PanelBody title={ __( 'Purplish', 'purplish' ) }>
-			{ ( lock ? [ ...LOOKS, LOCK ] : LOOKS ).map( ( look ) => (
+			{ [ ...LOOKS, ...extras ].map( ( look ) => (
 				<ToggleControl
 					key={ look.key }
 					__nextHasNoMarginBottom
@@ -104,5 +113,14 @@ export default function BuyButtonPanel( { saved, setSaved, lock = false } ) {
  * @param {Object} props Panel props, as for BuyButtonPanel.
  */
 export function PlaceOrderPanel( props ) {
-	return <BuyButtonPanel { ...props } lock />;
+	return <BuyButtonPanel { ...props } extras={ [ LOCK ] } />;
+}
+
+/**
+ * The panel on Proceed to Checkout, with the total in the sticky bar.
+ *
+ * @param {Object} props Panel props, as for BuyButtonPanel.
+ */
+export function ProceedToCheckoutPanel( props ) {
+	return <BuyButtonPanel { ...props } extras={ [ TOTAL ] } />;
 }
