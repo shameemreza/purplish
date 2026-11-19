@@ -17,6 +17,9 @@
  * A button block's link is its text box in the editor. The googly eyes go
  * inside it as on the front end; the text box reads no text from them, so
  * they're never saved into the button.
+ *
+ * Matching extras on Add to Cart + Options show under the block with the
+ * picked products, or the store's best sellers when there are none.
  */
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
@@ -43,6 +46,8 @@ import {
 	pageStyle,
 	paperOf,
 } from './preview-classes';
+import { canvasElement } from './canvas';
+import { useExtras } from './extras-preview';
 
 const MAP = window.purplishPreview || {};
 const PAGE = window.purplishPage || {};
@@ -77,29 +82,6 @@ const CARD_FOLLOW = [
 	'purplish-cards-hoverphoto-drift',
 	'purplish-cards-hoverphoto-glare',
 ];
-
-/**
- * The block's element in the canvas, which may sit in the editor iframe.
- *
- * @param {string} clientId The block's client ID.
- * @return {HTMLElement|null} The element.
- */
-function canvasElement( clientId ) {
-	const id = 'block-' + clientId;
-	const docs = [
-		document,
-		...[
-			...document.querySelectorAll( 'iframe[name="editor-canvas"]' ),
-		].map( ( frame ) => frame.contentDocument ),
-	];
-	for ( const doc of docs ) {
-		const element = doc && doc.getElementById( id );
-		if ( element ) {
-			return element;
-		}
-	}
-	return null;
-}
 
 /**
  * The page looks each Add to Cart + Options block asks for, per canvas
@@ -632,6 +614,12 @@ const withPurplishPreview = createHigherOrderComponent(
 		useImageHover( props.clientId, styleIn( classes, IMAGE_HOVER ) );
 		useBar( props.clientId, classes.includes( STICKY ) ? classes : [] );
 		useTotal( props.clientId, classes.includes( TOTAL ) );
+		useExtras(
+			props.clientId,
+			props.name === PAGE_BLOCK && saved && true === saved.extras
+				? saved
+				: null
+		);
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';
 		if ( ! classes.length && ! hover ) {

@@ -61,6 +61,7 @@ import './parts/social.css';
 import './parts/summary.css';
 import './parts/meter.css';
 import './parts/sorting.css';
+import './parts/extras.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 const canHover =

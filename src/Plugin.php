@@ -82,6 +82,7 @@ final class Plugin {
 		( new Frontend\PageData() )->register();
 		( new Frontend\BlockOptions() )->register();
 		( new Frontend\BlockEffects() )->register();
+		( new Frontend\Extras() )->register();
 		( new Frontend\SecondPhoto() )->register();
 		( new Frontend\LoadMore() )->register();
 		( new Frontend\ResultsMotion() )->register();
