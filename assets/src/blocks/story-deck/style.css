@@ -11,7 +11,7 @@
 	--purplish-deck-card: clamp(11rem, 32cqi, 19rem);
 	--purplish-deck-gap: clamp(1.5rem, 6cqi, 4.5rem);
 	--purplish-deck-radius: 1rem;
-	--purplish-deck-paper: var(--wp--preset--color--base, #fff);
+	--purplish-deck-paper: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
 	--purplish-deck-fill: color-mix(in srgb, currentcolor 10%, var(--purplish-deck-paper));
 	--purplish-deck-nav: 2.75rem;
 	container-type: inline-size;

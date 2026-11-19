@@ -7,9 +7,9 @@
  * are purplish-showfloor-<option>-<value>.
  */
 .wp-block-purplish-showfloor {
-	--purplish-showfloor-ink: var(--wp--preset--color--contrast, #111);
-	--purplish-showfloor-accent: var(--purplish-effect, var(--wp--preset--color--accent, #720eec));
-	--purplish-showfloor-base: var(--wp--preset--color--base, #fff);
+	--purplish-showfloor-ink: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #111));
+	--purplish-showfloor-accent: var(--purplish-effect, var(--purplish-theme-accent, var(--wp--preset--color--accent, #720eec)));
+	--purplish-showfloor-base: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
 	--purplish-showfloor-text: currentcolor;
 	--purplish-showfloor-floor: color-mix(in srgb, var(--purplish-showfloor-accent) 8%, var(--purplish-showfloor-base));
 

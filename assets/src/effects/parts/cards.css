@@ -4,7 +4,7 @@
  */
 
 .purplish-cards {
-	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--purplish-theme-ink, var(--wp--preset--color--contrast, #1e1e1e))));
 	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
 	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
 }
@@ -1409,7 +1409,7 @@
 .purplish-cards-hover-overlap .wc-block-product-template.is-horizontal .wc-block-product {
 	padding: 10px 10px 14px;
 	border-radius: 16px;
-	background: var(--wp--preset--color--base, #fff);
+	background: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
 	box-shadow: 0 12px 28px -14px rgb(0 0 0 / 0.35);
 	rotate: -2.5deg;
 	transition:
@@ -1591,7 +1591,7 @@
 .purplish-cards-hover-unfold .wc-block-product-template:not(.is-horizontal) .wc-block-product {
 	padding: 10px 10px 14px;
 	border-radius: 16px;
-	background: var(--wp--preset--color--base, #fff);
+	background: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
 	box-shadow: 0 14px 30px -18px rgb(0 0 0 / 0.4);
 }
 

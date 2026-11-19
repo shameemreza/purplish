@@ -73,18 +73,27 @@ final class Ground {
 		}
 
 		if ( preg_match( '/^var\(--wp--preset--color--([a-z0-9-]+)\)$/i', $value, $match ) || preg_match( '/^var:preset\|color\|([a-z0-9-]+)$/i', $value, $match ) ) {
-			$value   = '';
-			$palette = wp_get_global_settings( array( 'color', 'palette' ) );
-			foreach ( array( 'custom', 'theme', 'default' ) as $origin ) {
-				foreach ( isset( $palette[ $origin ] ) && is_array( $palette[ $origin ] ) ? $palette[ $origin ] : array() as $entry ) {
-					if ( isset( $entry['slug'], $entry['color'] ) && strtolower( $entry['slug'] ) === strtolower( $match[1] ) ) {
-						$value = (string) $entry['color'];
-						break 2;
-					}
-				}
-			}
+			return self::preset( $match[1] );
 		}
 
 		return (string) sanitize_hex_color( strtolower( $value ) );
+	}
+
+	/**
+	 * A palette color as hex, the user's palette first.
+	 *
+	 * @param string $slug Palette slug.
+	 * @return string Hex color, or an empty string when there's no such slug or it isn't hex.
+	 */
+	public static function preset( $slug ) {
+		$palette = wp_get_global_settings( array( 'color', 'palette' ) );
+		foreach ( array( 'custom', 'theme', 'default' ) as $origin ) {
+			foreach ( isset( $palette[ $origin ] ) && is_array( $palette[ $origin ] ) ? $palette[ $origin ] : array() as $entry ) {
+				if ( isset( $entry['slug'], $entry['color'] ) && strtolower( $entry['slug'] ) === strtolower( $slug ) ) {
+					return (string) sanitize_hex_color( strtolower( (string) $entry['color'] ) );
+				}
+			}
+		}
+		return '';
 	}
 }

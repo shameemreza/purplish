@@ -9,8 +9,8 @@
 	--purplish-lookbook-gap: clamp(0.75rem, 1.4vw, 1.25rem);
 	--purplish-lookbook-edge: clamp(1rem, 2vw, 1.75rem);
 	--purplish-lookbook-card-radius: 1.25rem;
-	--purplish-lookbook-card-paper: var(--wp--preset--color--base, #fff);
-	--purplish-lookbook-card-ink: var(--wp--preset--color--contrast, #111);
+	--purplish-lookbook-card-paper: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
+	--purplish-lookbook-card-ink: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #111));
 	--purplish-lookbook-screen: #000;
 	--purplish-lookbook-light: #fff;
 	--purplish-lookbook-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
