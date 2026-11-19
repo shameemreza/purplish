@@ -42,6 +42,12 @@ final class BlockEffects {
 	const BAR_HANDLE = 'purplish-bar';
 
 	/**
+	 * The script that keeps the order total on the Cart's pinned checkout
+	 * bar, loaded only with it.
+	 */
+	const TOTAL_HANDLE = 'purplish-total';
+
+	/**
 	 * Where the grid switch keeps the shopper's choice for the visit.
 	 */
 	const GRID_KEY = 'purplish-cards-grid';
@@ -581,9 +587,10 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
+			// The total shows only while WooCommerce pins the button on phones.
 			'woocommerce/proceed-to-checkout-block'       => array(
 				'prefix'  => 'buybutton',
-				'options' => self::BUY_BUTTON_LOOKS,
+				'options' => self::BUY_BUTTON_LOOKS + array( 'total' => true ),
 				'redrawn' => true,
 				'preview' => true,
 			),
@@ -880,6 +887,10 @@ final class BlockEffects {
 		$html = self::add_eyes( $tags->get_updated_html(), $name, $block['attrs']['purplish'] );
 		if ( in_array( 'purplish-cart-sticky', $classes, true ) ) {
 			$html .= self::buy_bar( $classes );
+		}
+		if ( in_array( 'purplish-buybutton-total', $classes, true ) ) {
+			$asset = include PURPLISH_DIR . 'build/total.asset.php';
+			wp_enqueue_script( self::TOTAL_HANDLE, PURPLISH_URL . 'build/total.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 		}
 		if ( in_array( 'purplish-filters-layout-bar', $classes, true ) ) {
 			self::enqueue_filters();

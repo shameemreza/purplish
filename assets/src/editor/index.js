@@ -32,7 +32,10 @@ import HeadingPanel from './heading';
 import SocialPanel from './social';
 import ColumnsPanel from './columns';
 import CoverPanel, { PagePhotoCoverPanel } from './cover';
-import BuyButtonPanel, { PlaceOrderPanel } from './buy-button';
+import BuyButtonPanel, {
+	PlaceOrderPanel,
+	ProceedToCheckoutPanel,
+} from './buy-button';
 import DrawerPanel from './drawer';
 import CartPagePanel from './cart-page';
 import CheckoutPagePanel from './checkout-page';
@@ -71,7 +74,7 @@ const PANELS = {
 	'woocommerce/featured-product': CoverPanel,
 	'woocommerce/order-confirmation-status': OrderStatusPanel,
 	'woocommerce/order-confirmation-summary': OrderSummaryPanel,
-	'woocommerce/proceed-to-checkout-block': BuyButtonPanel,
+	'woocommerce/proceed-to-checkout-block': ProceedToCheckoutPanel,
 	'woocommerce/checkout-actions-block': PlaceOrderPanel,
 	'woocommerce/mini-cart-contents': DrawerPanel,
 	'woocommerce/mini-cart-checkout-button-block': BuyButtonPanel,

@@ -28,6 +28,7 @@ const options = [
 	'more.js',
 	'results.js',
 	'swap.js',
+	'total.js',
 ].filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) );
 const shared = [
 	'effects.js',
