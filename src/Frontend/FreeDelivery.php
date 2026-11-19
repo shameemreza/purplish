@@ -117,7 +117,29 @@ final class FreeDelivery {
 		}
 		$packages = WC()->cart->get_shipping_packages();
 		$package  = reset( $packages );
-		return is_array( $package ) ? self::method_for( $package ) : null;
+		if ( ! is_array( $package ) ) {
+			return null;
+		}
+		// With "No location by default" a new shopper's package has no
+		// country, so it lands in "Locations not covered". Count down to the
+		// store's own zone until they enter an address.
+		if ( empty( $package['destination']['country'] ) ) {
+			$package['destination'] = array_merge( (array) ( $package['destination'] ?? array() ), self::base_destination() );
+		}
+		return self::method_for( $package );
+	}
+
+	/**
+	 * The store's own address, as a package destination.
+	 *
+	 * @return array{country: string, state: string, postcode: string}
+	 */
+	private static function base_destination() {
+		return array(
+			'country'  => WC()->countries->get_base_country(),
+			'state'    => WC()->countries->get_base_state(),
+			'postcode' => WC()->countries->get_base_postcode(),
+		);
 	}
 
 	/**
@@ -144,15 +166,7 @@ final class FreeDelivery {
 	public static function sample() {
 		$method = null;
 		if ( function_exists( 'WC' ) && wc_shipping_enabled() ) {
-			$method = self::method_for(
-				array(
-					'destination' => array(
-						'country'  => WC()->countries->get_base_country(),
-						'state'    => WC()->countries->get_base_state(),
-						'postcode' => WC()->countries->get_base_postcode(),
-					),
-				)
-			);
+			$method = self::method_for( array( 'destination' => self::base_destination() ) );
 		}
 		$left = $method ? 0.4 * (float) wc_format_decimal( $method->min_amount ) : 20;
 		return array(
