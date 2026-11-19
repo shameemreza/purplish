@@ -18,9 +18,9 @@
 }
 
 .wp-block-purplish-changing-room {
-	--purplish-cr-color: var(--wp--preset--color--contrast, #111);
-	--purplish-cr-on: var(--wp--preset--color--base, #fff);
-	--purplish-cr-ink: var(--wp--preset--color--contrast, #111);
+	--purplish-cr-color: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #111));
+	--purplish-cr-on: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
+	--purplish-cr-ink: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #111));
 	--purplish-cr-tint: #f4f3f1;
 	--purplish-cr-muted: color-mix(in srgb, currentcolor 58%, transparent);
 	--purplish-cr-mono: ui-monospace, "SFMono-Regular", menlo, consolas, monospace;
@@ -445,7 +445,7 @@ body.purplish-changing-room-page {
 .wp-block-purplish-changing-room.purplish-changing-room-color-off .purplish-changing-room-drawer {
 	--purplish-fx: initial;
 	--purplish-fx-on: initial;
-	--purplish-color: var(--wp--preset--color--contrast, #1e1e1e);
+	--purplish-color: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #1e1e1e));
 	--purplish-color-on: #fff;
 }
 

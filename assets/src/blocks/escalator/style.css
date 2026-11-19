@@ -182,7 +182,7 @@
 	border: 0;
 	border-radius: max(0px, calc(var(--purplish-escalator-radius, var(--wp--custom--purplish--radius, 12px)) - 4px));
 	background: var(--purplish-color);
-	color: var(--purplish-effect-on, var(--wp--preset--color--base, #fff));
+	color: var(--purplish-effect-on, var(--purplish-theme-paper, var(--wp--preset--color--base, #fff)));
 	font: inherit;
 	font-size: var(--wp--preset--font-size--small, 0.875rem);
 	font-weight: 600;
@@ -352,8 +352,8 @@
 	padding: 0;
 	border: 1px solid color-mix(in srgb, currentcolor 20%, transparent);
 	border-radius: 50%;
-	background: var(--wp--preset--color--base, #fff);
-	color: var(--wp--preset--color--contrast, #1e1e1e);
+	background: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
+	color: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #1e1e1e));
 	cursor: pointer;
 }
 

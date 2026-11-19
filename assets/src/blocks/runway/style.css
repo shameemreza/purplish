@@ -9,7 +9,7 @@
  */
 .wp-block-purplish-runway {
 	--purplish-runway-mist: color-mix(in srgb, currentcolor 5%, transparent);
-	--purplish-runway-paper: var(--wp--preset--color--base, #fff);
+	--purplish-runway-paper: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
 	--purplish-runway-edge: clamp(1rem, 3vw, 2.75rem);
 }
 

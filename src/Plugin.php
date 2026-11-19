@@ -79,6 +79,7 @@ final class Plugin {
 	 */
 	public function boot() {
 		( new Jobs\DetectColors() )->register();
+		( new Color\ThemeColors() )->register();
 		( new Frontend\PageData() )->register();
 		( new Frontend\BlockOptions() )->register();
 		( new Frontend\BlockEffects() )->register();

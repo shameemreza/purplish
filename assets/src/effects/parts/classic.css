@@ -4,7 +4,7 @@
  */
 
 body[class*="purplish-classic-gallery-"] {
-	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--purplish-theme-ink, var(--wp--preset--color--contrast, #1e1e1e))));
 	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
 	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
 }

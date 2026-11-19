@@ -7,9 +7,9 @@
  * and -reach. Option classes are purplish-wardrobe-<option>-<value>.
  */
 .wp-block-purplish-wardrobe {
-	--purplish-wardrobe-ink: var(--wp--preset--color--contrast, #111);
-	--purplish-wardrobe-base: var(--wp--preset--color--base, #fff);
-	--purplish-wardrobe-accent: var(--purplish-effect, var(--wp--preset--color--accent, #720eec));
+	--purplish-wardrobe-ink: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #111));
+	--purplish-wardrobe-base: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
+	--purplish-wardrobe-accent: var(--purplish-effect, var(--purplish-theme-accent, var(--wp--preset--color--accent, #720eec)));
 	--purplish-wardrobe-tint: color-mix(in srgb, var(--purplish-wardrobe-accent) 9%, var(--purplish-wardrobe-base));
 	--purplish-wardrobe-shade: color-mix(in srgb, var(--purplish-wardrobe-accent) 22%, var(--purplish-wardrobe-ink));
 	--purplish-wardrobe-ease: cubic-bezier(0.22, 1, 0.36, 1);
