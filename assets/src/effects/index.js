@@ -25,7 +25,42 @@ import { flyToCart } from '../shared/fly';
 import { throwStrips } from '../shared/throw';
 import { settleStrips } from '../shared/settle';
 import './style.css';
-import './shop/style.css';
+// Each part builds to its own file, which BlockEffects loads only with
+// the blocks that use it.
+import './parts/gallery.css';
+import './parts/cards.css';
+import './parts/accordion.css';
+import './parts/pages.css';
+import './parts/terms.css';
+import './parts/count.css';
+import './parts/details.css';
+import './parts/reviews.css';
+import './parts/specs.css';
+import './parts/image.css';
+import './parts/cover.css';
+import './parts/button.css';
+import './parts/cart.css';
+import './parts/buybutton.css';
+import './parts/thanks.css';
+import './parts/drawer.css';
+import './parts/cartpage.css';
+import './parts/checkoutpage.css';
+import './parts/classic.css';
+import './parts/group.css';
+import './parts/chips.css';
+import './parts/badge.css';
+import './parts/stock.css';
+import './parts/thumbs.css';
+import './parts/swatches.css';
+import './parts/filters.css';
+import './parts/minicart.css';
+import './parts/eyes.css';
+import './parts/heading.css';
+import './parts/columns.css';
+import './parts/social.css';
+import './parts/summary.css';
+import './parts/meter.css';
+import './parts/sorting.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 const canHover =

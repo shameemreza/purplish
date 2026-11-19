@@ -1,0 +1,77 @@
+/**
+ * Purplish effects for the Order Confirmation Status block. BlockEffects
+ * loads this file only on pages that use them, after style.css.
+ */
+
+.purplish-thanks {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+/*
+ * Thank-you moment on the Order confirmation status: the heading rises in
+ * and one ring of rays bursts behind it, once. The heading never starts
+ * hidden, so it still counts as the page's largest paint from the first
+ * frame. The burst sits behind where the text starts, or its middle or
+ * end when the block is aligned that way.
+ */
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	.purplish-thanks-moment h1 {
+		position: relative;
+		isolation: isolate;
+		animation: purplish-thanks-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	.purplish-thanks-moment h1::before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		inset-block-start: 50%;
+		inset-inline-start: -0.7em;
+		width: 2.8em;
+		aspect-ratio: 1;
+		margin-block-start: -1.4em;
+		border-radius: 50%;
+		background: repeating-conic-gradient(var(--purplish-color) 0 6deg, transparent 6deg 30deg);
+		mask: radial-gradient(closest-side, transparent 42%, #000 44% 76%, transparent 78%);
+		opacity: 0;
+		pointer-events: none;
+		animation: purplish-thanks-burst 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s both;
+	}
+
+	.purplish-thanks-moment.has-text-align-center h1::before {
+		inset-inline-start: calc(50% - 1.4em);
+	}
+
+	.purplish-thanks-moment.has-text-align-right h1::before {
+		inset-inline-start: auto;
+		inset-inline-end: -0.7em;
+	}
+}
+
+@keyframes purplish-thanks-rise {
+
+	from {
+		opacity: 0.35;
+		translate: 0 0.4em;
+	}
+}
+
+@keyframes purplish-thanks-burst {
+
+	0% {
+		opacity: 0;
+		scale: 0.4;
+	}
+
+	20% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		scale: 1.3;
+	}
+}

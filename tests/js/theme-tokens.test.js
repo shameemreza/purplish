@@ -5,8 +5,7 @@
  * take their colors from there too.
  */
 import { describe, expect, it } from '@jest/globals';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { allEffects } from './effect-styles';
 
 const RADIUS = '--wp--custom--purplish--radius';
 const SHADOW = '--wp--custom--purplish--shadow';
@@ -22,14 +21,11 @@ const SHAPES = /^(?:0|50%|999px|inherit)$/;
 /**
  * Every rule in a stylesheet, with each declaration.
  *
- * @param {string} file Path from the plugin root.
+ * @param {string} source The CSS.
  * @return {{selector: string, property: string, value: string}[]} Declarations.
  */
-const declarations = ( file ) => {
-	const css = readFileSync(
-		join( __dirname, '../..', file ),
-		'utf8'
-	).replace( /\/\*[\s\S]*?\*\//g, '' );
+const declarations = ( source ) => {
+	const css = source.replace( /\/\*[\s\S]*?\*\//g, '' );
 	const found = [];
 	for ( const [ , selector, body ] of css.matchAll(
 		/([^{}]+)\{([^{}]*)\}/g
@@ -51,10 +47,7 @@ const declarations = ( file ) => {
 	return found;
 };
 
-const every = [
-	...declarations( 'assets/src/effects/style.css' ),
-	...declarations( 'assets/src/effects/shop/style.css' ),
-];
+const every = declarations( allEffects() );
 
 const all = every.filter( ( { selector } ) => FOLLOWS.test( selector ) );
 
@@ -117,7 +110,8 @@ describe( 'theme tokens', () => {
 	} );
 
 	it( 'takes the photo wash from the theme, or tints the effect color', () => {
-		expect( setsOf( '--purplish-wash' ) ).toEqual( [
+		// The gallery and cards parts each carry the shared rule.
+		expect( [ ...new Set( setsOf( '--purplish-wash' ) ) ] ).toEqual( [
 			`var(${ WASH }, color-mix(in oklab, var(--purplish-color, currentcolor) 8%, #fff))`,
 		] );
 	} );

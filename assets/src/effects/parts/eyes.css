@@ -1,0 +1,49 @@
+/**
+ * Purplish effects for the googly eyes on buttons. BlockEffects loads this
+ * file only on pages that use them, after style.css.
+ */
+
+/*
+ * Googly eyes, printed by the server as the button's first child. The
+ * script turns each pupil toward the mouse and blinks the eyes when the
+ * mouse moves after a still moment.
+ */
+.purplish-eyes {
+	display: inline-flex;
+	gap: 0.12em;
+	margin-inline-end: 0.5em;
+	vertical-align: -0.2em;
+}
+
+.purplish-eye {
+	position: relative;
+	flex: none;
+	width: 1.05em;
+	height: 1.05em;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 0 0 0.07em currentcolor;
+}
+
+.purplish-eye::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	width: 0.46em;
+	height: 0.46em;
+	margin: auto;
+	border-radius: 50%;
+	background: #1b1b1b;
+	translate: calc(var(--purplish-ex, 0) * 0.22em) calc(var(--purplish-ey, 0) * 0.22em);
+}
+
+.purplish-eyes.purplish-blink .purplish-eye {
+	animation: purplish-blink 0.2s ease-in-out;
+}
+
+@keyframes purplish-blink {
+
+	50% {
+		scale: 1 0.1;
+	}
+}

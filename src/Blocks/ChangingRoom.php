@@ -321,7 +321,7 @@ final class ChangingRoom implements Block {
 		}
 
 		if ( 'theme' !== $options['look'] ) {
-			BlockEffects::enqueue();
+			BlockEffects::enqueue( array( 'button' ) );
 		}
 
 		$labels = self::labels( $attributes );

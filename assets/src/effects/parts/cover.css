@@ -1,0 +1,156 @@
+/**
+ * Purplish effects for the Cover, Featured Category and Featured Product
+ * blocks. BlockEffects loads this file only on pages that use them, after
+ * style.css.
+ */
+
+.purplish-cover {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+/*
+ * Cover scroll effects, on the cover's own view timeline. Slow zoom and
+ * parallax move the background image or video, never a fixed background,
+ * which the browser pins to the window. The pill reveal clips the cover to
+ * a small rounded pill that opens by the time the cover is fully in view,
+ * which every cover reaches, even the last one on the page; the background
+ * settles from a little zoom as it opens. Without scroll timelines the
+ * cover stays plain.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-cover {
+			view-timeline-name: --purplish-cover;
+		}
+
+		.purplish-cover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
+			animation: linear both;
+			animation-timeline: --purplish-cover;
+		}
+
+		.purplish-cover-scroll-slowzoom > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover-scroll-slowzoom > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
+			animation-name: purplish-cover-zoom;
+		}
+
+		.purplish-cover-scroll-parallax > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover-scroll-parallax > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
+			scale: 1.2;
+			animation-name: purplish-cover-drift;
+		}
+
+		.purplish-cover-scroll-pill {
+			animation: purplish-cover-pill linear backwards;
+			animation-timeline: --purplish-cover;
+			animation-range: entry 0% entry 100%;
+		}
+
+		.purplish-cover-scroll-pill > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+		.purplish-cover-scroll-pill > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
+			animation-name: purplish-cover-settle;
+			animation-fill-mode: backwards;
+			animation-range: entry 0% entry 100%;
+		}
+	}
+}
+
+@keyframes purplish-cover-zoom {
+
+	to {
+		scale: 1.15;
+	}
+}
+
+@keyframes purplish-cover-drift {
+
+	from {
+		translate: 0 -8%;
+	}
+
+	to {
+		translate: 0 8%;
+	}
+}
+
+@keyframes purplish-cover-pill {
+
+	from {
+		clip-path: inset(12% 20% round 999px);
+	}
+
+	to {
+		clip-path: inset(0 round 0);
+	}
+}
+
+@keyframes purplish-cover-settle {
+
+	from {
+		scale: 1.25;
+	}
+}
+
+/*
+ * Cover hover, push in: the background moves in slowly while the mouse is
+ * on the cover, and settles back when it leaves. On `transform`, so it
+ * adds to a scroll effect's `scale` instead of replacing it.
+ */
+.purplish-cover-hover-push {
+	overflow: clip;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-cover-hover-push > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+	.purplish-cover-hover-push > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
+		transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.purplish-cover-hover-push:hover > :is(.wp-block-cover__image-background, .wp-block-cover__video-background):not(.has-parallax),
+	.purplish-cover-hover-push:hover > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > :is(.wc-block-featured-category__background-image, .wc-block-featured-product__background-image):not(.has-parallax) {
+		transform: scale(1.06);
+	}
+}
+
+/*
+ * Cover hover, tilt, lift and glare: the whole cover moves, text and all.
+ * The front script adds the light layer under the text. A transform would
+ * unpin a fixed background, so parallax covers keep still. Featured
+ * Category and Featured Product mark parallax on their photo instead.
+ */
+.purplish-cover > .purplish-image-light,
+.purplish-cover > :is(.wc-block-featured-category__wrapper, .wc-block-featured-product__wrapper) > .purplish-image-light {
+	inset: 0;
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.35), transparent 50%);
+	opacity: 0;
+	transition: opacity 0.4s;
+}
+
+.purplish-cover-hover-tilt,
+.purplish-cover-hover-lift {
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-cover-hover-tilt:not(.has-parallax, :has(> * > .has-parallax)):hover {
+		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg));
+		box-shadow: 30px 40px 64px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
+		transition: transform 0.15s ease-out, box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.purplish-cover-hover-lift:not(.has-parallax, :has(> * > .has-parallax)):hover {
+		translate: 0 -10px;
+		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	:is(.purplish-cover-hover-tilt, .purplish-cover-hover-glare):hover > .purplish-image-light,
+	:is(.purplish-cover-hover-tilt, .purplish-cover-hover-glare):hover > * > .purplish-image-light {
+		opacity: 1;
+	}
+}

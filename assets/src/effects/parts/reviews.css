@@ -1,0 +1,76 @@
+/**
+ * Purplish effects for the Product Reviews block. BlockEffects loads this
+ * file only on pages that use them, after style.css.
+ */
+
+.purplish-reviews {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+/*
+ * Reviews, soft cards: each review on its own card, replies on white. The
+ * editor's sample reviews are list items without a comment ID.
+ */
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"],
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout {
+	padding: 1.25rem 1.5rem;
+	border-radius: 18px;
+	background-color: var(--purplish-color-soft);
+	transition: background-color 0.3s;
+}
+
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] + li,
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout + li {
+	margin-top: 0.75rem;
+}
+
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] li[id^="comment-"] {
+	background-color: #fff;
+}
+
+/*
+ * The card's padding takes the place of the space under each review, which
+ * the review template can print inline.
+ */
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] > *,
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout > * {
+	margin-bottom: 0 !important;
+}
+
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] > * + *,
+.purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout > * + * {
+	margin-top: 1rem;
+}
+
+/*
+ * Reviews, chat bubbles: the review text in a bubble, its top start corner
+ * squared toward the author, so it reads the same in any template layout.
+ */
+.purplish-reviews-style-bubbles .wp-block-woocommerce-product-review-content {
+	box-sizing: border-box;
+	width: fit-content;
+	max-width: 100%;
+	padding: 0.85em 1.15em;
+	border-radius: 18px;
+	border-start-start-radius: 4px;
+	background-color: var(--purplish-color-soft);
+	transition: background-color 0.3s;
+}
+
+.purplish-reviews-style-bubbles .wp-block-woocommerce-product-review-content > :first-child {
+	margin-top: 0;
+}
+
+.purplish-reviews-style-bubbles .wp-block-woocommerce-product-review-content > :last-child {
+	margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	[class*="purplish-reviews-"] * {
+		animation: none !important;
+		transition: none !important;
+	}
+}

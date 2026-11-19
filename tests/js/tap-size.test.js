@@ -3,13 +3,9 @@
  * height. The test reads the rules from the source stylesheet.
  */
 import { describe, expect, it } from '@jest/globals';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { allEffects } from './effect-styles';
 
-const css = readFileSync(
-	join( __dirname, '../../assets/src/effects/style.css' ),
-	'utf8'
-).replace( /\/\*[\s\S]*?\*\//g, '' );
+const css = allEffects().replace( /\/\*[\s\S]*?\*\//g, '' );
 
 const rules = [ ...css.matchAll( /([^{}]+)\{([^{}]*)\}/g ) ].map(
 	( [ , selector, body ] ) => ( { selector: selector.trim(), body } )

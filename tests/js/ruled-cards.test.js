@@ -4,13 +4,9 @@
  * edge selectors from the stylesheet and works out which cards they reach.
  */
 import { describe, expect, it } from '@jest/globals';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { effectPart } from './effect-styles';
 
-const css = readFileSync(
-	join( __dirname, '../../assets/src/effects/shop/style.css' ),
-	'utf8'
-).replace( /\/\*[\s\S]*?\*\//g, '' );
+const css = effectPart( 'cards' ).replace( /\/\*[\s\S]*?\*\//g, '' );
 
 const rules = [ ...css.matchAll( /([^{}]+)\{([^{}]*)\}/g ) ].map(
 	( [ , selector, body ] ) => ( {
@@ -201,13 +197,7 @@ describe( 'Ruled cards', () => {
 	} );
 
 	it( 'draws the Ring card look inside the cell, at rest and on hover', () => {
-		const effects = readFileSync(
-			join( __dirname, '../../assets/src/effects/style.css' ),
-			'utf8'
-		).replace( /\/\*[\s\S]*?\*\//g, '' );
-		const inside = [
-			...effects.matchAll( /([^{}]+)\{([^{}]*)\}/g ),
-		].filter(
+		const inside = [ ...css.matchAll( /([^{}]+)\{([^{}]*)\}/g ) ].filter(
 			( [ , selector, body ] ) =>
 				selector.includes(
 					'.purplish-cards-ruled.purplish-cards-hovercard-ring'

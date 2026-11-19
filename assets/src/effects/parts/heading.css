@@ -1,0 +1,79 @@
+/**
+ * Purplish effects for the Heading block. BlockEffects loads this file only
+ * on pages that use them, after style.css.
+ */
+
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	.purplish-heading-reveal-rise.purplish-waiting {
+		translate: 0 0.5em;
+	}
+
+	.purplish-heading-reveal-rise.purplish-entered {
+		animation-name: purplish-enter-rise;
+	}
+
+	.purplish-heading-reveal-focus.purplish-waiting {
+		filter: blur(8px);
+	}
+
+	.purplish-heading-reveal-focus.purplish-entered {
+		animation-name: purplish-enter-focus;
+	}
+}
+
+@keyframes purplish-enter-rise {
+
+	from {
+		opacity: 0;
+		translate: 0 0.5em;
+	}
+}
+
+@keyframes purplish-enter-focus {
+
+	from {
+		opacity: 0;
+		filter: blur(8px);
+	}
+}
+
+/*
+ * Heading, Rise from the floor: the heading's bottom edge is the floor, and
+ * the heading comes up out of it, sharpening as it rises, in step with the
+ * scroll while it enters the view. The clip moves against the rise so the
+ * floor stays put. Without scroll timelines, or with reduced motion, the
+ * heading sits in place, still cut at the floor.
+ */
+.purplish-heading-reveal-floor {
+	clip-path: inset(-1em -1em 0);
+}
+
+/* A big heading on a tight line has letters that reach far below its box.
+   The clip hides them, but they would still stretch the page, so the
+   parent clips on the block axis. */
+:where(:not(body):has(> .purplish-heading-reveal-floor)) {
+	overflow-y: clip;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		.purplish-heading-reveal-floor {
+			animation: purplish-floor-rise linear both;
+			animation-timeline: view();
+			animation-range: entry 0% entry 100%;
+		}
+	}
+}
+
+@keyframes purplish-floor-rise {
+
+	from {
+		opacity: 0.2;
+		filter: blur(8px);
+		translate: 0 0.45em;
+		clip-path: inset(-1em -1em 0.45em);
+	}
+}

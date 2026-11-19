@@ -1,0 +1,563 @@
+/**
+ * Purplish effects for the Product Gallery block. BlockEffects loads this
+ * file only on pages that use them, after style.css.
+ */
+
+.purplish-gallery {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+/*
+ * Gallery: one big photo, no thumbnail strip. Classic covers WooCommerce's
+ * FlexSlider and themes with their own slider, like Blocksy's flexy.
+ */
+.purplish-gallery-nothumbs .wc-block-product-gallery-thumbnails {
+	display: none;
+}
+
+/* Gallery: rounded corners on the large photo. */
+.purplish-gallery-rounded .wc-block-product-gallery-large-image {
+	border-radius: 24px;
+	overflow: hidden;
+}
+
+/*
+ * Gallery and Cards, Photo wash: a light tint of the effect color behind
+ * each photo, with the photo multiplied into it, so a studio photo on
+ * white takes the tint instead of sitting in a white box. The tint mixes
+ * into white, not the page, so a dark page doesn't darken the photos.
+ * A theme's settings.custom.purplish.wash replaces the tint.
+ */
+:is(.purplish-gallery-wash, .purplish-cards-wash) {
+	--purplish-wash: var(--wp--custom--purplish--wash, color-mix(in oklab, var(--purplish-color, currentcolor) 8%, #fff));
+}
+
+.purplish-gallery-wash :is(.wc-block-product-gallery-large-image, .wc-block-product-gallery-thumbnails__thumbnail) {
+	background-color: var(--purplish-wash);
+}
+
+.purplish-gallery-wash :is(.wc-block-product-gallery-large-image, .wc-block-product-gallery-thumbnails__thumbnail) img {
+	mix-blend-mode: multiply;
+}
+
+/* Gallery: round frosted arrows that show when the shopper hovers the photo. */
+.purplish-gallery-arrows .wc-block-next-previous-buttons {
+	gap: 8px;
+	transition: opacity 0.3s ease-out, translate 0.3s ease-out;
+}
+
+.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button {
+	width: 44px;
+	height: 44px;
+	border: 0;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.75);
+	backdrop-filter: blur(10px);
+	color: var(--purplish-color);
+	box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.35);
+	transition: background-color 0.25s, color 0.25s, scale 0.2s;
+}
+
+@media (hover: hover) {
+
+	.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:hover:not(:disabled) {
+		background: var(--purplish-color);
+		color: var(--purplish-color-on);
+	}
+}
+
+.purplish-gallery-arrows .wc-block-next-previous-buttons .wc-block-next-previous-buttons__button:active {
+	scale: 0.92;
+}
+
+/* On a mouse, the arrows show on hover, and when Tab reaches them. */
+@media (hover: hover) and (pointer: fine) {
+
+	.purplish-gallery-arrows .wc-block-product-gallery-large-image:not(:hover, :focus-within) .wc-block-next-previous-buttons {
+		opacity: 0;
+		translate: 0 8px;
+	}
+}
+
+/*
+ * Gallery hover styles. The frame is the box around the photo: the large
+ * image block, or on classic the slider's viewport (never the sliding
+ * strip). The photo is the slide on screen. The script sets the mouse
+ * variables. Touch screens and reduced motion get the plain photo.
+ */
+:is(.purplish-gallery[class*="purplish-gallery-hover-"] .wc-block-product-gallery-large-image, body[class*="purplish-classic-gallery-hover-"] .purplish-hover-target) {
+	position: relative;
+}
+
+/* Styles that grow the photo clip it, each slide on its own. */
+:is(.purplish-gallery-hover-zoom, .purplish-gallery-hover-parallax, .purplish-gallery-hover-slowzoom) :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) {
+	overflow: hidden;
+}
+
+/* WooCommerce's own hover zoom writes an inline transform on the image. */
+.purplish-gallery[class*="purplish-gallery-hover-"] .wc-block-woocommerce-product-gallery-large-image__image--hoverZoom {
+	transform: none !important;
+}
+
+/*
+ * 3D tilt: the photo tilts toward the mouse, lifts, and a light sheen
+ * follows the mouse. perspective() sits inside the transform: a
+ * perspective property on the gallery would trap the full-screen view
+ * inside it.
+ */
+.purplish-gallery-hover-tilt .wc-block-product-gallery-large-image {
+	transform-style: preserve-3d;
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The sheen, shared by the tilt and the glare. */
+:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare) .wc-block-product-gallery-large-image::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.4), transparent 45%);
+	opacity: 0;
+	transition: opacity 0.4s;
+	pointer-events: none;
+}
+
+/* Lift: the frame rises with a soft shadow in the effect color. */
+.purplish-gallery-hover-lift .wc-block-product-gallery-large-image {
+	transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Zoom: the photo magnifies around the mouse. */
+.purplish-gallery-hover-zoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+	transform-origin: var(--purplish-mx, 50%) var(--purplish-my, 50%);
+	transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Parallax: the photo drifts against the mouse inside its frame. */
+.purplish-gallery-hover-parallax :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+	transition: translate 0.45s ease-out, scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Slow zoom: a gentle push in while hovered, a quicker settle after. */
+.purplish-gallery-hover-slowzoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+	transition: scale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * Loupe: a round magnifier under the mouse. The script sets the photo, its
+ * size at 2.5 times and where it sits under the circle.
+ */
+.purplish-gallery-hover-loupe .wc-block-product-gallery-large-image::after {
+	content: "";
+	position: absolute;
+
+	/* The mouse is measured from the left in every language, and the RTL
+	   build leaves the four-value inset as it is. */
+	inset: var(--purplish-my, 50%) auto auto var(--purplish-mx, 50%);
+	z-index: 2;
+	width: var(--purplish-loupe-box, 180px);
+	height: var(--purplish-loupe-box, 180px);
+	border-radius: 50%;
+	background-color: #fff;
+	background-image: var(--purplish-loupe, none);
+	background-repeat: no-repeat;
+	background-size: var(--purplish-loupe-size, cover);
+	background-position: var(--purplish-loupe-pos, center);
+	box-shadow: 0 0 0 3px #fff, 0 0 0 4px color-mix(in srgb, var(--purplish-color) 35%, transparent), 0 18px 40px -12px rgb(0 0 0 / 0.45);
+	opacity: 0;
+	translate: -50% -50%;
+	scale: 0.6;
+	transition: opacity 0.2s, scale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+	pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-gallery-hover-tilt .wc-block-product-gallery-large-image:hover {
+		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
+		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare) .wc-block-product-gallery-large-image:hover::after {
+		opacity: 1;
+	}
+
+	.purplish-gallery-hover-lift .wc-block-product-gallery-large-image:hover {
+		translate: 0 -10px;
+		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	.purplish-gallery-hover-zoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+		scale: 2.2;
+		cursor: zoom-in;
+	}
+
+	.purplish-gallery-hover-parallax .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+		translate: calc(var(--purplish-dx, 0) * -8%) calc(var(--purplish-dy, 0) * -8%);
+		scale: 1.12;
+	}
+
+	.purplish-gallery-hover-slowzoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+		scale: 1.1;
+		transition: scale 6s cubic-bezier(0.2, 0.6, 0.2, 1);
+	}
+
+	.purplish-gallery-hover-loupe .wc-block-product-gallery-large-image:hover {
+		cursor: crosshair;
+	}
+
+	.purplish-gallery-hover-loupe .wc-block-product-gallery-large-image:hover::after {
+		opacity: 1;
+		scale: 1;
+	}
+}
+
+/*
+ * Gallery full-screen styles, on WooCommerce's own full-screen view. It
+ * lists the photos in one scrolling column; every style but the default
+ * shows one photo per screen that snaps into place. The background is a
+ * layer of its own, so it can fade in under a photo that doesn't.
+ */
+.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog {
+	background: transparent;
+}
+
+.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: var(--purplish-color-soft);
+}
+
+.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content {
+	flex-direction: column;
+	align-items: center;
+	gap: 40vh;
+	box-sizing: border-box;
+	height: calc(100vh - 110px);
+	padding: calc((100vh - 110px - 68vh) / 2) 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scroll-snap-type: y mandatory;
+	scroll-behavior: smooth;
+	scrollbar-width: none;
+}
+
+.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content :is(img, video) {
+	flex: 0 0 auto;
+	width: auto;
+	height: auto;
+	max-width: 86vw;
+	max-height: 68vh;
+	margin: 0;
+	border-radius: 24px;
+	object-fit: contain;
+	scroll-snap-align: center;
+	box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.45);
+}
+
+.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.8);
+	color: var(--purplish-color);
+	transition: background-color 0.25s, color 0.25s, rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) {
+
+	.purplish-gallery:where([class*="purplish-gallery-fullscreen-"]) .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button:hover {
+		background: var(--purplish-color);
+		color: var(--purplish-color-on);
+		rotate: 90deg;
+	}
+}
+
+/* Snap stack: the view opens with a soft blur, each photo is dealt in. */
+.purplish-gallery-fullscreen-snap .wc-block-product-gallery-dialog[open] .wc-block-product-gallery-dialog__content {
+	animation: purplish-lightbox-open 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes purplish-lightbox-open {
+
+	from {
+		opacity: 0;
+		scale: 0.94;
+		filter: blur(8px);
+	}
+}
+
+/* Snap stack: each photo is dealt in from below, and tips away. */
+
+@supports (animation-timeline: view()) {
+
+	.purplish-gallery-fullscreen-snap .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content :is(img, video) {
+		animation: purplish-lightbox-deal linear both;
+		animation-timeline: view();
+	}
+
+	.purplish-gallery-fullscreen-fade .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content :is(img, video) {
+		animation: purplish-lightbox-fade linear both;
+		animation-timeline: view();
+	}
+}
+
+/* Classic fade: each photo fades in at the center, out as it leaves. */
+
+@keyframes purplish-lightbox-deal {
+
+	0% {
+		transform: perspective(1200px) rotateX(-38deg) rotateZ(4deg) scale(0.78);
+		opacity: 0;
+		filter: blur(12px);
+	}
+
+	38%,
+	62% {
+		transform: none;
+		opacity: 1;
+		filter: none;
+	}
+
+	100% {
+		transform: perspective(1200px) rotateX(38deg) rotateZ(-4deg) scale(0.78);
+		opacity: 0;
+		filter: blur(12px);
+	}
+}
+
+@keyframes purplish-lightbox-fade {
+
+	0%,
+	100% {
+		opacity: 0;
+	}
+
+	35%,
+	65% {
+		opacity: 1;
+	}
+}
+
+/*
+ * Classic fade, zoom from photo and cinema: the background fades in when
+ * the view opens.
+ */
+:is(.purplish-gallery-fullscreen-fade, .purplish-gallery-fullscreen-zoom, .purplish-gallery-fullscreen-cinema) .wc-block-product-gallery-dialog[open]::before {
+	animation: purplish-lightbox-in 0.45s ease-out both;
+}
+
+/*
+ * Zoom from photo: the script sets where the photo sat on the page as a
+ * start transform on the same photo in the view, and adds
+ * purplish-zooming while it grows into place. The view opens on its photo
+ * at once, so the photo doesn't scroll while it grows.
+ */
+.purplish-gallery-fullscreen-zoom .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content {
+	scroll-behavior: auto;
+}
+
+.purplish-gallery-fullscreen-zoom .wc-block-product-gallery-dialog.purplish-zooming .purplish-zoom-from {
+	animation: purplish-lightbox-zoom 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.purplish-gallery-fullscreen-zoom .wc-block-product-gallery-dialog.purplish-zooming :is(.wc-block-product-gallery-dialog__header, .purplish-filmstrip) {
+	animation: purplish-lightbox-in 0.5s ease-out both;
+}
+
+@keyframes purplish-lightbox-zoom {
+
+	from {
+		border-radius: 0;
+		box-shadow: none;
+		transform: var(--purplish-zoom-from, none);
+	}
+}
+
+@keyframes purplish-lightbox-in {
+
+	from {
+		opacity: 0;
+	}
+}
+
+/*
+ * Filmstrip: a row of small photos along the bottom. The script builds it
+ * each time the view opens; a click scrolls to that photo.
+ */
+.purplish-gallery-fullscreen-filmstrip .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content {
+	height: calc(100vh - 110px - 96px);
+	padding-block: calc((100vh - 110px - 96px - 60vh) / 2);
+}
+
+.purplish-gallery-fullscreen-filmstrip .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content :is(img, video) {
+	max-height: 60vh;
+}
+
+.purplish-filmstrip {
+	display: flex;
+	justify-content: safe center;
+	gap: 10px;
+	box-sizing: border-box;
+	height: 96px;
+	padding: 12px 16px 20px;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+.purplish-filmstrip button {
+	flex: 0 0 auto;
+	width: 64px;
+	height: 64px;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+	border-radius: 12px;
+	background: rgb(255 255 255 / 0.7);
+	opacity: 0.55;
+	cursor: pointer;
+	box-shadow: 0 0 0 0 var(--purplish-color);
+	transition: opacity 0.25s, box-shadow 0.25s, translate 0.25s;
+}
+
+.purplish-filmstrip button:focus-visible,
+.purplish-filmstrip button[aria-current="true"] {
+	opacity: 1;
+}
+
+@media (hover: hover) {
+
+	.purplish-filmstrip button:hover {
+		opacity: 1;
+	}
+}
+
+.purplish-filmstrip button[aria-current="true"] {
+	translate: 0 -3px;
+	box-shadow: 0 0 0 3px var(--purplish-color);
+}
+
+.purplish-filmstrip button:focus-visible {
+	outline: 2px solid var(--purplish-color);
+	outline-offset: 3px;
+}
+
+.purplish-filmstrip img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/*
+ * Cinema: a near black screen with a faint glow of the page color behind
+ * the photo, and larger photos.
+ */
+.purplish-gallery-fullscreen-cinema .wc-block-product-gallery-dialog::before {
+	background: radial-gradient(ellipse 60% 55% at 50% 50%, color-mix(in oklab, var(--purplish-color) 28%, #0a0a0c), #0a0a0c 75%);
+}
+
+.purplish-gallery-fullscreen-cinema .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content {
+	padding-block: calc((100vh - 110px - 82vh) / 2);
+}
+
+.purplish-gallery-fullscreen-cinema .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content :is(img, video) {
+	max-width: 92vw;
+	max-height: 82vh;
+	border-radius: 8px;
+	box-shadow: 0 50px 120px -30px rgb(0 0 0 / 0.9);
+}
+
+.purplish-gallery-fullscreen-cinema .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__close-button {
+	background: rgb(255 255 255 / 0.14);
+	color: #fff;
+	fill: #fff;
+}
+
+/*
+ * Gallery slide styles: each style plays as the new photo comes in. The
+ * script sets --purplish-from to 1 when it comes after the old photo and
+ * -1 when it comes before, and adds purplish-sliding again on each change,
+ * never on page load. Between photos in a set the strip jumps instead of
+ * sliding, so the style is the only motion; the frame never moves.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-gallery-slider-cube .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		transform-origin: calc(50% - var(--purplish-from, 1) * 50%) 50%;
+		animation: purplish-cube 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+
+	.purplish-gallery-slider-circle .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		transform-origin: 50% 300%;
+		animation: purplish-circle 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+
+	.purplish-gallery-slider-reel .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		animation: purplish-reel 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+
+	.purplish-gallery-slider-tunnel .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		animation: purplish-tunnel 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+}
+
+@keyframes purplish-cube {
+
+	from {
+		transform: perspective(1200px) rotateY(calc(var(--purplish-from, 1) * 70deg));
+	}
+}
+
+@keyframes purplish-circle {
+
+	from {
+		rotate: calc(var(--purplish-from, 1) * 25deg);
+	}
+}
+
+@keyframes purplish-reel {
+
+	from {
+		translate: calc(var(--purplish-from, 1) * 40%) 0;
+		scale: 0.82;
+		clip-path: inset(0 round 24px);
+	}
+
+	60% {
+		translate: 0 0;
+		scale: 0.82;
+		clip-path: inset(0 round 24px);
+	}
+
+	to {
+		clip-path: inset(0 round 0);
+	}
+}
+
+@keyframes purplish-tunnel {
+
+	from {
+		opacity: 0;
+		scale: 0.6;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	[class*="purplish-gallery-"] *,
+	[class*="purplish-gallery-"] *::before,
+	[class*="purplish-gallery-"] *::after {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	.purplish-gallery .wc-block-product-gallery-dialog__content {
+		scroll-behavior: auto !important;
+	}
+}

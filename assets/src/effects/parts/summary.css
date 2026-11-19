@@ -1,0 +1,58 @@
+/**
+ * Purplish effects for the Order Confirmation Summary block. BlockEffects
+ * loads this file only on pages that use them, after style.css.
+ */
+
+/*
+ * Receipt card on the Order confirmation summary: the list becomes a
+ * narrow slip with one line per detail, the value at the end, dashed rules
+ * between them and a torn bottom edge. The slip is the list, not the
+ * block, so the block keeps the theme's layout and the slip starts where
+ * the text does. The paper is the block's own background when it has one,
+ * which the block then drops; otherwise a light wash of the text color, so
+ * it works on light and dark themes.
+ */
+.wc-block-order-confirmation-summary.purplish-summary-receipt.purplish-summary-paper {
+	background: none !important;
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul {
+	box-sizing: border-box;
+	flex-direction: column;
+	gap: 0;
+	max-width: 30rem;
+	padding: 1.25em 1.5em 2em;
+	background: var(--purplish-paper, color-mix(in oklab, currentcolor 5%, transparent));
+	border-radius: 0.375em 0.375em 0 0;
+	mask:
+		conic-gradient(from -45deg at bottom, #000 90deg, #0000 0) bottom / 1em 0.5em repeat-x,
+		linear-gradient(#000 0 0) top / 100% calc(100% - 0.49em) no-repeat;
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1em;
+	width: auto;
+	padding-block: 0.6em;
+	border-block-end: 1px dashed color-mix(in oklab, currentcolor 30%, transparent);
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li:last-child {
+	border-block-end: 0;
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li > .wc-block-order-confirmation-summary-list-item__key {
+	font-weight: inherit;
+	white-space: nowrap;
+}
+
+.wc-block-order-confirmation-summary.purplish-summary-receipt ul li > .wc-block-order-confirmation-summary-list-item__value {
+	display: inline;
+	min-width: 0;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	text-align: end;
+	overflow-wrap: anywhere;
+}

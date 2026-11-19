@@ -1,0 +1,133 @@
+/**
+ * Purplish effects for the classic product gallery. BlockEffects loads this
+ * file only on pages that use them, after style.css.
+ */
+
+body[class*="purplish-classic-gallery-"] {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+body.purplish-classic-gallery-nothumbs .woocommerce-product-gallery :is(.flex-control-thumbs, .flexy-pills) {
+	display: none;
+}
+
+body.purplish-classic-gallery-rounded .woocommerce-product-gallery :is(.flex-viewport, .flexy-view),
+body.purplish-classic-gallery-rounded .woocommerce-product-gallery__wrapper:only-child,
+body.purplish-classic-gallery-rounded .ct-product-gallery-container > .ct-media-container {
+	border-radius: 24px;
+	overflow: hidden;
+}
+
+:is(.purplish-classic-gallery-hover-zoom, .purplish-classic-gallery-hover-parallax, .purplish-classic-gallery-hover-slowzoom) .purplish-hover-target,
+:is(.purplish-classic-gallery-hover-zoom, .purplish-classic-gallery-hover-parallax, .purplish-classic-gallery-hover-slowzoom) .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) {
+	overflow: hidden;
+}
+
+body.purplish-classic-gallery-hover-tilt .purplish-hover-target {
+	transform-style: preserve-3d;
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:is(.purplish-classic-gallery-hover-tilt, .purplish-classic-gallery-hover-glare) .purplish-hover-target::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.4), transparent 45%);
+	opacity: 0;
+	transition: opacity 0.4s;
+	pointer-events: none;
+}
+
+body.purplish-classic-gallery-hover-lift .purplish-hover-target {
+	transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.purplish-classic-gallery-hover-zoom .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) img {
+	transform-origin: var(--purplish-mx, 50%) var(--purplish-my, 50%);
+	transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.purplish-classic-gallery-hover-parallax .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) img {
+	transition: translate 0.45s ease-out, scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target :is(.woocommerce-product-gallery__image, .ct-media-container) img {
+	transition: scale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.purplish-classic-gallery-hover-loupe .purplish-hover-target::after {
+	content: "";
+	position: absolute;
+
+	/* The mouse is measured from the left in every language, and the RTL
+	   build leaves the four-value inset as it is. */
+	inset: var(--purplish-my, 50%) auto auto var(--purplish-mx, 50%);
+	z-index: 2;
+	width: var(--purplish-loupe-box, 180px);
+	height: var(--purplish-loupe-box, 180px);
+	border-radius: 50%;
+	background-color: #fff;
+	background-image: var(--purplish-loupe, none);
+	background-repeat: no-repeat;
+	background-size: var(--purplish-loupe-size, cover);
+	background-position: var(--purplish-loupe-pos, center);
+	box-shadow: 0 0 0 3px #fff, 0 0 0 4px color-mix(in srgb, var(--purplish-color) 35%, transparent), 0 18px 40px -12px rgb(0 0 0 / 0.45);
+	opacity: 0;
+	translate: -50% -50%;
+	scale: 0.6;
+	transition: opacity 0.2s, scale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+	pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	body.purplish-classic-gallery-hover-tilt .purplish-hover-target:hover {
+		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
+		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	:is(.purplish-classic-gallery-hover-tilt, .purplish-classic-gallery-hover-glare) .purplish-hover-target:hover::after {
+		opacity: 1;
+	}
+
+	body.purplish-classic-gallery-hover-lift .purplish-hover-target:hover {
+		translate: 0 -10px;
+		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	body.purplish-classic-gallery-hover-zoom .purplish-hover-target:hover :is(.woocommerce-product-gallery__image, .ct-media-container) img {
+		scale: 2.2;
+		cursor: zoom-in;
+	}
+
+	body.purplish-classic-gallery-hover-parallax .purplish-hover-target:hover :is(.woocommerce-product-gallery__image, .ct-media-container) img {
+		translate: calc(var(--purplish-dx, 0) * -8%) calc(var(--purplish-dy, 0) * -8%);
+		scale: 1.12;
+	}
+
+	body.purplish-classic-gallery-hover-slowzoom .purplish-hover-target:hover :is(.woocommerce-product-gallery__image, .ct-media-container) img {
+		scale: 1.1;
+		transition: scale 6s cubic-bezier(0.2, 0.6, 0.2, 1);
+	}
+
+	body.purplish-classic-gallery-hover-loupe .purplish-hover-target:hover {
+		cursor: crosshair;
+	}
+
+	body.purplish-classic-gallery-hover-loupe .purplish-hover-target:hover::after {
+		opacity: 1;
+		scale: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	[class*="purplish-classic-gallery-"] .woocommerce-product-gallery * {
+		animation: none !important;
+		transition: none !important;
+	}
+}

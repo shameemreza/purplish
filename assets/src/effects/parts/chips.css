@@ -1,0 +1,32 @@
+/**
+ * Purplish effects for the variation options of the Add to Cart with Options
+ * block. BlockEffects loads this file only on pages that use them, after
+ * style.css.
+ */
+
+/*
+ * Grayed-out chips. WooCommerce already fades invalid chips and strikes
+ * through their names; these swap the line through the name for another
+ * look. The cross covers the whole chip, so swatches without a visible
+ * name show it too.
+ */
+:is(.purplish-chips-soldout-cross, .purplish-chips-soldout-blur) .wc-block-product-filter-chips__item:disabled .wc-block-product-filter-chips__label {
+	text-decoration: none;
+}
+
+.purplish-chips-soldout-cross .wc-block-product-filter-chips__item:disabled {
+	position: relative;
+	overflow: hidden;
+}
+
+.purplish-chips-soldout-cross .wc-block-product-filter-chips__item:disabled::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top right, transparent calc(50% - 1px), currentcolor calc(50% - 1px), currentcolor calc(50% + 1px), transparent calc(50% + 1px));
+	pointer-events: none;
+}
+
+.purplish-chips-soldout-blur .wc-block-product-filter-chips__item:disabled .wc-block-product-filter-chips__label {
+	filter: blur(1.5px);
+}

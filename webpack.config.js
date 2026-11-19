@@ -2,7 +2,9 @@
  * The scripts package's webpack config with the four 1.0 bundles and the
  * filters, grid, free shipping meter, load more and photo swap scripts kept by name, plus the scripts each block lists in its
  * block.json. A new block is a new folder in assets/src/blocks and nothing
- * else here.
+ * else here. Each file in assets/src/effects/parts builds to its own
+ * stylesheet, `style-effects-<part>.css`, so a page loads only the effects
+ * its blocks use.
  */
 const { existsSync, readdirSync } = require( 'fs' );
 const { join } = require( 'path' );
@@ -24,6 +26,30 @@ const hasBlocks = () =>
 
 module.exports = {
 	...defaultConfig,
+	optimization: {
+		...defaultConfig.optimization,
+		splitChunks: {
+			...defaultConfig.optimization.splitChunks,
+			cacheGroups: {
+				...defaultConfig.optimization.splitChunks.cacheGroups,
+				effectParts: {
+					type: 'css/mini-extract',
+					test: /[\\/]effects[\\/]parts[\\/][a-z]+\.css$/,
+					chunks: 'all',
+					enforce: true,
+					priority: 10,
+					// An extracted CSS module has no `resource`; its identifier
+					// ends with the source file's path.
+					name: ( module ) =>
+						`style-effects-${
+							/[\\/]parts[\\/]([a-z]+)\.css/.exec(
+								module.identifier()
+							)[ 1 ]
+						}`,
+				},
+			},
+		},
+	},
 	entry: () => ( {
 		admin: './assets/src/admin/index.js',
 		editor: './assets/src/editor/index.js',

@@ -1,0 +1,548 @@
+/**
+ * Purplish effects for the Product Filters block. BlockEffects loads this
+ * file only on pages that use them, after style.css.
+ */
+
+/*
+ * Matching chips. The effects script copies a chip's look into the
+ * `--purplish-chip-*` variables on the filters block; the fallbacks are
+ * WooCommerce's own selected chip.
+ */
+.purplish-filters-chips .wc-block-product-filter-removable-chips__items .wc-block-product-filter-removable-chips__item {
+	padding: var(--purplish-chip-padding, 0.4em 0.75em);
+	border-color: var(--purplish-chip-border, CanvasText);
+	border-radius: var(--purplish-chip-radius, 2px);
+	background: var(--purplish-chip-background, CanvasText);
+	color: var(--purplish-chip-text, Canvas);
+	font-size: var(--purplish-chip-size, 0.8em);
+	letter-spacing: var(--purplish-chip-spacing, inherit);
+	text-transform: var(--purplish-chip-case, inherit);
+}
+
+.purplish-filters-chips .wc-block-product-filter-removable-chips__items .wc-block-product-filter-removable-chips__item .wc-block-product-filter-removable-chips__remove {
+	color: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-chips .wc-block-product-filter-chips__item {
+		transition:
+			background-color 0.5s ease,
+			border-color 0.5s ease,
+			color 0.5s ease;
+	}
+}
+
+/*
+ * Tap size: chips and the phone button that opens the filters are at least
+ * 44px tall, the smallest target a thumb hits easily.
+ */
+.purplish-filters-tap :is(.wc-block-product-filter-chips__item, .wc-block-product-filter-removable-chips__item) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+}
+
+.purplish-filters-tap .wc-block-product-filters__open-overlay {
+	min-height: 44px;
+}
+
+/*
+ * Sidebar can hide. The filters script moves the button above the
+ * products and marks the columns; the fold is a width change, with the
+ * column gap pulled back by a negative margin so the grid meets the edge.
+ * Below 782px, where WooCommerce's overlay takes over, nothing changes.
+ */
+.purplish-filters-toggle {
+	display: none;
+}
+
+@media (min-width: 782px) {
+
+	.purplish-filters-toggle:not([hidden]) {
+		display: inline-flex;
+		gap: 0.5em;
+		align-items: center;
+		padding: 0.35em 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		font-size: 0.875em;
+		letter-spacing: inherit;
+		text-transform: inherit;
+		text-underline-offset: 0.3em;
+		cursor: pointer;
+	}
+
+	.wp-block-column > .purplish-filters-toggle:not([hidden]) {
+		display: flex;
+		width: fit-content;
+		margin-inline-start: auto;
+	}
+
+	.purplish-filters-toggle.is-beside {
+		margin-inline-end: 1.25em;
+	}
+}
+
+@media (min-width: 782px) {
+
+	@media (hover: hover) {
+
+		.purplish-filters-toggle:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+@media (min-width: 782px) {
+
+	.purplish-filters-toggle:focus-visible {
+		outline: 2px solid currentcolor;
+		outline-offset: 3px;
+	}
+
+	.purplish-filters-toggle__icon {
+		flex: none;
+		overflow: visible;
+	}
+
+	.purplish-filters-toggle__icon path {
+		fill: none;
+	}
+
+	.purplish-filters-toggle.is-folded .purplish-filters-toggle__icon circle:first-of-type {
+		transform: translateX(-4px);
+	}
+
+	.purplish-filters-toggle.is-folded .purplish-filters-toggle__icon circle:last-of-type {
+		transform: translateX(4px);
+	}
+
+	.purplish-filters-row > .purplish-filters-side.is-folded {
+		flex-basis: 0 !important;
+		flex-grow: 0 !important;
+		min-width: 0;
+		margin-inline-end: calc(-1 * var(--purplish-filters-gap, 0px));
+		overflow: hidden;
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	.purplish-filters-row > .purplish-filters-side.is-folded:last-child {
+		margin-inline-start: calc(-1 * var(--purplish-filters-gap, 0px));
+		margin-inline-end: 0;
+	}
+
+	.purplish-filters-row > .wp-block-column:not(.purplish-filters-side) {
+		flex-grow: 1 !important;
+	}
+}
+
+/*
+	 * Always free to grow, so the products fill the room the filters give
+	 * up on every frame of the fold. Open, the two columns overflow the
+	 * row by the gap, so the grow changes nothing there.
+	 */
+
+@media (min-width: 782px) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-toggle__icon circle {
+		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.purplish-filters-row > .purplish-filters-side {
+		transition:
+			flex-basis 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			flex-grow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.25s ease 0.2s,
+			visibility 0s;
+	}
+
+	.purplish-filters-row > .purplish-filters-side.is-folded {
+		transition:
+			flex-basis 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			flex-grow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.15s ease,
+			visibility 0s linear 0.4s;
+	}
+
+	.purplish-filters-row.is-instant > .purplish-filters-side,
+	.purplish-filters-row.is-instant .purplish-filters-toggle__icon circle {
+		transition: none;
+	}
+}
+
+/*
+ * In the editor, the button shows where it will sit: beside Sort by, or
+ * at the top of the filters when the products have no Sort by.
+ */
+.wp-block-columns:has(.purplish-filters-hide) .block-editor-block-list__block.wp-block-woocommerce-catalog-sorting::before,
+.wp-block-columns:not(:has(.wp-block-woocommerce-catalog-sorting)) .block-editor-block-list__block.purplish-filters-hide::before {
+	content: var(--purplish-filters-label, "");
+	display: inline-block;
+	margin-inline-end: 1.25em;
+	padding: 0.35em 0 0.35em 1.6em;
+	background:
+		radial-gradient(circle, currentcolor 1.6px, transparent 2px) 2px calc(50% - 3px) / 16px 16px no-repeat,
+		radial-gradient(circle, currentcolor 1.6px, transparent 2px) -2px calc(50% + 3px) / 16px 16px no-repeat,
+		linear-gradient(currentcolor, currentcolor) 0 calc(50% - 3px) / 16px 1.2px no-repeat,
+		linear-gradient(currentcolor, currentcolor) 0 calc(50% + 3px) / 16px 1.2px no-repeat;
+	font-size: 0.875em;
+	line-height: inherit;
+	vertical-align: middle;
+}
+
+/* Sort by stacks its parts in the editor; the label sits on their left. */
+.wp-block-columns:has(.purplish-filters-hide) .block-editor-block-list__block.wp-block-woocommerce-catalog-sorting {
+	display: flex;
+	align-items: center;
+}
+
+/* The filters block is a flex row in the editor: the label gets a row. */
+.wp-block-columns:not(:has(.wp-block-woocommerce-catalog-sorting)) .block-editor-block-list__block.purplish-filters-hide {
+	flex-wrap: wrap;
+}
+
+.wp-block-columns:not(:has(.wp-block-woocommerce-catalog-sorting)) .block-editor-block-list__block.purplish-filters-hide::before {
+	flex: 0 0 100%;
+	align-self: flex-start;
+	box-sizing: border-box;
+	margin: 0 0 0.5em;
+}
+
+/*
+ * Product Filters, Layout: Bar. Plain filters get a label button from the
+ * server; on every screen it opens the filter's list, with a chevron like
+ * the Accordion's icon.
+ */
+.purplish-filters-bar-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5em;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	text-align: inherit;
+	text-transform: inherit;
+	cursor: pointer;
+}
+
+.purplish-filters-bar-toggle::after {
+	content: "";
+	flex: none;
+	width: 0.4em;
+	height: 0.4em;
+	border-right: 1.5px solid;
+	border-bottom: 1.5px solid;
+	transform: translateY(-25%) rotate(45deg);
+}
+
+.purplish-filters-bar-toggle[aria-expanded="true"]::after {
+	transform: translateY(25%) rotate(-135deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-bar-toggle::after {
+		transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+	}
+}
+
+/*
+ * Past WooCommerce's overlay breakpoint, the filters sit in one row and
+ * each list drops down under its label. The theme's spacing and borders
+ * for stacked filters are written inline, so the row's resets win with
+ * !important. Active filters take the line under the row, and Clear
+ * filters sits at its end.
+ */
+@media (width > 782px) {
+
+	:is(.purplish-filters-layout-bar.is-filter-drawer-disabled .wc-block-product-filters__content, .purplish-filters-layout-bar.is-mobile-overlay .wc-block-product-filters__overlay-content) {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		gap: 0.5rem 1.75rem;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-spacer {
+		display: none;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) [data-block-name] {
+		position: relative;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-accordion-item {
+		border-width: 0 !important;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-heading, .wp-block-heading:has(> .purplish-filters-bar-toggle)) {
+		margin: 0 !important;
+		font-size: inherit;
+		font-weight: 500;
+		line-height: inherit;
+		letter-spacing: inherit;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-heading__toggle, .purplish-filters-bar-toggle) {
+		gap: 0.45em;
+		width: auto;
+		padding-block: 0.5rem !important;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 30;
+		box-sizing: border-box;
+		min-width: 15rem;
+		max-width: min(22rem, 90vw);
+		margin: 0;
+		padding: 1rem 1.25rem;
+		border: 1px solid color-mix(in srgb, currentcolor 14%, transparent);
+		border-radius: var(--wp--custom--purplish--radius, 2px);
+		background: var(--wp--preset--color--base, Canvas);
+		box-shadow: var(--wp--custom--purplish--shadow, 0 18px 40px -22px rgb(0 0 0 / 30%));
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-woocommerce-product-filter-active {
+		flex-basis: 100%;
+		order: 1;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) .wp-block-woocommerce-product-filter-clear-button {
+		margin-inline-start: auto;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		transform-origin: top left;
+		transition: opacity 0.22s ease;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		height: auto;
+		padding: 1rem 1.25rem !important;
+		border: 1px solid color-mix(in srgb, currentcolor 14%, transparent) !important;
+		box-shadow: var(--wp--custom--purplish--shadow, 0 18px 40px -22px rgb(0 0 0 / 30%)) !important;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.14s ease-out, display 0.18s allow-discrete, content-visibility 0.18s allow-discrete;
+	}
+}
+
+/*
+ * A list opens and closes with a short motion, and closing is quicker than
+ * opening. Each Open style has one pose that a list starts from and goes
+ * back to: Slide (no class), Grow, Fold or Cascade. A closing list keeps
+ * its box, see-through and out of the mouse's way, until the fade ends;
+ * core and themes strip a closed Accordion panel's box at once, so the row
+ * puts it back. Reduced motion keeps the fade only.
+ */
+@media (width > 782px) {
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			opacity: 0;
+		}
+	}
+}
+
+/* Slide: a small drop from under the label. */
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.22s ease, translate 0.3s cubic-bezier(0.32, 0.72, 0, 1), scale 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		transition: opacity 0.14s ease-out, translate 0.18s ease-out, scale 0.18s ease-out, display 0.18s allow-discrete, content-visibility 0.18s allow-discrete;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: 0 -8px;
+		scale: 0.98;
+	}
+}
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay) :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: 0 -8px;
+			scale: 0.98;
+		}
+	}
+}
+
+/* Grow: the list unrolls from its top edge, a touch past full. */
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		transform-origin: top center;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.2s ease, scale 0.36s cubic-bezier(0.34, 1.4, 0.64, 1);
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: none;
+		scale: 1 0.5;
+	}
+}
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-grow :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: none;
+			scale: 1 0.5;
+		}
+	}
+}
+
+/* Fold: the list swings down from its top edge, like a flap. */
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel) {
+		transform: perspective(800px) rotateX(0deg);
+		transform-origin: top center;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.2s ease, transform 0.42s cubic-bezier(0.34, 1.3, 0.64, 1);
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		transition: opacity 0.14s ease-out, transform 0.18s ease-out, display 0.18s allow-discrete, content-visibility 0.18s allow-discrete;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: none;
+		scale: none;
+		transform: perspective(800px) rotateX(-70deg);
+	}
+}
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-fold :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: none;
+			scale: none;
+			transform: perspective(800px) rotateX(-70deg);
+		}
+	}
+}
+
+/* Cascade: the list fades in, and its options slide in one by one. */
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+		transition: opacity 0.2s ease;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel)[hidden] {
+		translate: none;
+		scale: none;
+	}
+}
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	@starting-style {
+
+		.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) {
+			translate: none;
+			scale: none;
+		}
+	}
+}
+
+@media (width > 782px) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item, .wc-block-product-filter-checkbox-list__show-more, .wc-block-product-filter-chips__show-more) {
+		animation: purplish-filters-cascade 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(2 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 35ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(3 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 70ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(4 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 105ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(5 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 140ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(6 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 175ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(7 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 210ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :nth-child(8 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)) {
+		animation-delay: 245ms;
+	}
+
+	.purplish-filters-layout-bar:is(.is-filter-drawer-disabled, .is-mobile-overlay).purplish-filters-open-cascade :is(.wp-block-accordion-panel, .purplish-filters-bar-panel):not([hidden]) :is(:nth-child(n + 9 of :is(.wc-block-product-filter-checkbox-list__item, .wc-block-product-filter-chips__item)), .wc-block-product-filter-checkbox-list__show-more, .wc-block-product-filter-chips__show-more) {
+		animation-delay: 280ms;
+	}
+}
+
+@keyframes purplish-filters-cascade {
+
+	from {
+		opacity: 0;
+		translate: -10px 0;
+	}
+}
+
+/*
+ * In the editor, a bar shows its filters side by side with every list
+ * open, so each one stays editable.
+ */
+.purplish-filters-layout-bar .wc-block-product-filters__overlay-content > .block-editor-inner-blocks > .block-editor-block-list__layout {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	gap: 1rem 2rem;
+}
+
+.purplish-filters-layout-bar .block-editor-block-list__layout > .wp-block-woocommerce-product-filter-active {
+	flex-basis: 100%;
+}
+
+@media (width > 782px) {
+
+	body:not(.editor-styles-wrapper) .purplish-shop-flagship .purplish-shop-results .purplish-filters-layout-bar {
+		padding-right: 16rem;
+	}
+}
