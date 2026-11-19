@@ -1,0 +1,11 @@
+/**
+ * Purplish effects for the Catalog Sorting block. BlockEffects loads this
+ * file only on pages that use them, after style.css.
+ */
+
+/* Catalog Sorting, Large: as easy to tap as the other shop controls. */
+.purplish-sorting-size-large select.orderby {
+	box-sizing: border-box;
+	min-block-size: 44px;
+	padding-block: 0.5em;
+}

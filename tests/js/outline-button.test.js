@@ -3,13 +3,9 @@
  * effect color on hover and keyboard focus.
  */
 import { describe, expect, it } from '@jest/globals';
-import fs from 'fs';
-import path from 'path';
+import { effectPart } from './effect-styles';
 
-const css = fs.readFileSync(
-	path.join( __dirname, '../../assets/src/effects/style.css' ),
-	'utf8'
-);
+const css = effectPart( 'cards' );
 
 const BUTTON =
 	'.purplish-cards-buttonstyle-outline .wc-block-product .wc-block-components-product-button__button';

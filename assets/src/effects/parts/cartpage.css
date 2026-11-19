@@ -1,0 +1,146 @@
+/**
+ * Purplish effects for the Cart block. BlockEffects loads this file only on
+ * pages that use them, after style.css.
+ */
+
+.purplish-cartpage {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+/*
+ * Soft rows on the Cart page and in the Mini-Cart drawer: each item sits
+ * on its own rounded card in a light tint of the effect color, with no
+ * lines between them. A wide cart draws its items as a real table, so the
+ * card is painted on the cells there; narrow carts and the drawer draw
+ * each row as a grid, so the card is the row itself.
+ */
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) table.wc-block-cart-items {
+	border-spacing: 0 12px;
+	margin-block-start: -12px;
+}
+
+/* WooCommerce clears every cell's background with !important. */
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td {
+	border-block: 0;
+	background: var(--purplish-color-soft) !important;
+	transition: background-color 0.25s ease;
+}
+
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td:first-child {
+	padding-inline-start: 16px;
+	border-start-start-radius: var(--wp--custom--purplish--radius, 16px);
+	border-end-start-radius: var(--wp--custom--purplish--radius, 16px);
+}
+
+/* A flex cell would end at its own content, short of the row's height. */
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row > td:last-child {
+	display: table-cell;
+	padding-inline-end: 20px;
+	border-start-end-radius: var(--wp--custom--purplish--radius, 16px);
+	border-end-end-radius: var(--wp--custom--purplish--radius, 16px);
+}
+
+.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	margin-block-end: 10px;
+	padding: 14px;
+	border: 0;
+	border-radius: var(--wp--custom--purplish--radius, 16px);
+	background: var(--purplish-color-soft);
+	transition: background-color 0.25s ease;
+}
+
+.purplish-cartpage-rows:is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-rows :is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	padding: 12px;
+}
+
+.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row.purplish-hover,
+.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row.purplish-hover {
+	background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%);
+}
+
+@media (hover: hover) {
+
+	.purplish-cartpage-rows:is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:hover,
+	.purplish-cartpage-rows :is(.is-medium, .is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row:hover {
+		background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%);
+	}
+}
+
+:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row.purplish-hover > td {
+	background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%) !important;
+}
+
+@media (hover: hover) {
+
+	:is(.purplish-cartpage-rows.is-large, .purplish-cartpage-rows .is-large) .wc-block-cart-items__row:hover > td {
+		background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%) !important;
+	}
+}
+
+/*
+ * Cart page and drawer, Hide short descriptions: each item keeps its name,
+ * price, quantity and variation details.
+ */
+:is(.purplish-cartpage-hidedesc, .purplish-drawer-hidedesc) .wc-block-components-product-metadata__description {
+	display: none;
+}
+
+/*
+ * Bigger photos, rounded: 120px on a wide Cart page, 96px in the drawer
+ * and 80px on a phone, where the row has no more room.
+ */
+:is(.purplish-cartpage-photos, .purplish-drawer-photos) .wc-block-cart-item__image img {
+	aspect-ratio: 1;
+	height: auto;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
+	object-fit: cover;
+}
+
+:is(.purplish-cartpage-photos.is-large, .purplish-cartpage-photos .is-large) .wc-block-cart-item__image {
+	width: 120px;
+}
+
+:is(.purplish-cartpage-photos.is-large, .purplish-cartpage-photos .is-large) .wc-block-cart-item__image img {
+	width: 120px;
+	max-width: none;
+}
+
+.purplish-cartpage-photos.is-medium table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-photos .is-medium table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	grid-template-columns: 136px 132px;
+}
+
+.purplish-cartpage-photos:is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
+.purplish-cartpage-photos :is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	grid-template-columns: 96px 132px;
+	column-gap: 12px;
+}
+
+/*
+ * Sticky totals: the totals and Proceed to Checkout stay in view while a
+ * long cart scrolls, wherever WooCommerce puts them beside the items and
+ * the screen is tall enough to hold them.
+ */
+@container (min-width: 920px) {
+
+	@media (min-height: 640px) {
+
+		.purplish-cartpage-sticky .wc-block-cart__sidebar {
+			position: sticky;
+			top: calc(var(--wp-admin--admin-bar--height, 0px) + 32px);
+			align-self: flex-start;
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-cartpage-rows .wc-block-cart-items__row,
+	.purplish-cartpage-rows .wc-block-cart-items__row > td {
+		transition: none;
+	}
+}

@@ -113,6 +113,60 @@ class BlockEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A block loads the shared effect styles and its own part, not the
+	 * others.
+	 */
+	public function test_render_loads_its_part() {
+		foreach ( BlockEffects::PARTS as $part ) {
+			wp_dequeue_style( BlockEffects::HANDLE . '-' . $part );
+		}
+		$block = array(
+			'blockName' => 'woocommerce/product-gallery',
+			'attrs'     => array( 'purplish' => array( 'rounded' => true ) ),
+		);
+		( new BlockEffects() )->add_classes( '<div class="wp-block-woocommerce-product-gallery">Photo</div>', $block );
+
+		$this->assertTrue( wp_style_is( 'purplish-effects-gallery' ) );
+		$this->assertFalse( wp_style_is( 'purplish-effects-cards' ) );
+		$this->assertSame( array( 'purplish-effects' ), wp_styles()->registered['purplish-effects-gallery']->deps );
+		$this->assertStringEndsWith( 'build/style-effects-gallery.css', wp_styles()->get_data( 'purplish-effects-gallery', 'path' ) );
+	}
+
+	/**
+	 * The parts a block's classes need. Classes from no part load none.
+	 */
+	public function test_parts_for() {
+		$this->assertSame( array( 'cards' ), BlockEffects::parts_for( array( 'purplish-cards', 'purplish-cards-hover-lift', 'purplish-color-7b2cbf' ) ) );
+		$this->assertSame( array( 'classic' ), BlockEffects::parts_for( array( 'purplish-classic-gallery-rounded' ) ) );
+		$this->assertSame( array(), BlockEffects::parts_for( array( 'purplish-changing-room', 'purplish-cardsx', 'my-purplish-cards' ) ) );
+	}
+
+	/**
+	 * Every part has its built file and its right-to-left copy, and every
+	 * part file in the source is listed.
+	 */
+	public function test_parts_match_the_build() {
+		foreach ( BlockEffects::PARTS as $part ) {
+			$this->assertFileExists( PURPLISH_DIR . 'build/style-effects-' . $part . '.css' );
+			$this->assertFileExists( PURPLISH_DIR . 'build/style-effects-' . $part . '-rtl.css' );
+		}
+		$source = array_map( fn( $file ) => basename( $file, '.css' ), glob( PURPLISH_DIR . 'assets/src/effects/parts/*.css' ) );
+		$this->assertEqualsCanonicalizing( BlockEffects::PARTS, $source );
+	}
+
+	/**
+	 * The effect styles print together at the first one's place, in PARTS
+	 * order, whatever order the blocks loaded them in.
+	 */
+	public function test_order_styles() {
+		$this->assertSame(
+			array( 'theme', 'purplish-effects', 'purplish-effects-cards', 'purplish-effects-meter', 'other' ),
+			( new BlockEffects() )->order_styles( array( 'theme', 'purplish-effects-meter', 'other', 'purplish-effects', 'purplish-effects-cards' ) )
+		);
+		$this->assertSame( array( 'theme', 'purplish-effects' ), ( new BlockEffects() )->order_styles( array( 'theme', 'purplish-effects' ) ) );
+	}
+
+	/**
 	 * A block without Purplish options is returned untouched.
 	 */
 	public function test_render_without_options() {

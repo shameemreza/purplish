@@ -1,0 +1,93 @@
+/**
+ * Purplish effects for the Details block. BlockEffects loads this file only
+ * on pages that use them, after style.css.
+ */
+
+.purplish-details {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+@keyframes purplish-panel {
+
+	from {
+		opacity: 0;
+		translate: 0 -8px;
+	}
+}
+
+/*
+ * Details, soft: the block is a soft card, the browser's marker gives way
+ * to a round plus that turns into a filled x, and the content rises in.
+ */
+.purplish-details-soft {
+	padding: 0 1.25rem;
+	border-radius: 18px;
+	background-color: var(--purplish-color-soft);
+	transition: background-color 0.3s;
+}
+
+.purplish-details-soft[open] {
+	padding-bottom: var(--wp--preset--spacing--20, 1em);
+}
+
+.purplish-details-soft > summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: var(--wp--preset--spacing--20, 1em) 0;
+	font-weight: 600;
+	list-style: none;
+}
+
+.purplish-details-soft > summary::-webkit-details-marker {
+	display: none;
+}
+
+.purplish-details-soft > summary::after {
+	content: "";
+	flex: none;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-color: #fff;
+	background-image: linear-gradient(currentcolor, currentcolor), linear-gradient(currentcolor, currentcolor);
+	background-position: center;
+	background-size: 12px 2px, 2px 12px;
+	background-repeat: no-repeat;
+	color: var(--purplish-color);
+	transition:
+		rotate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+		background-color 0.3s,
+		color 0.3s;
+}
+
+.purplish-details-soft[open] > summary::after {
+	background-color: var(--purplish-color);
+	color: var(--purplish-color-on);
+	rotate: 45deg;
+}
+
+.purplish-details-soft[open] > :not(summary) {
+	animation: purplish-panel 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.purplish-details-soft > summary + * {
+	margin-top: 0;
+}
+
+.purplish-details-soft > :last-child:not(summary) {
+	margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-details-soft,
+	.purplish-details-soft *,
+	.purplish-details-soft > summary::after {
+		animation: none !important;
+		transition: none !important;
+	}
+}

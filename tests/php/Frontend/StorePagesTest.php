@@ -224,10 +224,14 @@ class StorePagesTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The effect styles load into the editor, and not on the front end
-	 * through this hook.
+	 * The effect styles, every part of them, load into the editor, and not
+	 * on the front end through this hook.
 	 */
 	public function test_editor_styles() {
+		// A part counts the shared styles it needs as enqueued.
+		foreach ( BlockEffects::PARTS as $part ) {
+			wp_dequeue_style( 'purplish-effects-' . $part );
+		}
 		wp_dequeue_style( 'purplish-effects' );
 		wp_dequeue_script( 'purplish-effects' );
 		( new BlockEffects() )->enqueue_editor_styles();
@@ -236,6 +240,9 @@ class StorePagesTest extends WP_UnitTestCase {
 		set_current_screen( 'post' );
 		( new BlockEffects() )->enqueue_editor_styles();
 		$this->assertTrue( wp_style_is( 'purplish-effects' ), 'editor' );
+		foreach ( BlockEffects::PARTS as $part ) {
+			$this->assertTrue( wp_style_is( 'purplish-effects-' . $part ), 'editor has ' . $part );
+		}
 		$this->assertFalse( wp_script_is( 'purplish-effects' ), 'no front script' );
 		set_current_screen( 'front' );
 	}

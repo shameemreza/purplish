@@ -1,0 +1,82 @@
+/**
+ * Purplish effects for the Mini-Cart block. BlockEffects loads this file
+ * only on pages that use them, after style.css.
+ */
+
+/*
+ * Mini-cart count pop, once each time the count goes up. WooCommerce
+ * centers the badge with `transform`, so the pop moves `scale` and the
+ * bag `rotate`. The ring takes the badge's own color.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	.purplish-minicart-pop.purplish-pop .wc-block-mini-cart__badge {
+		animation: purplish-count-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	.purplish-minicart-pop.purplish-pop .wc-block-mini-cart__badge::after {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		inset: 0;
+		border-radius: inherit;
+		background: inherit;
+		opacity: 0;
+		pointer-events: none;
+		animation: purplish-count-ring 0.6s ease-out;
+	}
+
+	.purplish-minicart-pop.purplish-pop .wc-block-mini-cart__icon {
+		animation: purplish-bag-nudge 0.5s ease-in-out;
+	}
+}
+
+@keyframes purplish-count-pop {
+
+	40% {
+		scale: 1.35;
+	}
+}
+
+@keyframes purplish-count-ring {
+
+	from {
+		opacity: 0.5;
+	}
+
+	to {
+		opacity: 0;
+		scale: 2.2;
+	}
+}
+
+@keyframes purplish-bag-nudge {
+
+	25% {
+		rotate: -10deg;
+	}
+
+	60% {
+		rotate: 6deg;
+	}
+}
+
+/* The copy of a product photo that flies into the Mini-Cart. */
+.purplish-fly {
+	position: fixed;
+	z-index: 99999;
+	max-width: none;
+	margin: 0;
+	border-radius: 0.375rem;
+	object-fit: cover;
+	box-shadow: 0 0.75rem 1.875rem rgb(20 20 40 / 25%);
+	pointer-events: none;
+}
+
+@keyframes purplish-count-pop {
+
+	from {
+		opacity: 0;
+		transform: scale(0.85);
+	}
+}

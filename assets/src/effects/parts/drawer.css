@@ -1,0 +1,125 @@
+/**
+ * Purplish effects for the Mini-Cart drawer. BlockEffects loads this file
+ * only on pages that use them, after style.css.
+ */
+
+.purplish-drawer {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	margin-block-end: 10px;
+	padding: 14px;
+	border: 0;
+	border-radius: var(--wp--custom--purplish--radius, 16px);
+	background: var(--purplish-color-soft);
+	transition: background-color 0.25s ease;
+}
+
+.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	padding: 12px;
+}
+
+.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row.purplish-hover {
+	background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%);
+}
+
+@media (hover: hover) {
+
+	.purplish-drawer-rows table.wc-block-cart-items tbody .wc-block-cart-items__row:hover {
+		background: color-mix(in oklab, var(--purplish-color-soft), var(--purplish-color) 7%);
+	}
+}
+
+:is(.purplish-cartpage-hidedesc, .purplish-drawer-hidedesc) .wc-block-components-product-metadata__description {
+	display: none;
+}
+
+:is(.purplish-cartpage-photos, .purplish-drawer-photos) .wc-block-cart-item__image img {
+	aspect-ratio: 1;
+	height: auto;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
+	object-fit: cover;
+}
+
+.purplish-drawer-photos table.wc-block-cart-items tbody .wc-block-cart-items__row {
+	grid-template-columns: 112px 132px;
+}
+
+/* A drawer that fills a phone screen has the phone's room, not more. */
+@media (max-width: 480px) {
+
+	.purplish-drawer-photos table.wc-block-cart-items tbody .wc-block-cart-items__row {
+		grid-template-columns: 96px 132px;
+		column-gap: 12px;
+	}
+}
+
+/*
+ * Spring slide: the drawer opens with a soft settle, then each item and the
+ * footer follow one after another. It plays every time the drawer opens.
+ * WooCommerce turns the drawer's own slide off for reduced motion, and so
+ * does Purplish.
+ */
+@media (prefers-reduced-motion: no-preference) {
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .wc-block-components-drawer:has(.purplish-drawer-spring) {
+		animation-duration: 0.55s;
+		animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring :is(.wc-block-cart-items__row, .wc-block-mini-cart__footer) {
+		animation: purplish-drawer-in 0.7s cubic-bezier(0.34, 1.5, 0.64, 1) 0.12s backwards;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-cart-items__row:nth-child(2) {
+		animation-delay: 0.18s;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-cart-items__row:nth-child(3) {
+		animation-delay: 0.24s;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-cart-items__row:nth-child(n + 4) {
+		animation-delay: 0.3s;
+	}
+
+	.wc-block-components-drawer__screen-overlay--with-slide-in .purplish-drawer-spring .wc-block-mini-cart__footer {
+		animation-name: purplish-drawer-up;
+		animation-delay: 0.22s;
+	}
+}
+
+/* The items come in from the side the drawer opens on. */
+.purplish-drawer-spring {
+	--purplish-drawer-from: 48px;
+}
+
+[dir="rtl"] .purplish-drawer-spring {
+	--purplish-drawer-from: -48px;
+}
+
+@keyframes purplish-drawer-in {
+
+	from {
+		opacity: 0;
+		translate: var(--purplish-drawer-from, 48px) 0;
+	}
+}
+
+@keyframes purplish-drawer-up {
+
+	from {
+		opacity: 0;
+		translate: 0 24px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-drawer-rows .wc-block-cart-items__row {
+		transition: none;
+	}
+}

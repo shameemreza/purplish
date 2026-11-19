@@ -19,6 +19,14 @@ final class BlockEffects {
 	const HANDLE = 'purplish-effects';
 
 	/**
+	 * The effect stylesheets that load after style.css, each only with the
+	 * blocks that use it, in the order they print. Each is
+	 * `build/style-effects-<part>.css`, named for the class prefix its rules
+	 * hang off.
+	 */
+	const PARTS = array( 'gallery', 'cards', 'accordion', 'pages', 'terms', 'count', 'details', 'reviews', 'specs', 'image', 'cover', 'button', 'cart', 'buybutton', 'thanks', 'drawer', 'cartpage', 'checkoutpage', 'classic', 'group', 'chips', 'badge', 'stock', 'thumbs', 'swatches', 'filters', 'minicart', 'eyes', 'heading', 'columns', 'social', 'summary', 'meter', 'sorting' );
+
+	/**
 	 * The script that folds a filter sidebar away, loaded only with it.
 	 */
 	const FILTERS_HANDLE = 'purplish-filters';
@@ -647,6 +655,7 @@ final class BlockEffects {
 		add_filter( 'render_block_woocommerce/product-filters', array( $this, 'sticky_filters' ), 10, 2 );
 		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_classic' ), 20 );
+		add_filter( 'print_styles_array', array( $this, 'order_styles' ) );
 		add_filter( 'body_class', array( $this, 'classic_body_classes' ) );
 		add_filter( 'woocommerce_single_product_zoom_enabled', array( $this, 'classic_zoom' ) );
 	}
@@ -725,8 +734,10 @@ final class BlockEffects {
 		}
 
 		$asset = include PURPLISH_DIR . 'build/effects.asset.php';
-		wp_enqueue_style( self::HANDLE, PURPLISH_URL . 'build/style-effects.css', array(), $asset['version'] );
-		wp_style_add_data( self::HANDLE, 'rtl', 'replace' );
+		self::style( self::HANDLE, 'style-effects', array(), $asset['version'] );
+		foreach ( self::PARTS as $part ) {
+			self::style( self::HANDLE . '-' . $part, 'style-effects-' . $part, array( self::HANDLE ), $asset['version'] );
+		}
 
 		// The Hide filters button's words, for its look in the editor.
 		$label = str_replace( array( '\\', '"', '<', '>' ), '', wp_strip_all_tags( __( 'Hide filters', 'purplish' ), true ) );
@@ -833,7 +844,7 @@ final class BlockEffects {
 
 		// The collection's effect color, and readable text on it.
 		$color = isset( $block['attrs']['purplish']['color'] ) ? sanitize_hex_color( (string) $block['attrs']['purplish']['color'] ) : '';
-		self::enqueue();
+		self::enqueue( self::parts_for( $classes ) );
 		if ( $color && ! empty( self::blocks()[ $name ]['redrawn'] ) ) {
 			$classes[] = self::color_class( $color );
 			$color     = '';
@@ -1023,6 +1034,7 @@ final class BlockEffects {
 			return $html;
 		}
 
+		self::enqueue( array( 'eyes' ) );
 		$eye = '<span class="purplish-eye"></span>';
 		return Markup::prepend_inside( $html, $blocks[ $name ]['eyes'], '<span class="purplish-eyes" aria-hidden="true">' . ( 'two' === $saved['eyes'] ? $eye . $eye : $eye ) . '</span>' );
 	}
@@ -1118,30 +1130,98 @@ final class BlockEffects {
 	 */
 	public function enqueue_classic() {
 		if ( self::classic_classes() ) {
-			self::enqueue();
+			self::enqueue( array( 'classic' ) );
 		}
 	}
 
 	/**
-	 * Loads the effects stylesheet and script, once.
+	 * The effect stylesheets a block's wrapper classes need: a class such as
+	 * `purplish-cards-hover-lift` needs the `cards` part.
 	 *
+	 * @param string[] $classes Class names.
+	 * @return string[]
+	 */
+	public static function parts_for( $classes ) {
+		$parts = array();
+		foreach ( $classes as $class ) {
+			if ( preg_match( '/^purplish-([a-z]+)/', $class, $match ) && in_array( $match[1], self::PARTS, true ) ) {
+				$parts[ $match[1] ] = $match[1];
+			}
+		}
+		return array_values( $parts );
+	}
+
+	/**
+	 * Loads the shared effect styles and the script, once, and the parts
+	 * asked for.
+	 *
+	 * @param string[] $parts Parts from PARTS, such as `cards`.
 	 * @return void
 	 */
-	public static function enqueue() {
-		if ( self::$used ) {
-			return;
-		}
-		self::$used = true;
-
+	public static function enqueue( $parts = array() ) {
 		$asset = include PURPLISH_DIR . 'build/effects.asset.php';
-		wp_enqueue_style( self::HANDLE, PURPLISH_URL . 'build/style-effects.css', array(), $asset['version'] );
-		wp_style_add_data( self::HANDLE, 'rtl', 'replace' );
-		// Soft fills mix toward white unless the theme's page is dark.
-		$ground = \Purplish\Color\Ground::dark();
-		if ( '' !== $ground ) {
-			wp_add_inline_style( self::HANDLE, ':root{--purplish-ground:' . $ground . ';}' );
+		if ( ! self::$used ) {
+			self::$used = true;
+			self::style( self::HANDLE, 'style-effects', array(), $asset['version'] );
+			// Soft fills mix toward white unless the theme's page is dark.
+			$ground = \Purplish\Color\Ground::dark();
+			if ( '' !== $ground ) {
+				wp_add_inline_style( self::HANDLE, ':root{--purplish-ground:' . $ground . ';}' );
+			}
+			wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/effects.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+			wp_set_script_translations( self::HANDLE, 'purplish' );
 		}
-		wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/effects.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
-		wp_set_script_translations( self::HANDLE, 'purplish' );
+		foreach ( array_intersect( self::PARTS, (array) $parts ) as $part ) {
+			self::style( self::HANDLE . '-' . $part, 'style-effects-' . $part, array( self::HANDLE ), $asset['version'] );
+		}
+	}
+
+	/**
+	 * Enqueues one built stylesheet, with its right-to-left copy. The path
+	 * lets WordPress print a small one inline, as it does block styles.
+	 *
+	 * @param string   $handle  Style handle.
+	 * @param string   $file    File name in build/, without `.css`.
+	 * @param string[] $deps    Handles it prints after.
+	 * @param string   $version Build version.
+	 * @return void
+	 */
+	private static function style( $handle, $file, $deps, $version ) {
+		wp_enqueue_style( $handle, PURPLISH_URL . 'build/' . $file . '.css', $deps, $version );
+		wp_style_add_data( $handle, 'rtl', 'replace' );
+		wp_style_add_data( $handle, 'path', PURPLISH_DIR . 'build/' . $file . ( is_rtl() ? '-rtl' : '' ) . '.css' );
+	}
+
+	/**
+	 * Prints the effect stylesheets together, at the first one's place, in
+	 * PARTS order. They were one file, and a later rule can win over an
+	 * earlier one of the same weight, so the order of blocks on the page
+	 * mustn't change it.
+	 *
+	 * @param string[] $handles Style handles about to print.
+	 * @return string[]
+	 */
+	public function order_styles( $handles ) {
+		$rank = array( self::HANDLE => 0 );
+		foreach ( self::PARTS as $i => $part ) {
+			$rank[ self::HANDLE . '-' . $part ] = $i + 1;
+		}
+		$at   = 0;
+		$ours = array();
+		$rest = array();
+		foreach ( (array) $handles as $handle ) {
+			if ( ! isset( $rank[ $handle ] ) ) {
+				$rest[] = $handle;
+				continue;
+			}
+			$at     = $ours ? $at : count( $rest );
+			$ours[] = $handle;
+		}
+		if ( count( $ours ) < 2 ) {
+			return $handles;
+		}
+		usort( $ours, fn( $a, $b ) => $rank[ $a ] <=> $rank[ $b ] );
+		array_splice( $rest, $at, 0, $ours );
+		return $rest;
 	}
 }

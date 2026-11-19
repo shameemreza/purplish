@@ -1,0 +1,171 @@
+/**
+ * Purplish effects for the Image block. BlockEffects loads this file only on
+ * pages that use them, after style.css.
+ */
+
+.purplish-image {
+	--purplish-color: var(--purplish-fx, var(--purplish-effect, var(--wp--preset--color--contrast, #1e1e1e)));
+	--purplish-color-on: var(--purplish-fx-on, var(--purplish-effect-on, #fff));
+	--purplish-color-soft: var(--purplish-fx-tint, color-mix(in oklab, var(--purplish-color) 10%, var(--purplish-ground, #fff)));
+}
+
+/*
+ * Image hover styles, the gallery's on any image block. The photo is its
+ * own frame: the figure can be wider than the photo and holds the caption,
+ * and core's lightbox measures the photo's parent, so nothing wraps it.
+ * The script sets the mouse variables on the figure, the photo's corner
+ * radius, and adds the light layer for the tilt, glare and loupe.
+ */
+@property --purplish-grow {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 1;
+}
+
+@property --purplish-shift-x {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 0;
+}
+
+@property --purplish-shift-y {
+	syntax: "<number>";
+	inherits: false;
+	initial-value: 0;
+}
+
+.purplish-image[class*="purplish-image-hover-"] {
+	position: relative;
+}
+
+/*
+ * Styles that grow the photo clip it back to its own box. The clip undoes
+ * the scale and the shift around the same origin, and both read one
+ * animated number, so the edges hold still while the photo grows.
+ */
+:is(.purplish-image-hover-zoom, .purplish-image-hover-parallax, .purplish-image-hover-slowzoom) img {
+	--purplish-ox: 50%;
+	--purplish-oy: 50%;
+	--purplish-k: calc(1 - 1 / var(--purplish-grow));
+	--purplish-tx: calc(var(--purplish-shift-x) * 1% / var(--purplish-grow));
+	--purplish-ty: calc(var(--purplish-shift-y) * 1% / var(--purplish-grow));
+	transform-origin: var(--purplish-ox) var(--purplish-oy);
+	translate: calc(var(--purplish-shift-x) * 1%) calc(var(--purplish-shift-y) * 1%);
+	scale: var(--purplish-grow);
+	--purplish-clip-top: calc(var(--purplish-oy) * var(--purplish-k) - var(--purplish-ty));
+	--purplish-clip-right: calc((100% - var(--purplish-ox)) * var(--purplish-k) + var(--purplish-tx));
+	--purplish-clip-bottom: calc((100% - var(--purplish-oy)) * var(--purplish-k) + var(--purplish-ty));
+	--purplish-clip-left: calc(var(--purplish-ox) * var(--purplish-k) - var(--purplish-tx));
+	clip-path: inset(var(--purplish-clip-top) var(--purplish-clip-right) var(--purplish-clip-bottom) var(--purplish-clip-left) round calc(var(--purplish-radius, 0px) / var(--purplish-grow)));
+}
+
+/* Zoom: the photo magnifies around the mouse. */
+.purplish-image-hover-zoom img {
+	--purplish-ox: var(--purplish-mx, 50%);
+	--purplish-oy: var(--purplish-my, 50%);
+	transition: --purplish-grow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Parallax: the photo drifts against the mouse inside its own box. */
+.purplish-image-hover-parallax img {
+	transition:
+		--purplish-shift-x 0.45s ease-out,
+		--purplish-shift-y 0.45s ease-out,
+		--purplish-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Slow zoom: a gentle push in while hovered, a quicker settle after. */
+.purplish-image-hover-slowzoom img {
+	transition: --purplish-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Lift: the photo rises with a soft shadow in the effect color. */
+.purplish-image-hover-lift img {
+	transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.purplish-image-hover-tilt :is(img, .purplish-image-light) {
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:is(.purplish-image-hover-tilt, .purplish-image-hover-glare) .purplish-image-light {
+	background: radial-gradient(circle at var(--purplish-mx, 30%) var(--purplish-my, 20%), rgb(255 255 255 / 0.4), transparent 45%);
+	opacity: 0;
+	transition: opacity 0.4s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.purplish-image-hover-loupe .purplish-image-light::after {
+	content: "";
+	position: absolute;
+
+	/* The mouse is measured from the left in every language, and the RTL
+	   build leaves the four-value inset as it is. */
+	inset: var(--purplish-my, 50%) auto auto var(--purplish-mx, 50%);
+	width: var(--purplish-loupe-box, 180px);
+	height: var(--purplish-loupe-box, 180px);
+	border-radius: 50%;
+	background-color: #fff;
+	background-image: var(--purplish-loupe, none);
+	background-repeat: no-repeat;
+	background-size: var(--purplish-loupe-size, cover);
+	background-position: var(--purplish-loupe-pos, center);
+	box-shadow: 0 0 0 3px #fff, 0 0 0 4px color-mix(in srgb, var(--purplish-color) 35%, transparent), 0 18px 40px -12px rgb(0 0 0 / 0.45);
+	opacity: 0;
+	translate: -50% -50%;
+	scale: 0.6;
+	transition: opacity 0.2s, scale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	.purplish-image-hover-tilt:has(img:is(:hover, .purplish-hover)) :is(img, .purplish-image-light) {
+		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
+		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
+	}
+
+	.purplish-image-hover-tilt:has(img:is(:hover, .purplish-hover)) img {
+		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	:is(.purplish-image-hover-tilt, .purplish-image-hover-glare):has(img:is(:hover, .purplish-hover)) .purplish-image-light {
+		opacity: 1;
+	}
+
+	.purplish-image-hover-lift img:is(:hover, .purplish-hover) {
+		translate: 0 -10px;
+		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
+	}
+
+	.purplish-image-hover-zoom img:is(:hover, .purplish-hover) {
+		--purplish-grow: 2.2;
+		cursor: zoom-in;
+	}
+
+	.purplish-image-hover-parallax img:is(:hover, .purplish-hover) {
+		--purplish-grow: 1.12;
+		--purplish-shift-x: calc(var(--purplish-dx, 0) * -8);
+		--purplish-shift-y: calc(var(--purplish-dy, 0) * -8);
+	}
+
+	.purplish-image-hover-slowzoom img:is(:hover, .purplish-hover) {
+		--purplish-grow: 1.1;
+		transition: --purplish-grow 6s cubic-bezier(0.2, 0.6, 0.2, 1);
+	}
+
+	.purplish-image-hover-loupe img:is(:hover, .purplish-hover) {
+		cursor: crosshair;
+	}
+
+	.purplish-image-hover-loupe:has(img:is(:hover, .purplish-hover)) .purplish-image-light::after {
+		opacity: 1;
+		scale: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	[class*="purplish-image-hover-"] * {
+		animation: none !important;
+		transition: none !important;
+	}
+}

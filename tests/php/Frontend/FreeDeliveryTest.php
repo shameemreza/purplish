@@ -155,6 +155,7 @@ class FreeDeliveryTest extends WP_UnitTestCase {
 		$this->assertStringContainsString( 'role="status"', $html );
 		$this->assertStringNotContainsString( 'is-done', $html );
 		$this->assertStringNotContainsString( ' hidden', $html );
+		$this->assertTrue( wp_style_is( 'purplish-effects-meter' ) );
 	}
 
 	/**

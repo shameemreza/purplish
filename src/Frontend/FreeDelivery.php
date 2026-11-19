@@ -304,12 +304,12 @@ final class FreeDelivery {
 	}
 
 	/**
-	 * Loads the meter's script, once. Its styles are in the effects
-	 * stylesheet, which the block's options already load.
+	 * Loads the meter's styles, and its script once.
 	 *
 	 * @return void
 	 */
 	private static function enqueue() {
+		BlockEffects::enqueue( array( 'meter' ) );
 		if ( wp_script_is( self::HANDLE ) ) {
 			return;
 		}

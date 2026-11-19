@@ -34,6 +34,10 @@ const shared = [
 	'style-effects.css',
 	'style-frontend.css',
 ].filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) );
+// The effect styles a page loads only with the blocks that use them.
+const parts = fs
+	.readdirSync( BUILD )
+	.filter( ( file ) => /^style-effects-[a-z]+\.css$/.test( file ) );
 
 if ( ! blocks.length && ! shared.length ) {
 	process.stderr.write( 'No build files found. Run npm run build first.\n' );
@@ -59,6 +63,8 @@ process.stdout.write( '\nOption front scripts, gzipped:\n' );
 options.forEach( ( file ) => row( file, true ) );
 process.stdout.write( '\nShared front files, gzipped:\n' );
 shared.forEach( ( file ) => row( file, false ) );
+process.stdout.write( '\nEffect styles by block, gzipped:\n' );
+parts.forEach( ( file ) => row( file, false ) );
 
 if ( over ) {
 	process.stderr.write(

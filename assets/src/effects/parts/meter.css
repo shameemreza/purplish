@@ -1,0 +1,66 @@
+/**
+ * Purplish effects for the free shipping meter. BlockEffects loads this file
+ * only on pages that use them, after style.css.
+ */
+
+/*
+ * Free shipping meter in the drawer's footer and above the Cart page: the
+ * amount left, then a thin bar in the effect color. The bar fills to the
+ * share of the minimum, and eases to a new share when the cart changes,
+ * except for visitors who ask for reduced motion.
+ */
+.purplish-meter {
+	display: grid;
+	gap: 0.5rem;
+	margin-block-end: 1rem;
+}
+
+.purplish-meter[hidden] {
+	display: none;
+}
+
+.purplish-meter-text {
+	margin: 0;
+	font-size: 0.875em;
+	line-height: 1.4;
+}
+
+.purplish-meter-text strong {
+	font-weight: 600;
+}
+
+.purplish-meter-bar {
+	block-size: 6px;
+	border-radius: 999px;
+	background: color-mix(in srgb, currentcolor 12%, transparent);
+	overflow: hidden;
+}
+
+.purplish-meter-bar > span {
+	display: block;
+	inline-size: calc(var(--purplish-meter, 0) * 100%);
+	block-size: 100%;
+	border-radius: inherit;
+	background: var(--purplish-effect, currentcolor);
+	transition: inline-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.purplish-meter-page {
+	margin-block-end: 1.5rem;
+}
+
+/* Set to the totals column, it waits hidden until the script moves it there. */
+.purplish-meter-totals {
+	display: none;
+}
+
+.wc-block-cart__sidebar > .purplish-meter-totals:not([hidden]) {
+	display: grid;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-meter-bar > span {
+		transition: none;
+	}
+}
