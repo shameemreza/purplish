@@ -132,9 +132,11 @@
 	border: 1px solid var(--purplish-sc-line);
 }
 
-.purplish-size-chart__unit {
+/* Two classes so WooCommerce's .woocommerce-page label margin can't win. */
+.purplish-size-chart__units .purplish-size-chart__unit {
 	position: relative;
 	display: block;
+	margin: 0;
 	cursor: pointer;
 }
 
