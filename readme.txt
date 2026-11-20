@@ -36,7 +36,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 * **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, ruled cards with thin lines in place of the gap, an outline add to cart button, a photo wash, a hover look for the card, the photo and the button, and one effect color for all of it.
 * **Shop page:** a choice of which orderings Sort by lists, a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs, chips or category photos with the current one marked.
 * **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, a 44px tap size for chips, and color names under swatches.
-* **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, a title and price that rise into place, a quantity box and button at one larger height, a bar with the name, price and button that stays at the bottom of a phone screen, and matching extras under the button that go into the cart on the same click, picked by hand, from Cross-sells or matched by category.
+* **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, photo swatches that show each color option as its variation photo with the picked color's name beside the option name, a title and price that rise into place, a quantity box and button at one larger height, a bar with the name, price and button that stays at the bottom of a phone screen, and matching extras under the button that go into the cart on the same click, picked by hand, from Cross-sells or matched by category.
 * **Mini-Cart:** a count that pops, a photo that flies into the cart icon, a drawer that opens with a soft spring, a free shipping meter, and cart items without their short descriptions.
 * **Cart, checkout and order confirmation:** soft rows, bigger photos and a free shipping meter in the cart, checkout fields and choices in your style, button looks on Place Order, the order total on the pinned checkout button on phones, a thank-you moment, and the order details on a paper receipt.
 * **Page sections:** soft accordions, reviews as cards or chat bubbles, striped specification tables, pill, circle or price tag sale badges, boxed page numbers, ringed social icons, and a line through options that can't be bought.
@@ -117,7 +117,7 @@ Yes. A simple product gets one Page color for its whole page, read from its phot
 
 = Do I need color swatches? =
 
-No. Purplish works with WooCommerce's plain dropdowns and option buttons. If you set swatch colors on the color attribute, Purplish uses those first. To show a dot of each color on the option buttons, turn on Color dots.
+No. Purplish works with WooCommerce's plain dropdowns and option buttons. If you set swatch colors on the color attribute, Purplish uses those first. To show a dot of each color on the option buttons, turn on Color dots. To show each color as its variation photo instead, pick Photo swatches under Color options on the Variation Selector.
 
 = How do I add a hover effect to the WooCommerce product gallery? =
 

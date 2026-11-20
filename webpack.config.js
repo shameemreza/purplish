@@ -1,6 +1,6 @@
 /**
  * The scripts package's webpack config with the four 1.0 bundles and the
- * filters, grid, free shipping meter, load more, photo swap, sticky Add to Cart bar, checkout bar total and matching extras scripts kept by name, plus the scripts each block lists in its
+ * filters, grid, free shipping meter, load more, photo swap, sticky Add to Cart bar, checkout bar total, matching extras and picked color name scripts kept by name, plus the scripts each block lists in its
  * block.json. A new block is a new folder in assets/src/blocks and nothing
  * else here. Each file in assets/src/effects/parts builds to its own
  * stylesheet, `style-effects-<part>.css`, so a page loads only the effects
@@ -64,6 +64,7 @@ module.exports = {
 		swap: './assets/src/swap/index.js',
 		total: './assets/src/total/index.js',
 		extras: './assets/src/extras/index.js',
+		picked: './assets/src/picked/index.js',
 		...( hasBlocks() ? defaultConfig.entry() : {} ),
 	} ),
 };
