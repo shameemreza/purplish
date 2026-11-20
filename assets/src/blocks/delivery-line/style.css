@@ -1,0 +1,116 @@
+/**
+ * Delivery Line. Short lines under the buy button, each with a line icon
+ * in the text color. Colors, type and borders come from the theme and the
+ * block's Styles; dividers mix the text color with transparency, so they
+ * work on light and dark palettes alike. Nothing moves.
+ */
+.wp-block-purplish-delivery-line {
+	--purplish-dl-line: color-mix(in srgb, currentcolor 18%, transparent);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	box-sizing: border-box;
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	line-height: 1.45;
+}
+
+/* The editor wraps the server's markup in the block's own wrapper. */
+.wp-block-purplish-delivery-line > .wp-block-purplish-delivery-line {
+	margin: 0;
+	font-size: inherit;
+}
+
+.purplish-delivery-line__row {
+	display: grid;
+	grid-template-columns: 1.25em minmax(0, 1fr);
+	align-items: start;
+	column-gap: 0.625rem;
+	margin: 0;
+}
+
+.purplish-delivery-line__row[hidden] {
+	display: none;
+}
+
+.purplish-delivery-line--no-icons .purplish-delivery-line__row {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.purplish-delivery-line__icon {
+	width: 1.25em;
+	height: 1.25em;
+
+	/* Centers the icon on the first line of text. */
+	margin-block-start: calc((1lh - 1.25em) / 2);
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.purplish-delivery-line__text {
+	overflow-wrap: anywhere;
+	text-wrap: pretty;
+}
+
+.purplish-delivery-line__text strong {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.purplish-delivery-line__text a {
+	color: inherit;
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+.purplish-delivery-line__text a:hover {
+	text-decoration-thickness: 2px;
+}
+
+.purplish-delivery-line__text a:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+/*
+ * Boxed: a hairline frame with a divider between lines. The frame sits in
+ * :where() so a border or padding set in the block's Styles wins.
+ */
+:where(.wp-block-purplish-delivery-line.is-style-boxed) {
+	gap: 0;
+	padding: 0.25rem 1rem;
+	border: 1px solid var(--purplish-dl-line);
+}
+
+.wp-block-purplish-delivery-line.is-style-boxed .purplish-delivery-line__row {
+	padding-block: 0.75rem;
+}
+
+.wp-block-purplish-delivery-line.is-style-boxed .purplish-delivery-line__row:not([hidden]) ~ .purplish-delivery-line__row:not([hidden]) {
+	border-block-start: 1px solid var(--purplish-dl-line);
+}
+
+.wp-block-purplish-delivery-line.is-style-boxed > .wp-block-purplish-delivery-line {
+	gap: 0;
+	padding: 0;
+	border: 0;
+}
+
+@media (forced-colors: active) {
+
+	.wp-block-purplish-delivery-line {
+		--purplish-dl-line: CanvasText;
+	}
+}
+
+/* Editor only: every line is off, or the product doesn't ship. */
+.purplish-delivery-line-empty {
+	margin: 0;
+	padding: 0.75rem 1rem;
+	border: 1px dashed currentcolor;
+	opacity: 0.7;
+	font-size: 0.8125rem;
+}

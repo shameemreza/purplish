@@ -7,6 +7,7 @@
 
 namespace Purplish\Tests;
 
+use Purplish\Delivery;
 use Purplish\Jobs\DetectColors;
 use Purplish\Meta;
 use Purplish\SizeCharts;
@@ -25,6 +26,7 @@ class UninstallTest extends WP_UnitTestCase {
 	public function test_uninstall_removes_everything() {
 		update_option( 'purplish_settings', array( 'button' => 'yes' ) );
 		update_option( DetectColors::QUEUE_OPTION, 1 );
+		update_option( Delivery::OPTION, array( 'processing' => 2 ) );
 
 		$variations = Products::sweater();
 		foreach ( $variations as $variation ) {
@@ -44,6 +46,7 @@ class UninstallTest extends WP_UnitTestCase {
 		$product = reset( $variations )->get_parent_id();
 		update_post_meta( $product, SizeCharts::META, (string) $chart );
 		update_post_meta( $product, SizeCharts::FIT_META, 'Runs small, size up.' );
+		update_post_meta( $product, Delivery::META, 3 );
 		$term = wp_insert_term( 'Coats', 'product_cat' );
 		update_term_meta( $term['term_id'], SizeCharts::TERM_META, $chart );
 
@@ -64,6 +67,8 @@ class UninstallTest extends WP_UnitTestCase {
 		}
 		$this->assertSame( '', get_post_meta( $product, SizeCharts::META, true ) );
 		$this->assertSame( '', get_post_meta( $product, SizeCharts::FIT_META, true ) );
+		$this->assertFalse( get_option( Delivery::OPTION ) );
+		$this->assertSame( '', get_post_meta( $product, Delivery::META, true ) );
 		$this->assertSame( '', get_term_meta( $term['term_id'], SizeCharts::TERM_META, true ) );
 		$this->assertSame( 'publish', get_post_status( $chart ), 'charts are the store owner\'s patterns and stay' );
 		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_ONE ) );
