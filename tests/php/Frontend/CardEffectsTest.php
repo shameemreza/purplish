@@ -214,6 +214,57 @@ class CardEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Peek prints its size, ignores sizes it doesn't know, and stays off
+	 * with a carousel card effect, which places the cards itself. On-hover
+	 * and scroll-in effects keep it.
+	 */
+	public function test_peek() {
+		foreach ( array( 'small', 'medium', 'large' ) as $size ) {
+			$this->assertSame(
+				array( 'purplish-cards', 'purplish-cards-peek-' . $size ),
+				BlockEffects::classes_for( 'woocommerce/product-collection', array( 'peek' => $size ) )
+			);
+		}
+
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-collection', array( 'peek' => 'huge' ) ) );
+		$this->assertSame( array(), BlockEffects::classes_for( 'woocommerce/product-collection', array( 'peek' => true ) ) );
+
+		foreach ( BlockEffects::CAROUSEL_EFFECTS as $effect ) {
+			$this->assertSame(
+				array( 'purplish-cards', 'purplish-cards-hover-' . $effect ),
+				BlockEffects::classes_for(
+					'woocommerce/product-collection',
+					array(
+						'peek'  => 'medium',
+						'hover' => $effect,
+					)
+				),
+				$effect
+			);
+		}
+
+		$this->assertSame(
+			array( 'purplish-cards', 'purplish-cards-hover-spotlight', 'purplish-cards-peek-large' ),
+			BlockEffects::classes_for(
+				'woocommerce/product-collection',
+				array(
+					'peek'  => 'large',
+					'hover' => 'spotlight',
+				)
+			)
+		);
+	}
+
+	/**
+	 * Every effect Peek gives way to is a card effect the block accepts, so
+	 * a misspelt name can't slip into the list.
+	 */
+	public function test_carousel_effects_are_card_effects() {
+		$hovers = BlockEffects::blocks()['woocommerce/product-collection']['options']['hover'];
+		$this->assertSame( array(), array_diff( BlockEffects::CAROUSEL_EFFECTS, $hovers ) );
+	}
+
+	/**
 	 * The tablet count and Closing rule print only with Ruled cards, and
 	 * not under Roster.
 	 */
