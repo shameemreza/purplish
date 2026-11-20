@@ -152,6 +152,7 @@ Two more pieces go inside the card's Product Image block and sit on the photo:
 
 - **Shelf Tag block:** a small tag that shows only on the cards its rule matches. The rules are best sellers (the store's top 1 to 50 by sales, 8 by default), new products (published in the last 1 to 365 days, 30 by default) and featured products. Pick a chip, a pill or frosted glass, the corner, your own words in place of Best seller, New arrival or Featured, and a light that passes over the tag once on hover. In the editor, the tag shows faded on the cards it leaves out. Best sellers are worked out again after each order, and at least every six hours.
 - **Sold out:** on the Stock Indicator block, Only when sold out hides the indicator on every other stock state and shows Out of stock in a pill, a chip or glass, in the corner you pick. Grey out sold-out cards turns the photo grey and soft, and brings some of it back on hover.
+- **Stock dot:** on the Stock Indicator block, Dot puts a small colored dot before In stock, low stock and On backorder, one color each, taken from the theme and readable on light and dark color variations. The words stay. With Only when sold out on too, sold-out products take the look and the others keep their dot.
 
 ### Color dots
 
