@@ -1,0 +1,520 @@
+/**
+ * Size Chart and the Size guide dialog. Colors come from the theme: text
+ * is inherited, lines mix it with transparency, and the page background
+ * and accent come from the Purplish theme tokens. Square corners, like
+ * WooCommerce's chips. Nothing moves.
+ */
+.wp-block-purplish-size-chart,
+.purplish-size-guide {
+	--purplish-sc-paper: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
+	--purplish-sc-accent: var(--purplish-theme-accent, currentcolor);
+	--purplish-sc-line: color-mix(in srgb, currentcolor 20%, transparent);
+	--purplish-sc-tint: color-mix(in srgb, var(--purplish-sc-accent) 10%, var(--purplish-sc-paper));
+	--purplish-sc-small: var(--wp--preset--font-size--small, 0.8125rem);
+	--purplish-sc-tiny: 0.75rem;
+}
+
+.wp-block-purplish-size-chart {
+	display: block;
+}
+
+.purplish-size-chart--product > .wp-block-purplish-size-chart {
+	margin: 0;
+}
+
+.purplish-size-guide__link,
+.purplish-size-chart__pick,
+.purplish-size-guide__close {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	letter-spacing: inherit;
+	cursor: pointer;
+	appearance: none;
+}
+
+.purplish-size-guide__link:focus-visible,
+.purplish-size-chart__pick:focus-visible,
+.purplish-size-guide__close:focus-visible,
+.purplish-size-chart__scroll:focus-visible,
+.purplish-size-chart__unit:has(input:focus-visible) {
+	outline: 2px solid var(--purplish-sc-accent);
+	outline-offset: 2px;
+}
+
+/* The attribute name with the Size guide link after it. */
+.purplish-size-guide__row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 1rem;
+}
+
+.purplish-size-guide__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+	font-size: var(--purplish-sc-small);
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, currentcolor 35%, transparent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.3em;
+	white-space: nowrap;
+}
+
+.purplish-size-guide__link:hover {
+	text-decoration-color: currentcolor;
+}
+
+.wp-block-woocommerce-add-to-cart-with-options-variation-selector-attribute-name .purplish-size-guide__link {
+	margin-inline-start: 1rem;
+	font-weight: 400;
+	text-transform: none;
+}
+
+.purplish-size-guide__icon {
+	flex: none;
+	width: 1rem;
+	height: 1rem;
+	fill: none;
+	stroke: currentcolor;
+	stroke-linecap: square;
+	stroke-width: 1.25;
+}
+
+/* Fit note. */
+.purplish-size-chart__fit,
+.purplish-size-guide__fit {
+	max-width: 60ch;
+	margin: 0.75rem 0 0;
+	font-size: var(--purplish-sc-small);
+	line-height: 1.5;
+}
+
+.purplish-size-chart--product > .purplish-size-chart__fit,
+.purplish-size-guide__body > .purplish-size-chart__fit {
+	margin: 0 0 1.25rem;
+}
+
+.purplish-size-chart__fit-label,
+.purplish-size-guide__fit-label {
+	margin-inline-end: 0.375rem;
+	font-size: var(--purplish-sc-tiny);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+/* Caption and the unit switch. */
+.purplish-size-chart__bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.purplish-size-chart__caption {
+	margin: 0;
+	font-size: var(--purplish-sc-tiny);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.purplish-size-chart__units {
+	display: inline-flex;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--purplish-sc-line);
+}
+
+.purplish-size-chart__unit {
+	position: relative;
+	display: block;
+	cursor: pointer;
+}
+
+.purplish-size-chart__unit input {
+	position: absolute;
+	inset: 0;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.purplish-size-chart__unit span {
+	display: block;
+	min-width: 2.75rem;
+	padding: 0.5rem 0.75rem;
+	font-size: var(--purplish-sc-tiny);
+	letter-spacing: 0.06em;
+	line-height: 1;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.purplish-size-chart__unit:has(input:checked) span {
+	background: var(--purplish-theme-ink, #111);
+	color: var(--purplish-sc-paper);
+}
+
+/* cm shows unless inches are picked or set to show first. */
+.purplish-size-chart__in {
+	display: none;
+}
+
+.wp-block-purplish-size-chart:is([data-unit="in"]:not(:has(.purplish-size-chart__units input[value="cm"]:checked)), :has(.purplish-size-chart__units input[value="in"]:checked)) .purplish-size-chart__in {
+	display: inline;
+}
+
+.wp-block-purplish-size-chart:is([data-unit="in"]:not(:has(.purplish-size-chart__units input[value="cm"]:checked)), :has(.purplish-size-chart__units input[value="in"]:checked)) .purplish-size-chart__cm {
+	display: none;
+}
+
+/* Table. */
+.purplish-size-chart__scroll {
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scrollbar-color: var(--purplish-sc-line) transparent;
+	scrollbar-width: thin;
+}
+
+.purplish-size-chart__table {
+	width: 100%;
+	min-width: 22rem;
+	margin: 0;
+	border-spacing: 0;
+	border-collapse: separate;
+	font-size: 0.875rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.purplish-size-chart__table th,
+.purplish-size-chart__table td {
+	padding: 0.8125rem 0.75rem;
+	border: 0;
+	text-align: start;
+	white-space: nowrap;
+}
+
+.purplish-size-chart__table thead th {
+	padding-top: 0;
+	padding-bottom: 0.625rem;
+	border-bottom: 1px solid currentcolor;
+	font-size: var(--purplish-sc-tiny);
+	font-weight: 400;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	vertical-align: bottom;
+}
+
+.purplish-size-chart__u {
+	display: block;
+	letter-spacing: 0.04em;
+	text-transform: none;
+	opacity: 0.75;
+}
+
+.purplish-size-chart__table tbody th {
+	position: sticky;
+	left: 0;
+	z-index: 1;
+	background: var(--purplish-sc-paper);
+	font-weight: 400;
+}
+
+.purplish-size-chart__table tbody th,
+.purplish-size-chart__table tbody td {
+	border-bottom: 1px solid var(--purplish-sc-line);
+}
+
+.purplish-size-chart__table th:first-child,
+.purplish-size-chart__table td:first-child {
+	padding-inline-start: 0;
+}
+
+/* Striped. */
+.is-style-striped .purplish-size-chart__table tbody th,
+.is-style-striped .purplish-size-chart__table tbody td {
+	border-bottom: 0;
+}
+
+.is-style-striped .purplish-size-chart__table tbody tr:nth-child(odd) th,
+.is-style-striped .purplish-size-chart__table tbody tr:nth-child(odd) td {
+	background: color-mix(in srgb, currentcolor 5%, var(--purplish-sc-paper));
+}
+
+.is-style-striped .purplish-size-chart__table th:first-child,
+.is-style-striped .purplish-size-chart__table td:first-child {
+	padding-inline-start: 0.75rem;
+}
+
+/* A size that picks the matching option. */
+.purplish-size-chart__pick {
+	min-width: 2.5rem;
+	padding: 0.25rem 0;
+	letter-spacing: 0.06em;
+	text-align: start;
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, currentcolor 35%, transparent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.3em;
+	text-transform: uppercase;
+}
+
+.purplish-size-chart__pick:hover:not(:disabled) {
+	text-decoration-color: currentcolor;
+}
+
+.purplish-size-chart__pick:disabled {
+	text-decoration: none;
+	cursor: default;
+	opacity: 0.55;
+}
+
+/* The size picked in the chips. */
+.purplish-size-chart__table tbody tr.is-selected th,
+.purplish-size-chart__table tbody tr.is-selected td {
+	background: var(--purplish-sc-tint);
+}
+
+.purplish-size-chart__table tbody tr.is-selected .purplish-size-chart__pick {
+	font-weight: 600;
+	text-decoration-color: currentcolor;
+}
+
+/* The measurement under the pointer or focus. */
+.purplish-size-chart__table thead th.is-active {
+	border-bottom-color: var(--purplish-sc-accent);
+	box-shadow: inset 0 -1px 0 var(--purplish-sc-accent);
+}
+
+/* How to measure. */
+.purplish-size-chart__measure {
+	display: grid;
+	grid-template-columns: minmax(8rem, 13rem) 1fr;
+	align-items: start;
+	gap: 1.5rem;
+	margin-top: 1.75rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid var(--purplish-sc-line);
+}
+
+.purplish-size-chart--figure-none .purplish-size-chart__measure {
+	grid-template-columns: 1fr;
+}
+
+.purplish-size-chart__figure {
+	margin: 0;
+}
+
+.purplish-size-chart__figure-svg {
+	display: block;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.purplish-size-chart__tape-line,
+.purplish-size-chart__tape-end {
+	fill: none;
+	stroke: currentcolor;
+	stroke-dasharray: 5 4;
+	stroke-width: 2;
+}
+
+.purplish-size-chart__tape-end {
+	stroke-dasharray: none;
+}
+
+.purplish-size-chart__tape-dot {
+	fill: currentcolor;
+}
+
+.purplish-size-chart__tape-label {
+	fill: currentcolor;
+	font-family: inherit;
+	font-size: 17px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	paint-order: stroke;
+	stroke: var(--purplish-sc-paper);
+	stroke-linejoin: round;
+	stroke-width: 5px;
+}
+
+.purplish-size-chart__tape.is-active .purplish-size-chart__tape-line,
+.purplish-size-chart__tape.is-active .purplish-size-chart__tape-end {
+	stroke: var(--purplish-sc-accent);
+	stroke-dasharray: none;
+}
+
+.purplish-size-chart__tape.is-active .purplish-size-chart__tape-dot,
+.purplish-size-chart__tape.is-active .purplish-size-chart__tape-label {
+	fill: var(--purplish-sc-accent);
+}
+
+.purplish-size-chart__measure-title {
+	margin: 0 0 1rem;
+	font-size: var(--purplish-sc-tiny);
+	font-weight: 400;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.purplish-size-chart__notes {
+	margin: 0;
+}
+
+.purplish-size-chart__note {
+	margin: 0 0 1rem;
+	padding-inline-start: 0.875rem;
+	border-inline-start: 1px solid var(--purplish-sc-line);
+}
+
+.purplish-size-chart__note.is-active {
+	border-inline-start-color: var(--purplish-sc-accent);
+}
+
+.purplish-size-chart__note dt {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 0.75rem;
+	margin: 0 0 0.125rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.purplish-size-chart__value {
+	font-variant-numeric: tabular-nums;
+	font-weight: 400;
+}
+
+.purplish-size-chart__note dd {
+	max-width: 52ch;
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.55;
+}
+
+/* Size guide dialog. */
+.purplish-size-guide {
+	box-sizing: border-box;
+	width: calc(100% - 2rem);
+	max-width: 48rem;
+	max-height: min(88dvh, 52rem);
+	padding: 0;
+	overflow: auto;
+	overscroll-behavior: contain;
+	scrollbar-color: var(--purplish-sc-line) transparent;
+	scrollbar-width: thin;
+	border: 0;
+	background: var(--purplish-sc-paper);
+	color: var(--purplish-theme-ink, inherit);
+	box-shadow: 0 24px 64px rgb(0 0 0 / 0.18);
+}
+
+.purplish-size-guide::backdrop {
+	background: rgb(0 0 0 / 0.45);
+}
+
+.purplish-size-guide__head {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1.5rem 2rem 1.25rem;
+	border-bottom: 1px solid var(--purplish-sc-line);
+	background: var(--purplish-sc-paper);
+}
+
+.purplish-size-guide__title {
+	margin: 0;
+	font-size: 1.5rem;
+	font-weight: 400;
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+}
+
+.purplish-size-guide__product {
+	margin: 0.25rem 0 0;
+	font-size: var(--purplish-sc-small);
+}
+
+.purplish-size-guide__close {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	margin: -0.625rem -0.75rem 0 0;
+}
+
+.purplish-size-guide__close svg {
+	width: 1.25rem;
+	height: 1.25rem;
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 1.5;
+}
+
+.purplish-size-guide__body {
+	padding: 1.5rem 2rem 2rem;
+}
+
+.purplish-size-guide__body .wp-block-purplish-size-chart {
+	margin: 0;
+}
+
+/* Phones: a sheet from the bottom, or a centered card. */
+@media (max-width: 600px) {
+
+	.purplish-size-guide__head {
+		padding: 1.25rem 1.25rem 1rem;
+	}
+
+	.purplish-size-guide__body {
+		padding: 1.25rem 1.25rem 1.75rem;
+	}
+
+	.purplish-size-guide:not(.purplish-size-guide--card) {
+		width: 100%;
+		max-width: none;
+		max-height: 90dvh;
+		margin: auto 0 0;
+	}
+
+	.purplish-size-guide:not(.purplish-size-guide--card) .purplish-size-guide__head::before {
+		position: absolute;
+		top: 0.5rem;
+		left: 50%;
+		width: 2.5rem;
+		height: 4px;
+		background: var(--purplish-sc-line);
+		content: "";
+		transform: translateX(-50%);
+	}
+
+	.purplish-size-chart__measure {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	.purplish-size-chart__figure {
+		max-width: 13rem;
+	}
+
+	.purplish-size-chart__note dt,
+	.purplish-size-chart__note dd {
+		font-size: var(--purplish-sc-small);
+	}
+}

@@ -31,6 +31,15 @@
 			</property>
 		</properties>
 	</rule>
+	<!-- WooCommerce's product capabilities. -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="edit_product"/>
+				<element value="manage_product_terms"/>
+			</property>
+		</properties>
+	</rule>
 	<!-- PSR-4 class files in src/ and tests/php/. -->
 	<rule ref="WordPress.Files.FileName">
 		<exclude-pattern>/src/*</exclude-pattern>

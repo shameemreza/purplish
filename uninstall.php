@@ -1,7 +1,9 @@
 <?php
 /**
  * Runs when Purplish is deleted from the Plugins screen. Removes its
- * settings, its variation data and its queued background jobs.
+ * settings, its variation data, its size chart picks and fit notes, and
+ * its queued background jobs. Size charts are the store's own synced
+ * patterns, so they stay.
  *
  * Block settings saved in a template stay in that template's markup:
  * WordPress ignores an attribute no plugin registers, so they're harmless.
@@ -14,10 +16,11 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 delete_option( 'purplish_settings' );
 delete_option( 'purplish_queue_batch' );
 
-// Variation meta. Variations are posts, so this is the meta API, not SQL.
-foreach ( array( '_purplish_mode', '_purplish_custom_color', '_purplish_auto_color', '_purplish_auto_source' ) as $purplish_meta_key ) {
+// Variation and product meta. Both are posts, so this is the meta API, not SQL.
+foreach ( array( '_purplish_mode', '_purplish_custom_color', '_purplish_auto_color', '_purplish_auto_source', '_purplish_size_chart', '_purplish_fit_note' ) as $purplish_meta_key ) {
 	delete_metadata( 'post', 0, $purplish_meta_key, '', true );
 }
+delete_metadata( 'term', 0, 'purplish_size_chart', '', true );
 
 // Queued jobs, when WooCommerce's Action Scheduler is loaded.
 if ( function_exists( 'as_unschedule_all_actions' ) ) {

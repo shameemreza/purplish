@@ -1066,6 +1066,124 @@ return array(
 			'lock' => false
 		)
 	),
+	'size-chart' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/size-chart',
+		'version' => '1.4.0',
+		'title' => 'Size Chart',
+		'category' => 'purplish',
+		'description' => 'A size chart with a cm/in switch and How to measure notes. In a chart pattern it holds its own sizes; on the product page it shows each product\'s chart and fit note.',
+		'keywords' => array(
+			'size',
+			'fit',
+			'measurements',
+			'size guide',
+			'table'
+		),
+		'textdomain' => 'purplish',
+		'usesContext' => array(
+			'postId',
+			'postType'
+		),
+		'attributes' => array(
+			'source' => array(
+				'type' => 'string',
+				'enum' => array(
+					'own',
+					'product'
+				),
+				'default' => 'own'
+			),
+			'columns' => array(
+				'type' => 'array',
+				'default' => array(
+					
+				)
+			),
+			'rows' => array(
+				'type' => 'array',
+				'default' => array(
+					
+				)
+			),
+			'unit' => array(
+				'type' => 'string',
+				'enum' => array(
+					'cm',
+					'in'
+				),
+				'default' => 'cm'
+			),
+			'switch' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'fitnote' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'pick' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'figure' => array(
+				'type' => 'string',
+				'enum' => array(
+					'auto',
+					'none',
+					'top',
+					'bottom'
+				),
+				'default' => 'auto'
+			)
+		),
+		'styles' => array(
+			array(
+				'name' => 'default',
+				'label' => 'Lines',
+				'isDefault' => true
+			),
+			array(
+				'name' => 'striped',
+				'label' => 'Striped'
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'typography' => array(
+				'fontSize' => true,
+				'lineHeight' => true
+			),
+			'spacing' => array(
+				'padding' => true,
+				'margin' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true
+			)
+		),
+		'example' => array(
+			'attributes' => array(
+				'source' => 'product'
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
+	),
 	'story-deck' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

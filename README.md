@@ -20,6 +20,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 |---|---|---|
 | Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background, color dots, liquid glass, a spectrum ring and googly eyes on the button, a large buy row, a sticky bar on phones, and matching extras under the button. |
 | Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
+| Product page | Size Chart, Variation Selector | Purplish's own Size Chart block: sizes by measurement in cm with a cm/in switch, picked for each category or product, and a Size guide link beside the size options that opens it in a dialog, with a fit note under them. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo as a small button or a full-width bar, an outline button under the card, and button motion. |
@@ -343,6 +344,22 @@ A block of Purplish's own, in the Purplish group of the block inserter. Photos o
 - **Patterns:** Escalator hero with products and Escalator hero with photos put a heading, a short line, two buttons and two notes on the left and the block on the right. Both buttons have the light sweep, the tiles have Ring with products and Light sweep with photos, and the products pattern has the Filled add to cart button.
 
 The columns stop while a visitor points at them or tabs to a tile, and a pause button in the corner stops them until it's pressed again. Each column holds its tiles twice so the loop has no seam; the second copy is hidden from screen readers and keyboard focus. Visitors who turn on reduced motion see the columns standing still, without the pause button, of the tile looks only Ring, and no flying photo when adding to cart. The photos print with `srcset`, and the editor shows the same moving tiles as the published page.
+
+## Size Chart block
+
+A block of Purplish's own, in the Purplish group of the block inserter, for clothing and shoe stores. Shoppers find their size beside the size options, without a separate size chart plugin.
+
+- **Chart:** a table of sizes by measurement. Enter each measurement once in centimeters, or paste the rows from a spreadsheet. Measurement columns switch to inches for shoppers, rounded to the nearest half inch. Label columns, like US or EU sizes, stay as typed. Pick which unit shows first, or hide the switch.
+- **Saved as a pattern:** each chart is a synced pattern, so a How to measure part with text and photos sits beside it, built from normal blocks. Change a chart once and every product that uses it changes too.
+- **Which chart shows:** pick a chart for each product category. In the product editor, a product can pick another chart or hide it, and get a fit note like "Runs small, size up". The product's pick comes first, then its category's chart. With neither, nothing shows.
+- **Table style:** lines between rows, or striped rows, from the block's Styles panel.
+- **Pick a size from the chart:** on the product page, each size in the chart picks that size in the size options, and the chosen size's row stays highlighted. Turn it off to show plain text.
+- **How to measure:** add a short note to each measurement and show a drawn figure, a top or a bottom, with dashed tape lines. Next to each note, the shopper sees the value for the size they picked. Pointing at a column lights up its line and its note.
+- **Size guide link:** on the Variation Selector, a Size guide link beside the size options opens the chart in a dialog, with the fit note under the options. Change its words, pick which option it sits beside, or turn it off. On phones the dialog opens as a sheet from the bottom or as a centered card. It keeps focus inside, closes with Escape, and has a 44px close button.
+- **Anywhere on the product page:** put the block in the Single Product template, like inside a Size and fit accordion, and it shows each product's chart and fit note.
+- **Looks:** the Purple theme's colors, fonts and section styles first, and any block theme's otherwise. The editor shows the real chart, or a sample in the template.
+
+The shopper's cm or in choice stays for the visit, on every chart on the page.
 
 ## Abilities for AI agents
 

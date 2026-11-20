@@ -1,0 +1,84 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "purplish/size-chart",
+	"version": "1.4.0",
+	"title": "Size Chart",
+	"category": "purplish",
+	"description": "A size chart with a cm/in switch and How to measure notes. In a chart pattern it holds its own sizes; on the product page it shows each product's chart and fit note.",
+	"keywords": [ "size", "fit", "measurements", "size guide", "table" ],
+	"textdomain": "purplish",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"source": {
+			"type": "string",
+			"enum": [ "own", "product" ],
+			"default": "own"
+		},
+		"columns": {
+			"type": "array",
+			"default": []
+		},
+		"rows": {
+			"type": "array",
+			"default": []
+		},
+		"unit": {
+			"type": "string",
+			"enum": [ "cm", "in" ],
+			"default": "cm"
+		},
+		"switch": {
+			"type": "boolean",
+			"default": true
+		},
+		"fitnote": {
+			"type": "boolean",
+			"default": true
+		},
+		"pick": {
+			"type": "boolean",
+			"default": true
+		},
+		"figure": {
+			"type": "string",
+			"enum": [ "auto", "none", "top", "bottom" ],
+			"default": "auto"
+		}
+	},
+	"styles": [
+		{ "name": "default", "label": "Lines", "isDefault": true },
+		{ "name": "striped", "label": "Striped" }
+	],
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
+		}
+	},
+	"example": {
+		"attributes": {
+			"source": "product"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css"
+}

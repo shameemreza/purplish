@@ -92,13 +92,16 @@ final class Plugin {
 		( new Frontend\CatalogSorting() )->register();
 		( new Frontend\TermPhoto() )->register();
 		( new Frontend\FreeDelivery() )->register();
+		( new Frontend\SizeGuide() )->register();
 		( new Admin\Settings() )->register();
 		( new Blocks\Registry() )->register();
 		( new Patterns() )->register();
+		SizeCharts::hooks();
 		( new Abilities() )->register();
 
 		if ( is_admin() ) {
 			( new Admin\VariationField() )->register();
+			( new Admin\SizeChartFields() )->register();
 		}
 
 		/**
