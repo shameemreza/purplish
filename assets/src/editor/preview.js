@@ -51,6 +51,7 @@ import {
 import { canvasElement } from './canvas';
 import { useExtras } from './extras-preview';
 import { useSizeGuide } from './size-guide-preview';
+import { usePhotoSwatches } from './photo-swatches-preview';
 
 const MAP = window.purplishPreview || {};
 const PAGE = window.purplishPage || {};
@@ -631,6 +632,19 @@ const withPurplishPreview = createHigherOrderComponent(
 			props.name === ATTRIBUTE_BLOCK && false !== saved?.sizeguide
 				? ( 'string' === typeof saved?.sizelabel && saved.sizelabel ) ||
 						''
+				: null
+		);
+
+		usePhotoSwatches(
+			props.clientId,
+			props.name === ATTRIBUTE_BLOCK && 'photos' === saved?.swatch
+				? {
+						attribute:
+							( 'string' === typeof saved.swatchattr &&
+								saved.swatchattr ) ||
+							'',
+						name: false !== saved.swatchname,
+					}
 				: null
 		);
 

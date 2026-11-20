@@ -30,3 +30,111 @@
 .purplish-chips-soldout-blur .wc-block-product-filter-chips__item:disabled .wc-block-product-filter-chips__label {
 	filter: blur(1.5px);
 }
+
+/*
+ * Photo swatches (PhotoSwatches.php). WooCommerce draws the swatches; these
+ * make each one a photo square at the tap size, 44px or 64px, with the
+ * selected ring around it. Purple's corners are square; Round is a setting.
+ */
+.purplish-photo-swatches {
+	--purplish-swatch: 44px;
+	--purplish-swatch-radius: 0;
+	--purplish-chip-radius: 0;
+}
+
+.purplish-chips-swatchsize-large .purplish-photo-swatches {
+	--purplish-swatch: 64px;
+}
+
+.purplish-chips-swatchshape-round .purplish-photo-swatches {
+	--purplish-swatch-radius: 50%;
+	--purplish-chip-radius: 999px;
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__item {
+	box-sizing: border-box;
+	width: var(--purplish-swatch);
+	height: var(--purplish-swatch);
+	padding: 2px;
+	border: 2px solid transparent;
+	border-radius: var(--purplish-swatch-radius);
+	background: transparent;
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__item:hover {
+	border-color: color-mix(in srgb, currentcolor 30%, transparent);
+}
+
+/*
+ * The ring takes the chip text color, not the selected color, which the
+ * page tint can turn into the variation's own color: a green ring around
+ * a green photo on a dark page would barely show.
+ */
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__item[aria-checked="true"] {
+	background: transparent;
+	border-color: var(--wc-product-filter-chips-text, currentcolor);
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__item:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__label {
+	width: 100%;
+	height: 100%;
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__swatch {
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	border: 1px solid color-mix(in srgb, currentcolor 15%, transparent);
+	border-radius: var(--purplish-swatch-radius);
+}
+
+/* The swatch already shows the color, so the store's color dot stays off. */
+.purplish-photo-swatches.is-style-swatch .purplish-has-dot::before {
+	content: none;
+}
+
+/*
+ * An option with no photo and no color keeps its name, as a chip at the
+ * swatch height in the theme's chip colors.
+ */
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__item:has(.wc-block-product-filter-chips__swatch--no-color) {
+	width: auto;
+	min-width: var(--purplish-swatch);
+	padding: 0 0.75em;
+	border-width: 1px;
+	border-color: var(--wc-product-filter-chips-border, color-mix(in srgb, currentcolor 40%, transparent));
+	border-radius: var(--purplish-chip-radius);
+	background: var(--wc-product-filter-chips-background, transparent);
+	color: var(--wc-product-filter-chips-text, inherit);
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__item[aria-checked="true"]:has(.wc-block-product-filter-chips__swatch--no-color) {
+	border-color: var(--wc-product-filter-chips-selected-border, var(--wc-product-filter-chips-text, CanvasText));
+	background: var(--wc-product-filter-chips-selected-background, var(--wc-product-filter-chips-text, CanvasText));
+	color: var(--wc-product-filter-chips-selected-text, var(--wc-product-filter-chips-background, Canvas));
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__swatch--no-color {
+	display: none;
+}
+
+.purplish-photo-swatches.is-style-swatch .wc-block-product-filter-chips__item:has(.wc-block-product-filter-chips__swatch--no-color) .wc-block-product-filter-chips__text {
+	position: static;
+	display: inline;
+	width: auto;
+	height: auto;
+	overflow: visible;
+	clip-path: none;
+	white-space: nowrap;
+}
+
+/* The picked color's name, after the attribute name and in its type. */
+.purplish-photo-swatches__picked {
+	margin-inline-start: 0.5em;
+	font-weight: 500;
+}

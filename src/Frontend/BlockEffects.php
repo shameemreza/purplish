@@ -365,7 +365,20 @@ final class BlockEffects {
 			'woocommerce/add-to-cart-with-options-variation-selector-attribute' => array(
 				'prefix'  => 'chips',
 				'options' => array(
-					'soldout' => array( 'cross', 'blur' ),
+					'soldout'     => array( 'cross', 'blur' ),
+					// Photo swatches (see PhotoSwatches): the look, then its
+					// shape and size.
+					'swatch'      => array( 'photos' ),
+					'swatchshape' => array( 'round' ),
+					'swatchsize'  => array( 'large' ),
+				),
+				'needs'   => array(
+					'swatchshape' => array(
+						array( 'swatch', array( 'photos' ), true ),
+					),
+					'swatchsize'  => array(
+						array( 'swatch', array( 'photos' ), true ),
+					),
 				),
 				'rows'    => true,
 				'preview' => true,

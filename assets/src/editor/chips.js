@@ -14,6 +14,26 @@ const ATTRIBUTES = [
 	...( window.purplishSizeAttributes || [] ),
 ];
 
+const SWATCH_ATTRIBUTES = [
+	{ value: '', label: __( 'Auto, the color attribute', 'purplish' ) },
+	...( window.purplishSizeAttributes || [] ),
+];
+
+const SWATCHES = [
+	{ value: '', label: __( 'WooCommerce default', 'purplish' ) },
+	{ value: 'photos', label: __( 'Photo swatches', 'purplish' ) },
+];
+
+const SHAPES = [
+	{ value: '', label: __( 'Square', 'purplish' ) },
+	{ value: 'round', label: __( 'Round', 'purplish' ) },
+];
+
+const SIZES = [
+	{ value: '', label: __( 'Small, 44px', 'purplish' ) },
+	{ value: 'large', label: __( 'Large, 64px', 'purplish' ) },
+];
+
 const SHEETS = [
 	{ value: '', label: __( 'Sheet from the bottom', 'purplish' ) },
 	{ value: 'card', label: __( 'Centered card', 'purplish' ) },
@@ -34,6 +54,7 @@ const LOOKS = [
  */
 export default function ChipsPanel( { saved, setSaved } ) {
 	const guide = false !== saved.sizeguide;
+	const photos = 'photos' === saved.swatch;
 	const set = ( key, value ) =>
 		setSaved( { ...saved, [ key ]: value || undefined } );
 	return (
@@ -52,6 +73,61 @@ export default function ChipsPanel( { saved, setSaved } ) {
 					setSaved( { ...saved, soldout: soldout || undefined } )
 				}
 			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Color options', 'purplish' ) }
+				help={ __(
+					'Photo swatches show each color as its variation photo. A color with no photo shows its swatch color, then its name. The Drop-down style shows no photos.',
+					'purplish'
+				) }
+				value={ saved.swatch || '' }
+				options={ SWATCHES }
+				onChange={ ( value ) => set( 'swatch', value ) }
+			/>
+			{ photos && (
+				<>
+					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Show photos on', 'purplish' ) }
+						value={ saved.swatchattr || '' }
+						options={ SWATCH_ATTRIBUTES }
+						onChange={ ( value ) => set( 'swatchattr', value ) }
+					/>
+					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Swatch shape', 'purplish' ) }
+						value={ saved.swatchshape || '' }
+						options={ SHAPES }
+						onChange={ ( value ) => set( 'swatchshape', value ) }
+					/>
+					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Swatch size', 'purplish' ) }
+						value={ saved.swatchsize || '' }
+						options={ SIZES }
+						onChange={ ( value ) => set( 'swatchsize', value ) }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Picked color name', 'purplish' ) }
+						help={ __(
+							'Shows the chosen color beside the attribute name.',
+							'purplish'
+						) }
+						checked={ false !== saved.swatchname }
+						onChange={ ( on ) =>
+							setSaved( {
+								...saved,
+								swatchname: on ? undefined : false,
+							} )
+						}
+					/>
+				</>
+			) }
 			<ToggleControl
 				__nextHasNoMarginBottom
 				label={ __( 'Size guide link', 'purplish' ) }
