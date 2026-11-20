@@ -1,6 +1,6 @@
 <?php
 /**
- * Pattern: Atelier shop. A quiet shop page: breadcrumbs, an uppercase serif
+ * Pattern: Atelier shop. A quiet shop page: breadcrumbs, an uppercase
  * title with the category's description, accordion filters on the left
  * that can fold away, Sort by on the right, three columns of tall photos
  * with a Best seller tag, cards that lift on hover with Add to cart on
@@ -84,27 +84,24 @@ $purplish_title      = array(
 	'type'       => 'archive',
 	'showPrefix' => false,
 	'align'      => 'wide',
-	'fontFamily' => 'bodoni-moda',
 	'style'      => array(
 		'typography' => array(
 			'fontSize'      => 'clamp(1.75rem, 1.35rem + 1.4vw, 2.5rem)',
-			'fontStyle'     => 'normal',
-			'fontWeight'    => '400',
 			'textTransform' => 'uppercase',
 			'letterSpacing' => '0.01em',
 			'lineHeight'    => '1.1',
 		),
 		'spacing'    => array(
 			'margin' => array(
-				'top'    => 'var:preset|spacing|40',
+				'top'    => 'var:preset|spacing|30',
 				'bottom' => 'var:preset|spacing|20',
 			),
 		),
 	),
 );
 ?>
-<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Atelier shop', 'purplish' ); ?>"},"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|80"},"blockGap":"0"}},"layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--80)"><!-- wp:woocommerce/breadcrumbs {"fontSize":"small"} /-->
+<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Atelier shop', 'purplish' ); ?>"},"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|70"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70)"><!-- wp:woocommerce/breadcrumbs {"fontSize":"small"} /-->
 
 <!-- wp:query-title <?php echo serialize_block_attributes( $purplish_title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> /-->
 
@@ -161,7 +158,7 @@ echo $purplish_accordion(
 <!-- wp:woocommerce/product-button {"isDescendentOfQueryLoop":true} /-->
 <!-- /wp:woocommerce/product-template -->
 
-<!-- wp:query-pagination {"purplish":{"look":"boxed"},"paginationArrow":"chevron","style":{"spacing":{"margin":{"top":"var:preset|spacing|60"},"blockGap":"0.375rem"},"typography":{"fontSize":"0.8125rem","textTransform":"uppercase","letterSpacing":"0.04em"}},"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination {"purplish":{"look":"boxed"},"paginationArrow":"chevron","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"},"blockGap":"0.375rem"},"typography":{"fontSize":"0.8125rem","textTransform":"uppercase","letterSpacing":"0.04em"}},"layout":{"type":"flex","justifyContent":"center"}} -->
 <!-- wp:query-pagination-previous {"label":"<?php echo esc_attr__( 'Back', 'purplish' ); ?>"} /-->
 
 <!-- wp:query-pagination-numbers /-->

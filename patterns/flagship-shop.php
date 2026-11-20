@@ -2,7 +2,7 @@
 /**
  * Pattern: Flagship shop. A photo-led shop page: breadcrumbs, a hero with
  * the category's photo fading into the page, the product count in brackets
- * over a big serif title and the category's description, category tabs,
+ * over a big title and the category's description, category tabs,
  * filter dropdowns in one row with Sort by and a grid switch on the right,
  * four columns of grey tiles with the name and color dots on one line,
  * sale, new and sold out badges, Load more over a faded last row, then the
@@ -16,10 +16,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_ink    = '#111111';
-$purplish_body   = '#322f37';
+$purplish_body   = 'var:preset|color|theme-4';
 $purplish_deep   = '#1f0342';
-$purplish_tile   = '#f2f2f2';
+$purplish_tile   = 'var:preset|color|theme-5';
 $purplish_figure = plugins_url( 'assets/figures/brand-band.svg', PURPLISH_FILE );
 
 /*
@@ -100,7 +99,6 @@ $purplish_count = array(
 		'motion' => 'roll',
 	),
 	'style'    => array(
-		'color'      => array( 'text' => $purplish_body ),
 		'typography' => array(
 			'fontSize'   => 'clamp(1.125rem, 1rem + 0.5vw, 1.5rem)',
 			'fontWeight' => '300',
@@ -111,13 +109,9 @@ $purplish_title = array(
 	'type'       => 'archive',
 	'showPrefix' => false,
 	'level'      => 1,
-	'fontFamily' => 'bodoni-moda',
 	'style'      => array(
-		'color'      => array( 'text' => $purplish_ink ),
 		'typography' => array(
 			'fontSize'      => 'clamp(2.75rem, 1.9rem + 3.4vw, 5rem)',
-			'fontStyle'     => 'normal',
-			'fontWeight'    => '400',
 			'letterSpacing' => '-0.02em',
 			'lineHeight'    => '1',
 		),
@@ -274,8 +268,8 @@ $purplish_promo      = array(
 <!-- /wp:group -->
 
 <!-- wp:woocommerce/product-collection <?php echo serialize_block_attributes( $purplish_collection ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
-<div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-filters {"purplish":{"layout":"bar","hover":true,"open":"grow","chips":true},"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}},"fontSize":"small"} -->
-<div class="wp-block-woocommerce-product-filters wc-block-product-filters has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--40)"><?php echo implode( "\n\n", $purplish_filters ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the closure. ?>
+<div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-filters {"purplish":{"layout":"bar","hover":true,"open":"grow","chips":true},"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|30"}}},"fontSize":"small"} -->
+<div class="wp-block-woocommerce-product-filters wc-block-product-filters has-small-font-size" style="margin-bottom:var(--wp--preset--spacing--30)"><?php echo implode( "\n\n", $purplish_filters ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in the closure. ?>
 
 <!-- wp:woocommerce/product-filter-active -->
 <div class="wp-block-woocommerce-product-filter-active"><!-- wp:woocommerce/product-filter-removable-chips -->
@@ -323,8 +317,8 @@ $purplish_promo      = array(
 <!-- wp:pattern {"slug":"purplish/trust-row"} /-->
 
 <!-- wp:cover <?php echo serialize_block_attributes( $purplish_promo ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
-<div class="wp-block-cover alignfull has-custom-content-position is-position-center-left" style="margin-top:0;margin-bottom:0;padding-top:clamp(40px, 6vw, 80px);padding-right:var(--wp--preset--spacing--50);padding-bottom:clamp(40px, 6vw, 80px);padding-left:<?php echo esc_attr( $purplish_promo['style']['spacing']['padding']['left'] ); ?>;min-height:420px"><img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( $purplish_figure ); ?>" style="object-position:72% 50%" data-object-fit="cover" data-object-position="72% 50%"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:linear-gradient(90deg, rgba(31,3,66,0.92) 0%, rgba(31,3,66,0.72) 55%, rgba(31,3,66,0.35) 100%)"></span><div class="wp-block-cover__inner-container"><!-- wp:heading {"fontFamily":"bodoni-moda","style":{"typography":{"fontSize":"clamp(2.25rem, 1.5rem + 3vw, 4rem)","fontStyle":"normal","fontWeight":"400","lineHeight":"1.05","letterSpacing":"-0.02em"},"color":{"text":"#ffffff"},"spacing":{"margin":{"bottom":"16px"}}},"purplish":{"reveal":"rise"}} -->
-<h2 class="wp-block-heading has-text-color has-bodoni-moda-font-family" style="color:#ffffff;margin-bottom:16px;font-size:clamp(2.25rem, 1.5rem + 3vw, 4rem);font-style:normal;font-weight:400;letter-spacing:-0.02em;line-height:1.05"><?php esc_html_e( 'Shop in store, save 20%.', 'purplish' ); ?></h2>
+<div class="wp-block-cover alignfull has-custom-content-position is-position-center-left" style="margin-top:0;margin-bottom:0;padding-top:clamp(40px, 6vw, 80px);padding-right:var(--wp--preset--spacing--50);padding-bottom:clamp(40px, 6vw, 80px);padding-left:<?php echo esc_attr( $purplish_promo['style']['spacing']['padding']['left'] ); ?>;min-height:420px"><img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( $purplish_figure ); ?>" style="object-position:72% 50%" data-object-fit="cover" data-object-position="72% 50%"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:linear-gradient(90deg, rgba(31,3,66,0.92) 0%, rgba(31,3,66,0.72) 55%, rgba(31,3,66,0.35) 100%)"></span><div class="wp-block-cover__inner-container"><!-- wp:heading {"style":{"typography":{"fontSize":"clamp(2.25rem, 1.5rem + 3vw, 4rem)","lineHeight":"1.05","letterSpacing":"-0.02em"},"color":{"text":"#ffffff"},"spacing":{"margin":{"bottom":"16px"}}},"purplish":{"reveal":"rise"}} -->
+<h2 class="wp-block-heading has-text-color" style="color:#ffffff;margin-bottom:16px;font-size:clamp(2.25rem, 1.5rem + 3vw, 4rem);letter-spacing:-0.02em;line-height:1.05"><?php esc_html_e( 'Shop in store, save 20%.', 'purplish' ); ?></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"style":{"color":{"text":"#ebe4fa"},"spacing":{"margin":{"bottom":"32px"}}}} -->

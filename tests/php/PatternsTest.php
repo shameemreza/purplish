@@ -420,7 +420,7 @@ class PatternsTest extends WP_UnitTestCase {
 			$this->find_block( $blocks, 'woocommerce/product-results-count' )['attrs']['purplish']
 		);
 		$this->assertSame( 'archive', $this->find_block( $blocks, 'core/query-title' )['attrs']['type'] );
-		$this->assertSame( 'bodoni-moda', $this->find_block( $blocks, 'core/query-title' )['attrs']['fontFamily'] );
+		$this->assertArrayNotHasKey( 'fontFamily', $this->find_block( $blocks, 'core/query-title' )['attrs'] );
 
 		$tabs = $this->find_block( $blocks, 'core/terms-query' );
 		$this->assertSame( array( 'look' => 'tabs' ), $tabs['attrs']['purplish'] );
@@ -620,14 +620,16 @@ class PatternsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * A section head is the serif heading alone, or a row with the line
-	 * under the heading and the link beside it, with every value escaped.
+	 * A section head is the heading alone, or a row with the line under the
+	 * heading and the link beside it, with every value escaped. It takes the
+	 * theme's heading font and colors.
 	 */
 	public function test_section_head() {
 		$plain = Patterns::section_head( 'Just in' );
 		$this->assertSame( array( 'core/heading' ), $this->block_names( parse_blocks( $plain ) ) );
-		$this->assertStringContainsString( 'margin-bottom:clamp(24px, 3vw, 40px)', $plain );
-		$this->assertStringContainsString( 'bodoni-moda', $plain );
+		$this->assertStringContainsString( 'margin-bottom:var(--wp--preset--spacing--50)', $plain );
+		$this->assertStringNotContainsString( 'font-family', $plain );
+		$this->assertStringNotContainsString( 'color:', $plain );
 
 		$full  = Patterns::section_head( 'Best <b>sellers</b>', 'Back for a second color.', 'https://example.org/shop/', 'Shop all' );
 		$names = $this->block_names( parse_blocks( $full ) );
@@ -640,9 +642,10 @@ class PatternsTest extends WP_UnitTestCase {
 		$line = Patterns::section_head( 'Worn by you', 'Real orders.' );
 		$this->assertStringNotContainsString( '<a ', $line );
 		$this->assertStringContainsString( '"contentSize":"44ch"', $line );
+		$this->assertStringContainsString( 'color:var(--wp--preset--color--theme-4)', $line );
 
 		$dark = Patterns::section_head( 'Worn by you', 'Real orders.', '', '', true );
-		$this->assertStringContainsString( 'style="color:#ffffff;', $dark );
-		$this->assertStringNotContainsString( '#1f0342', $dark );
+		$this->assertStringNotContainsString( 'color:', $dark );
+		$this->assertDoesNotMatchRegularExpression( '/#[0-9a-f]{3,6}\b/i', $dark );
 	}
 }

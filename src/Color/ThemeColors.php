@@ -31,6 +31,28 @@ final class ThemeColors {
 	const ACCENT_RATIO = 3.0;
 
 	/**
+	 * Purplish's patterns use Purple's color names. On a theme without
+	 * them, each name points at the theme's own colors instead, so the
+	 * patterns still pick up that theme's look.
+	 */
+	const PURPLE_NAMES = array(
+		'theme-1' => 'var(--purplish-theme-paper, #fff)',
+		'theme-2' => 'var(--purplish-theme-ink, #111)',
+		'theme-3' => 'var(--purplish-theme-accent, #1f0342)',
+		'theme-4' => 'var(--purplish-theme-ink, #322f37)',
+		'theme-5' => 'color-mix(in srgb, var(--purplish-theme-accent, #720eec) 8%, var(--purplish-theme-paper, #fff))',
+		'theme-6' => 'color-mix(in srgb, var(--purplish-theme-ink, #111) 20%, transparent)',
+		'theme-7' => 'var(--purplish-theme-accent, #720eec)',
+	);
+
+	/**
+	 * Purple colors the Mini-Cart with its heading color everywhere, so in
+	 * a dark section band the bag and count disappear. Inside Purple's
+	 * section styles the Mini-Cart takes the band's text color instead.
+	 */
+	const SECTION_RULE = ':is(.is-style-section-1,.is-style-section-2,.is-style-section-3) .wp-block-woocommerce-mini-cart{color:inherit}';
+
+	/**
 	 * Adds the hook.
 	 *
 	 * @return void
@@ -55,8 +77,7 @@ final class ThemeColors {
 	}
 
 	/**
-	 * The `:root` rule, or an empty string when the theme sets none of the
-	 * colors (classic themes).
+	 * The `:root` rule, when the theme lacks a color, and the section rule.
 	 *
 	 * @return string
 	 */
@@ -65,7 +86,31 @@ final class ThemeColors {
 		foreach ( self::tokens() as $name => $value ) {
 			$rules .= $name . ':' . $value . ';';
 		}
-		return '' === $rules ? '' : ':root{' . $rules . '}';
+		$slugs = self::slugs();
+		foreach ( self::PURPLE_NAMES as $slug => $value ) {
+			if ( ! isset( $slugs[ $slug ] ) ) {
+				$rules .= '--wp--preset--color--' . $slug . ':' . $value . ';';
+			}
+		}
+		return ( '' === $rules ? '' : ':root{' . $rules . '}' ) . self::SECTION_RULE;
+	}
+
+	/**
+	 * Every palette slug the site has, from any origin.
+	 *
+	 * @return array<string, true>
+	 */
+	private static function slugs() {
+		$slugs   = array();
+		$palette = wp_get_global_settings( array( 'color', 'palette' ) );
+		foreach ( is_array( $palette ) ? $palette : array() as $entries ) {
+			foreach ( is_array( $entries ) ? $entries : array() as $entry ) {
+				if ( isset( $entry['slug'] ) ) {
+					$slugs[ strtolower( (string) $entry['slug'] ) ] = true;
+				}
+			}
+		}
+		return $slugs;
 	}
 
 	/**

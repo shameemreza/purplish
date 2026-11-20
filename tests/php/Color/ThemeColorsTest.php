@@ -152,4 +152,23 @@ class ThemeColorsTest extends WP_UnitTestCase {
 		$this->use_styles( array( 'color' => array( 'text' => '#A4A4A4' ) ) );
 		$this->assertStringContainsString( ':root{--purplish-theme-ink:#a4a4a4;', ThemeColors::css() );
 	}
+
+	/**
+	 * Purple's color names the theme lacks point at its own colors.
+	 */
+	public function test_missing_purple_names_point_at_the_theme() {
+		$this->use_styles( array( 'color' => array( 'text' => '#A4A4A4' ) ) );
+		$css = ThemeColors::css();
+		$this->assertStringNotContainsString( '--wp--preset--color--theme-1:', $css );
+		$this->assertStringNotContainsString( '--wp--preset--color--theme-4:', $css );
+		$this->assertStringContainsString( '--wp--preset--color--theme-5:color-mix(', $css );
+		$this->assertStringContainsString( '--wp--preset--color--theme-7:var(--purplish-theme-accent, #720eec);', $css );
+	}
+
+	/**
+	 * In a section band the Mini-Cart follows the band's text color.
+	 */
+	public function test_mini_cart_follows_section_text() {
+		$this->assertStringEndsWith( '.wp-block-woocommerce-mini-cart{color:inherit}', ThemeColors::css() );
+	}
 }

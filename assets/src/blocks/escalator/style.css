@@ -5,7 +5,7 @@
  */
 .wp-block-purplish-escalator {
 	--purplish-escalator-gap: 12px;
-	--purplish-color: var(--purplish-effect, currentcolor);
+	--purplish-color: var(--purplish-effect, var(--purplish-theme-ink, var(--wp--preset--color--contrast, #1e1e1e)));
 	position: relative;
 	height: var(--purplish-escalator-height, 560px);
 }
