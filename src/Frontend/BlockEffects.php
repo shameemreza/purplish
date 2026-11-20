@@ -74,6 +74,13 @@ final class BlockEffects {
 	const CARD_MOVERS = array( 'magnetic', 'spotlight', 'fan', 'expand', 'folder', 'deck', 'depth', 'overlap', 'clothesline', 'roster' );
 
 	/**
+	 * Card effects that place the cards in a carousel themselves, centered
+	 * on one card, so Peek, which lines the cards up from the start edge,
+	 * stays off with them.
+	 */
+	const CAROUSEL_EFFECTS = array( 'deck', 'arc', 'stage', 'grow', 'tiltrow', 'depth', 'overlap', 'momentum', 'wheel', 'helix', 'reel' );
+
+	/**
 	 * The ring settings play only while the Ring card hover look does.
 	 */
 	const RING_NEEDS = array(
@@ -217,6 +224,9 @@ final class BlockEffects {
 					'ringstrong'  => true,
 					// Hovering anywhere on a card fills its button.
 					'cardfill'    => true,
+					// The carousel ends on part of the next card: a fifth,
+					// a third or half of it.
+					'peek'        => array( 'small', 'medium', 'large' ),
 				),
 				// Each hover look plays only where the target says, and not
 				// on a card effect that already moves that part.
@@ -263,6 +273,9 @@ final class BlockEffects {
 					'ringstrong'  => self::RING_NEEDS,
 					'cardfill'    => array(
 						array( 'hover', array( 'roster' ), false ),
+					),
+					'peek'        => array(
+						array( 'hover', self::CAROUSEL_EFFECTS, false ),
 					),
 				),
 				'preview' => true,

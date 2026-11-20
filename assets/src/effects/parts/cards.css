@@ -3118,3 +3118,71 @@
 		border-block-end-width: var(--purplish-ruled-foot, 0);
 	}
 }
+
+/**
+ * Cards, peek: the carousel ends on part of the next card, so shoppers can
+ * see there's more to swipe. Each card is
+ * (100% - n × gap) / (n + share): n whole cards from the start edge, then
+ * the share of the next one (a fifth, a third or half). n follows
+ * WooCommerce's own steps for the carousel's width, so cards keep about
+ * their usual size. The gap is the theme's block gap, which the strip
+ * already shows (Product Template has no gap of its own), set here so the
+ * sum is exact. Cards snap to their start edge instead of the middle, so
+ * the first card sits flush on load and arrows, swipe and keys land on a
+ * card with the peek at the end. A grid has no carousel strip, so it's
+ * left as it is.
+ */
+.purplish-cards-peek-small {
+	--purplish-peek: 0.2;
+}
+
+.purplish-cards-peek-medium {
+	--purplish-peek: calc(1 / 3);
+}
+
+.purplish-cards-peek-large {
+	--purplish-peek: 0.5;
+}
+
+:is(.purplish-cards-peek-small, .purplish-cards-peek-medium, .purplish-cards-peek-large) .is-product-collection-layout-carousel {
+	--purplish-peek-gap: var(--wp--style--block-gap, 0.5em);
+	column-gap: var(--purplish-peek-gap);
+	scroll-padding-inline: 0;
+}
+
+:is(.purplish-cards-peek-small, .purplish-cards-peek-medium, .purplish-cards-peek-large) .is-product-collection-layout-carousel .wc-block-product {
+	--purplish-peek-cards: 2;
+	--purplish-peek-card: calc((100% - var(--purplish-peek-cards) * var(--purplish-peek-gap)) / (var(--purplish-peek-cards) + var(--purplish-peek)));
+	flex: 0 0 var(--purplish-peek-card);
+	min-width: var(--purplish-peek-card);
+	max-width: none;
+	scroll-snap-align: start;
+}
+
+@container carousel (min-width: 600px) {
+
+	:is(.purplish-cards-peek-small, .purplish-cards-peek-medium, .purplish-cards-peek-large) .is-product-collection-layout-carousel .wc-block-product {
+		--purplish-peek-cards: 3;
+	}
+}
+
+@container carousel (min-width: 960px) {
+
+	:is(.purplish-cards-peek-small, .purplish-cards-peek-medium, .purplish-cards-peek-large) .is-product-collection-layout-carousel .wc-block-product {
+		--purplish-peek-cards: 4;
+	}
+}
+
+@container carousel (min-width: 1280px) {
+
+	:is(.purplish-cards-peek-small, .purplish-cards-peek-medium, .purplish-cards-peek-large) .is-product-collection-layout-carousel .wc-block-product {
+		--purplish-peek-cards: 5;
+	}
+}
+
+@container carousel (min-width: 1440px) {
+
+	:is(.purplish-cards-peek-small, .purplish-cards-peek-medium, .purplish-cards-peek-large) .is-product-collection-layout-carousel .wc-block-product {
+		--purplish-peek-cards: 6;
+	}
+}

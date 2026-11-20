@@ -64,6 +64,12 @@ const HOVERS = [
 ];
 
 /**
+ * The "In a carousel" card effects, as `BlockEffects::CAROUSEL_EFFECTS`.
+ * They place the cards themselves, so Peek stays off with them.
+ */
+const CAROUSEL_EFFECTS = HOVERS[ 1 ].options.map( ( option ) => option.value );
+
+/**
  * Card effects that already move the whole card or change the photo on
  * hover, as `BlockEffects::CARD_MOVERS` and `PHOTO_CHANGERS`. The hover
  * look for that part is greyed out with them.
@@ -428,6 +434,78 @@ function ResultsChange( { saved, save, attributes } ) {
 }
 
 /**
+ * Peek: the carousel ends on part of the next card.
+ *
+ * @param {Object}                    props            Control props.
+ * @param {Object}                    props.saved      The block's saved `purplish` attribute.
+ * @param {(changes: Object) => void} props.save       Saves changes to it.
+ * @param {Object}                    props.attributes The block's attributes.
+ */
+function CarouselPeek( { saved, save, attributes } ) {
+	const layout = ( attributes && attributes.displayLayout ) || {};
+	const carousel = 'carousel' === layout.type;
+	const effect = CAROUSEL_EFFECTS.includes( saved.hover );
+	const sizes = {
+		small: __( 'A fifth of the next card shows at the end.', 'purplish' ),
+		medium: __( 'A third of the next card shows at the end.', 'purplish' ),
+		large: __( 'Half of the next card shows at the end.', 'purplish' ),
+	};
+	const size = Object.keys( sizes ).includes( saved.peek ) ? saved.peek : '';
+	const on = carousel && ! effect && '' !== size;
+	let help = __(
+		'The carousel ends on part of the next card, so shoppers can see there’s more to swipe. Cards line up from the start edge and arrows, swipe and keys land on a card.',
+		'purplish'
+	);
+	if ( ! carousel ) {
+		help = __( 'Needs the Carousel layout.', 'purplish' );
+	} else if ( effect ) {
+		help = __(
+			'This card effect places the cards itself, centered on one card.',
+			'purplish'
+		);
+	}
+
+	return (
+		<>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Show part of the next card', 'purplish' ) }
+				help={ help }
+				checked={ on }
+				disabled={ ! carousel || effect }
+				onChange={ ( peek ) =>
+					save( { peek: peek ? size || 'medium' : undefined } )
+				}
+			/>
+			{ on && (
+				<ToggleGroupControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					isBlock
+					label={ __( 'Peek size', 'purplish' ) }
+					help={ sizes[ size ] }
+					value={ size }
+					onChange={ ( peek ) => save( { peek } ) }
+				>
+					<ToggleGroupControlOption
+						value="small"
+						label={ __( 'Small', 'purplish' ) }
+					/>
+					<ToggleGroupControlOption
+						value="medium"
+						label={ __( 'Medium', 'purplish' ) }
+					/>
+					<ToggleGroupControlOption
+						value="large"
+						label={ __( 'Large', 'purplish' ) }
+					/>
+				</ToggleGroupControl>
+			) }
+		</>
+	);
+}
+
+/**
  * The panel.
  *
  * @param {Object}                  props            Panel props.
@@ -615,6 +693,11 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 					</optgroup>
 				) ) }
 			</SelectControl>
+			<CarouselPeek
+				saved={ saved }
+				save={ save }
+				attributes={ attributes }
+			/>
 			{ 'roster' !== saved.hover && (
 				<>
 					<HoverControls saved={ saved } save={ save } />
