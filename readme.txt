@@ -157,7 +157,7 @@ Put the Shelf Tag block inside the Product Image block of your Product Collectio
 
 = How do I show a sold out label on product cards? =
 
-Put WooCommerce's Stock Indicator block inside the Product Image block and turn on Only when sold out in the Purplish panel. It takes the same three looks as the Shelf Tag and can grey out the photo.
+Put WooCommerce's Stock Indicator block inside the Product Image block and turn on Only when sold out in the Purplish panel. It takes the same three looks as the Shelf Tag and can grey out the photo. Turn on Dot for a small colored dot before In stock, low stock and On backorder, a different color for each.
 
 = How do I show color swatches on WooCommerce product cards? =
 
