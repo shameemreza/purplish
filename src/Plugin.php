@@ -93,6 +93,7 @@ final class Plugin {
 		( new Frontend\TermPhoto() )->register();
 		( new Frontend\FreeDelivery() )->register();
 		( new Frontend\SizeGuide() )->register();
+		( new Frontend\PhotoSwatches() )->register();
 		( new Admin\Settings() )->register();
 		( new Blocks\Registry() )->register();
 		( new Patterns() )->register();

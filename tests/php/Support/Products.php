@@ -113,6 +113,9 @@ final class Products {
 	private static function color_taxonomy() {
 		$taxonomy = 'pa_color';
 		if ( ! wc_attribute_taxonomy_id_by_name( $taxonomy ) ) {
+			// An earlier test's attribute row is rolled back but its taxonomy
+			// stays registered, and WooCommerce won't reuse a taken slug.
+			unregister_taxonomy( $taxonomy );
 			wc_create_attribute(
 				array(
 					'name' => 'Color',

@@ -19,7 +19,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Area | Block | What you can design |
 |---|---|---|
 | Product page | Add to Cart + Options | A color for each variation that the page follows, photo transitions, title and price rise, glow ring, halo, mesh background, color dots, liquid glass, a spectrum ring and googly eyes on the button, a large buy row, a sticky bar on phones, and matching extras under the button. |
-| Product page | Variation Selector, On-Sale Badge | Crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
+| Product page | Variation Selector, On-Sale Badge | Photo swatches with the picked color's name, crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Size Chart, Variation Selector | Purplish's own Size Chart block: sizes by measurement in cm with a cm/in switch, picked for each category or product, and a Size guide link beside the size options that opens it in a dialog, with a fit note under them. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
@@ -79,6 +79,7 @@ On the same block:
 On other blocks:
 
 - **Variation Selector, Grayed-out look:** options that can't be bought get a diagonal line over the chip (swatches too), or they blur out. To hide them, use WooCommerce's own Invalid options setting.
+- **Variation Selector, Color options:** Photo swatches show each color option as its variation photo, with the picked color's name beside the option name. A color with no photo shows its swatch color, then its name as a text chip. Pick which option gets photos (Auto finds the color one), square or round, 44px or 64px, and turn the picked name off. The selected and grayed-out looks still apply, and taps stay 44px. The editor shows drawn sample photos. The Drop-down style shows no photos.
 - **On-Sale Badge, Shape and Corner:** a pill, circle or price tag badge. On the gallery photo, it can sit in any corner.
 - **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
 - **Product Specifications, Table style:** every other row shaded, or each row on its own soft card. Screen readers still read it as a table.
