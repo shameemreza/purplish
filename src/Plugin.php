@@ -104,6 +104,7 @@ final class Plugin {
 		if ( is_admin() ) {
 			( new Admin\VariationField() )->register();
 			( new Admin\SizeChartFields() )->register();
+			( new Admin\DeliverySettings() )->register();
 		}
 
 		/**

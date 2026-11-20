@@ -69,6 +69,7 @@ final class Registry {
 			ColorDots::class,
 			Escalator::class,
 			SizeChart::class,
+			DeliveryLine::class,
 		);
 	}
 

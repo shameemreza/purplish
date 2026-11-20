@@ -344,6 +344,114 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'style' => 'file:./style-index.css'
 	),
+	'delivery-line' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/delivery-line',
+		'version' => '1.4.0',
+		'title' => 'Delivery Line',
+		'category' => 'purplish',
+		'description' => 'When an order arrives, as a date, with the returns policy and a pickup line when Local pickup is on. The dates come from WooCommerce > Settings > Shipping > Delivery dates.',
+		'keywords' => array(
+			'delivery',
+			'shipping',
+			'arrives',
+			'returns',
+			'pickup',
+			'cut-off'
+		),
+		'textdomain' => 'purplish',
+		'usesContext' => array(
+			'postId',
+			'postType'
+		),
+		'attributes' => array(
+			'date' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'range' => array(
+				'type' => 'string',
+				'enum' => array(
+					'latest',
+					'range'
+				),
+				'default' => 'latest'
+			),
+			'countdown' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'returns' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'link' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'pickup' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'icons' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'format' => array(
+				'type' => 'string',
+				'enum' => array(
+					'short',
+					'site'
+				),
+				'default' => 'short'
+			)
+		),
+		'styles' => array(
+			array(
+				'name' => 'default',
+				'label' => 'Lines',
+				'isDefault' => true
+			),
+			array(
+				'name' => 'boxed',
+				'label' => 'Boxed'
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'color' => array(
+				'background' => true,
+				'text' => true,
+				'link' => true
+			),
+			'typography' => array(
+				'fontSize' => true,
+				'lineHeight' => true
+			),
+			'spacing' => array(
+				'padding' => true,
+				'margin' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true
+			),
+			'interactivity' => array(
+				'clientNavigation' => true
+			)
+		),
+		'example' => array(
+			'attributes' => array(
+				
+			)
+		),
+		'editorScript' => 'file:./index.js',
+		'viewScript' => 'file:./view.js',
+		'style' => 'file:./style-index.css'
+	),
 	'escalator' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,

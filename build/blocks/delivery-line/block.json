@@ -1,0 +1,106 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "purplish/delivery-line",
+  "version": "1.4.0",
+  "title": "Delivery Line",
+  "category": "purplish",
+  "description": "When an order arrives, as a date, with the returns policy and a pickup line when Local pickup is on. The dates come from WooCommerce > Settings > Shipping > Delivery dates.",
+  "keywords": [
+    "delivery",
+    "shipping",
+    "arrives",
+    "returns",
+    "pickup",
+    "cut-off"
+  ],
+  "textdomain": "purplish",
+  "usesContext": [
+    "postId",
+    "postType"
+  ],
+  "attributes": {
+    "date": {
+      "type": "boolean",
+      "default": true
+    },
+    "range": {
+      "type": "string",
+      "enum": [
+        "latest",
+        "range"
+      ],
+      "default": "latest"
+    },
+    "countdown": {
+      "type": "boolean",
+      "default": true
+    },
+    "returns": {
+      "type": "boolean",
+      "default": true
+    },
+    "link": {
+      "type": "boolean",
+      "default": true
+    },
+    "pickup": {
+      "type": "boolean",
+      "default": true
+    },
+    "icons": {
+      "type": "boolean",
+      "default": true
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "short",
+        "site"
+      ],
+      "default": "short"
+    }
+  },
+  "styles": [
+    {
+      "name": "default",
+      "label": "Lines",
+      "isDefault": true
+    },
+    {
+      "name": "boxed",
+      "label": "Boxed"
+    }
+  ],
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "link": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "interactivity": {
+      "clientNavigation": true
+    }
+  },
+  "example": {
+    "attributes": {}
+  },
+  "editorScript": "file:./index.js",
+  "viewScript": "file:./view.js",
+  "style": "file:./style-index.css"
+}
