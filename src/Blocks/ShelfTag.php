@@ -7,6 +7,8 @@
 
 namespace Purplish\Blocks;
 
+use Purplish\Frontend\StockDot;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -258,6 +260,7 @@ final class ShelfTag implements Block {
 							'properties' => array(
 								'text'  => array( 'type' => 'string' ),
 								'class' => array( 'type' => 'string' ),
+								'low'   => array( 'type' => 'boolean' ),
 							),
 						),
 					),
@@ -270,10 +273,11 @@ final class ShelfTag implements Block {
 	 * The field's value, for people who can edit the product.
 	 *
 	 * The stock is here because the Stock Indicator's editor view shows
-	 * "In stock" on every card, and its sold-out looks need the real one.
+	 * "In stock" on every card, and its sold-out looks and dot need the
+	 * real one.
 	 *
 	 * @param array $post The product as the REST API prepares it.
-	 * @return array{rank: int, featured: bool, created: int, stock: array{text: string, class: string}}|null
+	 * @return array{rank: int, featured: bool, created: int, stock: array{text: string, class: string, low: bool}}|null
 	 */
 	public static function rest_value( $post ) {
 		$id = isset( $post['id'] ) ? (int) $post['id'] : 0;
@@ -293,6 +297,7 @@ final class ShelfTag implements Block {
 			'stock'    => array(
 				'text'  => (string) $stock['availability'],
 				'class' => (string) $stock['class'],
+				'low'   => StockDot::is_low( $product ),
 			),
 		);
 	}

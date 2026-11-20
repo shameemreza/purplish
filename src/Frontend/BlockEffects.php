@@ -391,13 +391,15 @@ final class BlockEffects {
 				),
 				'preview' => true,
 			),
-			// Sold out only: the indicator hides on every other stock state.
+			// Sold out only: the indicator hides on every other stock state,
+			// unless the dot keeps them.
 			'woocommerce/product-stock-indicator'         => array(
 				'prefix'  => 'stock',
 				'options' => array(
 					'soldout' => array( 'pill', 'chip', 'glass' ),
 					'corner'  => array( 'top-left', 'top-right', 'bottom-left', 'bottom-right' ),
 					'grey'    => true,
+					'dot'     => true,
 				),
 				// The corner only places the sold-out look.
 				'needs'   => array(

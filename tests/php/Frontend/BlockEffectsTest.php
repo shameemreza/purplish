@@ -62,6 +62,25 @@ class BlockEffectsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The dot is a class of its own, and sits next to a sold-out look.
+	 */
+	public function test_stock_dot_class() {
+		$name = 'woocommerce/product-stock-indicator';
+		$this->assertSame( array( 'purplish-stock', 'purplish-stock-dot' ), BlockEffects::classes_for( $name, array( 'dot' => true ) ) );
+		$this->assertSame(
+			array( 'purplish-stock', 'purplish-stock-soldout-chip', 'purplish-stock-dot' ),
+			BlockEffects::classes_for(
+				$name,
+				array(
+					'soldout' => 'chip',
+					'dot'     => true,
+				)
+			)
+		);
+		$this->assertSame( array(), BlockEffects::classes_for( $name, array( 'dot' => 'yes' ) ), 'only true turns it on' );
+	}
+
+	/**
 	 * Names under swatches on the Chips filter becomes a class on the
 	 * chips wrapper, next to WooCommerce's swatch style.
 	 */
