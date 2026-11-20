@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $purplish_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-$purplish_band = '#f2edff';
+$purplish_band = 'var:preset|color|theme-5';
 
 $purplish_query      = array(
 	'perPage'                       => 4,
@@ -58,8 +58,8 @@ $purplish_collection = array(
 	),
 );
 ?>
-<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Best sellers', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"<?php echo esc_attr( $purplish_band ); ?>","text":"#322f37"},"elements":{"link":{"color":{"text":"#322f37"}}},"spacing":{"padding":{"top":"clamp(64px, 9vw, 120px)","bottom":"clamp(64px, 9vw, 120px)","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-text-color has-background has-link-color" style="color:#322f37;background-color:<?php echo esc_attr( $purplish_band ); ?>;margin-top:0;margin-bottom:0;padding-top:clamp(64px, 9vw, 120px);padding-right:0;padding-bottom:clamp(64px, 9vw, 120px);padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
+<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Best sellers', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"<?php echo esc_attr( $purplish_band ); ?>","text":"var:preset|color|theme-4"},"elements":{"link":{"color":{"text":"var:preset|color|theme-4"}}},"spacing":{"padding":{"top":"clamp(64px, 9vw, 120px)","bottom":"clamp(64px, 9vw, 120px)","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-text-color has-background has-link-color" style="color:var(--wp--preset--color--theme-4);background-color:var(--wp--preset--color--theme-5);margin-top:0;margin-bottom:0;padding-top:clamp(64px, 9vw, 120px);padding-right:0;padding-bottom:clamp(64px, 9vw, 120px);padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><?php echo \Purplish\Patterns::section_head( __( 'Best sellers', 'purplish' ), __( 'The pieces people come back for in a second color.', 'purplish' ), $purplish_shop, __( 'Shop all best sellers', 'purplish' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in section_head(). ?>
 
 <!-- wp:woocommerce/product-collection <?php echo serialize_block_attributes( $purplish_collection ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
@@ -71,7 +71,7 @@ $purplish_collection = array(
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"14px"},"blockGap":"12px"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="margin-top:14px"><!-- wp:post-title {"textAlign":"left","level":3,"isLink":true,"style":{"typography":{"fontStyle":"normal","fontWeight":"400"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium","__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
 
-<!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"right","style":{"color":{"text":"#322f37"}},"fontSize":"medium"} /--></div>
+<!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"right","style":{"color":{"text":"var:preset|color|theme-4"}},"fontSize":"medium"} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:woocommerce/product-button {"textAlign":"center","width":100,"isDescendentOfQueryLoop":true} /-->
