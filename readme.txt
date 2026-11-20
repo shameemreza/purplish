@@ -58,15 +58,17 @@ Find them in the Purplish group of the block inserter.
 * **Shelf Tag:** a best seller, new arrival or featured tag on the product photo, as a chip, a pill or frosted glass.
 * **Color Dots:** the colors a product comes in, as dots or swatches on its card. Tap or point at one to see that color's photo.
 * **Escalator:** photos or products ride two or three columns that move in opposite directions, with a hover look and an add to cart button for each tile, for a store home page hero.
+* **Size Chart:** sizes by measurement in centimeters with a cm/in switch, lines or striped rows, How to measure notes on a drawn figure, and sizes shoppers can pick right from the chart. Saved as a pattern, picked for each category or product with a fit note, and opened from a Size guide link beside the size options.
 
 = Patterns =
 
-Purplish's 23 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
+Purplish's 24 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
 
 * **Store front:** Flagship home is a full front page with a Showfloor, category tiles, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each of those sections is also its own pattern.
 * **Header and footer:** Flagship header has a Wardrobe Shop menu and a bag pill that condenses on scroll, with Flagship phone menu for small screens. Flagship footer ends on the site name as a big wordmark that rises from the floor.
 * **Shop pages:** Flagship shop is big and photo-led, Atelier shop is quiet with accordion filters, and Boutique shop is dense with a filter sidebar and color swatches.
 * **Heroes:** Escalator hero with products and Escalator hero with photos.
+* **Product page:** Size chart with how to measure, the starting point for each new size chart.
 * **Product showcases:** Hanging rail of new arrivals, Customer stories deck, Runway lookbook and Scroll lookbook storefront.
 * **Cart and checkout:** Empty cart with category tiles and best sellers, Checkout header with Bag, Checkout and Done steps, and a Money-back guarantee card.
 

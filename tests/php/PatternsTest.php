@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop', 'boutique-shop' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop', 'boutique-shop', 'size-chart-guide' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -95,6 +95,23 @@ class PatternsTest extends WP_UnitTestCase {
 		( new Patterns() )->register_patterns();
 
 		$this->assertFalse( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
+	}
+
+	/**
+	 * The starter size chart holds the tops sample with its notes.
+	 */
+	public function test_size_chart_guide() {
+		( new Patterns() )->register_patterns();
+
+		$pattern = WP_Block_Patterns_Registry::get_instance()->get_registered( 'purplish/size-chart-guide' );
+		$this->assertNotNull( $pattern );
+		$this->assertSame( array( 'purplish/size-chart' ), $pattern['blockTypes'] );
+
+		$blocks = array_values( array_filter( parse_blocks( $pattern['content'] ), static fn( $block ) => null !== $block['blockName'] ) );
+		$this->assertCount( 1, $blocks );
+		$this->assertSame( 'purplish/size-chart', $blocks[0]['blockName'] );
+		$this->assertSame( \Purplish\SizeCharts::sample(), $blocks[0]['attrs'] );
+		$this->assertNotSame( '', $blocks[0]['attrs']['columns'][0]['note'] );
 	}
 
 	/**

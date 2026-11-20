@@ -181,6 +181,12 @@ final class Patterns {
 				'postTypes'  => array( 'wp_template' ),
 				'file'       => PURPLISH_DIR . 'patterns/boutique-shop.php',
 			),
+			'size-chart-guide'        => array(
+				'title'      => __( 'Size chart with how to measure', 'purplish' ),
+				'categories' => array(),
+				'blockTypes' => array( 'purplish/size-chart' ),
+				'file'       => PURPLISH_DIR . 'patterns/size-chart-guide.php',
+			),
 		);
 	}
 

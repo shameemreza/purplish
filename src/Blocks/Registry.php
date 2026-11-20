@@ -46,6 +46,7 @@ final class Registry {
 		Wardrobe::hooks();
 		ShelfTag::hooks();
 		ColorDots::hooks();
+		SizeChart::hooks();
 	}
 
 	/**
@@ -67,6 +68,7 @@ final class Registry {
 			ShelfTag::class,
 			ColorDots::class,
 			Escalator::class,
+			SizeChart::class,
 		);
 	}
 

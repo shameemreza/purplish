@@ -9,11 +9,13 @@ namespace Purplish\Tests;
 
 use Purplish\Jobs\DetectColors;
 use Purplish\Meta;
+use Purplish\SizeCharts;
 use Purplish\Tests\Support\Products;
 use WP_UnitTestCase;
 
 /**
- * Uninstall removes every option, variation meta key and queued job.
+ * Uninstall removes every option, variation meta key, size chart pick and
+ * queued job, and keeps the chart patterns.
  */
 class UninstallTest extends WP_UnitTestCase {
 
@@ -32,6 +34,19 @@ class UninstallTest extends WP_UnitTestCase {
 			$variation->update_meta_data( Meta::AUTO_SOURCE, '1:1' );
 			$variation->save();
 		}
+		$chart   = self::factory()->post->create(
+			array(
+				'post_type'    => 'wp_block',
+				'post_status'  => 'publish',
+				'post_content' => SizeCharts::starter(),
+			)
+		);
+		$product = reset( $variations )->get_parent_id();
+		update_post_meta( $product, SizeCharts::META, (string) $chart );
+		update_post_meta( $product, SizeCharts::FIT_META, 'Runs small, size up.' );
+		$term = wp_insert_term( 'Coats', 'product_cat' );
+		update_term_meta( $term['term_id'], SizeCharts::TERM_META, $chart );
+
 		as_enqueue_async_action( DetectColors::HOOK_ONE, array( 'variation_id' => 1 ), DetectColors::GROUP );
 		as_enqueue_async_action( DetectColors::HOOK_BATCH, array( 'offset' => 50 ), DetectColors::GROUP );
 
@@ -47,6 +62,10 @@ class UninstallTest extends WP_UnitTestCase {
 				$this->assertSame( '', get_post_meta( $variation->get_id(), $key, true ), $key );
 			}
 		}
+		$this->assertSame( '', get_post_meta( $product, SizeCharts::META, true ) );
+		$this->assertSame( '', get_post_meta( $product, SizeCharts::FIT_META, true ) );
+		$this->assertSame( '', get_term_meta( $term['term_id'], SizeCharts::TERM_META, true ) );
+		$this->assertSame( 'publish', get_post_status( $chart ), 'charts are the store owner\'s patterns and stay' );
 		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_ONE ) );
 		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_BATCH ) );
 	}

@@ -20,6 +20,8 @@
  *
  * Matching extras on Add to Cart + Options show under the block with the
  * picked products, or the store's best sellers when there are none.
+ *
+ * The Variation Selector shows a sample Size guide link.
  */
 import { addFilter } from '@wordpress/hooks';
 import { createHigherOrderComponent } from '@wordpress/compose';
@@ -48,10 +50,13 @@ import {
 } from './preview-classes';
 import { canvasElement } from './canvas';
 import { useExtras } from './extras-preview';
+import { useSizeGuide } from './size-guide-preview';
 
 const MAP = window.purplishPreview || {};
 const PAGE = window.purplishPage || {};
 const PAGE_BLOCK = 'woocommerce/add-to-cart-with-options';
+const ATTRIBUTE_BLOCK =
+	'woocommerce/add-to-cart-with-options-variation-selector-attribute';
 const FRAME = '.wc-block-product-gallery-large-image';
 const GALLERY_HOVER = 'purplish-gallery-hover-';
 const IMAGE_HOVER = 'purplish-image-hover-';
@@ -618,6 +623,14 @@ const withPurplishPreview = createHigherOrderComponent(
 			props.clientId,
 			props.name === PAGE_BLOCK && saved && true === saved.extras
 				? saved
+				: null
+		);
+
+		useSizeGuide(
+			props.clientId,
+			props.name === ATTRIBUTE_BLOCK && false !== saved?.sizeguide
+				? ( 'string' === typeof saved?.sizelabel && saved.sizelabel ) ||
+						''
 				: null
 		);
 
