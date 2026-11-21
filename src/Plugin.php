@@ -81,6 +81,7 @@ final class Plugin {
 		( new Jobs\DetectColors() )->register();
 		( new Color\ThemeColors() )->register();
 		( new Color\PurpleLook() )->register();
+		( new Color\BlockStyles() )->register();
 		( new Frontend\PageData() )->register();
 		( new Frontend\BlockOptions() )->register();
 		( new Frontend\BlockEffects() )->register();
