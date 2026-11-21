@@ -104,6 +104,28 @@ class DetectorTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A pale mint knit fills most of the frame, so it wins over the model's
+	 * hair and skin (#9d7b63), the only colorful area left once the wall is
+	 * gone. The knit is under the colorful-pixel saturation, and its sleeves
+	 * touch the border, so it reads as a soft green only once both are handled.
+	 */
+	public function test_pale_sweater_beats_hair_and_skin() {
+		$color = Detector::from_file( dirname( __DIR__, 2 ) . '/fixtures/mint-sweater.webp' );
+
+		$this->assert_product_color( '#94a593', '#9d7b63', $color );
+	}
+
+	/**
+	 * A colorful product that isn't small keeps the color when the room
+	 * around it is pale: the rust sweater, not the cream wall and floor.
+	 */
+	public function test_colorful_product_in_pale_room() {
+		$color = Detector::from_file( dirname( __DIR__, 2 ) . '/fixtures/rust-sweater-room.webp' );
+
+		$this->assert_product_color( '#825032', '#cfc8ba', $color );
+	}
+
+	/**
 	 * A grey product on white has no colorful pixels, so it falls back to
 	 * the most common color that isn't the background.
 	 */

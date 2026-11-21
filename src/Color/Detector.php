@@ -82,6 +82,41 @@ final class Detector {
 	const HUE_BUCKETS = 24;
 
 	/**
+	 * Backdrops less saturated than this are grey, white or black.
+	 */
+	const NEUTRAL_SATURATION = 0.05;
+
+	/**
+	 * Pixels at least this saturated, and under MIN_SATURATION, are a pale,
+	 * dusty or dark color rather than grey.
+	 */
+	const MUTED_MIN_SATURATION = 0.06;
+
+	/**
+	 * On a neutral backdrop, the saturation difference under which a close
+	 * pixel still counts as backdrop. Tighter than BACKGROUND_SATURATION_GAP,
+	 * because a pale knit is only a little more colorful than a grey wall.
+	 */
+	const MUTED_SATURATION_GAP = 0.03;
+
+	/**
+	 * Share of the photo a muted product has to fill to win.
+	 */
+	const MUTED_SHARE = 0.15;
+
+	/**
+	 * Share of the photo under which the colorful area counts as small, like
+	 * the hair and skin of a model.
+	 */
+	const SMALL_SHARE = 0.1;
+
+	/**
+	 * Hue buckets on each side that count toward a muted color: a muted
+	 * color's hue wanders more than a strong one's.
+	 */
+	const MUTED_HUE_SPAN = 2;
+
+	/**
 	 * The main color of an attachment's photo, read from the file on disk.
 	 * Uses the medium size when it exists, else the original.
 	 *
@@ -194,7 +229,89 @@ final class Detector {
 			}
 		}
 
+		$colorful = 0;
+		foreach ( array( -1, 0, 1 ) as $offset ) {
+			$neighbor  = ( $best_bucket + $offset + self::HUE_BUCKETS ) % self::HUE_BUCKETS;
+			$colorful += isset( $buckets[ $neighbor ] ) ? count( $buckets[ $neighbor ] ) : 0;
+		}
+
+		$muted = self::muted_product( $pixels, $width, $height, $background, $colorful );
+		if ( '' !== $muted ) {
+			return $muted;
+		}
+
 		return self::average_of_saturated( $buckets[ $best_bucket ] );
+	}
+
+	/**
+	 * The product color when a pale, dusty or dark product on a grey, white
+	 * or black backdrop fills much of the photo, and the only colorful area
+	 * is small, like a model's hair and skin. Those products sit under
+	 * MIN_SATURATION, and where they touch the border, background removal
+	 * takes their lighter shades for the wall, so this reads the photo again
+	 * with only the backdrop itself removed.
+	 *
+	 * @param array<int, int[]|null> $pixels     Pixels row by row.
+	 * @param int                    $width      Width.
+	 * @param int                    $height     Height.
+	 * @param array<int, float[]>    $background Background colors, most common first.
+	 * @param int                    $colorful   Pixels in the winning colorful hue.
+	 * @return string Hex color, or an empty string when no muted product wins.
+	 */
+	private static function muted_product( $pixels, $width, $height, $background, $colorful ) {
+		if ( empty( $background ) || self::to_hsv( $background[0] )[1] >= self::NEUTRAL_SATURATION ) {
+			return '';
+		}
+
+		$total = 0;
+		foreach ( $pixels as $rgb ) {
+			$total += null === $rgb ? 0 : 1;
+		}
+		if ( $colorful >= $total * self::SMALL_SHARE ) {
+			return '';
+		}
+
+		$backdrop = self::background_colors( $pixels, $width, $height, self::MUTED_SATURATION_GAP );
+
+		$buckets = array();
+		foreach ( $pixels as $rgb ) {
+			if ( null === $rgb || self::is_near_any( $rgb, $backdrop, self::MUTED_SATURATION_GAP ) ) {
+				continue;
+			}
+			list( $hue, $saturation, $value ) = self::to_hsv( $rgb );
+			if ( $value < self::MIN_VALUE || $saturation < self::MUTED_MIN_SATURATION || $saturation >= self::MIN_SATURATION ) {
+				continue;
+			}
+			$buckets[ (int) floor( $hue / ( 360 / self::HUE_BUCKETS ) ) % self::HUE_BUCKETS ][] = $rgb;
+		}
+
+		$best = array();
+		foreach ( array_keys( $buckets ) as $bucket ) {
+			$group = array();
+			for ( $offset = -self::MUTED_HUE_SPAN; $offset <= self::MUTED_HUE_SPAN; $offset++ ) {
+				$neighbor = ( $bucket + $offset + self::HUE_BUCKETS ) % self::HUE_BUCKETS;
+				if ( isset( $buckets[ $neighbor ] ) ) {
+					$group = array_merge( $group, $buckets[ $neighbor ] );
+				}
+			}
+			if ( count( $group ) > count( $best ) ) {
+				$best = $group;
+			}
+		}
+
+		if ( count( $best ) < $total * self::MUTED_SHARE ) {
+			return '';
+		}
+
+		$sum = array( 0, 0, 0 );
+		foreach ( $best as $rgb ) {
+			$sum[0] += $rgb[0];
+			$sum[1] += $rgb[1];
+			$sum[2] += $rgb[2];
+		}
+		$count = count( $best );
+
+		return self::to_hex( array( $sum[0] / $count, $sum[1] / $count, $sum[2] / $count ) );
 	}
 
 	/**
@@ -299,9 +416,11 @@ final class Detector {
 	 * @param array<int, int[]|null> $pixels Pixels row by row.
 	 * @param int                    $width  Width.
 	 * @param int                    $height Height.
+	 * @param float|null             $gap    When set, only colors close to the most common one, within this
+	 *                                       saturation difference, count, so a product on the border is left out.
 	 * @return array<int, float[]> Background colors.
 	 */
-	private static function background_colors( $pixels, $width, $height ) {
+	private static function background_colors( $pixels, $width, $height, $gap = null ) {
 		$border = min( self::BORDER, (int) floor( min( $width, $height ) / 4 ) );
 		if ( $border < 1 ) {
 			return array();
@@ -346,7 +465,11 @@ final class Detector {
 		$colors  = array();
 		$covered = 0;
 		foreach ( $groups as $group ) {
-			$colors[] = array( $group[0] / $group[3], $group[1] / $group[3], $group[2] / $group[3] );
+			$color = array( $group[0] / $group[3], $group[1] / $group[3], $group[2] / $group[3] );
+			if ( null !== $gap && ! empty( $colors ) && ! self::is_near_any( $color, array( $colors[0] ), $gap ) ) {
+				continue;
+			}
+			$colors[] = $color;
 			$covered += $group[3];
 			if ( $covered / $total >= self::BACKGROUND_SHARE ) {
 				break;
@@ -359,18 +482,19 @@ final class Detector {
 	/**
 	 * Whether a color is close to any of a set of colors.
 	 *
-	 * @param int[]               $rgb    Color.
+	 * @param int[]|float[]       $rgb    Color.
 	 * @param array<int, float[]> $colors Colors to compare with.
+	 * @param float               $gap    Saturation difference under which a close color still counts.
 	 * @return bool
 	 */
-	private static function is_near_any( $rgb, $colors ) {
+	private static function is_near_any( $rgb, $colors, $gap = self::BACKGROUND_SATURATION_GAP ) {
 		$limit      = self::BACKGROUND_DISTANCE * self::BACKGROUND_DISTANCE;
 		$saturation = self::to_hsv( $rgb )[1];
 		foreach ( $colors as $color ) {
 			$distance = ( $rgb[0] - $color[0] ) ** 2 + ( $rgb[1] - $color[1] ) ** 2 + ( $rgb[2] - $color[2] ) ** 2;
 			// Close in RGB isn't enough: a pastel product on a cream wall is close
 			// in RGB but clearly more colorful.
-			if ( $distance <= $limit && abs( $saturation - self::to_hsv( $color )[1] ) <= self::BACKGROUND_SATURATION_GAP ) {
+			if ( $distance <= $limit && abs( $saturation - self::to_hsv( $color )[1] ) <= $gap ) {
 				return true;
 			}
 		}
