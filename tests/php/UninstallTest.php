@@ -26,6 +26,7 @@ class UninstallTest extends WP_UnitTestCase {
 	public function test_uninstall_removes_everything() {
 		update_option( 'purplish_settings', array( 'button' => 'yes' ) );
 		update_option( DetectColors::QUEUE_OPTION, 1 );
+		update_option( DetectColors::CONTAINER_WALK_OPTION, 1 );
 		update_option( Delivery::OPTION, array( 'processing' => 2 ) );
 
 		$variations = Products::sweater();
@@ -60,6 +61,7 @@ class UninstallTest extends WP_UnitTestCase {
 
 		$this->assertFalse( get_option( 'purplish_settings' ) );
 		$this->assertFalse( get_option( DetectColors::QUEUE_OPTION ) );
+		$this->assertFalse( get_option( DetectColors::CONTAINER_WALK_OPTION ) );
 		foreach ( $variations as $variation ) {
 			foreach ( array( Meta::MODE, Meta::CUSTOM_COLOR, Meta::AUTO_COLOR, Meta::AUTO_SOURCE ) as $key ) {
 				$this->assertSame( '', get_post_meta( $variation->get_id(), $key, true ), $key );

@@ -368,6 +368,15 @@ body.purplish-transition-wash .woocommerce-product-gallery > .woocommerce-produc
 	position: relative;
 }
 
+/*
+ * An item's own photo in a bundle, composite or mix and match box, where
+ * the transition plays instead of the main gallery.
+ */
+body.purplish :is(.bundled_product_image, .composited_product_image, .mnm_child_product_image):is(.purplish-swap-a, .purplish-swap-b) {
+	position: relative;
+	overflow: hidden;
+}
+
 body.purplish.purplish-transition-wash :is(.purplish-swap-a, .purplish-swap-b)::after {
 	content: "";
 	position: absolute;

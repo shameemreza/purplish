@@ -233,6 +233,39 @@ class VariationFieldTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A grouped product, like other products made of products, saves its own Page color.
+	 */
+	public function test_saves_grouped_product() {
+		$product = new \WC_Product_Grouped();
+		$product->save();
+
+		$_POST['purplish_product_mode']         = 'custom';
+		$_POST['purplish_product_custom_color'] = '#3a8f5c';
+		( new VariationField() )->save_product( $product );
+		$product->save();
+
+		$this->assertSame( '#3a8f5c', wc_get_product( $product->get_id() )->get_meta( Meta::CUSTOM_COLOR ) );
+	}
+
+	/**
+	 * The field shows for every product type that has a Page color.
+	 */
+	public function test_field_shows_for_container_types() {
+		global $product_object;
+		$product_object = new \WC_Product_Simple(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce's own global.
+
+		ob_start();
+		( new VariationField() )->render_product();
+		$html = ob_get_clean();
+
+		foreach ( array( 'simple', 'bundle', 'composite', 'mix-and-match', 'grouped' ) as $type ) {
+			$this->assertStringContainsString( 'show_if_' . $type, $html );
+		}
+
+		$product_object = null; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce's own global.
+	}
+
+	/**
 	 * A variable product's own form values are ignored; its variations hold the colors.
 	 */
 	public function test_ignores_variable_parent() {

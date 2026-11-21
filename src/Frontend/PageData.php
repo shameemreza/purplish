@@ -81,11 +81,12 @@ final class PageData {
 	}
 
 	/**
-	 * The color data for a variable product.
+	 * The color data for a simple or variable product, or a product made of
+	 * other products (see Pieces).
 	 *
 	 * @param \WC_Product                                $product Product.
 	 * @param array{parts: string[], transition: string} $options Options.
-	 * @return array|null Null when the product isn't variable or no variation has a color.
+	 * @return array|null Null when the product has no color to show.
 	 */
 	public static function for_product( $product, $options ) {
 		if ( $product instanceof \WC_Product && $product->is_type( 'simple' ) ) {
@@ -97,10 +98,38 @@ final class PageData {
 			);
 		}
 
+		if ( Pieces::is_container( $product ) ) {
+			return Pieces::for_product( $product, $options );
+		}
+
 		if ( ! $product instanceof WC_Product_Variable ) {
 			return null;
 		}
 
+		$variations = self::variations_of( $product );
+		if ( empty( $variations ) ) {
+			return null;
+		}
+
+		$data = array(
+			'variations' => $variations,
+			'default'    => self::starting_set( $variations, $product->get_default_attributes() ),
+			'options'    => $options,
+		);
+		if ( ! empty( $options['dots'] ) ) {
+			$data['dots'] = self::dot_colors( $variations );
+		}
+		return $data;
+	}
+
+	/**
+	 * The published variations of a variable product that have a color,
+	 * each with its attributes and color set.
+	 *
+	 * @param WC_Product_Variable $product Variable product.
+	 * @return array[]
+	 */
+	public static function variations_of( $product ) {
 		$variations = array();
 		foreach ( $product->get_children() as $child_id ) {
 			$variation = wc_get_product( $child_id );
@@ -115,25 +144,24 @@ final class PageData {
 
 			$variations[] = array( 'attributes' => $variation->get_variation_attributes() ) + $set;
 		}
+		return $variations;
+	}
 
-		if ( empty( $variations ) ) {
-			return null;
-		}
-
+	/**
+	 * The color set the starting picks point to.
+	 *
+	 * @param array                 $variations Variations with `attributes` and their color set.
+	 * @param array<string, string> $defaults   Starting picks by attribute name, as WooCommerce's default attributes.
+	 * @return array{color: string, on: string, ink: string, tint: string}|null
+	 */
+	public static function starting_set( $variations, $defaults ) {
 		$picked = array();
-		foreach ( $product->get_default_attributes() as $name => $value ) {
-			$picked[ 'attribute_' . sanitize_title( $name ) ] = (string) $value;
+		foreach ( (array) $defaults as $name => $value ) {
+			$name           = sanitize_title( $name );
+			$key            = 0 === strpos( $name, 'attribute_' ) ? $name : 'attribute_' . $name;
+			$picked[ $key ] = (string) $value;
 		}
-
-		$data = array(
-			'variations' => $variations,
-			'default'    => self::match( $variations, $picked ),
-			'options'    => $options,
-		);
-		if ( ! empty( $options['dots'] ) ) {
-			$data['dots'] = self::dot_colors( $variations );
-		}
-		return $data;
+		return self::match( $variations, $picked );
 	}
 
 	/**
@@ -319,7 +347,7 @@ final class PageData {
 
 		$asset = include PURPLISH_DIR . 'build/frontend.asset.php';
 		// A simple product has nothing to follow, so it needs only the styles.
-		if ( ! empty( $data['variations'] ) ) {
+		if ( ! empty( $data['variations'] ) || ! empty( $data['pieces'] ) ) {
 			wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/frontend.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 			wp_add_inline_script( self::HANDLE, 'window.purplishData = ' . wp_json_encode( $data ) . ';', 'before' );
 		}

@@ -16,6 +16,7 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 delete_option( 'purplish_settings' );
 delete_option( 'purplish_queue_batch' );
+delete_option( 'purplish_container_walk' );
 delete_option( 'purplish_delivery' );
 
 // Variation and product meta. Both are posts, so this is the meta API, not SQL.

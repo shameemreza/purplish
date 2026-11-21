@@ -8,6 +8,7 @@
 
 namespace Purplish\Admin;
 
+use Purplish\Jobs\DetectColors;
 use Purplish\Meta;
 use WC_Product_Variation;
 
@@ -67,8 +68,9 @@ final class VariationField {
 	}
 
 	/**
-	 * Prints the field on the General tab of a simple product. WooCommerce
-	 * shows it only while the product type is Simple.
+	 * Prints the field on the General tab of a simple product or a product
+	 * made of other products. WooCommerce shows it only while the product
+	 * type is one of those.
 	 *
 	 * @return void
 	 */
@@ -78,7 +80,11 @@ final class VariationField {
 			return;
 		}
 
-		echo '<div class="options_group show_if_simple purplish-variation-color purplish-product-color">';
+		$shows = array();
+		foreach ( DetectColors::product_types() as $type ) {
+			$shows[] = 'show_if_' . sanitize_html_class( $type );
+		}
+		echo '<div class="options_group ' . esc_attr( implode( ' ', $shows ) ) . ' purplish-variation-color purplish-product-color">';
 		self::print_fields(
 			$product_object,
 			array(
@@ -200,7 +206,7 @@ final class VariationField {
 	 */
 	public function save_product( $product ) {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WooCommerce verified the product edit nonce.
-		if ( ! $product->is_type( 'simple' ) || ! isset( $_POST['purplish_product_mode'] ) ) {
+		if ( ! DetectColors::is_colorable( $product ) || ! isset( $_POST['purplish_product_mode'] ) ) {
 			return;
 		}
 

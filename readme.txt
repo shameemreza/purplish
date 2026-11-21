@@ -25,13 +25,14 @@ Think of a product page that takes the color of the variation a shopper picks, a
 * **Works on the blocks you already use:** Purplish adds a panel to 25 WooCommerce blocks, from the Product Gallery to the Checkout, and to 11 core blocks, like Group, Cover and Button. It replaces nothing.
 * **Each template keeps its own look:** your choices are saved on the block in the template, so two templates can look different.
 * **Off means off:** deactivate Purplish and your store looks exactly as WooCommerce draws it.
-* **Loads only where it's used:** the color script loads on variable products only, and each effect loads only on pages that use it.
+* **Loads only where it's used:** the color script loads on variable products, bundles, composites, mix and match boxes and grouped products only, and each effect loads only on pages that use it.
 * **Your photos stay on your server:** no outside requests, no tracking and no account to sign up for.
 * **Quiet admin:** no banners, notices or upsells.
 
 = What Purplish adds to WooCommerce blocks =
 
 * **Product page colors:** when a shopper picks a variation, the add to cart button, the selected option and the sale badge take its color, and the sale price and a soft background tint can too. Purplish reads the color from the product in the photo, or you set it by hand. The photo changes with a transition, like Blur, Wipe or Color wash.
+* **Bundles and grouped products:** a bundle, composite, mix and match box or grouped product opens in its own Page color, then follows the item the shopper changed last, so picking Harbor on the jacket in a bundle turns the page Harbor. Works with WooCommerce Product Bundles, Composite Products and Mix and Match Products.
 * **Product gallery:** every photo at once in a grid, two across or two large over smaller ones, with the product details kept in view beside it, hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, a photo wash, and rounded or circle thumbnails.
 * **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, ruled cards with thin lines in place of the gap, a carousel that ends on part of the next card, an outline add to cart button, a photo wash, a hover look for the card, the photo and the button, and one effect color for all of it.
 * **Shop page:** a choice of which orderings Sort by lists, a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs, chips or category photos with the current one marked.
@@ -99,7 +100,7 @@ The code is on [GitHub](https://github.com/shameemreza/purplish), with [every op
 
 1. Make sure WooCommerce 11.0 or later is active.
 2. Go to Plugins > Add New, search for Purplish, then install and activate it. Purplish reads the colors of your variation photos in the background.
-3. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
+3. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple, bundle, composite, mix and match or grouped product, it's on the General tab.
 4. On a block theme, open a template in the Site Editor, select a block Purplish works on, like Add to Cart + Options, Product Gallery or Product Collection, and open the Purplish panel. Purplish's own blocks are in the Purplish group of the block inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 == Frequently Asked Questions ==
@@ -119,6 +120,10 @@ A block theme can match Purplish's corners, shadow, photo wash and ruled lines t
 = Does it work with simple products? =
 
 Yes. A simple product gets one Page color for its whole page, read from its photo or set by hand.
+
+= Does it work with bundles and grouped products? =
+
+Yes. A bundle, composite, mix and match box or grouped product gets its own Page color on the General tab, and its page opens in that color. When a shopper picks a color on an item, or adds a mix and match or grouped item, the page takes that item's color. Clearing it hands the color back to the item changed before, then to the product's own color. With the product's own color set to Off, a bundle or composite opens in the color of its first item that already has one. Works with WooCommerce Product Bundles, Composite Products and Mix and Match Products. A variable product inside a grouped product only links to its own page there, so it doesn't change the color.
 
 = Do I need color swatches? =
 
@@ -210,7 +215,7 @@ Visitors who turn on reduced motion on their device get the colors without any a
 
 = Will Purplish slow down my store? =
 
-No. Photos are read in the background and the color is saved with the product. The product page loads a small stylesheet. The color script loads only on variable products, and each effect loads only on pages that use it.
+No. Photos are read in the background and the color is saved with the product. The product page loads a small stylesheet. The color script loads only on variable products, bundles, composites, mix and match boxes and grouped products, and each effect loads only on pages that use it.
 
 = Do my product photos leave my site? =
 

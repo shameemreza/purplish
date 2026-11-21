@@ -36,6 +36,7 @@ class DetectColorsTest extends WP_UnitTestCase {
 		}
 		$this->temp_files = array();
 		delete_option( DetectColors::QUEUE_OPTION );
+		update_option( DetectColors::CONTAINER_WALK_OPTION, 1 );
 		parent::tear_down();
 	}
 
@@ -237,6 +238,47 @@ class DetectColorsTest extends WP_UnitTestCase {
 		( new DetectColors() )->batch( 0, DetectColors::KIND_SIMPLE );
 
 		$this->assertTrue( $this->is_queued( $product->get_id() ) );
+	}
+
+	/**
+	 * A grouped product's photo is read, like a simple product's.
+	 */
+	public function test_grouped_product_photo() {
+		$product = new \WC_Product_Grouped();
+		$product->set_image_id( $this->upload( 'orange-sweater' ) );
+		$product->save();
+
+		$this->assertTrue( $this->is_queued( $product->get_id() ) );
+	}
+
+	/**
+	 * The simple walk covers grouped products too.
+	 */
+	public function test_batch_walks_grouped_products() {
+		$product = new \WC_Product_Grouped();
+		$product->set_image_id( $this->upload( 'blue-sweater' ) );
+		$product->save();
+		as_unschedule_all_actions( DetectColors::HOOK_ONE, null, DetectColors::GROUP );
+
+		( new DetectColors() )->batch( 0, DetectColors::KIND_SIMPLE );
+
+		$this->assertTrue( $this->is_queued( $product->get_id() ) );
+	}
+
+	/**
+	 * A site that ran the first walk before 1.4 walks the products once
+	 * more, so existing bundles get their photo color.
+	 */
+	public function test_update_walks_products_once_more() {
+		delete_option( DetectColors::CONTAINER_WALK_OPTION );
+
+		( new DetectColors() )->queue_first_batch();
+		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, DetectColors::batch_args( 0, DetectColors::KIND_SIMPLE ), DetectColors::GROUP ) );
+		$this->assertSame( '1', (string) get_option( DetectColors::CONTAINER_WALK_OPTION ) );
+
+		as_unschedule_all_actions( DetectColors::HOOK_BATCH, null, DetectColors::GROUP );
+		( new DetectColors() )->queue_first_batch();
+		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_BATCH, null, DetectColors::GROUP ) );
 	}
 
 	/**
