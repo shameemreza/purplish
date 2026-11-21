@@ -274,7 +274,7 @@
  */
 .purplish-checkoutpage-cards .wc-block-components-sidebar-layout {
 	padding: clamp(16px, 4vw, 40px);
-	border: 1px solid color-mix(in srgb, currentcolor 8%, transparent);
+	border: 1px solid var(--wp--custom--purplish--rule, color-mix(in srgb, currentcolor 8%, transparent));
 	border-radius: var(--wp--custom--purplish--radius, 24px);
 	background-color: var(--purplish-theme-paper, var(--wp--preset--color--base, #fff));
 	box-shadow: var(--wp--custom--purplish--shadow, 0 1px 3px rgb(0 0 0 / 0.06), 0 24px 48px -24px rgb(0 0 0 / 0.25));

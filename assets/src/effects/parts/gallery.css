@@ -267,7 +267,7 @@
 	max-width: 86vw;
 	max-height: 68vh;
 	margin: 0;
-	border-radius: 24px;
+	border-radius: var(--wp--custom--purplish--radius, 24px);
 	object-fit: contain;
 	scroll-snap-align: center;
 	box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.45);
@@ -430,7 +430,7 @@
 	padding: 0;
 	overflow: hidden;
 	border: 0;
-	border-radius: 12px;
+	border-radius: var(--wp--custom--purplish--radius, 12px);
 	background: rgb(255 255 255 / 0.7);
 	opacity: 0.55;
 	cursor: pointer;
@@ -482,7 +482,7 @@
 .purplish-gallery-fullscreen-cinema .wc-block-product-gallery-dialog .wc-block-product-gallery-dialog__content :is(img, video) {
 	max-width: 92vw;
 	max-height: 82vh;
-	border-radius: 8px;
+	border-radius: var(--wp--custom--purplish--radius, 8px);
 	box-shadow: 0 50px 120px -30px rgb(0 0 0 / 0.9);
 }
 
