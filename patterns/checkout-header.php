@@ -79,9 +79,10 @@ $purplish_step = static function ( $mark, $label, $state ) use ( $purplish_ink, 
 		. "<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n";
 };
 
-$purplish_bar = '<!-- wp:group {"style":{"color":{"background":"' . $purplish_ref( $purplish_rule ) . '"},"dimensions":{"minHeight":"1px"},"spacing":{"padding":{"top":"0","bottom":"0","left":"14px","right":"14px"}}},"layout":{"type":"default"}} -->' . "\n"
+$purplish_bar  = '<!-- wp:group {"style":{"color":{"background":"' . $purplish_ref( $purplish_rule ) . '"},"dimensions":{"minHeight":"1px"},"spacing":{"padding":{"top":"0","bottom":"0","left":"14px","right":"14px"}}},"layout":{"type":"default"}} -->' . "\n"
 	. '<div class="wp-block-group has-background" style="background-color:' . $purplish_var( $purplish_rule ) . ';min-height:1px;padding-top:0;padding-right:14px;padding-bottom:0;padding-left:14px"></div>' . "\n"
 	. "<!-- /wp:group -->\n";
+$purplish_pill = \Purplish\Patterns::radius( '999px' );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Checkout header', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"var:preset|color|theme-1"},"border":{"bottom":{"color":"<?php echo esc_attr( $purplish_ref( $purplish_rule ) ); ?>","width":"1px","style":"solid"}},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-background" style="border-bottom-color:<?php echo esc_attr( $purplish_var( $purplish_rule ) ); ?>;border-bottom-style:solid;border-bottom-width:1px;background-color:var(--wp--preset--color--theme-1);margin-top:0;margin-bottom:0;padding-top:14px;padding-right:0;padding-bottom:14px;padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"12px 24px"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
@@ -101,8 +102,8 @@ echo $purplish_step( '3', esc_html__( 'Done', 'purplish' ), 'next' );
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Secure checkout', 'purplish' ); ?>"},"style":{"color":{"background":"<?php echo esc_attr( $purplish_ref( $purplish_tint ) ); ?>"},"border":{"radius":"999px"},"typography":{"lineHeight":"0"},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"14px","right":"16px"},"blockGap":"8px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group has-background" style="border-radius:999px;background-color:<?php echo esc_attr( $purplish_var( $purplish_tint ) ); ?>;padding-top:8px;padding-right:16px;padding-bottom:8px;padding-left:14px;line-height:0"><!-- wp:image {"width":"18px","height":"18px","sizeSlug":"full","linkDestination":"none"} -->
+<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Secure checkout', 'purplish' ); ?>"},"style":{"color":{"background":"<?php echo esc_attr( $purplish_ref( $purplish_tint ) ); ?>"},"border":{"radius":"<?php echo esc_attr( $purplish_pill ); ?>"},"typography":{"lineHeight":"0"},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"14px","right":"16px"},"blockGap":"8px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+<div class="wp-block-group has-background" style="border-radius:<?php echo esc_attr( $purplish_pill ); ?>;background-color:<?php echo esc_attr( $purplish_var( $purplish_tint ) ); ?>;padding-top:8px;padding-right:16px;padding-bottom:8px;padding-left:14px;line-height:0"><!-- wp:image {"width":"18px","height":"18px","sizeSlug":"full","linkDestination":"none"} -->
 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( plugins_url( 'assets/icons/secure.svg', PURPLISH_FILE ) ); ?>" alt="" style="width:18px;height:18px"/></figure>
 <!-- /wp:image -->
 

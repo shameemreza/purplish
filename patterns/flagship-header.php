@@ -26,6 +26,7 @@ $purplish_looks = array(
 	'easy-sunday'    => array( __( 'Soft Grey', 'purplish' ), __( '3 pieces, $473.00', 'purplish' ) ),
 	'quilted-jacket' => array( __( 'Night Shift', 'purplish' ), __( '3 pieces, $463.00', 'purplish' ) ),
 );
+$purplish_pill  = \Purplish\Patterns::radius( '999px' );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Note bar', 'purplish' ); ?>"},"align":"full","className":"is-style-section-2","style":{"spacing":{"padding":{"top":"10px","bottom":"10px","left":"var:preset|spacing|20","right":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|30","margin":{"top":"0","bottom":"0"}}},"fontSize":"small","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 <div class="wp-block-group alignfull is-style-section-2 has-small-font-size" style="margin-top:0;margin-bottom:0;padding-top:10px;padding-right:var(--wp--preset--spacing--20);padding-bottom:10px;padding-left:var(--wp--preset--spacing--20)"><!-- wp:paragraph -->
@@ -113,8 +114,8 @@ $purplish_looks = array(
 
 <!-- wp:woocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line","iconClass":"wc-block-customer-account__account-icon","metadata":{"blockVisibility":{"viewport":{"mobile":false}}}} /-->
 
-<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Cart pill', 'purplish' ); ?>"},"className":"is-style-section-2","style":{"border":{"radius":"999px"},"spacing":{"padding":{"top":"2px","bottom":"2px","left":"10px","right":"10px"}}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-<div class="wp-block-group is-style-section-2" style="border-radius:999px;padding-top:2px;padding-right:10px;padding-bottom:2px;padding-left:10px"><!-- wp:woocommerce/mini-cart {"purplish":{"pop":true},"miniCartIcon":"bag"} /--></div>
+<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Cart pill', 'purplish' ); ?>"},"className":"is-style-section-2","style":{"border":{"radius":"<?php echo esc_attr( $purplish_pill ); ?>"},"spacing":{"padding":{"top":"2px","bottom":"2px","left":"10px","right":"10px"}}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group is-style-section-2" style="border-radius:<?php echo esc_attr( $purplish_pill ); ?>;padding-top:2px;padding-right:10px;padding-bottom:2px;padding-left:10px"><!-- wp:woocommerce/mini-cart {"purplish":{"pop":true},"miniCartIcon":"bag"} /--></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

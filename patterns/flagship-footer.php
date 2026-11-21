@@ -24,10 +24,10 @@ $purplish_columns = array(
 		__( 'Shoes', 'purplish' )    => $purplish_shop,
 	),
 	__( 'Help', 'purplish' )    => array(
-		__( 'Shipping', 'purplish' )      => $purplish_home,
-		__( 'Returns', 'purplish' )       => $purplish_home,
+		__( 'Shipping', 'purplish' )       => $purplish_home,
+		__( 'Returns', 'purplish' )        => $purplish_home,
 		__( 'Track an order', 'purplish' ) => $purplish_home,
-		__( 'Size guide', 'purplish' )    => $purplish_home,
+		__( 'Size guide', 'purplish' )     => $purplish_home,
 	),
 	__( 'Company', 'purplish' ) => array(
 		__( 'Our story', 'purplish' ) => $purplish_home,
@@ -35,6 +35,7 @@ $purplish_columns = array(
 		__( 'Contact', 'purplish' )   => $purplish_home,
 	),
 );
+$purplish_pill    = \Purplish\Patterns::radius( '999px' );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Flagship footer', 'purplish' ); ?>"},"align":"full","className":"is-style-section-2","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-section-2" style="margin-top:0;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Footer content', 'purplish' ); ?>"},"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
@@ -75,7 +76,7 @@ $purplish_columns = array(
 <!-- /wp:heading -->
 
 <!-- wp:navigation {"overlayMenu":"never","customTextColor":"currentColor","ariaLabel":"<?php echo esc_attr( $purplish_title ); ?>","style":{"spacing":{"blockGap":"8px"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-<?php foreach ( $purplish_links as $purplish_label => $purplish_url ) : ?>
+	<?php foreach ( $purplish_links as $purplish_label => $purplish_url ) : ?>
 <!-- wp:navigation-link {"label":"<?php echo esc_attr( $purplish_label ); ?>","url":"<?php echo esc_url( $purplish_url ); ?>","kind":"custom"} /-->
 <?php endforeach; ?>
 <!-- /wp:navigation --></div>
@@ -129,8 +130,8 @@ $purplish_columns = array(
 <!-- /wp:group -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline","style":{"border":{"radius":"999px","width":"1px"},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"16px","right":"16px"}}},"fontSize":"small"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" href="#" style="border-width:1px;border-radius:999px;padding-top:8px;padding-right:16px;padding-bottom:8px;padding-left:16px"><?php esc_html_e( 'Back to the floor', 'purplish' ); ?> &uarr;</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline","style":{"border":{"radius":"<?php echo esc_attr( $purplish_pill ); ?>","width":"1px"},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"16px","right":"16px"}}},"fontSize":"small"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-small-font-size has-custom-font-size wp-element-button" href="#" style="border-width:1px;border-radius:<?php echo esc_attr( $purplish_pill ); ?>;padding-top:8px;padding-right:16px;padding-bottom:8px;padding-left:16px"><?php esc_html_e( 'Back to the floor', 'purplish' ); ?> &uarr;</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
