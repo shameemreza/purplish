@@ -19,6 +19,12 @@ defined( 'ABSPATH' ) || exit;
 final class Detector {
 
 	/**
+	 * Raise when a change reads photos differently, so saved Automatic
+	 * colors are read again. 2: pale and muted products (1.4).
+	 */
+	const VERSION = 2;
+
+	/**
 	 * Long side, in pixels, of the copy the detector reads.
 	 */
 	const SAMPLE_SIZE = 64;
