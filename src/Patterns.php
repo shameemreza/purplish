@@ -274,6 +274,19 @@ final class Patterns {
 	}
 
 	/**
+	 * A corner for pattern markup that follows Purplish's radius token. Purple
+	 * sets the token to 0px (see Color\PurpleLook), so the shape goes square
+	 * there; other themes leave it unset and get the fallback, the corner the
+	 * pattern always had.
+	 *
+	 * @param string $fallback The corner without the token, like '999px'.
+	 * @return string
+	 */
+	public static function radius( $fallback ) {
+		return 'var(--wp--custom--purplish--radius, ' . $fallback . ')';
+	}
+
+	/**
 	 * Block markup for a Flagship section head: a heading, an optional line
 	 * under it and an optional link on the right. Shared so every section in
 	 * the set opens the same way. The heading and link take the theme's own

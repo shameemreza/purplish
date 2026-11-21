@@ -637,6 +637,62 @@ class PatternsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Every corner a pattern saves follows Purplish's radius token, with the
+	 * corner it always had as the fallback, so it goes square on Purple and
+	 * stays as it was on other themes. The saved markup carries the same
+	 * value as the attribute. Square corners, the checkout steps' dots and
+	 * the guarantee card's round seal are the only fixed ones.
+	 */
+	public function test_corners_follow_the_radius_token() {
+		$this->assertSame( 'var(--wp--custom--purplish--radius, 999px)', Patterns::radius( '999px' ) );
+
+		$kept = array(
+			'checkout-header' => array( '999px' => 3 ),
+			'guarantee-card'  => array( '999px' => 2 ),
+		);
+		$seen = array();
+		foreach ( Patterns::patterns() as $slug => $pattern ) {
+			$markup = Patterns::content( $pattern['file'] );
+			$fixed  = array();
+			foreach ( $this->radii( parse_blocks( $markup ) ) as list( $radius, $html ) ) {
+				if ( 0 === strpos( $radius, 'var(--wp--custom--purplish--radius, ' ) ) {
+					$seen[ $slug ] = true;
+					$this->assertTrue( '' === $html || false !== strpos( $html, 'border-radius:' . $radius ), $slug );
+					continue;
+				}
+				if ( in_array( $radius, array( '0', '0px' ), true ) ) {
+					continue;
+				}
+				$fixed[ $radius ] = isset( $fixed[ $radius ] ) ? $fixed[ $radius ] + 1 : 1;
+			}
+			$this->assertSame( isset( $kept[ $slug ] ) ? $kept[ $slug ] : array(), $fixed, $slug );
+		}
+
+		foreach ( array( 'checkout-header', 'empty-cart', 'flagship-header', 'flagship-footer', 'guarantee-card', 'flagship-phone-menu' ) as $slug ) {
+			$this->assertArrayHasKey( $slug, $seen );
+		}
+	}
+
+	/**
+	 * Every border radius set in the blocks' attributes, each with its
+	 * block's own saved markup ('' for a block that saves none).
+	 *
+	 * @param array $blocks Parsed blocks.
+	 * @return array[]
+	 */
+	private function radii( $blocks ) {
+		$radii = array();
+		foreach ( $blocks as $block ) {
+			$radius = isset( $block['attrs']['style']['border']['radius'] ) ? $block['attrs']['style']['border']['radius'] : null;
+			foreach ( (array) $radius as $value ) {
+				$radii[] = array( (string) $value, trim( implode( '', array_filter( $block['innerContent'], 'is_string' ) ) ) );
+			}
+			$radii = array_merge( $radii, $this->radii( $block['innerBlocks'] ) );
+		}
+		return $radii;
+	}
+
+	/**
 	 * A section head is the heading alone, or a row with the line under the
 	 * heading and the link beside it, with every value escaped. It takes the
 	 * theme's heading font and colors.

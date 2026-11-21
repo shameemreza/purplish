@@ -28,7 +28,7 @@ $purplish_tiles   = array(
 	array( __( 'Shoes', 'purplish' ), 'easy-sunday' ),
 );
 
-$purplish_collection = array(
+$purplish_collection   = array(
 	'metadata'             => array( 'name' => __( 'Best sellers', 'purplish' ) ),
 	'queryId'              => 0,
 	'query'                => array(
@@ -66,11 +66,14 @@ $purplish_collection = array(
 	'queryContextIncludes' => array( 'collection' ),
 	'purplish'             => array( 'hover' => 'spotlight' ),
 );
+$purplish_pill         = \Purplish\Patterns::radius( '999px' );
+$purplish_tile_radius  = \Purplish\Patterns::radius( '16px' );
+$purplish_photo_radius = \Purplish\Patterns::radius( '14px' );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Empty cart', 'purplish' ); ?>"},"align":"wide","style":{"color":{"gradient":"<?php echo esc_attr( $purplish_glow ); ?>"},"spacing":{"padding":{"top":"clamp(56px, 8vw, 96px)","bottom":"clamp(48px, 6vw, 80px)","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide has-background" style="background:<?php echo esc_attr( $purplish_glow ); ?>;margin-top:0;margin-bottom:0;padding-top:clamp(56px, 8vw, 96px);padding-right:var(--wp--preset--spacing--50);padding-bottom:clamp(48px, 6vw, 80px);padding-left:var(--wp--preset--spacing--50)"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->
-<div class="wp-block-group"><!-- wp:group {"style":{"color":{"background":"var:preset|color|theme-1"},"border":{"radius":"999px","width":"1px","style":"solid","color":"var:preset|color|theme-6"},"typography":{"lineHeight":"0"},"spacing":{"padding":{"top":"6px","bottom":"6px","left":"12px","right":"14px"},"blockGap":"8px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--preset--color--theme-6);border-style:solid;border-width:1px;border-radius:999px;background-color:var(--wp--preset--color--theme-1);padding-top:6px;padding-right:14px;padding-bottom:6px;padding-left:12px;line-height:0"><!-- wp:image {"width":"18px","height":"18px","sizeSlug":"full","linkDestination":"none"} -->
+<div class="wp-block-group"><!-- wp:group {"style":{"color":{"background":"var:preset|color|theme-1"},"border":{"radius":"<?php echo esc_attr( $purplish_pill ); ?>","width":"1px","style":"solid","color":"var:preset|color|theme-6"},"typography":{"lineHeight":"0"},"spacing":{"padding":{"top":"6px","bottom":"6px","left":"12px","right":"14px"},"blockGap":"8px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+<div class="wp-block-group has-border-color has-background" style="border-color:var(--wp--preset--color--theme-6);border-style:solid;border-width:1px;border-radius:<?php echo esc_attr( $purplish_pill ); ?>;background-color:var(--wp--preset--color--theme-1);padding-top:6px;padding-right:14px;padding-bottom:6px;padding-left:12px;line-height:0"><!-- wp:image {"width":"18px","height":"18px","sizeSlug":"full","linkDestination":"none"} -->
 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( plugins_url( 'assets/icons/shipping.svg', PURPLISH_FILE ) ); ?>" alt="" style="width:18px;height:18px"/></figure>
 <!-- /wp:image -->
 
@@ -88,12 +91,12 @@ $purplish_collection = array(
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"28px"},"blockGap":"12px"}},"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons" style="margin-top:28px"><!-- wp:button {"style":{"border":{"radius":"999px"},"spacing":{"padding":{"top":"15px","bottom":"15px","left":"28px","right":"28px"}}},"purplish":{"sweep":true}} -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $purplish_shop ); ?>" style="border-radius:999px;padding-top:15px;padding-right:28px;padding-bottom:15px;padding-left:28px"><?php esc_html_e( 'Shop new in', 'purplish' ); ?></a></div>
+<div class="wp-block-buttons" style="margin-top:28px"><!-- wp:button {"style":{"border":{"radius":"<?php echo esc_attr( $purplish_pill ); ?>"},"spacing":{"padding":{"top":"15px","bottom":"15px","left":"28px","right":"28px"}}},"purplish":{"sweep":true}} -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $purplish_shop ); ?>" style="border-radius:<?php echo esc_attr( $purplish_pill ); ?>;padding-top:15px;padding-right:28px;padding-bottom:15px;padding-left:28px"><?php esc_html_e( 'Shop new in', 'purplish' ); ?></a></div>
 <!-- /wp:button -->
 
-<!-- wp:button {"style":{"color":{"background":"var:preset|color|theme-1","text":"var:preset|color|theme-2"},"border":{"radius":"999px","width":"1px","style":"solid","color":"var:preset|color|theme-2"},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"27px","right":"27px"}}},"purplish":{"glow":true,"color":"<?php echo esc_attr( $purplish_accent ); ?>"}} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background has-border-color wp-element-button" href="<?php echo esc_url( $purplish_popular ); ?>" style="border-color:var(--wp--preset--color--theme-2);border-style:solid;border-width:1px;border-radius:999px;color:var(--wp--preset--color--theme-2);background-color:var(--wp--preset--color--theme-1);padding-top:14px;padding-right:27px;padding-bottom:14px;padding-left:27px"><?php esc_html_e( 'See best sellers', 'purplish' ); ?></a></div>
+<!-- wp:button {"style":{"color":{"background":"var:preset|color|theme-1","text":"var:preset|color|theme-2"},"border":{"radius":"<?php echo esc_attr( $purplish_pill ); ?>","width":"1px","style":"solid","color":"var:preset|color|theme-2"},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"27px","right":"27px"}}},"purplish":{"glow":true,"color":"<?php echo esc_attr( $purplish_accent ); ?>"}} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-text-color has-background has-border-color wp-element-button" href="<?php echo esc_url( $purplish_popular ); ?>" style="border-color:var(--wp--preset--color--theme-2);border-style:solid;border-width:1px;border-radius:<?php echo esc_attr( $purplish_pill ); ?>;color:var(--wp--preset--color--theme-2);background-color:var(--wp--preset--color--theme-1);padding-top:14px;padding-right:27px;padding-bottom:14px;padding-left:27px"><?php esc_html_e( 'See best sellers', 'purplish' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group -->
@@ -120,7 +123,7 @@ $purplish_collection = array(
 			'style'           => array(
 				'dimensions' => array( 'aspectRatio' => '3/4' ),
 				'border'     => array(
-					'radius' => '16px',
+					'radius' => $purplish_tile_radius,
 					'width'  => '1px',
 					'style'  => 'solid',
 					'color'  => $purplish_rule,
@@ -132,7 +135,7 @@ $purplish_collection = array(
 	);
 	?>
 <!-- wp:cover <?php echo $purplish_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
-<div class="wp-block-cover has-border-color has-custom-content-position is-position-bottom-left" style="border-color:var(--wp--preset--color--theme-6);border-style:solid;border-width:1px;border-radius:16px"><img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( $purplish_url ); ?>" style="object-position:50% 30%" data-object-fit="cover" data-object-position="50% 30%"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:<?php echo esc_attr( $purplish_fade ); ?>"></span><div class="wp-block-cover__inner-container"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"#ffffff"},"typography":{"textDecoration":"none"}}}},"fontSize":"large"} -->
+<div class="wp-block-cover has-border-color has-custom-content-position is-position-bottom-left" style="border-color:var(--wp--preset--color--theme-6);border-style:solid;border-width:1px;border-radius:<?php echo esc_attr( $purplish_tile_radius ); ?>"><img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( $purplish_url ); ?>" style="object-position:50% 30%" data-object-fit="cover" data-object-position="50% 30%"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:<?php echo esc_attr( $purplish_fade ); ?>"></span><div class="wp-block-cover__inner-container"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"#ffffff"},"typography":{"textDecoration":"none"}}}},"fontSize":"large"} -->
 <p class="has-link-color has-large-font-size"><a href="<?php echo esc_url( $purplish_shop ); ?>"><?php echo esc_html( $purplish_tile[0] ); ?> &rarr;</a></p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:cover -->
@@ -146,7 +149,7 @@ $purplish_collection = array(
 
 <!-- wp:woocommerce/product-collection <?php echo serialize_block_attributes( $purplish_collection ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
 <div class="wp-block-woocommerce-product-collection"><!-- wp:woocommerce/product-template -->
-<!-- wp:woocommerce/product-image {"showSaleBadge":false,"imageSizing":"thumbnail","isDescendentOfQueryLoop":true,"scale":"cover","aspectRatio":"4/5","style":{"border":{"radius":"14px"}}} /-->
+<!-- wp:woocommerce/product-image {"showSaleBadge":false,"imageSizing":"thumbnail","isDescendentOfQueryLoop":true,"scale":"cover","aspectRatio":"4/5","style":{"border":{"radius":"<?php echo esc_attr( $purplish_photo_radius ); ?>"}}} /-->
 
 <!-- wp:post-title {"textAlign":"left","level":3,"isLink":true,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"top":"12px","bottom":"2px"}}},"fontSize":"medium","__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
 

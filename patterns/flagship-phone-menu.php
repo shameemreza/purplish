@@ -9,9 +9,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_shop  = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-$purplish_home  = home_url( '/' );
-$purplish_links = array(
+$purplish_shop        = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+$purplish_home        = home_url( '/' );
+$purplish_links       = array(
 	__( 'New in', 'purplish' )   => $purplish_shop,
 	__( 'Coats', 'purplish' )    => $purplish_shop,
 	__( 'Jackets', 'purplish' )  => $purplish_shop,
@@ -19,6 +19,7 @@ $purplish_links = array(
 	__( 'Shoes', 'purplish' )    => $purplish_shop,
 	__( 'Lookbook', 'purplish' ) => $purplish_home,
 );
+$purplish_card_radius = \Purplish\Patterns::radius( '16px' );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Phone menu', 'purplish' ); ?>"},"style":{"dimensions":{"minHeight":"100vh"},"color":{"background":"var:preset|color|theme-1"},"spacing":{"padding":{"bottom":"var:preset|spacing|50"},"blockGap":"0"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group has-background" style="background-color:var(--wp--preset--color--theme-1);min-height:100vh;padding-bottom:var(--wp--preset--spacing--50)"><!-- wp:group {"style":{"dimensions":{"minHeight":"64px"},"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
@@ -34,8 +35,8 @@ $purplish_links = array(
 <?php endforeach; ?>
 <!-- /wp:navigation -->
 
-<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Look card', 'purplish' ); ?>"},"style":{"color":{"background":"var:preset|color|theme-5"},"border":{"radius":"16px"},"dimensions":{"minHeight":"200px"},"spacing":{"padding":{"left":"16px","right":"16px"},"blockGap":"14px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"bottom"}} -->
-<div class="wp-block-group has-background" style="border-radius:16px;background-color:var(--wp--preset--color--theme-5);min-height:200px;padding-right:16px;padding-left:16px"><!-- wp:image {"height":"184px","scale":"contain","linkDestination":"custom","style":{"layout":{"selfStretch":"fit"}}} -->
+<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Look card', 'purplish' ); ?>"},"style":{"color":{"background":"var:preset|color|theme-5"},"border":{"radius":"<?php echo esc_attr( $purplish_card_radius ); ?>"},"dimensions":{"minHeight":"200px"},"spacing":{"padding":{"left":"16px","right":"16px"},"blockGap":"14px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"bottom"}} -->
+<div class="wp-block-group has-background" style="border-radius:<?php echo esc_attr( $purplish_card_radius ); ?>;background-color:var(--wp--preset--color--theme-5);min-height:200px;padding-right:16px;padding-left:16px"><!-- wp:image {"height":"184px","scale":"contain","linkDestination":"custom","style":{"layout":{"selfStretch":"fit"}}} -->
 <figure class="wp-block-image is-resized"><a href="<?php echo esc_url( $purplish_shop ); ?>"><img src="<?php echo esc_url( \Purplish\Blocks\Showfloor::figure( 'violet-coat' ) ); ?>" alt="<?php echo esc_attr__( 'Field Day look', 'purplish' ); ?>" style="object-fit:contain;height:184px"/></a></figure>
 <!-- /wp:image -->
 
