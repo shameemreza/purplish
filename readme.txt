@@ -251,6 +251,29 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 
 == Changelog ==
 
+= 1.4.0 =
+
+* New: Size Chart block with a cm/in switch, charts for each category or product and a fit note. The Variation Selector gets a Size guide link that opens the chart in a dialog.
+* New: Photo swatches on the Variation Selector, with the picked color's name, a color or text chip fallback, and square or round, 44px or 64px options.
+* New: A Dot option on the Stock Indicator, colored for in stock, low stock and on backorder, that follows the picked variation.
+* New: Delivery Line block with the arrival date, time left to order, returns window and pickup line, set once in the Shipping settings.
+* New: Grid layouts for the Product Gallery, two across or two large over smaller ones, and a Keep in view switch on the Column block so the product details stay beside the photos while they scroll.
+* New: A sticky bar on phones for Add to Cart + Options with the name, price and button, and the order total on the Cart page's pinned checkout button.
+* New: Matching extras under Add to Cart + Options.
+* New: A Peek option for the Product Collection carousel that ends on a fifth, a third or half of the next card.
+* New: Panel, Outline and Section styles for product cards, Plate for the product image, Contrast for the product button and sale badge, and Panel for the Mini-Cart drawer, all in the theme's colors.
+* New: Cart page, Order confirmation and Account page patterns, an Account style for My Account, and a back to bag link, the site title and an optional trust row in the Checkout header pattern.
+* New: On the Purple theme, Delivery Line and Matching Extras can sit under the buy button in each Add to Cart part, turned on from the Purplish settings.
+* New: Purplish blocks take the colors of the section style they sit in, on any color variation and any block theme.
+* New: Page colors for bundles, composites, mix and match boxes and grouped products, following the item the shopper changed last.
+* Update: Each page loads only the effect styles its blocks use, so most pages load a few KB of styles instead of 184 KB.
+* Update: On the Purple theme, Purplish effects follow its square corners, Border color and Base Alt color in every color variation.
+* Fix: Purplish blocks, effects and patterns follow the theme's own colors, fonts and spacing, including Purple's dark color variations, and patterns keep square corners on Purple.
+* Fix: The free shipping meter shows for shoppers who haven't entered an address yet, using the store's own shipping zone.
+* Fix: Automatic page colors pick the product over a model's hair and skin when the product is pale, and colors saved before the update are read again.
+* Fix: Tabs, page numbers and the account login panel keep readable text in every theme color variation.
+* Fix: The Size guide's cm and in buttons and the Matching extras names sit without extra space under them on WooCommerce pages.
+
 = 1.3.3 =
 
 * New: The free shipping meter names your Free shipping method, takes your own wording, and can sit at the top of the Cart's totals column.
