@@ -64,6 +64,7 @@ import './parts/summary.css';
 import './parts/meter.css';
 import './parts/sorting.css';
 import './parts/extras.css';
+import './parts/account.css';
 
 const reduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
 const canHover =

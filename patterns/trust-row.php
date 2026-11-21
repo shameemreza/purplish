@@ -1,7 +1,8 @@
 <?php
 /**
  * Pattern: Trust row. Free shipping, returns, secure checkout and real
- * people, each with a small icon, between two thin lines.
+ * people, each with a small icon in the theme's accent color, between two
+ * thin lines.
  *
  * @package Purplish
  */
@@ -11,10 +12,10 @@ defined( 'ABSPATH' ) || exit;
 $purplish_line  = 'var:preset|color|theme-6';
 $purplish_rule  = 'var(--wp--preset--color--theme-6)';
 $purplish_items = array(
-	array( 'shipping', __( 'Free shipping', 'purplish' ), __( 'On orders over $100', 'purplish' ) ),
-	array( 'returns', __( '30-day returns', 'purplish' ), __( 'Free, from your door', 'purplish' ) ),
-	array( 'secure', __( 'Secure checkout', 'purplish' ), __( 'Cards, Apple Pay, PayPal', 'purplish' ) ),
-	array( 'support', __( 'Real people', 'purplish' ), __( 'Answers within a day', 'purplish' ) ),
+	array( 'purplish/shipping', __( 'Free shipping', 'purplish' ), __( 'On orders over $100', 'purplish' ) ),
+	array( 'purplish/returns', __( '30-day returns', 'purplish' ), __( 'Free, from your door', 'purplish' ) ),
+	array( 'purplish/lock', __( 'Secure checkout', 'purplish' ), __( 'Cards, Apple Pay, PayPal', 'purplish' ) ),
+	array( 'core/comment', __( 'Real people', 'purplish' ), __( 'Answers within a day', 'purplish' ) ),
 );
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Trust row', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"var:preset|color|theme-1"},"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}},"border":{"top":{"color":"<?php echo esc_attr( $purplish_line ); ?>","width":"1px","style":"solid"},"bottom":{"color":"<?php echo esc_attr( $purplish_line ); ?>","width":"1px","style":"solid"}}},"layout":{"type":"constrained"}} -->
@@ -28,9 +29,7 @@ $purplish_items = array(
 <!-- wp:group {"style":{"spacing":{"padding":{"left":"16px","right":"16px"},"blockGap":"14px"},"border":{"left":{"color":"<?php echo esc_attr( $purplish_line ); ?>","width":"1px","style":"solid"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
 <div class="wp-block-group" style="border-left-color:<?php echo esc_attr( $purplish_rule ); ?>;border-left-style:solid;border-left-width:1px;padding-right:16px;padding-left:16px">
 <?php endif; ?>
-<!-- wp:image {"width":"26px","height":"26px","sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( plugins_url( 'assets/icons/' . $purplish_item[0] . '.svg', PURPLISH_FILE ) ); ?>" alt="" style="width:26px;height:26px"/></figure>
-<!-- /wp:image -->
+<!-- wp:icon {"icon":"<?php echo esc_attr( $purplish_item[0] ); ?>","textColor":"theme-7","style":{"dimensions":{"width":"26px"}}} /-->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"2px"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|theme-2"},"typography":{"fontStyle":"normal","fontWeight":"500"}},"fontSize":"medium"} -->

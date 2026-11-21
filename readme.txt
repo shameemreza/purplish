@@ -64,7 +64,7 @@ Find them in the Purplish group of the block inserter.
 
 = Patterns =
 
-Purplish's 24 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
+Purplish's 27 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
 
 * **Store front:** Flagship home is a full front page with a Showfloor, category tiles, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each of those sections is also its own pattern.
 * **Header and footer:** Flagship header has a Wardrobe Shop menu and a bag pill that condenses on scroll, with Flagship phone menu for small screens. Flagship footer ends on the site name as a big wordmark that rises from the floor.
@@ -72,7 +72,8 @@ Purplish's 24 patterns are in the Purplish category of the pattern inserter. The
 * **Heroes:** Escalator hero with products and Escalator hero with photos.
 * **Product page:** Size chart with how to measure, the starting point for each new size chart.
 * **Product showcases:** Hanging rail of new arrivals, Customer stories deck, Runway lookbook and Scroll lookbook storefront.
-* **Cart and checkout:** Empty cart with category tiles and best sellers, Checkout header with a back to bag link, Bag, Checkout and Done steps and an optional trust row, and a Money-back guarantee card.
+* **Cart and checkout:** Cart page with the free shipping meter, cross-sells and a trust row, Empty cart with category tiles and best sellers, Order confirmation with next steps and a prompt to create an account, Checkout header with a back to bag link, Bag, Checkout and Done steps and an optional trust row, and a Money-back guarantee card.
+* **My Account:** Account page, with the Account style for the Group block: ruled navigation, order tables and address cards.
 
 = Abilities for AI agents =
 

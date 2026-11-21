@@ -42,20 +42,27 @@ final class Patterns {
 			return;
 		}
 
-		if ( \WP_Icons_Registry::get_instance()->is_registered( 'purplish/lock' ) ) {
-			return;
-		}
-
 		if ( ! \WP_Icon_Collections_Registry::get_instance()->is_registered( 'purplish' ) ) {
 			wp_register_icon_collection( 'purplish', array( 'label' => __( 'Purplish', 'purplish' ) ) );
 		}
-		wp_register_icon(
-			'purplish/lock',
-			array(
-				'label'     => __( 'Lock', 'purplish' ),
-				'file_path' => PURPLISH_DIR . 'assets/icons/icon-lock.svg',
-			)
+
+		$icons = array(
+			'lock'     => __( 'Lock', 'purplish' ),
+			'shipping' => __( 'Shipping', 'purplish' ),
+			'returns'  => __( 'Returns', 'purplish' ),
 		);
+		foreach ( $icons as $slug => $label ) {
+			if ( \WP_Icons_Registry::get_instance()->is_registered( 'purplish/' . $slug ) ) {
+				continue;
+			}
+			wp_register_icon(
+				'purplish/' . $slug,
+				array(
+					'label'     => $label,
+					'file_path' => PURPLISH_DIR . 'assets/icons/icon-' . $slug . '.svg',
+				)
+			);
+		}
 	}
 
 	/**
@@ -194,6 +201,27 @@ final class Patterns {
 				'categories' => array( 'woo-commerce' ),
 				'blockTypes' => array(),
 				'file'       => PURPLISH_DIR . 'patterns/empty-cart.php',
+			),
+			'cart-page'               => array(
+				'title'      => __( 'Cart page with free shipping meter', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array( 'woocommerce/cart' ),
+				'postTypes'  => array( 'page' ),
+				'file'       => PURPLISH_DIR . 'patterns/cart-page.php',
+			),
+			'order-confirmation'      => array(
+				'title'      => __( 'Order confirmation with next steps', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array(),
+				'postTypes'  => array( 'wp_template' ),
+				'file'       => PURPLISH_DIR . 'patterns/order-confirmation.php',
+			),
+			'account-page'            => array(
+				'title'      => __( 'Account page', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array(),
+				'postTypes'  => array( 'page' ),
+				'file'       => PURPLISH_DIR . 'patterns/account-page.php',
 			),
 			'atelier-shop'            => array(
 				'title'      => __( 'Atelier shop', 'purplish' ),

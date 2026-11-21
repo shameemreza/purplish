@@ -24,7 +24,7 @@ final class BlockEffects {
 	 * `build/style-effects-<part>.css`, named for the class prefix its rules
 	 * hang off.
 	 */
-	const PARTS = array( 'gallery', 'cards', 'accordion', 'pages', 'terms', 'count', 'details', 'reviews', 'specs', 'image', 'cover', 'button', 'cart', 'buybutton', 'thanks', 'drawer', 'cartpage', 'checkoutpage', 'classic', 'group', 'chips', 'badge', 'stock', 'thumbs', 'swatches', 'filters', 'minicart', 'eyes', 'heading', 'columns', 'social', 'summary', 'meter', 'sorting', 'extras' );
+	const PARTS = array( 'gallery', 'cards', 'accordion', 'pages', 'terms', 'count', 'details', 'reviews', 'specs', 'image', 'cover', 'button', 'cart', 'buybutton', 'thanks', 'drawer', 'cartpage', 'checkoutpage', 'classic', 'group', 'chips', 'badge', 'stock', 'thumbs', 'swatches', 'filters', 'minicart', 'eyes', 'heading', 'columns', 'social', 'summary', 'meter', 'sorting', 'extras', 'account' );
 
 	/**
 	 * The script that folds a filter sidebar away, loaded only with it.
