@@ -6,7 +6,7 @@
  * @jest-environment jsdom
  */
 import { describe, expect, it } from '@jest/globals';
-import { headerBottom } from '../../assets/src/filters/sticky';
+import { headerBottom } from '../../assets/src/shared/header';
 
 const view = { width: 1440, height: 900 };
 const box = ( over ) => ( {

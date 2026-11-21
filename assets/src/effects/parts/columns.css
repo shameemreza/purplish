@@ -37,3 +37,24 @@
 		scale: 0.92;
 	}
 }
+
+/*
+ * Column, keep in view while the photos scroll: from 782px, where columns
+ * sit side by side, the column sticks a gap below the admin bar or a
+ * pinned header. It stops stretching to the row's height, so it has room
+ * to move. A column taller than the window gets a negative top: it
+ * scrolls with the page until its end shows, then sticks there. The keep
+ * script measures the head and the column's height; without it the column
+ * sticks a gap below the admin bar.
+ */
+@media (min-width: 782px) {
+
+	.wp-block-columns > .purplish-columns-keep {
+		--purplish-keep-gap: var(--wp--preset--spacing--30, 1.5rem);
+		--purplish-keep-below: calc(var(--purplish-keep-head, var(--wp-admin--admin-bar--height, 0px)) + var(--purplish-keep-gap));
+		--purplish-keep-end: calc(100vh - var(--purplish-keep-height, 0px) - var(--purplish-keep-gap));
+		position: sticky;
+		top: min(var(--purplish-keep-below), var(--purplish-keep-end));
+		align-self: flex-start;
+	}
+}

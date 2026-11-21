@@ -23,6 +23,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Size Chart, Variation Selector | Purplish's own Size Chart block: sizes by measurement in cm with a cm/in switch, picked for each category or product, and a Size guide link beside the size options that opens it in a dialog, with a fit note under them. |
 | Product page | Delivery Line | Purplish's own block: when an order arrives with the time left to order, the returns window linked to your policy, and a pickup line with Local pickup on. Set the dates once for the store in the Shipping settings. |
 | Product page | Matching Extras | Purplish's own block: the matching extras list for an Add to Cart part, with the same options as the switch on Add to Cart + Options. |
+| Product page | Column | Keep the product details in view beside a photo grid on wide screens, until the photos end. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo as a small button or a full-width bar, an outline button under the card, a carousel that ends on part of the next card, and button motion. |
@@ -96,6 +97,7 @@ On other blocks:
 | Slide style | 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, Image tunnel comes out of the distance. |
 | Layout | Hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover. Photo wash puts a light tint of the page color behind the photos and blends them into it, so photos shot on white take the tint. |
 | Thumbnail shape | On the Thumbnails block inside the gallery: rounded or circle. |
+| Details beside the photos | On the Column that holds the product details: Keep in view while the photos scroll. On screens 782px and wider, the column stays below the header while the grid scrolls, then leaves with it. Details taller than the window scroll to their end first, so Add to Cart always shows. Phones keep the columns stacked. |
 
 Any hover style replaces WooCommerce's own hover zoom, and touch screens skip it. The full-screen style needs the gallery's "Open pop-up when clicked" setting.
 
@@ -437,7 +439,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Terms Query, Product Results Count, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor, Changing Room, Escalator, Size Chart, Delivery Line and Matching Extras, are in the Purplish group of the block inserter, Shelf Tag and Color Dots join them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Terms Query, Product Results Count, Columns, Column, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor, Changing Room, Escalator, Size Chart, Delivery Line and Matching Extras, are in the Purplish group of the block inserter, Shelf Tag and Color Dots join them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 

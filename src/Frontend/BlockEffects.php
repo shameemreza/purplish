@@ -48,6 +48,12 @@ final class BlockEffects {
 	const TOTAL_HANDLE = 'purplish-total';
 
 	/**
+	 * The script that keeps a kept Column below a pinned header and lets a
+	 * tall one show its end, loaded only with it.
+	 */
+	const KEEP_HANDLE = 'purplish-keep';
+
+	/**
 	 * Where the grid switch keeps the shopper's choice for the visit.
 	 */
 	const GRID_KEY = 'purplish-cards-grid';
@@ -578,6 +584,15 @@ final class BlockEffects {
 					'entrance' => self::ENTRANCES,
 				),
 			),
+			// Keep in view while the photos scroll; the class shares the
+			// Columns stylesheet.
+			'core/column'                                 => array(
+				'prefix'  => 'columns',
+				'options' => array(
+					'keep' => true,
+				),
+				'preview' => true,
+			),
 			// Only the hover look shows in the editor; the scroll effects stay front end.
 			'core/cover'                                  => array(
 				'prefix'  => 'cover',
@@ -926,6 +941,10 @@ final class BlockEffects {
 		if ( in_array( 'purplish-buybutton-total', $classes, true ) ) {
 			$asset = include PURPLISH_DIR . 'build/total.asset.php';
 			wp_enqueue_script( self::TOTAL_HANDLE, PURPLISH_URL . 'build/total.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
+		}
+		if ( in_array( 'purplish-columns-keep', $classes, true ) ) {
+			$asset = include PURPLISH_DIR . 'build/keep.asset.php';
+			wp_enqueue_script( self::KEEP_HANDLE, PURPLISH_URL . 'build/keep.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 		}
 		if ( in_array( 'purplish-filters-layout-bar', $classes, true ) ) {
 			self::enqueue_filters();

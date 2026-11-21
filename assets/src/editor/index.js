@@ -31,6 +31,7 @@ import ButtonPanel from './button';
 import HeadingPanel from './heading';
 import SocialPanel from './social';
 import ColumnsPanel from './columns';
+import ColumnPanel from './column';
 import CoverPanel, { PagePhotoCoverPanel } from './cover';
 import BuyButtonPanel, {
 	PlaceOrderPanel,
@@ -69,6 +70,7 @@ const PANELS = {
 	'core/heading': HeadingPanel,
 	'core/social-links': SocialPanel,
 	'core/columns': ColumnsPanel,
+	'core/column': ColumnPanel,
 	'core/cover': PagePhotoCoverPanel,
 	'woocommerce/featured-category': CoverPanel,
 	'woocommerce/featured-product': CoverPanel,
