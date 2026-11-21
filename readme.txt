@@ -71,7 +71,7 @@ Purplish's 24 patterns are in the Purplish category of the pattern inserter. The
 * **Heroes:** Escalator hero with products and Escalator hero with photos.
 * **Product page:** Size chart with how to measure, the starting point for each new size chart.
 * **Product showcases:** Hanging rail of new arrivals, Customer stories deck, Runway lookbook and Scroll lookbook storefront.
-* **Cart and checkout:** Empty cart with category tiles and best sellers, Checkout header with Bag, Checkout and Done steps, and a Money-back guarantee card.
+* **Cart and checkout:** Empty cart with category tiles and best sellers, Checkout header with a back to bag link, Bag, Checkout and Done steps and an optional trust row, and a Money-back guarantee card.
 
 = Abilities for AI agents =
 

@@ -26,7 +26,36 @@ final class Patterns {
 	 * @return void
 	 */
 	public function register() {
+		add_action( 'init', array( $this, 'register_icons' ) );
 		add_action( 'init', array( $this, 'register_patterns' ) );
+	}
+
+	/**
+	 * Registers the icons the patterns place with the core Icon block, so
+	 * they take the theme's text color. The icon API arrived in WordPress
+	 * 7.1; on 7.0 the Icon block draws nothing and the text beside it stays.
+	 *
+	 * @return void
+	 */
+	public function register_icons() {
+		if ( ! function_exists( 'wp_register_icon' ) || ! function_exists( 'wp_register_icon_collection' ) ) {
+			return;
+		}
+
+		if ( \WP_Icons_Registry::get_instance()->is_registered( 'purplish/lock' ) ) {
+			return;
+		}
+
+		if ( ! \WP_Icon_Collections_Registry::get_instance()->is_registered( 'purplish' ) ) {
+			wp_register_icon_collection( 'purplish', array( 'label' => __( 'Purplish', 'purplish' ) ) );
+		}
+		wp_register_icon(
+			'purplish/lock',
+			array(
+				'label'     => __( 'Lock', 'purplish' ),
+				'file_path' => PURPLISH_DIR . 'assets/icons/icon-lock.svg',
+			)
+		);
 	}
 
 	/**
@@ -147,6 +176,12 @@ final class Patterns {
 				'categories' => array( 'header' ),
 				'blockTypes' => array( 'core/template-part/header' ),
 				'file'       => PURPLISH_DIR . 'patterns/checkout-header.php',
+			),
+			'checkout-header-trust'   => array(
+				'title'      => __( 'Checkout header with trust row', 'purplish' ),
+				'categories' => array( 'header' ),
+				'blockTypes' => array( 'core/template-part/header' ),
+				'file'       => PURPLISH_DIR . 'patterns/checkout-header-trust.php',
 			),
 			'guarantee-card'          => array(
 				'title'      => __( 'Money-back guarantee card', 'purplish' ),
