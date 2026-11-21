@@ -112,6 +112,24 @@ class SettingsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * On Purple, the pointer comes with the switches for Purple's Add to
+	 * Cart parts, off by default.
+	 */
+	public function test_purple_parts_switches() {
+		$fields = Settings::fields( true, true );
+		$ids    = wp_list_pluck( $fields, 'id' );
+
+		$this->assertCount( 6, $fields );
+		$this->assertContains( Settings::OPTION . '[purple_delivery]', $ids );
+		$this->assertContains( Settings::OPTION . '[purple_extras]', $ids );
+		foreach ( $fields as $field ) {
+			if ( 'checkbox' === $field['type'] ) {
+				$this->assertSame( 'no', $field['default'] );
+			}
+		}
+	}
+
+	/**
 	 * The section is added to the Products tab.
 	 */
 	public function test_section() {

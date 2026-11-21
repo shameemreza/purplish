@@ -22,6 +22,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Variation Selector, On-Sale Badge | Photo swatches with the picked color's name, crossed out or blurred options that can't be bought, and a pill, circle or price tag badge in any corner of the photo. |
 | Product page | Size Chart, Variation Selector | Purplish's own Size Chart block: sizes by measurement in cm with a cm/in switch, picked for each category or product, and a Size guide link beside the size options that opens it in a dialog, with a fit note under them. |
 | Product page | Delivery Line | Purplish's own block: when an order arrives with the time left to order, the returns window linked to your policy, and a pickup line with Local pickup on. Set the dates once for the store in the Shipping settings. |
+| Product page | Matching Extras | Purplish's own block: the matching extras list for an Add to Cart part, with the same options as the switch on Add to Cart + Options. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
 | Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo as a small button or a full-width bar, an outline button under the card, a carousel that ends on part of the next card, and button motion. |
@@ -378,6 +379,14 @@ A block of Purplish's own, in the Purplish group of the block inserter. Short li
 - **Options:** turn each line on or off, show the latest date or a range, hide the time left, the policy link or the icons, and use a short date or the site's date format. Lines or Boxed from the block's Styles panel.
 - **Looks:** the Purple theme's colors and fonts first, and any block theme's otherwise. The icons take the text color. The editor shows the real lines for the product.
 
+## Purple's Add to Cart parts
+
+The Purple theme has an Add to Cart part for each product type. In WooCommerce > Settings > Products > Purplish, turn on the Delivery Line and Matching Extras for them, and both go at the end of the simple, variable and grouped parts, under the buy button, with no template edits. External products link to another store, so they get neither.
+
+- **Matching Extras block:** the matching extras list as a block of its own, with the same options as the switch on Add to Cart + Options. When that switch is on too, the product shows one list.
+- **Changing a part:** open the part in the Site Editor to move a block, change its settings or take it out. Once you save a part, it keeps your changes, and a block you took out stays out. Turn a switch off and its block leaves every part it went into.
+- **Other themes:** nothing changes. Add the Delivery Line block or turn on Matching extras on Add to Cart + Options as before.
+
 ## Abilities for AI agents
 
 Purplish registers four abilities with the WordPress Abilities API, in a category named Purplish. The REST API lists them at `/wp-json/wp-abilities/v1/abilities`, and the [MCP Adapter](https://github.com/WordPress/mcp-adapter) plugin hands them to AI agents as tools. An agent can ask what Purplish can do, read the options a page uses, set them on a block and add a pattern.
@@ -417,7 +426,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
 2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
-3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Terms Query, Product Results Count, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor, Changing Room, Escalator, Size Chart and Delivery Line, are in the Purplish group of the block inserter, Shelf Tag and Color Dots join them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
+3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Terms Query, Product Results Count, Columns, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor, Changing Room, Escalator, Size Chart, Delivery Line and Matching Extras, are in the Purplish group of the block inserter, Shelf Tag and Color Dots join them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
 

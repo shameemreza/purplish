@@ -9,6 +9,7 @@ namespace Purplish\Blocks;
 
 use DateTimeImmutable;
 use Purplish\Delivery;
+use Purplish\Frontend\PurpleParts;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -188,6 +189,10 @@ final class DeliveryLine implements Block {
 	 * @return string
 	 */
 	public function render( $attributes, $content, $block ) {
+		if ( ! PurpleParts::keeps( $attributes, 'delivery' ) ) {
+			return '';
+		}
+
 		$options  = self::options( $attributes );
 		$product  = self::product( $block );
 		$settings = Delivery::settings_for( $product );

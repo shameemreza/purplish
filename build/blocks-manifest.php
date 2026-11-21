@@ -405,6 +405,10 @@ return array(
 					'site'
 				),
 				'default' => 'short'
+			),
+			'purplishHooked' => array(
+				'type' => 'boolean',
+				'default' => false
 			)
 		),
 		'styles' => array(
@@ -655,6 +659,49 @@ return array(
 		'editorScript' => 'file:./index.js',
 		'viewScript' => 'file:./view.js',
 		'style' => 'file:./style-index.css'
+	),
+	'matching-extras' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'purplish/matching-extras',
+		'version' => '1.4.0',
+		'title' => 'Matching Extras',
+		'category' => 'purplish',
+		'description' => 'Other products with a checkbox, added to the cart with the product on the same click. Goes in an Add to Cart part, under the buy button. Only simple products in stock show.',
+		'keywords' => array(
+			'extras',
+			'add-ons',
+			'cross-sells',
+			'bundle',
+			'upsell'
+		),
+		'textdomain' => 'purplish',
+		'usesContext' => array(
+			'postId',
+			'postType'
+		),
+		'attributes' => array(
+			'options' => array(
+				'type' => 'object',
+				'default' => array(
+					
+				)
+			),
+			'purplishHooked' => array(
+				'type' => 'boolean',
+				'default' => false
+			)
+		),
+		'supports' => array(
+			'html' => false,
+			'reusable' => false
+		),
+		'example' => array(
+			'attributes' => array(
+				
+			)
+		),
+		'editorScript' => 'file:./index.js'
 	),
 	'runway' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',

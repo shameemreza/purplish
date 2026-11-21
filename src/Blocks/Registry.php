@@ -47,6 +47,7 @@ final class Registry {
 		ShelfTag::hooks();
 		ColorDots::hooks();
 		SizeChart::hooks();
+		MatchingExtras::hooks();
 	}
 
 	/**
@@ -70,6 +71,7 @@ final class Registry {
 			Escalator::class,
 			SizeChart::class,
 			DeliveryLine::class,
+			MatchingExtras::class,
 		);
 	}
 

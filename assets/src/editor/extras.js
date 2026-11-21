@@ -185,9 +185,10 @@ const FROM_HELP = {
  * @param {Object}                  props          Panel props.
  * @param {Object}                  props.saved    The block's saved `purplish` attribute.
  * @param {(saved: Object) => void} props.setSaved Saves a new `purplish` attribute.
+ * @param {boolean}                 [props.always] The Matching Extras block: no switch, the list always shows.
  */
-export default function ExtrasPanel( { saved, setSaved } ) {
-	const on = true === saved.extras;
+export default function ExtrasPanel( { saved, setSaved, always = false } ) {
+	const on = always || true === saved.extras;
 	const settings = extrasSettings( saved );
 	const save = ( changes ) => setSaved( { ...saved, ...changes } );
 
@@ -196,16 +197,21 @@ export default function ExtrasPanel( { saved, setSaved } ) {
 			title={ __( 'Matching extras', 'purplish' ) }
 			initialOpen={ on }
 		>
-			<ToggleControl
-				__nextHasNoMarginBottom
-				label={ __( 'Matching extras under the button', 'purplish' ) }
-				help={ __(
-					'Other products with a checkbox under Add to cart. Ticked ones go into the cart with the product on the same click. Only simple products in stock show. The editor shows the picks, or the store’s best sellers.',
-					'purplish'
-				) }
-				checked={ on }
-				onChange={ ( extras ) => save( { extras } ) }
-			/>
+			{ ! always && (
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __(
+						'Matching extras under the button',
+						'purplish'
+					) }
+					help={ __(
+						'Other products with a checkbox under Add to cart. Ticked ones go into the cart with the product on the same click. Only simple products in stock show. The editor shows the picks, or the store’s best sellers.',
+						'purplish'
+					) }
+					checked={ on }
+					onChange={ ( extras ) => save( { extras } ) }
+				/>
+			) }
 			{ on && (
 				<>
 					<SelectControl

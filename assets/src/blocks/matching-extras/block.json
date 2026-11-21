@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "purplish/matching-extras",
+	"version": "1.4.0",
+	"title": "Matching Extras",
+	"category": "purplish",
+	"description": "Other products with a checkbox, added to the cart with the product on the same click. Goes in an Add to Cart part, under the buy button. Only simple products in stock show.",
+	"keywords": [ "extras", "add-ons", "cross-sells", "bundle", "upsell" ],
+	"textdomain": "purplish",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"options": {
+			"type": "object",
+			"default": {}
+		},
+		"purplishHooked": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"example": {
+		"attributes": {}
+	},
+	"editorScript": "file:./index.js"
+}

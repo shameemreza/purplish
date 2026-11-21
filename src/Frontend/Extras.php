@@ -118,29 +118,45 @@ final class Extras {
 			$ids = $product->get_cross_sell_ids();
 		}
 
-		$found = self::usable( $ids, $product->get_id(), $settings['count'] );
+		$found = self::usable( $ids, self::own_ids( $product ), $settings['count'] );
 		if ( 'auto' === $settings['from'] || ( ! $found && $settings['fallback'] ) ) {
-			$found = self::usable( self::matches( $product, $settings['count'] ), $product->get_id(), $settings['count'] );
+			$found = self::usable( self::matches( $product, $settings['count'] ), self::own_ids( $product ), $settings['count'] );
 		}
 		return $found;
+	}
+
+	/**
+	 * The product on the page and, for a grouped product, the products in
+	 * its group, which the shopper already picks above the button.
+	 *
+	 * @param \WC_Product $product The product on the page.
+	 * @return int[]
+	 */
+	private static function own_ids( $product ) {
+		$ids = array( $product->get_id() );
+		if ( $product->is_type( 'grouped' ) ) {
+			$ids = array_merge( $ids, $product->get_children() );
+		}
+		return array_map( 'absint', $ids );
 	}
 
 	/**
 	 * Simple products that are on sale, in stock and shown in the shop,
 	 * other than the product on the page, in the given order.
 	 *
-	 * @param int[] $ids     Product IDs.
-	 * @param int   $current The product on the page.
-	 * @param int   $count   How many to keep.
+	 * @param int[]     $ids     Product IDs.
+	 * @param int|int[] $current The product on the page, or the IDs to skip.
+	 * @param int       $count   How many to keep.
 	 * @return \WC_Product[]
 	 */
 	public static function usable( $ids, $current, $count ) {
 		$found = array();
+		$skip  = array_map( 'absint', (array) $current );
 		foreach ( array_unique( array_map( 'absint', (array) $ids ) ) as $id ) {
 			if ( count( $found ) >= $count ) {
 				break;
 			}
-			$extra = $id && (int) $current !== $id ? wc_get_product( $id ) : null;
+			$extra = $id && ! in_array( $id, $skip, true ) ? wc_get_product( $id ) : null;
 			if ( self::can_add( $extra ) ) {
 				$found[] = $extra;
 			}
@@ -205,7 +221,8 @@ final class Extras {
 
 	/**
 	 * Prints the list inside the block's form, under the button, and loads
-	 * its styles and script. Nothing prints when no product fits.
+	 * its styles and script. Nothing prints when no product fits, or when a
+	 * Matching Extras block in the Add to Cart part already printed a list.
 	 *
 	 * @param string $html  The rendered block.
 	 * @param mixed  $saved The block's `purplish` attribute.
@@ -214,21 +231,38 @@ final class Extras {
 	public static function render( $html, $saved ) {
 		$product = function_exists( 'wc_get_product' ) ? wc_get_product( get_the_ID() ) : null;
 		$end     = strripos( $html, '</form>' );
-		if ( ! $product || false === $end ) {
+		if ( ! $product || false === $end || false !== strpos( $html, 'class="purplish-extras ' ) ) {
 			return $html;
 		}
 
+		$list = self::list_for( $product, $saved );
+		return '' === $list ? $html : substr( $html, 0, $end ) . $list . substr( $html, $end );
+	}
+
+	/**
+	 * The list for a product, with its styles and script loaded, or '' when
+	 * no product fits. An external product's button links to another store
+	 * and never posts the form, so it gets no list.
+	 *
+	 * @param \WC_Product $product The product on the page.
+	 * @param mixed       $saved   Extras settings, as the `purplish` attribute keeps them.
+	 * @return string
+	 */
+	public static function list_for( $product, $saved ) {
+		if ( $product->is_type( 'external' ) ) {
+			return '';
+		}
 		$settings = self::settings( $saved );
 		$extras   = self::products( $product, $settings );
 		if ( ! $extras ) {
-			return $html;
+			return '';
 		}
 
 		BlockEffects::enqueue( array( 'extras' ) );
 		$asset = include PURPLISH_DIR . 'build/extras.asset.php';
 		wp_enqueue_script( self::HANDLE, PURPLISH_URL . 'build/extras.js', $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 
-		return substr( $html, 0, $end ) . self::markup( $extras, $settings ) . substr( $html, $end );
+		return self::markup( $extras, $settings );
 	}
 
 	/**
@@ -291,8 +325,9 @@ final class Extras {
 
 	/**
 	 * Adds the ticked extras when WooCommerce posts the block's form, right
-	 * after it adds the main product. Each must still be one the list can
-	 * show; the store's own add to cart checks run on each.
+	 * after it adds the main product, or the first product of a group. Each
+	 * must still be one the list can show; the store's own add to cart
+	 * checks run on each.
 	 *
 	 * @param string $key        The main item's cart key.
 	 * @param int    $product_id The main product.
@@ -302,14 +337,21 @@ final class Extras {
 		// WooCommerce's own form add carries no nonce either; this adds to
 		// the shopper's own cart only.
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
-		if ( self::$added || empty( $_REQUEST[ self::FIELD ] ) || ! isset( $_REQUEST['add-to-cart'] ) || absint( wp_unslash( $_REQUEST['add-to-cart'] ) ) !== (int) $product_id ) {
+		if ( self::$added || empty( $_REQUEST[ self::FIELD ] ) || ! isset( $_REQUEST['add-to-cart'] ) ) {
 			return;
 		}
-		$ids = array_map( 'absint', (array) wp_unslash( $_REQUEST[ self::FIELD ] ) );
+		$main = wc_get_product( absint( wp_unslash( $_REQUEST['add-to-cart'] ) ) );
+		$ids  = array_map( 'absint', (array) wp_unslash( $_REQUEST[ self::FIELD ] ) );
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
+		// A grouped product's form adds each product in the group, never the
+		// group itself.
+		if ( ! $main instanceof \WC_Product || ! in_array( (int) $product_id, self::own_ids( $main ), true ) ) {
+			return;
+		}
+
 		self::$added = true;
-		foreach ( self::usable( $ids, $product_id, self::MAX ) as $extra ) {
+		foreach ( self::usable( $ids, self::own_ids( $main ), self::MAX ) as $extra ) {
 			/** This filter is documented in WooCommerce's includes/class-wc-form-handler.php */
 			if ( apply_filters( 'woocommerce_add_to_cart_validation', true, $extra->get_id(), 1 ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WooCommerce's own add to cart check.
 				WC()->cart->add_to_cart( $extra->get_id(), 1 );

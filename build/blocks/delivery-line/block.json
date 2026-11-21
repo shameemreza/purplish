@@ -59,6 +59,10 @@
         "site"
       ],
       "default": "short"
+    },
+    "purplishHooked": {
+      "type": "boolean",
+      "default": false
     }
   },
   "styles": [

@@ -60,6 +60,7 @@ Find them in the Purplish group of the block inserter.
 * **Escalator:** photos or products ride two or three columns that move in opposite directions, with a hover look and an add to cart button for each tile, for a store home page hero.
 * **Size Chart:** sizes by measurement in centimeters with a cm/in switch, lines or striped rows, How to measure notes on a drawn figure, and sizes shoppers can pick right from the chart. Saved as a pattern, picked for each category or product with a fit note, and opened from a Size guide link beside the size options.
 * **Delivery Line:** short lines under the buy button that say when an order arrives, with the time left to order for that date, how long shoppers have to return it, with a link to your policy, and when it's ready for pickup if Local pickup is on. Dates follow your cut-off time, working days and holidays, and stay right on cached pages.
+* **Matching Extras:** the matching extras list as a block of its own for an Add to Cart part. On the Purple theme, turn on the Delivery Line and Matching Extras in the Purplish settings and both go under the buy button in each product type's Add to Cart part, with no template edits.
 
 = Patterns =
 
