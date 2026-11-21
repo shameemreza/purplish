@@ -23,7 +23,7 @@
 	max-width: 30rem;
 	padding: 1.25em 1.5em 2em;
 	background: var(--purplish-paper, color-mix(in oklab, currentcolor 5%, transparent));
-	border-radius: 0.375em 0.375em 0 0;
+	border-radius: var(--wp--custom--purplish--radius, 0.375em) var(--wp--custom--purplish--radius, 0.375em) 0 0;
 	mask:
 		conic-gradient(from -45deg at bottom, #000 90deg, #0000 0) bottom / 1em 0.5em repeat-x,
 		linear-gradient(#000 0 0) top / 100% calc(100% - 0.49em) no-repeat;

@@ -23,7 +23,7 @@
  */
 .purplish-details-soft {
 	padding: 0 1.25rem;
-	border-radius: 18px;
+	border-radius: var(--wp--custom--purplish--radius, 18px);
 	background-color: var(--purplish-color-soft);
 	transition: background-color 0.3s;
 }
@@ -52,7 +52,7 @@
 	width: 32px;
 	height: 32px;
 	border-radius: 50%;
-	background-color: #fff;
+	background-color: var(--purplish-theme-paper, #fff);
 	background-image: linear-gradient(currentcolor, currentcolor), linear-gradient(currentcolor, currentcolor);
 	background-position: center;
 	background-size: 12px 2px, 2px 12px;

@@ -16,7 +16,7 @@
 .purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"],
 .purplish-reviews-style-cards .wp-block-woocommerce-product-review-template > li.block-editor-block-list__layout {
 	padding: 1.25rem 1.5rem;
-	border-radius: 18px;
+	border-radius: var(--wp--custom--purplish--radius, 18px);
 	background-color: var(--purplish-color-soft);
 	transition: background-color 0.3s;
 }
@@ -27,7 +27,7 @@
 }
 
 .purplish-reviews-style-cards .wp-block-woocommerce-product-review-template li[id^="comment-"] li[id^="comment-"] {
-	background-color: #fff;
+	background-color: var(--purplish-theme-paper, #fff);
 }
 
 /*

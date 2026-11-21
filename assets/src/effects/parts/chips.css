@@ -89,7 +89,7 @@
 	box-sizing: border-box;
 	width: 100%;
 	height: 100%;
-	border: 1px solid color-mix(in srgb, currentcolor 15%, transparent);
+	border: 1px solid var(--wp--custom--purplish--rule, color-mix(in srgb, currentcolor 15%, transparent));
 	border-radius: var(--purplish-swatch-radius);
 }
 

@@ -13,7 +13,7 @@
 	--purplish-wardrobe-tint: color-mix(in srgb, var(--purplish-wardrobe-accent) 9%, var(--purplish-wardrobe-base));
 	--purplish-wardrobe-shade: color-mix(in srgb, var(--purplish-wardrobe-accent) 22%, var(--purplish-wardrobe-ink));
 	--purplish-wardrobe-ease: cubic-bezier(0.22, 1, 0.36, 1);
-	--purplish-wardrobe-radius: 24px;
+	--purplish-wardrobe-radius: var(--wp--custom--purplish--radius, 24px);
 	--purplish-wardrobe-gap: 8px;
 	--purplish-wardrobe-pad: clamp(20px, 2.2vw, 32px);
 	--purplish-wardrobe-width: var(--wp--style--global--wide-size, 1200px);
@@ -215,7 +215,7 @@
 	position: relative;
 	overflow: clip;
 	margin: 0;
-	border-radius: 14px;
+	border-radius: var(--wp--custom--purplish--radius, 14px);
 	background: var(--purplish-wardrobe-tint);
 }
 
@@ -238,7 +238,7 @@
 	left: 10px;
 	margin: 0;
 	padding: 4px 11px;
-	border-radius: 999px;
+	border-radius: var(--wp--custom--purplish--radius, 999px);
 	background: var(--purplish-wardrobe-base);
 	color: var(--purplish-wardrobe-ink);
 	font-size: inherit;
@@ -253,7 +253,7 @@
 	gap: 0;
 	height: 100%;
 	overflow: clip;
-	border-radius: 14px;
+	border-radius: var(--wp--custom--purplish--radius, 14px);
 	background: radial-gradient(120% 60% at 50% 100%, color-mix(in srgb, var(--purplish-wardrobe-accent) 22%, var(--purplish-wardrobe-tint)) 0%, var(--purplish-wardrobe-tint) 60%);
 }
 

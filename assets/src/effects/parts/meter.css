@@ -31,7 +31,7 @@
 
 .purplish-meter-bar {
 	block-size: 6px;
-	border-radius: 999px;
+	border-radius: var(--wp--custom--purplish--radius, 999px);
 	background: color-mix(in srgb, currentcolor 12%, transparent);
 	overflow: hidden;
 }

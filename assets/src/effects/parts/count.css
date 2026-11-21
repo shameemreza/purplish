@@ -48,6 +48,11 @@
 	line-height: 1.3;
 }
 
+/* Outline doesn't name a shape, so it takes the theme's corners. */
+.purplish-count-look-outline .woocommerce-result-count {
+	border-radius: var(--wp--custom--purplish--radius, 999px);
+}
+
 .purplish-count-look-pill .woocommerce-result-count {
 	background: var(--purplish-color-soft);
 	color: var(--purplish-color);
