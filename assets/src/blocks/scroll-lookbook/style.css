@@ -351,6 +351,12 @@
 	color: var(--purplish-lookbook-light);
 }
 
+/* Headings on a shot keep the shot's text color. A theme's section style
+   colors headings directly, which would put dark text on a dark shot. */
+.wp-block-purplish-scroll-lookbook .wp-block-cover:not(.has-text-color) :is(h1, h2, h3, h4, h5, h6):not(.has-text-color) {
+	color: inherit;
+}
+
 /* Narrow film: the card rises from the bottom, the film keeps the top. */
 .purplish-lookbook-narrow .purplish-lookbook-card,
 .purplish-lookbook-narrow .purplish-lookbook-card-right {
