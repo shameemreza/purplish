@@ -54,7 +54,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 
 - **Settings live on the block:** what you pick in the Purplish panel is saved on the block in the template, so each template keeps its own look.
 - **WooCommerce's markup stays in place:** Purplish styles the blocks WooCommerce renders and replaces nothing. Deactivate it, and the store renders exactly as WooCommerce draws it.
-- **Scripts load only where they're used:** the color script loads on variable products only, and each effect loads only on pages that use it. A simple product page with no effects loads no script.
+- **Scripts load only where they're used:** the color script loads on variable products, bundles, composites, mix and match boxes and grouped products only, and each effect loads only on pages that use it. A simple product page with no effects loads no script.
 - **Photos stay on your server:** colors are read from variation photos in the background, with the image tools PHP already has, and saved with the product.
 - **Nothing extra:** no outside requests, no tracking, and no banners, notices or upsells in the admin.
 - **Motion with manners:** nothing moves on its own. Every effect plays on a hover, a scroll, a color change, an add to cart, an opened cart drawer or a placed order, then stops, and reduced motion turns it all off.
@@ -65,7 +65,7 @@ On a default WooCommerce product page, picking another color changes the photo a
 
 ![Picking blue turns the button, the selected option and the background blue](.github/assets/color-change.gif)
 
-Each variation has a Page color: **Automatic** reads it from the photo (a swatch color comes first), **Custom** takes any color or hex code, and **Off** keeps your theme's colors. Automatic colors keep the photo's hue and get adjusted for each use, so the button text stays readable. Simple products get one color for the whole page.
+Each variation has a Page color: **Automatic** reads it from the photo (a swatch color comes first), **Custom** takes any color or hex code, and **Off** keeps your theme's colors. Automatic colors keep the photo's hue and get adjusted for each use, so the button text stays readable. Simple products get one color for the whole page. Bundles, composites, mix and match boxes and grouped products open in their own color, then follow the item the shopper changed last. Clearing an item hands the color back to the one changed before. Without a color of their own, bundles and composites open in the color of their first item that already has one. Works with WooCommerce Product Bundles, Composite Products and Mix and Match Products.
 
 On the same block:
 
@@ -438,7 +438,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 ## Get started
 
 1. Install and activate Purplish. It reads the colors of your variation photos in the background.
-2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple product, it's on the General tab.
+2. To change a variation's color, edit the product, open Variations and use the Page color field. For a simple, bundle, composite, mix and match or grouped product, it's on the General tab.
 3. On a block theme, open a template in the Site Editor and select a block. Purplish adds a panel to WooCommerce's Product Gallery, Thumbnails, Add to Cart + Options, Variation Selector, Product Collection, On-Sale Badge, Product Reviews, Product Specifications, Product Stock Indicator, Featured Category, Featured Product, Product Filters, Mini-Cart, Mini-Cart Contents, Mini-Cart Proceed to Checkout Button, Accordion Group, Cart, Proceed to Checkout, Checkout, checkout Actions, Order Status and Order Summary blocks, and to the Accordion, Details, Group, Pagination, Terms Query, Product Results Count, Columns, Column, Heading, Cover, Image, Button and Social Icons blocks. Its own blocks, Hanging Rail, Story Deck, Runway, Scroll Lookbook, Showfloor, Changing Room, Escalator, Size Chart, Delivery Line and Matching Extras, are in the Purplish group of the block inserter, Shelf Tag and Color Dots join them inside a product card, and Wardrobe is in the Navigation block's inserter. On a classic theme, go to WooCommerce > Settings > Products > Purplish.
 
 ## Requirements
@@ -460,6 +460,7 @@ Purplish has a small set of PHP hooks, front-end events and CSS custom propertie
 | `purplish_blocks` | Filter | The Purplish block classes to register. Remove one to turn that block off, with its scripts and styles. |
 | `purplish_patterns` | Filter | The Purplish patterns to register, keyed by slug. |
 | `purplish_color_set` | Filter | The color set of a variation or simple product, with the product object. Return `null` for no color. A set with only `color` gets the other parts worked out from it. |
+| `purplish_container_types` | Filter | The product types that hold other products: `bundle`, `composite`, `mix-and-match` and `grouped`. A type added here gets the Page color field and opens in its own color. |
 | `purplish_detected_color` | Filter | The hex color the photo detector picked, with the attachment ID, before it's saved. Return an empty string to save no color. |
 | `purplish_block_classes` | Filter | The classes Purplish adds to a block's wrapper, with the block name and its saved Purplish options. |
 | `purplish_shelf_tag_show` | Filter | Whether a Shelf Tag shows on a product card, with the product and the tag's block attributes. |
@@ -489,7 +490,7 @@ Both events fire on `document`, so theme scripts and analytics can listen withou
 
 | Event | Fires when | `event.detail` |
 |---|---|---|
-| `purplish:colorchange` | The product page color changes, when a shopper picks a variation or clears the selection. | The new color set (`color`, `on`, `ink`, `tint`), or `null` when the page goes back to the theme colors. |
+| `purplish:colorchange` | The product page color changes, when a shopper picks a variation, changes an item in a bundle, composite, mix and match box or grouped product, or clears the selection. | The new color set (`color`, `on`, `ink`, `tint`), or `null` when the page goes back to the theme colors. |
 | `purplish:stop` | Scroll Lookbook lands on a stop. | `stop`, the stop number (1 is the first product card), and `block`, the block's element. |
 
 ```

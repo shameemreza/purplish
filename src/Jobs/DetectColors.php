@@ -8,6 +8,7 @@
 namespace Purplish\Jobs;
 
 use Purplish\Color\Detector;
+use Purplish\Frontend\Pieces;
 use Purplish\Meta;
 use WC_Product_Variation;
 
@@ -25,6 +26,13 @@ final class DetectColors {
 	const HOOK_BATCH   = 'purplish_detect_batch';
 	const BATCH_SIZE   = 50;
 	const QUEUE_OPTION = 'purplish_queue_batch';
+
+	/**
+	 * Set once the products walk has covered bundles, composites, mix and
+	 * match and grouped products (1.4), so sites that walked before then
+	 * walk the products once more.
+	 */
+	const CONTAINER_WALK_OPTION = 'purplish_container_walk';
 
 	const KIND_VARIATION = 'variation';
 	const KIND_SIMPLE    = 'simple';
@@ -55,17 +63,31 @@ final class DetectColors {
 	}
 
 	/**
-	 * Queues the first batch after activation, once.
+	 * Queues the first batch after activation, once, and on sites that
+	 * walked before 1.4 one more walk of the products.
 	 *
 	 * @return void
 	 */
 	public function queue_first_batch() {
-		if ( ! get_option( self::QUEUE_OPTION ) || ! function_exists( 'as_enqueue_async_action' ) ) {
+		if ( ! function_exists( 'as_enqueue_async_action' ) ) {
 			return;
 		}
 
-		if ( as_enqueue_async_action( self::HOOK_BATCH, self::batch_args( 0, self::KIND_VARIATION ), self::GROUP, true ) ) {
-			delete_option( self::QUEUE_OPTION );
+		if ( get_option( self::QUEUE_OPTION ) ) {
+			// The full walk reaches the products after the variations, containers included.
+			if ( as_enqueue_async_action( self::HOOK_BATCH, self::batch_args( 0, self::KIND_VARIATION ), self::GROUP, true ) ) {
+				delete_option( self::QUEUE_OPTION );
+				update_option( self::CONTAINER_WALK_OPTION, 1, true );
+			}
+			return;
+		}
+
+		if ( get_option( self::CONTAINER_WALK_OPTION ) ) {
+			return;
+		}
+		$args = self::batch_args( 0, self::KIND_SIMPLE );
+		if ( as_has_scheduled_action( self::HOOK_BATCH, $args, self::GROUP ) || as_enqueue_async_action( self::HOOK_BATCH, $args, self::GROUP, true ) ) {
+			update_option( self::CONTAINER_WALK_OPTION, 1, true );
 		}
 	}
 
@@ -89,14 +111,24 @@ final class DetectColors {
 	}
 
 	/**
-	 * Whether Purplish gives a product its own color: variations and simple
-	 * products.
+	 * Whether Purplish gives a product its own color: variations, simple
+	 * products, and products made of other products (Pieces::types()).
 	 *
 	 * @param mixed $product Product.
 	 * @return bool
 	 */
 	public static function is_colorable( $product ) {
-		return $product instanceof WC_Product_Variation || ( $product instanceof \WC_Product && $product->is_type( 'simple' ) );
+		return $product instanceof WC_Product_Variation || ( $product instanceof \WC_Product && $product->is_type( self::product_types() ) );
+	}
+
+	/**
+	 * The product types with their own photo color: simple and the
+	 * container types.
+	 *
+	 * @return string[]
+	 */
+	public static function product_types() {
+		return array_merge( array( 'simple' ), Pieces::types() );
 	}
 
 	/**
@@ -217,7 +249,7 @@ final class DetectColors {
 				array(
 					'taxonomy' => 'product_type',
 					'field'    => 'slug',
-					'terms'    => 'simple',
+					'terms'    => self::product_types(),
 				),
 			);
 		}
