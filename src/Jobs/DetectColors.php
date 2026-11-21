@@ -28,9 +28,10 @@ final class DetectColors {
 	const QUEUE_OPTION = 'purplish_queue_batch';
 
 	/**
-	 * Set once the products walk has covered bundles, composites, mix and
-	 * match and grouped products (1.4), so sites that walked before then
-	 * walk the products once more.
+	 * The Detector::VERSION the site's last full walk ran with. A site
+	 * whose walk is older walks again: saved Automatic colors are read with
+	 * the current detector, and bundles, composites, mix and match and
+	 * grouped products (1.4) get their first color.
 	 */
 	const CONTAINER_WALK_OPTION = 'purplish_container_walk';
 
@@ -63,8 +64,8 @@ final class DetectColors {
 	}
 
 	/**
-	 * Queues the first batch after activation, once, and on sites that
-	 * walked before 1.4 one more walk of the products.
+	 * Queues the first batch after activation, once, and one more walk
+	 * when the detector changed since the site's last walk.
 	 *
 	 * @return void
 	 */
@@ -73,21 +74,15 @@ final class DetectColors {
 			return;
 		}
 
-		if ( get_option( self::QUEUE_OPTION ) ) {
-			// The full walk reaches the products after the variations, containers included.
-			if ( as_enqueue_async_action( self::HOOK_BATCH, self::batch_args( 0, self::KIND_VARIATION ), self::GROUP, true ) ) {
-				delete_option( self::QUEUE_OPTION );
-				update_option( self::CONTAINER_WALK_OPTION, 1, true );
-			}
+		if ( ! get_option( self::QUEUE_OPTION ) && (int) get_option( self::CONTAINER_WALK_OPTION ) >= Detector::VERSION ) {
 			return;
 		}
 
-		if ( get_option( self::CONTAINER_WALK_OPTION ) ) {
-			return;
-		}
-		$args = self::batch_args( 0, self::KIND_SIMPLE );
+		// The full walk reaches the products after the variations, containers included.
+		$args = self::batch_args( 0, self::KIND_VARIATION );
 		if ( as_has_scheduled_action( self::HOOK_BATCH, $args, self::GROUP ) || as_enqueue_async_action( self::HOOK_BATCH, $args, self::GROUP, true ) ) {
-			update_option( self::CONTAINER_WALK_OPTION, 1, true );
+			delete_option( self::QUEUE_OPTION );
+			update_option( self::CONTAINER_WALK_OPTION, Detector::VERSION, true );
 		}
 	}
 
@@ -133,8 +128,8 @@ final class DetectColors {
 
 	/**
 	 * Whether a variation's saved auto color is out of date: it's in
-	 * Automatic mode and its photo, or the photo file, isn't the one the
-	 * color came from.
+	 * Automatic mode and its photo, the photo file, or the detector that
+	 * read it isn't the one the color came from.
 	 *
 	 * @param \WC_Product $variation Variation or simple product.
 	 * @return bool
@@ -147,8 +142,9 @@ final class DetectColors {
 	}
 
 	/**
-	 * Where a variation's auto color comes from: the photo's attachment ID
-	 * and its modified time, so a replaced file counts as a new photo.
+	 * Where a variation's auto color comes from: the photo's attachment ID,
+	 * its modified time, so a replaced file counts as a new photo, and the
+	 * detector version, so a better detector reads it again.
 	 *
 	 * @param \WC_Product $variation Variation or simple product.
 	 * @return string Empty when it has no photo.
@@ -158,7 +154,7 @@ final class DetectColors {
 		if ( ! $image_id ) {
 			return '';
 		}
-		return $image_id . ':' . (string) get_post_modified_time( 'U', true, $image_id );
+		return $image_id . ':' . (string) get_post_modified_time( 'U', true, $image_id ) . ':' . Detector::VERSION;
 	}
 
 	/**

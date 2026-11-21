@@ -7,6 +7,7 @@
 
 namespace Purplish\Tests\Jobs;
 
+use Purplish\Color\Detector;
 use Purplish\Jobs\DetectColors;
 use Purplish\Meta;
 use Purplish\Tests\Support\Products;
@@ -36,7 +37,7 @@ class DetectColorsTest extends WP_UnitTestCase {
 		}
 		$this->temp_files = array();
 		delete_option( DetectColors::QUEUE_OPTION );
-		update_option( DetectColors::CONTAINER_WALK_OPTION, 1 );
+		update_option( DetectColors::CONTAINER_WALK_OPTION, Detector::VERSION );
 		parent::tear_down();
 	}
 
@@ -266,19 +267,63 @@ class DetectColorsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * A site that ran the first walk before 1.4 walks the products once
-	 * more, so existing bundles get their photo color.
+	 * A site that ran the first walk before 1.4 walks everything once
+	 * more, so existing bundles get their photo color and saved colors
+	 * are read with the current detector.
 	 */
 	public function test_update_walks_products_once_more() {
 		delete_option( DetectColors::CONTAINER_WALK_OPTION );
 
 		( new DetectColors() )->queue_first_batch();
-		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, DetectColors::batch_args( 0, DetectColors::KIND_SIMPLE ), DetectColors::GROUP ) );
-		$this->assertSame( '1', (string) get_option( DetectColors::CONTAINER_WALK_OPTION ) );
+		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, DetectColors::batch_args( 0, DetectColors::KIND_VARIATION ), DetectColors::GROUP ) );
+		$this->assertSame( (string) Detector::VERSION, (string) get_option( DetectColors::CONTAINER_WALK_OPTION ) );
 
 		as_unschedule_all_actions( DetectColors::HOOK_BATCH, null, DetectColors::GROUP );
 		( new DetectColors() )->queue_first_batch();
 		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_BATCH, null, DetectColors::GROUP ) );
+	}
+
+	/**
+	 * A site whose last walk ran with an older detector walks again.
+	 */
+	public function test_older_detector_walks_again() {
+		update_option( DetectColors::CONTAINER_WALK_OPTION, Detector::VERSION - 1 );
+
+		( new DetectColors() )->queue_first_batch();
+
+		$this->assertTrue( as_has_scheduled_action( DetectColors::HOOK_BATCH, DetectColors::batch_args( 0, DetectColors::KIND_VARIATION ), DetectColors::GROUP ) );
+		$this->assertSame( (string) Detector::VERSION, (string) get_option( DetectColors::CONTAINER_WALK_OPTION ) );
+	}
+
+	/**
+	 * A color an older detector read is out of date, so the walk queues it
+	 * and the job reads the same photo again. Custom colors are left alone.
+	 */
+	public function test_color_from_older_detector_is_read_again() {
+		$variations = Products::sweater( array( 'Orange', 'Blue' ), array( 'S' ) );
+		$photo      = $this->upload( 'orange-sweater' );
+		foreach ( $variations as $variation ) {
+			$variation->set_image_id( $photo );
+			// Saved by 1.3: photo ID and modified time, no detector version.
+			$variation->update_meta_data( Meta::AUTO_COLOR, '#9d7b63' );
+			$variation->update_meta_data( Meta::AUTO_SOURCE, $photo . ':' . get_post_modified_time( 'U', true, $photo ) );
+			$variation->save();
+		}
+		$custom = $variations['Blue/S'];
+		$custom->update_meta_data( Meta::MODE, Meta::MODE_CUSTOM );
+		$custom->save();
+		as_unschedule_all_actions( DetectColors::HOOK_ONE, null, DetectColors::GROUP );
+
+		( new DetectColors() )->batch( 0 );
+
+		$auto = $variations['Orange/S'];
+		$this->assertTrue( $this->is_queued( $auto->get_id() ) );
+		$this->assertFalse( $this->is_queued( $custom->get_id() ) );
+
+		( new DetectColors() )->detect( $auto->get_id() );
+		$saved = wc_get_product( $auto->get_id() );
+		$this->assertNotSame( '#9d7b63', $saved->get_meta( Meta::AUTO_COLOR ) );
+		$this->assertFalse( DetectColors::needs_detection( $saved ) );
 	}
 
 	/**
