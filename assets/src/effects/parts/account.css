@@ -1,0 +1,275 @@
+/**
+ * The Account style for the Group block, around WooCommerce's My Account.
+ * BlockEffects loads this file only on pages that use it, after style.css.
+ *
+ * Colors are Purple's palette slugs, which ThemeColors points at another
+ * theme's own colors. Inputs and buttons keep the theme's styles.
+ */
+
+.is-style-purplish-account {
+	--purplish-account-ink: var(--wp--preset--color--theme-2, currentColor);
+	--purplish-account-soft: var(--wp--preset--color--theme-4, currentColor);
+	--purplish-account-wash: var(--wp--preset--color--theme-5, transparent);
+	--purplish-account-rule: var(--wp--custom--purplish--rule, var(--wp--preset--color--theme-6, currentColor));
+	--purplish-account-radius: var(--wp--custom--purplish--radius, 12px);
+	--purplish-account-pad: var(--wp--preset--spacing--30, 1.5rem);
+}
+
+/*
+ * Navigation: a list of rows with a rule between, the current page on the
+ * wash. A column beside the content on wide screens, a row of links that
+ * scrolls sideways on phones.
+ */
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation li {
+	margin: 0;
+	padding: 0;
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation a {
+	color: var(--purplish-account-ink);
+	display: block;
+	padding: 0.75rem 1rem;
+	text-decoration: none;
+	transition: background-color 0.15s ease-out;
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation a:hover {
+	background-color: var(--purplish-account-wash);
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation .is-active a {
+	background-color: var(--purplish-account-wash);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation-link--customer-logout a {
+	color: var(--purplish-account-soft);
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation,
+.is-style-purplish-account .woocommerce .woocommerce-MyAccount-content {
+	float: none;
+	width: auto;
+}
+
+@media (min-width: 782px) {
+
+	.is-style-purplish-account .woocommerce:has(> .woocommerce-MyAccount-navigation) {
+		align-items: start;
+		display: grid;
+		gap: var(--wp--preset--spacing--70, 3rem);
+		grid-template-columns: minmax(11rem, 15rem) minmax(0, 1fr);
+	}
+
+	.is-style-purplish-account .woocommerce:has(> .woocommerce-MyAccount-navigation)::before,
+	.is-style-purplish-account .woocommerce:has(> .woocommerce-MyAccount-navigation)::after {
+		content: none;
+	}
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation {
+		position: sticky;
+		top: calc(var(--wp-admin--admin-bar--height, 0px) + var(--purplish-account-pad));
+	}
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation ul {
+		border-top: 1px solid var(--purplish-account-rule);
+	}
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation li {
+		border-bottom: 1px solid var(--purplish-account-rule);
+	}
+}
+
+@media (max-width: 781px) {
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation {
+		border-bottom: 1px solid var(--purplish-account-rule);
+		margin-bottom: var(--wp--preset--spacing--50, 2rem);
+	}
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation ul {
+		display: flex;
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation li {
+		flex: none;
+	}
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation a {
+		white-space: nowrap;
+	}
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation .is-active a {
+		background-color: transparent;
+		box-shadow: inset 0 -2px 0 var(--purplish-account-ink);
+	}
+}
+
+/* The dashboard's greeting, set as the page's lead. */
+.is-style-purplish-account .woocommerce-MyAccount-content > .woocommerce-notices-wrapper:first-child + p:has(> strong) {
+	color: var(--purplish-account-ink);
+	font-size: var(--wp--preset--font-size--large, 1.375rem);
+	font-weight: 500;
+	line-height: 1.3;
+	margin-top: 0;
+}
+
+/* Orders and downloads: rules between rows, no box around the table. */
+.is-style-purplish-account .woocommerce table.shop_table {
+	border: 0;
+	border-collapse: collapse;
+	border-radius: 0;
+	margin: 0 0 var(--wp--preset--spacing--50, 2rem);
+}
+
+.is-style-purplish-account .woocommerce table.shop_table th {
+	border-bottom: 1px solid var(--purplish-account-rule);
+	color: var(--purplish-account-soft);
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	font-weight: 500;
+	padding: 0.75rem 0.5rem;
+	text-align: start;
+}
+
+.is-style-purplish-account .woocommerce table.shop_table td {
+	border-top: 0;
+	border-bottom: 1px solid var(--purplish-account-rule);
+	padding: 1rem 0.5rem;
+	vertical-align: middle;
+}
+
+.is-style-purplish-account .woocommerce table.shop_table :is(th, td):first-child {
+	padding-inline-start: 0;
+}
+
+.is-style-purplish-account .woocommerce table.shop_table :is(th, td):last-child {
+	padding-inline-end: 0;
+}
+
+.is-style-purplish-account .woocommerce-orders-table__cell-order-status {
+	color: var(--purplish-account-ink);
+	font-weight: 500;
+}
+
+@media (max-width: 768px) {
+
+	.is-style-purplish-account .woocommerce table.shop_table_responsive tr td {
+		padding-inline: 0;
+	}
+
+	.is-style-purplish-account .woocommerce table.shop_table_responsive tr:nth-child(2n) td {
+		background-color: transparent;
+	}
+
+	/* WooCommerce hides the order number on phones; it leads each order here. */
+	.is-style-purplish-account .woocommerce table.shop_table_responsive tbody th {
+		border-bottom: 1px solid var(--purplish-account-rule);
+		color: var(--purplish-account-ink);
+		display: block;
+		font-size: inherit;
+		padding: 1rem 0;
+		text-align: end;
+	}
+
+	.is-style-purplish-account .woocommerce table.shop_table_responsive tbody th::before {
+		content: attr(data-title) ": ";
+		float: inline-start;
+		font-weight: 700;
+	}
+}
+
+/*
+ * Addresses: two ruled cards side by side, stacked on phones, each with
+ * its edit link under the title.
+ */
+.is-style-purplish-account .woocommerce .woocommerce-Addresses {
+	display: grid;
+	gap: var(--purplish-account-pad);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-Addresses::before,
+.is-style-purplish-account .woocommerce .woocommerce-Addresses::after {
+	content: none;
+}
+
+.is-style-purplish-account .woocommerce .woocommerce-Addresses .woocommerce-Address {
+	border: 1px solid var(--purplish-account-rule);
+	border-radius: var(--purplish-account-radius);
+	float: none;
+	padding: var(--purplish-account-pad);
+	width: auto;
+}
+
+.is-style-purplish-account .woocommerce .addresses .woocommerce-Address-title {
+	display: grid;
+	gap: 0.25rem;
+	justify-items: start;
+	margin-bottom: var(--wp--preset--spacing--20, 1rem);
+}
+
+.is-style-purplish-account .woocommerce .addresses .woocommerce-Address-title::before,
+.is-style-purplish-account .woocommerce .addresses .woocommerce-Address-title::after {
+	content: none;
+}
+
+.is-style-purplish-account .woocommerce-Address-title :is(h2, h3) {
+	font-size: var(--wp--preset--font-size--medium, 1rem);
+	margin: 0;
+}
+
+.is-style-purplish-account .woocommerce .addresses .woocommerce-Address-title .edit {
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	margin: 0;
+}
+
+/*
+ * Logged out: the login form, and the register form next to it where the
+ * store allows sign ups, on the wash.
+ */
+.is-style-purplish-account .woocommerce > :is(form.login, form.lost_reset_password),
+.is-style-purplish-account .woocommerce > .u-columns > :is(.u-column1, .u-column2) {
+	background-color: var(--purplish-account-wash);
+	border-radius: var(--purplish-account-radius);
+	padding: var(--wp--preset--spacing--50, 2rem);
+}
+
+.is-style-purplish-account .woocommerce > :is(form.login, form.lost_reset_password) {
+	max-width: 32rem;
+}
+
+.is-style-purplish-account .woocommerce > .u-columns {
+	display: grid;
+	gap: var(--purplish-account-pad);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.is-style-purplish-account .woocommerce > .u-columns::before,
+.is-style-purplish-account .woocommerce > .u-columns::after {
+	content: none;
+}
+
+.is-style-purplish-account .woocommerce > .u-columns > :is(.u-column1, .u-column2) {
+	float: none;
+	width: auto;
+}
+
+.is-style-purplish-account .woocommerce > .u-columns h2 {
+	margin-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.is-style-purplish-account .woocommerce .woocommerce-MyAccount-navigation a {
+		transition: none;
+	}
+}

@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop', 'boutique-shop', 'size-chart-guide' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'cart-page', 'order-confirmation', 'account-page', 'atelier-shop', 'flagship-shop', 'boutique-shop', 'size-chart-guide' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -85,7 +85,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
-		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop' ) as $slug ) {
+		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'cart-page', 'order-confirmation', 'account-page', 'atelier-shop', 'flagship-shop' ) as $slug ) {
 			$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/' . $slug ), $slug );
 		}
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
@@ -331,10 +331,11 @@ class PatternsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The lock the checkout header draws is a registered icon in a Purplish
-	 * collection, and registering twice changes nothing.
+	 * The lock, shipping and returns icons the store patterns draw are
+	 * registered icons in a Purplish collection, and registering twice
+	 * changes nothing.
 	 */
-	public function test_lock_icon_registers() {
+	public function test_icons_register() {
 		if ( ! function_exists( 'wp_register_icon' ) ) {
 			$this->markTestSkipped( 'The icon API needs WordPress 7.1.' );
 		}
@@ -342,10 +343,133 @@ class PatternsTest extends WP_UnitTestCase {
 		( new Patterns() )->register_icons();
 		( new Patterns() )->register_icons();
 
-		$this->assertTrue( \WP_Icons_Registry::get_instance()->is_registered( 'purplish/lock' ) );
-		$svg = wp_get_icon( 'purplish/lock' );
-		$this->assertStringContainsString( '<path fill-rule="evenodd"', $svg );
-		$this->assertStringContainsString( 'aria-hidden="true"', $svg );
+		foreach ( array( 'lock', 'shipping', 'returns' ) as $icon ) {
+			$this->assertTrue( \WP_Icons_Registry::get_instance()->is_registered( 'purplish/' . $icon ), $icon );
+			$svg = wp_get_icon( 'purplish/' . $icon );
+			$this->assertStringContainsString( '<path ', $svg, $icon );
+			$this->assertStringContainsString( 'aria-hidden="true"', $svg, $icon );
+		}
+		$this->assertStringContainsString( '<path fill-rule="evenodd"', wp_get_icon( 'purplish/lock' ) );
+	}
+
+	/**
+	 * The trust row and the empty cart's free shipping tag draw Icon blocks
+	 * in the accent color, not image files.
+	 */
+	public function test_store_icons_are_icon_blocks() {
+		$patterns = Patterns::patterns();
+		$trust    = Patterns::content( $patterns['trust-row']['file'] );
+		foreach ( array( 'purplish/shipping', 'purplish/returns', 'purplish/lock', 'core/comment' ) as $icon ) {
+			$this->assertStringContainsString( '<!-- wp:icon {"icon":"' . $icon . '","textColor":"theme-7"', $trust, $icon );
+		}
+		$empty = Patterns::content( $patterns['empty-cart']['file'] );
+		$this->assertStringContainsString( '<!-- wp:icon {"icon":"purplish/shipping","textColor":"theme-7"', $empty );
+		foreach ( array( $trust, $empty ) as $markup ) {
+			foreach ( array( 'shipping.svg', 'returns.svg', 'secure.svg', 'support.svg' ) as $file ) {
+				$this->assertStringNotContainsString( $file, $markup );
+			}
+		}
+		$this->assertStringNotContainsString( 'wp:image', $trust );
+	}
+
+	/**
+	 * The Cart page pattern is offered for pages and next to the Cart
+	 * block: the Cart block with the free shipping meter and sticky totals,
+	 * WooCommerce's cross-sells row, the Empty cart pattern in its empty
+	 * cart area, and the Trust row under it, with no title of its own.
+	 */
+	public function test_cart_page() {
+		$pattern = Patterns::patterns()['cart-page'];
+		$this->assertSame( array( 'woocommerce/cart' ), $pattern['blockTypes'] );
+		$this->assertSame( array( 'page' ), $pattern['postTypes'] );
+
+		$markup = Patterns::content( $pattern['file'] );
+		$blocks = parse_blocks( $markup );
+		$cart   = $this->find_block( $blocks, 'woocommerce/cart' );
+		$this->assertSame(
+			array(
+				'meter'  => true,
+				'sticky' => true,
+			),
+			$cart['attrs']['purplish']
+		);
+		$this->assertSame( 'wide', $cart['attrs']['align'] );
+
+		$names = $this->block_names( $blocks );
+		foreach ( array( 'woocommerce/filled-cart-block', 'woocommerce/cart-line-items-block', 'woocommerce/proceed-to-checkout-block', 'woocommerce/empty-cart-block', 'woocommerce/product-collection', 'core/icon' ) as $name ) {
+			$this->assertContains( $name, $names );
+		}
+		$this->assertSame( array( 'woocommerce/cart', 'core/group' ), array_values( array_filter( wp_list_pluck( $blocks, 'blockName' ) ) ) );
+		$this->assertStringContainsString( '"collection":"woocommerce/product-collection/cross-sells"', $markup );
+
+		$empty = $this->find_block( $blocks, 'woocommerce/empty-cart-block' );
+		$this->assertSame( 'Empty cart', $empty['innerBlocks'][0]['attrs']['metadata']['name'] );
+
+		$under = end( $blocks );
+		while ( empty( $under['blockName'] ) ) {
+			$under = prev( $blocks );
+		}
+		$this->assertSame( 'Under the cart', $under['attrs']['metadata']['name'] );
+		$this->assertSame( 'Trust row', $under['innerBlocks'][0]['attrs']['metadata']['name'] );
+	}
+
+	/**
+	 * The Order confirmation pattern is offered in templates: WooCommerce's
+	 * status, summary and details, three next steps, the Create Account
+	 * prompt on the wash with its perks, and a help line.
+	 */
+	public function test_order_confirmation() {
+		$pattern = Patterns::patterns()['order-confirmation'];
+		$this->assertSame( array( 'wp_template' ), $pattern['postTypes'] );
+
+		$markup = Patterns::content( $pattern['file'] );
+		$blocks = parse_blocks( $markup );
+		$this->assertSame( 'main', $blocks[0]['attrs']['tagName'] );
+
+		$names = $this->block_names( $blocks );
+		foreach ( array( 'status', 'summary', 'totals', 'downloads', 'shipping-address', 'billing-address', 'additional-fields', 'additional-information', 'create-account' ) as $part ) {
+			$this->assertContains( 'woocommerce/order-confirmation-' . $part, $names, $part );
+		}
+		$this->assertLessThan( array_search( 'woocommerce/order-confirmation-create-account', $names, true ), array_search( 'woocommerce/order-confirmation-summary', $names, true ) );
+
+		$steps = $blocks[0]['innerBlocks'][2];
+		$this->assertSame( 'What happens next', $steps['attrs']['metadata']['name'] );
+		$grid = $steps['innerBlocks'][1];
+		$this->assertSame( 'grid', $grid['attrs']['layout']['type'] );
+		$this->assertCount( 3, $grid['innerBlocks'] );
+		foreach ( array( 'Order confirmed', 'Packed and on its way', 'At your door' ) as $index => $title ) {
+			$step = serialize_blocks( array( $grid['innerBlocks'][ $index ] ) );
+			$this->assertStringContainsString( '>' . ( $index + 1 ) . '</p>', $step );
+			$this->assertStringContainsString( '>' . $title . '</p>', $step );
+		}
+
+		$account = $this->find_block( $blocks, 'woocommerce/order-confirmation-create-account' );
+		$this->assertSame( 'theme-5', $account['attrs']['backgroundColor'] );
+		$this->assertSame( 'purplish-create-account', $account['attrs']['className'] );
+		$this->assertSame( Patterns::radius( '12px' ), $account['attrs']['style']['border']['radius'] );
+		$this->assertStringContainsString( 'Save your details for next time', $markup );
+		$this->assertSame( 3, substr_count( serialize_blocks( array( $account ) ), '<!-- wp:list-item' ) );
+
+		$this->assertStringContainsString( 'Questions about this order? Reply to your confirmation email.', $markup );
+	}
+
+	/**
+	 * The Account page pattern is offered for pages: My Account's shortcode
+	 * in a wide Group with the Account style, as wide as WooCommerce's page
+	 * title, and a help line under it.
+	 */
+	public function test_account_page() {
+		$pattern = Patterns::patterns()['account-page'];
+		$this->assertSame( array( 'page' ), $pattern['postTypes'] );
+
+		$blocks = parse_blocks( Patterns::content( $pattern['file'] ) );
+		$group  = $blocks[0];
+		$this->assertSame( 'core/group', $group['blockName'] );
+		$this->assertSame( 'is-style-purplish-account', $group['attrs']['className'] );
+		$this->assertSame( 'wide', $group['attrs']['align'] );
+		$this->assertSame( '1000px', $group['attrs']['layout']['contentSize'] );
+		$this->assertSame( '[woocommerce_my_account]', trim( $group['innerBlocks'][0]['innerHTML'] ) );
+		$this->assertStringContainsString( 'Questions about an order? Reply to its confirmation email.', serialize_blocks( $blocks ) );
 	}
 
 	/**
