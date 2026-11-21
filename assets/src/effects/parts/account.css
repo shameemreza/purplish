@@ -234,12 +234,14 @@
 
 /*
  * Logged out: the login form, and the register form next to it where the
- * store allows sign ups, on the wash.
+ * store allows sign ups, on the wash. The text takes the ink color, since
+ * the body text is too light on the wash in some dark palettes.
  */
 .is-style-purplish-account .woocommerce > :is(form.login, form.lost_reset_password),
 .is-style-purplish-account .woocommerce > .u-columns > :is(.u-column1, .u-column2) {
 	background-color: var(--purplish-account-wash);
 	border-radius: var(--purplish-account-radius);
+	color: var(--purplish-account-ink);
 	padding: var(--wp--preset--spacing--50, 2rem);
 }
 
