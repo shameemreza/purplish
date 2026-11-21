@@ -1,14 +1,17 @@
 <?php
 /**
- * Pattern: Checkout header. The site title, a three-step trail (Bag, linked
- * back to the cart, then Checkout, then Done) and a Secure checkout pill,
- * for WooCommerce's Checkout Header template part. Nothing on it moves.
+ * Pattern: Checkout header. A Back to bag link, the site title in the
+ * theme's own style, a three-step trail (Bag, linked back to the cart, then
+ * Checkout, then Done) and a Secure checkout pill with a lock, for the
+ * Checkout header template part. The checkout-header-trust pattern sets
+ * $purplish_trust to add a trust row under it. Nothing on it moves.
  *
  * @package Purplish
  */
 
 defined( 'ABSPATH' ) || exit;
 
+$purplish_trust = ! empty( $purplish_trust );
 $purplish_cart  = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' );
 $purplish_ink   = 'theme-2';
 $purplish_soft  = 'theme-4';
@@ -83,10 +86,34 @@ $purplish_bar  = '<!-- wp:group {"style":{"color":{"background":"' . $purplish_r
 	. '<div class="wp-block-group has-background" style="background-color:' . $purplish_var( $purplish_rule ) . ';min-height:1px;padding-top:0;padding-right:14px;padding-bottom:0;padding-left:14px"></div>' . "\n"
 	. "<!-- /wp:group -->\n";
 $purplish_pill = \Purplish\Patterns::radius( '999px' );
+
+/**
+ * One trust row item: a check in the theme's accent and a short line.
+ *
+ * @param string $label Plain text.
+ * @return string Block markup.
+ */
+$purplish_promise = static function ( $label ) use ( $purplish_soft, $purplish_var, $purplish_ref ) {
+	return '<!-- wp:group {"style":{"spacing":{"blockGap":"4px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->' . "\n"
+		. '<div class="wp-block-group"><!-- wp:icon {"icon":"core/check","textColor":"theme-7","style":{"dimensions":{"width":"18px"}}} /-->' . "\n\n"
+		. '<!-- wp:paragraph {"style":{"color":{"text":"' . esc_attr( $purplish_ref( $purplish_soft ) ) . '"},"typography":{"fontSize":"13px","lineHeight":"1.4"}}} -->' . "\n"
+		. '<p class="has-text-color" style="color:' . esc_attr( $purplish_var( $purplish_soft ) ) . ';font-size:13px;line-height:1.4">' . esc_html( $label ) . "</p>\n"
+		. "<!-- /wp:paragraph --></div>\n<!-- /wp:group -->\n";
+};
 ?>
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Checkout header', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"var:preset|color|theme-1"},"border":{"bottom":{"color":"<?php echo esc_attr( $purplish_ref( $purplish_rule ) ); ?>","width":"1px","style":"solid"}},"spacing":{"padding":{"top":"14px","bottom":"14px","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-background" style="border-bottom-color:<?php echo esc_attr( $purplish_var( $purplish_rule ) ); ?>;border-bottom-style:solid;border-bottom-width:1px;background-color:var(--wp--preset--color--theme-1);margin-top:0;margin-bottom:0;padding-top:14px;padding-right:0;padding-bottom:14px;padding-left:0"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"blockGap":"12px 24px"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><!-- wp:site-title {"level":0,"style":{"typography":{"fontSize":"clamp(1.5rem, 1.2rem + 0.8vw, 1.85rem)","lineHeight":"1","letterSpacing":"-0.01em","textTransform":"none"},"elements":{"link":{"typography":{"textDecoration":"none"}}}}} /-->
+<div class="wp-block-group alignwide" style="padding-right:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)"><!-- wp:group {"style":{"spacing":{"blockGap":"6px 24px"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Back to bag', 'purplish' ); ?>"},"style":{"spacing":{"blockGap":"4px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+<div class="wp-block-group"><!-- wp:icon {"icon":"core/arrow-left","textColor":"<?php echo esc_attr( $purplish_ink ); ?>","style":{"dimensions":{"width":"16px"}}} /-->
+
+<!-- wp:paragraph {"style":{"typography":{"fontSize":"14px","lineHeight":"24px"}}} -->
+<p style="font-size:14px;line-height:24px"><a href="<?php echo esc_url( $purplish_cart ); ?>"><?php esc_html_e( 'Back to bag', 'purplish' ); ?></a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:site-title {"level":0,"style":{"elements":{"link":{"typography":{"textDecoration":"none"}}}}} /--></div>
+<!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Steps', 'purplish' ); ?>"},"style":{"spacing":{"blockGap":"10px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 <div class="wp-block-group">
@@ -103,9 +130,7 @@ echo $purplish_step( '3', esc_html__( 'Done', 'purplish' ), 'next' );
 <!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Secure checkout', 'purplish' ); ?>"},"style":{"color":{"background":"<?php echo esc_attr( $purplish_ref( $purplish_tint ) ); ?>"},"border":{"radius":"<?php echo esc_attr( $purplish_pill ); ?>"},"typography":{"lineHeight":"0"},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"14px","right":"16px"},"blockGap":"8px"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group has-background" style="border-radius:<?php echo esc_attr( $purplish_pill ); ?>;background-color:<?php echo esc_attr( $purplish_var( $purplish_tint ) ); ?>;padding-top:8px;padding-right:16px;padding-bottom:8px;padding-left:14px;line-height:0"><!-- wp:image {"width":"18px","height":"18px","sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url( plugins_url( 'assets/icons/secure.svg', PURPLISH_FILE ) ); ?>" alt="" style="width:18px;height:18px"/></figure>
-<!-- /wp:image -->
+<div class="wp-block-group has-background" style="border-radius:<?php echo esc_attr( $purplish_pill ); ?>;background-color:<?php echo esc_attr( $purplish_var( $purplish_tint ) ); ?>;padding-top:8px;padding-right:16px;padding-bottom:8px;padding-left:14px;line-height:0"><!-- wp:icon {"icon":"purplish/lock","textColor":"theme-7","style":{"dimensions":{"width":"18px"}}} /-->
 
 <!-- wp:paragraph {"style":{"color":{"text":"<?php echo esc_attr( $purplish_ref( $purplish_ink ) ); ?>"},"typography":{"fontSize":"14px","fontStyle":"normal","fontWeight":"500","lineHeight":"1.4"}}} -->
 <p class="has-text-color" style="color:<?php echo esc_attr( $purplish_var( $purplish_ink ) ); ?>;font-size:14px;font-style:normal;font-weight:500;line-height:1.4"><?php esc_html_e( 'Secure checkout', 'purplish' ); ?></p>
@@ -113,3 +138,17 @@ echo $purplish_step( '3', esc_html__( 'Done', 'purplish' ), 'next' );
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
+<?php if ( $purplish_trust ) : ?>
+
+<!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Trust row', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"<?php echo esc_attr( $purplish_ref( $purplish_tint ) ); ?>"},"spacing":{"padding":{"top":"10px","bottom":"10px","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"margin":{"top":"0","bottom":"0"},"blockGap":"6px 28px"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
+<div class="wp-block-group alignfull has-background" style="background-color:<?php echo esc_attr( $purplish_var( $purplish_tint ) ); ?>;margin-top:0;margin-bottom:0;padding-top:10px;padding-right:var(--wp--preset--spacing--50);padding-bottom:10px;padding-left:var(--wp--preset--spacing--50)">
+<?php
+// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- Block markup built and escaped above.
+echo $purplish_promise( __( 'Free shipping over $100', 'purplish' ) );
+echo $purplish_promise( __( '30-day returns', 'purplish' ) );
+echo $purplish_promise( __( 'Secure payment', 'purplish' ) );
+// phpcs:enable
+?>
+</div>
+<!-- /wp:group -->
+<?php endif; ?>

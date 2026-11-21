@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop', 'boutique-shop', 'size-chart-guide' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop', 'boutique-shop', 'size-chart-guide' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -85,7 +85,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
-		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop' ) as $slug ) {
+		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'atelier-shop', 'flagship-shop' ) as $slug ) {
 			$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/' . $slug ), $slug );
 		}
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
@@ -289,6 +289,63 @@ class PatternsTest extends WP_UnitTestCase {
 			$this->assertStringContainsString( trim( $section['content'] ), $home['content'], $slug );
 		}
 		$this->assertStringContainsString( '<!-- wp:purplish/story-deck', $home['content'] );
+	}
+
+	/**
+	 * The checkout header has a Back to bag link, takes the theme's own site
+	 * title style and draws its lock with the Icon block in the accent
+	 * color. Only the trust variant adds the trust row, as a named group
+	 * that can be deleted, and both offer themselves for the header area,
+	 * where the Checkout header part lives.
+	 */
+	public function test_checkout_header_is_fuller() {
+		$patterns = Patterns::patterns();
+		$this->assertSame( array( 'core/template-part/header' ), $patterns['checkout-header-trust']['blockTypes'] );
+
+		$plain = Patterns::content( $patterns['checkout-header']['file'] );
+		$trust = Patterns::content( $patterns['checkout-header-trust']['file'] );
+
+		foreach ( array( $plain, $trust ) as $header ) {
+			$this->assertStringContainsString( '<a href="' . esc_url( wc_get_cart_url() ) . '">Back to bag</a>', $header );
+			$this->assertStringContainsString( '<!-- wp:icon {"icon":"core/arrow-left","textColor":"theme-2"', $header );
+			$this->assertStringContainsString( '<!-- wp:icon {"icon":"purplish/lock","textColor":"theme-7"', $header );
+			$this->assertStringContainsString( '<!-- wp:site-title {"level":0,"style":{"elements":{"link":{"typography":{"textDecoration":"none"}}}}} /-->', $header );
+			$this->assertStringNotContainsString( 'secure.svg', $header );
+		}
+
+		$this->assertStringNotContainsString( 'Trust row', $plain );
+		$this->assertStringNotContainsString( 'core/check', $plain );
+
+		$names = array();
+		foreach ( parse_blocks( $trust ) as $block ) {
+			if ( ! empty( $block['blockName'] ) ) {
+				$names[] = isset( $block['attrs']['metadata']['name'] ) ? $block['attrs']['metadata']['name'] : $block['blockName'];
+			}
+		}
+		$this->assertSame( array( 'Checkout header', 'Trust row' ), $names );
+		$this->assertSame( 3, substr_count( $trust, '<!-- wp:icon {"icon":"core/check","textColor":"theme-7"' ) );
+		foreach ( array( 'Free shipping over $100', '30-day returns', 'Secure payment' ) as $line ) {
+			$this->assertStringContainsString( '>' . $line . '</p>', $trust );
+		}
+		$this->assertStringStartsWith( $plain, $trust );
+	}
+
+	/**
+	 * The lock the checkout header draws is a registered icon in a Purplish
+	 * collection, and registering twice changes nothing.
+	 */
+	public function test_lock_icon_registers() {
+		if ( ! function_exists( 'wp_register_icon' ) ) {
+			$this->markTestSkipped( 'The icon API needs WordPress 7.1.' );
+		}
+
+		( new Patterns() )->register_icons();
+		( new Patterns() )->register_icons();
+
+		$this->assertTrue( \WP_Icons_Registry::get_instance()->is_registered( 'purplish/lock' ) );
+		$svg = wp_get_icon( 'purplish/lock' );
+		$this->assertStringContainsString( '<path fill-rule="evenodd"', $svg );
+		$this->assertStringContainsString( 'aria-hidden="true"', $svg );
 	}
 
 	/**
@@ -647,8 +704,9 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertSame( 'var(--wp--custom--purplish--radius, 999px)', Patterns::radius( '999px' ) );
 
 		$kept = array(
-			'checkout-header' => array( '999px' => 3 ),
-			'guarantee-card'  => array( '999px' => 2 ),
+			'checkout-header'       => array( '999px' => 3 ),
+			'checkout-header-trust' => array( '999px' => 3 ),
+			'guarantee-card'        => array( '999px' => 2 ),
 		);
 		$seen = array();
 		foreach ( Patterns::patterns() as $slug => $pattern ) {
