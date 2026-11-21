@@ -32,7 +32,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 = What Purplish adds to WooCommerce blocks =
 
 * **Product page colors:** when a shopper picks a variation, the add to cart button, the selected option and the sale badge take its color, and the sale price and a soft background tint can too. Purplish reads the color from the product in the photo, or you set it by hand. The photo changes with a transition, like Blur, Wipe or Color wash.
-* **Product gallery:** hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, a photo wash, and rounded or circle thumbnails.
+* **Product gallery:** every photo at once in a grid, two across or two large over smaller ones, hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, frosted arrows, a photo wash, and rounded or circle thumbnails.
 * **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, ruled cards with thin lines in place of the gap, a carousel that ends on part of the next card, an outline add to cart button, a photo wash, a hover look for the card, the photo and the button, and one effect color for all of it.
 * **Shop page:** a choice of which orderings Sort by lists, a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs, chips or category photos with the current one marked.
 * **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, a 44px tap size for chips, and color names under swatches.
@@ -146,7 +146,7 @@ When the color changes, the photo changes with Blur (the default), Fade, Zoom, S
 
 = Which gallery styles are there? =
 
-Hover styles: 3D tilt, Zoom, Loupe, Lift, Parallax, Glare and Slow zoom. Any of them replaces WooCommerce's own hover zoom, and touch screens skip it. Full-screen styles, for the lightbox that opens when a shopper clicks the photo: Snap stack, Zoom from photo, Filmstrip, Cinema and Classic fade. They need the gallery's "Open pop-up when clicked" setting. Slide styles: 3D media gallery, Circular slider, Reel slider and Image tunnel.
+Hover styles: 3D tilt, Zoom, Loupe, Lift, Parallax, Glare and Slow zoom. Any of them replaces WooCommerce's own hover zoom, and touch screens skip it. Full-screen styles, for the lightbox that opens when a shopper clicks the photo: Snap stack, Zoom from photo, Filmstrip, Cinema and Classic fade. They need the gallery's "Open pop-up when clicked" setting. Slide styles: 3D media gallery, Circular slider, Reel slider and Image tunnel. Layouts: Grid, two across, and Two large over smaller ones show every photo at once on screens 600px and wider. Phones keep one photo at a time, with swipe, thumbnails and a photo count.
 
 = Which card effects are there? =
 

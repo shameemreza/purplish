@@ -29,6 +29,12 @@ const OPTIONS = [
 	},
 ];
 
+export const LAYOUTS = [
+	{ value: '', label: __( 'One photo at a time', 'purplish' ) },
+	{ value: 'grid', label: __( 'Grid, two across', 'purplish' ) },
+	{ value: 'mosaic', label: __( 'Two large over smaller ones', 'purplish' ) },
+];
+
 export const HOVERS = [
 	{ value: '', label: __( 'None', 'purplish' ) },
 	{ value: 'tilt', label: __( '3D tilt', 'purplish' ) },
@@ -67,6 +73,20 @@ const SLIDERS = [
 export default function GalleryPanel( { saved, setSaved } ) {
 	return (
 		<PanelBody title={ __( 'Purplish', 'purplish' ) }>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Layout', 'purplish' ) }
+				help={ __(
+					'Shows every photo at once on screens 600px and wider, each filling a tile in the Product Image block’s aspect ratio. Phones keep one photo at a time, with swipe, thumbnails and a photo count.',
+					'purplish'
+				) }
+				value={ saved.layout || '' }
+				options={ LAYOUTS }
+				onChange={ ( layout ) =>
+					setSaved( { ...saved, layout: layout || undefined } )
+				}
+			/>
 			{ OPTIONS.map( ( option ) => (
 				<ToggleControl
 					key={ option.key }

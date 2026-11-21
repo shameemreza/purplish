@@ -1,7 +1,8 @@
 /**
  * Purplish effects that need a script: the gallery's hover styles follow
  * the mouse by setting CSS variables, the slide styles learn which way the
- * gallery moved, two full-screen styles measure the view, the active
+ * gallery moved, two full-screen styles measure the view, a photo grid
+ * keeps each tile its own photo, the active
  * filter chips copy a chip's look, the mini-cart count pops, added
  * products fly into the mini-cart, the glass
  * button's highlight follows the mouse, googly eyes look at it, card
@@ -24,6 +25,7 @@ import { matchChips } from '../shared/chips';
 import { flyToCart } from '../shared/fly';
 import { throwStrips } from '../shared/throw';
 import { settleStrips } from '../shared/settle';
+import { LAYOUT, isTiled, photoGrid } from './tiles';
 import './style.css';
 // Each part builds to its own file, which BlockEffects loads only with
 // the blocks that use it.
@@ -120,6 +122,10 @@ function mostShown( frame, slides ) {
  * @return {HTMLImageElement|null} The photo.
  */
 function shownPhoto( frame ) {
+	// In a photo grid it's the tile the shopper clicked or reached with Tab.
+	if ( frame.purplishPicked && isTiled( frame ) ) {
+		return frame.purplishPicked;
+	}
 	const strip = frame.querySelector(
 		'.wc-block-product-gallery-large-image__container'
 	);
@@ -208,6 +214,19 @@ if ( canHover ) {
 				gallery.classList,
 				'purplish-gallery-hover-'
 			);
+			// In a photo grid each tile is a frame with its own photo.
+			if ( gallery.matches( `[class*="${ LAYOUT }"]` ) ) {
+				gallery
+					.querySelectorAll(
+						'.wc-block-product-gallery-large-image__wrapper'
+					)
+					.forEach( ( tile ) =>
+						follow( tile, style, {
+							photo: () => tile.querySelector( 'img' ),
+						} )
+					);
+				return;
+			}
 			gallery
 				.querySelectorAll( '.wc-block-product-gallery-large-image' )
 				.forEach( ( frame ) => follow( frame, style ) );
@@ -374,8 +393,13 @@ function zoomFromPhoto( gallery, dialog ) {
 		return;
 	}
 
+	// It grows out of its tile in a photo grid, out of the strip otherwise.
 	const from = source
-		.closest( '.wc-block-product-gallery-large-image__container' )
+		.closest(
+			isTiled( frame )
+				? '.wc-block-product-gallery-large-image__wrapper'
+				: '.wc-block-product-gallery-large-image__container'
+		)
 		.getBoundingClientRect();
 	const view = content.getBoundingClientRect();
 	let to = img.getBoundingClientRect();
@@ -580,6 +604,8 @@ if ( ! reduced ) {
 		)
 		.forEach( followSlides );
 }
+
+document.querySelectorAll( `[class*="${ LAYOUT }"]` ).forEach( photoGrid );
 
 document
 	.querySelectorAll( '.purplish-filters-chips' )

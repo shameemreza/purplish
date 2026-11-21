@@ -160,6 +160,8 @@ final class BlockEffects {
 					'slider'     => array( 'cube', 'circle', 'reel', 'tunnel' ),
 					// A tint behind the photos, with the photos multiplied into it.
 					'wash'       => true,
+					// Every photo at once from 600px: two across, or two large over small.
+					'layout'     => array( 'grid', 'mosaic' ),
 				),
 				// Switches saved before task 23, read as the style they became.
 				'legacy'  => array(

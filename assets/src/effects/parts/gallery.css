@@ -83,16 +83,17 @@
 
 /*
  * Gallery hover styles. The frame is the box around the photo: the large
- * image block, or on classic the slider's viewport (never the sliding
- * strip). The photo is the slide on screen. The script sets the mouse
- * variables. Touch screens and reduced motion get the plain photo.
+ * image block, each tile in a photo grid, or on classic the slider's
+ * viewport (never the sliding strip). The photo is the slide on screen, or
+ * the tile's own. The script sets the mouse variables. Touch screens and
+ * reduced motion get the plain photo.
  */
-:is(.purplish-gallery[class*="purplish-gallery-hover-"] .wc-block-product-gallery-large-image, body[class*="purplish-classic-gallery-hover-"] .purplish-hover-target) {
+:is(.purplish-gallery[class*="purplish-gallery-hover-"] .wc-block-product-gallery-large-image, .purplish-gallery[class*="purplish-gallery-hover-"][class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks), body[class*="purplish-classic-gallery-hover-"] .purplish-hover-target) {
 	position: relative;
 }
 
 /* Styles that grow the photo clip it, each slide on its own. */
-:is(.purplish-gallery-hover-zoom, .purplish-gallery-hover-parallax, .purplish-gallery-hover-slowzoom) :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) {
+:is(.purplish-gallery-hover-zoom, .purplish-gallery-hover-parallax, .purplish-gallery-hover-slowzoom) :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) {
 	overflow: hidden;
 }
 
@@ -107,13 +108,15 @@
  * perspective property on the gallery would trap the full-screen view
  * inside it.
  */
-.purplish-gallery-hover-tilt .wc-block-product-gallery-large-image {
+.purplish-gallery-hover-tilt:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image,
+.purplish-gallery-hover-tilt[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks) {
 	transform-style: preserve-3d;
 	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* The sheen, shared by the tilt and the glare. */
-:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare) .wc-block-product-gallery-large-image::after {
+:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare):not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image::after,
+:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare)[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks)::after {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -125,23 +128,24 @@
 }
 
 /* Lift: the frame rises with a soft shadow in the effect color. */
-.purplish-gallery-hover-lift .wc-block-product-gallery-large-image {
+.purplish-gallery-hover-lift:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image,
+.purplish-gallery-hover-lift[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks) {
 	transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Zoom: the photo magnifies around the mouse. */
-.purplish-gallery-hover-zoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+.purplish-gallery-hover-zoom :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
 	transform-origin: var(--purplish-mx, 50%) var(--purplish-my, 50%);
 	transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Parallax: the photo drifts against the mouse inside its frame. */
-.purplish-gallery-hover-parallax :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+.purplish-gallery-hover-parallax :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
 	transition: translate 0.45s ease-out, scale 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Slow zoom: a gentle push in while hovered, a quicker settle after. */
-.purplish-gallery-hover-slowzoom :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+.purplish-gallery-hover-slowzoom :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
 	transition: scale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -149,7 +153,8 @@
  * Loupe: a round magnifier under the mouse. The script sets the photo, its
  * size at 2.5 times and where it sits under the circle.
  */
-.purplish-gallery-hover-loupe .wc-block-product-gallery-large-image::after {
+.purplish-gallery-hover-loupe:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image::after,
+.purplish-gallery-hover-loupe[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks)::after {
 	content: "";
 	position: absolute;
 
@@ -175,41 +180,49 @@
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
 
-	.purplish-gallery-hover-tilt .wc-block-product-gallery-large-image:hover {
+	.purplish-gallery-hover-tilt:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover,
+	.purplish-gallery-hover-tilt[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover {
 		transform: perspective(1200px) rotateX(var(--purplish-rx, 5deg)) rotateY(var(--purplish-ry, -9deg)) translateZ(24px);
 		transition: transform 0.15s ease-out, box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 		box-shadow: 34px 44px 70px -34px color-mix(in srgb, var(--purplish-color) 55%, #000);
 	}
 
-	:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare) .wc-block-product-gallery-large-image:hover::after {
+	:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare):not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover::after,
+	:is(.purplish-gallery-hover-tilt, .purplish-gallery-hover-glare)[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover::after {
 		opacity: 1;
 	}
 
-	.purplish-gallery-hover-lift .wc-block-product-gallery-large-image:hover {
+	.purplish-gallery-hover-lift:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover,
+	.purplish-gallery-hover-lift[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover {
 		translate: 0 -10px;
 		box-shadow: 0 30px 60px -28px color-mix(in srgb, var(--purplish-color) 55%, #000);
 	}
 
-	.purplish-gallery-hover-zoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+	.purplish-gallery-hover-zoom:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
+	.purplish-gallery-hover-zoom[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover img {
 		scale: 2.2;
 		cursor: zoom-in;
 	}
 
-	.purplish-gallery-hover-parallax .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+	.purplish-gallery-hover-parallax:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
+	.purplish-gallery-hover-parallax[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover img {
 		translate: calc(var(--purplish-dx, 0) * -8%) calc(var(--purplish-dy, 0) * -8%);
 		scale: 1.12;
 	}
 
-	.purplish-gallery-hover-slowzoom .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img {
+	.purplish-gallery-hover-slowzoom:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover :is(.wc-block-product-gallery-large-image__wrapper, :where(.wc-block-editor-product-gallery-large-image) .wc-block-components-product-image) img,
+	.purplish-gallery-hover-slowzoom[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover img {
 		scale: 1.1;
 		transition: scale 6s cubic-bezier(0.2, 0.6, 0.2, 1);
 	}
 
-	.purplish-gallery-hover-loupe .wc-block-product-gallery-large-image:hover {
+	.purplish-gallery-hover-loupe:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover,
+	.purplish-gallery-hover-loupe[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover {
 		cursor: crosshair;
 	}
 
-	.purplish-gallery-hover-loupe .wc-block-product-gallery-large-image:hover::after {
+	.purplish-gallery-hover-loupe:not([class*="purplish-gallery-layout-"]) .wc-block-product-gallery-large-image:hover::after,
+	.purplish-gallery-hover-loupe[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks):hover::after {
 		opacity: 1;
 		scale: 1;
 	}
@@ -545,6 +558,188 @@
 	from {
 		opacity: 0;
 		scale: 0.6;
+	}
+}
+
+/*
+ * Gallery photo counter, on phones and below 600px, where a grid layout
+ * stays a slider: "2/5" on the photo's bottom end corner. The script
+ * writes it and hides it with one photo.
+ */
+.purplish-gallery-counter {
+	position: absolute;
+	inset-block-end: 12px;
+	inset-inline-end: 12px;
+	z-index: 2;
+	padding: 4px 10px;
+	background: rgb(255 255 255 / 0.85);
+	color: var(--purplish-color);
+	font-size: 0.8125rem;
+	font-variant-numeric: tabular-nums;
+	line-height: 1.4;
+	pointer-events: none;
+}
+
+.purplish-gallery-counter[hidden] {
+	display: none;
+}
+
+.purplish-gallery-rounded .purplish-gallery-counter {
+	border-radius: 999px;
+}
+
+/* The editor's copies of the photo, shown only where the grid is. */
+.purplish-gallery-tile {
+	display: none;
+}
+
+/*
+ * Gallery layouts, from 600px: WooCommerce's slide strip becomes a grid
+ * of every photo in the set, so nothing moves and no markup changes.
+ * Two across has two tracks, and an odd photo out goes first across both.
+ * Two large over small has six: halves, then thirds, and a short last row
+ * fills the row. The rules count only shown slides; the script sets the
+ * span itself when a variation shows its photos in another order.
+ */
+@media (min-width: 600px) {
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wc-block-product-gallery-large-image {
+		aspect-ratio: auto;
+		overflow: visible;
+		border-radius: 0;
+		background-color: transparent;
+	}
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wc-block-product-gallery-large-image__container {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--wp--style--block-gap, 0.5em);
+		align-items: stretch;
+		overflow: visible;
+		scroll-snap-type: none;
+	}
+
+	.purplish-gallery.purplish-gallery-layout-mosaic .wc-block-product-gallery-large-image__container {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wc-block-product-gallery-large-image__wrapper {
+		position: relative;
+		min-width: 0;
+		max-width: none;
+		overflow: hidden;
+	}
+
+	/*
+	 * Without an aspect ratio on the Product Image block, WooCommerce shows
+	 * each photo whole in the frame, with bands around it. In a grid the
+	 * bands read as uneven gaps, so each photo fills its tile. Full screen
+	 * still shows it whole.
+	 */
+	.purplish-gallery[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .wc-block-editor-product-gallery-large-image) .wc-block-components-product-image.wc-block-components-product-image--aspect-ratio-auto img {
+		object-fit: cover !important;
+	}
+
+	.purplish-gallery-layout-grid .wc-block-product-gallery-large-image__wrapper:nth-child(1 of :not([hidden])):nth-last-child(odd of :not([hidden])) {
+		grid-column: span 2;
+	}
+
+	.purplish-gallery-layout-mosaic .wc-block-product-gallery-large-image__wrapper {
+		grid-column: span 2;
+	}
+
+	.purplish-gallery-layout-mosaic .wc-block-product-gallery-large-image__wrapper:nth-child(-n + 2 of :not([hidden])),
+	.purplish-gallery-layout-mosaic .wc-block-product-gallery-large-image__wrapper:nth-child(3n + 3 of :not([hidden])):nth-last-child(2 of :not([hidden])),
+	.purplish-gallery-layout-mosaic .wc-block-product-gallery-large-image__wrapper:nth-child(3n + 4 of :not([hidden])):nth-last-child(1 of :not([hidden])) {
+		grid-column: span 3;
+	}
+
+	.purplish-gallery-layout-mosaic .wc-block-product-gallery-large-image__wrapper:nth-child(3n of :not([hidden])):nth-last-child(1 of :not([hidden])),
+	.purplish-gallery-layout-mosaic .wc-block-product-gallery-large-image__wrapper:nth-child(1 of :not([hidden])):nth-last-child(1 of :not([hidden])) {
+		grid-column: span 6;
+	}
+
+	/*
+	 * WooCommerce lays its inner blocks over the whole large image. A tile
+	 * with a transform (tilt, lift) draws its photo under that layer, so
+	 * the layer lets the mouse through to the tiles.
+	 */
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wc-block-product-gallery-large-image__inner-blocks {
+		pointer-events: none;
+	}
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wc-block-product-gallery-large-image__inner-blocks > * {
+		pointer-events: auto;
+	}
+
+	/* Every photo is on screen, so the slider's parts step aside. */
+	.purplish-gallery[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-thumbnails, .wc-block-next-previous-buttons, .purplish-gallery-counter) {
+		display: none;
+	}
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] .purplish-sliding > .wc-block-product-gallery-large-image__wrapper > * {
+		animation: none;
+	}
+
+	/* Rounded corners and Photo wash go on each photo. */
+	.purplish-gallery-rounded[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks) {
+		border-radius: 24px;
+	}
+
+	.purplish-gallery-wash[class*="purplish-gallery-layout-"] :is(.wc-block-product-gallery-large-image__wrapper, .purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks) {
+		background-color: var(--purplish-wash);
+	}
+
+	/*
+	 * In the editor the large image shows the block's one photo, so the
+	 * frame is the grid: the photo's own block is the first tile and the
+	 * script adds four copies, five tiles in all.
+	 */
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wc-block-editor-product-gallery-large-image {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--wp--style--block-gap, 0.5em);
+	}
+
+	.purplish-gallery.purplish-gallery-layout-mosaic .wc-block-editor-product-gallery-large-image {
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+	}
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] :is(.purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks) {
+		display: block;
+		position: relative;
+		inset: auto;
+		width: auto;
+		height: auto;
+		aspect-ratio: var(--wc-block-product-gallery-large-image-ratio-width, 1) / var(--wc-block-product-gallery-large-image-ratio-height, 1);
+		overflow: hidden;
+	}
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks .wp-block-woocommerce-product-image {
+		inset: 0;
+	}
+
+	.purplish-gallery-tile img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.purplish-gallery-layout-grid .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks {
+		grid-column: span 2;
+	}
+
+	.purplish-gallery-layout-mosaic .wc-block-editor-product-gallery-large-image > * {
+		grid-column: span 2;
+	}
+
+	.purplish-gallery-layout-mosaic .wc-block-editor-product-gallery-large-image > :nth-child(-n + 2) {
+		grid-column: span 3;
+	}
+
+	.purplish-gallery[class*="purplish-gallery-layout-"] .wp-block-woocommerce-product-gallery-large-image-next-previous {
+		display: none;
 	}
 }
 
