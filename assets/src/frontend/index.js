@@ -4,6 +4,7 @@
  */
 import './style.css';
 import { nextColor } from './match';
+import { isTiled } from '../effects/tiles';
 
 const data = window.purplishData;
 const body = document.body;
@@ -148,16 +149,22 @@ const GALLERIES =
 let swap = false;
 
 /**
- * The box a photo transition plays on: the block gallery's container, or
+ * The boxes a photo transition plays on: the block gallery's container, or
  * on classic themes the viewport FlexSlider puts around its sliding strip,
- * so moving or clipping it never shifts the slides.
+ * so moving or clipping it never shifts the slides. In a photo grid, each
+ * tile, so every photo turns in its own tile and the gaps stay clear. The
+ * hidden ones too: a variation's photo is still hidden when its color
+ * arrives, and starts the animation once WooCommerce shows it.
  *
  * @param {Element} element A gallery container or a classic wrapper.
- * @return {Element} The frame.
+ * @return {Element[]} The frames.
  */
-function frameOf( element ) {
+function framesOf( element ) {
+	if ( isTiled( element ) ) {
+		return [ ...element.children ];
+	}
 	const parent = element.parentElement;
-	return parent?.classList.contains( 'flex-viewport' ) ? parent : element;
+	return [ parent?.classList.contains( 'flex-viewport' ) ? parent : element ];
 }
 
 /**
@@ -177,25 +184,28 @@ function playTransition( event ) {
 	}
 
 	swap = ! swap;
-	document.querySelectorAll( GALLERIES ).forEach( ( element ) => {
-		const gallery = frameOf( element );
-		// The accent is still on its way to the new color; the wash shows it now.
-		gallery.style.setProperty(
-			'--purplish-wash',
-			event.detail.set?.color ?? 'transparent'
-		);
-		gallery.classList.remove( 'purplish-swap-a', 'purplish-swap-b' );
-		gallery.classList.add( swap ? 'purplish-swap-a' : 'purplish-swap-b' );
-		gallery.addEventListener(
-			'animationend',
-			() =>
-				gallery.classList.remove(
-					'purplish-swap-a',
-					'purplish-swap-b'
-				),
-			{ once: true }
-		);
-	} );
+	document.querySelectorAll( GALLERIES ).forEach( ( element ) =>
+		framesOf( element ).forEach( ( gallery ) => {
+			// The accent is still on its way to the new color; the wash shows it now.
+			gallery.style.setProperty(
+				'--purplish-wash',
+				event.detail.set?.color ?? 'transparent'
+			);
+			gallery.classList.remove( 'purplish-swap-a', 'purplish-swap-b' );
+			gallery.classList.add(
+				swap ? 'purplish-swap-a' : 'purplish-swap-b'
+			);
+			gallery.addEventListener(
+				'animationend',
+				() =>
+					gallery.classList.remove(
+						'purplish-swap-a',
+						'purplish-swap-b'
+					),
+				{ once: true }
+			);
+		} )
+	);
 }
 
 const RISERS =

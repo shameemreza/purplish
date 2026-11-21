@@ -52,6 +52,8 @@ import { canvasElement } from './canvas';
 import { useExtras } from './extras-preview';
 import { useSizeGuide } from './size-guide-preview';
 import { usePhotoSwatches } from './photo-swatches-preview';
+import { useGalleryTiles } from './gallery-tiles-preview';
+import { LAYOUT, isTiled } from '../effects/tiles';
 
 const MAP = window.purplishPreview || {};
 const PAGE = window.purplishPage || {};
@@ -59,6 +61,9 @@ const PAGE_BLOCK = 'woocommerce/add-to-cart-with-options';
 const ATTRIBUTE_BLOCK =
 	'woocommerce/add-to-cart-with-options-variation-selector-attribute';
 const FRAME = '.wc-block-product-gallery-large-image';
+// In a photo grid each tile is a frame: the block's photo and its copies.
+const TILE =
+	'.purplish-gallery-tile, .wc-block-editor-product-gallery-large-image > .wc-block-product-gallery-large-image__inner-blocks';
 const GALLERY_HOVER = 'purplish-gallery-hover-';
 const IMAGE_HOVER = 'purplish-image-hover-';
 const MATCHING_CHIPS = 'purplish-filters-chips';
@@ -539,7 +544,9 @@ function pointerProps( { glass, hover, gallery, frame, cards, card } ) {
 			}
 
 			if ( gallery ) {
-				const photo = event.target.closest( FRAME );
+				const photo = event.target.closest(
+					isTiled( event.target ) ? TILE : FRAME
+				);
 				if ( photo !== frame.current ) {
 					leavePhoto();
 					if ( photo ) {
@@ -646,6 +653,11 @@ const withPurplishPreview = createHigherOrderComponent(
 						name: false !== saved.swatchname,
 					}
 				: null
+		);
+
+		useGalleryTiles(
+			props.clientId,
+			classes.some( ( name ) => name.startsWith( LAYOUT ) )
 		);
 
 		const hover = HOVER_BUTTONS[ props.name ] || '';

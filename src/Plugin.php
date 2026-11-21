@@ -95,6 +95,7 @@ final class Plugin {
 		( new Frontend\SizeGuide() )->register();
 		( new Frontend\PhotoSwatches() )->register();
 		( new Frontend\StockDot() )->register();
+		( new Frontend\PhotoGrid() )->register();
 		( new Admin\Settings() )->register();
 		( new Blocks\Registry() )->register();
 		( new Patterns() )->register();
