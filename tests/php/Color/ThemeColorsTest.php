@@ -166,9 +166,9 @@ class ThemeColorsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * In a section band the Mini-Cart follows the band's text color.
+	 * A theme without section styles gets no section rules.
 	 */
-	public function test_mini_cart_follows_section_text() {
-		$this->assertStringEndsWith( '.wp-block-woocommerce-mini-cart{color:inherit}', ThemeColors::css() );
+	public function test_no_section_rules_without_sections() {
+		$this->assertStringNotContainsString( 'mini-cart', ThemeColors::css() );
 	}
 }

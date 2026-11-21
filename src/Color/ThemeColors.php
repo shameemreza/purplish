@@ -46,13 +46,6 @@ final class ThemeColors {
 	);
 
 	/**
-	 * Purple colors the Mini-Cart with its heading color everywhere, so in
-	 * a dark section band the bag and count disappear. Inside Purple's
-	 * section styles the Mini-Cart takes the band's text color instead.
-	 */
-	const SECTION_RULE = ':is(.is-style-section-1,.is-style-section-2,.is-style-section-3) .wp-block-woocommerce-mini-cart{color:inherit}';
-
-	/**
 	 * Adds the hook.
 	 *
 	 * @return void
@@ -77,7 +70,10 @@ final class ThemeColors {
 	}
 
 	/**
-	 * The `:root` rule, when the theme lacks a color, and the section rule.
+	 * The `:root` rule, when the theme lacks a color, and the section rules.
+	 * The page's own ink and paper are kept under a second name for
+	 * surfaces that stay light inside a section, like the Changing Room's
+	 * stage.
 	 *
 	 * @return string
 	 */
@@ -85,6 +81,9 @@ final class ThemeColors {
 		$rules = '';
 		foreach ( self::tokens() as $name => $value ) {
 			$rules .= $name . ':' . $value . ';';
+			if ( '--purplish-theme-accent' !== $name ) {
+				$rules .= str_replace( '-theme-', '-page-', $name ) . ':' . $value . ';';
+			}
 		}
 		$slugs = self::slugs();
 		foreach ( self::PURPLE_NAMES as $slug => $value ) {
@@ -92,7 +91,7 @@ final class ThemeColors {
 				$rules .= '--wp--preset--color--' . $slug . ':' . $value . ';';
 			}
 		}
-		return ( '' === $rules ? '' : ':root{' . $rules . '}' ) . self::SECTION_RULE;
+		return ( '' === $rules ? '' : ':root{' . $rules . '}' ) . SectionColors::css();
 	}
 
 	/**
@@ -150,11 +149,11 @@ final class ThemeColors {
 	 * color can't be measured (a gradient, an unknown slug), the first color
 	 * set is used.
 	 *
-	 * @param string   $paper      Page background.
+	 * @param string   $paper      Background the accent sits on.
 	 * @param string[] $candidates Colors in order of preference.
 	 * @return string
 	 */
-	private static function accent( $paper, $candidates ) {
+	public static function accent( $paper, $candidates ) {
 		$candidates = array_values( array_filter( $candidates ) );
 		if ( empty( $candidates ) ) {
 			return '';
@@ -173,14 +172,23 @@ final class ThemeColors {
 	}
 
 	/**
-	 * A safe CSS color from global styles: a hex color, or a palette
-	 * reference as `var(--wp--preset--color--slug)`.
+	 * A color from global styles, as color() reads it.
 	 *
 	 * @param string[] $path Global styles path.
 	 * @return string Empty when the value is anything else.
 	 */
 	private static function read( $path ) {
-		$value = wp_get_global_styles( $path );
+		return self::color( wp_get_global_styles( $path ) );
+	}
+
+	/**
+	 * A safe CSS color from a theme.json value: a hex color, or a palette
+	 * reference as `var(--wp--preset--color--slug)`.
+	 *
+	 * @param mixed $value Value from theme.json data.
+	 * @return string Empty when the value is anything else.
+	 */
+	public static function color( $value ) {
 		if ( ! is_string( $value ) ) {
 			return '';
 		}
