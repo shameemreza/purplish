@@ -43,6 +43,10 @@
 			"type": "string",
 			"enum": [ "short", "site" ],
 			"default": "short"
+		},
+		"purplishHooked": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"styles": [

@@ -94,7 +94,7 @@ const usable = ( product ) =>
  * @param {Object} settings From `extrasSettings()`.
  * @return {Promise<Object[]>} The products.
  */
-async function sample( settings ) {
+export async function sample( settings ) {
 	if ( 'pick' === settings.from && settings.pick.length ) {
 		const picked = await products( {
 			include: settings.pick.join( ',' ),
@@ -158,7 +158,7 @@ function plain( html, words ) {
  * @param {Object}   settings From `extrasSettings()`.
  * @return {HTMLElement} The list.
  */
-function build( doc, items, settings ) {
+export function build( doc, items, settings ) {
 	const make = ( tag, className, text ) => {
 		const element = doc.createElement( tag );
 		element.className = className;

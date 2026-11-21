@@ -8,6 +8,7 @@
 namespace Purplish\Admin;
 
 use Purplish\Frontend\BlockEffects;
+use Purplish\Frontend\PurpleParts;
 use Purplish\Options;
 
 defined( 'ABSPATH' ) || exit;
@@ -55,20 +56,23 @@ final class Settings {
 		if ( self::SECTION !== $current_section ) {
 			return $settings;
 		}
-		if ( wp_is_block_theme() ) {
-			// Nothing to save on block themes, so WooCommerce's own flag hides the button.
+		$purple = PurpleParts::is_purple();
+		if ( wp_is_block_theme() && ! $purple ) {
+			// Nothing to save on other block themes, so WooCommerce's own flag hides the button.
 			$GLOBALS['hide_save_button'] = true; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce reads this flag.
 		}
-		return self::fields( wp_is_block_theme() );
+		return self::fields( wp_is_block_theme(), $purple );
 	}
 
 	/**
-	 * The fields, or the pointer to the block panel on block themes.
+	 * The fields, or the pointer to the block panel on block themes. Purple
+	 * also gets the switches for its Add to Cart parts.
 	 *
 	 * @param bool $block_theme Whether the active theme is a block theme.
+	 * @param bool $purple      Whether the active theme is Purple.
 	 * @return array
 	 */
-	public static function fields( $block_theme ) {
+	public static function fields( $block_theme, $purple = false ) {
 		$title = array(
 			'id'    => 'purplish_options',
 			'type'  => 'title',
@@ -85,7 +89,7 @@ final class Settings {
 				__( 'Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings.', 'purplish' ),
 				'<a href="' . esc_url( admin_url( 'site-editor.php?p=%2Fwp_template%2F' . rawurlencode( get_stylesheet() ) . '%2F%2Fsingle-product&canvas=edit' ) ) . '">' . esc_html__( 'Single Product template', 'purplish' ) . '</a>'
 			);
-			return array( $title, $end );
+			return $purple ? array_merge( array( $title, $end ), self::purple_fields() ) : array( $title, $end );
 		}
 
 		$title['desc'] = __( 'When a shopper picks a color on a variable product, these parts of the product page take that color.', 'purplish' );
@@ -178,6 +182,41 @@ final class Settings {
 		$fields[] = $end;
 
 		return $fields;
+	}
+
+	/**
+	 * The switches for Purple's Add to Cart parts.
+	 *
+	 * @return array
+	 */
+	public static function purple_fields() {
+		return array(
+			array(
+				'id'    => 'purplish_purple_parts',
+				'type'  => 'title',
+				'title' => __( 'Purple\'s Add to Cart parts', 'purplish' ),
+				'desc'  => __( 'Purple has an Add to Cart part for each product type. What you turn on here goes at the end of the simple, variable and grouped parts, under the buy button. To move it, change its settings or take it out of one part, open that part in the Site Editor.', 'purplish' ),
+			),
+			array(
+				'id'            => self::OPTION . '[purple_delivery]',
+				'type'          => 'checkbox',
+				'title'         => __( 'Add under the button', 'purplish' ),
+				'desc'          => __( 'Delivery Line: the delivery date, returns and pickup. Set your dates in Shipping > Delivery dates first.', 'purplish' ),
+				'default'       => 'no',
+				'checkboxgroup' => 'start',
+			),
+			array(
+				'id'            => self::OPTION . '[purple_extras]',
+				'type'          => 'checkbox',
+				'desc'          => __( 'Matching Extras: other products to tick, added to the cart on the same click.', 'purplish' ),
+				'default'       => 'no',
+				'checkboxgroup' => 'end',
+			),
+			array(
+				'id'   => 'purplish_purple_parts',
+				'type' => 'sectionend',
+			),
+		);
 	}
 
 	/**

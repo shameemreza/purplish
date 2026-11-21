@@ -343,4 +343,38 @@ class ExtrasTest extends WP_UnitTestCase {
 		$this->assertCount( 2, WC()->cart->get_cart() );
 		WC()->cart->empty_cart();
 	}
+
+	/**
+	 * A grouped product: the products in its group never show as extras,
+	 * and its posted form adds the ticked extras with the first product of
+	 * the group, as WooCommerce adds each one on its own.
+	 */
+	public function test_grouped_product() {
+		$trousers = $this->product( 'Trousers' );
+		$shorts   = $this->product( 'Shorts' );
+		$scarf    = $this->product( 'Scarf' );
+		$group    = new \WC_Product_Grouped();
+		$group->set_name( 'Set' );
+		$group->set_children( array( $trousers->get_id(), $shorts->get_id() ) );
+		$group->set_cross_sell_ids( array( $trousers->get_id(), $scarf->get_id() ) );
+		$group->save();
+
+		$listed = array_map(
+			static function ( $extra ) {
+				return $extra->get_id();
+			},
+			Extras::products( $group, Extras::settings( array() ) )
+		);
+		$this->assertSame( array( $scarf->get_id() ), $listed );
+
+		WC()->initialize_cart();
+		WC()->cart->empty_cart();
+		$_REQUEST['add-to-cart']   = (string) $group->get_id();
+		$_REQUEST[ Extras::FIELD ] = array( (string) $scarf->get_id(), (string) $shorts->get_id() );
+		WC()->cart->add_to_cart( $trousers->get_id(), 1 );
+
+		$in = array_values( wp_list_pluck( WC()->cart->get_cart(), 'product_id' ) );
+		$this->assertSame( array( $trousers->get_id(), $scarf->get_id() ), $in );
+		WC()->cart->empty_cart();
+	}
 }
