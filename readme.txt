@@ -112,6 +112,8 @@ Install Purplish. Each variation takes its color from its photo by default, and 
 
 Yes. Block themes get every option through WooCommerce's product blocks. Classic themes get the page colors, the photo transition, the title and price rise, and three gallery options.
 
+Purplish's blocks also take the colors of the section style they sit in, like Purple's Style 1 to 3, on every color variation and on any block theme with section styles.
+
 A block theme can match Purplish's corners, shadow, photo wash and ruled lines to its own in `theme.json`, under `settings.custom.purplish` (`radius`, `shadow`, `wash` and `rule`). The README on GitHub has an example.
 
 = Does it work with simple products? =

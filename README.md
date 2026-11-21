@@ -545,6 +545,8 @@ A theme can set Purplish's corners, shadow, photo wash and ruled lines once, in 
 
 WordPress prints these as `--wp--custom--purplish--radius`, `--wp--custom--purplish--shadow`, `--wp--custom--purplish--wash` and `--wp--custom--purplish--rule`. The radius goes on every rounded corner, so `0` gives square corners. Checkboxes keep their small corners when the radius is bigger. The shadow is the soft one under the picked shipping or payment card, the side panel's summary, the raised checkout card and the filter bar's lists. The picked card keeps its ring either way. The wash is the color behind gallery and card photos with Photo wash on, in place of the tint of the effect color, so it stays the same for every variation. The rule is the color of the lines between ruled cards.
 
+Inside a section style, like Purple's Style 1 to 3 on a Group, Columns or Column, Purplish's blocks take that section's background, text and button colors, so a Wardrobe panel or a size chart sits on the band instead of on white. The Changing Room is the one exception: its stage and drawer stay light, so its buttons keep the page's colors. The Mini-Cart, Navigation, product prices, ratings and summaries take the section's text color too, on Purple's color variations and on any block theme with section styles.
+
 ## Why I made it
 
 > Purplish started with one small idea from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209) with [Luigi Teschio](https://x.com/gigitux): let the product page take the color of the variation a shopper picks. Building it showed me how much more WooCommerce's blocks can do with a few good options, so I kept going. I built the [Purplish plugin site](https://purplish.io/) with WooCommerce, the Purple theme and Purplish itself.
