@@ -156,7 +156,9 @@ function usePageLook( clientId, classes ) {
 
 /**
  * Adds the googly eyes inside the block's button, as the server prints
- * them, and adds them again when the editor draws the button again.
+ * them, and adds them again when the editor draws the button again. Like
+ * the sticky bar sample, it looks the block up again on each change on the
+ * canvas, since the editor swaps the block's element while a template loads.
  *
  * @param {string} clientId The block's client ID.
  * @param {string} button   Selector of the button.
@@ -164,37 +166,42 @@ function usePageLook( clientId, classes ) {
  */
 function useEyes( clientId, button, count ) {
 	useEffect( () => {
-		const block = button && count && canvasElement( clientId );
-		if ( ! block ) {
+		const first = button && count && canvasElement( clientId );
+		if ( ! first ) {
 			return;
 		}
-		const doc = block.ownerDocument;
+		const doc = first.ownerDocument;
+		const find = () => doc.getElementById( 'block-' + clientId );
 		const place = () => {
-			block.querySelectorAll( button ).forEach( ( target ) => {
-				const pair = target.querySelector( ':scope > .purplish-eyes' );
-				if ( pair && pair.children.length === count ) {
-					return;
-				}
-				pair?.remove();
-				const eyes = doc.createElement( 'span' );
-				eyes.className = 'purplish-eyes';
-				eyes.setAttribute( 'aria-hidden', 'true' );
-				eyes.setAttribute( 'contenteditable', 'false' );
-				for ( let i = 0; i < count; i++ ) {
-					const eye = doc.createElement( 'span' );
-					eye.className = 'purplish-eye';
-					eyes.appendChild( eye );
-				}
-				target.prepend( eyes );
-			} );
+			find()
+				?.querySelectorAll( button )
+				.forEach( ( target ) => {
+					const pair = target.querySelector(
+						':scope > .purplish-eyes'
+					);
+					if ( pair && pair.children.length === count ) {
+						return;
+					}
+					pair?.remove();
+					const eyes = doc.createElement( 'span' );
+					eyes.className = 'purplish-eyes';
+					eyes.setAttribute( 'aria-hidden', 'true' );
+					eyes.setAttribute( 'contenteditable', 'false' );
+					for ( let i = 0; i < count; i++ ) {
+						const eye = doc.createElement( 'span' );
+						eye.className = 'purplish-eye';
+						eyes.appendChild( eye );
+					}
+					target.prepend( eyes );
+				} );
 		};
 		place();
 		const watch = new doc.defaultView.MutationObserver( place );
-		watch.observe( block, { childList: true, subtree: true } );
+		watch.observe( doc.body, { childList: true, subtree: true } );
 		return () => {
 			watch.disconnect();
-			block
-				.querySelectorAll( button + ' > .purplish-eyes' )
+			find()
+				?.querySelectorAll( button + ' > .purplish-eyes' )
 				.forEach( ( pair ) => pair.remove() );
 		};
 	}, [ clientId, button, count ] );
