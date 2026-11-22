@@ -32,6 +32,7 @@ Every change to Purplish that a user or contributor would notice. The format fol
 - Automatic page colors pick the product over a model's hair and skin when the product is pale, and colors saved before the update are read again.
 - Tabs, page numbers and the account login panel keep readable text in every theme color variation.
 - The Size guide's cm and in buttons and the Matching extras names sit without extra space under them on WooCommerce pages.
+- The googly eyes show in the editor when a template loads with them saved, and the Scroll Lookbook's opening title stays readable inside a theme's dark section style.
 
 ## [1.3.3] - 2026-11-16
 

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-21T16:34:43+00:00\n"
+"POT-Creation-Date: 2026-11-22T00:07:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -2364,7 +2364,7 @@ msgstr ""
 
 #. translators: %s: amount left to spend, such as $12.00.
 #: src/Frontend/FreeDelivery.php:222
-#: assets/src/editor/preview.js:246
+#: assets/src/editor/preview.js:253
 #: assets/src/meter/index.js:37
 #: build/editor.js:12
 #: build/meter.js:2
@@ -6265,7 +6265,7 @@ msgstr ""
 msgid "The theme’s outline button style, as on the Button block."
 msgstr ""
 
-#: assets/src/editor/preview.js:309
+#: assets/src/editor/preview.js:316
 #: build/editor.js:12
 msgid "Product name"
 msgstr ""

@@ -273,6 +273,7 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 * Fix: Automatic page colors pick the product over a model's hair and skin when the product is pale, and colors saved before the update are read again.
 * Fix: Tabs, page numbers and the account login panel keep readable text in every theme color variation.
 * Fix: The Size guide's cm and in buttons and the Matching extras names sit without extra space under them on WooCommerce pages.
+* Fix: The googly eyes show in the editor when a template loads with them saved, and the Scroll Lookbook's opening title stays readable inside a theme's dark section style.
 
 = 1.3.3 =
 
