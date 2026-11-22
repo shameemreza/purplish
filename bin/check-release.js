@@ -297,6 +297,18 @@ const checks = {
 		return problems;
 	},
 
+	'readme.txt counts what ships': () => {
+		const patterns = shipped().filter( ( file ) =>
+			/^patterns\/[^/]+\.php$/.test( file )
+		).length;
+		return [ ...readme.matchAll( /(?<![\d.])(\d+) patterns\b/g ) ]
+			.filter( ( match ) => Number( match[ 1 ] ) !== patterns )
+			.map(
+				( match ) =>
+					`readme.txt says "${ match[ 0 ] }", the plugin ships ${ patterns }`
+			);
+	},
+
 	'Committed build matches the source': () => {
 		const changed = git( 'status', '--porcelain', '--', 'build' ).trim();
 		return changed
