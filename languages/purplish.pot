@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.3.3\n"
+"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/purplish\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-16T03:25:55+00:00\n"
+"POT-Creation-Date: 2026-11-22T00:07:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -39,66 +39,80 @@ msgstr ""
 msgid "https://shameemreza.com/"
 msgstr ""
 
+#: patterns/account-page.php:12
+msgid "My account"
+msgstr ""
+
+#: patterns/account-page.php:19
+msgid "Questions about an order? Reply to its confirmation email."
+msgstr ""
+
 #: patterns/atelier-shop.php:65
-#: patterns/atelier-shop.php:106
-#: src/Patterns.php:164
+#: patterns/atelier-shop.php:103
+#: src/Patterns.php:227
 msgid "Atelier shop"
 msgstr ""
 
-#: patterns/atelier-shop.php:118
+#: patterns/atelier-shop.php:115
 msgid "Categories"
 msgstr ""
 
-#: patterns/atelier-shop.php:126
+#: patterns/atelier-shop.php:123
 msgid "Shop by price"
 msgstr ""
 
-#: patterns/atelier-shop.php:136
+#: patterns/atelier-shop.php:133
 #: patterns/boutique-shop.php:80
-#: patterns/flagship-shop.php:67
+#: patterns/flagship-shop.php:66
 msgid "Availability"
 msgstr ""
 
-#: patterns/atelier-shop.php:165
+#: patterns/atelier-shop.php:162
 msgid "Back"
 msgstr ""
 
-#: patterns/atelier-shop.php:169
+#: patterns/atelier-shop.php:166
 msgid "Next"
 msgstr ""
 
 #: patterns/boutique-shop.php:65
-#: patterns/flagship-shop.php:59
+#: patterns/flagship-shop.php:58
 msgid "Color"
 msgstr ""
 
 #: patterns/boutique-shop.php:69
-#: patterns/flagship-shop.php:56
+#: patterns/flagship-shop.php:55
 #: assets/src/blocks/escalator/edit.js:174
 #: build/blocks/escalator/index.js:1
 msgid "Category"
 msgstr ""
 
 #: patterns/boutique-shop.php:73
-#: patterns/flagship-shop.php:58
+#: patterns/flagship-shop.php:57
+#: src/Blocks/SizeChart.php:371
+#: assets/src/blocks/size-chart/edit.js:44
+#: assets/src/blocks/size-chart/edit.js:97
+#: assets/src/blocks/size-chart/preview.js:80
 #: assets/src/editor/catalog-sorting.js:128
-#: build/editor.js:7
+#: build/blocks/size-chart/index.js:2
+#: build/blocks/size-chart/index.js:4
+#: build/editor.js:12
 msgid "Size"
 msgstr ""
 
 #: patterns/boutique-shop.php:77
-#: patterns/flagship-shop.php:66
+#: patterns/flagship-shop.php:65
 msgid "Price"
 msgstr ""
 
 #: patterns/boutique-shop.php:129
 #: patterns/boutique-shop.php:165
-#: src/Patterns.php:178
+#: src/Patterns.php:241
 msgid "Boutique shop"
 msgstr ""
 
 #: patterns/boutique-shop.php:178
-#: patterns/flagship-categories.php:46
+#: patterns/flagship-categories.php:44
 msgid "Shop now"
 msgstr ""
 
@@ -106,61 +120,93 @@ msgstr ""
 msgid "Clear all"
 msgstr ""
 
-#: patterns/checkout-header.php:82
-#: src/Patterns.php:146
+#: patterns/cart-page.php:31
+msgid "You may be interested in…"
+msgstr ""
+
+#: patterns/cart-page.php:100
+msgid "Under the cart"
+msgstr ""
+
+#: patterns/checkout-header.php:104
+#: src/Patterns.php:182
 msgid "Checkout header"
 msgstr ""
 
-#: patterns/checkout-header.php:86
+#: patterns/checkout-header.php:107
+#: patterns/checkout-header.php:111
+msgid "Back to bag"
+msgstr ""
+
+#: patterns/checkout-header.php:118
 msgid "Steps"
 msgstr ""
 
-#: patterns/checkout-header.php:90
+#: patterns/checkout-header.php:122
 msgid "Bag"
 msgstr ""
 
-#: patterns/checkout-header.php:92
+#: patterns/checkout-header.php:124
 msgid "Checkout"
 msgstr ""
 
-#: patterns/checkout-header.php:94
+#: patterns/checkout-header.php:126
 msgid "Done"
 msgstr ""
 
-#: patterns/checkout-header.php:100
-#: patterns/checkout-header.php:106
+#: patterns/checkout-header.php:132
+#: patterns/checkout-header.php:136
 #: patterns/trust-row.php:17
 msgid "Secure checkout"
 msgstr ""
 
-#: patterns/empty-cart.php:28
-#: patterns/flagship-categories.php:27
-#: patterns/flagship-footer.php:27
+#: patterns/checkout-header.php:143
+#: patterns/trust-row.php:21
+#: src/Patterns.php:170
+msgid "Trust row"
+msgstr ""
+
+#: patterns/checkout-header.php:147
+msgid "Free shipping over $100"
+msgstr ""
+
+#: patterns/checkout-header.php:148
+#: patterns/trust-row.php:16
+msgid "30-day returns"
+msgstr ""
+
+#: patterns/checkout-header.php:149
+msgid "Secure payment"
+msgstr ""
+
+#: patterns/empty-cart.php:25
+#: patterns/flagship-categories.php:25
+#: patterns/flagship-footer.php:21
+#: patterns/flagship-header.php:15
 #: patterns/flagship-header.php:17
-#: patterns/flagship-header.php:19
-#: patterns/flagship-phone-menu.php:18
+#: patterns/flagship-phone-menu.php:16
 #: src/Blocks/Wardrobe.php:87
 #: src/Blocks/Wardrobe.php:94
 msgid "Coats"
 msgstr ""
 
-#: patterns/empty-cart.php:29
-#: patterns/flagship-categories.php:28
-#: patterns/flagship-footer.php:28
-#: patterns/flagship-header.php:17
-#: patterns/flagship-header.php:20
-#: patterns/flagship-phone-menu.php:19
+#: patterns/empty-cart.php:26
+#: patterns/flagship-categories.php:26
+#: patterns/flagship-footer.php:22
+#: patterns/flagship-header.php:15
+#: patterns/flagship-header.php:18
+#: patterns/flagship-phone-menu.php:17
 #: src/Blocks/Wardrobe.php:87
 #: src/Blocks/Wardrobe.php:95
 msgid "Jackets"
 msgstr ""
 
-#: patterns/empty-cart.php:30
-#: patterns/flagship-categories.php:29
-#: patterns/flagship-footer.php:29
-#: patterns/flagship-header.php:17
-#: patterns/flagship-header.php:21
-#: patterns/flagship-phone-menu.php:20
+#: patterns/empty-cart.php:27
+#: patterns/flagship-categories.php:27
+#: patterns/flagship-footer.php:23
+#: patterns/flagship-header.php:15
+#: patterns/flagship-header.php:19
+#: patterns/flagship-phone-menu.php:18
 #: src/Blocks/ChangingRoom.php:125
 #: assets/src/blocks/changing-room/edit.js:154
 #: assets/src/blocks/changing-room/edit.js:312
@@ -168,21 +214,21 @@ msgstr ""
 msgid "Trousers"
 msgstr ""
 
-#: patterns/empty-cart.php:31
-#: patterns/flagship-categories.php:30
-#: patterns/flagship-footer.php:30
-#: patterns/flagship-header.php:17
-#: patterns/flagship-phone-menu.php:21
+#: patterns/empty-cart.php:28
+#: patterns/flagship-categories.php:28
+#: patterns/flagship-footer.php:24
+#: patterns/flagship-header.php:15
+#: patterns/flagship-phone-menu.php:19
 msgid "Shoes"
 msgstr ""
 
-#: patterns/empty-cart.php:35
-#: patterns/empty-cart.php:147
-#: patterns/empty-cart.php:148
+#: patterns/empty-cart.php:32
+#: patterns/empty-cart.php:145
+#: patterns/empty-cart.php:146
 #: patterns/flagship-best-sellers.php:39
 #: patterns/flagship-best-sellers.php:61
 #: patterns/flagship-best-sellers.php:63
-#: src/Patterns.php:128
+#: src/Patterns.php:164
 #: assets/src/blocks/escalator/edit.js:38
 #: assets/src/blocks/shelf-tag/edit.js:27
 #: build/blocks/escalator/index.js:1
@@ -191,49 +237,49 @@ msgid "Best sellers"
 msgstr ""
 
 #: patterns/empty-cart.php:73
-#: src/Patterns.php:158
+#: src/Patterns.php:200
 msgid "Empty cart"
 msgstr ""
 
-#: patterns/empty-cart.php:81
-#: patterns/flagship-header.php:34
+#: patterns/empty-cart.php:79
+#: patterns/flagship-header.php:33
 msgid "Free shipping on orders over $100"
 msgstr ""
 
-#: patterns/empty-cart.php:86
+#: patterns/empty-cart.php:84
 msgid "Your bag is empty"
 msgstr ""
 
-#: patterns/empty-cart.php:90
+#: patterns/empty-cart.php:88
 msgid "Nothing in here yet. The new season is already on the floor."
 msgstr ""
 
-#: patterns/empty-cart.php:95
+#: patterns/empty-cart.php:93
 #: src/Blocks/Wardrobe.php:183
 msgid "Shop new in"
 msgstr ""
 
-#: patterns/empty-cart.php:99
+#: patterns/empty-cart.php:97
 #: patterns/escalator-hero-photos.php:31
 #: patterns/escalator-hero-products.php:31
 msgid "See best sellers"
 msgstr ""
 
-#: patterns/empty-cart.php:104
-#: patterns/empty-cart.php:105
+#: patterns/empty-cart.php:102
+#: patterns/empty-cart.php:103
 msgid "Start with a category"
 msgstr ""
 
-#: patterns/empty-cart.php:105
+#: patterns/empty-cart.php:103
 msgid "All categories"
 msgstr ""
 
-#: patterns/empty-cart.php:148
+#: patterns/empty-cart.php:146
 msgid "Shop all"
 msgstr ""
 
 #: patterns/escalator-hero-photos.php:14
-#: src/Patterns.php:73
+#: src/Patterns.php:109
 msgid "Escalator hero with photos"
 msgstr ""
 
@@ -261,7 +307,7 @@ msgid "Ships in two working days"
 msgstr ""
 
 #: patterns/escalator-hero-products.php:14
-#: src/Patterns.php:67
+#: src/Patterns.php:103
 msgid "Escalator hero with products"
 msgstr ""
 
@@ -281,42 +327,42 @@ msgstr ""
 msgid "Shop all best sellers"
 msgstr ""
 
-#: patterns/flagship-brand-band.php:56
-#: src/Patterns.php:122
+#: patterns/flagship-brand-band.php:55
+#: src/Patterns.php:158
 msgid "Brand band"
 msgstr ""
 
-#: patterns/flagship-brand-band.php:59
+#: patterns/flagship-brand-band.php:58
 msgid "Fewer pieces."
 msgstr ""
 
-#: patterns/flagship-brand-band.php:59
+#: patterns/flagship-brand-band.php:58
 msgid "Worn for years."
 msgstr ""
 
-#: patterns/flagship-brand-band.php:64
+#: patterns/flagship-brand-band.php:63
 msgid "Every coat is cut in small runs and kept in the range season after season, so the one you buy this autumn still matches what you add next year."
 msgstr ""
 
-#: patterns/flagship-brand-band.php:70
+#: patterns/flagship-brand-band.php:69
 msgid "Shop the autumn edit"
 msgstr ""
 
+#: patterns/flagship-categories.php:31
 #: patterns/flagship-categories.php:33
-#: patterns/flagship-categories.php:35
-#: src/Patterns.php:110
+#: src/Patterns.php:146
 msgid "Shop by category"
 msgstr ""
 
-#: patterns/flagship-categories.php:35
-#: patterns/flagship-header.php:62
+#: patterns/flagship-categories.php:33
+#: patterns/flagship-header.php:61
 #: src/Blocks/Wardrobe.php:124
 msgid "All clothing"
 msgstr ""
 
 #: patterns/flagship-floor.php:13
-#: patterns/flagship-header.php:25
-#: patterns/flagship-phone-menu.php:46
+#: patterns/flagship-header.php:23
+#: patterns/flagship-phone-menu.php:45
 msgid "Field Day"
 msgstr ""
 
@@ -333,7 +379,7 @@ msgid "The coat does the talking."
 msgstr ""
 
 #: patterns/flagship-floor.php:15
-#: patterns/flagship-header.php:28
+#: patterns/flagship-header.php:26
 #: src/Blocks/Showfloor.php:92
 msgid "Soft Grey"
 msgstr ""
@@ -344,7 +390,7 @@ msgid "Quiet colors, sharp shape."
 msgstr ""
 
 #: patterns/flagship-floor.php:16
-#: patterns/flagship-header.php:27
+#: patterns/flagship-header.php:25
 #: src/Blocks/Showfloor.php:93
 msgid "Trail Mix"
 msgstr ""
@@ -363,7 +409,7 @@ msgid "Soft cotton, slow morning."
 msgstr ""
 
 #: patterns/flagship-floor.php:18
-#: patterns/flagship-header.php:29
+#: patterns/flagship-header.php:27
 msgid "Night Shift"
 msgstr ""
 
@@ -380,7 +426,7 @@ msgid "Leather that never tries too hard."
 msgstr ""
 
 #: patterns/flagship-floor.php:20
-#: patterns/flagship-header.php:26
+#: patterns/flagship-header.php:24
 msgid "Camel Hour"
 msgstr ""
 
@@ -389,27 +435,29 @@ msgid "One long coat, every plan."
 msgstr ""
 
 #: patterns/flagship-floor.php:23
-#: src/Patterns.php:104
+#: src/Patterns.php:140
 msgid "Flagship floor"
 msgstr ""
 
 #: patterns/flagship-footer.php:17
 #: src/Abilities.php:57
-#: src/Admin/Settings.php:43
-#: src/Admin/Settings.php:75
-#: src/Blocks/Registry.php:153
-#: src/Patterns.php:241
+#: src/Admin/Settings.php:44
+#: src/Admin/Settings.php:79
+#: src/Blocks/Registry.php:158
+#: src/Patterns.php:46
+#: src/Patterns.php:310
 #: assets/src/editor/accordion-group.js:16
 #: assets/src/editor/accordion.js:19
-#: assets/src/editor/add-to-cart.js:48
+#: assets/src/editor/add-to-cart.js:51
 #: assets/src/editor/badge.js:31
 #: assets/src/editor/button.js:112
-#: assets/src/editor/buy-button.js:70
-#: assets/src/editor/cards.js:444
+#: assets/src/editor/buy-button.js:79
+#: assets/src/editor/cards.js:522
 #: assets/src/editor/cart-page.js:70
 #: assets/src/editor/catalog-sorting.js:90
 #: assets/src/editor/checkout-page.js:90
-#: assets/src/editor/chips.js:22
+#: assets/src/editor/chips.js:61
+#: assets/src/editor/column.js:16
 #: assets/src/editor/columns.js:18
 #: assets/src/editor/count.js:85
 #: assets/src/editor/cover.js:32
@@ -417,7 +465,7 @@ msgstr ""
 #: assets/src/editor/drawer.js:71
 #: assets/src/editor/filter-chips.js:16
 #: assets/src/editor/filters.js:24
-#: assets/src/editor/gallery.js:69
+#: assets/src/editor/gallery.js:75
 #: assets/src/editor/group.js:22
 #: assets/src/editor/heading.js:23
 #: assets/src/editor/image.js:18
@@ -431,181 +479,188 @@ msgstr ""
 #: assets/src/editor/stock.js:33
 #: assets/src/editor/terms.js:48
 #: assets/src/editor/thumbs.js:22
-#: build/editor.js:5
-#: build/editor.js:7
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Purplish"
 msgstr ""
 
-#: patterns/flagship-footer.php:25
-#: patterns/flagship-header.php:48
+#: patterns/flagship-footer.php:19
+#: patterns/flagship-header.php:47
 #: src/Blocks/Wardrobe.php:195
 #: assets/src/blocks/wardrobe/edit.js:79
 #: build/blocks/wardrobe/index.js:1
 msgid "Shop"
 msgstr ""
 
-#: patterns/flagship-footer.php:26
-#: patterns/flagship-header.php:17
-#: patterns/flagship-header.php:104
-#: patterns/flagship-phone-menu.php:17
+#: patterns/flagship-footer.php:20
+#: patterns/flagship-header.php:15
+#: patterns/flagship-header.php:103
+#: patterns/flagship-phone-menu.php:15
 #: src/Blocks/Wardrobe.php:87
 msgid "New in"
 msgstr ""
 
-#: patterns/flagship-footer.php:32
+#: patterns/flagship-footer.php:26
 msgid "Help"
 msgstr ""
 
-#: patterns/flagship-footer.php:33
+#: patterns/flagship-footer.php:27
+#: src/Patterns.php:51
 msgid "Shipping"
 msgstr ""
 
-#: patterns/flagship-footer.php:34
+#: patterns/flagship-footer.php:28
+#: src/Patterns.php:52
 msgid "Returns"
 msgstr ""
 
-#: patterns/flagship-footer.php:35
+#: patterns/flagship-footer.php:29
 msgid "Track an order"
 msgstr ""
 
-#: patterns/flagship-footer.php:36
+#: patterns/flagship-footer.php:30
+#: src/Frontend/SizeGuide.php:131
+#: src/Frontend/SizeGuide.php:168
+#: assets/src/editor/chips.js:149
+#: assets/src/editor/size-guide-preview.js:54
+#: build/editor.js:12
 msgid "Size guide"
 msgstr ""
 
-#: patterns/flagship-footer.php:38
+#: patterns/flagship-footer.php:32
 msgid "Company"
 msgstr ""
 
-#: patterns/flagship-footer.php:39
+#: patterns/flagship-footer.php:33
 msgid "Our story"
 msgstr ""
 
-#: patterns/flagship-footer.php:40
+#: patterns/flagship-footer.php:34
 msgid "Stores"
 msgstr ""
 
-#: patterns/flagship-footer.php:41
+#: patterns/flagship-footer.php:35
 msgid "Contact"
 msgstr ""
 
-#: patterns/flagship-footer.php:45
-#: src/Patterns.php:91
+#: patterns/flagship-footer.php:40
+#: src/Patterns.php:127
 msgid "Flagship footer"
 msgstr ""
 
-#: patterns/flagship-footer.php:46
+#: patterns/flagship-footer.php:41
 msgid "Footer content"
 msgstr ""
 
-#: patterns/flagship-footer.php:47
+#: patterns/flagship-footer.php:42
 msgid "Fit help"
 msgstr ""
 
-#: patterns/flagship-footer.php:50
+#: patterns/flagship-footer.php:45
 msgid "Not sure about the fit?"
 msgstr ""
 
-#: patterns/flagship-footer.php:55
+#: patterns/flagship-footer.php:50
 msgid "Send us your height and usual size. A real person replies within a day with the size we’d pick."
 msgstr ""
 
-#: patterns/flagship-footer.php:64
+#: patterns/flagship-footer.php:59
 msgid "Ask about a size"
 msgstr ""
 
-#: patterns/flagship-footer.php:69
+#: patterns/flagship-footer.php:64
 msgid "Open the size guide"
 msgstr ""
 
-#: patterns/flagship-footer.php:75
+#: patterns/flagship-footer.php:70
 msgid "Links"
 msgstr ""
 
-#: patterns/flagship-footer.php:93
+#: patterns/flagship-footer.php:88
 msgid "Follow the floor"
 msgstr ""
 
-#: patterns/flagship-footer.php:106
+#: patterns/flagship-footer.php:101
 msgid "Wordmark"
 msgstr ""
 
-#: patterns/flagship-footer.php:111
+#: patterns/flagship-footer.php:106
 msgid "Base row"
 msgstr ""
 
-#: patterns/flagship-footer.php:119
+#: patterns/flagship-footer.php:114
 msgid "Privacy"
 msgstr ""
 
-#: patterns/flagship-footer.php:123
+#: patterns/flagship-footer.php:118
 msgid "Terms"
 msgstr ""
 
-#: patterns/flagship-footer.php:133
+#: patterns/flagship-footer.php:128
 msgid "Secure checkout, cards and wallets"
 msgstr ""
 
-#: patterns/flagship-footer.php:139
+#: patterns/flagship-footer.php:134
 msgid "Back to the floor"
 msgstr ""
 
-#: patterns/flagship-header.php:25
-#: patterns/flagship-phone-menu.php:50
+#: patterns/flagship-header.php:23
+#: patterns/flagship-phone-menu.php:49
 msgid "3 pieces, $313.00"
 msgstr ""
 
-#: patterns/flagship-header.php:26
+#: patterns/flagship-header.php:24
 msgid "2 pieces, $388.00"
 msgstr ""
 
-#: patterns/flagship-header.php:27
+#: patterns/flagship-header.php:25
 msgid "3 pieces, $389.00"
 msgstr ""
 
-#: patterns/flagship-header.php:28
+#: patterns/flagship-header.php:26
 msgid "3 pieces, $473.00"
 msgstr ""
 
-#: patterns/flagship-header.php:29
+#: patterns/flagship-header.php:27
 msgid "3 pieces, $463.00"
 msgstr ""
 
-#: patterns/flagship-header.php:32
+#: patterns/flagship-header.php:31
 msgid "Note bar"
 msgstr ""
 
-#: patterns/flagship-header.php:38
+#: patterns/flagship-header.php:37
 msgid "Free returns for 30 days"
 msgstr ""
 
-#: patterns/flagship-header.php:42
+#: patterns/flagship-header.php:41
 msgid "Shop what's new"
 msgstr ""
 
-#: patterns/flagship-header.php:46
+#: patterns/flagship-header.php:45
 msgid "Header bar"
 msgstr ""
 
-#: patterns/flagship-header.php:95
+#: patterns/flagship-header.php:94
 #: src/Blocks/Runway.php:209
 #: src/Blocks/Showfloor.php:524
 msgid "Shop the look"
 msgstr ""
 
-#: patterns/flagship-header.php:106
-#: patterns/flagship-phone-menu.php:22
+#: patterns/flagship-header.php:105
+#: patterns/flagship-phone-menu.php:20
 msgid "Lookbook"
 msgstr ""
 
-#: patterns/flagship-header.php:108
+#: patterns/flagship-header.php:107
 msgid "Stories"
 msgstr ""
 
-#: patterns/flagship-header.php:114
+#: patterns/flagship-header.php:113
 msgid "Search"
 msgstr ""
 
-#: patterns/flagship-header.php:118
+#: patterns/flagship-header.php:117
 msgid "Cart pill"
 msgstr ""
 
@@ -621,7 +676,7 @@ msgstr ""
 #: patterns/flagship-just-in.php:36
 #: patterns/flagship-just-in.php:52
 #: patterns/flagship-just-in.php:54
-#: src/Patterns.php:116
+#: src/Patterns.php:152
 msgid "Just in"
 msgstr ""
 
@@ -629,28 +684,28 @@ msgstr ""
 msgid "The newest pieces, made in small runs."
 msgstr ""
 
-#: patterns/flagship-newsletter.php:25
-#: src/Patterns.php:140
+#: patterns/flagship-newsletter.php:21
+#: src/Patterns.php:176
 msgid "Newsletter"
 msgstr ""
 
-#: patterns/flagship-newsletter.php:29
+#: patterns/flagship-newsletter.php:25
 msgid "New looks land here first"
 msgstr ""
 
-#: patterns/flagship-newsletter.php:34
+#: patterns/flagship-newsletter.php:30
 msgid "One letter when a new edit reaches the floor, with the pieces and prices before anyone else sees them. Twice a month at most."
 msgstr ""
 
-#: patterns/flagship-newsletter.php:41
+#: patterns/flagship-newsletter.php:37
 msgid "Join the list"
 msgstr ""
 
-#: patterns/flagship-newsletter.php:46
+#: patterns/flagship-newsletter.php:42
 msgid "Leave any time with one click."
 msgstr ""
 
-#: patterns/flagship-newsletter.php:52
+#: patterns/flagship-newsletter.php:48
 #: src/Blocks/Showfloor.php:490
 #: assets/src/blocks/showfloor/choices.js:19
 #: assets/src/blocks/showfloor/edit.js:174
@@ -661,85 +716,85 @@ msgstr ""
 msgid "Floor"
 msgstr ""
 
-#: patterns/flagship-phone-menu.php:25
+#: patterns/flagship-phone-menu.php:24
 msgid "Phone menu"
 msgstr ""
 
-#: patterns/flagship-phone-menu.php:39
+#: patterns/flagship-phone-menu.php:38
 msgid "Look card"
 msgstr ""
 
-#: patterns/flagship-phone-menu.php:41
+#: patterns/flagship-phone-menu.php:40
 msgid "Field Day look"
 msgstr ""
 
-#: patterns/flagship-shop.php:165
-#: patterns/flagship-shop.php:248
-#: src/Patterns.php:171
+#: patterns/flagship-shop.php:159
+#: patterns/flagship-shop.php:242
+#: src/Patterns.php:234
 msgid "Flagship shop"
 msgstr ""
 
-#: patterns/flagship-shop.php:195
+#: patterns/flagship-shop.php:189
 msgid " off"
 msgstr ""
 
-#: patterns/flagship-shop.php:291
-#: src/Blocks/ShelfTag.php:90
+#: patterns/flagship-shop.php:285
+#: src/Blocks/ShelfTag.php:92
 #: assets/src/blocks/shelf-tag/edit.js:22
 #: build/blocks/shelf-tag/index.js:1
 msgid "New arrival"
 msgstr ""
 
-#: patterns/flagship-shop.php:327
+#: patterns/flagship-shop.php:321
 msgid "Shop in store, save 20%."
 msgstr ""
 
-#: patterns/flagship-shop.php:331
+#: patterns/flagship-shop.php:325
 msgid "Take 20% off selected pieces when you visit one of our stores this month."
 msgstr ""
 
-#: patterns/flagship-shop.php:336
+#: patterns/flagship-shop.php:330
 msgid "Find a store"
 msgstr ""
 
-#: patterns/guarantee-card.php:21
+#: patterns/guarantee-card.php:17
 msgid "Free return label"
 msgstr ""
 
-#: patterns/guarantee-card.php:22
+#: patterns/guarantee-card.php:18
 msgid "Refund in 5 days"
 msgstr ""
 
-#: patterns/guarantee-card.php:23
+#: patterns/guarantee-card.php:19
 msgid "Real people, within a day"
 msgstr ""
 
-#: patterns/guarantee-card.php:26
+#: patterns/guarantee-card.php:24
 msgid "Money-back guarantee"
 msgstr ""
 
-#: patterns/guarantee-card.php:28
+#: patterns/guarantee-card.php:26
 msgid "Seal"
 msgstr ""
 
-#: patterns/guarantee-card.php:31
+#: patterns/guarantee-card.php:29
 msgctxt "Days in the money-back guarantee"
 msgid "30"
 msgstr ""
 
-#: patterns/guarantee-card.php:35
+#: patterns/guarantee-card.php:33
 msgid "days"
 msgstr ""
 
-#: patterns/guarantee-card.php:42
+#: patterns/guarantee-card.php:40
 msgid "Love it, or send it back"
 msgstr ""
 
-#: patterns/guarantee-card.php:46
+#: patterns/guarantee-card.php:44
 msgid "Not the right fit? Return it within 30 days for a full refund, no questions asked."
 msgstr ""
 
-#: patterns/guarantee-card.php:51
+#: patterns/guarantee-card.php:49
 msgid "Proof"
 msgstr ""
 
@@ -749,6 +804,79 @@ msgstr ""
 
 #: patterns/hanging-rail.php:16
 msgid "The latest pieces, hung up and ready to go."
+msgstr ""
+
+#: patterns/order-confirmation.php:23
+msgid "Order confirmed"
+msgstr ""
+
+#: patterns/order-confirmation.php:23
+msgid "Your receipt is on its way to your inbox. Keep it handy for returns."
+msgstr ""
+
+#: patterns/order-confirmation.php:24
+msgid "Packed and on its way"
+msgstr ""
+
+#: patterns/order-confirmation.php:24
+msgid "We pack your order and email you a tracking link as soon as it ships."
+msgstr ""
+
+#: patterns/order-confirmation.php:25
+msgid "At your door"
+msgstr ""
+
+#: patterns/order-confirmation.php:25
+msgid "Not quite right? You can send it back for free within 30 days."
+msgstr ""
+
+#: patterns/order-confirmation.php:28
+msgid "Track this order and see your past ones"
+msgstr ""
+
+#: patterns/order-confirmation.php:29
+msgid "Check out faster with your saved address"
+msgstr ""
+
+#: patterns/order-confirmation.php:30
+msgid "Start a return in a few clicks"
+msgstr ""
+
+#: patterns/order-confirmation.php:33
+msgid "Order confirmation"
+msgstr ""
+
+#: patterns/order-confirmation.php:38
+#: patterns/order-confirmation.php:40
+msgid "What happens next"
+msgstr ""
+
+#: patterns/order-confirmation.php:68
+msgid "Save your details for next time"
+msgstr ""
+
+#: patterns/order-confirmation.php:83
+msgid "Questions about this order? Reply to your confirmation email."
+msgstr ""
+
+#: patterns/order-confirmation.php:88
+msgid "Order details"
+msgstr ""
+
+#: patterns/order-confirmation.php:96
+msgid "Downloads"
+msgstr ""
+
+#: patterns/order-confirmation.php:106
+msgid "Shipping address"
+msgstr ""
+
+#: patterns/order-confirmation.php:116
+msgid "Billing address"
+msgstr ""
+
+#: patterns/order-confirmation.php:126
+msgid "Additional information"
 msgstr ""
 
 #: patterns/runway.php:12
@@ -828,10 +956,6 @@ msgid "On orders over $100"
 msgstr ""
 
 #: patterns/trust-row.php:16
-msgid "30-day returns"
-msgstr ""
-
-#: patterns/trust-row.php:16
 msgid "Free, from your door"
 msgstr ""
 
@@ -845,11 +969,6 @@ msgstr ""
 
 #: patterns/trust-row.php:18
 msgid "Answers within a day"
-msgstr ""
-
-#: patterns/trust-row.php:21
-#: src/Patterns.php:134
-msgid "Trust row"
 msgstr ""
 
 #: src/Abilities.php:58
@@ -1004,80 +1123,191 @@ msgstr ""
 msgid "The path of the block the pattern goes after."
 msgstr ""
 
+#: src/Admin/DeliverySettings.php:47
+#: src/Admin/DeliverySettings.php:86
+#: assets/src/blocks/delivery-line/edit.js:133
+#: build/blocks/delivery-line/index.js:1
+msgid "Delivery dates"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:73
+msgid "Monday"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:74
+msgid "Tuesday"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:75
+msgid "Wednesday"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:76
+msgid "Thursday"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:77
+msgid "Friday"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:78
+msgid "Saturday"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:79
+msgid "Sunday"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:87
+msgid "The Delivery Line block turns these into a date shoppers can read next to the buy button, like \"Order within 3 hours, arrives by Thu, Nov 26\". Days count only the working days below, skipping holidays, in the site’s time zone."
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:92
+msgid "Processing days"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:93
+msgid "Working days to pack an order. 0 ships it the same day when it comes in before the cut-off."
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:106
+msgid "Cut-off time"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:107
+msgid "Orders after this time count from the next working day."
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:116
+msgid "Working days"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:117
+msgid "The days orders are packed and carriers deliver."
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:124
+msgid "Holidays"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:125
+msgid "Days the store is closed, one per line, as 2026-12-25."
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:133
+msgid "Delivery takes from"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:134
+#: src/Admin/DeliverySettings.php:147
+msgid "working days after it ships"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:146
+msgid "Delivery takes up to"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:159
+msgid "Returns window"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:160
+msgid "days. 0 hides the returns line."
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:172
+msgid "Free returns"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:173
+msgid "Say returns are free"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:211
+msgid "Extra processing days"
+msgstr ""
+
+#: src/Admin/DeliverySettings.php:212
+msgid "Working days this product adds before it ships, like a made-to-order item. Used by the Delivery Line block."
+msgstr ""
+
 #. translators: %s: link to the Single Product template in the Site Editor.
-#: src/Admin/Settings.php:85
+#: src/Admin/Settings.php:89
 #, php-format
 msgid "Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings."
 msgstr ""
 
-#: src/Admin/Settings.php:86
+#: src/Admin/Settings.php:90
 msgid "Single Product template"
 msgstr ""
 
-#: src/Admin/Settings.php:91
+#: src/Admin/Settings.php:95
 msgid "When a shopper picks a color on a variable product, these parts of the product page take that color."
 msgstr ""
 
-#: src/Admin/Settings.php:94
+#: src/Admin/Settings.php:98
 #: assets/src/blocks/escalator/edit.js:224
-#: assets/src/editor/add-to-cart.js:16
+#: assets/src/editor/add-to-cart.js:18
 #: build/blocks/escalator/index.js:1
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Add to cart button"
 msgstr ""
 
-#: src/Admin/Settings.php:95
-#: assets/src/editor/add-to-cart.js:18
-#: build/editor.js:1
+#: src/Admin/Settings.php:99
+#: assets/src/editor/add-to-cart.js:20
+#: build/editor.js:6
 msgid "Sale badge"
 msgstr ""
 
-#: src/Admin/Settings.php:96
-#: assets/src/editor/add-to-cart.js:19
-#: build/editor.js:1
+#: src/Admin/Settings.php:100
+#: assets/src/editor/add-to-cart.js:21
+#: build/editor.js:6
 msgid "Sale price"
 msgstr ""
 
-#: src/Admin/Settings.php:97
-#: assets/src/editor/add-to-cart.js:20
-#: build/editor.js:1
+#: src/Admin/Settings.php:101
+#: assets/src/editor/add-to-cart.js:22
+#: build/editor.js:6
 msgid "Page background tint"
 msgstr ""
 
-#: src/Admin/Settings.php:106
+#: src/Admin/Settings.php:110
 msgid "Parts that take the color"
 msgstr ""
 
-#: src/Admin/Settings.php:115
+#: src/Admin/Settings.php:119
 msgid "Hide thumbnails (one big photo)"
 msgstr ""
 
-#: src/Admin/Settings.php:116
+#: src/Admin/Settings.php:120
 #: assets/src/editor/gallery.js:13
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Rounded corners"
 msgstr ""
 
-#: src/Admin/Settings.php:123
+#: src/Admin/Settings.php:127
 msgid "Product gallery"
 msgstr ""
 
-#: src/Admin/Settings.php:136
+#: src/Admin/Settings.php:140
 msgid "Gallery hover style"
 msgstr ""
 
-#: src/Admin/Settings.php:137
+#: src/Admin/Settings.php:141
 msgid "Plays when the mouse is over the photo, and replaces WooCommerce's hover zoom. Touch screens and visitors who ask for reduced motion see the plain photo."
 msgstr ""
 
-#: src/Admin/Settings.php:141
-#: src/Admin/Settings.php:160
+#: src/Admin/Settings.php:145
+#: src/Admin/Settings.php:164
+#: src/Admin/SizeChartFields.php:100
 #: assets/src/blocks/escalator/edit.js:51
 #: assets/src/blocks/escalator/edit.js:59
 #: assets/src/blocks/showfloor/choices.js:57
-#: assets/src/editor/add-to-cart.js:85
-#: assets/src/editor/add-to-cart.js:128
-#: assets/src/editor/cards.js:607
+#: assets/src/blocks/size-chart/inspector.js:31
+#: assets/src/blocks/size-chart/inspector.js:46
+#: assets/src/editor/add-to-cart.js:91
+#: assets/src/editor/add-to-cart.js:134
+#: assets/src/editor/cards.js:685
 #: assets/src/editor/checkout-page.js:16
 #: assets/src/editor/checkout-page.js:23
 #: assets/src/editor/checkout-page.js:29
@@ -1085,210 +1315,280 @@ msgstr ""
 #: assets/src/editor/cover.js:8
 #: assets/src/editor/cover.js:15
 #: assets/src/editor/eyes.js:8
-#: assets/src/editor/gallery.js:33
+#: assets/src/editor/gallery.js:39
 #: assets/src/editor/group.js:8
 #: assets/src/editor/heading.js:8
 #: assets/src/editor/social.js:8
 #: assets/src/editor/terms.js:136
 #: build/blocks/escalator/index.js:1
 #: build/blocks/showfloor/index.js:1
+#: build/blocks/size-chart/index.js:1
 #: build/editor.js:1
-#: build/editor.js:3
-#: build/editor.js:5
 #: build/editor.js:6
-#: build/editor.js:7
+#: build/editor.js:8
+#: build/editor.js:10
+#: build/editor.js:11
+#: build/editor.js:12
 msgid "None"
 msgstr ""
 
-#: src/Admin/Settings.php:142
-#: assets/src/editor/gallery.js:34
-#: build/editor.js:1
+#: src/Admin/Settings.php:146
+#: assets/src/editor/gallery.js:40
+#: build/editor.js:6
 msgid "3D tilt"
 msgstr ""
 
-#: src/Admin/Settings.php:143
-#: src/Admin/Settings.php:163
-#: assets/src/editor/add-to-cart.js:97
-#: assets/src/editor/gallery.js:35
+#: src/Admin/Settings.php:147
+#: src/Admin/Settings.php:167
+#: assets/src/editor/add-to-cart.js:103
+#: assets/src/editor/gallery.js:41
 #: assets/src/editor/terms.js:129
-#: build/editor.js:1
-#: build/editor.js:7
+#: build/editor.js:6
+#: build/editor.js:12
 msgid "Zoom"
 msgstr ""
 
-#: src/Admin/Settings.php:144
+#: src/Admin/Settings.php:148
 #: assets/src/blocks/escalator/edit.js:53
 #: assets/src/blocks/showfloor/choices.js:54
-#: assets/src/editor/cards.js:94
+#: assets/src/editor/cards.js:100
 #: assets/src/editor/cover.js:18
-#: assets/src/editor/gallery.js:36
+#: assets/src/editor/gallery.js:42
 #: build/blocks/escalator/index.js:1
 #: build/blocks/showfloor/index.js:1
-#: build/editor.js:1
-#: build/editor.js:5
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "Lift"
 msgstr ""
 
-#: src/Admin/Settings.php:145
+#: src/Admin/Settings.php:149
 #: assets/src/editor/cards.js:59
 #: assets/src/editor/cover.js:10
-#: assets/src/editor/gallery.js:37
-#: build/editor.js:1
-#: build/editor.js:5
+#: assets/src/editor/gallery.js:43
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "Parallax"
 msgstr ""
 
-#: src/Admin/Settings.php:146
-#: assets/src/editor/cards.js:106
+#: src/Admin/Settings.php:150
+#: assets/src/editor/cards.js:112
 #: assets/src/editor/cover.js:19
-#: assets/src/editor/gallery.js:38
-#: build/editor.js:1
-#: build/editor.js:5
+#: assets/src/editor/gallery.js:44
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "Glare"
 msgstr ""
 
-#: src/Admin/Settings.php:147
-#: assets/src/editor/gallery.js:39
-#: build/editor.js:1
+#: src/Admin/Settings.php:151
+#: assets/src/editor/gallery.js:45
+#: build/editor.js:6
 msgid "Loupe"
 msgstr ""
 
-#: src/Admin/Settings.php:148
+#: src/Admin/Settings.php:152
 #: assets/src/editor/cover.js:9
-#: assets/src/editor/gallery.js:40
-#: build/editor.js:1
-#: build/editor.js:5
+#: assets/src/editor/gallery.js:46
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "Slow zoom"
 msgstr ""
 
-#: src/Admin/Settings.php:155
-#: assets/src/editor/add-to-cart.js:76
-#: build/editor.js:7
+#: src/Admin/Settings.php:159
+#: assets/src/editor/add-to-cart.js:82
+#: build/editor.js:12
 msgid "Photo transition"
 msgstr ""
 
-#: src/Admin/Settings.php:156
-#: assets/src/editor/add-to-cart.js:77
-#: build/editor.js:7
+#: src/Admin/Settings.php:160
+#: assets/src/editor/add-to-cart.js:83
+#: build/editor.js:12
 msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
 msgstr ""
 
-#: src/Admin/Settings.php:161
+#: src/Admin/Settings.php:165
 #: assets/src/blocks/changing-room/choices.js:28
 #: assets/src/blocks/color-dots/edit.js:30
-#: assets/src/editor/add-to-cart.js:89
-#: assets/src/editor/cards.js:421
+#: assets/src/editor/add-to-cart.js:95
+#: assets/src/editor/cards.js:427
 #: build/blocks/changing-room/index.js:1
 #: build/blocks/color-dots/index.js:1
-#: build/editor.js:3
-#: build/editor.js:7
+#: build/editor.js:8
+#: build/editor.js:12
 msgid "Fade"
 msgstr ""
 
-#: src/Admin/Settings.php:162
-#: assets/src/editor/add-to-cart.js:93
-#: build/editor.js:7
+#: src/Admin/Settings.php:166
+#: assets/src/editor/add-to-cart.js:99
+#: build/editor.js:12
 msgid "Blur"
 msgstr ""
 
-#: src/Admin/Settings.php:164
+#: src/Admin/Settings.php:168
 #: assets/src/blocks/color-dots/edit.js:32
-#: assets/src/editor/add-to-cart.js:101
+#: assets/src/editor/add-to-cart.js:107
 #: assets/src/editor/filters.js:86
 #: build/blocks/color-dots/index.js:1
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Slide"
 msgstr ""
 
-#: src/Admin/Settings.php:165
-#: assets/src/editor/add-to-cart.js:105
-#: build/editor.js:7
+#: src/Admin/Settings.php:169
+#: assets/src/editor/add-to-cart.js:111
+#: build/editor.js:12
 msgid "Flip"
 msgstr ""
 
-#: src/Admin/Settings.php:166
+#: src/Admin/Settings.php:170
 #: assets/src/blocks/color-dots/edit.js:31
-#: assets/src/editor/add-to-cart.js:109
+#: assets/src/editor/add-to-cart.js:115
 #: build/blocks/color-dots/index.js:1
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Wipe"
 msgstr ""
 
-#: src/Admin/Settings.php:167
-#: assets/src/editor/add-to-cart.js:113
-#: build/editor.js:7
+#: src/Admin/Settings.php:171
+#: assets/src/editor/add-to-cart.js:119
+#: build/editor.js:12
 msgid "Circle reveal"
 msgstr ""
 
-#: src/Admin/Settings.php:168
-#: assets/src/editor/add-to-cart.js:117
-#: build/editor.js:7
+#: src/Admin/Settings.php:172
+#: assets/src/editor/add-to-cart.js:123
+#: build/editor.js:12
 msgid "Color wash"
 msgstr ""
 
-#: src/Admin/Settings.php:174
+#: src/Admin/Settings.php:178
 msgid "Title and price"
 msgstr ""
 
-#: src/Admin/Settings.php:175
+#: src/Admin/Settings.php:179
 msgid "Rise in after the photo on each color change"
 msgstr ""
 
-#: src/Admin/VariationField.php:59
-msgid "The product page takes this color when a shopper picks this variation. Automatic reads it from the variation photo. Off keeps the theme colors."
+#: src/Admin/Settings.php:197
+msgid "Purple's Add to Cart parts"
+msgstr ""
+
+#: src/Admin/Settings.php:198
+msgid "Purple has an Add to Cart part for each product type. What you turn on here goes at the end of the simple, variable and grouped parts, under the buy button. To move it, change its settings or take it out of one part, open that part in the Site Editor."
+msgstr ""
+
+#: src/Admin/Settings.php:203
+msgid "Add under the button"
+msgstr ""
+
+#: src/Admin/Settings.php:204
+msgid "Delivery Line: the delivery date, returns and pickup. Set your dates in Shipping > Delivery dates first."
+msgstr ""
+
+#: src/Admin/Settings.php:211
+msgid "Matching Extras: other products to tick, added to the cart on the same click."
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:45
+#: src/Admin/SizeChartFields.php:178
+#: src/Admin/SizeChartFields.php:191
+#: src/Admin/SizeChartFields.php:264
+msgid "Size chart"
+msgstr ""
+
+#. translators: %s: name of the size chart the product's category shows.
+#: src/Admin/SizeChartFields.php:94
+#, php-format
+msgid "Category's chart (%s)"
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:95
+msgid "Category's chart (none set)"
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:98
+#: assets/src/blocks/size-chart/inspector.js:148
+#: build/blocks/size-chart/index.js:2
+msgid "Chart"
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:103
+msgid "Edit chart"
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:105
+#: src/Admin/SizeChartFields.php:211
+msgid "New chart"
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:108
+msgid "Fit note"
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:110
+msgid "Shows under the size options and with the chart, like \"Runs small, size up\"."
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:205
+msgid "No chart"
+msgstr ""
+
+#: src/Admin/SizeChartFields.php:209
+msgid "Products in this category show this chart and a Size guide link, unless a product picks its own."
 msgstr ""
 
 #: src/Admin/VariationField.php:60
+msgid "The product page takes this color when a shopper picks this variation. Automatic reads it from the variation photo. Off keeps the theme colors."
+msgstr ""
+
+#: src/Admin/VariationField.php:61
 msgid "Color from the photo: not read yet. Purplish reads it in the background after the variation has a photo and is saved."
 msgstr ""
 
-#: src/Admin/VariationField.php:89
+#: src/Admin/VariationField.php:95
 msgid "The product page takes this color. Automatic reads it from the product image. Off keeps the theme colors."
 msgstr ""
 
-#: src/Admin/VariationField.php:90
+#: src/Admin/VariationField.php:96
 msgid "Color from the photo: not read yet. Purplish reads it in the background after the product has an image and is saved."
 msgstr ""
 
-#: src/Admin/VariationField.php:119
+#: src/Admin/VariationField.php:125
 msgid "Page color"
 msgstr ""
 
-#: src/Admin/VariationField.php:122
+#: src/Admin/VariationField.php:128
 msgid "Automatic"
 msgstr ""
 
-#: src/Admin/VariationField.php:123
+#: src/Admin/VariationField.php:129
 msgid "Custom"
 msgstr ""
 
-#: src/Admin/VariationField.php:124
+#: src/Admin/VariationField.php:130
 #: assets/src/blocks/changing-room/choices.js:20
 #: assets/src/blocks/color-dots/edit.js:24
 #: assets/src/blocks/showfloor/choices.js:16
 #: assets/src/blocks/showfloor/choices.js:47
-#: assets/src/editor/cards.js:210
-#: assets/src/editor/cards.js:356
+#: assets/src/editor/cards.js:216
+#: assets/src/editor/cards.js:362
 #: assets/src/editor/pagination.js:58
 #: build/blocks/changing-room/index.js:1
 #: build/blocks/color-dots/index.js:1
 #: build/blocks/showfloor/index.js:1
-#: build/editor.js:1
-#: build/editor.js:2
+#: build/editor.js:6
 #: build/editor.js:7
+#: build/editor.js:12
 msgid "Off"
 msgstr ""
 
-#: src/Admin/VariationField.php:137
+#: src/Admin/VariationField.php:143
 msgid "Custom color"
 msgstr ""
 
-#: src/Admin/VariationField.php:142
+#: src/Admin/VariationField.php:148
 msgid "Click the field to pick a color, or type a hex code like #dc4a24."
 msgstr ""
 
 #. translators: %s: a hex color, like #dc4a24.
-#: src/Admin/VariationField.php:159
+#: src/Admin/VariationField.php:165
 #, php-format
 msgid "Color from the photo: %s"
 msgstr ""
@@ -1484,8 +1784,8 @@ msgid "Sold out"
 msgstr ""
 
 #: src/Blocks/ChangingRoomPiece.php:72
-#: assets/src/editor/stock.js:145
-#: build/editor.js:5
+#: assets/src/editor/stock.js:169
+#: build/editor.js:10
 msgid "In stock"
 msgstr ""
 
@@ -1557,6 +1857,79 @@ msgstr ""
 msgid "The colors the product comes in, for the Purplish Color Dots block."
 msgstr ""
 
+#. translators: %1$s: a delivery date, like Thu, Nov 26.
+#: src/Blocks/DeliveryLine.php:99
+#, php-format
+msgid "Arrives by %1$s"
+msgstr ""
+
+#. translators: 1: time left, like 3 hours 20 minutes. 2: a delivery date, like Thu, Nov 26.
+#: src/Blocks/DeliveryLine.php:101
+#, php-format
+msgid "Order within %1$s, arrives by %2$s"
+msgstr ""
+
+#. translators: 1: time left in hours, like 3 hours. 2: minutes, like 20 minutes.
+#. translators: 1: hours, like "3 hours". 2: minutes, like "20 minutes".
+#: src/Blocks/DeliveryLine.php:103
+#: src/Delivery.php:311
+#, php-format
+msgctxt "hours and minutes left"
+msgid "%1$s %2$s"
+msgstr ""
+
+#. translators: 1: the earliest delivery date. 2: the latest delivery date.
+#: src/Blocks/DeliveryLine.php:107
+#, php-format
+msgid "Arrives %1$s to %2$s"
+msgstr ""
+
+#. translators: 1: time left, like 3 hours 20 minutes. 2: the earliest delivery date. 3: the latest delivery date.
+#: src/Blocks/DeliveryLine.php:109
+#, php-format
+msgid "Order within %1$s, arrives %2$s to %3$s"
+msgstr ""
+
+#. translators: 1: pickup location name. 2: the date it's ready, like Fri, Nov 27.
+#: src/Blocks/DeliveryLine.php:115
+#, php-format
+msgid "Free pickup at %1$s from %2$s"
+msgstr ""
+
+#. translators: 1: pickup location name. 2: the date it's ready, like Fri, Nov 27.
+#: src/Blocks/DeliveryLine.php:117
+#, php-format
+msgid "Pickup at %1$s from %2$s"
+msgstr ""
+
+#. translators: %1$s: the date it's ready, like Fri, Nov 27.
+#: src/Blocks/DeliveryLine.php:121
+#, php-format
+msgid "Free pickup in store from %1$s"
+msgstr ""
+
+#. translators: %1$s: the date it's ready, like Fri, Nov 27.
+#: src/Blocks/DeliveryLine.php:123
+#, php-format
+msgid "Pickup in store from %1$s"
+msgstr ""
+
+#. translators: %d: number of days.
+#: src/Blocks/DeliveryLine.php:224
+#, php-format
+msgid "Free returns within %d day"
+msgid_plural "Free returns within %d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of days.
+#: src/Blocks/DeliveryLine.php:226
+#, php-format
+msgid "Returns within %d day"
+msgid_plural "Returns within %d days"
+msgstr[0] ""
+msgstr[1] ""
+
 #: src/Blocks/Escalator.php:154
 msgid "Pause the moving tiles"
 msgstr ""
@@ -1587,6 +1960,7 @@ msgstr ""
 #: src/Blocks/Runway.php:203
 #: src/Blocks/Showfloor.php:512
 #: assets/src/blocks/color-dots/edit.js:124
+#: assets/src/blocks/delivery-line/edit.js:105
 #: assets/src/blocks/shelf-tag/edit.js:179
 #: assets/src/blocks/shelf-tag/edit.js:183
 #: assets/src/blocks/showfloor-look/edit.js:137
@@ -1595,9 +1969,10 @@ msgstr ""
 #: assets/src/editor/social.js:25
 #: assets/src/editor/terms.js:52
 #: build/blocks/color-dots/index.js:2
+#: build/blocks/delivery-line/index.js:1
 #: build/blocks/shelf-tag/index.js:1
 #: build/blocks/showfloor/index.js:4
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Look"
 msgstr ""
 
@@ -1615,13 +1990,13 @@ msgstr ""
 msgid "Next look"
 msgstr ""
 
-#: src/Blocks/ShelfTag.php:89
+#: src/Blocks/ShelfTag.php:91
 #: assets/src/blocks/shelf-tag/edit.js:21
 #: build/blocks/shelf-tag/index.js:1
 msgid "Best seller"
 msgstr ""
 
-#: src/Blocks/ShelfTag.php:91
+#: src/Blocks/ShelfTag.php:93
 #: assets/src/blocks/escalator/edit.js:40
 #: assets/src/blocks/shelf-tag/edit.js:23
 #: build/blocks/escalator/index.js:1
@@ -1629,7 +2004,7 @@ msgstr ""
 msgid "Featured"
 msgstr ""
 
-#: src/Blocks/ShelfTag.php:248
+#: src/Blocks/ShelfTag.php:250
 msgid "Where the product stands for the Purplish tags on product cards."
 msgstr ""
 
@@ -1730,7 +2105,7 @@ msgstr ""
 
 #: src/Blocks/Showfloor.php:370
 #: assets/src/editor/terms.js:135
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Turn"
 msgstr ""
 
@@ -1785,6 +2160,57 @@ msgstr ""
 msgid "Looks. Use the arrow keys to turn."
 msgstr ""
 
+#: src/Blocks/SizeChart.php:200
+#: src/Frontend/SizeGuide.php:111
+#: assets/src/blocks/size-chart/preview.js:21
+#: build/blocks/size-chart/index.js:2
+msgid "Fit"
+msgstr ""
+
+#: src/Blocks/SizeChart.php:325
+#: assets/src/blocks/size-chart/preview.js:138
+#: build/blocks/size-chart/index.js:2
+msgid "Body measurements"
+msgstr ""
+
+#: src/Blocks/SizeChart.php:342
+#: assets/src/blocks/size-chart/preview.js:39
+#: build/blocks/size-chart/index.js:2
+msgid "Units"
+msgstr ""
+
+#. translators: %s: product name.
+#: src/Blocks/SizeChart.php:366
+msgid "Size chart, body measurements"
+msgstr ""
+
+#. translators: %s: product name.
+#: src/Blocks/SizeChart.php:366
+#, php-format
+msgid "%s size chart, body measurements"
+msgstr ""
+
+#: src/Blocks/SizeChart.php:382
+msgid "Pick size"
+msgstr ""
+
+#: src/Blocks/SizeChart.php:443
+#: assets/src/blocks/size-chart/inspector.js:101
+#: build/blocks/size-chart/index.js:2
+msgid "How to measure"
+msgstr ""
+
+#. translators: %s: measurement names, like "Chest, Waist".
+#: src/Blocks/SizeChart.php:496
+#, php-format
+msgid "Where to measure: %s"
+msgstr ""
+
+#. translators: %s: measurement names, like "Chest, Waist".
+#: src/Blocks/SizeChart.php:496
+msgid "A drawn figure"
+msgstr ""
+
 #: src/Blocks/StoryDeck.php:70
 msgid "Customer stories"
 msgstr ""
@@ -1820,62 +2246,148 @@ msgstr ""
 msgid "Long coats and soft layers."
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:732
-#: src/Frontend/BlockEffects.php:987
+#: src/Color/BlockStyles.php:91
+#: src/Color/BlockStyles.php:178
+msgid "Panel"
+msgstr ""
+
+#: src/Color/BlockStyles.php:100
+#: assets/src/editor/count.js:128
+#: build/editor.js:12
+msgid "Outline"
+msgstr ""
+
+#: src/Color/BlockStyles.php:112
+msgid "Section"
+msgstr ""
+
+#: src/Color/BlockStyles.php:135
+msgid "Plate"
+msgstr ""
+
+#: src/Color/BlockStyles.php:145
+#: src/Color/BlockStyles.php:158
+msgid "Contrast"
+msgstr ""
+
+#. translators: PHP date format for a delivery date, short, with the weekday. See https://www.php.net/manual/datetime.format.php
+#: src/Delivery.php:284
+msgctxt "delivery date format"
+msgid "D, M j"
+msgstr ""
+
+#. translators: %d: number of hours.
+#: src/Delivery.php:300
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of minutes.
+#: src/Delivery.php:302
+#, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Frontend/AccountStyle.php:44
+msgid "Account"
+msgstr ""
+
+#: src/Frontend/BlockEffects.php:804
+#: src/Frontend/BlockEffects.php:1102
 msgid "Hide filters"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:913
+#: src/Frontend/BlockEffects.php:999
 msgid "Larger cards"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:913
+#: src/Frontend/BlockEffects.php:999
 msgid "Smaller cards"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:917
+#: src/Frontend/BlockEffects.php:1003
 msgid "Card size"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:991
+#: src/Frontend/BlockEffects.php:1078
+msgid "Select options"
+msgstr ""
+
+#: src/Frontend/BlockEffects.php:1106
 msgid "Show filters"
 msgstr ""
 
+#: src/Frontend/Extras.php:95
+#: assets/src/editor/extras-preview.js:63
+#: assets/src/editor/extras.js:264
+#: build/blocks/matching-extras/index.js:1
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:1
+#: build/editor.js:6
+msgid "Add matching extras?"
+msgstr ""
+
+#: src/Frontend/Extras.php:296
+#: assets/src/editor/extras-preview.js:214
+#: build/blocks/matching-extras/index.js:1
+#: build/editor.js:1
+msgid "See more details"
+msgstr ""
+
+#. translators: %s: product name.
+#: src/Frontend/Extras.php:298
+#, php-format
+msgid "about %s (opens in a new tab)"
+msgstr ""
+
+#. translators: %s: the extra's price.
+#: src/Frontend/Extras.php:312
+#: assets/src/editor/extras-preview.js:225
+#: build/blocks/matching-extras/index.js:2
+#: build/editor.js:2
+#, php-format,js-format
+msgid "+ %s"
+msgstr ""
+
 #. translators: %s: amount left to spend, such as $12.00.
-#: src/Frontend/FreeDelivery.php:208
+#: src/Frontend/FreeDelivery.php:222
 #: assets/src/editor/meter.js:70
 #: assets/src/meter/index.js:31
-#: build/editor.js:6
+#: build/editor.js:11
 #: build/meter.js:1
 msgid "Your order ships free."
 msgstr ""
 
 #. translators: %s: amount left to spend, such as $12.00.
-#: src/Frontend/FreeDelivery.php:208
-#: assets/src/editor/preview.js:249
+#: src/Frontend/FreeDelivery.php:222
+#: assets/src/editor/preview.js:253
 #: assets/src/meter/index.js:37
-#: build/editor.js:7
+#: build/editor.js:12
 #: build/meter.js:2
 #, php-format,js-format
 msgid "Spend %s more for free shipping."
 msgstr ""
 
 #. translators: 1: amount left to spend, such as $12.00, 2: the store's name for its free shipping, such as Free UK delivery.
-#: src/Frontend/FreeDelivery.php:235
+#: src/Frontend/FreeDelivery.php:249
 #, php-format
 msgid "Spend %1$s more for %2$s."
 msgstr ""
 
 #: src/Frontend/LoadMore.php:271
 #: assets/src/editor/pagination.js:53
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Load more"
 msgstr ""
 
 #. translators: %s: number of products.
 #: src/Frontend/ResultsCount.php:75
 #: assets/src/editor/count.js:25
-#: build/editor.js:4
+#: build/editor.js:9
 #, php-format,js-format
 msgctxt "product count in brackets"
 msgid "(%s)"
@@ -1884,43 +2396,118 @@ msgstr ""
 #. translators: %s: number of products.
 #: src/Frontend/ResultsCount.php:79
 #: assets/src/editor/count.js:32
-#: build/editor.js:5
+#: build/editor.js:10
 #, php-format,js-format
 msgid "%s product"
 msgid_plural "%s products"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Patterns.php:43
-msgid "Hanging rail of new arrivals"
+#: src/Frontend/SizeGuide.php:170
+msgid "Close size guide"
 msgstr ""
 
-#: src/Patterns.php:49
-msgid "Customer stories deck"
-msgstr ""
-
-#: src/Patterns.php:55
-msgid "Runway lookbook"
-msgstr ""
-
-#: src/Patterns.php:61
-msgid "Scroll lookbook storefront"
+#: src/Patterns.php:50
+msgid "Lock"
 msgstr ""
 
 #: src/Patterns.php:79
-msgid "Flagship header"
+msgid "Hanging rail of new arrivals"
 msgstr ""
 
 #: src/Patterns.php:85
-msgid "Flagship phone menu"
+msgid "Customer stories deck"
+msgstr ""
+
+#: src/Patterns.php:91
+msgid "Runway lookbook"
 msgstr ""
 
 #: src/Patterns.php:97
+msgid "Scroll lookbook storefront"
+msgstr ""
+
+#: src/Patterns.php:115
+msgid "Flagship header"
+msgstr ""
+
+#: src/Patterns.php:121
+msgid "Flagship phone menu"
+msgstr ""
+
+#: src/Patterns.php:133
 msgid "Flagship home"
 msgstr ""
 
-#: src/Patterns.php:152
+#: src/Patterns.php:188
+msgid "Checkout header with trust row"
+msgstr ""
+
+#: src/Patterns.php:194
 msgid "Money-back guarantee card"
+msgstr ""
+
+#: src/Patterns.php:206
+msgid "Cart page with free shipping meter"
+msgstr ""
+
+#: src/Patterns.php:213
+msgid "Order confirmation with next steps"
+msgstr ""
+
+#: src/Patterns.php:220
+msgid "Account page"
+msgstr ""
+
+#: src/Patterns.php:248
+msgid "Size chart with how to measure"
+msgstr ""
+
+#: src/SizeCharts.php:103
+msgid "Size charts"
+msgstr ""
+
+#: src/SizeCharts.php:132
+msgid "(no title)"
+msgstr ""
+
+#: src/SizeCharts.php:316
+#: assets/src/blocks/size-chart/inspector.js:32
+#: assets/src/blocks/size-chart/table.js:202
+#: build/blocks/size-chart/index.js:1
+msgid "Chest"
+msgstr ""
+
+#: src/SizeCharts.php:319
+#: assets/src/blocks/size-chart/table.js:205
+#: build/blocks/size-chart/index.js:1
+msgid "Around the fullest part of your chest, under your arms, with the tape level."
+msgstr ""
+
+#: src/SizeCharts.php:322
+#: assets/src/blocks/size-chart/inspector.js:33
+#: assets/src/blocks/size-chart/table.js:211
+#: build/blocks/size-chart/index.js:1
+msgid "Waist"
+msgstr ""
+
+#: src/SizeCharts.php:325
+#: assets/src/blocks/size-chart/table.js:214
+#: build/blocks/size-chart/index.js:1
+msgid "Around your natural waist, the narrowest part above your hips."
+msgstr ""
+
+#: src/SizeCharts.php:328
+#: assets/src/blocks/size-chart/inspector.js:34
+#: assets/src/blocks/size-chart/table.js:220
+#: build/blocks/size-chart/index.js:1
+msgid "Hips"
+msgstr ""
+
+#: src/SizeCharts.php:331
+#: assets/src/blocks/size-chart/table.js:223
+#: build/blocks/size-chart/index.js:1
+msgid "Around the fullest part of your hips, with your feet together."
 msgstr ""
 
 #: assets/src/blocks/changing-room-piece/edit.js:107
@@ -1940,15 +2527,15 @@ msgstr ""
 #: assets/src/blocks/changing-room-piece/edit.js:116
 #: assets/src/blocks/escalator/edit.js:52
 #: assets/src/blocks/showfloor/choices.js:39
-#: assets/src/editor/cards.js:96
+#: assets/src/editor/cards.js:102
 #: assets/src/editor/social.js:9
 #: assets/src/editor/terms.js:130
 #: build/blocks/changing-room/index.js:8
 #: build/blocks/escalator/index.js:1
 #: build/blocks/showfloor/index.js:1
-#: build/editor.js:1
-#: build/editor.js:5
-#: build/editor.js:7
+#: build/editor.js:6
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Ring"
 msgstr ""
 
@@ -2009,9 +2596,9 @@ msgid "Glow"
 msgstr ""
 
 #: assets/src/blocks/changing-room/choices.js:12
-#: assets/src/editor/cards.js:117
+#: assets/src/editor/cards.js:123
 #: build/blocks/changing-room/index.js:1
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Sweep"
 msgstr ""
 
@@ -2020,7 +2607,7 @@ msgstr ""
 #: assets/src/editor/stock.js:14
 #: build/blocks/changing-room/index.js:1
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Glass"
 msgstr ""
 
@@ -2065,9 +2652,9 @@ msgid "Reveal from the top"
 msgstr ""
 
 #: assets/src/blocks/changing-room/choices.js:30
-#: assets/src/editor/cards.js:420
+#: assets/src/editor/cards.js:426
 #: build/blocks/changing-room/index.js:1
-#: build/editor.js:3
+#: build/editor.js:8
 msgid "Instant"
 msgstr ""
 
@@ -2127,7 +2714,9 @@ msgid "Pieces two steps round show smaller and faded. Phones show the near piece
 msgstr ""
 
 #: assets/src/blocks/changing-room/edit.js:323
+#: assets/src/blocks/size-chart/inspector.js:152
 #: build/blocks/changing-room/index.js:8
+#: build/blocks/size-chart/index.js:2
 msgid "Show"
 msgstr ""
 
@@ -2222,9 +2811,9 @@ msgid "Look and color"
 msgstr ""
 
 #: assets/src/blocks/changing-room/edit.js:384
-#: assets/src/editor/cards.js:468
+#: assets/src/editor/cards.js:546
 #: build/blocks/changing-room/index.js:8
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Button look"
 msgstr ""
 
@@ -2265,7 +2854,7 @@ msgstr ""
 #: build/blocks/changing-room/index.js:8
 #: build/blocks/runway/index.js:1
 #: build/blocks/showfloor/index.js:3
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Fly to cart"
 msgstr ""
 
@@ -2295,8 +2884,10 @@ msgstr ""
 
 #: assets/src/blocks/changing-room/photos.js:107
 #: assets/src/blocks/showfloor-look/edit.js:199
+#: assets/src/blocks/size-chart/edit.js:68
 #: build/blocks/changing-room/index.js:4
 #: build/blocks/showfloor/index.js:5
+#: build/blocks/size-chart/index.js:3
 msgid "Remove"
 msgstr ""
 
@@ -2318,7 +2909,7 @@ msgstr ""
 #: assets/src/blocks/color-dots/edit.js:25
 #: assets/src/editor/cards.js:27
 #: build/blocks/color-dots/index.js:1
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "On hover"
 msgstr ""
 
@@ -2392,11 +2983,111 @@ msgstr ""
 msgid "Swap motion"
 msgstr ""
 
+#: assets/src/blocks/delivery-line/edit.js:45
+#: build/blocks/delivery-line/index.js:1
+msgid "Lines"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:46
+#: build/blocks/delivery-line/index.js:1
+msgid "Delivery date"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:51
+#: build/blocks/delivery-line/index.js:1
+msgid "Date"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:56
+#: build/blocks/delivery-line/index.js:1
+msgid "Latest date (arrives by)"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:63
+#: build/blocks/delivery-line/index.js:1
+msgid "Date range"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:74
+#: build/blocks/delivery-line/index.js:1
+msgid "Time left before the cut-off"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:76
+#: build/blocks/delivery-line/index.js:1
+msgid "Shows “Order within …” while today’s cut-off still counts."
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:82
+#: build/blocks/delivery-line/index.js:1
+msgid "Returns line"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:86
+#: build/blocks/delivery-line/index.js:1
+msgid "Link to the returns policy"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:88
+#: build/blocks/delivery-line/index.js:1
+msgid "Links to WooCommerce’s Refund and Returns page when it’s published."
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:96
+#: build/blocks/delivery-line/index.js:1
+msgid "Pickup line"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:98
+#: build/blocks/delivery-line/index.js:1
+msgid "Shows when Local pickup is on in WooCommerce, with a location."
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:106
+#: assets/src/blocks/showfloor/choices.js:33
+#: build/blocks/delivery-line/index.js:1
+#: build/blocks/showfloor/index.js:1
+msgid "Icons"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:110
+#: build/blocks/delivery-line/index.js:1
+msgid "Date format"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:115
+#: build/blocks/delivery-line/index.js:1
+msgid "Short, with the weekday"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:122
+#: build/blocks/delivery-line/index.js:1
+msgid "The site’s date format"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:135
+#: build/blocks/delivery-line/index.js:1
+msgid "Processing days, the cut-off time, working days, holidays, delivery days and the returns window are set once for the whole store."
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:141
+#: build/blocks/delivery-line/index.js:1
+msgid "Delivery dates settings"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/edit.js:157
+#: build/blocks/delivery-line/index.js:1
+msgid "Nothing to show: every line is off, or this product doesn’t ship."
+msgstr ""
+
 #: assets/src/blocks/escalator/edit.js:32
 #: assets/src/blocks/escalator/edit.js:162
 #: assets/src/blocks/showfloor-look/edit.js:171
+#: assets/src/editor/extras.js:220
 #: build/blocks/escalator/index.js:1
+#: build/blocks/matching-extras/index.js:6
 #: build/blocks/showfloor/index.js:4
+#: build/editor.js:6
 msgid "Products"
 msgstr ""
 
@@ -2428,9 +3119,11 @@ msgstr ""
 #: assets/src/blocks/escalator/edit.js:46
 #: assets/src/blocks/hanging-rail/edit.js:28
 #: assets/src/blocks/scroll-lookbook/edit.js:18
+#: assets/src/editor/cards.js:496
 #: build/blocks/escalator/index.js:1
 #: build/blocks/hanging-rail/index.js:1
 #: build/blocks/scroll-lookbook/index.js:1
+#: build/editor.js:8
 msgid "Medium"
 msgstr ""
 
@@ -2444,46 +3137,46 @@ msgstr ""
 #: assets/src/editor/button.js:28
 #: assets/src/editor/buy-button.js:26
 #: build/blocks/escalator/index.js:1
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "Light sweep"
 msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:55
-#: assets/src/editor/cards.js:104
+#: assets/src/editor/cards.js:110
 #: assets/src/editor/cover.js:16
 #: build/blocks/escalator/index.js:1
-#: build/editor.js:1
-#: build/editor.js:5
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "Push in"
 msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:60
 #: assets/src/editor/checkout-page.js:18
 #: build/blocks/escalator/index.js:1
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Filled"
 msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:61
 #: assets/src/editor/button.js:33
 #: assets/src/editor/buy-button.js:31
-#: assets/src/editor/cards.js:119
+#: assets/src/editor/cards.js:125
 #: build/blocks/escalator/index.js:1
-#: build/editor.js:1
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:6
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "Liquid glass"
 msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:63
 #: assets/src/editor/button.js:41
 #: assets/src/editor/buy-button.js:39
-#: assets/src/editor/cards.js:118
+#: assets/src/editor/cards.js:124
 #: build/blocks/escalator/index.js:1
-#: build/editor.js:1
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:6
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "Spectrum ring"
 msgstr ""
 
@@ -2518,7 +3211,10 @@ msgid "Escalator"
 msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:147
+#: assets/src/editor/extras.js:302
 #: build/blocks/escalator/index.js:1
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
 msgid "Tiles"
 msgstr ""
 
@@ -2567,7 +3263,9 @@ msgid "Pick photos"
 msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:270
+#: assets/src/blocks/size-chart/inspector.js:171
 #: build/blocks/escalator/index.js:2
+#: build/blocks/size-chart/index.js:2
 msgid "Columns"
 msgstr ""
 
@@ -2605,8 +3303,8 @@ msgstr ""
 #: assets/src/editor/cover.js:50
 #: assets/src/editor/terms.js:123
 #: build/blocks/escalator/index.js:2
-#: build/editor.js:5
-#: build/editor.js:7
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Hover"
 msgstr ""
 
@@ -2617,16 +3315,16 @@ msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:330
 #: assets/src/editor/button.js:86
-#: assets/src/editor/buy-button.js:84
-#: assets/src/editor/cards.js:641
+#: assets/src/editor/buy-button.js:93
+#: assets/src/editor/cards.js:724
 #: assets/src/editor/cart-page.js:87
 #: assets/src/editor/checkout-page.js:144
 #: assets/src/editor/drawer.js:88
 #: assets/src/editor/order-confirmation.js:42
 #: build/blocks/escalator/index.js:2
-#: build/editor.js:3
-#: build/editor.js:5
-#: build/editor.js:7
+#: build/editor.js:8
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Effect color"
 msgstr ""
 
@@ -2723,6 +3421,11 @@ msgstr ""
 #: assets/src/blocks/hanging-rail/edit.js:89
 #: build/blocks/hanging-rail/index.js:1
 msgid "How much scrolling the rail takes to show every product. The section holds still while the products slide along the rope. Visitors who ask for reduced motion see a plain row they can scroll sideways."
+msgstr ""
+
+#: assets/src/blocks/matching-extras/edit.js:63
+#: build/blocks/matching-extras/index.js:6
+msgid "No simple products in stock to show yet."
 msgstr ""
 
 #: assets/src/blocks/runway/edit.js:17
@@ -2864,20 +3567,20 @@ msgstr ""
 #: assets/src/editor/stock.js:13
 #: assets/src/editor/terms.js:79
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:5
-#: build/editor.js:7
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Chip"
 msgstr ""
 
 #: assets/src/blocks/shelf-tag/edit.js:34
 #: assets/src/editor/badge.js:9
-#: assets/src/editor/cards.js:489
+#: assets/src/editor/cards.js:567
 #: assets/src/editor/count.js:127
 #: assets/src/editor/stock.js:12
 #: assets/src/editor/terms.js:77
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:5
-#: build/editor.js:7
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Pill"
 msgstr ""
 
@@ -2885,7 +3588,7 @@ msgstr ""
 #: assets/src/editor/badge.js:17
 #: assets/src/editor/stock.js:19
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Top right"
 msgstr ""
 
@@ -2893,7 +3596,7 @@ msgstr ""
 #: assets/src/editor/badge.js:16
 #: assets/src/editor/stock.js:18
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Top left"
 msgstr ""
 
@@ -2901,7 +3604,7 @@ msgstr ""
 #: assets/src/editor/badge.js:18
 #: assets/src/editor/stock.js:20
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Bottom left"
 msgstr ""
 
@@ -2909,7 +3612,7 @@ msgstr ""
 #: assets/src/editor/badge.js:19
 #: assets/src/editor/stock.js:21
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Bottom right"
 msgstr ""
 
@@ -2959,9 +3662,9 @@ msgstr ""
 
 #: assets/src/blocks/shelf-tag/edit.js:193
 #: assets/src/editor/badge.js:49
-#: assets/src/editor/stock.js:52
+#: assets/src/editor/stock.js:59
 #: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Corner"
 msgstr ""
 
@@ -2981,7 +3684,9 @@ msgid "A light passes over the tag once when the card is hovered."
 msgstr ""
 
 #: assets/src/blocks/showfloor-look/edit.js:141
+#: assets/src/blocks/size-chart/inspector.js:77
 #: build/blocks/showfloor/index.js:4
+#: build/blocks/size-chart/index.js:2
 msgid "Name"
 msgstr ""
 
@@ -3002,13 +3707,19 @@ msgstr ""
 
 #. translators: %s: product name.
 #: assets/src/blocks/showfloor-look/edit.js:195
+#: assets/src/editor/extras.js:146
+#: build/blocks/matching-extras/index.js:6
 #: build/blocks/showfloor/index.js:5
+#: build/editor.js:6
 #, js-format
 msgid "Remove %s"
 msgstr ""
 
 #: assets/src/blocks/showfloor-look/edit.js:207
+#: assets/src/editor/extras.js:97
+#: build/blocks/matching-extras/index.js:2
 #: build/blocks/showfloor/index.js:5
+#: build/editor.js:2
 msgid "Add a product"
 msgstr ""
 
@@ -3082,7 +3793,7 @@ msgstr ""
 #: assets/src/blocks/showfloor/choices.js:28
 #: assets/src/editor/count.js:126
 #: build/blocks/showfloor/index.js:1
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Plain"
 msgstr ""
 
@@ -3096,11 +3807,6 @@ msgstr ""
 #: assets/src/blocks/showfloor/choices.js:60
 #: build/blocks/showfloor/index.js:1
 msgid "Icon and text"
-msgstr ""
-
-#: assets/src/blocks/showfloor/choices.js:33
-#: build/blocks/showfloor/index.js:1
-msgid "Icons"
 msgstr ""
 
 #: assets/src/blocks/showfloor/choices.js:38
@@ -3137,14 +3843,14 @@ msgstr ""
 #: assets/src/blocks/showfloor/choices.js:61
 #: assets/src/editor/accordion.js:56
 #: build/blocks/showfloor/index.js:1
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Icon"
 msgstr ""
 
 #: assets/src/blocks/showfloor/choices.js:55
 #: assets/src/editor/cards.js:30
 #: build/blocks/showfloor/index.js:1
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Spotlight"
 msgstr ""
 
@@ -3178,7 +3884,7 @@ msgstr ""
 #: assets/src/blocks/showfloor/edit.js:182
 #: assets/src/editor/cards.js:47
 #: build/blocks/showfloor/index.js:3
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Depth"
 msgstr ""
 
@@ -3318,6 +4024,224 @@ msgstr ""
 msgid "Pick the products in this look"
 msgstr ""
 
+#: assets/src/blocks/size-chart/edit.js:23
+#: build/blocks/size-chart/index.js:2
+msgid "Runs small. Between sizes, take the larger one."
+msgstr ""
+
+#. translators: %d: column number.
+#: assets/src/blocks/size-chart/edit.js:52
+#: build/blocks/size-chart/index.js:3
+#, js-format
+msgid "Column %d name"
+msgstr ""
+
+#. translators: 1: row number, 2: column name.
+#: assets/src/blocks/size-chart/edit.js:91
+#: build/blocks/size-chart/index.js:4
+#, js-format
+msgid "Row %1$d, %2$s"
+msgstr ""
+
+#. translators: %d: row number.
+#: assets/src/blocks/size-chart/edit.js:121
+#: build/blocks/size-chart/index.js:5
+#, js-format
+msgid "Remove row %d"
+msgstr ""
+
+#: assets/src/blocks/size-chart/edit.js:214
+#: build/blocks/size-chart/index.js:5
+msgid "Size Chart"
+msgstr ""
+
+#: assets/src/blocks/size-chart/edit.js:215
+#: build/blocks/size-chart/index.js:5
+msgid "Start from a sample and change the sizes, or paste rows from a spreadsheet in the sidebar."
+msgstr ""
+
+#: assets/src/blocks/size-chart/edit.js:224
+#: build/blocks/size-chart/index.js:5
+msgid "Start with a tops sample"
+msgstr ""
+
+#: assets/src/blocks/size-chart/edit.js:230
+#: build/blocks/size-chart/index.js:5
+msgid "Start with a shoes sample"
+msgstr ""
+
+#: assets/src/blocks/size-chart/edit.js:244
+#: build/blocks/size-chart/index.js:5
+msgid "Add row"
+msgstr ""
+
+#: assets/src/blocks/size-chart/edit.js:249
+#: build/blocks/size-chart/index.js:5
+msgid "Add column"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:20
+#: build/blocks/size-chart/index.js:1
+msgid "This chart"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:21
+#: build/blocks/size-chart/index.js:1
+msgid "This product's chart"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:25
+#: build/blocks/size-chart/index.js:1
+msgid "Measurement (cm)"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:26
+#: build/blocks/size-chart/index.js:1
+msgid "Label, like EU or US sizes"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:30
+#: build/blocks/size-chart/index.js:1
+msgid "Auto, from the name"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:35
+#: build/blocks/size-chart/index.js:1
+msgid "Sleeve"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:36
+#: build/blocks/size-chart/index.js:1
+msgid "Inseam"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:40
+#: build/blocks/size-chart/index.js:1
+msgid "cm"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:41
+#: build/blocks/size-chart/index.js:1
+msgid "in"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:45
+#: build/blocks/size-chart/index.js:1
+msgid "Auto, from the lines"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:47
+#: build/blocks/size-chart/index.js:1
+msgid "Top"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:48
+#: build/blocks/size-chart/index.js:1
+msgid "Bottom"
+msgstr ""
+
+#. translators: %d: column number.
+#: assets/src/blocks/size-chart/inspector.js:68
+#: build/blocks/size-chart/index.js:2
+#, js-format
+msgid "Column %d"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:84
+#: build/blocks/size-chart/index.js:2
+msgid "Kind"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:94
+#: build/blocks/size-chart/index.js:2
+msgid "Line on the figure"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:108
+#: build/blocks/size-chart/index.js:2
+msgid "Remove column"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:155
+#: build/blocks/size-chart/index.js:2
+msgid "Shows the chart picked for each product or its category, with its fit note. Put it in the Single Product template."
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:159
+#: build/blocks/size-chart/index.js:2
+msgid "Holds its own sizes. Save it as a synced pattern to pick it for products and categories."
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:185
+#: build/blocks/size-chart/index.js:2
+msgid "Paste from a spreadsheet"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:190
+#: build/blocks/size-chart/index.js:2
+msgid "Rows"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:191
+#: build/blocks/size-chart/index.js:2
+msgid "Copy the cells from a spreadsheet, with the column names in the first row and the sizes in the first column. This replaces the table."
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:204
+#: build/blocks/size-chart/index.js:2
+msgid "Fill the table"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:209
+#: build/blocks/size-chart/index.js:2
+msgid "Display"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:212
+#: build/blocks/size-chart/index.js:2
+msgid "Settings changed here win over the chart's own."
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:221
+#: build/blocks/size-chart/index.js:2
+msgid "Show first"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:228
+#: build/blocks/size-chart/index.js:2
+msgid "Show the cm/in switch"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:234
+#: build/blocks/size-chart/index.js:2
+msgid "Pick a size from the chart"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:235
+#: build/blocks/size-chart/index.js:2
+msgid "On a product, each size is a button that picks the matching size option."
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:246
+#: build/blocks/size-chart/index.js:2
+msgid "How to measure figure"
+msgstr ""
+
+#: assets/src/blocks/size-chart/inspector.js:257
+#: build/blocks/size-chart/index.js:2
+msgid "Show the fit note"
+msgstr ""
+
+#: assets/src/blocks/size-chart/table.js:242
+#: build/blocks/size-chart/index.js:1
+msgid "Foot length"
+msgstr ""
+
+#: assets/src/blocks/size-chart/table.js:245
+#: build/blocks/size-chart/index.js:1
+msgid "Stand on a sheet of paper, mark your heel and your longest toe, and measure between the marks."
+msgstr ""
+
 #: assets/src/blocks/story-deck/edit.js:17
 #: build/blocks/story-deck/index.js:1
 msgid "Left"
@@ -3331,14 +4255,16 @@ msgstr ""
 #: assets/src/blocks/story-deck/edit.js:22
 #: assets/src/editor/thumbs.js:9
 #: build/blocks/story-deck/index.js:1
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Rounded"
 msgstr ""
 
 #: assets/src/blocks/story-deck/edit.js:23
+#: assets/src/editor/chips.js:28
 #: assets/src/editor/terms.js:115
 #: build/blocks/story-deck/index.js:1
-#: build/editor.js:7
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Square"
 msgstr ""
 
@@ -3367,7 +4293,7 @@ msgstr ""
 #: assets/src/blocks/story-deck/edit.js:80
 #: assets/src/editor/cards.js:42
 #: build/blocks/story-deck/index.js:1
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Deck"
 msgstr ""
 
@@ -3447,9 +4373,9 @@ msgid "A card with rounded corners and a soft shadow."
 msgstr ""
 
 #: assets/src/blocks/wardrobe/edit.js:168
-#: assets/src/editor/cards.js:214
+#: assets/src/editor/cards.js:220
 #: build/blocks/wardrobe/index.js:1
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Card"
 msgstr ""
 
@@ -3466,32 +4392,32 @@ msgstr ""
 #: assets/src/editor/accordion-group.js:19
 #: assets/src/editor/accordion.js:22
 #: assets/src/editor/details.js:19
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Soft style"
 msgstr ""
 
 #: assets/src/editor/accordion-group.js:20
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Each item becomes a soft card, and the icon sits in a round button that fills with the color when open."
 msgstr ""
 
 #: assets/src/editor/accordion.js:23
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Each item becomes a soft card, and the plus turns into an x that fills with the color when open."
 msgstr ""
 
 #: assets/src/editor/accordion.js:33
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Heading line"
 msgstr ""
 
 #: assets/src/editor/accordion.js:36
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The soft style draws its own cards, so the line is off with it."
 msgstr ""
 
 #: assets/src/editor/accordion.js:40
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Drawn: a hairline under each item, with a line that draws across on hover and stays while the item is open."
 msgstr ""
 
@@ -3499,1086 +4425,1414 @@ msgstr ""
 #: assets/src/editor/catalog-sorting.js:135
 #: assets/src/editor/pagination.js:39
 #: assets/src/editor/terms.js:58
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Theme default"
 msgstr ""
 
 #: assets/src/editor/accordion.js:49
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Drawn"
 msgstr ""
 
 #: assets/src/editor/accordion.js:59
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The soft style has its own round button."
 msgstr ""
 
 #: assets/src/editor/accordion.js:63
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Chevron: a small arrow that turns over when the item opens."
 msgstr ""
 
 #: assets/src/editor/accordion.js:71
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Plus"
 msgstr ""
 
 #: assets/src/editor/accordion.js:72
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Chevron"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:17
-#: build/editor.js:1
+#: assets/src/editor/add-to-cart.js:19
+#: build/editor.js:6
 msgid "Selected option"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:50
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:53
+#: build/editor.js:12
 msgid "Parts of the product page that take the color of the variation a shopper picks."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:54
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:57
+#: build/editor.js:12
 msgid "The editor shows them in a sample color."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:125
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:131
+#: build/editor.js:12
 msgid "Title on a color change"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:131
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:137
+#: build/editor.js:12
 msgid "Title and price rise"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:135
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:141
+#: build/editor.js:12
 msgid "Title comes into focus"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:148
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:154
+#: build/editor.js:12
 msgid "Mesh background"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:149
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:155
+#: build/editor.js:12
 msgid "Soft blobs of the color over the tint, which move to a new place on each color change."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:159
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:165
+#: build/editor.js:12
 msgid "Glow ring on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:160
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:166
+#: build/editor.js:12
 msgid "A soft ring of the color around the add to cart button. Products without a page color, and variable products before a pick, use the theme’s button color."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:169
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:175
+#: build/editor.js:12
 msgid "Large buy row"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:170
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:176
+#: build/editor.js:12
 msgid "The quantity box and the add to cart button share one 52px height."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:179
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:185
+#: build/editor.js:12
+msgid "Sticky bar on phones"
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:186
+#: build/editor.js:12
+msgid "Once the add to cart button scrolls up out of view on a phone, a bar with the name, price and button stays at the bottom of the screen. On variable products it scrolls back to the options until a shopper picks them. The editor shows a sample under the block."
+msgstr ""
+
+#: assets/src/editor/add-to-cart.js:195
+#: build/editor.js:12
 msgid "Liquid glass button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:180
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:196
+#: build/editor.js:12
 msgid "A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:189
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:205
+#: build/editor.js:12
 msgid "Spectrum ring on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:190
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:206
+#: build/editor.js:12
 msgid "A rainbow ring travels once around the button on hover."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:200
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:216
+#: build/editor.js:12
 msgid "Googly eyes on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:208
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:224
+#: build/editor.js:12
 msgid "Halo after adding to cart"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:209
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:225
+#: build/editor.js:12
 msgid "A ring leaves the button and fades each time the product goes into the cart."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:218
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:234
+#: build/editor.js:12
 msgid "Color dots on options"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:219
-#: build/editor.js:7
+#: assets/src/editor/add-to-cart.js:235
+#: build/editor.js:12
 msgid "A dot in each color before its name on the option buttons."
 msgstr ""
 
 #: assets/src/editor/badge.js:8
 #: assets/src/editor/badge.js:15
-#: assets/src/editor/chips.js:8
-#: assets/src/editor/gallery.js:44
+#: assets/src/editor/chips.js:23
+#: assets/src/editor/chips.js:43
+#: assets/src/editor/gallery.js:50
 #: assets/src/editor/reviews.js:8
 #: assets/src/editor/specs.js:8
 #: assets/src/editor/stock.js:11
 #: assets/src/editor/thumbs.js:8
-#: build/editor.js:1
-#: build/editor.js:5
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "WooCommerce default"
 msgstr ""
 
 #: assets/src/editor/badge.js:10
 #: assets/src/editor/terms.js:108
 #: assets/src/editor/thumbs.js:10
-#: build/editor.js:5
-#: build/editor.js:7
+#: build/editor.js:10
+#: build/editor.js:12
 msgid "Circle"
 msgstr ""
 
 #: assets/src/editor/badge.js:11
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Price tag"
 msgstr ""
 
 #: assets/src/editor/badge.js:35
 #: assets/src/editor/terms.js:102
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Shape"
 msgstr ""
 
 #: assets/src/editor/badge.js:36
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "A border radius set in Styles takes the place of the pill and circle corners."
 msgstr ""
 
 #: assets/src/editor/badge.js:50
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Where the badge sits on the photo. Works when the badge is inside the Product Gallery's large image."
 msgstr ""
 
 #: assets/src/editor/button.js:20
 #: assets/src/editor/buy-button.js:18
-#: assets/src/editor/cards.js:116
-#: build/editor.js:1
-#: build/editor.js:3
-#: build/editor.js:5
+#: assets/src/editor/cards.js:122
+#: build/editor.js:6
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "Glow ring"
 msgstr ""
 
 #: assets/src/editor/button.js:21
 #: assets/src/editor/buy-button.js:19
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "A soft ring of the effect color around the button."
 msgstr ""
 
 #: assets/src/editor/button.js:29
 #: assets/src/editor/buy-button.js:27
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "A band of light crosses the button on hover."
 msgstr ""
 
 #: assets/src/editor/button.js:34
 #: assets/src/editor/buy-button.js:32
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "A frosted fill in the effect color with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button."
 msgstr ""
 
 #: assets/src/editor/button.js:42
 #: assets/src/editor/buy-button.js:40
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "A rainbow ring travels once around the edge on hover."
 msgstr ""
 
 #: assets/src/editor/button.js:77
-#: build/editor.js:3
+#: build/editor.js:8
 msgid "Googly eyes"
 msgstr ""
 
 #: assets/src/editor/button.js:87
-#: build/editor.js:3
+#: build/editor.js:8
 msgid "Used by the glow ring and the liquid glass. On a product page with a variation color, that color is used instead."
 msgstr ""
 
 #: assets/src/editor/buy-button.js:49
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Lock icon"
 msgstr ""
 
 #: assets/src/editor/buy-button.js:50
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "A small lock before Place Order, in the button's text color."
 msgstr ""
 
-#: assets/src/editor/buy-button.js:85
-#: build/editor.js:5
+#: assets/src/editor/buy-button.js:58
+#: build/editor.js:10
+msgid "Total in the sticky bar"
+msgstr ""
+
+#: assets/src/editor/buy-button.js:59
+#: build/editor.js:10
+msgid "On phones, while WooCommerce pins Proceed to Checkout to the bottom of the screen, the order total shows after the label. The editor shows it on the button."
+msgstr ""
+
+#: assets/src/editor/buy-button.js:94
+#: build/editor.js:10
 msgid "Used by the glow ring and the liquid glass. Without one, they use the theme's text color."
 msgstr ""
 
 #: assets/src/editor/cards.js:29
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Magnetic panel"
 msgstr ""
 
 #: assets/src/editor/cards.js:31
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Color reveal"
 msgstr ""
 
 #: assets/src/editor/cards.js:32
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Fan deck"
 msgstr ""
 
 #: assets/src/editor/cards.js:33
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Expanded cards"
 msgstr ""
 
 #: assets/src/editor/cards.js:34
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Card folder"
 msgstr ""
 
 #: assets/src/editor/cards.js:35
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Bookmark"
 msgstr ""
 
 #: assets/src/editor/cards.js:36
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Roster"
 msgstr ""
 
 #: assets/src/editor/cards.js:40
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "In a carousel"
 msgstr ""
 
 #: assets/src/editor/cards.js:43
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Arc"
 msgstr ""
 
 #: assets/src/editor/cards.js:44
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Spotlight carousel"
 msgstr ""
 
 #: assets/src/editor/cards.js:45
 #: assets/src/editor/filters.js:87
-#: build/editor.js:1
-#: build/editor.js:7
+#: build/editor.js:6
+#: build/editor.js:12
 msgid "Grow"
 msgstr ""
 
 #: assets/src/editor/cards.js:46
-#: assets/src/editor/cards.js:95
+#: assets/src/editor/cards.js:101
 #: assets/src/editor/cover.js:17
-#: build/editor.js:1
-#: build/editor.js:5
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "Tilt"
 msgstr ""
 
 #: assets/src/editor/cards.js:48
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Overlap"
 msgstr ""
 
 #: assets/src/editor/cards.js:49
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Momentum"
 msgstr ""
 
 #: assets/src/editor/cards.js:50
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Wheel"
 msgstr ""
 
 #: assets/src/editor/cards.js:51
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Helix"
 msgstr ""
 
 #: assets/src/editor/cards.js:52
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Reel"
 msgstr ""
 
 #: assets/src/editor/cards.js:56
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "As cards scroll in"
 msgstr ""
 
 #: assets/src/editor/cards.js:58
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Clothes line"
 msgstr ""
 
 #: assets/src/editor/cards.js:60
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Zoom reveal"
 msgstr ""
 
 #: assets/src/editor/cards.js:61
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Unfold"
 msgstr ""
 
-#: assets/src/editor/cards.js:92
-#: build/editor.js:1
+#: assets/src/editor/cards.js:98
+#: build/editor.js:6
 msgid "Card on hover"
 msgstr ""
 
-#: assets/src/editor/cards.js:97
-#: build/editor.js:1
+#: assets/src/editor/cards.js:103
+#: build/editor.js:6
 msgid "Torch"
 msgstr ""
 
-#: assets/src/editor/cards.js:102
-#: build/editor.js:1
+#: assets/src/editor/cards.js:108
+#: build/editor.js:6
 msgid "Photo on hover"
 msgstr ""
 
-#: assets/src/editor/cards.js:105
-#: build/editor.js:1
+#: assets/src/editor/cards.js:111
+#: build/editor.js:6
 msgid "Drift"
 msgstr ""
 
-#: assets/src/editor/cards.js:107
-#: build/editor.js:1
+#: assets/src/editor/cards.js:113
+#: build/editor.js:6
 msgid "Color bloom"
 msgstr ""
 
-#: assets/src/editor/cards.js:108
-#: build/editor.js:1
+#: assets/src/editor/cards.js:114
+#: build/editor.js:6
 msgid "Second photo"
 msgstr ""
 
-#: assets/src/editor/cards.js:113
-#: build/editor.js:1
+#: assets/src/editor/cards.js:119
+#: build/editor.js:6
 msgid "Button on hover"
 msgstr ""
 
-#: assets/src/editor/cards.js:115
-#: build/editor.js:1
+#: assets/src/editor/cards.js:121
+#: build/editor.js:6
 msgid "Bag and sweep"
 msgstr ""
 
-#: assets/src/editor/cards.js:181
-#: build/editor.js:1
+#: assets/src/editor/cards.js:187
+#: build/editor.js:6
 msgid "Plays while the mouse is on the card, alongside the card effect. Off on touch screens; looks that move are off for visitors who ask for reduced motion."
 msgstr ""
 
-#: assets/src/editor/cards.js:186
-#: build/editor.js:1
+#: assets/src/editor/cards.js:192
+#: build/editor.js:6
 msgid "This card effect already moves the card on hover, so the card look is off. The photo and button looks still play."
 msgstr ""
 
-#: assets/src/editor/cards.js:191
-#: build/editor.js:1
+#: assets/src/editor/cards.js:197
+#: build/editor.js:6
 msgid "This card effect already changes the photo on hover, so the photo look is off. The card and button looks still play."
 msgstr ""
 
-#: assets/src/editor/cards.js:203
-#: build/editor.js:1
+#: assets/src/editor/cards.js:209
+#: build/editor.js:6
 msgid "Hover plays on"
 msgstr ""
 
-#: assets/src/editor/cards.js:219
-#: build/editor.js:1
+#: assets/src/editor/cards.js:225
+#: assets/src/editor/extras.js:309
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
 msgid "Photo"
 msgstr ""
 
-#: assets/src/editor/cards.js:224
+#: assets/src/editor/cards.js:230
 #: assets/src/editor/pagination.js:59
-#: build/editor.js:1
-#: build/editor.js:7
+#: build/editor.js:6
+#: build/editor.js:12
 msgid "Button"
 msgstr ""
 
-#: assets/src/editor/cards.js:228
-#: build/editor.js:1
+#: assets/src/editor/cards.js:234
+#: build/editor.js:6
 msgid "All"
 msgstr ""
 
-#: assets/src/editor/cards.js:247
-#: build/editor.js:1
+#: assets/src/editor/cards.js:253
+#: build/editor.js:6
 msgid "Fades to the product’s first gallery photo on the store. Products without one keep their photo. The editor shows the main photo only."
 msgstr ""
 
-#: assets/src/editor/cards.js:288
-#: build/editor.js:1
+#: assets/src/editor/cards.js:294
+#: build/editor.js:6
 msgid "Ring inside the card"
 msgstr ""
 
-#: assets/src/editor/cards.js:289
-#: build/editor.js:1
+#: assets/src/editor/cards.js:295
+#: build/editor.js:6
 msgid "Draws the ring just inside the card’s edge, so it doesn’t reach the cards next to it. Ruled cards always draw it inside."
 msgstr ""
 
-#: assets/src/editor/cards.js:296
-#: build/editor.js:1
+#: assets/src/editor/cards.js:302
+#: build/editor.js:6
 msgid "Square ring"
 msgstr ""
 
-#: assets/src/editor/cards.js:297
-#: build/editor.js:1
+#: assets/src/editor/cards.js:303
+#: build/editor.js:6
 msgid "Uses the theme’s corner size from theme.json, or square corners without one."
 msgstr ""
 
-#: assets/src/editor/cards.js:304
-#: build/editor.js:1
+#: assets/src/editor/cards.js:310
+#: build/editor.js:6
 msgid "Full color ring"
 msgstr ""
 
-#: assets/src/editor/cards.js:305
-#: build/editor.js:1
+#: assets/src/editor/cards.js:311
+#: build/editor.js:6
 msgid "The effect color at full strength instead of a light tint."
 msgstr ""
 
 #. translators: %d: the grid's own column count.
-#: assets/src/editor/cards.js:329
-#: build/editor.js:2
+#: assets/src/editor/cards.js:335
+#: build/editor.js:7
 #, js-format
 msgid "Two buttons beside Sort by switch the grid between its %d columns and these. The choice lasts for the visit. Phones keep their grid."
 msgstr ""
 
-#: assets/src/editor/cards.js:336
-#: build/editor.js:2
+#: assets/src/editor/cards.js:342
+#: build/editor.js:7
 msgid "Needs the Grid layout."
 msgstr ""
 
-#: assets/src/editor/cards.js:338
-#: build/editor.js:2
+#: assets/src/editor/cards.js:344
+#: build/editor.js:7
 msgid "Roster lays the cards out as its own list."
 msgstr ""
 
-#: assets/src/editor/cards.js:347
-#: build/editor.js:2
+#: assets/src/editor/cards.js:353
+#: build/editor.js:7
 msgid "Grid switch"
 msgstr ""
 
 #. translators: %s: a column count.
-#: assets/src/editor/cards.js:360
-#: build/editor.js:3
+#: assets/src/editor/cards.js:366
+#: build/editor.js:8
 #, js-format
 msgid "%s column"
 msgid_plural "%s columns"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/src/editor/cards.js:389
-#: build/editor.js:3
+#: assets/src/editor/cards.js:395
+#: build/editor.js:8
 msgid "The new results fade in."
 msgstr ""
 
-#: assets/src/editor/cards.js:390
-#: build/editor.js:3
+#: assets/src/editor/cards.js:396
+#: build/editor.js:8
 msgid "The cards come up one after another."
 msgstr ""
 
-#: assets/src/editor/cards.js:391
-#: build/editor.js:3
+#: assets/src/editor/cards.js:397
+#: build/editor.js:8
 msgid "Cards that stay glide to their new places, and new ones fade in."
 msgstr ""
 
-#: assets/src/editor/cards.js:401
-#: build/editor.js:3
+#: assets/src/editor/cards.js:407
+#: build/editor.js:8
 msgid "How the cards change when shoppers filter, sort or change page. Visitors who ask for reduced motion see the swap without motion."
 msgstr ""
 
-#: assets/src/editor/cards.js:406
-#: build/editor.js:3
+#: assets/src/editor/cards.js:412
+#: build/editor.js:8
 msgid "Force page reload is on, so each change loads a new page."
 msgstr ""
 
-#: assets/src/editor/cards.js:415
-#: build/editor.js:3
+#: assets/src/editor/cards.js:421
+#: build/editor.js:8
 msgid "Results change"
 msgstr ""
 
-#: assets/src/editor/cards.js:422
+#: assets/src/editor/cards.js:428
 #: assets/src/editor/heading.js:9
-#: build/editor.js:3
-#: build/editor.js:5
+#: build/editor.js:8
+#: build/editor.js:10
 msgid "Rise"
 msgstr ""
 
-#: assets/src/editor/cards.js:423
-#: build/editor.js:3
+#: assets/src/editor/cards.js:429
+#: build/editor.js:8
 msgid "Move"
 msgstr ""
 
-#: assets/src/editor/cards.js:447
-#: build/editor.js:7
-msgid "Button on the photo"
+#: assets/src/editor/cards.js:449
+#: build/editor.js:8
+msgid "A fifth of the next card shows at the end."
 msgstr ""
 
 #: assets/src/editor/cards.js:450
-#: build/editor.js:7
-msgid "Details on the photo already puts the button on the photo."
+#: build/editor.js:8
+msgid "A third of the next card shows at the end."
 msgstr ""
 
-#: assets/src/editor/cards.js:454
-#: build/editor.js:7
-msgid "Title and price on one line, and add to cart on the photo. It shows on hover, and always on touch screens."
+#: assets/src/editor/cards.js:451
+#: build/editor.js:8
+msgid "Half of the next card shows at the end."
 msgstr ""
 
-#: assets/src/editor/cards.js:471
-#: build/editor.js:7
-msgid "A full-width bar across the bottom of the photo that slides up on hover."
+#: assets/src/editor/cards.js:455
+#: build/editor.js:8
+msgid "The carousel ends on part of the next card, so shoppers can see there’s more to swipe. Cards line up from the start edge and arrows, swipe and keys land on a card."
 msgstr ""
 
-#: assets/src/editor/cards.js:475
-#: build/editor.js:7
-msgid "A small frosted button on the bottom right of the photo."
+#: assets/src/editor/cards.js:460
+#: build/editor.js:8
+msgid "Needs the Carousel layout."
 msgstr ""
 
-#: assets/src/editor/cards.js:493
-#: assets/src/editor/filters.js:43
-#: build/editor.js:7
-msgid "Bar"
+#: assets/src/editor/cards.js:462
+#: build/editor.js:8
+msgid "This card effect places the cards itself, centered on one card."
+msgstr ""
+
+#: assets/src/editor/cards.js:472
+#: build/editor.js:8
+msgid "Show part of the next card"
+msgstr ""
+
+#: assets/src/editor/cards.js:485
+#: build/editor.js:8
+msgid "Peek size"
+msgstr ""
+
+#: assets/src/editor/cards.js:492
+#: build/editor.js:8
+msgid "Small"
 msgstr ""
 
 #: assets/src/editor/cards.js:500
-#: assets/src/editor/pagination.js:73
-#: build/editor.js:7
-msgid "Outline button"
+#: assets/src/editor/catalog-sorting.js:136
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Large"
 msgstr ""
 
-#: assets/src/editor/cards.js:501
-#: build/editor.js:7
-msgid "Add to cart runs the width of the card with a thin edge in the text color and no fill. It fills with the effect color on hover and keyboard focus."
+#: assets/src/editor/cards.js:525
+#: build/editor.js:12
+msgid "Button on the photo"
 msgstr ""
 
-#: assets/src/editor/cards.js:513
-#: build/editor.js:7
-msgid "Details on the photo"
-msgstr ""
-
-#: assets/src/editor/cards.js:516
-#: build/editor.js:7
-msgid "Roster shows the names as its own list, so it keeps the details where they are."
-msgstr ""
-
-#: assets/src/editor/cards.js:520
-#: build/editor.js:7
-msgid "Title, price and add to cart sit on the bottom of the photo over a soft shade. They show on hover, and always on touch screens."
+#: assets/src/editor/cards.js:528
+#: build/editor.js:12
+msgid "Details on the photo already puts the button on the photo."
 msgstr ""
 
 #: assets/src/editor/cards.js:532
-#: build/editor.js:7
-msgid "Ruled cards"
+#: build/editor.js:12
+msgid "Title and price on one line, and add to cart on the photo. It shows on hover, and always on touch screens."
 msgstr ""
 
-#: assets/src/editor/cards.js:535
-#: build/editor.js:7
-msgid "Roster shows the cards as its own list, so it keeps its spacing."
-msgstr ""
-
-#: assets/src/editor/cards.js:539
-#: build/editor.js:7
-msgid "Thin lines between the cards instead of the gap, with no line on the outer edges. Each card’s button sits at its foot, so the buttons in a row line up. Phones show two cards a row. The Carousel layout keeps its own spacing."
+#: assets/src/editor/cards.js:549
+#: build/editor.js:12
+msgid "A full-width bar across the bottom of the photo that slides up on hover."
 msgstr ""
 
 #: assets/src/editor/cards.js:553
-#: build/editor.js:7
+#: build/editor.js:12
+msgid "A small frosted button on the bottom right of the photo."
+msgstr ""
+
+#: assets/src/editor/cards.js:571
+#: assets/src/editor/filters.js:43
+#: build/editor.js:12
+msgid "Bar"
+msgstr ""
+
+#: assets/src/editor/cards.js:578
+#: assets/src/editor/pagination.js:73
+#: build/editor.js:12
+msgid "Outline button"
+msgstr ""
+
+#: assets/src/editor/cards.js:579
+#: build/editor.js:12
+msgid "Add to cart runs the width of the card with a thin edge in the text color and no fill. It fills with the effect color on hover and keyboard focus."
+msgstr ""
+
+#: assets/src/editor/cards.js:591
+#: build/editor.js:12
+msgid "Details on the photo"
+msgstr ""
+
+#: assets/src/editor/cards.js:594
+#: build/editor.js:12
+msgid "Roster shows the names as its own list, so it keeps the details where they are."
+msgstr ""
+
+#: assets/src/editor/cards.js:598
+#: build/editor.js:12
+msgid "Title, price and add to cart sit on the bottom of the photo over a soft shade. They show on hover, and always on touch screens."
+msgstr ""
+
+#: assets/src/editor/cards.js:610
+#: build/editor.js:12
+msgid "Ruled cards"
+msgstr ""
+
+#: assets/src/editor/cards.js:613
+#: build/editor.js:12
+msgid "Roster shows the cards as its own list, so it keeps its spacing."
+msgstr ""
+
+#: assets/src/editor/cards.js:617
+#: build/editor.js:12
+msgid "Thin lines between the cards instead of the gap, with no line on the outer edges. Each card’s button sits at its foot, so the buttons in a row line up. Phones show two cards a row. The Carousel layout keeps its own spacing."
+msgstr ""
+
+#: assets/src/editor/cards.js:631
+#: build/editor.js:12
 msgid "Tablet columns"
 msgstr ""
 
-#: assets/src/editor/cards.js:554
-#: build/editor.js:7
+#: assets/src/editor/cards.js:632
+#: build/editor.js:12
 msgid "Cards a row from 600 to 1023 pixels wide, with the lines counted for it. Pick fewer than the grid’s columns so names don’t wrap. The editor’s Tablet preview shows it."
 msgstr ""
 
-#: assets/src/editor/cards.js:564
-#: build/editor.js:7
+#: assets/src/editor/cards.js:642
+#: build/editor.js:12
 msgid "Same as the grid"
 msgstr ""
 
-#: assets/src/editor/cards.js:574
-#: build/editor.js:7
+#: assets/src/editor/cards.js:652
+#: build/editor.js:12
 msgid "Closing rule"
 msgstr ""
 
-#: assets/src/editor/cards.js:575
-#: build/editor.js:7
+#: assets/src/editor/cards.js:653
+#: build/editor.js:12
 msgid "Keeps the line under the last row, so the grid ends closed, like a ledger."
 msgstr ""
 
-#: assets/src/editor/cards.js:588
+#: assets/src/editor/cards.js:666
 #: assets/src/editor/gallery.js:24
-#: build/editor.js:1
-#: build/editor.js:7
+#: build/editor.js:6
+#: build/editor.js:12
 msgid "Photo wash"
 msgstr ""
 
-#: assets/src/editor/cards.js:589
-#: build/editor.js:7
+#: assets/src/editor/cards.js:667
+#: build/editor.js:12
 msgid "A light tint of the effect color behind each photo, with the photo blended into it, so photos on a white background take the tint."
 msgstr ""
 
-#: assets/src/editor/cards.js:599
-#: build/editor.js:7
+#: assets/src/editor/cards.js:677
+#: build/editor.js:12
 msgid "Card effect"
 msgstr ""
 
-#: assets/src/editor/cards.js:600
-#: build/editor.js:7
+#: assets/src/editor/cards.js:678
+#: build/editor.js:12
 msgid "Carousel effects need the Carousel layout and leave a grid as it is. Roster and Unfold need the Grid layout, and Roster shows the plain grid on phones and touch screens. Momentum, Helix and Reel can also be dragged with the mouse. Visitors who ask for reduced motion see no movement."
 msgstr ""
 
-#: assets/src/editor/cards.js:623
-#: build/editor.js:7
+#: assets/src/editor/cards.js:706
+#: build/editor.js:12
 msgid "Card hover fills the button"
 msgstr ""
 
-#: assets/src/editor/cards.js:627
-#: build/editor.js:7
+#: assets/src/editor/cards.js:710
+#: build/editor.js:12
 msgid "Hovering anywhere on a card fills its add to cart button with the effect color and underlines the name. Off on touch screens."
 msgstr ""
 
-#: assets/src/editor/cards.js:642
-#: build/editor.js:7
+#: assets/src/editor/cards.js:725
+#: build/editor.js:12
 msgid "Used by the button fill, the magnetic panel, the color reveal, the clothes line pegs, the card folder, the bookmark and the hover looks. Without one, the hover looks use the theme’s text color. On a product page with a variation color, that color is used instead."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:19
 #: assets/src/editor/drawer.js:28
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Soft rows"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:20
 #: assets/src/editor/drawer.js:29
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Each item sits on its own rounded card in a light tint of the effect color."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:27
 #: assets/src/editor/checkout-page.js:69
 #: assets/src/editor/drawer.js:36
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Bigger photos"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:28
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Item photos grow from 80 to 120 pixels, or 64 to 80 on phones, with rounded corners."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:35
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Sticky totals"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:36
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "The totals and the checkout button stay in view while a long cart scrolls, when they sit beside the items."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:43
 #: assets/src/editor/drawer.js:44
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Hide short descriptions"
 msgstr ""
 
 #: assets/src/editor/cart-page.js:44
 #: assets/src/editor/drawer.js:45
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Each item shows its name, price and quantity without the product’s short description. Variation details such as color and size stay."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:50
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Shows how much more the cart needs for free shipping, with a bar, above the cart or at the top of the totals column."
 msgstr ""
 
 #: assets/src/editor/cart-page.js:88
 #: assets/src/editor/drawer.js:89
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Tints the soft rows and fills the meter's bar. Without one, the rows take a light tint of the theme's text color and the bar takes the text color."
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:14
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Popularity"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:15
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Sort by popularity"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:19
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Average rating"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:20
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Sort by average rating"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:24
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Latest"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:25
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Sort by latest"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:29
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Price: low to high"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:30
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Sort by price: low to high"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:34
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Price: high to low"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting-orderings.js:35
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Sort by price: high to low"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:57
-#: assets/src/editor/gallery.js:53
-#: build/editor.js:1
-#: build/editor.js:5
+#: assets/src/editor/gallery.js:59
+#: build/editor.js:6
+#: build/editor.js:10
 msgid "Default"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:58
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Default sorting"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:70
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Sort by"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:94
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Orderings"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:95
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Default sorting always shows. An ordering a shopper already sorted by stays in the list."
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:113
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Average rating only once a product has one"
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:117
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Leaves out average rating until at least one product in the store has a rating, so the list never offers an order that changes nothing."
 msgstr ""
 
 #: assets/src/editor/catalog-sorting.js:129
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Large makes the select at least 44px tall, as easy to tap as the other shop controls."
 msgstr ""
 
-#: assets/src/editor/catalog-sorting.js:136
-#: build/editor.js:7
-msgid "Large"
-msgstr ""
-
 #: assets/src/editor/checkout-page.js:17
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Soft"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:19
 #: assets/src/editor/pagination.js:43
-#: build/editor.js:6
-#: build/editor.js:7
+#: build/editor.js:11
+#: build/editor.js:12
 msgid "Underline"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:24
+#: assets/src/editor/extras.js:294
 #: assets/src/editor/specs.js:10
-#: build/editor.js:5
+#: build/blocks/matching-extras/index.js:6
 #: build/editor.js:6
+#: build/editor.js:10
+#: build/editor.js:11
 msgid "Cards"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:25
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "List"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:30
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Badges"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:31
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Timeline"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:37
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Focus ring"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:38
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "The field a shopper is typing in gets a ring in the effect color."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:45
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Soft summary"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:46
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "The order summary sits on a rounded card in a light tint of the effect color, with a bigger, bolder total."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:53
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Side panel"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:54
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "On wide screens, the order summary column sits on a rounded panel in a light tint of the effect color."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:61
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Raised card"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:62
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "The whole checkout sits on a raised card in the page color. Looks best when the checkout is placed on a tinted section."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:70
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Photos in the order summary grow from 48 to 64 pixels, with rounded corners."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:94
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Field style"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:95
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Soft rounds the fields, filled gives them a light tint of the effect color, underline keeps only the bottom line. Labels still float as before."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:108
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Shipping and payment choices"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:109
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Cards puts each option in its own box, list joins them in one box with a line between each. The picked option gets a light tint of the effect color."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:122
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Step numbers"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:123
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Badges puts each section's number in a circle of the effect color, timeline puts it in a ring beside the section with a line down its side. Either one replaces WooCommerce's own step numbers."
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:145
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Colors the focus ring, the picked choice, the total line and the step numbers, and tints the filled fields, the summary and the side panel. Without one, they use the theme's text color."
 msgstr ""
 
-#: assets/src/editor/chips.js:9
-#: build/editor.js:5
+#: assets/src/editor/chips.js:13
+#: build/editor.js:10
+msgid "Auto, the one named like a size"
+msgstr ""
+
+#: assets/src/editor/chips.js:18
+#: build/editor.js:10
+msgid "Auto, the color attribute"
+msgstr ""
+
+#: assets/src/editor/chips.js:24
+#: build/editor.js:10
+msgid "Photo swatches"
+msgstr ""
+
+#: assets/src/editor/chips.js:29
+#: build/editor.js:10
+msgid "Round"
+msgstr ""
+
+#: assets/src/editor/chips.js:33
+#: build/editor.js:10
+msgid "Small, 44px"
+msgstr ""
+
+#: assets/src/editor/chips.js:34
+#: build/editor.js:10
+msgid "Large, 64px"
+msgstr ""
+
+#: assets/src/editor/chips.js:38
+#: build/editor.js:10
+msgid "Sheet from the bottom"
+msgstr ""
+
+#: assets/src/editor/chips.js:39
+#: build/editor.js:10
+msgid "Centered card"
+msgstr ""
+
+#: assets/src/editor/chips.js:44
+#: build/editor.js:10
 msgid "Crossed out"
 msgstr ""
 
-#: assets/src/editor/chips.js:10
-#: build/editor.js:5
+#: assets/src/editor/chips.js:45
+#: build/editor.js:10
 msgid "Blurred"
 msgstr ""
 
-#: assets/src/editor/chips.js:26
-#: build/editor.js:7
+#: assets/src/editor/chips.js:65
+#: build/editor.js:12
 msgid "Grayed-out look"
 msgstr ""
 
-#: assets/src/editor/chips.js:27
-#: build/editor.js:7
+#: assets/src/editor/chips.js:66
+#: build/editor.js:12
 msgid "How chips for options that can't be bought look. The crossed-out line also shows on swatches. To hide them instead, set Invalid options to Hidden."
+msgstr ""
+
+#: assets/src/editor/chips.js:79
+#: build/editor.js:12
+msgid "Color options"
+msgstr ""
+
+#: assets/src/editor/chips.js:80
+#: build/editor.js:12
+msgid "Photo swatches show each color as its variation photo. A color with no photo shows its swatch color, then its name. The Drop-down style shows no photos."
+msgstr ""
+
+#: assets/src/editor/chips.js:93
+#: build/editor.js:12
+msgid "Show photos on"
+msgstr ""
+
+#: assets/src/editor/chips.js:101
+#: build/editor.js:12
+msgid "Swatch shape"
+msgstr ""
+
+#: assets/src/editor/chips.js:109
+#: build/editor.js:12
+msgid "Swatch size"
+msgstr ""
+
+#: assets/src/editor/chips.js:116
+#: build/editor.js:12
+msgid "Picked color name"
+msgstr ""
+
+#: assets/src/editor/chips.js:117
+#: build/editor.js:12
+msgid "Shows the chosen color beside the attribute name."
+msgstr ""
+
+#: assets/src/editor/chips.js:133
+#: build/editor.js:12
+msgid "Size guide link"
+msgstr ""
+
+#: assets/src/editor/chips.js:134
+#: build/editor.js:12
+msgid "Shows on products with a size chart, picked on the product or its category. It opens the chart in a dialog."
+msgstr ""
+
+#: assets/src/editor/chips.js:148
+#: build/editor.js:12
+msgid "Link text"
+msgstr ""
+
+#: assets/src/editor/chips.js:156
+#: build/editor.js:12
+msgid "Beside"
+msgstr ""
+
+#: assets/src/editor/chips.js:164
+#: build/editor.js:12
+msgid "Dialog on phones"
+msgstr ""
+
+#: assets/src/editor/column.js:19
+#: build/editor.js:12
+msgid "Keep in view while the photos scroll"
+msgstr ""
+
+#: assets/src/editor/column.js:23
+#: build/editor.js:12
+msgid "Made for the product details beside a photo grid. On wide screens this column stays below the header while the columns beside it scroll, then leaves with them. A column taller than the window scrolls until its end shows first. Phones keep the columns stacked."
 msgstr ""
 
 #: assets/src/editor/columns.js:22
 #: assets/src/editor/group.js:36
 #: assets/src/editor/terms.js:144
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Entrance on scroll"
 msgstr ""
 
 #: assets/src/editor/columns.js:23
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Each column plays once as it scrolls into view, one after another. Visitors who ask for reduced motion see the columns as they are."
 msgstr ""
 
 #: assets/src/editor/count.js:89
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Count"
 msgstr ""
 
 #: assets/src/editor/count.js:90
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Just the number sits well next to a title in a shop hero. Screen readers still hear the full sentence. The editor shows a sample number."
 msgstr ""
 
 #: assets/src/editor/count.js:96
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Full sentence"
 msgstr ""
 
 #: assets/src/editor/count.js:99
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Just the number"
 msgstr ""
 
 #: assets/src/editor/count.js:103
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "In brackets"
 msgstr ""
 
 #: assets/src/editor/count.js:107
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Number and “products”"
 msgstr ""
 
 #: assets/src/editor/count.js:116
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Pill fills the count with a soft tint of the effect color. Outline draws a thin ring around it."
 msgstr ""
 
-#: assets/src/editor/count.js:128
-#: build/editor.js:7
-msgid "Outline"
-msgstr ""
-
 #: assets/src/editor/count.js:136
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Motion"
 msgstr ""
 
 #: assets/src/editor/count.js:137
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Plays when the page opens and again when a filter changes the count. Roll brings the digits up one after another; Pop grows the number in. Visitors who ask for reduced motion see it as it is."
 msgstr ""
 
 #: assets/src/editor/count.js:148
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Roll"
 msgstr ""
 
 #: assets/src/editor/count.js:149
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Pop"
 msgstr ""
 
 #: assets/src/editor/cover.js:11
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Pill reveal"
 msgstr ""
 
 #: assets/src/editor/cover.js:36
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Scroll effect"
 msgstr ""
 
 #: assets/src/editor/cover.js:37
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Plays as the page scrolls. Slow zoom and parallax move the background image or video; pill reveal opens the cover from a small rounded pill. Visitors who ask for reduced motion see the plain cover."
 msgstr ""
 
 #: assets/src/editor/cover.js:51
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Push in moves the background in slowly. Tilt turns the whole cover toward the mouse with a sheen, Lift raises it with a soft shadow, and Glare runs a light after the mouse. Hover the cover here to see it; the sheen and glare follow the mouse on the page. Touch screens and reduced motion show the plain cover."
 msgstr ""
 
 #: assets/src/editor/cover.js:64
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Use the category photo"
 msgstr ""
 
 #: assets/src/editor/cover.js:65
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "On a product category or brand page, the cover shows that page’s photo. Other pages, and categories without a photo, keep this cover’s image."
 msgstr ""
 
 #: assets/src/editor/details.js:20
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The block becomes a soft card, and a round plus turns into an x that fills with the color when open."
 msgstr ""
 
 #: assets/src/editor/drawer.js:20
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Spring slide"
 msgstr ""
 
 #: assets/src/editor/drawer.js:21
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "The drawer opens with a soft settle, then the items and the footer follow one after another. Visitors who ask for reduced motion see the plain drawer. It plays on the store, not in the editor."
 msgstr ""
 
 #: assets/src/editor/drawer.js:37
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Item photos grow from 64 to 96 pixels, or to 80 on phones, with rounded corners."
 msgstr ""
 
 #: assets/src/editor/drawer.js:51
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Shows how much more the cart needs for free shipping, with a bar, above the subtotal."
+msgstr ""
+
+#: assets/src/editor/extras.js:98
+#: build/blocks/matching-extras/index.js:2
+#: build/editor.js:2
+msgid "Simple products in stock. Up to 6, in the order they show."
+msgstr ""
+
+#. translators: %d: product ID.
+#: assets/src/editor/extras.js:116
+#: build/blocks/matching-extras/index.js:3
+#: build/editor.js:3
+#, js-format
+msgid "Product %d"
+msgstr ""
+
+#. translators: %s: product name.
+#: assets/src/editor/extras.js:125
+#: build/blocks/matching-extras/index.js:4
+#: build/editor.js:4
+#, js-format
+msgid "Move %s up"
+msgstr ""
+
+#. translators: %s: product name.
+#: assets/src/editor/extras.js:136
+#: build/blocks/matching-extras/index.js:5
+#: build/editor.js:5
+#, js-format
+msgid "Move %s down"
+msgstr ""
+
+#: assets/src/editor/extras.js:168
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "The same list shows on every product that uses this template."
+msgstr ""
+
+#: assets/src/editor/extras.js:172
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Each product’s own Cross-sells, set under Product data, Linked Products."
+msgstr ""
+
+#: assets/src/editor/extras.js:176
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Products from the same category, then the same tags, best sellers first."
+msgstr ""
+
+#: assets/src/editor/extras.js:197
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Matching extras"
+msgstr ""
+
+#: assets/src/editor/extras.js:203
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Matching extras under the button"
+msgstr ""
+
+#: assets/src/editor/extras.js:207
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Other products with a checkbox under Add to cart. Ticked ones go into the cart with the product on the same click. Only simple products in stock show. The editor shows the picks, or the store’s best sellers."
+msgstr ""
+
+#: assets/src/editor/extras.js:226
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Pick them"
+msgstr ""
+
+#: assets/src/editor/extras.js:230
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Cross-sells"
+msgstr ""
+
+#: assets/src/editor/extras.js:234
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Auto match"
+msgstr ""
+
+#: assets/src/editor/extras.js:250
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Auto match when there are none"
+msgstr ""
+
+#: assets/src/editor/extras.js:263
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Title"
+msgstr ""
+
+#: assets/src/editor/extras.js:276
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Hide the title"
+msgstr ""
+
+#: assets/src/editor/extras.js:277
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Screen readers still read it."
+msgstr ""
+
+#: assets/src/editor/extras.js:289
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Style"
+msgstr ""
+
+#: assets/src/editor/extras.js:298
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Compact rows"
+msgstr ""
+
+#: assets/src/editor/extras.js:315
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "See more details link"
+msgstr ""
+
+#: assets/src/editor/extras.js:316
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Opens the product in a new tab."
+msgstr ""
+
+#: assets/src/editor/extras.js:325
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "Short description"
+msgstr ""
+
+#: assets/src/editor/extras.js:326
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "The first words of each product’s short description. Compact rows leave it out."
+msgstr ""
+
+#: assets/src/editor/extras.js:336
+#: build/blocks/matching-extras/index.js:6
+#: build/editor.js:6
+msgid "How many"
 msgstr ""
 
 #: assets/src/editor/eyes.js:9
@@ -4597,576 +5851,613 @@ msgid "Eyes inside the button that follow the mouse and blink when it moves agai
 msgstr ""
 
 #: assets/src/editor/filter-chips.js:19
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Names under swatches"
 msgstr ""
 
 #: assets/src/editor/filter-chips.js:20
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "When the attribute has color swatches, each one shows its name under it, and the chosen ones get a check."
 msgstr ""
 
 #: assets/src/editor/filters.js:28
-#: build/editor.js:7
+#: assets/src/editor/gallery.js:79
+#: build/editor.js:12
 msgid "Layout"
 msgstr ""
 
 #: assets/src/editor/filters.js:31
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The filters sit in one row and each opens as a dropdown under its label. Put the block above the products. Phones keep the overlay."
 msgstr ""
 
 #: assets/src/editor/filters.js:35
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The filters stack in a column, for a sidebar."
 msgstr ""
 
 #: assets/src/editor/filters.js:42
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Column"
 msgstr ""
 
 #: assets/src/editor/filters.js:57
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The overlay is on for every screen, so the filters never sit in a row. Set the overlay to mobile only or off."
 msgstr ""
 
 #: assets/src/editor/filters.js:66
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Open on hover"
 msgstr ""
 
 #: assets/src/editor/filters.js:67
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "A list opens when the mouse rests on its label and closes when the mouse leaves it. Clicks, the keyboard and touch screens work as before."
 msgstr ""
 
 #: assets/src/editor/filters.js:79
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Open style"
 msgstr ""
 
 #: assets/src/editor/filters.js:80
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "How a list moves as it opens. It closes with a quick fade."
 msgstr ""
 
 #: assets/src/editor/filters.js:88
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Fold"
 msgstr ""
 
 #: assets/src/editor/filters.js:90
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Cascade"
 msgstr ""
 
 #: assets/src/editor/filters.js:107
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Matching chips"
 msgstr ""
 
 #: assets/src/editor/filters.js:108
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Active filters look like a selected chip, and chips fade into their selected color."
 msgstr ""
 
 #: assets/src/editor/filters.js:117
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Tap size"
 msgstr ""
 
 #: assets/src/editor/filters.js:118
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Chips and the button that opens the filters on phones are at least 44px tall, easy to hit with a thumb."
 msgstr ""
 
 #: assets/src/editor/filters.js:127
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Sidebar can hide"
 msgstr ""
 
 #: assets/src/editor/filters.js:130
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "A bar has no sidebar to fold, so this is off while Layout is Bar."
 msgstr ""
 
 #: assets/src/editor/filters.js:134
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "A Hide filters button sits beside Sort by. The filters fold away and the products take the width. Needs the filters in a column beside the products. Phones keep the overlay."
 msgstr ""
 
 #: assets/src/editor/filters.js:145
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The overlay is on for every screen, so there is no sidebar to hide. Set the overlay to mobile only or off."
 msgstr ""
 
 #: assets/src/editor/gallery.js:10
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Hide thumbnails"
 msgstr ""
 
 #: assets/src/editor/gallery.js:11
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "One big photo, no thumbnail strip."
 msgstr ""
 
 #: assets/src/editor/gallery.js:16
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Frosted arrows on hover"
 msgstr ""
 
 #: assets/src/editor/gallery.js:17
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "Round arrows that show when the shopper hovers the photo."
 msgstr ""
 
 #: assets/src/editor/gallery.js:25
-#: build/editor.js:1
+#: build/editor.js:6
 msgid "A light tint of the page’s accent color behind the photos, with the photos blended into it, so photos on a white background take the tint."
 msgstr ""
 
-#: assets/src/editor/gallery.js:45
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:33
+#: build/editor.js:6
+msgid "One photo at a time"
+msgstr ""
+
+#: assets/src/editor/gallery.js:34
+#: build/editor.js:6
+msgid "Grid, two across"
+msgstr ""
+
+#: assets/src/editor/gallery.js:35
+#: build/editor.js:6
+msgid "Two large over smaller ones"
+msgstr ""
+
+#: assets/src/editor/gallery.js:51
+#: build/editor.js:6
 msgid "Snap stack"
 msgstr ""
 
-#: assets/src/editor/gallery.js:46
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:52
+#: build/editor.js:6
 msgid "Classic fade"
 msgstr ""
 
-#: assets/src/editor/gallery.js:47
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:53
+#: build/editor.js:6
 msgid "Zoom from photo"
 msgstr ""
 
-#: assets/src/editor/gallery.js:48
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:54
+#: build/editor.js:6
 msgid "Filmstrip"
 msgstr ""
 
-#: assets/src/editor/gallery.js:49
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:55
+#: build/editor.js:6
 msgid "Cinema"
 msgstr ""
 
-#: assets/src/editor/gallery.js:54
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:60
+#: build/editor.js:6
 msgid "3D media gallery"
 msgstr ""
 
-#: assets/src/editor/gallery.js:55
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:61
+#: build/editor.js:6
 msgid "Circular slider"
 msgstr ""
 
-#: assets/src/editor/gallery.js:56
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:62
+#: build/editor.js:6
 msgid "Reel slider"
 msgstr ""
 
-#: assets/src/editor/gallery.js:57
-#: build/editor.js:1
+#: assets/src/editor/gallery.js:63
+#: build/editor.js:6
 msgid "Image tunnel"
 msgstr ""
 
-#: assets/src/editor/gallery.js:85
+#: assets/src/editor/gallery.js:80
+#: build/editor.js:12
+msgid "Shows every photo at once on screens 600px and wider, each filling a tile in the Product Image block’s aspect ratio. Phones keep one photo at a time, with swipe, thumbnails and a photo count."
+msgstr ""
+
+#: assets/src/editor/gallery.js:105
 #: assets/src/editor/image.js:22
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Hover style"
 msgstr ""
 
-#: assets/src/editor/gallery.js:86
+#: assets/src/editor/gallery.js:106
 #: assets/src/editor/image.js:23
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Plays when the mouse is over the photo. Touch screens and visitors who ask for reduced motion see the plain photo."
 msgstr ""
 
-#: assets/src/editor/gallery.js:103
-#: build/editor.js:7
+#: assets/src/editor/gallery.js:123
+#: build/editor.js:12
 msgid "Full-screen style"
 msgstr ""
 
-#: assets/src/editor/gallery.js:104
-#: build/editor.js:7
+#: assets/src/editor/gallery.js:124
+#: build/editor.js:12
 msgid "The view that opens when the shopper clicks the photo. Needs the gallery's \"Open pop-up when clicked\" setting."
 msgstr ""
 
-#: assets/src/editor/gallery.js:124
-#: build/editor.js:7
+#: assets/src/editor/gallery.js:144
+#: build/editor.js:12
 msgid "Slide style"
 msgstr ""
 
-#: assets/src/editor/gallery.js:125
-#: build/editor.js:7
+#: assets/src/editor/gallery.js:145
+#: build/editor.js:12
 msgid "How the photo moves when the gallery slides to the next one. Visitors who ask for reduced motion see the default slide."
 msgstr ""
 
 #: assets/src/editor/group.js:9
-#: build/editor.js:3
+#: build/editor.js:8
 msgid "Fade up"
 msgstr ""
 
 #: assets/src/editor/group.js:10
-#: build/editor.js:3
+#: build/editor.js:8
 msgid "Zoom in"
 msgstr ""
 
 #: assets/src/editor/group.js:25
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Take the page color"
 msgstr ""
 
 #: assets/src/editor/group.js:26
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "On product pages, this section's background becomes a soft version of the color the shopper picks. The editor shows it in a sample color on product templates."
 msgstr ""
 
 #: assets/src/editor/group.js:37
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Plays once as the section scrolls into view. Visitors who ask for reduced motion see it as it is."
 msgstr ""
 
 #: assets/src/editor/group.js:49
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Condense on scroll"
 msgstr ""
 
 #: assets/src/editor/group.js:50
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls. Visitors who ask for reduced motion keep the full bar."
 msgstr ""
 
 #: assets/src/editor/group.js:61
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Turn on hover"
 msgstr ""
 
 #: assets/src/editor/group.js:62
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Made for badges and seals. The section turns a little, like a stamp, when the mouse is over it or over the group around it. Phones and visitors who ask for reduced motion see it still."
 msgstr ""
 
 #: assets/src/editor/heading.js:10
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Focus"
 msgstr ""
 
 #: assets/src/editor/heading.js:11
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Rise from the floor"
 msgstr ""
 
 #: assets/src/editor/heading.js:27
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Reveal on scroll"
 msgstr ""
 
 #: assets/src/editor/heading.js:28
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Rise and Focus play once as the heading scrolls into view. Rise from the floor follows the scroll: the bottom edge of the heading is the floor, and the heading comes up out of it, made for a big footer wordmark. Visitors who ask for reduced motion see the heading as it is."
 msgstr ""
 
 #: assets/src/editor/meter.js:18
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Free shipping meter"
 msgstr ""
 
 #: assets/src/editor/meter.js:22
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "It counts down to the minimum on your Free shipping method, as WooCommerce counts the cart, and updates as the cart changes. The editor shows a sample cart."
 msgstr ""
 
 #: assets/src/editor/meter.js:26
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Your store has no Free shipping method with a minimum order amount, so the store shows no meter. Add one in WooCommerce, Settings, Shipping."
 msgstr ""
 
 #: assets/src/editor/meter.js:51
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Meter text"
 msgstr ""
 
 #. translators: %s: the placeholder to type, %s.
 #: assets/src/editor/meter.js:54
-#: build/editor.js:6
+#: build/editor.js:11
 #, js-format
 msgid "Use %s where the amount left goes. Leave it empty to use the name of your Free shipping method."
 msgstr ""
 
 #: assets/src/editor/meter.js:69
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Text once it ships free"
 msgstr ""
 
 #: assets/src/editor/meter.js:80
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Meter placement"
 msgstr ""
 
 #: assets/src/editor/meter.js:84
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Above the cart"
 msgstr ""
 
 #: assets/src/editor/meter.js:88
-#: build/editor.js:6
+#: build/editor.js:11
 msgid "Top of the totals column"
 msgstr ""
 
 #: assets/src/editor/mini-cart.js:19
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Count pop"
 msgstr ""
 
 #: assets/src/editor/mini-cart.js:20
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The item count pops and the bag nudges when something is added to the cart."
 msgstr ""
 
 #: assets/src/editor/mini-cart.js:30
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The product photo flies into the cart icon when a shopper adds it, from product cards and the product page. Not used when the drawer opens on add, since the drawer covers the icon. Visitors who ask for reduced motion see no flight."
 msgstr ""
 
 #: assets/src/editor/order-confirmation.js:31
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Thank-you moment"
 msgstr ""
 
 #: assets/src/editor/order-confirmation.js:32
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The heading rises in and one burst plays behind it when the page opens. It plays once and never loops. Visitors who ask for reduced motion see the plain heading."
 msgstr ""
 
 #: assets/src/editor/order-confirmation.js:43
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Used by the burst. Without one, the burst takes the theme's text color."
 msgstr ""
 
 #: assets/src/editor/order-confirmation.js:71
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Receipt card"
 msgstr ""
 
 #: assets/src/editor/order-confirmation.js:72
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Shows the order number, date, total, email and payment as a printed receipt, one line each, with a torn edge."
 msgstr ""
 
 #: assets/src/editor/pagination.js:20
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Replaces the page numbers with a button that adds the next page under the products. Over a fade, the last row fades out under it."
 msgstr ""
 
 #: assets/src/editor/pagination.js:25
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Needs a Product Collection block."
 msgstr ""
 
 #: assets/src/editor/pagination.js:32
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Page numbers"
 msgstr ""
 
 #: assets/src/editor/pagination.js:33
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Boxed: each number and Previous and Next in a small box, the current page filled. Underline: the current page underlined, the others lighter."
 msgstr ""
 
 #: assets/src/editor/pagination.js:40
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Boxed"
 msgstr ""
 
 #: assets/src/editor/pagination.js:62
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Button over a fade"
 msgstr ""
 
 #: assets/src/editor/pagination.js:74
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The theme’s outline button style, as on the Button block."
 msgstr ""
 
+#: assets/src/editor/preview.js:316
+#: build/editor.js:12
+msgid "Product name"
+msgstr ""
+
 #: assets/src/editor/reviews.js:9
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Soft cards"
 msgstr ""
 
 #: assets/src/editor/reviews.js:10
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Chat bubbles"
 msgstr ""
 
 #: assets/src/editor/reviews.js:26
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Review style"
 msgstr ""
 
 #: assets/src/editor/reviews.js:27
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Soft cards put each review on its own card. Chat bubbles put the review text in a bubble."
 msgstr ""
 
 #: assets/src/editor/social.js:26
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Ring draws each icon in a thin round ring in the icon color, and fills it on hover. Set the icon color to match the section."
 msgstr ""
 
 #: assets/src/editor/specs.js:9
-#: build/editor.js:5
+#: build/editor.js:10
 msgid "Striped"
 msgstr ""
 
 #: assets/src/editor/specs.js:26
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Table style"
 msgstr ""
 
 #: assets/src/editor/specs.js:27
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Striped shades every other row. Cards gives each row its own soft card."
 msgstr ""
 
 #: assets/src/editor/stock.js:37
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Only when sold out"
 msgstr ""
 
-#: assets/src/editor/stock.js:38
-#: build/editor.js:7
+#: assets/src/editor/stock.js:40
+#: build/editor.js:12
+msgid "Sold-out products show in this look, and other products keep their dot. On the photo, inside the Product Image block, only sold-out products show."
+msgstr ""
+
+#: assets/src/editor/stock.js:44
+#: build/editor.js:12
 msgid "Shows only on sold-out products, in this look. Put the block inside the Product Image block to place it on the photo."
 msgstr ""
 
-#: assets/src/editor/stock.js:53
-#: build/editor.js:7
+#: assets/src/editor/stock.js:60
+#: build/editor.js:12
 msgid "Where it sits on the photo, inside the Product Image block."
 msgstr ""
 
-#: assets/src/editor/stock.js:69
-#: build/editor.js:7
+#: assets/src/editor/stock.js:76
+#: assets/src/editor/terms.js:78
+#: build/editor.js:12
+msgid "Dot"
+msgstr ""
+
+#: assets/src/editor/stock.js:77
+#: build/editor.js:12
+msgid "A small colored dot before In stock, low stock and On backorder, a different color for each. The words stay."
+msgstr ""
+
+#: assets/src/editor/stock.js:88
+#: build/editor.js:12
 msgid "Grey out sold-out cards"
 msgstr ""
 
-#: assets/src/editor/stock.js:70
-#: build/editor.js:7
+#: assets/src/editor/stock.js:89
+#: build/editor.js:12
 msgid "The photo of a sold-out product turns grey and soft, and comes back a little on hover."
 msgstr ""
 
-#: assets/src/editor/stock.js:136
-#: build/editor.js:5
+#: assets/src/editor/stock.js:160
+#: build/editor.js:10
 msgid "Not shown on this product: it isn’t sold out."
 msgstr ""
 
-#: assets/src/editor/stock.js:144
-#: build/editor.js:5
+#: assets/src/editor/stock.js:168
+#: build/editor.js:10
 msgid "Out of stock"
 msgstr ""
 
 #: assets/src/editor/terms.js:53
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Tabs: the terms in a row that marks the current one. Category photos: add a Featured Category block to the term template for a photo above each name."
 msgstr ""
 
 #: assets/src/editor/terms.js:59
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Tabs"
 msgstr ""
 
 #: assets/src/editor/terms.js:62
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Category photos"
 msgstr ""
 
 #: assets/src/editor/terms.js:70
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Tab style"
 msgstr ""
 
 #: assets/src/editor/terms.js:71
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Line draws in under a tab on hover and stays under the current one. Pill fills the current tab. Dot puts a small dot under it. Chip gives each tab a thin edge and a 44px height, and fills the current one."
 msgstr ""
 
 #: assets/src/editor/terms.js:76
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Line"
 msgstr ""
 
-#: assets/src/editor/terms.js:78
-#: build/editor.js:7
-msgid "Dot"
-msgstr ""
-
 #: assets/src/editor/terms.js:86
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Wrap onto more rows"
 msgstr ""
 
 #: assets/src/editor/terms.js:87
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Shows every tab, on as many rows as it takes. Off, the tabs stay in one row that scrolls sideways."
 msgstr ""
 
 #: assets/src/editor/terms.js:103
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The current term gets a ring in the effect color, in any shape."
 msgstr ""
 
 #: assets/src/editor/terms.js:111
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Rounded square"
 msgstr ""
 
 #: assets/src/editor/terms.js:117
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Arch"
 msgstr ""
 
 #: assets/src/editor/terms.js:124
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Zoom grows the photo inside its shape. Ring closes in around it. Morph turns the shape into a circle, or a circle into a rounded square. Turn grows and turns the photo. The Featured Category’s own hover looks work here too."
 msgstr ""
 
 #: assets/src/editor/terms.js:133
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Morph"
 msgstr ""
 
 #: assets/src/editor/terms.js:145
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "The terms come in one after another as the list scrolls into view. Visitors who ask for reduced motion see it as it is."
 msgstr ""
 
 #: assets/src/editor/terms.js:153
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Mark the current term"
 msgstr ""
 
 #: assets/src/editor/terms.js:156
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Tabs and Category photos always mark it."
 msgstr ""
 
 #: assets/src/editor/terms.js:160
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "On a category or tag page, that term is shown as the current one, and its parent when only parents are listed."
 msgstr ""
 
 #: assets/src/editor/thumbs.js:26
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Thumbnail shape"
 msgstr ""
 
 #: assets/src/editor/thumbs.js:27
-#: build/editor.js:7
+#: build/editor.js:12
 msgid "Circle is round with the square aspect ratio, and oval with the others."
 msgstr ""
 
 #. translators: 1: photo number, 2: number of photos.
-#: assets/src/effects/index.js:402
+#: assets/src/effects/index.js:463
 #: build/effects.js:2
 #, js-format
 msgid "Photo %1$d of %2$d"
@@ -5274,6 +6565,68 @@ msgctxt "block keyword"
 msgid "colorways"
 msgstr ""
 
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block title"
+msgid "Delivery Line"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block description"
+msgid "When an order arrives, as a date, with the returns policy and a pickup line when Local pickup is on. The dates come from WooCommerce > Settings > Shipping > Delivery dates."
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block keyword"
+msgid "delivery"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block keyword"
+msgid "shipping"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block keyword"
+msgid "arrives"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block keyword"
+msgid "returns"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block keyword"
+msgid "pickup"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block keyword"
+msgid "cut-off"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/delivery-line/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block style label"
+msgid "Lines"
+msgstr ""
+
+#: assets/src/blocks/delivery-line/block.json
+#: build/blocks/delivery-line/block.json
+msgctxt "block style label"
+msgid "Boxed"
+msgstr ""
+
 #: assets/src/blocks/escalator/block.json
 #: build/blocks/escalator/block.json
 msgctxt "block title"
@@ -5342,6 +6695,48 @@ msgstr ""
 #: build/blocks/hanging-rail/block.json
 msgctxt "block keyword"
 msgid "scroll"
+msgstr ""
+
+#: assets/src/blocks/matching-extras/block.json
+#: build/blocks/matching-extras/block.json
+msgctxt "block title"
+msgid "Matching Extras"
+msgstr ""
+
+#: assets/src/blocks/matching-extras/block.json
+#: build/blocks/matching-extras/block.json
+msgctxt "block description"
+msgid "Other products with a checkbox, added to the cart with the product on the same click. Goes in an Add to Cart part, under the buy button. Only simple products in stock show."
+msgstr ""
+
+#: assets/src/blocks/matching-extras/block.json
+#: build/blocks/matching-extras/block.json
+msgctxt "block keyword"
+msgid "extras"
+msgstr ""
+
+#: assets/src/blocks/matching-extras/block.json
+#: build/blocks/matching-extras/block.json
+msgctxt "block keyword"
+msgid "add-ons"
+msgstr ""
+
+#: assets/src/blocks/matching-extras/block.json
+#: build/blocks/matching-extras/block.json
+msgctxt "block keyword"
+msgid "cross-sells"
+msgstr ""
+
+#: assets/src/blocks/matching-extras/block.json
+#: build/blocks/matching-extras/block.json
+msgctxt "block keyword"
+msgid "bundle"
+msgstr ""
+
+#: assets/src/blocks/matching-extras/block.json
+#: build/blocks/matching-extras/block.json
+msgctxt "block keyword"
+msgid "upsell"
 msgstr ""
 
 #: assets/src/blocks/runway/block.json
@@ -5472,6 +6867,54 @@ msgstr ""
 #: build/blocks/showfloor/block.json
 msgctxt "block keyword"
 msgid "shop the look"
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block title"
+msgid "Size Chart"
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block description"
+msgid "A size chart with a cm/in switch and How to measure notes. In a chart pattern it holds its own sizes; on the product page it shows each product's chart and fit note."
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block keyword"
+msgid "size"
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block keyword"
+msgid "fit"
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block keyword"
+msgid "measurements"
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block keyword"
+msgid "size guide"
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block keyword"
+msgid "table"
+msgstr ""
+
+#: assets/src/blocks/size-chart/block.json
+#: build/blocks/size-chart/block.json
+msgctxt "block style label"
+msgid "Striped"
 msgstr ""
 
 #: assets/src/blocks/story-deck/block.json
