@@ -328,7 +328,8 @@ final class ProductSearch {
 	}
 
 	/**
-	 * The products the shop would show, in the order given.
+	 * The products the shop would show, in the order given. Products with a
+	 * password stay out, as they do from a title search.
 	 *
 	 * @param int[] $ids   Product IDs.
 	 * @param int   $count Most products.
@@ -343,6 +344,7 @@ final class ProductSearch {
 				'post_type'           => 'product',
 				'post_status'         => 'publish',
 				'post__in'            => $ids,
+				'has_password'        => false,
 				'orderby'             => 'post__in',
 				'fields'              => 'ids',
 				'posts_per_page'      => $count,
