@@ -9,7 +9,7 @@
  * !important, so this needs it too. Without a color, the theme's stays.
  */
 body.purplish-active .purplish-group-tint {
-	background-color: var(--purplish-fx-tint) !important;
+	background-color: var(--purplish-page-tint) !important;
 	transition: background-color 0.5s ease;
 }
 

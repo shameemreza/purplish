@@ -238,7 +238,8 @@ class SectionColorsTest extends WP_UnitTestCase {
 			$this->assertStringContainsString( $part, SectionColors::FOLLOW );
 		}
 		$this->assertStringContainsString( 'body.purplish-active :is(', $css );
-		$this->assertStringContainsString( '{--purplish-fx-tint:color-mix(in oklab, var(--purplish-tint) 55%, var(--purplish-ground, #fff))}', $css );
+		$this->assertStringContainsString( '{--purplish-page-tint:color-mix(in oklab, var(--purplish-tint) 55%, var(--purplish-ground, #fff));--purplish-fx-tint:var(--purplish-page-tint)}', $css );
+		$this->assertStringContainsString( 'body.purplish-neutral-panels :is(', $css );
 	}
 
 	/**
