@@ -27,9 +27,10 @@ final class ShelfTag implements Block {
 	 * @var array<string, string[]>
 	 */
 	const OPTIONS = array(
-		'rule'   => array( 'bestseller', 'new', 'featured' ),
-		'look'   => array( 'chip', 'pill', 'glass' ),
+		'rule'   => array( 'bestseller', 'new', 'featured', 'tag', 'category', 'sale' ),
+		'look'   => array( 'chip', 'pill', 'glass', 'ribbon', 'image' ),
 		'corner' => array( 'top-right', 'top-left', 'bottom-left', 'bottom-right' ),
+		'size'   => array( 'm', 's', 'l' ),
 	);
 
 	/**
@@ -57,6 +58,38 @@ final class ShelfTag implements Block {
 	public static function hooks() {
 		add_action( 'woocommerce_recorded_sales', array( self::class, 'forget_ranks' ) );
 		add_action( 'rest_api_init', array( self::class, 'add_rest_field' ) );
+		add_filter( 'render_block_woocommerce/product-image', array( self::class, 'photo_radius' ), 10, 2 );
+	}
+
+	/**
+	 * Hands a rounded Product Image's radius to the tags on it, so tags,
+	 * sale badges and the sold-out tag sit far enough in to stay inside the
+	 * round corner, and a ribbon is clipped to it.
+	 *
+	 * @param string $html  The rendered Product Image.
+	 * @param array  $block The parsed block.
+	 * @return string
+	 */
+	public static function photo_radius( $html, $block ) {
+		$radius = isset( $block['attrs']['style']['border']['radius'] ) ? $block['attrs']['style']['border']['radius'] : '';
+		$values = is_array( $radius ) ? array_values( $radius ) : array( $radius );
+		$px     = 0.0;
+		foreach ( $values as $value ) {
+			// Presets and other units stay out: the inset only needs a rough size.
+			if ( is_string( $value ) && preg_match( '/^(\d+(?:\.\d+)?)(px|rem|em)$/', trim( $value ), $match ) ) {
+				$px = max( $px, (float) $match[1] * ( 'px' === $match[2] ? 1 : 16 ) );
+			}
+		}
+		if ( $px <= 0 || false === strpos( $html, 'wc-block-components-product-image__inner-container' ) ) {
+			return $html;
+		}
+		$tags = new \WP_HTML_Tag_Processor( $html );
+		if ( ! $tags->next_tag( array( 'class_name' => 'wc-block-components-product-image' ) ) ) {
+			return $html;
+		}
+		$style = trim( (string) $tags->get_attribute( 'style' ) );
+		$tags->set_attribute( 'style', ( '' === $style ? '' : rtrim( $style, ';' ) . ';' ) . '--purplish-photo-radius:' . round( $px, 2 ) . 'px' );
+		return $tags->get_updated_html();
 	}
 
 	/**
@@ -81,18 +114,67 @@ final class ShelfTag implements Block {
 	}
 
 	/**
-	 * The tag's words when the label is left empty.
+	 * The tag's words when the label is left empty. Tag and category rules
+	 * use the term's name.
 	 *
-	 * @param string $rule The tag's rule.
+	 * @param string $rule       The tag's rule.
+	 * @param array  $attributes Block attributes.
 	 * @return string
 	 */
-	public static function default_label( $rule ) {
+	public static function default_label( $rule, $attributes = array() ) {
+		$taxonomy = self::taxonomy( $rule );
+		if ( $taxonomy ) {
+			$term = get_term( self::term( $attributes ), $taxonomy );
+			return $term instanceof \WP_Term ? html_entity_decode( $term->name, ENT_QUOTES, get_bloginfo( 'charset' ) ) : '';
+		}
 		$labels = array(
 			'bestseller' => __( 'Best seller', 'purplish' ),
 			'new'        => __( 'New arrival', 'purplish' ),
 			'featured'   => __( 'Featured', 'purplish' ),
+			'sale'       => __( 'Deal', 'purplish' ),
 		);
 		return $labels[ $rule ];
+	}
+
+	/**
+	 * The taxonomy a rule reads, or an empty string.
+	 *
+	 * @param string $rule The tag's rule.
+	 * @return string
+	 */
+	public static function taxonomy( $rule ) {
+		$taxonomies = array(
+			'tag'      => 'product_tag',
+			'category' => 'product_cat',
+		);
+		return isset( $taxonomies[ $rule ] ) ? $taxonomies[ $rule ] : '';
+	}
+
+	/**
+	 * The term a tag or category rule picked, or 0.
+	 *
+	 * @param array $attributes Block attributes.
+	 * @return int
+	 */
+	public static function term( $attributes ) {
+		return isset( $attributes['term'] ) ? max( 0, (int) $attributes['term'] ) : 0;
+	}
+
+	/**
+	 * Whether today, in the store's timezone, is inside the tag's dates.
+	 * An empty or malformed date leaves that side open.
+	 *
+	 * @param array $attributes Block attributes.
+	 * @return bool
+	 */
+	public static function in_dates( $attributes ) {
+		$today = current_datetime()->format( 'Y-m-d' );
+		$from  = isset( $attributes['from'] ) ? (string) $attributes['from'] : '';
+		$until = isset( $attributes['until'] ) ? (string) $attributes['until'] : '';
+		if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $from ) && $today < $from ) {
+			return false;
+		}
+		return ! ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $until ) && $today > $until );
 	}
 
 	/**
@@ -172,9 +254,18 @@ final class ShelfTag implements Block {
 	 * @return bool
 	 */
 	public static function matches( $product, $attributes ) {
-		$rule = self::option( $attributes, 'rule' );
+		$rule     = self::option( $attributes, 'rule' );
+		$taxonomy = self::taxonomy( $rule );
 
-		if ( 'featured' === $rule ) {
+		if ( ! self::in_dates( $attributes ) ) {
+			// Outside its dates a campaign is over, whatever a filter says.
+			return false;
+		}
+		if ( $taxonomy ) {
+			$show = self::has_term( $product, self::term( $attributes ), $taxonomy );
+		} elseif ( 'sale' === $rule ) {
+			$show = $product->is_on_sale();
+		} elseif ( 'featured' === $rule ) {
 			$show = $product->is_featured();
 		} elseif ( 'new' === $rule ) {
 			$days    = isset( $attributes['days'] ) ? max( 1, min( 365, (int) $attributes['days'] ) ) : 30;
@@ -199,6 +290,30 @@ final class ShelfTag implements Block {
 	}
 
 	/**
+	 * Whether the product has the term, or for categories one of its
+	 * children. A variation reads its parent's terms.
+	 *
+	 * @param \WC_Product $product  The card's product.
+	 * @param int         $term     Term ID.
+	 * @param string      $taxonomy Taxonomy.
+	 * @return bool
+	 */
+	public static function has_term( $product, $term, $taxonomy ) {
+		if ( ! $term || ! term_exists( $term, $taxonomy ) ) {
+			return false;
+		}
+		$terms = array( $term );
+		if ( 'product_cat' === $taxonomy ) {
+			$children = get_term_children( $term, $taxonomy );
+			if ( is_array( $children ) ) {
+				$terms = array_merge( $terms, array_map( 'intval', $children ) );
+			}
+		}
+		$id = $product->get_parent_id() ? $product->get_parent_id() : $product->get_id();
+		return has_term( $terms, $taxonomy, $id );
+	}
+
+	/**
 	 * The tag, or nothing when its rule doesn't match the card's product.
 	 *
 	 * @param array     $attributes Block attributes.
@@ -216,21 +331,72 @@ final class ShelfTag implements Block {
 			return '';
 		}
 
-		$rule    = self::option( $attributes, 'rule' );
-		$label   = isset( $attributes['label'] ) ? trim( wp_strip_all_tags( (string) $attributes['label'] ) ) : '';
+		$rule  = self::option( $attributes, 'rule' );
+		$look  = self::option( $attributes, 'look' );
+		$label = isset( $attributes['label'] ) ? trim( wp_strip_all_tags( (string) $attributes['label'] ) ) : '';
+		$label = '' === $label ? self::default_label( $rule, $attributes ) : $label;
+		$image = 'image' === $look ? self::image( $attributes, $label ) : '';
+		if ( 'image' === $look && '' === $image ) {
+			// No picture picked yet: the words keep the tag readable.
+			$look = 'chip';
+		}
+		if ( '' === $label && '' === $image ) {
+			return '';
+		}
+
 		$classes = array(
-			'purplish-shelf-tag-look-' . self::option( $attributes, 'look' ),
+			'purplish-shelf-tag-look-' . $look,
 			'purplish-shelf-tag-corner-' . self::option( $attributes, 'corner' ),
 			'purplish-shelf-tag-rule-' . $rule,
 		);
-		if ( ! empty( $attributes['shine'] ) ) {
+		if ( ! empty( $attributes['shine'] ) && 'image' !== $look ) {
 			$classes[] = 'purplish-shelf-tag-shine';
+		}
+
+		if ( '' !== $image ) {
+			// The picture is the tag: no colors, padding or border from Styles.
+			$classes[] = 'wp-block-purplish-shelf-tag';
+			$classes[] = 'purplish-shelf-tag-size-' . self::option( $attributes, 'size' );
+			if ( ! empty( $attributes['className'] ) ) {
+				$classes[] = $attributes['className'];
+			}
+			return sprintf( '<div class="%1$s">%2$s</div>', esc_attr( implode( ' ', $classes ) ), $image );
 		}
 
 		return sprintf(
 			'<div %1$s><span class="purplish-shelf-tag-text">%2$s</span></div>',
 			get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) ),
-			esc_html( '' === $label ? self::default_label( $rule ) : $label )
+			esc_html( $label )
+		);
+	}
+
+	/**
+	 * The image look's picture, or an empty string when none is picked.
+	 *
+	 * @param array  $attributes Block attributes.
+	 * @param string $label      The tag's words, the last fallback for alt text.
+	 * @return string
+	 */
+	public static function image( $attributes, $label ) {
+		$id = isset( $attributes['imageId'] ) ? (int) $attributes['imageId'] : 0;
+		if ( ! $id || ! wp_attachment_is_image( $id ) ) {
+			return '';
+		}
+		$alt = isset( $attributes['imageAlt'] ) ? trim( wp_strip_all_tags( (string) $attributes['imageAlt'] ) ) : '';
+		if ( '' === $alt ) {
+			$alt = trim( (string) get_post_meta( $id, '_wp_attachment_image_alt', true ) );
+		}
+		$large = 'l' === self::option( $attributes, 'size' );
+		return (string) wp_get_attachment_image(
+			$id,
+			$large ? 'medium' : 'thumbnail',
+			false,
+			array(
+				'class'    => 'purplish-shelf-tag-image',
+				'alt'      => '' === $alt ? $label : $alt,
+				'loading'  => 'lazy',
+				'decoding' => 'async',
+			)
 		);
 	}
 
@@ -254,6 +420,15 @@ final class ShelfTag implements Block {
 					'properties'  => array(
 						'rank'     => array( 'type' => 'integer' ),
 						'featured' => array( 'type' => 'boolean' ),
+						'sale'     => array( 'type' => 'boolean' ),
+						'tags'     => array(
+							'type'  => 'array',
+							'items' => array( 'type' => 'integer' ),
+						),
+						'cats'     => array(
+							'type'  => 'array',
+							'items' => array( 'type' => 'integer' ),
+						),
 						'created'  => array( 'type' => 'integer' ),
 						'stock'    => array(
 							'type'       => 'object',
@@ -277,7 +452,7 @@ final class ShelfTag implements Block {
 	 * real one.
 	 *
 	 * @param array $post The product as the REST API prepares it.
-	 * @return array{rank: int, featured: bool, created: int, stock: array{text: string, class: string, low: bool}}|null
+	 * @return array{rank: int, featured: bool, sale: bool, tags: int[], cats: int[], created: int, stock: array{text: string, class: string, low: bool}}|null
 	 */
 	public static function rest_value( $post ) {
 		$id = isset( $post['id'] ) ? (int) $post['id'] : 0;
@@ -290,9 +465,16 @@ final class ShelfTag implements Block {
 		}
 		$created = $product->get_date_created();
 		$stock   = $product->get_availability();
+		$cats    = array();
+		foreach ( wc_get_product_cat_ids( $id ) as $cat ) {
+			$cats = array_merge( $cats, array( (int) $cat ), array_map( 'intval', get_ancestors( $cat, 'product_cat', 'taxonomy' ) ) );
+		}
 		return array(
 			'rank'     => self::rank( $id ),
 			'featured' => $product->is_featured(),
+			'sale'     => $product->is_on_sale(),
+			'tags'     => array_map( 'intval', wc_get_product_term_ids( $id, 'product_tag' ) ),
+			'cats'     => array_values( array_unique( $cats ) ),
 			'created'  => $created ? $created->getTimestamp() : 0,
 			'stock'    => array(
 				'text'  => (string) $stock['availability'],

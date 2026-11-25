@@ -106,12 +106,13 @@
 
 /* On the photo, inside Product Image, in the same corners as Shelf Tag. */
 .wc-block-components-product-image__inner-container:has(> .purplish-stock) {
+	--purplish-tag-inset: max(0.5rem, var(--purplish-photo-radius, 0px) * 0.3);
 	gap: 0.375rem;
 }
 
 .wc-block-components-product-image__inner-container > :where(.purplish-stock[class*="purplish-stock-soldout-"]) {
 	flex: none;
-	margin: 0.5rem 0.5rem 0;
+	margin: var(--purplish-tag-inset) var(--purplish-tag-inset) 0;
 }
 
 .wc-block-components-product-image__inner-container > .purplish-stock-corner-top-right,
@@ -121,7 +122,7 @@
 
 .wc-block-components-product-image__inner-container > [class*="purplish-stock-corner-bottom-"] {
 	order: 1;
-	margin: auto 0.5rem 0.5rem;
+	margin: auto var(--purplish-tag-inset) var(--purplish-tag-inset);
 }
 
 /*

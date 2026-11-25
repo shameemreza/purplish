@@ -849,16 +849,19 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'purplish/shelf-tag',
-		'version' => '1.3.0',
+		'version' => '1.4.1',
 		'title' => 'Shelf Tag',
 		'category' => 'purplish',
-		'description' => 'A small tag on product cards, such as New arrival or Best seller. It shows only on the products its rule matches, and sits on the photo inside the Product Image block.',
+		'description' => 'A small tag on product cards, such as New arrival, Best seller or a campaign. It shows only on the products its rule matches, and sits on the photo inside the Product Image block.',
 		'keywords' => array(
 			'badge',
 			'label',
+			'ribbon',
+			'campaign',
 			'new',
 			'best seller',
-			'featured'
+			'featured',
+			'sale'
 		),
 		'textdomain' => 'purplish',
 		'ancestor' => array(
@@ -876,7 +879,10 @@ return array(
 				'enum' => array(
 					'bestseller',
 					'new',
-					'featured'
+					'featured',
+					'tag',
+					'category',
+					'sale'
 				),
 				'default' => 'bestseller'
 			),
@@ -888,6 +894,18 @@ return array(
 				'type' => 'number',
 				'default' => 30
 			),
+			'term' => array(
+				'type' => 'number',
+				'default' => 0
+			),
+			'from' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'until' => array(
+				'type' => 'string',
+				'default' => ''
+			),
 			'label' => array(
 				'type' => 'string',
 				'default' => ''
@@ -897,7 +915,9 @@ return array(
 				'enum' => array(
 					'chip',
 					'pill',
-					'glass'
+					'glass',
+					'ribbon',
+					'image'
 				),
 				'default' => 'chip'
 			),
@@ -914,6 +934,23 @@ return array(
 			'shine' => array(
 				'type' => 'boolean',
 				'default' => false
+			),
+			'imageId' => array(
+				'type' => 'number',
+				'default' => 0
+			),
+			'imageAlt' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'size' => array(
+				'type' => 'string',
+				'enum' => array(
+					'm',
+					's',
+					'l'
+				),
+				'default' => 'm'
 			)
 		),
 		'supports' => array(

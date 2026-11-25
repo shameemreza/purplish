@@ -56,7 +56,7 @@ Find them in the Purplish group of the block inserter.
 * **Showfloor:** shop the look on a turning oval floor of looks, with a numbered marker on each piece and one button that adds the whole look to the cart.
 * **Changing Room:** tops and bottoms turn in two rings around a photo of a model. Visitors dress the model and add the outfit to the cart.
 * **Wardrobe:** a mega menu item for the Navigation block that opens a big panel of category links, photo tiles and a look for each link.
-* **Shelf Tag:** a best seller, new arrival or featured tag on the product photo, as a chip, a pill or frosted glass.
+* **Shelf Tag:** a best seller, new arrival, featured, deal or campaign tag on the product photo, as a chip, a pill, frosted glass, a corner ribbon or your own image, with start and end dates.
 * **Color Dots:** the colors a product comes in, as dots or swatches on its card. Tap or point at one to see that color's photo.
 * **Escalator:** photos or products ride two or three columns that move in opposite directions, with a hover look and an add to cart button for each tile, for a store home page hero.
 * **Size Chart:** sizes by measurement in centimeters with a cm/in switch, lines or striped rows, How to measure notes on a drawn figure, and sizes shoppers can pick right from the chart. Saved as a pattern, picked for each category or product with a fit note, and opened from a Size guide link beside the size options.
@@ -163,7 +163,9 @@ There are 23. On hover: Spotlight, Color reveal, Fan deck, Expanded cards, Magne
 
 = How do I show a best seller tag on WooCommerce product cards? =
 
-Put the Shelf Tag block inside the Product Image block of your Product Collection and pick its rule: best sellers, new arrivals or featured products. The tag shows only on the cards it matches, as a chip, a pill or frosted glass, in the corner you pick, with your own words if you like and a shine on hover.
+Put the Shelf Tag block inside the Product Image block of your Product Collection and pick its rule: best sellers, new arrivals, featured products, products on sale, or a product tag or category you choose. The tag shows only on the cards it matches, as a chip, a pill, frosted glass, a ribbon across the corner or your own image, in the corner you pick, with your own words if you like and a shine on hover. Give it a start and end date and it shows only while your sale runs, in the store's time zone.
+
+For a discount like -39%, add WooCommerce's On-Sale Badge block inside Product Image, set its content to Percentage and its prefix to a minus sign. The Purplish panel gives it a pill, circle, price tag or ribbon shape.
 
 = How do I show a sold out label on product cards? =
 
