@@ -8,6 +8,7 @@
 namespace Purplish\Admin;
 
 use Purplish\Frontend\BlockEffects;
+use Purplish\Frontend\NeutralPanels;
 use Purplish\Frontend\PurpleParts;
 use Purplish\Options;
 
@@ -56,12 +57,7 @@ final class Settings {
 		if ( self::SECTION !== $current_section ) {
 			return $settings;
 		}
-		$purple = PurpleParts::is_purple();
-		if ( wp_is_block_theme() && ! $purple ) {
-			// Nothing to save on other block themes, so WooCommerce's own flag hides the button.
-			$GLOBALS['hide_save_button'] = true; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- WooCommerce reads this flag.
-		}
-		return self::fields( wp_is_block_theme(), $purple );
+		return self::fields( wp_is_block_theme(), PurpleParts::is_purple() );
 	}
 
 	/**
@@ -89,7 +85,8 @@ final class Settings {
 				__( 'Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings.', 'purplish' ),
 				'<a href="' . esc_url( admin_url( 'site-editor.php?p=%2Fwp_template%2F' . rawurlencode( get_stylesheet() ) . '%2F%2Fsingle-product&canvas=edit' ) ) . '">' . esc_html__( 'Single Product template', 'purplish' ) . '</a>'
 			);
-			return $purple ? array_merge( array( $title, $end ), self::purple_fields() ) : array( $title, $end );
+			$fields = array( $title, self::panels_field(), $end );
+			return $purple ? array_merge( $fields, self::purple_fields() ) : $fields;
 		}
 
 		$title['desc'] = __( 'When a shopper picks a color on a variable product, these parts of the product page take that color.', 'purplish' );
@@ -114,6 +111,7 @@ final class Settings {
 			);
 			$first    = false;
 		}
+		$fields[] = self::panels_field();
 
 		$gallery = array(
 			'gallery_nothumbs' => __( 'Hide thumbnails (one big photo)', 'purplish' ),
@@ -182,6 +180,24 @@ final class Settings {
 		$fields[] = $end;
 
 		return $fields;
+	}
+
+	/**
+	 * The switch for panel tints, on every theme: soft panels show on
+	 * pages without a page color too, like the cart.
+	 *
+	 * @since 1.4.1
+	 * @return array
+	 */
+	public static function panels_field() {
+		return array(
+			'id'       => self::OPTION . '[' . NeutralPanels::KEY . ']',
+			'type'     => 'checkbox',
+			'title'    => __( 'Panels', 'purplish' ),
+			'desc'     => __( 'Tint panels with the page color', 'purplish' ),
+			'desc_tip' => __( 'Soft panels, like accordions and the cart drawer, take a light mix of the page color. Turn this off to keep them on a neutral fill from your theme\'s text color.', 'purplish' ),
+			'default'  => 'yes',
+		);
 	}
 
 	/**
