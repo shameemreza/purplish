@@ -191,6 +191,25 @@ class ProductSearchTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Title matches saved in the same second come newest first, every time.
+	 */
+	public function test_title_ties_keep_one_order() {
+		$older = $this->product( 'Wool Scarf' );
+		$newer = $this->product( 'Wool Hat' );
+		foreach ( array( $older, $newer ) as $product ) {
+			wp_update_post(
+				array(
+					'ID'            => $product->get_id(),
+					'post_date'     => '2026-01-01 10:00:00',
+					'post_date_gmt' => '2026-01-01 10:00:00',
+				)
+			);
+		}
+
+		$this->assertSame( array( 'Wool Hat', 'Wool Scarf' ), $this->names( $this->search( array( 'q' => 'wool' ) ) ) );
+	}
+
+	/**
 	 * The count caps the products.
 	 */
 	public function test_count_caps_results() {
@@ -239,7 +258,13 @@ class ProductSearchTest extends WP_UnitTestCase {
 		$sold->save();
 
 		$items = $this->search( array( 'q' => 'router' ) )->get_data()['items'];
-		$this->assertSame( array( false, true ), wp_list_pluck( $items, 'sold' ) );
+		$this->assertSame(
+			array(
+				'Sold Router'  => true,
+				'Fresh Router' => false,
+			),
+			wp_list_pluck( $items, 'sold', 'name' )
+		);
 
 		update_option( 'woocommerce_hide_out_of_stock_items', 'yes' );
 		$this->assertSame( array( 'Fresh Router' ), $this->names( $this->search( array( 'q' => 'router' ) ) ) );
@@ -295,7 +320,7 @@ class ProductSearchTest extends WP_UnitTestCase {
 		$this->assertIsArray( wp_cache_get( $key, ProductSearch::CACHE_GROUP ) );
 
 		$this->product( 'Pixel Lens', 'PX-2' );
-		$this->assertSame( array( 'Pixel Camera', 'Pixel Lens' ), $this->names( $this->search( array( 'q' => 'pixel' ) ) ) );
+		$this->assertSame( array( 'Pixel Lens', 'Pixel Camera' ), $this->names( $this->search( array( 'q' => 'pixel' ) ) ) );
 	}
 
 	/**

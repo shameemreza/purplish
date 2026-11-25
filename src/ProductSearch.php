@@ -263,6 +263,13 @@ final class ProductSearch {
 			return $ids;
 		}
 
+		// Relevance, then date, then newest ID, so products saved in the
+		// same second keep one order.
+		$tie_break = static function ( $orderby ) {
+			global $wpdb;
+			return $orderby ? $orderby . ", {$wpdb->posts}.ID DESC" : $orderby;
+		};
+		add_filter( 'posts_orderby', $tie_break );
 		$titles = new \WP_Query(
 			array(
 				'post_type'           => 'product',
@@ -277,6 +284,7 @@ final class ProductSearch {
 				'tax_query'           => self::visibility_query(), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- product_visibility is how WooCommerce hides products.
 			)
 		);
+		remove_filter( 'posts_orderby', $tie_break );
 
 		return array_merge( $ids, array_map( 'intval', $titles->posts ) );
 	}
