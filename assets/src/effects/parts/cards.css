@@ -653,12 +653,6 @@
 		color: var(--purplish-color-on);
 	}
 
-	.purplish-cards-cardfill .wc-block-product:is(:hover, :focus-within) .wp-block-post-title a {
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 0.2em;
-	}
-
 	:is(.purplish-cards-hovercard-tilt, .purplish-cards-hovercard-torch) .wc-block-product:hover::after,
 	.purplish-cards-hoverphoto-glare .wc-block-product:hover .wc-block-components-product-image::after,
 	.purplish-cards-hoverphoto-second .wc-block-product:is(:hover, :focus-within) .purplish-second-photo {
@@ -682,8 +676,8 @@
 }
 
 /*
-	 * Card hover fills the button: the whole card runs the button's fill
-	 * and underlines the name, so the card reads as one link.
+	 * Card hover fills the button: hovering anywhere on the card runs the
+	 * button's fill. The name keeps the theme's own link hover.
 	 */
 
 /*
