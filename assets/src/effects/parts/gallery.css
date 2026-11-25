@@ -42,8 +42,12 @@
 	mix-blend-mode: multiply;
 }
 
-/* Gallery: round frosted arrows that show when the shopper hovers the photo. */
-.purplish-gallery-arrows .wc-block-next-previous-buttons {
+/*
+ * Gallery: round arrows that show when the shopper hovers the photo. The
+ * large image class lifts the gap over WooCommerce's alignright rule, which
+ * sets it to 0 with the same weight and loads later.
+ */
+.purplish-gallery-arrows .wc-block-product-gallery-large-image .wc-block-next-previous-buttons {
 	gap: 8px;
 	transition: opacity 0.3s ease-out, translate 0.3s ease-out;
 }
@@ -53,10 +57,11 @@
 	height: 44px;
 	border: 0;
 	border-radius: 50%;
-	background: rgb(255 255 255 / 0.75);
-	backdrop-filter: blur(10px);
-	color: var(--purplish-color);
-	box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.35);
+
+	/* Ink at rest: a light variation colour fades out on a white photo. */
+	background: #fff;
+	color: var(--purplish-theme-ink, var(--wp--preset--color--contrast, #1e1e1e));
+	box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1), 0 8px 20px -10px rgb(0 0 0 / 0.35);
 	transition: background-color 0.25s, color 0.25s, scale 0.2s;
 }
 
