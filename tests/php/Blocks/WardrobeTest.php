@@ -196,6 +196,41 @@ class WardrobeTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Every photo in the closed panel loads lazily, a high fetch priority
+	 * goes, and the links and text around them stay.
+	 */
+	public function test_panel_photos_load_lazily() {
+		$inner = '<!-- wp:paragraph --><p><a href="/coats/">Coats</a></p><!-- /wp:paragraph -->'
+			. '<!-- wp:image --><figure class="wp-block-image"><img src="https://example.org/a.jpg" alt=""/></figure><!-- /wp:image -->'
+			. '<!-- wp:image --><figure class="wp-block-image"><img src="https://example.org/b.jpg" alt="" loading="eager" fetchpriority="high"/></figure><!-- /wp:image -->'
+			. '<!-- wp:image --><figure class="wp-block-image"><img src="https://example.org/c.jpg" alt="" fetchpriority="low"/></figure><!-- /wp:image -->';
+		$html  = $this->render( array( 'label' => 'Shop' ), $inner );
+		$tags  = new WP_HTML_Tag_Processor( $html );
+
+		$photos = 0;
+		while ( $tags->next_tag( 'img' ) ) {
+			++$photos;
+			$this->assertSame( 'lazy', $tags->get_attribute( 'loading' ), $tags->get_attribute( 'src' ) );
+			$this->assertNotSame( 'high', $tags->get_attribute( 'fetchpriority' ), $tags->get_attribute( 'src' ) );
+		}
+		$this->assertSame( 3, $photos );
+		$this->assertStringContainsString( 'fetchpriority="low"', $html, 'other priorities stay' );
+		$this->assertStringContainsString( '<a href="/coats/">Coats</a>', $html );
+	}
+
+	/**
+	 * Lazy panel photos keep their lazy loading when WordPress filters the
+	 * header template part, so it doesn't mark one high priority.
+	 */
+	public function test_panel_photos_stay_lazy_in_a_header() {
+		$inner = '<!-- wp:image --><figure class="wp-block-image"><img src="https://example.org/a.jpg" alt="" width="800" height="600"/></figure><!-- /wp:image -->';
+		$html  = wp_filter_content_tags( $this->render( array( 'label' => 'Shop' ), $inner ), 'template_part_header' );
+
+		$this->assertStringContainsString( 'loading="lazy"', $html );
+		$this->assertStringNotContainsString( 'fetchpriority', $html );
+	}
+
+	/**
 	 * With an empty panel the item is the link alone, with nothing to open.
 	 */
 	public function test_empty_panel_is_a_plain_link() {
