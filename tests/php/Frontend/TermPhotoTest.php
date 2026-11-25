@@ -80,7 +80,7 @@ class TermPhotoTest extends WP_UnitTestCase {
 
 		$this->assertStringContainsString( 'src="' . $src[0] . '"', $out );
 		$this->assertStringContainsString( 'wp-image-' . $this->photo, $out );
-		$this->assertStringNotContainsString( 'wp-image-7', $out );
+		$this->assertDoesNotMatchRegularExpression( '/\bwp-image-7\b/', $out );
 		$this->assertStringNotContainsString( 'sale.jpg', $out );
 		$this->assertStringContainsString( 'alt=""', $out );
 	}

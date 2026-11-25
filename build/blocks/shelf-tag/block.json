@@ -2,16 +2,19 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "purplish/shelf-tag",
-  "version": "1.3.0",
+  "version": "1.4.1",
   "title": "Shelf Tag",
   "category": "purplish",
-  "description": "A small tag on product cards, such as New arrival or Best seller. It shows only on the products its rule matches, and sits on the photo inside the Product Image block.",
+  "description": "A small tag on product cards, such as New arrival, Best seller or a campaign. It shows only on the products its rule matches, and sits on the photo inside the Product Image block.",
   "keywords": [
     "badge",
     "label",
+    "ribbon",
+    "campaign",
     "new",
     "best seller",
-    "featured"
+    "featured",
+    "sale"
   ],
   "textdomain": "purplish",
   "ancestor": [
@@ -29,7 +32,10 @@
       "enum": [
         "bestseller",
         "new",
-        "featured"
+        "featured",
+        "tag",
+        "category",
+        "sale"
       ],
       "default": "bestseller"
     },
@@ -41,6 +47,18 @@
       "type": "number",
       "default": 30
     },
+    "term": {
+      "type": "number",
+      "default": 0
+    },
+    "from": {
+      "type": "string",
+      "default": ""
+    },
+    "until": {
+      "type": "string",
+      "default": ""
+    },
     "label": {
       "type": "string",
       "default": ""
@@ -50,7 +68,9 @@
       "enum": [
         "chip",
         "pill",
-        "glass"
+        "glass",
+        "ribbon",
+        "image"
       ],
       "default": "chip"
     },
@@ -67,6 +87,23 @@
     "shine": {
       "type": "boolean",
       "default": false
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "size": {
+      "type": "string",
+      "enum": [
+        "m",
+        "s",
+        "l"
+      ],
+      "default": "m"
     }
   },
   "supports": {

@@ -63,17 +63,63 @@
 }
 
 /*
+ * Ribbon: a dark band. Off the photo it is a square-cornered label; on the
+ * photo it crosses the corner (below).
+ */
+:where(.wp-block-purplish-shelf-tag.purplish-shelf-tag-look-ribbon) {
+	padding: 0.4em 0.9em;
+	background: #1d1a24;
+	color: #fff;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+/*
+ * Image: the merchant's own artwork is the tag. Widths match 48, 72 and
+ * 96 px and never grow a small picture. Colors and borders from Styles
+ * don't print on the front for this look; here they're held off in the
+ * editor too.
+ */
+.wp-block-purplish-shelf-tag.purplish-shelf-tag-look-image {
+	padding: 0;
+	border: 0;
+	background: none;
+	box-shadow: none;
+	overflow: visible;
+}
+
+.purplish-shelf-tag-image {
+	display: block;
+	width: 4.5rem;
+	max-width: 100%;
+	height: auto;
+}
+
+.purplish-shelf-tag-size-s .purplish-shelf-tag-image {
+	width: 3rem;
+}
+
+.purplish-shelf-tag-size-l .purplish-shelf-tag-image {
+	width: 6rem;
+}
+
+/*
  * On the photo. Product Image lays its inner blocks out as a column over
  * the photo, so the corner is the side the tag lines up to, and the bottom
  * corners take the space above them. Logical sides follow the language.
+ * On a rounded photo the tags sit further in, so the corner never cuts them.
  */
 .wc-block-components-product-image__inner-container:has(> .wp-block-purplish-shelf-tag) {
+	--purplish-tag-inset: max(0.5rem, var(--purplish-photo-radius, 0px) * 0.3);
 	gap: 0.375rem;
+	border-radius: inherit;
 }
 
 .wc-block-components-product-image__inner-container > .wp-block-purplish-shelf-tag {
 	flex: none;
-	margin: 0.5rem 0.5rem 0;
+	margin: var(--purplish-tag-inset) var(--purplish-tag-inset) 0;
 	align-self: flex-end;
 }
 
@@ -84,11 +130,115 @@
 
 .wc-block-components-product-image__inner-container > [class*="purplish-shelf-tag-corner-bottom-"] {
 	order: 1;
-	margin: auto 0.5rem 0.5rem;
+	margin: auto var(--purplish-tag-inset) var(--purplish-tag-inset);
 }
 
-.wc-block-components-product-image__inner-container > [class*="purplish-shelf-tag-corner-bottom-"] ~ [class*="purplish-shelf-tag-corner-bottom-"] {
+/*
+ * Tags, sale badges and the sold-out tag in one corner stack with the
+ * column's gap between them, not their own margins too.
+ */
+.wc-block-components-product-image__inner-container > [class*="-corner-top-"]:not(.purplish-shelf-tag-look-ribbon, .purplish-badge-shape-ribbon) ~ [class*="-corner-top-"] {
 	margin-block-start: 0;
+}
+
+.wc-block-components-product-image__inner-container > [class*="-corner-bottom-"]:not(.purplish-shelf-tag-look-ribbon, .purplish-badge-shape-ribbon) ~ [class*="-corner-bottom-"] {
+	margin-block-start: 0;
+}
+
+/*
+ * The Product Image block's own sale badge floats over the top of the photo.
+ * Tags on its side start below it instead of under it.
+ */
+.wc-block-components-product-image:has(.wc-block-components-product-sale-badge--align-right:not(.wc-block-components-product-image__inner-container *)) .wc-block-components-product-image__inner-container:has(> [class*="-corner-top-right"]),
+.wc-block-components-product-image:has(.wc-block-components-product-sale-badge--align-left:not(.wc-block-components-product-image__inner-container *)) .wc-block-components-product-image__inner-container:has(> [class*="-corner-top-left"]),
+.wc-block-components-product-image:has(.wc-block-components-product-sale-badge--align-center:not(.wc-block-components-product-image__inner-container *)) .wc-block-components-product-image__inner-container:has(> [class*="-corner-top-"]) {
+	padding-block-start: 2.25rem;
+}
+
+/*
+ * Image look on the photo: WooCommerce stretches every photo inside Product
+ * Image to full width, so the tag's picture claims its own width back.
+ */
+.wc-block-components-product-image .wp-block-purplish-shelf-tag > img.purplish-shelf-tag-image {
+	width: 4.5rem;
+	height: auto;
+}
+
+.wc-block-components-product-image .purplish-shelf-tag-size-s > img.purplish-shelf-tag-image {
+	width: 3rem;
+}
+
+.wc-block-components-product-image .purplish-shelf-tag-size-l > img.purplish-shelf-tag-image {
+	width: 6rem;
+}
+
+/*
+ * Ribbon on the photo: a band across the corner at 45 degrees, its middle
+ * on the corner's diagonal, clipped by the photo. The band, its type and
+ * how far in it sits grow with the photo's width. Other tags in the same
+ * corner move in so the band stays on top of the stack.
+ */
+.wc-block-components-product-image__inner-container:has(> .purplish-shelf-tag-look-ribbon) {
+	--purplish-ribbon-inset: clamp(1.75rem, 16cqi, 3.25rem);
+	container-type: inline-size;
+	overflow: clip;
+}
+
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon {
+	--purplish-ribbon-turn: 45deg;
+	--purplish-ribbon-y: -50%;
+	position: absolute;
+	inset-block-start: var(--purplish-ribbon-inset);
+	inset-inline-end: var(--purplish-ribbon-inset);
+	z-index: 1;
+	justify-content: center;
+	width: calc(var(--purplish-ribbon-inset) * 5);
+	max-width: none;
+	margin: 0;
+	padding-inline: 0;
+	font-size: clamp(0.6875rem, 0.35rem + 2.6cqi, 0.875rem);
+	translate: 50% var(--purplish-ribbon-y);
+	rotate: var(--purplish-ribbon-turn);
+}
+
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon .purplish-shelf-tag-text {
+	max-width: calc(var(--purplish-ribbon-inset) * 2.6 - 1.2em);
+}
+
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon[class*="-corner-bottom-"] {
+	--purplish-ribbon-y: 50%;
+	inset-block: auto var(--purplish-ribbon-inset);
+}
+
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon[class*="-corner-top-left"],
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon[class*="-corner-bottom-left"] {
+	inset-inline: var(--purplish-ribbon-inset) auto;
+	translate: -50% var(--purplish-ribbon-y);
+}
+
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon.purplish-shelf-tag-corner-top-left,
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon.purplish-shelf-tag-corner-bottom-right {
+	--purplish-ribbon-turn: -45deg;
+}
+
+/* Right to left: the corners swap sides, so the band turns the other way. */
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon:dir(rtl) {
+	translate: -50% var(--purplish-ribbon-y);
+	rotate: calc(var(--purplish-ribbon-turn) * -1);
+}
+
+.wc-block-components-product-image__inner-container > .purplish-shelf-tag-look-ribbon[class*="-left"]:dir(rtl) {
+	translate: 50% var(--purplish-ribbon-y);
+}
+
+.wc-block-components-product-image__inner-container:has(> .purplish-shelf-tag-look-ribbon.purplish-shelf-tag-corner-top-right) > [class*="-corner-top-right"]:not(.purplish-shelf-tag-look-ribbon),
+.wc-block-components-product-image__inner-container:has(> .purplish-shelf-tag-look-ribbon.purplish-shelf-tag-corner-bottom-right) > [class*="-corner-bottom-right"]:not(.purplish-shelf-tag-look-ribbon) {
+	margin-inline-end: calc(var(--purplish-ribbon-inset) * 2.4);
+}
+
+.wc-block-components-product-image__inner-container:has(> .purplish-shelf-tag-look-ribbon.purplish-shelf-tag-corner-top-left) > [class*="-corner-top-left"]:not(.purplish-shelf-tag-look-ribbon),
+.wc-block-components-product-image__inner-container:has(> .purplish-shelf-tag-look-ribbon.purplish-shelf-tag-corner-bottom-left) > [class*="-corner-bottom-left"]:not(.purplish-shelf-tag-look-ribbon) {
+	margin-inline-start: calc(var(--purplish-ribbon-inset) * 2.4);
 }
 
 /*

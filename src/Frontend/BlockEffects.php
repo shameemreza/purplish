@@ -407,7 +407,7 @@ final class BlockEffects {
 			'woocommerce/product-sale-badge'              => array(
 				'prefix'  => 'badge',
 				'options' => array(
-					'shape'  => array( 'pill', 'circle', 'tag' ),
+					'shape'  => array( 'pill', 'circle', 'tag', 'ribbon' ),
 					'corner' => array( 'top-left', 'top-right', 'bottom-left', 'bottom-right' ),
 				),
 				'preview' => true,
