@@ -98,6 +98,7 @@ final class Plugin {
 		( new Frontend\PhotoSwatches() )->register();
 		( new Frontend\StockDot() )->register();
 		( new Frontend\PhotoGrid() )->register();
+		( new Frontend\FullScreenPhotos() )->register();
 		( new Frontend\PurpleParts() )->register();
 		( new Frontend\AccountStyle() )->register();
 		( new Admin\Settings() )->register();
