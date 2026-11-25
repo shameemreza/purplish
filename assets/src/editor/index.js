@@ -19,6 +19,7 @@ import ChipsPanel from './chips';
 import BadgePanel from './badge';
 import ThumbsPanel from './thumbs';
 import StockPanel, { StockView } from './stock';
+import PricePanel, { PriceView } from './price';
 import AccordionGroupPanel from './accordion-group';
 import DetailsPanel from './details';
 import ReviewsPanel from './reviews';
@@ -58,6 +59,7 @@ const PANELS = {
 	'woocommerce/product-sale-badge': BadgePanel,
 	'woocommerce/product-gallery-thumbnails': ThumbsPanel,
 	'woocommerce/product-stock-indicator': StockPanel,
+	'woocommerce/product-price': PricePanel,
 	'woocommerce/accordion-group': AccordionGroupPanel,
 	'core/details': DetailsPanel,
 	'woocommerce/product-reviews': ReviewsPanel,
@@ -90,6 +92,7 @@ const PANELS = {
  */
 const VIEWS = {
 	'woocommerce/product-stock-indicator': StockView,
+	'woocommerce/product-price': PriceView,
 	'woocommerce/product-results-count': CountView,
 	'woocommerce/catalog-sorting': CatalogSortingView,
 };
