@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T15:28:57+00:00\n"
+"POT-Creation-Date: 2026-11-25T15:52:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -54,6 +54,7 @@ msgid "Atelier shop"
 msgstr ""
 
 #: patterns/atelier-shop.php:115
+#: src/Frontend/InstantSearch.php:208
 msgid "Categories"
 msgstr ""
 
@@ -104,6 +105,8 @@ msgstr ""
 
 #: patterns/boutique-shop.php:77
 #: patterns/flagship-shop.php:65
+#: assets/src/editor/search.js:157
+#: build/editor.js:12
 msgid "Price"
 msgstr ""
 
@@ -1942,6 +1945,9 @@ msgid "Changing room"
 msgstr ""
 
 #: src/Blocks/ChangingRoomPiece.php:69
+#: src/Frontend/InstantSearch.php:207
+#: assets/src/editor/search.js:97
+#: build/editor.js:11
 msgid "Sold out"
 msgstr ""
 
@@ -2548,6 +2554,42 @@ msgstr ""
 
 #: src/Frontend/InstalmentLine.php:138
 msgid "The product’s Purplish instalment line, as HTML. Empty when it shows none."
+msgstr ""
+
+#: src/Frontend/InstantSearch.php:173
+msgid "Search suggestions"
+msgstr ""
+
+#: src/Frontend/InstantSearch.php:193
+msgid "No products found"
+msgstr ""
+
+#. translators: %d: number of products found.
+#: src/Frontend/InstantSearch.php:196
+#, php-format
+msgid "%d product found"
+msgid_plural "%d products found"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: what the shopper typed.
+#: src/Frontend/InstantSearch.php:206
+#, php-format
+msgid "See all results for “%s”"
+msgstr ""
+
+#: src/Frontend/InstantSearch.php:209
+#: assets/src/blocks/escalator/edit.js:32
+#: assets/src/blocks/escalator/edit.js:162
+#: assets/src/blocks/showfloor-look/edit.js:171
+#: assets/src/editor/extras.js:220
+#: assets/src/editor/search.js:137
+#: build/blocks/escalator/index.js:1
+#: build/blocks/matching-extras/index.js:6
+#: build/blocks/showfloor/index.js:4
+#: build/editor.js:6
+#: build/editor.js:12
+msgid "Products"
 msgstr ""
 
 #: src/Frontend/LoadMore.php:271
@@ -3272,17 +3314,6 @@ msgstr ""
 #: assets/src/blocks/delivery-line/edit.js:157
 #: build/blocks/delivery-line/index.js:1
 msgid "Nothing to show: every line is off, or this product doesn’t ship."
-msgstr ""
-
-#: assets/src/blocks/escalator/edit.js:32
-#: assets/src/blocks/escalator/edit.js:162
-#: assets/src/blocks/showfloor-look/edit.js:171
-#: assets/src/editor/extras.js:220
-#: build/blocks/escalator/index.js:1
-#: build/blocks/matching-extras/index.js:6
-#: build/blocks/showfloor/index.js:4
-#: build/editor.js:6
-msgid "Products"
 msgstr ""
 
 #: assets/src/blocks/escalator/edit.js:33
@@ -6600,6 +6631,31 @@ msgstr ""
 #: assets/src/editor/reviews.js:27
 #: build/editor.js:12
 msgid "Soft cards put each review on its own card. Chat bubbles put the review text in a bubble."
+msgstr ""
+
+#: assets/src/editor/search.js:103
+#: build/editor.js:11
+msgid "See all results"
+msgstr ""
+
+#: assets/src/editor/search.js:121
+#: build/editor.js:12
+msgid "Instant results"
+msgstr ""
+
+#: assets/src/editor/search.js:124
+#: build/editor.js:12
+msgid "Show products while typing"
+msgstr ""
+
+#: assets/src/editor/search.js:125
+#: build/editor.js:12
+msgid "Matches product names and SKUs, variation SKUs included, from the second letter. Works on cached pages. Prices are the ones a shopper who is not signed in sees."
+msgstr ""
+
+#: assets/src/editor/search.js:151
+#: build/editor.js:12
+msgid "Matching categories"
 msgstr ""
 
 #: assets/src/editor/social.js:26

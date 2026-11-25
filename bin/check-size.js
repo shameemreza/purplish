@@ -36,6 +36,7 @@ const options = [
 	'instalments.js',
 	'style-instalments.css',
 	'meter.js',
+	'search.js',
 ].filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) );
 const shared = [
 	'effects.js',
