@@ -336,6 +336,28 @@ class ProductSearchTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A save that changes only the price, which fires no save_post, still
+	 * drops the kept answer, for a product and for a variation.
+	 */
+	public function test_cache_drops_on_price_only_save() {
+		$product = $this->product( 'Quartz Watch', 'QW-1', '50' );
+		$this->assertStringContainsString( '50.00', $this->search( array( 'q' => 'quartz' ) )->get_data()['items'][0]['price'] );
+
+		$product = wc_get_product( $product->get_id() );
+		$product->set_regular_price( '80' );
+		$product->save();
+		$this->assertStringContainsString( '80.00', $this->search( array( 'q' => 'quartz' ) )->get_data()['items'][0]['price'] );
+
+		$variations = Products::sweater( array( 'Orange' ), array( 'S' ) );
+		$this->search( array( 'q' => 'sweater' ) );
+		$before    = wp_cache_get_last_changed( ProductSearch::VERSION_GROUP );
+		$variation = wc_get_product( $variations['Orange/S']->get_id() );
+		$variation->set_regular_price( '33' );
+		$variation->save();
+		$this->assertNotSame( $before, wp_cache_get_last_changed( ProductSearch::VERSION_GROUP ) );
+	}
+
+	/**
 	 * A signed-in shopper opening the route gets the guest answer, and
 	 * stays signed in after.
 	 */
