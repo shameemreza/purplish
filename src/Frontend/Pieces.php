@@ -1,7 +1,8 @@
 <?php
 /**
- * Colors for pages made of other products: bundles, composites, mix and
- * match boxes and grouped products.
+ * Colors for pages made of other products: bundles (Product Bundles and
+ * WPC Product Bundles), composites, mix and match boxes and grouped
+ * products.
  *
  * @package Purplish
  */
@@ -41,6 +42,12 @@ final class Pieces {
 	const KIND_ROWS = 'rows';
 
 	/**
+	 * WPC Product Bundles: items keyed by their bundle key, each naming the
+	 * product or picked variation and its quantity in the markup.
+	 */
+	const KIND_WPC = 'wpc';
+
+	/**
 	 * The product types that hold other products and get their own Page
 	 * color.
 	 *
@@ -50,14 +57,15 @@ final class Pieces {
 		/**
 		 * Filters the product types that hold other products. Each one gets
 		 * the Page color field and starts the page on its own color.
-		 * Bundles, composites, mix and match boxes and grouped products also
-		 * follow the item the shopper changed last.
+		 * Bundles, WPC bundles, composites, mix and match boxes and grouped
+		 * products also follow the item the shopper changed last.
 		 *
 		 * @since 1.4.0
+		 * @since 1.4.1 Adds `woosb` (WPC Product Bundles).
 		 *
 		 * @param string[] $types Product types.
 		 */
-		$types = apply_filters( 'purplish_container_types', array( 'bundle', 'composite', 'mix-and-match', 'grouped' ) );
+		$types = apply_filters( 'purplish_container_types', array( 'bundle', 'woosb', 'composite', 'mix-and-match', 'grouped' ) );
 		return array_values( array_filter( array_map( 'strval', (array) $types ) ) );
 	}
 
@@ -115,6 +123,10 @@ final class Pieces {
 			case 'bundle':
 				$kind = self::KIND_BUNDLE;
 				self::bundle( $product, $found );
+				break;
+			case 'woosb':
+				$kind = self::KIND_WPC;
+				self::wpc_bundle( $product, $found );
 				break;
 			case 'composite':
 				$kind = self::KIND_COMPOSITE;
@@ -178,6 +190,45 @@ final class Pieces {
 			}
 			$picked = method_exists( $item, 'get_selected_product_variation_attributes' ) ? $item->get_selected_product_variation_attributes() : array();
 			$found->offer_start( $child, is_array( $picked ) ? $picked : array() );
+		}
+	}
+
+	/**
+	 * WPC Product Bundles: every item's product, keyed by product ID, since
+	 * the markup names the product, or the variation picked for a variable
+	 * item, in `data-id`. Items always in the bundle (not optional, quantity
+	 * above 0) can give the starting color.
+	 *
+	 * @param \WC_Product $product WPC bundle.
+	 * @param PieceList   $found   List to fill.
+	 * @return void
+	 */
+	private static function wpc_bundle( $product, $found ) {
+		if ( ! method_exists( $product, 'get_items' ) ) {
+			return;
+		}
+
+		foreach ( (array) $product->get_items() as $item ) {
+			// Headings and text rows have no product.
+			$child = is_array( $item ) && ! empty( $item['id'] ) ? wc_get_product( (int) $item['id'] ) : null;
+			if ( ! $child instanceof \WC_Product ) {
+				continue;
+			}
+
+			if ( $child instanceof WC_Product_Variable ) {
+				foreach ( $child->get_children() as $variation_id ) {
+					$variation = wc_get_product( $variation_id );
+					if ( $variation instanceof \WC_Product && 'publish' === $variation->get_status() ) {
+						$found->add( $variation );
+					}
+				}
+				continue;
+			}
+
+			$found->add( $child );
+			if ( empty( $item['optional'] ) && isset( $item['qty'] ) && (float) $item['qty'] > 0 ) {
+				$found->offer_start( $child, array() );
+			}
 		}
 	}
 

@@ -185,6 +185,68 @@ class PiecesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A WPC bundle lists its items by product ID, a variable item by each
+	 * variation, and starts on the first fixed item when it has no color of
+	 * its own. Optional items and text rows give no starting color.
+	 */
+	public function test_wpc_bundle_lists_products() {
+		$sweater = $this->sweater();
+		$scarf   = Containers::simple( '#7b2cbf' );
+		$hat     = Containers::simple( '#c2185b' );
+		$bundle  = Containers::product( 'woosb' );
+
+		$bundle->wpc_items = array(
+			'a' => array(
+				'id'       => $hat->get_id(),
+				'qty'      => 0,
+				'optional' => 1,
+			),
+			'b' => array( 'text' => 'Pick a sweater' ),
+			'c' => array(
+				'id'  => $sweater->get_id(),
+				'qty' => 1,
+			),
+			'd' => array(
+				'id'  => $scarf->get_id(),
+				'qty' => 1,
+			),
+		);
+
+		$data = PageData::for_product( $bundle, Options::defaults() );
+
+		$this->assertSame( Pieces::KIND_WPC, $data['pieces']['kind'] );
+		$this->assertSame( '#7b2cbf', $data['default']['color'] );
+		$this->assertSame( '#c2185b', $data['pieces']['products'][ $hat->get_id() ]['set']['color'] );
+		$this->assertSame( '#7b2cbf', $data['pieces']['products'][ $scarf->get_id() ]['set']['color'] );
+		$this->assertArrayNotHasKey( $sweater->get_id(), $data['pieces']['products'] );
+
+		$colors = array();
+		foreach ( $sweater->get_children() as $variation_id ) {
+			$colors[] = $data['pieces']['products'][ $variation_id ]['set']['color'];
+		}
+		sort( $colors );
+		$this->assertSame( array( '#2a519e', '#2a519e', '#d94421', '#d94421' ), $colors );
+	}
+
+	/**
+	 * A WPC bundle with its own color starts on it.
+	 */
+	public function test_wpc_bundle_own_color_first() {
+		$bundle = Containers::product( 'woosb', '#3a8f5c' );
+
+		$bundle->wpc_items = array(
+			'a' => array(
+				'id'  => Containers::simple( '#7b2cbf' )->get_id(),
+				'qty' => 1,
+			),
+		);
+
+		$data = PageData::for_product( $bundle, Options::defaults() );
+
+		$this->assertSame( '#3a8f5c', $data['default']['color'] );
+	}
+
+	/**
 	 * Only its own color, with no items: data without pieces.
 	 */
 	public function test_own_color_only() {

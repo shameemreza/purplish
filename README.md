@@ -65,7 +65,7 @@ On a default WooCommerce product page, picking another color changes the photo a
 
 ![Picking blue turns the button, the selected option and the background blue](.github/assets/color-change.gif)
 
-Each variation has a Page color: **Automatic** reads it from the photo (a swatch color comes first), **Custom** takes any color or hex code, and **Off** keeps your theme's colors. Automatic colors keep the photo's hue and get adjusted for each use, so the button text stays readable. Simple products get one color for the whole page. Bundles, composites, mix and match boxes and grouped products open in their own color, then follow the item the shopper changed last. Clearing an item hands the color back to the one changed before. Without a color of their own, bundles and composites open in the color of their first item that already has one. Works with WooCommerce Product Bundles, Composite Products and Mix and Match Products.
+Each variation has a Page color: **Automatic** reads it from the photo (a swatch color comes first), **Custom** takes any color or hex code, and **Off** keeps your theme's colors. Automatic colors keep the photo's hue and get adjusted for each use, so the button text stays readable. Simple products get one color for the whole page. Bundles, composites, mix and match boxes and grouped products open in their own color, then follow the item the shopper changed last. Clearing an item hands the color back to the one changed before. Without a color of their own, bundles and composites open in the color of their first item that already has one. Works with WooCommerce Product Bundles, WPC Product Bundles, Composite Products and Mix and Match Products.
 
 On the same block:
 
@@ -460,7 +460,7 @@ Purplish has a small set of PHP hooks, front-end events and CSS custom propertie
 | `purplish_blocks` | Filter | The Purplish block classes to register. Remove one to turn that block off, with its scripts and styles. |
 | `purplish_patterns` | Filter | The Purplish patterns to register, keyed by slug. |
 | `purplish_color_set` | Filter | The color set of a variation or simple product, with the product object. Return `null` for no color. A set with only `color` gets the other parts worked out from it. |
-| `purplish_container_types` | Filter | The product types that hold other products: `bundle`, `composite`, `mix-and-match` and `grouped`. A type added here gets the Page color field and opens in its own color. |
+| `purplish_container_types` | Filter | The product types that hold other products: `bundle`, `woosb` (WPC Product Bundles), `composite`, `mix-and-match` and `grouped`. A type added here gets the Page color field and opens in its own color. |
 | `purplish_detected_color` | Filter | The hex color the photo detector picked, with the attachment ID, before it's saved. Return an empty string to save no color. |
 | `purplish_block_classes` | Filter | The classes Purplish adds to a block's wrapper, with the block name and its saved Purplish options. |
 | `purplish_shelf_tag_show` | Filter | Whether a Shelf Tag shows on a product card, with the product and the tag's block attributes. |

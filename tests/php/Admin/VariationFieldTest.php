@@ -258,7 +258,7 @@ class VariationFieldTest extends WP_UnitTestCase {
 		( new VariationField() )->render_product();
 		$html = ob_get_clean();
 
-		foreach ( array( 'simple', 'bundle', 'composite', 'mix-and-match', 'grouped' ) as $type ) {
+		foreach ( array( 'simple', 'bundle', 'woosb', 'composite', 'mix-and-match', 'grouped' ) as $type ) {
 			$this->assertStringContainsString( 'show_if_' . $type, $html );
 		}
 

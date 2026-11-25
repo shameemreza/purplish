@@ -226,7 +226,8 @@ function followPiece( scope, key, read, photo ) {
 	new window.MutationObserver( update ).observe( scope, {
 		subtree: true,
 		attributes: true,
-		attributeFilter: [ 'value', 'checked' ],
+		// WPC Product Bundles writes the picked product and quantity on the item.
+		attributeFilter: [ 'value', 'checked', 'data-id', 'data-qty' ],
 	} );
 }
 
@@ -339,6 +340,38 @@ function followRows( pieces ) {
 				( mine ) =>
 					pieceColor( product, null, mine, quantityOf( field ) > 0 ),
 				() => photosIn( row, '.mnm_child_product_image' )
+			);
+		} );
+}
+
+/**
+ * WPC Product Bundles: each item the shopper can change (a quantity field,
+ * or options on a variable item). The item names its product, or the
+ * picked variation, in `data-id` and its quantity in `data-qty`.
+ *
+ * @param {Object} pieces The page's item data.
+ */
+function followWpc( pieces ) {
+	document
+		.querySelectorAll( '.woosb-bundled .woosb-product[data-key]' )
+		.forEach( ( item ) => {
+			if (
+				! item.querySelector( '.woosb-qty:not([disabled])' ) &&
+				! item.classList.contains( 'woosb-product-type-variable' )
+			) {
+				return;
+			}
+			followPiece(
+				item,
+				'wpc-' + item.dataset.key,
+				( mine ) =>
+					pieceColor(
+						pieces.products[ item.dataset.id ],
+						null,
+						mine,
+						parseFloat( item.dataset.qty ) > 0
+					),
+				() => photosIn( item, '.woosb-thumb-ori' )
 			);
 		} );
 }
@@ -472,6 +505,7 @@ if ( data?.variations ) {
 			bundle: followBundle,
 			composite: followComposite,
 			rows: followRows,
+			wpc: followWpc,
 		} )[ data.pieces.kind ]?.( data.pieces );
 	} else {
 		document
