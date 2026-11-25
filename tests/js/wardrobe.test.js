@@ -291,6 +291,51 @@ describe( 'wardrobe', () => {
 		expect( two.panel.hidden ).toBe( false );
 	} );
 
+	it( 'starts the lazy panel photos on the first pointer or focus', () => {
+		const hover = addItem();
+		hover
+			.querySelector( '.purplish-wardrobe-inner' )
+			.insertAdjacentHTML(
+				'beforeend',
+				'<img src="a.jpg" loading="lazy">'
+			);
+		wardrobe( hover );
+		const photo = hover.querySelector( 'img' );
+
+		expect( photo.getAttribute( 'loading' ) ).toBe( 'lazy' );
+		pointer( hover, 'pointerenter' );
+		expect( photo.getAttribute( 'loading' ) ).toBe( 'eager' );
+
+		const keyboard = addItem( 'click' );
+		keyboard
+			.querySelector( '.purplish-wardrobe-inner' )
+			.insertAdjacentHTML(
+				'beforeend',
+				'<img src="b.jpg" loading="lazy">'
+			);
+		wardrobe( keyboard );
+		keyboard.querySelector( 'button' ).focus();
+		expect(
+			keyboard.querySelector( 'img' ).getAttribute( 'loading' )
+		).toBe( 'eager' );
+	} );
+
+	it( 'leaves the panel photos lazy where the label button is hidden', () => {
+		const item = addItem();
+		item.querySelector( '.purplish-wardrobe-inner' ).insertAdjacentHTML(
+			'beforeend',
+			'<img src="a.jpg" loading="lazy">'
+		);
+		item.querySelector( 'button' ).style.display = 'none';
+		wardrobe( item );
+
+		pointer( item, 'pointerenter' );
+		item.querySelector( 'a' ).focus();
+		expect( item.querySelector( 'img' ).getAttribute( 'loading' ) ).toBe(
+			'lazy'
+		);
+	} );
+
 	it( 'opens nothing where the label button is hidden', () => {
 		const item = addItem();
 		const toggle = item.querySelector( 'button' );
