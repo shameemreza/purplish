@@ -64,6 +64,11 @@ final class ProductSearch {
 		foreach ( array( 'save_post_product', 'save_post_product_variation', 'deleted_post', 'trashed_post', 'untrashed_post' ) as $hook ) {
 			add_action( $hook, array( self::class, 'bump' ) );
 		}
+		// A save that changes only product data, like a price or a sale
+		// starting, fires these and no save_post.
+		foreach ( array( 'woocommerce_new_product', 'woocommerce_update_product', 'woocommerce_new_product_variation', 'woocommerce_update_product_variation' ) as $hook ) {
+			add_action( $hook, array( self::class, 'bump' ) );
+		}
 		foreach ( array( 'woocommerce_product_set_stock_status', 'woocommerce_variation_set_stock_status', 'woocommerce_product_set_visibility' ) as $hook ) {
 			add_action( $hook, array( self::class, 'bump' ) );
 		}
@@ -328,7 +333,8 @@ final class ProductSearch {
 	}
 
 	/**
-	 * The products the shop would show, in the order given.
+	 * The products the shop would show, in the order given. Products with a
+	 * password stay out, as they do from a title search.
 	 *
 	 * @param int[] $ids   Product IDs.
 	 * @param int   $count Most products.
@@ -343,6 +349,7 @@ final class ProductSearch {
 				'post_type'           => 'product',
 				'post_status'         => 'publish',
 				'post__in'            => $ids,
+				'has_password'        => false,
 				'orderby'             => 'post__in',
 				'fields'              => 'ids',
 				'posts_per_page'      => $count,

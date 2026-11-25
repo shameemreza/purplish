@@ -176,6 +176,18 @@ class ProductSearchTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A product with a password stays out by SKU too, as it does by title.
+	 */
+	public function test_password_protected_product_stays_out_by_sku() {
+		$product = $this->product( 'Private Gown', 'PG-900' );
+		$product->set_post_password( 'secret' );
+		$product->save();
+
+		$this->assertSame( array(), $this->names( $this->search( array( 'q' => 'PG-900' ) ) ) );
+		$this->assertSame( array(), $this->names( $this->search( array( 'q' => 'Private Gown' ) ) ) );
+	}
+
+	/**
 	 * SKU matches come before title matches, an exact SKU before a prefix
 	 * one, and a product matching both shows once.
 	 */
@@ -321,6 +333,28 @@ class ProductSearchTest extends WP_UnitTestCase {
 
 		$this->product( 'Pixel Lens', 'PX-2' );
 		$this->assertSame( array( 'Pixel Lens', 'Pixel Camera' ), $this->names( $this->search( array( 'q' => 'pixel' ) ) ) );
+	}
+
+	/**
+	 * A save that changes only the price, which fires no save_post, still
+	 * drops the kept answer, for a product and for a variation.
+	 */
+	public function test_cache_drops_on_price_only_save() {
+		$product = $this->product( 'Quartz Watch', 'QW-1', '50' );
+		$this->assertStringContainsString( '50.00', $this->search( array( 'q' => 'quartz' ) )->get_data()['items'][0]['price'] );
+
+		$product = wc_get_product( $product->get_id() );
+		$product->set_regular_price( '80' );
+		$product->save();
+		$this->assertStringContainsString( '80.00', $this->search( array( 'q' => 'quartz' ) )->get_data()['items'][0]['price'] );
+
+		$variations = Products::sweater( array( 'Orange' ), array( 'S' ) );
+		$this->search( array( 'q' => 'sweater' ) );
+		$before    = wp_cache_get_last_changed( ProductSearch::VERSION_GROUP );
+		$variation = wc_get_product( $variations['Orange/S']->get_id() );
+		$variation->set_regular_price( '33' );
+		$variation->save();
+		$this->assertNotSame( $before, wp_cache_get_last_changed( ProductSearch::VERSION_GROUP ) );
 	}
 
 	/**

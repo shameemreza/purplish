@@ -41,6 +41,7 @@ final class InstalmentSettings {
 		add_filter( 'woocommerce_get_settings_products', array( $this, 'settings' ), 10, 2 );
 		add_action( 'woocommerce_admin_field_purplish_instalment_bands', array( $this, 'bands_field' ) );
 		add_action( 'woocommerce_admin_field_purplish_instalment_logo', array( $this, 'logo_field' ) );
+		add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'no_bands' ), 10, 3 );
 		add_filter( 'pre_update_option_' . Instalments::OPTION, array( $this, 'sanitize' ) );
 		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'product_field' ) );
 		add_action( 'woocommerce_admin_process_product_object', array( $this, 'save_product' ) );
@@ -86,7 +87,7 @@ final class InstalmentSettings {
 
 		return array(
 			array(
-				'id'    => 'purplish_instalments',
+				'id'    => 'purplish_instalments_section',
 				'type'  => 'title',
 				'title' => __( 'Instalments', 'purplish' ),
 				'desc'  => sprintf(
@@ -168,10 +169,26 @@ final class InstalmentSettings {
 				'css'      => 'width:12em',
 			),
 			array(
-				'id'   => 'purplish_instalments',
+				'id'   => 'purplish_instalments_section',
 				'type' => 'sectionend',
 			),
 		);
+	}
+
+	/**
+	 * A save with every band row removed posts nothing for the bands, which
+	 * WooCommerce skips, keeping the old ones. Store that as no bands.
+	 *
+	 * @param mixed                $value     The cleaned value.
+	 * @param array<string, mixed> $option    The field.
+	 * @param mixed                $raw_value The posted value.
+	 * @return mixed
+	 */
+	public function no_bands( $value, $option, $raw_value ) {
+		if ( isset( $option['type'] ) && 'purplish_instalment_bands' === $option['type'] && null === $raw_value ) {
+			return array();
+		}
+		return $value;
 	}
 
 	/**
