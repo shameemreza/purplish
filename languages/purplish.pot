@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-22T00:07:47+00:00\n"
+"POT-Creation-Date: 2026-11-25T14:35:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -83,7 +83,9 @@ msgstr ""
 #: patterns/boutique-shop.php:69
 #: patterns/flagship-shop.php:55
 #: assets/src/blocks/escalator/edit.js:174
+#: assets/src/blocks/shelf-tag/edit.js:297
 #: build/blocks/escalator/index.js:1
+#: build/blocks/shelf-tag/index.js:1
 msgid "Category"
 msgstr ""
 
@@ -230,7 +232,7 @@ msgstr ""
 #: patterns/flagship-best-sellers.php:63
 #: src/Patterns.php:164
 #: assets/src/blocks/escalator/edit.js:38
-#: assets/src/blocks/shelf-tag/edit.js:27
+#: assets/src/blocks/shelf-tag/edit.js:37
 #: build/blocks/escalator/index.js:1
 #: build/blocks/shelf-tag/index.js:1
 msgid "Best sellers"
@@ -449,7 +451,7 @@ msgstr ""
 #: assets/src/editor/accordion-group.js:16
 #: assets/src/editor/accordion.js:19
 #: assets/src/editor/add-to-cart.js:51
-#: assets/src/editor/badge.js:31
+#: assets/src/editor/badge.js:32
 #: assets/src/editor/button.js:112
 #: assets/src/editor/buy-button.js:79
 #: assets/src/editor/cards.js:522
@@ -739,8 +741,8 @@ msgid " off"
 msgstr ""
 
 #: patterns/flagship-shop.php:285
-#: src/Blocks/ShelfTag.php:92
-#: assets/src/blocks/shelf-tag/edit.js:22
+#: src/Blocks/ShelfTag.php:132
+#: assets/src/blocks/shelf-tag/edit.js:31
 #: build/blocks/shelf-tag/index.js:1
 msgid "New arrival"
 msgstr ""
@@ -1961,8 +1963,8 @@ msgstr ""
 #: src/Blocks/Showfloor.php:512
 #: assets/src/blocks/color-dots/edit.js:124
 #: assets/src/blocks/delivery-line/edit.js:105
-#: assets/src/blocks/shelf-tag/edit.js:179
-#: assets/src/blocks/shelf-tag/edit.js:183
+#: assets/src/blocks/shelf-tag/edit.js:368
+#: assets/src/blocks/shelf-tag/edit.js:372
 #: assets/src/blocks/showfloor-look/edit.js:137
 #: assets/src/blocks/showfloor/edit.js:393
 #: assets/src/editor/count.js:115
@@ -1990,21 +1992,27 @@ msgstr ""
 msgid "Next look"
 msgstr ""
 
-#: src/Blocks/ShelfTag.php:91
-#: assets/src/blocks/shelf-tag/edit.js:21
+#: src/Blocks/ShelfTag.php:131
+#: assets/src/blocks/shelf-tag/edit.js:30
 #: build/blocks/shelf-tag/index.js:1
 msgid "Best seller"
 msgstr ""
 
-#: src/Blocks/ShelfTag.php:93
+#: src/Blocks/ShelfTag.php:133
 #: assets/src/blocks/escalator/edit.js:40
-#: assets/src/blocks/shelf-tag/edit.js:23
+#: assets/src/blocks/shelf-tag/edit.js:32
 #: build/blocks/escalator/index.js:1
 #: build/blocks/shelf-tag/index.js:1
 msgid "Featured"
 msgstr ""
 
-#: src/Blocks/ShelfTag.php:250
+#: src/Blocks/ShelfTag.php:134
+#: assets/src/blocks/shelf-tag/edit.js:33
+#: build/blocks/shelf-tag/index.js:1
+msgid "Deal"
+msgstr ""
+
+#: src/Blocks/ShelfTag.php:416
 msgid "Where the product stands for the Purplish tags on product cards."
 msgstr ""
 
@@ -2603,7 +2611,7 @@ msgid "Sweep"
 msgstr ""
 
 #: assets/src/blocks/changing-room/choices.js:13
-#: assets/src/blocks/shelf-tag/edit.js:35
+#: assets/src/blocks/shelf-tag/edit.js:50
 #: assets/src/editor/stock.js:14
 #: build/blocks/changing-room/index.js:1
 #: build/blocks/shelf-tag/index.js:1
@@ -3119,10 +3127,12 @@ msgstr ""
 #: assets/src/blocks/escalator/edit.js:46
 #: assets/src/blocks/hanging-rail/edit.js:28
 #: assets/src/blocks/scroll-lookbook/edit.js:18
+#: assets/src/blocks/shelf-tag/edit.js:57
 #: assets/src/editor/cards.js:496
 #: build/blocks/escalator/index.js:1
 #: build/blocks/hanging-rail/index.js:1
 #: build/blocks/scroll-lookbook/index.js:1
+#: build/blocks/shelf-tag/index.js:1
 #: build/editor.js:8
 msgid "Medium"
 msgstr ""
@@ -3553,17 +3563,32 @@ msgstr ""
 msgid "Photos work in every shot: they zoom slowly as the page scrolls."
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:28
+#: assets/src/blocks/shelf-tag/edit.js:38
 #: build/blocks/shelf-tag/index.js:1
 msgid "New products"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:29
+#: assets/src/blocks/shelf-tag/edit.js:39
 #: build/blocks/shelf-tag/index.js:1
 msgid "Featured products"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:33
+#: assets/src/blocks/shelf-tag/edit.js:40
+#: build/blocks/shelf-tag/index.js:1
+msgid "Products with a tag"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:41
+#: build/blocks/shelf-tag/index.js:1
+msgid "Products in a category"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:42
+#: build/blocks/shelf-tag/index.js:1
+msgid "Products on sale"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:48
 #: assets/src/editor/stock.js:13
 #: assets/src/editor/terms.js:79
 #: build/blocks/shelf-tag/index.js:1
@@ -3572,7 +3597,7 @@ msgstr ""
 msgid "Chip"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:34
+#: assets/src/blocks/shelf-tag/edit.js:49
 #: assets/src/editor/badge.js:9
 #: assets/src/editor/cards.js:567
 #: assets/src/editor/count.js:127
@@ -3584,74 +3609,117 @@ msgstr ""
 msgid "Pill"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:39
-#: assets/src/editor/badge.js:17
+#: assets/src/blocks/shelf-tag/edit.js:51
+#: assets/src/editor/badge.js:12
+#: build/blocks/shelf-tag/index.js:1
+#: build/editor.js:10
+msgid "Ribbon"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:52
+#: build/blocks/shelf-tag/index.js:1
+msgid "Image"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:56
+#: assets/src/editor/cards.js:492
+#: build/blocks/shelf-tag/index.js:1
+#: build/editor.js:8
+msgid "Small"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:58
+#: assets/src/editor/cards.js:500
+#: assets/src/editor/catalog-sorting.js:136
+#: build/blocks/shelf-tag/index.js:1
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Large"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:64
+#: assets/src/editor/badge.js:18
 #: assets/src/editor/stock.js:19
 #: build/blocks/shelf-tag/index.js:1
 #: build/editor.js:10
 msgid "Top right"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:40
-#: assets/src/editor/badge.js:16
+#: assets/src/blocks/shelf-tag/edit.js:65
+#: assets/src/editor/badge.js:17
 #: assets/src/editor/stock.js:18
 #: build/blocks/shelf-tag/index.js:1
 #: build/editor.js:10
 msgid "Top left"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:41
-#: assets/src/editor/badge.js:18
+#: assets/src/blocks/shelf-tag/edit.js:66
+#: assets/src/editor/badge.js:19
 #: assets/src/editor/stock.js:20
 #: build/blocks/shelf-tag/index.js:1
 #: build/editor.js:10
 msgid "Bottom left"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:42
-#: assets/src/editor/badge.js:19
+#: assets/src/blocks/shelf-tag/edit.js:67
+#: assets/src/editor/badge.js:20
 #: assets/src/editor/stock.js:21
 #: build/blocks/shelf-tag/index.js:1
 #: build/editor.js:10
 msgid "Bottom right"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:114
+#: assets/src/blocks/shelf-tag/edit.js:236
 #: build/blocks/shelf-tag/index.js:1
-msgid "Not shown on this product: the rule doesn’t match."
+msgid "Not shown on this product: the rule or the dates don’t match."
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:123
+#: assets/src/blocks/shelf-tag/edit.js:245
 #: build/blocks/shelf-tag/index.js:1
 msgid "Tag"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:127
+#: assets/src/blocks/shelf-tag/edit.js:249
 #: build/blocks/shelf-tag/index.js:1
 msgid "Show on"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:138
+#: assets/src/blocks/shelf-tag/edit.js:260
 #: build/blocks/shelf-tag/index.js:1
 msgid "How many best sellers"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:139
+#: assets/src/blocks/shelf-tag/edit.js:261
 #: build/blocks/shelf-tag/index.js:1
 msgid "The products that sold the most, counted from orders."
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:155
+#: assets/src/blocks/shelf-tag/edit.js:277
 #: build/blocks/shelf-tag/index.js:1
 msgid "New for how many days"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:156
+#: assets/src/blocks/shelf-tag/edit.js:278
 #: build/blocks/shelf-tag/index.js:1
 msgid "Counted from the day the product was published."
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:171
+#: assets/src/blocks/shelf-tag/edit.js:296
+#: build/blocks/shelf-tag/index.js:1
+msgid "Product tag"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:301
+#: build/blocks/shelf-tag/index.js:1
+msgid "Add the tag to products in Products > Tags, or many at once with Bulk edit."
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:305
+#: build/blocks/shelf-tag/index.js:1
+msgid "Products in its subcategories get the tag too."
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:321
 #: assets/src/blocks/showfloor/choices.js:34
 #: assets/src/blocks/showfloor/choices.js:50
 #: assets/src/blocks/showfloor/choices.js:62
@@ -3660,27 +3728,87 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:193
-#: assets/src/editor/badge.js:49
+#: assets/src/blocks/shelf-tag/edit.js:324
+#: build/blocks/shelf-tag/index.js:1
+msgid "Leave it empty to use the name of the tag or category."
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:338
+#: build/blocks/shelf-tag/index.js:1
+msgid "Dates"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:345
+#: build/blocks/shelf-tag/index.js:1
+msgid "Show from"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:356
+#: build/blocks/shelf-tag/index.js:1
+msgid "Show until"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:357
+#: build/blocks/shelf-tag/index.js:1
+msgid "Both days count, in the store’s timezone. Leave them empty to show the tag all the time. A cached page shows the tag until the cache refreshes."
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:397
+#: build/blocks/shelf-tag/index.js:1
+msgid "Change image"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:401
+#: build/blocks/shelf-tag/index.js:1
+msgid "Pick image"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:417
+#: build/blocks/shelf-tag/index.js:1
+msgid "Remove image"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:423
+#: build/blocks/shelf-tag/index.js:1
+msgid "Alternative text"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:424
+#: build/blocks/shelf-tag/index.js:1
+msgid "What the image says, for people who can’t see it. Empty uses the image’s own alt text, then the tag’s text."
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:436
+#: build/blocks/shelf-tag/index.js:1
+msgid "Image width"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:448
+#: assets/src/editor/badge.js:50
 #: assets/src/editor/stock.js:59
 #: build/blocks/shelf-tag/index.js:1
 #: build/editor.js:12
 msgid "Corner"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:194
+#: assets/src/blocks/shelf-tag/edit.js:449
 #: build/blocks/shelf-tag/index.js:1
 msgid "Where the tag sits on the photo, when it is inside the Product Image block."
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:206
+#: assets/src/blocks/shelf-tag/edit.js:462
 #: build/blocks/shelf-tag/index.js:1
 msgid "Shine on hover"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:207
+#: assets/src/blocks/shelf-tag/edit.js:463
 #: build/blocks/shelf-tag/index.js:1
 msgid "A light passes over the tag once when the card is hovered."
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/edit.js:486
+#: build/blocks/shelf-tag/index.js:1
+msgid "Pick a tag or category"
 msgstr ""
 
 #: assets/src/blocks/showfloor-look/edit.js:141
@@ -4570,7 +4698,7 @@ msgid "A dot in each color before its name on the option buttons."
 msgstr ""
 
 #: assets/src/editor/badge.js:8
-#: assets/src/editor/badge.js:15
+#: assets/src/editor/badge.js:16
 #: assets/src/editor/chips.js:23
 #: assets/src/editor/chips.js:43
 #: assets/src/editor/gallery.js:50
@@ -4596,20 +4724,20 @@ msgstr ""
 msgid "Price tag"
 msgstr ""
 
-#: assets/src/editor/badge.js:35
+#: assets/src/editor/badge.js:36
 #: assets/src/editor/terms.js:102
 #: build/editor.js:12
 msgid "Shape"
 msgstr ""
 
-#: assets/src/editor/badge.js:36
+#: assets/src/editor/badge.js:37
 #: build/editor.js:12
-msgid "A border radius set in Styles takes the place of the pill and circle corners."
+msgid "A border radius set in Styles takes the place of the pill and circle corners. Ribbon crosses the corner of the photo."
 msgstr ""
 
-#: assets/src/editor/badge.js:50
+#: assets/src/editor/badge.js:51
 #: build/editor.js:12
-msgid "Where the badge sits on the photo. Works when the badge is inside the Product Gallery's large image."
+msgid "Where the badge sits on the photo. Works when the badge is inside the Product Image block or the Product Gallery's large image."
 msgstr ""
 
 #: assets/src/editor/button.js:20
@@ -5019,18 +5147,6 @@ msgstr ""
 #: assets/src/editor/cards.js:485
 #: build/editor.js:8
 msgid "Peek size"
-msgstr ""
-
-#: assets/src/editor/cards.js:492
-#: build/editor.js:8
-msgid "Small"
-msgstr ""
-
-#: assets/src/editor/cards.js:500
-#: assets/src/editor/catalog-sorting.js:136
-#: build/editor.js:8
-#: build/editor.js:12
-msgid "Large"
 msgstr ""
 
 #: assets/src/editor/cards.js:525
@@ -6806,7 +6922,7 @@ msgstr ""
 #: assets/src/blocks/shelf-tag/block.json
 #: build/blocks/shelf-tag/block.json
 msgctxt "block description"
-msgid "A small tag on product cards, such as New arrival or Best seller. It shows only on the products its rule matches, and sits on the photo inside the Product Image block."
+msgid "A small tag on product cards, such as New arrival, Best seller or a campaign. It shows only on the products its rule matches, and sits on the photo inside the Product Image block."
 msgstr ""
 
 #: assets/src/blocks/shelf-tag/block.json
@@ -6819,6 +6935,18 @@ msgstr ""
 #: build/blocks/shelf-tag/block.json
 msgctxt "block keyword"
 msgid "label"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/block.json
+#: build/blocks/shelf-tag/block.json
+msgctxt "block keyword"
+msgid "ribbon"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/block.json
+#: build/blocks/shelf-tag/block.json
+msgctxt "block keyword"
+msgid "campaign"
 msgstr ""
 
 #: assets/src/blocks/shelf-tag/block.json
@@ -6837,6 +6965,12 @@ msgstr ""
 #: build/blocks/shelf-tag/block.json
 msgctxt "block keyword"
 msgid "featured"
+msgstr ""
+
+#: assets/src/blocks/shelf-tag/block.json
+#: build/blocks/shelf-tag/block.json
+msgctxt "block keyword"
+msgid "sale"
 msgstr ""
 
 #: assets/src/blocks/showfloor-look/block.json

@@ -206,6 +206,158 @@ class ShelfTagTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The tag rule matches products with the picked tag, takes the tag's
+	 * name for its words, and a missing or deleted tag matches nothing.
+	 */
+	public function test_tag_rule() {
+		$tag     = self::factory()->term->create(
+			array(
+				'taxonomy' => 'product_tag',
+				'name'     => '11.11',
+			)
+		);
+		$tagged  = $this->product();
+		$plain   = $this->product();
+		$attribs = array(
+			'rule' => 'tag',
+			'term' => $tag,
+		);
+		wp_set_object_terms( $tagged->get_id(), array( $tag ), 'product_tag' );
+
+		$this->assertTrue( ShelfTag::matches( $tagged, $attribs ) );
+		$this->assertFalse( ShelfTag::matches( $plain, $attribs ) );
+		$this->assertFalse( ShelfTag::matches( $tagged, array( 'rule' => 'tag' ) ), 'no term picked' );
+		$this->assertSame( '11.11', ShelfTag::default_label( 'tag', $attribs ) );
+		$this->assertStringContainsString( '>11.11</span>', $this->render( $attribs, $tagged->get_id() ) );
+
+		wp_delete_term( $tag, 'product_tag' );
+		clean_object_term_cache( $tagged->get_id(), 'product' );
+
+		$this->assertFalse( ShelfTag::matches( $tagged, $attribs ), 'deleted term' );
+		$this->assertSame( '', $this->render( $attribs, $tagged->get_id() ) );
+	}
+
+	/**
+	 * The category rule matches the picked category and its children, and
+	 * reads the parent product for a variation.
+	 */
+	public function test_category_rule() {
+		$parent  = self::factory()->term->create( array( 'taxonomy' => 'product_cat' ) );
+		$child   = self::factory()->term->create(
+			array(
+				'taxonomy' => 'product_cat',
+				'parent'   => $parent,
+			)
+		);
+		$product = $this->product();
+		$attribs = array(
+			'rule' => 'category',
+			'term' => $parent,
+		);
+		wp_set_object_terms( $product->get_id(), array( $child ), 'product_cat' );
+
+		$this->assertTrue( ShelfTag::matches( $product, $attribs ), 'child category' );
+		$this->assertFalse(
+			ShelfTag::matches(
+				$product,
+				array(
+					'rule' => 'tag',
+					'term' => $parent,
+				)
+			),
+			'a category ID is not a tag'
+		);
+
+		$variable = new \WC_Product_Variable();
+		$variable->set_name( 'Scarf' );
+		$variable->save();
+		wp_set_object_terms( $variable->get_id(), array( $parent ), 'product_cat' );
+		$variation = new \WC_Product_Variation();
+		$variation->set_parent_id( $variable->get_id() );
+		$variation->save();
+
+		$this->assertTrue( ShelfTag::matches( wc_get_product( $variation->get_id() ), $attribs ), 'variation reads its parent' );
+	}
+
+	/**
+	 * The sale rule follows the product's sale and says "Deal" by default.
+	 */
+	public function test_sale_rule() {
+		$sale = $this->product();
+		$sale->set_sale_price( '80' );
+		$sale->save();
+
+		$this->assertTrue( ShelfTag::matches( $sale, array( 'rule' => 'sale' ) ) );
+		$this->assertFalse( ShelfTag::matches( $this->product(), array( 'rule' => 'sale' ) ) );
+		$this->assertSame( 'Deal', ShelfTag::default_label( 'sale' ) );
+	}
+
+	/**
+	 * Show from and until limit every rule, both days counting, and bad
+	 * dates are ignored.
+	 */
+	public function test_dates() {
+		$star  = $this->product( array( 'featured' => true ) );
+		$today = current_datetime();
+		$day   = static function ( $offset ) use ( $today ) {
+			return $today->modify( $offset . ' day' )->format( 'Y-m-d' );
+		};
+		$rule  = array( 'rule' => 'featured' );
+
+		$this->assertTrue( ShelfTag::matches( $star, $rule + array( 'from' => $day( 0 ) ) ), 'from today' );
+		$this->assertTrue( ShelfTag::matches( $star, $rule + array( 'until' => $day( 0 ) ) ), 'until today' );
+		$this->assertTrue(
+			ShelfTag::matches(
+				$star,
+				$rule + array(
+					'from'  => $day( -3 ),
+					'until' => $day( 3 ),
+				)
+			)
+		);
+		$this->assertFalse( ShelfTag::matches( $star, $rule + array( 'from' => $day( 1 ) ) ), 'not started' );
+		$this->assertFalse( ShelfTag::matches( $star, $rule + array( 'until' => $day( -1 ) ) ), 'ended' );
+		$this->assertTrue( ShelfTag::matches( $star, $rule + array( 'until' => 'soon' ) ), 'bad date ignored' );
+
+		add_filter( 'purplish_shelf_tag_show', '__return_true' );
+		$this->assertFalse( ShelfTag::matches( $star, $rule + array( 'until' => $day( -1 ) ) ), 'dates come before the filter' );
+	}
+
+	/**
+	 * The image look prints the picked picture with its alt text and size,
+	 * no colors from Styles, and falls back to the words without a picture.
+	 */
+	public function test_image_look() {
+		$product = $this->product( array( 'featured' => true ) );
+		$image   = self::factory()->attachment->create_upload_object( DIR_TESTDATA . '/images/canola.jpg' );
+		update_post_meta( $image, '_wp_attachment_image_alt', 'Own alt' );
+		$attribs = array(
+			'rule'            => 'featured',
+			'look'            => 'image',
+			'imageId'         => $image,
+			'size'            => 'l',
+			'backgroundColor' => 'accent',
+		);
+
+		$out = $this->render( $attribs, $product->get_id() );
+
+		$this->assertStringContainsString( 'purplish-shelf-tag-look-image', $out );
+		$this->assertStringContainsString( 'purplish-shelf-tag-size-l', $out );
+		$this->assertStringContainsString( 'class="purplish-shelf-tag-image"', $out );
+		$this->assertStringContainsString( 'alt="Own alt"', $out );
+		$this->assertStringContainsString( 'loading="lazy"', $out );
+		$this->assertStringNotContainsString( 'has-background', $out );
+		$this->assertStringNotContainsString( 'purplish-shelf-tag-text', $out );
+
+		$this->assertStringContainsString( 'alt="Ours"', $this->render( $attribs + array( 'imageAlt' => 'Ours' ), $product->get_id() ) );
+
+		$attribs['imageId'] = 0;
+		$out                = $this->render( $attribs, $product->get_id() );
+		$this->assertStringContainsString( 'purplish-shelf-tag-look-chip', $out );
+		$this->assertStringContainsString( '>Featured</span>', $out );
+	}
+
+	/**
 	 * A matching card gets the tag with its look, corner and rule classes
 	 * and the default words.
 	 */
@@ -277,5 +429,32 @@ class ShelfTagTest extends WP_UnitTestCase {
 		$this->assertSame( $product->get_date_created()->getTimestamp(), $data['purplish_shelf']['created'] );
 		$this->assertSame( 'out-of-stock', $data['purplish_shelf']['stock']['class'] );
 		$this->assertSame( 'Out of stock', $data['purplish_shelf']['stock']['text'] );
+		$this->assertFalse( $data['purplish_shelf']['sale'] );
+		$this->assertSame( array(), $data['purplish_shelf']['tags'] );
+	}
+
+	/**
+	 * The REST field lists the product's tags, and its categories with their
+	 * parents, so the editor can tell which cards a campaign lands on.
+	 */
+	public function test_rest_field_terms() {
+		$product = $this->product();
+		$tag     = self::factory()->term->create( array( 'taxonomy' => 'product_tag' ) );
+		$parent  = self::factory()->term->create( array( 'taxonomy' => 'product_cat' ) );
+		$child   = self::factory()->term->create(
+			array(
+				'taxonomy' => 'product_cat',
+				'parent'   => $parent,
+			)
+		);
+		wp_set_object_terms( $product->get_id(), array( $tag ), 'product_tag' );
+		wp_set_object_terms( $product->get_id(), array( $child ), 'product_cat' );
+		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
+
+		$value = ShelfTag::rest_value( array( 'id' => $product->get_id() ) );
+
+		$this->assertSame( array( $tag ), $value['tags'] );
+		$this->assertContains( $child, $value['cats'] );
+		$this->assertContains( $parent, $value['cats'] );
 	}
 }

@@ -9,6 +9,7 @@ const SHAPES = [
 	{ value: 'pill', label: __( 'Pill', 'purplish' ) },
 	{ value: 'circle', label: __( 'Circle', 'purplish' ) },
 	{ value: 'tag', label: __( 'Price tag', 'purplish' ) },
+	{ value: 'ribbon', label: __( 'Ribbon', 'purplish' ) },
 ];
 
 const CORNERS = [
@@ -34,7 +35,7 @@ export default function BadgePanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Shape', 'purplish' ) }
 				help={ __(
-					'A border radius set in Styles takes the place of the pill and circle corners.',
+					'A border radius set in Styles takes the place of the pill and circle corners. Ribbon crosses the corner of the photo.',
 					'purplish'
 				) }
 				value={ saved.shape || '' }
@@ -48,7 +49,7 @@ export default function BadgePanel( { saved, setSaved } ) {
 				__nextHasNoMarginBottom
 				label={ __( 'Corner', 'purplish' ) }
 				help={ __(
-					"Where the badge sits on the photo. Works when the badge is inside the Product Gallery's large image.",
+					"Where the badge sits on the photo. Works when the badge is inside the Product Image block or the Product Gallery's large image.",
 					'purplish'
 				) }
 				value={ saved.corner || '' }
