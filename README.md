@@ -460,7 +460,7 @@ Purplish has a small set of PHP hooks, front-end events and CSS custom propertie
 | `purplish_blocks` | Filter | The Purplish block classes to register. Remove one to turn that block off, with its scripts and styles. |
 | `purplish_patterns` | Filter | The Purplish patterns to register, keyed by slug. |
 | `purplish_color_set` | Filter | The color set of a variation or simple product, with the product object. Return `null` for no color. A set with only `color` gets the other parts worked out from it. |
-| `purplish_container_types` | Filter | The product types that hold other products: `bundle`, `composite`, `mix-and-match` and `grouped`. A type added here gets the Page color field and opens in its own color. |
+| `purplish_container_types` | Filter | The product types that hold other products: `bundle`, `woosb` (WPC Product Bundles), `composite`, `mix-and-match` and `grouped`. A type added here gets the Page color field and opens in its own color. |
 | `purplish_detected_color` | Filter | The hex color the photo detector picked, with the attachment ID, before it's saved. Return an empty string to save no color. |
 | `purplish_block_classes` | Filter | The classes Purplish adds to a block's wrapper, with the block name and its saved Purplish options. |
 | `purplish_shelf_tag_show` | Filter | Whether a Shelf Tag shows on a product card, with the product and the tag's block attributes. |
