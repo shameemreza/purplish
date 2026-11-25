@@ -373,6 +373,28 @@ if ( canHover && document.querySelector( CARD_FOLLOW ) ) {
 }
 
 /**
+ * The photo in the full-screen view that matches the one on screen in the
+ * gallery.
+ *
+ * @param {HTMLElement} gallery The gallery block.
+ * @param {HTMLElement} dialog  Its full-screen view.
+ * @return {HTMLImageElement|null} The photo, if there is one.
+ */
+function pickedPhoto( gallery, dialog ) {
+	const frame = gallery.querySelector(
+		'.wc-block-product-gallery-large-image'
+	);
+	const id = frame && shownPhoto( frame )?.dataset.imageId;
+	return (
+		( id &&
+			dialog.querySelector(
+				`.wc-block-product-gallery-dialog__content img[data-image-id="${ id }"]`
+			) ) ||
+		null
+	);
+}
+
+/**
  * Zoom from photo: when the view opens, the photo on screen grows out of
  * its place on the page. The view is scrolled to that photo first, so the
  * measured end is where it stays.
@@ -381,18 +403,17 @@ if ( canHover && document.querySelector( CARD_FOLLOW ) ) {
  * @param {HTMLElement} dialog  Its full-screen view.
  */
 function zoomFromPhoto( gallery, dialog ) {
+	const img = pickedPhoto( gallery, dialog );
+	if ( ! img || img.hidden || ! img.naturalWidth ) {
+		return;
+	}
 	const content = dialog.querySelector(
 		'.wc-block-product-gallery-dialog__content'
 	);
 	const frame = gallery.querySelector(
 		'.wc-block-product-gallery-large-image'
 	);
-	const source = frame && shownPhoto( frame );
-	const id = source?.dataset.imageId;
-	const img = id && content?.querySelector( `img[data-image-id="${ id }"]` );
-	if ( ! img || img.hidden || ! img.naturalWidth ) {
-		return;
-	}
+	const source = shownPhoto( frame );
 
 	// It grows out of its tile in a photo grid, out of the strip otherwise.
 	const from = source
@@ -508,10 +529,27 @@ function filmstrip( dialog ) {
 	dialog.purplishWatch = watch;
 }
 
+/**
+ * The photos above the picked one, and the picked one, that haven't
+ * loaded yet.
+ *
+ * @param {HTMLElement}      dialog The full-screen view.
+ * @param {HTMLImageElement} img    The picked photo.
+ * @return {HTMLImageElement[]} Photos still loading.
+ */
+function stillLoading( dialog, img ) {
+	const photos = [
+		...dialog.querySelectorAll(
+			'.wc-block-product-gallery-dialog__content img'
+		),
+	];
+	return photos
+		.slice( 0, photos.indexOf( img ) + 1 )
+		.filter( ( photo ) => ! photo.hidden && ! photo.complete );
+}
+
 document
-	.querySelectorAll(
-		'.purplish-gallery-fullscreen-zoom, .purplish-gallery-fullscreen-filmstrip'
-	)
+	.querySelectorAll( '[class*="purplish-gallery-fullscreen-"]' )
 	.forEach( ( gallery ) => {
 		const dialog = gallery.querySelector(
 			'.wc-block-product-gallery-dialog'
@@ -522,15 +560,65 @@ document
 		const zoom = gallery.classList.contains(
 			'purplish-gallery-fullscreen-zoom'
 		);
+		const strip = gallery.classList.contains(
+			'purplish-gallery-fullscreen-filmstrip'
+		);
+		const eager = () =>
+			dialog
+				.querySelectorAll( 'img[loading="lazy"]' )
+				.forEach( ( img ) => img.setAttribute( 'loading', 'eager' ) );
+
+		// The server keeps the view's photos lazy, and these styles size a
+		// photo by the photo itself, so one that hasn't loaded has no
+		// height. A pointer or focus on the gallery starts them early.
+		gallery.addEventListener( 'pointerenter', eager, { once: true } );
+		gallery.addEventListener( 'focusin', eager, { once: true } );
+
+		const opened = () => {
+			if ( zoom && ! reduced ) {
+				zoomFromPhoto( gallery, dialog );
+			} else if ( strip ) {
+				filmstrip( dialog );
+			}
+		};
 		new window.MutationObserver( () => {
 			if ( ! dialog.hasAttribute( 'open' ) ) {
 				return;
 			}
-			if ( zoom && ! reduced ) {
-				zoomFromPhoto( gallery, dialog );
-			} else if ( ! zoom ) {
-				filmstrip( dialog );
+			const img = pickedPhoto( gallery, dialog );
+			const loading = img ? stillLoading( dialog, img ) : [];
+			if ( ! loading.length ) {
+				opened();
+				return;
 			}
+
+			// Opened before the photos were in: the view scrolled to the
+			// picked photo's place while the ones above it had no height.
+			// Once they're in, it goes back to that photo.
+			eager();
+			Promise.all(
+				loading.map(
+					( photo ) =>
+						new Promise( ( done ) => {
+							photo.addEventListener( 'load', done, {
+								once: true,
+							} );
+							photo.addEventListener( 'error', done, {
+								once: true,
+							} );
+						} )
+				)
+			).then( () => {
+				if ( ! dialog.hasAttribute( 'open' ) ) {
+					return;
+				}
+				img.scrollIntoView( {
+					block: 'center',
+					inline: 'nearest',
+					behavior: 'instant',
+				} );
+				opened();
+			} );
 		} ).observe( dialog, {
 			attributes: true,
 			attributeFilter: [ 'open' ],
