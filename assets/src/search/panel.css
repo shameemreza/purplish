@@ -121,9 +121,15 @@
 	font-weight: 600;
 }
 
-.purplish-search [role="option"][aria-selected="true"],
-.purplish-search [role="option"]:hover {
+.purplish-search [role="option"][aria-selected="true"] {
 	background: color-mix(in srgb, var(--purplish-theme-accent, var(--wp--preset--color--accent, #720eec)) 10%, transparent);
+}
+
+@media (hover: hover) {
+
+	.purplish-search [role="option"]:hover {
+		background: color-mix(in srgb, var(--purplish-theme-accent, var(--wp--preset--color--accent, #720eec)) 10%, transparent);
+	}
 }
 
 .purplish-search [role="option"][aria-selected="true"] {
