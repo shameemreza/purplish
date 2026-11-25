@@ -97,6 +97,7 @@ final class Plugin {
 		( new Frontend\SizeGuide() )->register();
 		( new Frontend\PhotoSwatches() )->register();
 		( new Frontend\StockDot() )->register();
+		( new Frontend\InstalmentLine() )->register();
 		( new Frontend\PhotoGrid() )->register();
 		( new Frontend\FullScreenPhotos() )->register();
 		( new Frontend\NeutralPanels() )->register();
@@ -114,6 +115,7 @@ final class Plugin {
 			( new Admin\VariationField() )->register();
 			( new Admin\SizeChartFields() )->register();
 			( new Admin\DeliverySettings() )->register();
+			( new Admin\InstalmentSettings() )->register();
 		}
 
 		/**

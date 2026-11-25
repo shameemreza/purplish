@@ -33,6 +33,8 @@ const options = [
 	'picked.js',
 	'stock.js',
 	'keep.js',
+	'instalments.js',
+	'style-instalments.css',
 	'meter.js',
 	'search.js',
 ].filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) );

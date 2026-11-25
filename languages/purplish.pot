@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T15:46:54+00:00\n"
+"POT-Creation-Date: 2026-11-25T15:52:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -478,6 +478,7 @@ msgstr ""
 #: assets/src/editor/order-confirmation.js:28
 #: assets/src/editor/order-confirmation.js:68
 #: assets/src/editor/pagination.js:28
+#: assets/src/editor/price.js:19
 #: assets/src/editor/reviews.js:22
 #: assets/src/editor/social.js:21
 #: assets/src/editor/specs.js:22
@@ -1234,6 +1235,153 @@ msgstr ""
 
 #: src/Admin/DeliverySettings.php:212
 msgid "Working days this product adds before it ships, like a made-to-order item. Used by the Delivery Line block."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:61
+#: src/Admin/InstalmentSettings.php:91
+#: src/Admin/InstalmentSettings.php:296
+#: src/Admin/InstalmentSettings.php:347
+#: src/Admin/InstalmentSettings.php:359
+msgid "Instalments"
+msgstr ""
+
+#. translators: %s: "Instalment line", the name of the option on the Product Price block.
+#: src/Admin/InstalmentSettings.php:94
+#, php-format
+msgid "A line under the price with the monthly amount, like \"or RM45.75/month for 12 months, 0%% interest\". It shows where the Product Price block has %s turned on in its Purplish panel. It only shows the sum: checkout doesn’t change. You own the wording, so check what your country asks a store to say about payment plans."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:95
+#: assets/src/editor/price.js:22
+#: build/editor.js:12
+msgid "Instalment line"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:101
+msgid "Price bands"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:102
+msgid "A price uses the highest band it reaches. Prices under the first band show no line. A yearly rate above 0 always shows the total payable."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:109
+msgid "Minimum price"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:110
+msgid "Products under this price show no line."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:118
+msgid "Wording"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:119
+msgid "{amount} is the monthly amount, {months} the months, {rate} the yearly rate and {total} the total payable."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:126
+msgid "Added when the rate is 0"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:133
+msgid "Added when the rate is above 0"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:134
+msgid "If neither line has {total}, the total payable is added at the end."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:141
+msgid "Info link"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:142
+msgid "A page about your payment plans. Leave empty for no link."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:151
+msgid "Info link text"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:158
+msgid "Logo"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:164
+msgid "Logo alt text"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:165
+msgid "The name on the logo, like your payment provider’s."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:213
+#: src/Admin/InstalmentSettings.php:228
+msgid "From price"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:214
+#: src/Admin/InstalmentSettings.php:229
+msgid "Months"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:215
+#: src/Admin/InstalmentSettings.php:230
+msgid "Yearly rate %"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:216
+#: src/Admin/InstalmentSettings.php:231
+#: src/Admin/InstalmentSettings.php:253
+#: assets/src/blocks/changing-room/photos.js:107
+#: assets/src/blocks/showfloor-look/edit.js:199
+#: assets/src/blocks/size-chart/edit.js:68
+#: build/blocks/changing-room/index.js:4
+#: build/blocks/showfloor/index.js:5
+#: build/blocks/size-chart/index.js:3
+msgid "Remove"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:234
+msgid "Add band"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:249
+msgid "Instalment logo"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:249
+msgid "Use this image"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:252
+msgid "Choose image"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:254
+msgid "Shows before the line at the height of the text, like your payment provider’s mark."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:266
+msgid "Store bands"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:267
+msgid "Hide"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:268
+msgid "Own bands"
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:277
+msgid "The instalment line for products in this category, unless a product sets its own."
+msgstr ""
+
+#: src/Admin/InstalmentSettings.php:278
+msgid "The instalment line under the price. Store bands follows the product’s category first, then the store."
 msgstr ""
 
 #. translators: %s: link to the Single Product template in the Site Editor.
@@ -2404,6 +2552,10 @@ msgstr ""
 msgid "Spend %1$s more for %2$s."
 msgstr ""
 
+#: src/Frontend/InstalmentLine.php:138
+msgid "The product’s Purplish instalment line, as HTML. Empty when it shows none."
+msgstr ""
+
 #: src/Frontend/InstantSearch.php:173
 msgid "Search suggestions"
 msgstr ""
@@ -2467,6 +2619,37 @@ msgstr[1] ""
 
 #: src/Frontend/SizeGuide.php:170
 msgid "Close size guide"
+msgstr ""
+
+#. translators: {amount}, {months}, {rate} and {total} are placeholders: keep them in English, in braces.
+#: src/Instalments.php:54
+msgid "or {amount}/month for {months} months"
+msgstr ""
+
+#. translators: Added after the wording when there is no interest. Placeholders stay in braces.
+#: src/Instalments.php:56
+msgid ", 0% interest"
+msgstr ""
+
+#. translators: Added after the wording when there is interest. {rate} is the yearly rate, {total} the total payable. Placeholders stay in braces.
+#: src/Instalments.php:58
+msgid ", {rate}% a year, {total} in total"
+msgstr ""
+
+#: src/Instalments.php:60
+msgid "Learn more"
+msgstr ""
+
+#. translators: %s: the total payable, like RM549.00.
+#: src/Instalments.php:286
+#, php-format
+msgid ", %s in total"
+msgstr ""
+
+#. translators: %s: the monthly amount of the cheapest option, like RM45.75.
+#: src/Instalments.php:291
+#, php-format
+msgid "from %s"
 msgstr ""
 
 #: src/Patterns.php:50
@@ -2942,15 +3125,6 @@ msgstr ""
 #: build/blocks/changing-room/index.js:4
 #, js-format
 msgid "Remove the photo of %s"
-msgstr ""
-
-#: assets/src/blocks/changing-room/photos.js:107
-#: assets/src/blocks/showfloor-look/edit.js:199
-#: assets/src/blocks/size-chart/edit.js:68
-#: build/blocks/changing-room/index.js:4
-#: build/blocks/showfloor/index.js:5
-#: build/blocks/size-chart/index.js:3
-msgid "Remove"
 msgstr ""
 
 #: assets/src/blocks/changing-room/photos.js:119
@@ -6427,6 +6601,16 @@ msgstr ""
 #: assets/src/editor/preview.js:316
 #: build/editor.js:12
 msgid "Product name"
+msgstr ""
+
+#: assets/src/editor/price.js:25
+#: build/editor.js:12
+msgid "A line under the price with the monthly amount, from your price bands."
+msgstr ""
+
+#: assets/src/editor/price.js:31
+#: build/editor.js:12
+msgid "Instalment settings"
 msgstr ""
 
 #: assets/src/editor/reviews.js:9

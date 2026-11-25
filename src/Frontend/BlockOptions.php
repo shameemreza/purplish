@@ -98,6 +98,7 @@ final class BlockOptions {
 		wp_add_inline_script( self::HANDLE, 'window.purplishRated = ' . wp_json_encode( CatalogSorting::any_rated() ) . ';', 'before' );
 		wp_add_inline_script( self::HANDLE, 'window.purplishSizeAttributes = ' . wp_json_encode( SizeCharts::attribute_choices() ) . ';', 'before' );
 		wp_add_inline_script( self::HANDLE, 'window.purplishMeter = ' . wp_json_encode( FreeDelivery::sample() ) . ';', 'before' );
+		wp_add_inline_script( self::HANDLE, 'window.purplishInstalments = ' . wp_json_encode( array( 'settings' => admin_url( 'admin.php?page=wc-settings&tab=products&section=' . \Purplish\Admin\InstalmentSettings::SECTION ) ) ) . ';', 'before' );
 	}
 
 	/**

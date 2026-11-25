@@ -1,0 +1,61 @@
+/**
+ * The instalment line under the price: one smaller line in the price's own
+ * text color, so it follows section colors and dark palettes and keeps the
+ * price's contrast. The logo, text and link flow inline and wrap as one
+ * sentence. The amount keeps a heavier weight. No box, no icon, nothing
+ * moves.
+ */
+.purplish-instalments {
+	margin-block-start: 0.35em;
+	font-size: 0.875em;
+	font-weight: 400;
+	line-height: 1.45;
+	overflow-wrap: anywhere;
+	text-wrap: pretty;
+}
+
+.purplish-instalments[hidden] {
+	display: none;
+}
+
+/* The price block's own alignment carries to the line. */
+.has-text-align-center ~ .purplish-instalments,
+[data-text-align="center"] > .purplish-instalments {
+	text-align: center;
+}
+
+.has-text-align-right ~ .purplish-instalments,
+[data-text-align="right"] > .purplish-instalments {
+	text-align: end;
+}
+
+.purplish-instalments__logo {
+	display: inline-block;
+	width: auto;
+	max-height: 1.25em;
+	margin-inline-end: 0.4em;
+	vertical-align: middle;
+}
+
+.purplish-instalments__amount {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.purplish-instalments__link {
+	margin-inline-start: 0.4em;
+	color: inherit;
+	white-space: nowrap;
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+.purplish-instalments__link:hover {
+	text-decoration-thickness: 2px;
+}
+
+.purplish-instalments__link:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
