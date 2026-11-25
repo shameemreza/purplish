@@ -111,9 +111,14 @@ final class PageData {
 			return null;
 		}
 
+		$start = self::starting_set( $variations, $product->get_default_attributes() );
+		if ( null === $start ) {
+			$start = self::shared_set( $product, $variations );
+		}
+
 		$data = array(
 			'variations' => $variations,
-			'default'    => self::starting_set( $variations, $product->get_default_attributes() ),
+			'default'    => $start,
 			'options'    => $options,
 		);
 		if ( ! empty( $options['dots'] ) ) {
@@ -162,6 +167,40 @@ final class PageData {
 			$picked[ $key ] = (string) $value;
 		}
 		return self::match( $variations, $picked );
+	}
+
+	/**
+	 * The one color every variation shares, so the page opens in it before
+	 * anything is picked: any pick would land on it anyway. Null when a
+	 * published variation has no color or the colors differ.
+	 *
+	 * @param WC_Product_Variable $product    Variable product.
+	 * @param array               $variations Its colored variations, from variations_of().
+	 * @return array{color: string, on: string, ink: string, tint: string}|null
+	 */
+	public static function shared_set( $product, $variations ) {
+		$published = 0;
+		foreach ( $product->get_children() as $child_id ) {
+			$variation = wc_get_product( $child_id );
+			if ( $variation instanceof WC_Product_Variation && 'publish' === $variation->get_status() ) {
+				++$published;
+			}
+		}
+		if ( 0 === $published || count( $variations ) !== $published ) {
+			return null;
+		}
+
+		$colors = array_unique( wp_list_pluck( $variations, 'color' ) );
+		if ( 1 !== count( $colors ) ) {
+			return null;
+		}
+		$first = reset( $variations );
+		return array(
+			'color' => $first['color'],
+			'on'    => $first['on'],
+			'ink'   => $first['ink'],
+			'tint'  => $first['tint'],
+		);
 	}
 
 	/**
