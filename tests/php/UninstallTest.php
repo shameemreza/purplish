@@ -8,6 +8,7 @@
 namespace Purplish\Tests;
 
 use Purplish\Delivery;
+use Purplish\Instalments;
 use Purplish\Jobs\DetectColors;
 use Purplish\Meta;
 use Purplish\SizeCharts;
@@ -28,6 +29,7 @@ class UninstallTest extends WP_UnitTestCase {
 		update_option( DetectColors::QUEUE_OPTION, 1 );
 		update_option( DetectColors::CONTAINER_WALK_OPTION, 1 );
 		update_option( Delivery::OPTION, array( 'processing' => 2 ) );
+		update_option( Instalments::OPTION, array( 'minimum' => 100 ) );
 
 		$variations = Products::sweater();
 		foreach ( $variations as $variation ) {
@@ -48,8 +50,10 @@ class UninstallTest extends WP_UnitTestCase {
 		update_post_meta( $product, SizeCharts::META, (string) $chart );
 		update_post_meta( $product, SizeCharts::FIT_META, 'Runs small, size up.' );
 		update_post_meta( $product, Delivery::META, 3 );
+		update_post_meta( $product, Instalments::META, array( 'mode' => 'hide' ) );
 		$term = wp_insert_term( 'Coats', 'product_cat' );
 		update_term_meta( $term['term_id'], SizeCharts::TERM_META, $chart );
+		update_term_meta( $term['term_id'], Instalments::META, array( 'mode' => 'hide' ) );
 
 		as_enqueue_async_action( DetectColors::HOOK_ONE, array( 'variation_id' => 1 ), DetectColors::GROUP );
 		as_enqueue_async_action( DetectColors::HOOK_BATCH, array( 'offset' => 50 ), DetectColors::GROUP );
@@ -72,6 +76,9 @@ class UninstallTest extends WP_UnitTestCase {
 		$this->assertFalse( get_option( Delivery::OPTION ) );
 		$this->assertSame( '', get_post_meta( $product, Delivery::META, true ) );
 		$this->assertSame( '', get_term_meta( $term['term_id'], SizeCharts::TERM_META, true ) );
+		$this->assertFalse( get_option( Instalments::OPTION ) );
+		$this->assertSame( '', get_post_meta( $product, Instalments::META, true ) );
+		$this->assertSame( '', get_term_meta( $term['term_id'], Instalments::META, true ) );
 		$this->assertSame( 'publish', get_post_status( $chart ), 'charts are the store owner\'s patterns and stay' );
 		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_ONE ) );
 		$this->assertFalse( as_has_scheduled_action( DetectColors::HOOK_BATCH ) );
