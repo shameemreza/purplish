@@ -176,6 +176,18 @@ class ProductSearchTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A product with a password stays out by SKU too, as it does by title.
+	 */
+	public function test_password_protected_product_stays_out_by_sku() {
+		$product = $this->product( 'Private Gown', 'PG-900' );
+		$product->set_post_password( 'secret' );
+		$product->save();
+
+		$this->assertSame( array(), $this->names( $this->search( array( 'q' => 'PG-900' ) ) ) );
+		$this->assertSame( array(), $this->names( $this->search( array( 'q' => 'Private Gown' ) ) ) );
+	}
+
+	/**
 	 * SKU matches come before title matches, an exact SKU before a prefix
 	 * one, and a product matching both shows once.
 	 */
