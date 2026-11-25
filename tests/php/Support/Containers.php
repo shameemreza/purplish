@@ -80,6 +80,7 @@ class FakeContainer extends \WC_Product {
 	public $bundled    = array();
 	public $components = array();
 	public $child      = array();
+	public $wpc_items  = array();
 
 	public function get_type() {
 		return $this->type;
@@ -95,6 +96,10 @@ class FakeContainer extends \WC_Product {
 
 	public function get_child_items() {
 		return $this->child;
+	}
+
+	public function get_items() {
+		return $this->wpc_items;
 	}
 }
 
