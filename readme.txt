@@ -37,6 +37,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 * **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, ruled cards with thin lines in place of the gap, a carousel that ends on part of the next card, an outline add to cart button, a photo wash, a hover look for the card, the photo and the button, and one effect color for all of it.
 * **Shop page:** a choice of which orderings Sort by lists, a grid switch after Sort by, new cards that fade, rise or slide into place after a filter or sort, a Load more button, a product count for a shop hero, and category tabs, chips or category photos with the current one marked.
 * **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, a 44px tap size for chips, and color names under swatches.
+* **Search:** products, prices and matching categories show under the Search block while a shopper types. It matches names and SKUs, and it works on cached pages.
 * **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, photo swatches that show each color option as its variation photo with the picked color's name beside the option name, a title and price that rise into place, a quantity box and button at one larger height, a bar with the name, price and button that stays at the bottom of a phone screen, and matching extras under the button that go into the cart on the same click, picked by hand, from Cross-sells or matched by category.
 * **Mini-Cart:** a count that pops, a photo that flies into the cart icon, a drawer that opens with a soft spring, a free shipping meter, and cart items without their short descriptions.
 * **Cart, checkout and order confirmation:** soft rows, bigger photos and a free shipping meter in the cart, checkout fields and choices in your style, button looks on Place Order, the order total on the pinned checkout button on phones, a thank-you moment, and the order details on a paper receipt.
@@ -190,6 +191,10 @@ Select the Pagination block in your Product Collection and pick Load more in the
 = Can the product filters sit in a bar above the products? =
 
 Yes. Select the Product Filters block and set Layout to Bar. Each filter opens as a dropdown under its label, on a click or on hover, with four open styles. To keep the sidebar instead, turn on Sidebar can hide for a Hide filters button beside Sort by. Phones keep the filter overlay either way.
+
+= Can the WooCommerce search show products while typing? =
+
+Yes. Select a Search block and turn on Show products while typing under Instant results. Products show from the second letter, matched by name or SKU, variation SKUs too. It works on cached pages. Prices in the list are the ones a guest sees, so stores with role or member prices see guest prices there.
 
 = How do I style the WooCommerce checkout? =
 
