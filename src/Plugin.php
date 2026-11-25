@@ -100,6 +100,7 @@ final class Plugin {
 		( new Frontend\InstalmentLine() )->register();
 		( new Frontend\PhotoGrid() )->register();
 		( new Frontend\FullScreenPhotos() )->register();
+		( new Frontend\NeutralPanels() )->register();
 		( new Frontend\PurpleParts() )->register();
 		( new Frontend\AccountStyle() )->register();
 		( new Admin\Settings() )->register();

@@ -88,6 +88,8 @@ On other blocks:
 - **Product Reviews, Review style:** each review on its own soft card, or the review text in a chat bubble.
 - **Product Specifications, Table style:** every other row shaded, or each row on its own soft card. Screen readers still read it as a table.
 
+Soft panels, like accordions and the cart drawer, take a light mix of the page color. To keep them on a neutral fill from your theme's text color, turn off Tint panels with the page color in WooCommerce > Settings > Products > Purplish. The page background tint keeps the page color.
+
 ## Product gallery
 
 | Option | Choices |

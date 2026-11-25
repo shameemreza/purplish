@@ -7,6 +7,8 @@
 
 namespace Purplish\Color;
 
+use Purplish\Frontend\NeutralPanels;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -122,7 +124,8 @@ final class SectionColors {
 		$all = ':is(' . implode( ',', array_keys( $sections ) ) . ')';
 
 		return $css
-			. 'body.purplish-active ' . $all . '{--purplish-fx-tint:color-mix(in oklab, var(--purplish-tint) 55%, var(--purplish-ground, #fff))}'
+			. 'body.purplish-active ' . $all . '{--purplish-page-tint:color-mix(in oklab, var(--purplish-tint) 55%, var(--purplish-ground, #fff));--purplish-fx-tint:var(--purplish-page-tint)}'
+			. 'body.' . NeutralPanels::BODY_CLASS . ' ' . $all . '{--purplish-fx-tint:color-mix(in oklab, var(--wp--preset--color--contrast, #1e1e1e) 6%, var(--purplish-ground, #fff))}'
 			. $all . ' :is(' . self::FOLLOW . '){color:inherit}';
 	}
 

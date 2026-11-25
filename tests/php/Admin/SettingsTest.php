@@ -101,12 +101,15 @@ class SettingsTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Block themes get one line pointing to the block panel, and no fields.
+	 * Block themes get one line pointing to the block panel, and the panel
+	 * tint switch, which works on every theme.
 	 */
 	public function test_block_theme_pointer() {
 		$fields = Settings::fields( true );
 
-		$this->assertCount( 2, $fields );
+		$this->assertCount( 3, $fields );
+		$this->assertSame( Settings::OPTION . '[tint_panels]', $fields[1]['id'] );
+		$this->assertSame( 'yes', $fields[1]['default'] );
 		$this->assertStringContainsString( 'Add to Cart + Options block', $fields[0]['desc'] );
 		$this->assertStringContainsString( 'site-editor.php', $fields[0]['desc'] );
 	}
@@ -119,11 +122,11 @@ class SettingsTest extends WP_UnitTestCase {
 		$fields = Settings::fields( true, true );
 		$ids    = wp_list_pluck( $fields, 'id' );
 
-		$this->assertCount( 6, $fields );
+		$this->assertCount( 7, $fields );
 		$this->assertContains( Settings::OPTION . '[purple_delivery]', $ids );
 		$this->assertContains( Settings::OPTION . '[purple_extras]', $ids );
 		foreach ( $fields as $field ) {
-			if ( 'checkbox' === $field['type'] ) {
+			if ( 'checkbox' === $field['type'] && Settings::OPTION . '[tint_panels]' !== $field['id'] ) {
 				$this->assertSame( 'no', $field['default'] );
 			}
 		}

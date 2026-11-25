@@ -14,7 +14,17 @@
 body.purplish-active {
 	--purplish-fx: var(--purplish-accent);
 	--purplish-fx-on: var(--purplish-on);
-	--purplish-fx-tint: color-mix(in oklab, var(--purplish-tint) 55%, var(--purplish-ground, #fff));
+	--purplish-page-tint: color-mix(in oklab, var(--purplish-tint) 55%, var(--purplish-ground, #fff));
+	--purplish-fx-tint: var(--purplish-page-tint);
+}
+
+/*
+ * Tint panels with the page color, off: soft panels mix from the theme's
+ * text color on every page, so a slate accent or product doesn't turn them
+ * blue-grey. The page background and Group's page color keep the tint.
+ */
+body.purplish-neutral-panels {
+	--purplish-fx-tint: color-mix(in oklab, var(--wp--preset--color--contrast, #1e1e1e) 6%, var(--purplish-ground, #fff));
 }
 
 /*

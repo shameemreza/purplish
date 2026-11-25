@@ -211,6 +211,10 @@ Only Showfloor's autoplay, and it's off by default. When you turn it on, it move
 
 Yes. Set its Page color to Off, and it keeps your theme's colors.
 
+= Can panels stay neutral when a product has a color? =
+
+Soft panels, like accordions and the cart drawer, take a light mix of the page color. To keep them on a neutral fill from your theme's text color, turn off Tint panels with the page color in WooCommerce > Settings > Products > Purplish. The page background tint keeps the page color.
+
 = What about visitors who turn off motion? =
 
 Visitors who turn on reduced motion on their device get the colors without any animation.
