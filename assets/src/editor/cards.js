@@ -708,7 +708,7 @@ export default function CardsPanel( { saved, setSaved, attributes } ) {
 							'purplish'
 						) }
 						help={ __(
-							'Hovering anywhere on a card fills its add to cart button with the effect color and underlines the name. Off on touch screens.',
+							'Hovering anywhere on a card fills its add to cart button with the effect color. Off on touch screens.',
 							'purplish'
 						) }
 						checked={ true === saved.cardfill }

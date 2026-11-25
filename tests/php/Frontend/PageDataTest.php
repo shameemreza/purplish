@@ -187,6 +187,35 @@ class PageDataTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * With no default attributes, a product whose variations all share one
+	 * color opens in it. One variation without a color, or a second color,
+	 * keeps the theme's colors until a pick.
+	 */
+	public function test_shared_color_is_the_default() {
+		$variations = Products::sweater();
+		$product_id = reset( $variations )->get_parent_id();
+		foreach ( $variations as $variation ) {
+			$variation->update_meta_data( Meta::MODE, Meta::MODE_CUSTOM );
+			$variation->update_meta_data( Meta::CUSTOM_COLOR, '#c2185b' );
+			$variation->save();
+		}
+
+		$data = PageData::for_product( wc_get_product( $product_id ), Options::defaults() );
+		$this->assertSame( '#c2185b', $data['default']['color'] );
+
+		$variations['Blue/M']->update_meta_data( Meta::MODE, Meta::MODE_OFF );
+		$variations['Blue/M']->save();
+		$data = PageData::for_product( wc_get_product( $product_id ), Options::defaults() );
+		$this->assertNull( $data['default'], 'one variation without a color' );
+
+		$variations['Blue/M']->update_meta_data( Meta::MODE, Meta::MODE_CUSTOM );
+		$variations['Blue/M']->update_meta_data( Meta::CUSTOM_COLOR, '#2a519e' );
+		$variations['Blue/M']->save();
+		$data = PageData::for_product( wc_get_product( $product_id ), Options::defaults() );
+		$this->assertNull( $data['default'], 'two colors' );
+	}
+
+	/**
 	 * A simple product without a color gets no data.
 	 */
 	public function test_simple_product_without_color() {

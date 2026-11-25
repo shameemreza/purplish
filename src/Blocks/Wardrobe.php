@@ -291,7 +291,27 @@ final class Wardrobe implements Block {
 			esc_attr( $id ),
 			$label,
 			$icon,
-			$content
+			self::lazy_photos( $content )
 		);
+	}
+
+	/**
+	 * Marks every photo in the panel to load lazily. The panel starts
+	 * hidden, so its photos would otherwise download on every page before
+	 * the menu opens. A header image can get fetchpriority="high" from
+	 * WordPress, which can't go with lazy loading, so that goes.
+	 *
+	 * @param string $content Panel markup.
+	 * @return string
+	 */
+	public static function lazy_photos( $content ) {
+		$tags = new \WP_HTML_Tag_Processor( $content );
+		while ( $tags->next_tag( 'img' ) ) {
+			$tags->set_attribute( 'loading', 'lazy' );
+			if ( 'high' === $tags->get_attribute( 'fetchpriority' ) ) {
+				$tags->remove_attribute( 'fetchpriority' );
+			}
+		}
+		return $tags->get_updated_html();
 	}
 }

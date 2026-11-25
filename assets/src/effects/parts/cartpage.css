@@ -90,8 +90,8 @@
 }
 
 /*
- * Bigger photos, rounded: 120px on a wide Cart page, 96px in the drawer
- * and 80px on a phone, where the row has no more room.
+ * Bigger photos, rounded: 120px on a wide Cart page and 72px on a phone,
+ * where the row has no more room. WooCommerce's own phone column is 60px.
  */
 :is(.purplish-cartpage-photos, .purplish-drawer-photos) .wc-block-cart-item__image img {
 	aspect-ratio: 1;
@@ -116,7 +116,7 @@
 
 .purplish-cartpage-photos:is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row,
 .purplish-cartpage-photos :is(.is-small, .is-mobile) table.wc-block-cart-items tbody .wc-block-cart-items__row {
-	grid-template-columns: 96px 132px;
+	grid-template-columns: 72px 132px;
 	column-gap: 12px;
 }
 

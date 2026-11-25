@@ -52,7 +52,7 @@
 @media (max-width: 480px) {
 
 	.purplish-drawer-photos table.wc-block-cart-items tbody .wc-block-cart-items__row {
-		grid-template-columns: 96px 132px;
+		grid-template-columns: 72px 132px;
 		column-gap: 12px;
 	}
 }

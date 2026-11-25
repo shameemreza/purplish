@@ -112,6 +112,19 @@ export function wardrobe( item ) {
 		}
 	} );
 
+	// The server marks panel photos lazy so a closed panel downloads
+	// nothing. A pointer or focus on the item starts them early, during
+	// the open delay, so they're there when the panel opens.
+	const warm = () => {
+		if ( usable() ) {
+			panel
+				.querySelectorAll( 'img[loading="lazy"]' )
+				.forEach( ( img ) => img.setAttribute( 'loading', 'eager' ) );
+		}
+	};
+	item.addEventListener( 'pointerenter', warm, { once: true } );
+	item.addEventListener( 'focusin', warm, { once: true } );
+
 	looks( panel );
 	item.classList.add( 'is-ready' );
 	return { open, panel };
