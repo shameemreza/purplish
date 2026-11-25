@@ -34,6 +34,7 @@ const options = [
 	'stock.js',
 	'keep.js',
 	'meter.js',
+	'search.js',
 ].filter( ( file ) => fs.existsSync( path.join( BUILD, file ) ) );
 const shared = [
 	'effects.js',

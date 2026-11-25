@@ -41,6 +41,7 @@ import DrawerPanel from './drawer';
 import CartPagePanel from './cart-page';
 import CheckoutPagePanel from './checkout-page';
 import { OrderStatusPanel, OrderSummaryPanel } from './order-confirmation';
+import SearchPanel, { SearchView } from './search';
 import './preview';
 
 const PANELS = {
@@ -82,6 +83,7 @@ const PANELS = {
 	'woocommerce/mini-cart-checkout-button-block': BuyButtonPanel,
 	'woocommerce/cart': CartPagePanel,
 	'woocommerce/checkout': CheckoutPagePanel,
+	'core/search': SearchPanel,
 };
 
 /**
@@ -92,6 +94,7 @@ const VIEWS = {
 	'woocommerce/product-stock-indicator': StockView,
 	'woocommerce/product-results-count': CountView,
 	'woocommerce/catalog-sorting': CatalogSortingView,
+	'core/search': SearchView,
 };
 
 addFilter(
