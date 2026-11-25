@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T14:44:24+00:00\n"
+"POT-Creation-Date: 2026-11-25T15:05:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -443,8 +443,8 @@ msgstr ""
 
 #: patterns/flagship-footer.php:17
 #: src/Abilities.php:57
-#: src/Admin/Settings.php:44
-#: src/Admin/Settings.php:79
+#: src/Admin/Settings.php:45
+#: src/Admin/Settings.php:75
 #: src/Blocks/Registry.php:158
 #: src/Patterns.php:46
 #: src/Patterns.php:310
@@ -1234,20 +1234,20 @@ msgid "Working days this product adds before it ships, like a made-to-order item
 msgstr ""
 
 #. translators: %s: link to the Single Product template in the Site Editor.
-#: src/Admin/Settings.php:89
+#: src/Admin/Settings.php:85
 #, php-format
 msgid "Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings."
 msgstr ""
 
-#: src/Admin/Settings.php:90
+#: src/Admin/Settings.php:86
 msgid "Single Product template"
 msgstr ""
 
-#: src/Admin/Settings.php:95
+#: src/Admin/Settings.php:92
 msgid "When a shopper picks a color on a variable product, these parts of the product page take that color."
 msgstr ""
 
-#: src/Admin/Settings.php:98
+#: src/Admin/Settings.php:95
 #: assets/src/blocks/escalator/edit.js:224
 #: assets/src/editor/add-to-cart.js:18
 #: build/blocks/escalator/index.js:1
@@ -1255,52 +1255,52 @@ msgstr ""
 msgid "Add to cart button"
 msgstr ""
 
-#: src/Admin/Settings.php:99
+#: src/Admin/Settings.php:96
 #: assets/src/editor/add-to-cart.js:20
 #: build/editor.js:6
 msgid "Sale badge"
 msgstr ""
 
-#: src/Admin/Settings.php:100
+#: src/Admin/Settings.php:97
 #: assets/src/editor/add-to-cart.js:21
 #: build/editor.js:6
 msgid "Sale price"
 msgstr ""
 
-#: src/Admin/Settings.php:101
+#: src/Admin/Settings.php:98
 #: assets/src/editor/add-to-cart.js:22
 #: build/editor.js:6
 msgid "Page background tint"
 msgstr ""
 
-#: src/Admin/Settings.php:110
+#: src/Admin/Settings.php:107
 msgid "Parts that take the color"
 msgstr ""
 
-#: src/Admin/Settings.php:119
+#: src/Admin/Settings.php:117
 msgid "Hide thumbnails (one big photo)"
 msgstr ""
 
-#: src/Admin/Settings.php:120
+#: src/Admin/Settings.php:118
 #: assets/src/editor/gallery.js:13
 #: build/editor.js:6
 msgid "Rounded corners"
 msgstr ""
 
-#: src/Admin/Settings.php:127
+#: src/Admin/Settings.php:125
 msgid "Product gallery"
 msgstr ""
 
-#: src/Admin/Settings.php:140
+#: src/Admin/Settings.php:138
 msgid "Gallery hover style"
 msgstr ""
 
-#: src/Admin/Settings.php:141
+#: src/Admin/Settings.php:139
 msgid "Plays when the mouse is over the photo, and replaces WooCommerce's hover zoom. Touch screens and visitors who ask for reduced motion see the plain photo."
 msgstr ""
 
-#: src/Admin/Settings.php:145
-#: src/Admin/Settings.php:164
+#: src/Admin/Settings.php:143
+#: src/Admin/Settings.php:162
 #: src/Admin/SizeChartFields.php:100
 #: assets/src/blocks/escalator/edit.js:51
 #: assets/src/blocks/escalator/edit.js:59
@@ -1334,14 +1334,14 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: src/Admin/Settings.php:146
+#: src/Admin/Settings.php:144
 #: assets/src/editor/gallery.js:40
 #: build/editor.js:6
 msgid "3D tilt"
 msgstr ""
 
-#: src/Admin/Settings.php:147
-#: src/Admin/Settings.php:167
+#: src/Admin/Settings.php:145
+#: src/Admin/Settings.php:165
 #: assets/src/editor/add-to-cart.js:103
 #: assets/src/editor/gallery.js:41
 #: assets/src/editor/terms.js:129
@@ -1350,7 +1350,7 @@ msgstr ""
 msgid "Zoom"
 msgstr ""
 
-#: src/Admin/Settings.php:148
+#: src/Admin/Settings.php:146
 #: assets/src/blocks/escalator/edit.js:53
 #: assets/src/blocks/showfloor/choices.js:54
 #: assets/src/editor/cards.js:100
@@ -1363,7 +1363,7 @@ msgstr ""
 msgid "Lift"
 msgstr ""
 
-#: src/Admin/Settings.php:149
+#: src/Admin/Settings.php:147
 #: assets/src/editor/cards.js:59
 #: assets/src/editor/cover.js:10
 #: assets/src/editor/gallery.js:43
@@ -1372,7 +1372,7 @@ msgstr ""
 msgid "Parallax"
 msgstr ""
 
-#: src/Admin/Settings.php:150
+#: src/Admin/Settings.php:148
 #: assets/src/editor/cards.js:112
 #: assets/src/editor/cover.js:19
 #: assets/src/editor/gallery.js:44
@@ -1381,13 +1381,13 @@ msgstr ""
 msgid "Glare"
 msgstr ""
 
-#: src/Admin/Settings.php:151
+#: src/Admin/Settings.php:149
 #: assets/src/editor/gallery.js:45
 #: build/editor.js:6
 msgid "Loupe"
 msgstr ""
 
-#: src/Admin/Settings.php:152
+#: src/Admin/Settings.php:150
 #: assets/src/editor/cover.js:9
 #: assets/src/editor/gallery.js:46
 #: build/editor.js:6
@@ -1395,19 +1395,19 @@ msgstr ""
 msgid "Slow zoom"
 msgstr ""
 
-#: src/Admin/Settings.php:159
+#: src/Admin/Settings.php:157
 #: assets/src/editor/add-to-cart.js:82
 #: build/editor.js:12
 msgid "Photo transition"
 msgstr ""
 
-#: src/Admin/Settings.php:160
+#: src/Admin/Settings.php:158
 #: assets/src/editor/add-to-cart.js:83
 #: build/editor.js:12
 msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
 msgstr ""
 
-#: src/Admin/Settings.php:165
+#: src/Admin/Settings.php:163
 #: assets/src/blocks/changing-room/choices.js:28
 #: assets/src/blocks/color-dots/edit.js:30
 #: assets/src/editor/add-to-cart.js:95
@@ -1419,13 +1419,13 @@ msgstr ""
 msgid "Fade"
 msgstr ""
 
-#: src/Admin/Settings.php:166
+#: src/Admin/Settings.php:164
 #: assets/src/editor/add-to-cart.js:99
 #: build/editor.js:12
 msgid "Blur"
 msgstr ""
 
-#: src/Admin/Settings.php:168
+#: src/Admin/Settings.php:166
 #: assets/src/blocks/color-dots/edit.js:32
 #: assets/src/editor/add-to-cart.js:107
 #: assets/src/editor/filters.js:86
@@ -1434,13 +1434,13 @@ msgstr ""
 msgid "Slide"
 msgstr ""
 
-#: src/Admin/Settings.php:169
+#: src/Admin/Settings.php:167
 #: assets/src/editor/add-to-cart.js:111
 #: build/editor.js:12
 msgid "Flip"
 msgstr ""
 
-#: src/Admin/Settings.php:170
+#: src/Admin/Settings.php:168
 #: assets/src/blocks/color-dots/edit.js:31
 #: assets/src/editor/add-to-cart.js:115
 #: build/blocks/color-dots/index.js:1
@@ -1448,43 +1448,55 @@ msgstr ""
 msgid "Wipe"
 msgstr ""
 
-#: src/Admin/Settings.php:171
+#: src/Admin/Settings.php:169
 #: assets/src/editor/add-to-cart.js:119
 #: build/editor.js:12
 msgid "Circle reveal"
 msgstr ""
 
-#: src/Admin/Settings.php:172
+#: src/Admin/Settings.php:170
 #: assets/src/editor/add-to-cart.js:123
 #: build/editor.js:12
 msgid "Color wash"
 msgstr ""
 
-#: src/Admin/Settings.php:178
+#: src/Admin/Settings.php:176
 msgid "Title and price"
 msgstr ""
 
-#: src/Admin/Settings.php:179
+#: src/Admin/Settings.php:177
 msgid "Rise in after the photo on each color change"
 msgstr ""
 
+#: src/Admin/Settings.php:196
+msgid "Panels"
+msgstr ""
+
 #: src/Admin/Settings.php:197
-msgid "Purple's Add to Cart parts"
+msgid "Tint panels with the page color"
 msgstr ""
 
 #: src/Admin/Settings.php:198
+msgid "Soft panels, like accordions and the cart drawer, take a light mix of the page color. Turn this off to keep them on a neutral fill from your theme's text color."
+msgstr ""
+
+#: src/Admin/Settings.php:213
+msgid "Purple's Add to Cart parts"
+msgstr ""
+
+#: src/Admin/Settings.php:214
 msgid "Purple has an Add to Cart part for each product type. What you turn on here goes at the end of the simple, variable and grouped parts, under the buy button. To move it, change its settings or take it out of one part, open that part in the Site Editor."
 msgstr ""
 
-#: src/Admin/Settings.php:203
+#: src/Admin/Settings.php:219
 msgid "Add under the button"
 msgstr ""
 
-#: src/Admin/Settings.php:204
+#: src/Admin/Settings.php:220
 msgid "Delivery Line: the delivery date, returns and pickup. Set your dates in Shipping > Delivery dates first."
 msgstr ""
 
-#: src/Admin/Settings.php:211
+#: src/Admin/Settings.php:227
 msgid "Matching Extras: other products to tick, added to the cart on the same click."
 msgstr ""
 
