@@ -65,7 +65,7 @@ On a default WooCommerce product page, picking another color changes the photo a
 
 ![Picking blue turns the button, the selected option and the background blue](.github/assets/color-change.gif)
 
-Each variation has a Page color: **Automatic** reads it from the photo (a swatch color comes first), **Custom** takes any color or hex code, and **Off** keeps your theme's colors. Automatic colors keep the photo's hue and get adjusted for each use, so the button text stays readable. Simple products get one color for the whole page. Bundles, composites, mix and match boxes and grouped products open in their own color, then follow the item the shopper changed last. Clearing an item hands the color back to the one changed before. Without a color of their own, bundles and composites open in the color of their first item that already has one. Works with WooCommerce Product Bundles, Composite Products and Mix and Match Products.
+Each variation has a Page color: **Automatic** reads it from the photo (a swatch color comes first), **Custom** takes any color or hex code, and **Off** keeps your theme's colors. Automatic colors keep the photo's hue and get adjusted for each use, so the button text stays readable. Simple products get one color for the whole page. Bundles, composites, mix and match boxes and grouped products open in their own color, then follow the item the shopper changed last. Clearing an item hands the color back to the one changed before. Without a color of their own, bundles and composites open in the color of their first item that already has one. Works with WooCommerce Product Bundles, WPC Product Bundles, Composite Products and Mix and Match Products.
 
 On the same block:
 
