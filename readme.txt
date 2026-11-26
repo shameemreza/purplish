@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce blocks, blocks, design, product gallery
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 = What Purplish adds to WooCommerce blocks =
 
 * **Product page colors:** when a shopper picks a variation, the add to cart button, the selected option and the sale badge take its color, and the sale price and a soft background tint can too. Purplish reads the color from the product in the photo, or you set it by hand. The photo changes with a transition, like Blur, Wipe or Color wash.
+* **Instalment line:** a line under the product price with the monthly amount, like "or $45.75/month for 12 months, 0% interest", from price bands you set once. It follows the picked variation, and a product or category can use its own bands or hide it. It only shows the sum, so checkout doesn't change.
 * **Bundles and grouped products:** a bundle, composite, mix and match box or grouped product opens in its own Page color, then follows the item the shopper changed last, so picking Harbor on the jacket in a bundle turns the page Harbor. Works with WooCommerce Product Bundles, WPC Product Bundles, Composite Products and Mix and Match Products.
 * **Product gallery:** every photo at once in a grid, two across or two large over smaller ones, with the product details kept in view beside it, hover styles like 3D tilt, Zoom and Loupe, five full-screen styles, four slide styles, round arrows on hover, a photo wash, and rounded or circle thumbnails.
 * **Product cards:** 23 card effects for the Product Collection, add to cart or all the details on the photo, ruled cards with thin lines in place of the gap, a carousel that ends on part of the next card, an outline add to cart button, a photo wash, a hover look for the card, the photo and the button, and one effect color for all of it.
@@ -205,6 +206,12 @@ Select the Checkout block and open the Purplish panel. Fields can be soft, fille
 
 Yes. The Mini-Cart drawer can open with a soft spring, with the items on soft rows, and Fly to cart sends the product photo into the cart icon. On the order confirmation page, the Order Status heading can rise with a burst of rays behind it once, and the Order Summary can sit on a paper receipt with a torn bottom edge, printed on the block's background color. The drawer and the Cart page can show how much more the cart needs for free shipping. Both can also hide each item's short description, so the rows stay short.
 
+= Can I show a monthly price under the product price? =
+
+Yes. Turn on Instalment line in the Purplish panel of the Product Price block, then set your price bands, minimum price, wording, info link and logo in WooCommerce > Settings > Products > Instalments. A price uses the highest band it reaches. At 0% the price is split and rounded up, so the months never add up to less than the price. A yearly rate above 0 always shows the total payable.
+
+The line only shows the sum. It doesn't take payments or change checkout, so pair it with the pay-later or instalment plan your store offers. You own the wording, so check what your country asks a store to say about payment plans before you turn it on.
+
 = Can shoppers add a whole outfit to the cart at once? =
 
 Yes, with two blocks. On a Showfloor, one button adds every piece of a look at the price shown, and variable products link to their page instead. In the Changing Room, Add both adds the top and the bottom and asks for a size first when a piece needs one.
@@ -266,6 +273,23 @@ Purplish doesn't collect, store or send personal data. It sets no cookies and ma
 Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209): set each variation's color by hand, or read it from the photo.
 
 == Changelog ==
+
+= 1.4.1 =
+
+* New: Instalment line on the Product Price block, with the monthly amount from price bands set in WooCommerce > Settings > Products > Instalments, a logo and an info link. It follows the picked variation, and a product or category can use its own bands or hide it.
+* New: Instant results on the Search block. Products, prices and matching categories show while a shopper types, matched by name or SKU, and it works on cached pages.
+* New: Trade-in on Add to Cart + Options. Shoppers pick their old device and see your estimate from a device table in WooCommerce > Settings > Products > Trade-in, with CSV import and export. The device goes with the cart item and the order, and nothing comes off the price.
+* New: Shelf Tag rules for products on sale and for a product tag or category, start and end dates, a ribbon look and an image look for your own artwork.
+* New: A ribbon shape for the On-Sale Badge.
+* New: Page colors for WPC Product Bundles, following the item the shopper changed last.
+* New: A Tint panels with the page color setting, so soft panels like accordions and the cart drawer can stay on a neutral fill.
+* Update: Tags and badges on a rounded product photo sit further in, so the corner never cuts them.
+* Fix: Closed Wardrobe panels don't download their photos with every page anymore. They load when the shopper points at or tabs to the menu.
+* Fix: Full-screen gallery photos don't load with the page anymore. They load once the shopper points at or tabs into the gallery, and the view still opens on the photo picked.
+* Fix: A variable product whose variations all share one color opens in that color before any option is picked.
+* Fix: Bigger cart photos keep cart rows inside phone screens, in the Cart and the Mini-Cart drawer.
+* Fix: Card hover fills the button leaves the product name without an underline.
+* Fix: Gallery arrows keep a small gap between them and stay easy to see on light page colors. They rest on a solid white disc and fill with the page color on hover.
 
 = 1.4.0 =
 
