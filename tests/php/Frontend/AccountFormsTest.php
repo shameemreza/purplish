@@ -94,6 +94,50 @@ class AccountFormsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tab look and Slide motion count only with the switch they belong to.
+	 * Slide shows tabs on phones, so it takes the tab look too.
+	 */
+	public function test_switch_classes() {
+		$this->assertSame(
+			array( 'purplish-account', 'purplish-account-switch-slide', 'purplish-account-tabs-line', 'purplish-account-slide-flood' ),
+			AccountForms::classes(
+				array(
+					'switch' => 'slide',
+					'tabs'   => 'line',
+					'slide'  => 'flood',
+				)
+			)
+		);
+		$this->assertSame(
+			array( 'purplish-account', 'purplish-account-switch-flip' ),
+			AccountForms::classes(
+				array(
+					'switch' => 'flip',
+					'tabs'   => 'line',
+					'slide'  => 'flood',
+				)
+			)
+		);
+		$this->assertSame( array(), AccountForms::classes( array( 'slide' => 'iris' ) ) );
+	}
+
+	/**
+	 * A sign up that failed opens on the register form again.
+	 */
+	public function test_open_register_after_failed_sign_up() {
+		$block = $this->shortcode_block( array( 'switch' => 'tabs' ) );
+
+		$this->assertStringNotContainsString( 'open-register', AccountForms::render_shortcode_block( '[woocommerce_my_account]', $block ) );
+
+		$_POST['register'] = 'Register';
+		AccountForms::reset();
+		$html = AccountForms::render_shortcode_block( '[woocommerce_my_account]', $block );
+		unset( $_POST['register'] );
+
+		$this->assertStringContainsString( 'purplish-account-switch-tabs purplish-account-open-register purplish-account-forms', $html );
+	}
+
+	/**
 	 * Only the Shortcode block gets the attribute.
 	 */
 	public function test_add_attribute() {
