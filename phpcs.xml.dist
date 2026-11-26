@@ -31,12 +31,13 @@
 			</property>
 		</properties>
 	</rule>
-	<!-- WooCommerce's product capabilities. -->
+	<!-- WooCommerce's capabilities. -->
 	<rule ref="WordPress.WP.Capabilities">
 		<properties>
 			<property name="custom_capabilities" type="array">
 				<element value="edit_product"/>
 				<element value="manage_product_terms"/>
+				<element value="manage_woocommerce"/>
 			</property>
 		</properties>
 	</rule>

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-25T15:52:12+00:00\n"
+"POT-Creation-Date: 2026-11-26T01:36:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -453,7 +453,7 @@ msgstr ""
 #: src/Patterns.php:310
 #: assets/src/editor/accordion-group.js:16
 #: assets/src/editor/accordion.js:19
-#: assets/src/editor/add-to-cart.js:51
+#: assets/src/editor/add-to-cart.js:52
 #: assets/src/editor/badge.js:32
 #: assets/src/editor/button.js:112
 #: assets/src/editor/buy-button.js:79
@@ -599,6 +599,7 @@ msgid "Privacy"
 msgstr ""
 
 #: patterns/flagship-footer.php:118
+#: src/Admin/TradeInSettings.php:152
 msgid "Terms"
 msgstr ""
 
@@ -1237,104 +1238,106 @@ msgstr ""
 msgid "Working days this product adds before it ships, like a made-to-order item. Used by the Delivery Line block."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:61
-#: src/Admin/InstalmentSettings.php:91
-#: src/Admin/InstalmentSettings.php:296
-#: src/Admin/InstalmentSettings.php:347
-#: src/Admin/InstalmentSettings.php:359
+#: src/Admin/InstalmentSettings.php:62
+#: src/Admin/InstalmentSettings.php:92
+#: src/Admin/InstalmentSettings.php:313
+#: src/Admin/InstalmentSettings.php:364
+#: src/Admin/InstalmentSettings.php:376
 msgid "Instalments"
 msgstr ""
 
 #. translators: %s: "Instalment line", the name of the option on the Product Price block.
-#: src/Admin/InstalmentSettings.php:94
+#: src/Admin/InstalmentSettings.php:95
 #, php-format
 msgid "A line under the price with the monthly amount, like \"or RM45.75/month for 12 months, 0%% interest\". It shows where the Product Price block has %s turned on in its Purplish panel. It only shows the sum: checkout doesn’t change. You own the wording, so check what your country asks a store to say about payment plans."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:95
+#: src/Admin/InstalmentSettings.php:96
 #: assets/src/editor/price.js:22
 #: build/editor.js:12
 msgid "Instalment line"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:101
+#: src/Admin/InstalmentSettings.php:102
 msgid "Price bands"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:102
+#: src/Admin/InstalmentSettings.php:103
 msgid "A price uses the highest band it reaches. Prices under the first band show no line. A yearly rate above 0 always shows the total payable."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:109
+#: src/Admin/InstalmentSettings.php:110
 msgid "Minimum price"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:110
+#: src/Admin/InstalmentSettings.php:111
 msgid "Products under this price show no line."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:118
+#: src/Admin/InstalmentSettings.php:119
 msgid "Wording"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:119
+#: src/Admin/InstalmentSettings.php:120
 msgid "{amount} is the monthly amount, {months} the months, {rate} the yearly rate and {total} the total payable."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:126
+#: src/Admin/InstalmentSettings.php:127
 msgid "Added when the rate is 0"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:133
+#: src/Admin/InstalmentSettings.php:134
 msgid "Added when the rate is above 0"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:134
+#: src/Admin/InstalmentSettings.php:135
 msgid "If neither line has {total}, the total payable is added at the end."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:141
+#: src/Admin/InstalmentSettings.php:142
 msgid "Info link"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:142
+#: src/Admin/InstalmentSettings.php:143
 msgid "A page about your payment plans. Leave empty for no link."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:151
+#: src/Admin/InstalmentSettings.php:152
 msgid "Info link text"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:158
+#: src/Admin/InstalmentSettings.php:159
 msgid "Logo"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:164
+#: src/Admin/InstalmentSettings.php:165
 msgid "Logo alt text"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:165
+#: src/Admin/InstalmentSettings.php:166
 msgid "The name on the logo, like your payment provider’s."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:213
-#: src/Admin/InstalmentSettings.php:228
+#: src/Admin/InstalmentSettings.php:230
+#: src/Admin/InstalmentSettings.php:245
 msgid "From price"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:214
-#: src/Admin/InstalmentSettings.php:229
+#: src/Admin/InstalmentSettings.php:231
+#: src/Admin/InstalmentSettings.php:246
 msgid "Months"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:215
-#: src/Admin/InstalmentSettings.php:230
+#: src/Admin/InstalmentSettings.php:232
+#: src/Admin/InstalmentSettings.php:247
 msgid "Yearly rate %"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:216
-#: src/Admin/InstalmentSettings.php:231
-#: src/Admin/InstalmentSettings.php:253
+#: src/Admin/InstalmentSettings.php:233
+#: src/Admin/InstalmentSettings.php:248
+#: src/Admin/InstalmentSettings.php:270
+#: src/Admin/TradeInSettings.php:220
+#: src/Admin/TradeInSettings.php:259
 #: assets/src/blocks/changing-room/photos.js:107
 #: assets/src/blocks/showfloor-look/edit.js:199
 #: assets/src/blocks/size-chart/edit.js:68
@@ -1344,43 +1347,43 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:234
+#: src/Admin/InstalmentSettings.php:251
 msgid "Add band"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:249
+#: src/Admin/InstalmentSettings.php:266
 msgid "Instalment logo"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:249
+#: src/Admin/InstalmentSettings.php:266
 msgid "Use this image"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:252
+#: src/Admin/InstalmentSettings.php:269
 msgid "Choose image"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:254
+#: src/Admin/InstalmentSettings.php:271
 msgid "Shows before the line at the height of the text, like your payment provider’s mark."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:266
+#: src/Admin/InstalmentSettings.php:283
 msgid "Store bands"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:267
+#: src/Admin/InstalmentSettings.php:284
 msgid "Hide"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:268
+#: src/Admin/InstalmentSettings.php:285
 msgid "Own bands"
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:277
+#: src/Admin/InstalmentSettings.php:294
 msgid "The instalment line for products in this category, unless a product sets its own."
 msgstr ""
 
-#: src/Admin/InstalmentSettings.php:278
+#: src/Admin/InstalmentSettings.php:295
 msgid "The instalment line under the price. Store bands follows the product’s category first, then the store."
 msgstr ""
 
@@ -1400,26 +1403,26 @@ msgstr ""
 
 #: src/Admin/Settings.php:95
 #: assets/src/blocks/escalator/edit.js:224
-#: assets/src/editor/add-to-cart.js:18
+#: assets/src/editor/add-to-cart.js:19
 #: build/blocks/escalator/index.js:1
 #: build/editor.js:6
 msgid "Add to cart button"
 msgstr ""
 
 #: src/Admin/Settings.php:96
-#: assets/src/editor/add-to-cart.js:20
+#: assets/src/editor/add-to-cart.js:21
 #: build/editor.js:6
 msgid "Sale badge"
 msgstr ""
 
 #: src/Admin/Settings.php:97
-#: assets/src/editor/add-to-cart.js:21
+#: assets/src/editor/add-to-cart.js:22
 #: build/editor.js:6
 msgid "Sale price"
 msgstr ""
 
 #: src/Admin/Settings.php:98
-#: assets/src/editor/add-to-cart.js:22
+#: assets/src/editor/add-to-cart.js:23
 #: build/editor.js:6
 msgid "Page background tint"
 msgstr ""
@@ -1458,8 +1461,8 @@ msgstr ""
 #: assets/src/blocks/showfloor/choices.js:57
 #: assets/src/blocks/size-chart/inspector.js:31
 #: assets/src/blocks/size-chart/inspector.js:46
-#: assets/src/editor/add-to-cart.js:91
-#: assets/src/editor/add-to-cart.js:134
+#: assets/src/editor/add-to-cart.js:92
+#: assets/src/editor/add-to-cart.js:135
 #: assets/src/editor/cards.js:685
 #: assets/src/editor/checkout-page.js:16
 #: assets/src/editor/checkout-page.js:23
@@ -1493,7 +1496,7 @@ msgstr ""
 
 #: src/Admin/Settings.php:145
 #: src/Admin/Settings.php:165
-#: assets/src/editor/add-to-cart.js:103
+#: assets/src/editor/add-to-cart.js:104
 #: assets/src/editor/gallery.js:41
 #: assets/src/editor/terms.js:129
 #: build/editor.js:6
@@ -1547,13 +1550,13 @@ msgid "Slow zoom"
 msgstr ""
 
 #: src/Admin/Settings.php:157
-#: assets/src/editor/add-to-cart.js:82
+#: assets/src/editor/add-to-cart.js:83
 #: build/editor.js:12
 msgid "Photo transition"
 msgstr ""
 
 #: src/Admin/Settings.php:158
-#: assets/src/editor/add-to-cart.js:83
+#: assets/src/editor/add-to-cart.js:84
 #: build/editor.js:12
 msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
 msgstr ""
@@ -1561,7 +1564,7 @@ msgstr ""
 #: src/Admin/Settings.php:163
 #: assets/src/blocks/changing-room/choices.js:28
 #: assets/src/blocks/color-dots/edit.js:30
-#: assets/src/editor/add-to-cart.js:95
+#: assets/src/editor/add-to-cart.js:96
 #: assets/src/editor/cards.js:427
 #: build/blocks/changing-room/index.js:1
 #: build/blocks/color-dots/index.js:1
@@ -1571,14 +1574,14 @@ msgid "Fade"
 msgstr ""
 
 #: src/Admin/Settings.php:164
-#: assets/src/editor/add-to-cart.js:99
+#: assets/src/editor/add-to-cart.js:100
 #: build/editor.js:12
 msgid "Blur"
 msgstr ""
 
 #: src/Admin/Settings.php:166
 #: assets/src/blocks/color-dots/edit.js:32
-#: assets/src/editor/add-to-cart.js:107
+#: assets/src/editor/add-to-cart.js:108
 #: assets/src/editor/filters.js:86
 #: build/blocks/color-dots/index.js:1
 #: build/editor.js:12
@@ -1586,27 +1589,27 @@ msgid "Slide"
 msgstr ""
 
 #: src/Admin/Settings.php:167
-#: assets/src/editor/add-to-cart.js:111
+#: assets/src/editor/add-to-cart.js:112
 #: build/editor.js:12
 msgid "Flip"
 msgstr ""
 
 #: src/Admin/Settings.php:168
 #: assets/src/blocks/color-dots/edit.js:31
-#: assets/src/editor/add-to-cart.js:115
+#: assets/src/editor/add-to-cart.js:116
 #: build/blocks/color-dots/index.js:1
 #: build/editor.js:12
 msgid "Wipe"
 msgstr ""
 
 #: src/Admin/Settings.php:169
-#: assets/src/editor/add-to-cart.js:119
+#: assets/src/editor/add-to-cart.js:120
 #: build/editor.js:12
 msgid "Circle reveal"
 msgstr ""
 
 #: src/Admin/Settings.php:170
-#: assets/src/editor/add-to-cart.js:123
+#: assets/src/editor/add-to-cart.js:124
 #: build/editor.js:12
 msgid "Color wash"
 msgstr ""
@@ -1699,6 +1702,224 @@ msgstr ""
 msgid "Products in this category show this chart and a Size guide link, unless a product picks its own."
 msgstr ""
 
+#: src/Admin/TradeInOverride.php:50
+msgid "Store setting"
+msgstr ""
+
+#: src/Admin/TradeInOverride.php:51
+msgid "On"
+msgstr ""
+
+#: src/Admin/TradeInOverride.php:52
+#: src/Admin/VariationField.php:130
+#: assets/src/blocks/changing-room/choices.js:20
+#: assets/src/blocks/color-dots/edit.js:24
+#: assets/src/blocks/showfloor/choices.js:16
+#: assets/src/blocks/showfloor/choices.js:47
+#: assets/src/editor/cards.js:216
+#: assets/src/editor/cards.js:362
+#: assets/src/editor/pagination.js:58
+#: build/blocks/changing-room/index.js:1
+#: build/blocks/color-dots/index.js:1
+#: build/blocks/showfloor/index.js:1
+#: build/editor.js:6
+#: build/editor.js:7
+#: build/editor.js:12
+msgid "Off"
+msgstr ""
+
+#: src/Admin/TradeInOverride.php:61
+msgid "Whether products in this category take trade-in, unless a product sets its own."
+msgstr ""
+
+#: src/Admin/TradeInOverride.php:62
+msgid "Whether this product takes trade-in. Store setting follows the product’s category first, then the store."
+msgstr ""
+
+#: src/Admin/TradeInOverride.php:77
+#: src/Admin/TradeInOverride.php:120
+#: src/Admin/TradeInOverride.php:132
+#: src/Admin/TradeInSettings.php:63
+#: src/Admin/TradeInSettings.php:94
+#: src/Admin/TradeInSettings.php:98
+#: src/TradeIn.php:410
+#: assets/src/editor/trade-in.js:21
+#: build/editor.js:6
+msgid "Trade-in"
+msgstr ""
+
+#. translators: %s: "Trade-in", the name of the option on the Add to Cart + Options block.
+#: src/Admin/TradeInSettings.php:97
+#, php-format
+msgid "Shoppers say whether they’re trading in an old device, pick it, and see your estimate. It shows where the Add to Cart + Options block has %s turned on in its Purplish panel. The device and the estimate go with the cart item and the order. Nothing comes off the price: you settle the value when you inspect the device."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:104
+msgid "Products that take trade-in"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:105
+msgid "A product or category can set its own in its Trade-in setting."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:108
+msgid "All products"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:109
+msgid "Only products and categories set to On"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:114
+msgid "Devices"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:119
+msgid "Condition note"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:120
+msgid "Shows under the estimate. Leave empty for none."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:127
+msgid "Inspection note"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:128
+msgid "Shows after the condition note. Leave empty for none."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:135
+msgid "\"How it works\" link"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:136
+msgid "A page about your trade-in. Leave empty for no link."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:145
+#: assets/src/editor/chips.js:148
+#: build/editor.js:12
+msgid "Link text"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:153
+msgid "Shoppers who pick Yes tick a box to accept your trade-in terms before Add to Cart"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:159
+msgid "Terms box label"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:166
+msgid "Terms page"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:167
+msgid "Adds a \"Read the terms\" link after the box. Leave empty for no link."
+msgstr ""
+
+#. translators: %s: number of devices.
+#: src/Admin/TradeInSettings.php:206
+#, php-format
+msgid "%s device"
+msgid_plural "%s devices"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/TradeInSettings.php:215
+#: src/Admin/TradeInSettings.php:254
+#: src/Frontend/TradeInField.php:161
+msgid "Brand"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:216
+#: src/Admin/TradeInSettings.php:255
+#: src/Frontend/TradeInField.php:161
+msgid "Model"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:217
+#: src/Admin/TradeInSettings.php:256
+#: src/Frontend/TradeInField.php:161
+msgid "Storage"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:218
+#: src/Admin/TradeInSettings.php:257
+msgid "Low value"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:219
+#: src/Admin/TradeInSettings.php:258
+msgid "High value"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:223
+msgid "Add device"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:225
+msgid "A device needs a brand, a model and a high value. When low and high are the same, shoppers see one figure. Storage can stay empty. Rows without a brand, model or value are dropped on save."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:227
+msgid "Import a CSV file"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:228
+msgid "Columns: brand, model, storage, low, high. A first row that starts with \"brand\" is skipped. The file imports when you save."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:229
+msgid "CSV file"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:230
+msgid "Add to the table (a device already there takes the new values)"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:231
+msgid "Replace the table"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:233
+msgid "Export CSV"
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:291
+msgid "The CSV file didn’t upload. Try again."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:306
+msgid "The CSV file is over 2 MB. Split it into smaller files and import them one by one."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:311
+msgid "No devices imported: no row had a brand, a model and a value. The table didn’t change."
+msgstr ""
+
+#. translators: 1: number of devices imported. 2: number of devices in the table now.
+#: src/Admin/TradeInSettings.php:318
+#, php-format
+msgid "Imported %1$s device. The table has %2$s now."
+msgid_plural "Imported %1$s devices. The table has %2$s now."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of rows skipped. 2: their line numbers, like 4, 9, 12.
+#: src/Admin/TradeInSettings.php:328
+#, php-format
+msgid "Skipped %1$s row without a brand, a model or a value, on line %2$s."
+msgid_plural "Skipped %1$s rows without a brand, a model or a value, on lines %2$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/TradeInSettings.php:345
+msgid "Sorry, you can’t export the trade-in devices."
+msgstr ""
+
 #: src/Admin/VariationField.php:60
 msgid "The product page takes this color when a shopper picks this variation. Automatic reads it from the variation photo. Off keeps the theme colors."
 msgstr ""
@@ -1725,23 +1946,6 @@ msgstr ""
 
 #: src/Admin/VariationField.php:129
 msgid "Custom"
-msgstr ""
-
-#: src/Admin/VariationField.php:130
-#: assets/src/blocks/changing-room/choices.js:20
-#: assets/src/blocks/color-dots/edit.js:24
-#: assets/src/blocks/showfloor/choices.js:16
-#: assets/src/blocks/showfloor/choices.js:47
-#: assets/src/editor/cards.js:216
-#: assets/src/editor/cards.js:362
-#: assets/src/editor/pagination.js:58
-#: build/blocks/changing-room/index.js:1
-#: build/blocks/color-dots/index.js:1
-#: build/blocks/showfloor/index.js:1
-#: build/editor.js:6
-#: build/editor.js:7
-#: build/editor.js:12
-msgid "Off"
 msgstr ""
 
 #: src/Admin/VariationField.php:143
@@ -1896,11 +2100,15 @@ msgstr ""
 #. translators: 1: size, like M, 2: stock line, like "9 in stock".
 #. translators: The photo's alt text while a color's photo shows. 1: the photo's own alt text, 2: the color's name.
 #. translators: 1: number of pieces, like "3 pieces", 2: look total.
+#. translators: 1: device model, like iPhone 13. 2: storage, like 128GB.
+#. translators: 1: brand and model, like Apple iPhone 13. 2: storage, like 128GB.
 #: src/Blocks/ChangingRoom.php:362
 #: src/Blocks/ChangingRoom.php:381
 #: src/Blocks/ChangingRoomPiece.php:206
 #: src/Blocks/ColorDots.php:337
 #: src/Blocks/Showfloor.php:323
+#: src/Frontend/TradeInField.php:117
+#: src/TradeIn.php:364
 #: assets/src/blocks/showfloor/edit.js:115
 #: build/blocks/showfloor/index.js:3
 #, php-format,js-format
@@ -2621,6 +2829,66 @@ msgstr[1] ""
 msgid "Close size guide"
 msgstr ""
 
+#: src/Frontend/TradeInField.php:146
+msgid "Read the terms"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:156
+msgid "Trade in an old device?"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:157
+msgid "No"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:157
+msgid "Yes"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:159
+msgid "Your device"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:160
+msgid "Choose your device"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:161
+msgid "Choose a brand"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:161
+msgid "Choose a model"
+msgstr ""
+
+#: src/Frontend/TradeInField.php:161
+msgid "Choose storage"
+msgstr ""
+
+#. translators: %s: the trade-in value, like RM680.00.
+#: src/Frontend/TradeInField.php:209
+#, php-format
+msgid "Estimated trade-in value: %s"
+msgstr ""
+
+#. translators: 1: lowest trade-in value. 2: highest trade-in value.
+#: src/Frontend/TradeInField.php:211
+#, php-format
+msgid "Estimated trade-in value: %1$s to %2$s"
+msgstr ""
+
+#. translators: %s: the product price minus the trade-in value, like RM3,919.00.
+#: src/Frontend/TradeInField.php:221
+#, php-format
+msgid "Price after trade-in: %s"
+msgstr ""
+
+#. translators: %s: the lowest product price minus the highest trade-in value, like RM3,919.00.
+#: src/Frontend/TradeInField.php:223
+#, php-format
+msgid "Price after trade-in: from %s"
+msgstr ""
+
 #. translators: {amount}, {months}, {rate} and {total} are placeholders: keep them in English, in braces.
 #: src/Instalments.php:54
 msgid "or {amount}/month for {months} months"
@@ -2753,6 +3021,46 @@ msgstr ""
 #: assets/src/blocks/size-chart/table.js:223
 #: build/blocks/size-chart/index.js:1
 msgid "Around the fullest part of your hips, with your feet together."
+msgstr ""
+
+#: src/TradeIn.php:66
+msgid "Estimate for a device in good condition."
+msgstr ""
+
+#: src/TradeIn.php:67
+msgid "The final value is set when we inspect the device."
+msgstr ""
+
+#: src/TradeIn.php:69
+msgid "How it works"
+msgstr ""
+
+#: src/TradeIn.php:71
+msgid "I accept the trade-in terms"
+msgstr ""
+
+#: src/TradeIn.php:340
+msgid "Choose the device you’re trading in, or pick No for trade-in."
+msgstr ""
+
+#: src/TradeIn.php:349
+msgid "Tick the box to accept the trade-in terms, or pick No for trade-in."
+msgstr ""
+
+#. translators: 1: lowest trade-in value. 2: highest trade-in value.
+#: src/TradeIn.php:389
+#, php-format
+msgid "%1$s to %2$s"
+msgstr ""
+
+#. translators: %s: the trade-in estimate, like RM600.00 to RM680.00.
+#: src/TradeIn.php:407
+#, php-format
+msgid "%s (one device per unit)"
+msgstr ""
+
+#: src/TradeIn.php:411
+msgid "Estimated trade-in value"
 msgstr ""
 
 #: assets/src/blocks/changing-room-piece/edit.js:107
@@ -4799,117 +5107,117 @@ msgstr ""
 msgid "Chevron"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:19
+#: assets/src/editor/add-to-cart.js:20
 #: build/editor.js:6
 msgid "Selected option"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:53
+#: assets/src/editor/add-to-cart.js:54
 #: build/editor.js:12
 msgid "Parts of the product page that take the color of the variation a shopper picks."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:57
+#: assets/src/editor/add-to-cart.js:58
 #: build/editor.js:12
 msgid "The editor shows them in a sample color."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:131
+#: assets/src/editor/add-to-cart.js:132
 #: build/editor.js:12
 msgid "Title on a color change"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:137
+#: assets/src/editor/add-to-cart.js:138
 #: build/editor.js:12
 msgid "Title and price rise"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:141
+#: assets/src/editor/add-to-cart.js:142
 #: build/editor.js:12
 msgid "Title comes into focus"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:154
+#: assets/src/editor/add-to-cart.js:155
 #: build/editor.js:12
 msgid "Mesh background"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:155
+#: assets/src/editor/add-to-cart.js:156
 #: build/editor.js:12
 msgid "Soft blobs of the color over the tint, which move to a new place on each color change."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:165
+#: assets/src/editor/add-to-cart.js:166
 #: build/editor.js:12
 msgid "Glow ring on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:166
+#: assets/src/editor/add-to-cart.js:167
 #: build/editor.js:12
 msgid "A soft ring of the color around the add to cart button. Products without a page color, and variable products before a pick, use the theme’s button color."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:175
+#: assets/src/editor/add-to-cart.js:176
 #: build/editor.js:12
 msgid "Large buy row"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:176
+#: assets/src/editor/add-to-cart.js:177
 #: build/editor.js:12
 msgid "The quantity box and the add to cart button share one 52px height."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:185
+#: assets/src/editor/add-to-cart.js:186
 #: build/editor.js:12
 msgid "Sticky bar on phones"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:186
+#: assets/src/editor/add-to-cart.js:187
 #: build/editor.js:12
 msgid "Once the add to cart button scrolls up out of view on a phone, a bar with the name, price and button stays at the bottom of the screen. On variable products it scrolls back to the options until a shopper picks them. The editor shows a sample under the block."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:195
+#: assets/src/editor/add-to-cart.js:196
 #: build/editor.js:12
 msgid "Liquid glass button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:196
+#: assets/src/editor/add-to-cart.js:197
 #: build/editor.js:12
 msgid "A frosted fill with a highlight that follows the mouse. Visitors who ask for reduced motion see the plain button."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:205
+#: assets/src/editor/add-to-cart.js:206
 #: build/editor.js:12
 msgid "Spectrum ring on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:206
+#: assets/src/editor/add-to-cart.js:207
 #: build/editor.js:12
 msgid "A rainbow ring travels once around the button on hover."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:216
+#: assets/src/editor/add-to-cart.js:217
 #: build/editor.js:12
 msgid "Googly eyes on the button"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:224
+#: assets/src/editor/add-to-cart.js:225
 #: build/editor.js:12
 msgid "Halo after adding to cart"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:225
+#: assets/src/editor/add-to-cart.js:226
 #: build/editor.js:12
 msgid "A ring leaves the button and fades each time the product goes into the cart."
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:234
+#: assets/src/editor/add-to-cart.js:235
 #: build/editor.js:12
 msgid "Color dots on options"
 msgstr ""
 
-#: assets/src/editor/add-to-cart.js:235
+#: assets/src/editor/add-to-cart.js:236
 #: build/editor.js:12
 msgid "A dot in each color before its name on the option buttons."
 msgstr ""
@@ -5871,11 +6179,6 @@ msgstr ""
 msgid "Shows on products with a size chart, picked on the product or its category. It opens the chart in a dialog."
 msgstr ""
 
-#: assets/src/editor/chips.js:148
-#: build/editor.js:12
-msgid "Link text"
-msgstr ""
-
 #: assets/src/editor/chips.js:156
 #: build/editor.js:12
 msgid "Beside"
@@ -6824,8 +7127,33 @@ msgstr ""
 msgid "Circle is round with the square aspect ratio, and oval with the others."
 msgstr ""
 
+#: assets/src/editor/trade-in.js:24
+#: build/editor.js:6
+msgid "Ask about a trade-in"
+msgstr ""
+
+#: assets/src/editor/trade-in.js:27
+#: build/editor.js:6
+msgid "Shoppers say whether they’re trading in an old device, pick it, and see your estimate. It shows on products that take trade-in, once the device table has a device."
+msgstr ""
+
+#: assets/src/editor/trade-in.js:33
+#: build/editor.js:6
+msgid "Trade-in settings"
+msgstr ""
+
+#: assets/src/editor/trade-in.js:50
+#: build/editor.js:6
+msgid "Show price after trade-in"
+msgstr ""
+
+#: assets/src/editor/trade-in.js:51
+#: build/editor.js:6
+msgid "Adds the product price minus the highest estimate under the estimate. The cart price doesn’t change."
+msgstr ""
+
 #. translators: 1: photo number, 2: number of photos.
-#: assets/src/effects/index.js:463
+#: assets/src/effects/index.js:484
 #: build/effects.js:2
 #, js-format
 msgid "Photo %1$d of %2$d"

@@ -2,6 +2,12 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Trade-in on Add to Cart + Options, with a device table and CSV import and export in the WooCommerce settings, an estimate for the picked device, an optional price after trade-in and terms checkbox, and the device saved on the cart item and the order.
+
 ## [1.4.0] - 2026-11-21
 
 ### Added
