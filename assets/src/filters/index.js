@@ -9,7 +9,7 @@
  * for the visit. The stylesheet does the motion, and phones keep
  * WooCommerce's own overlay.
  */
-import { placeToggle, sides } from './place';
+import { placeToggle, sides, strays } from './place';
 import { watchBars } from './bar';
 import { watchSticky } from './sticky';
 
@@ -93,7 +93,7 @@ document
 
 		// A filter change redraws the products, Sort by and all.
 		new window.MutationObserver( () => {
-			if ( ! main.contains( toggle ) ) {
+			if ( ! main.contains( toggle ) || strays( toggle, main ).length ) {
 				placeToggle( toggle, main );
 			}
 		} ).observe( main, { childList: true, subtree: true } );
