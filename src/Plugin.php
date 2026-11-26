@@ -59,7 +59,10 @@ final class Plugin {
 
 	/**
 	 * Declares support for WooCommerce order storage (HPOS) and the cart and
-	 * checkout blocks. Purplish touches neither, so both are safe.
+	 * checkout blocks. The one order data Purplish writes is the trade-in
+	 * device and estimate, saved as order item meta through the order item
+	 * object, which works with either order storage. The cart and checkout
+	 * blocks show those lines from the cart item data, so both are safe.
 	 *
 	 * @return void
 	 */
@@ -98,6 +101,8 @@ final class Plugin {
 		( new Frontend\PhotoSwatches() )->register();
 		( new Frontend\StockDot() )->register();
 		( new Frontend\InstalmentLine() )->register();
+		( new Frontend\TradeInField() )->register();
+		( new Frontend\TradeInCart() )->register();
 		( new Frontend\PhotoGrid() )->register();
 		( new Frontend\FullScreenPhotos() )->register();
 		( new Frontend\NeutralPanels() )->register();
@@ -116,6 +121,8 @@ final class Plugin {
 			( new Admin\SizeChartFields() )->register();
 			( new Admin\DeliverySettings() )->register();
 			( new Admin\InstalmentSettings() )->register();
+			( new Admin\TradeInSettings() )->register();
+			( new Admin\TradeInOverride() )->register();
 		}
 
 		/**

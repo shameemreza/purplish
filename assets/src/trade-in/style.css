@@ -1,0 +1,200 @@
+/**
+ * The trade-in choice in the Add to Cart + Options form. It takes the
+ * theme's font and text color: lines and borders are the text color at low
+ * strength, so section colors and dark palettes carry through. Yes and No
+ * are two pills; the picked one gets a full-strength border. The estimate
+ * is the one heavier line. Nothing moves.
+ */
+.purplish-trade-in {
+	--purplish-ti-line: color-mix(in srgb, currentcolor 28%, transparent);
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: var(--wp--preset--font-size--small, 0.9375rem);
+	line-height: 1.45;
+}
+
+.purplish-trade-in__legend {
+	margin: 0 0 0.5em;
+	padding: 0;
+	font-weight: 600;
+}
+
+.purplish-trade-in__choice {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+}
+
+.purplish-trade-in__option {
+	display: inline-flex;
+	gap: 0.5em;
+	align-items: center;
+	min-width: 5.5em;
+	min-height: 44px;
+	box-sizing: border-box;
+	padding: 0.4em 1em;
+	border: 1px solid var(--purplish-ti-line);
+	border-radius: 999px;
+	cursor: pointer;
+}
+
+.purplish-trade-in__option:has(input:checked) {
+	border-color: currentcolor;
+	box-shadow: inset 0 0 0 1px currentcolor;
+}
+
+.purplish-trade-in__option:has(input:focus-visible) {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+.purplish-trade-in__option input,
+.purplish-trade-in__check input {
+	width: 1.125em;
+	height: 1.125em;
+	margin: 0;
+	accent-color: currentcolor;
+}
+
+/* No hides the device picks. Without :has() support they stay open. */
+.purplish-trade-in:has(input[value="no"]:checked) .purplish-trade-in__panel {
+	display: none;
+}
+
+.purplish-trade-in__panel {
+	display: grid;
+	gap: 0.75em;
+	margin-block-start: 0.875em;
+}
+
+.purplish-trade-in__panel > * {
+	margin: 0;
+}
+
+.purplish-trade-in__picks {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(9.5em, 1fr));
+	gap: 0.75em;
+}
+
+.purplish-trade-in__field {
+	display: grid;
+	gap: 0.25em;
+	min-width: 0;
+	margin: 0;
+}
+
+.purplish-trade-in__field[hidden],
+.purplish-trade-in__error[hidden] {
+	display: none;
+}
+
+.purplish-trade-in__field label {
+	font-weight: 500;
+}
+
+.purplish-trade-in__field select {
+	width: 100%;
+	min-height: 44px;
+	box-sizing: border-box;
+	padding: 0.4em 0.75em;
+	border: 1px solid var(--purplish-ti-line);
+	border-radius: 0.375em;
+	color: inherit;
+	font: inherit;
+	background-color: transparent;
+}
+
+.purplish-trade-in__field select option,
+.purplish-trade-in__field select optgroup {
+	color: initial;
+}
+
+.purplish-trade-in__field select:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.purplish-trade-in__field select:focus-visible {
+	border-color: currentcolor;
+	outline: 2px solid currentcolor;
+	outline-offset: 1px;
+}
+
+.purplish-trade-in__field select[aria-invalid="true"] {
+	border-color: currentcolor;
+	border-width: 2px;
+}
+
+.purplish-trade-in__status:empty,
+.purplish-trade-in__status p:empty {
+	display: none;
+}
+
+.purplish-trade-in__status p {
+	margin: 0;
+}
+
+.purplish-trade-in__estimate {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.purplish-trade-in__net {
+	font-variant-numeric: tabular-nums;
+}
+
+.purplish-trade-in__error {
+	font-weight: 600;
+}
+
+.purplish-trade-in__error::before {
+	content: "! ";
+}
+
+.purplish-trade-in__notes {
+	font-size: 0.9333em;
+	opacity: 0.8;
+	text-wrap: pretty;
+}
+
+.purplish-trade-in__check {
+	display: inline-flex;
+	gap: 0.5em;
+	align-items: center;
+	min-height: 24px;
+	cursor: pointer;
+}
+
+.purplish-trade-in a {
+	color: inherit;
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+.purplish-trade-in a:focus-visible,
+.purplish-trade-in__check input:focus-visible {
+	outline: 2px solid currentcolor;
+	outline-offset: 2px;
+}
+
+@media (hover: hover) {
+
+	.purplish-trade-in a:hover {
+		text-decoration-thickness: 2px;
+	}
+
+	.purplish-trade-in__option:hover {
+		border-color: currentcolor;
+	}
+}
+
+@media (forced-colors: active) {
+
+	.purplish-trade-in {
+		--purplish-ti-line: CanvasText;
+	}
+}

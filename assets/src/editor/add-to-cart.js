@@ -1,13 +1,14 @@
 /**
  * Purplish panel on the Add to Cart + Options block: which parts follow the
- * picked color, and the photo transition. Matching extras get a panel of
- * their own.
+ * picked color, and the photo transition. Matching extras and trade-in get
+ * panels of their own.
  */
 import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 import { EYES, EYES_HELP } from './eyes';
 import ExtrasPanel from './extras';
+import TradeInPanel from './trade-in';
 
 const DEFAULTS = {
 	parts: [ 'button', 'chip', 'badge' ],
@@ -241,6 +242,7 @@ export default function AddToCartPanel( { saved, setSaved } ) {
 				/>
 			</PanelBody>
 			<ExtrasPanel saved={ options } setSaved={ setSaved } />
+			<TradeInPanel saved={ options } setSaved={ setSaved } />
 		</>
 	);
 }

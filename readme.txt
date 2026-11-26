@@ -39,6 +39,7 @@ Think of a product page that takes the color of the variation a shopper picks, a
 * **Product filters:** the filters in one bar of dropdowns above the products, a filter sidebar that hides, chips that match the selected look, a 44px tap size for chips, and color names under swatches.
 * **Search:** products, prices and matching categories show under the Search block while a shopper types. It matches names and SKUs, and it works on cached pages.
 * **Add to cart and buttons:** a glow ring, a light sweep, liquid glass, a spectrum ring and googly eyes, plus a halo on each add, a color dot on each color option, photo swatches that show each color option as its variation photo with the picked color's name beside the option name, a title and price that rise into place, a quantity box and button at one larger height, a bar with the name, price and button that stays at the bottom of a phone screen, and matching extras under the button that go into the cart on the same click, picked by hand, from Cross-sells or matched by category.
+* **Trade-in:** a Yes or No question on Add to Cart + Options that asks for the shopper's old device and shows your estimate for it, from a device table you keep in the WooCommerce settings. The choice goes into the cart and the order. Purplish only shows the value. You settle it after you inspect the device.
 * **Mini-Cart:** a count that pops, a photo that flies into the cart icon, a drawer that opens with a soft spring, a free shipping meter, and cart items without their short descriptions.
 * **Cart, checkout and order confirmation:** soft rows, bigger photos and a free shipping meter in the cart, checkout fields and choices in your style, button looks on Place Order, the order total on the pinned checkout button on phones, a thank-you moment, and the order details on a paper receipt.
 * **Page sections:** soft accordions, reviews as cards or chat bubbles, striped specification tables, pill, circle or price tag sale badges, boxed page numbers, ringed social icons, and a line through options that can't be bought.
@@ -208,6 +209,10 @@ Yes. The Mini-Cart drawer can open with a soft spring, with the items on soft ro
 
 Yes, with two blocks. On a Showfloor, one button adds every piece of a look at the price shown, and variable products link to their page instead. In the Changing Room, Add both adds the top and the bottom and asks for a size first when a piece needs one.
 
+= Can shoppers trade in an old phone? =
+
+Yes. Turn on Ask about a trade-in on Add to Cart + Options, then add your devices at WooCommerce > Settings > Products > Trade-in, each with a low and a high value. You can import and export the table as a CSV. Shoppers pick the brand, model and storage and see the estimate. The device is saved on the cart item and the order, and nothing comes off the price. A category or a product can turn it on or off.
+
 = Does anything move on its own? =
 
 Only Showfloor's autoplay, and it's off by default. When you turn it on, it moves every 3 to 8 seconds, holds while a visitor uses the floor, and has a pause button. The Scroll Lookbook's opening video plays once and stops within 5 seconds. Visitors who turn on reduced motion get neither.
@@ -261,6 +266,10 @@ Purplish doesn't collect, store or send personal data. It sets no cookies and ma
 Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209): set each variation's color by hand, or read it from the photo.
 
 == Changelog ==
+
+= 1.4.1 =
+
+* New: Trade-in on Add to Cart + Options, with a device table and CSV import and export in the WooCommerce settings, an estimate for the picked device, an optional price after trade-in and terms checkbox, and the device saved on the cart item and the order.
 
 = 1.4.0 =
 
