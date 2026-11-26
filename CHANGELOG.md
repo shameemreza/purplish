@@ -4,6 +4,10 @@ Every change to Purplish that a user or contributor would notice. The format fol
 
 ## [Unreleased]
 
+### Fixed
+
+- Clearing the last product filter doesn't leave a second Hide filters button beside Sort by anymore.
+
 ## [1.4.1] - 2026-11-26
 
 ### Added

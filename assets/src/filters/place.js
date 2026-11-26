@@ -22,13 +22,30 @@ export function sides( toggle ) {
 }
 
 /**
+ * Copies of the button in the products' column other than the live one.
+ * Clearing the last filter makes the Interactivity router bring back the
+ * first page's products as it saved them, with the button already moved
+ * in, and that copy has no click handler.
+ *
+ * @param {HTMLElement} toggle The button.
+ * @param {HTMLElement} main   The products' column.
+ * @return {HTMLElement[]} The stale copies.
+ */
+export function strays( toggle, main ) {
+	return [ ...main.querySelectorAll( '.purplish-filters-toggle' ) ].filter(
+		( other ) => other !== toggle
+	);
+}
+
+/**
  * Puts the button just before Sort by when the products' column has it,
- * or at the top of the column.
+ * or at the top of the column, and drops any stale copy.
  *
  * @param {HTMLElement} toggle The button.
  * @param {HTMLElement} main   The products' column.
  */
 export function placeToggle( toggle, main ) {
+	strays( toggle, main ).forEach( ( other ) => other.remove() );
 	const sorting = main.querySelector(
 		'.wp-block-woocommerce-catalog-sorting'
 	);

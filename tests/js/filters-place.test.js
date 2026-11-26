@@ -62,4 +62,15 @@ describe( 'placeToggle', () => {
 		expect( main.firstElementChild ).toBe( toggle );
 		expect( toggle.classList.contains( 'is-beside' ) ).toBe( false );
 	} );
+
+	it( 'drops a stale copy the products brought back', () => {
+		const toggle = page(
+			'<div class="row"><button class="purplish-filters-toggle is-beside"></button><div class="wp-block-woocommerce-catalog-sorting"></div></div>'
+		);
+		const main = document.getElementById( 'main' );
+		placeToggle( toggle, main );
+		const left = main.querySelectorAll( '.purplish-filters-toggle' );
+		expect( left.length ).toBe( 1 );
+		expect( left[ 0 ] ).toBe( toggle );
+	} );
 } );
