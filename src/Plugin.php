@@ -108,6 +108,7 @@ final class Plugin {
 		( new Frontend\NeutralPanels() )->register();
 		( new Frontend\PurpleParts() )->register();
 		( new Frontend\AccountStyle() )->register();
+		( new Frontend\AccountForms() )->register();
 		( new Frontend\InstantSearch() )->register();
 		( new ProductSearch() )->register();
 		( new Admin\Settings() )->register();

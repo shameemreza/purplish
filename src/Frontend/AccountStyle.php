@@ -68,6 +68,7 @@ final class AccountStyle {
 	public static function render( $html, $block ) {
 		if ( '' !== $html && self::uses( $block ) ) {
 			BlockEffects::enqueue( array( 'account' ) );
+			$html = AccountForms::render_group( $html, $block );
 		}
 		return $html;
 	}

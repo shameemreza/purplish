@@ -7,8 +7,9 @@
 		'wp-compose',
 		'wp-data',
 		'wp-element',
+		'wp-escape-html',
 		'wp-hooks',
 		'wp-i18n'
 	),
-	'version' => '2ed3903b3bab9c444a5c'
+	'version' => 'd6432bd1bccc9ff27903'
 );

@@ -67,6 +67,7 @@ module.exports = {
 		picked: './assets/src/picked/index.js',
 		stock: './assets/src/stock/index.js',
 		keep: './assets/src/keep/index.js',
+		login: './assets/src/login/index.js',
 		instalments: './assets/src/instalments/index.js',
 		'instalments-admin': './assets/src/instalments-admin/index.js',
 		'trade-in': './assets/src/trade-in/index.js',

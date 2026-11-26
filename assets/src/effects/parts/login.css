@@ -1,0 +1,389 @@
+/**
+ * Login and register options on WooCommerce's My Account forms. Each
+ * option is a class on an element around the forms (see AccountForms):
+ * purplish-account-<option>-<value>. BlockEffects loads this file only for
+ * logged-out visitors on a page with an option set.
+ *
+ * Colors come from Purple's palette slugs, which ThemeColors points at
+ * another theme's own colors. Visitors who ask for reduced motion get every
+ * option without the motion.
+ */
+
+
+.purplish-account {
+	--pa-fx: var(--purplish-effect, var(--wp--preset--color--theme-7, currentColor));
+	--pa-fx-on: var(--purplish-effect-on, var(--wp--preset--color--theme-1, #fff));
+	--pa-ink: var(--wp--preset--color--theme-2, currentColor);
+	--pa-ground: var(--wp--preset--color--theme-1, #fff);
+	--pa-line: color-mix(in oklab, var(--pa-ink) 55%, transparent);
+	--pa-radius: var(--purplish-account-radius, var(--wp--custom--purplish--radius, 12px));
+	--pa-field-radius: min(var(--pa-radius), 10px);
+	--pa-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The text fields every option below works on. */
+.purplish-account .woocommerce form .form-row :is(input.input-text, select, textarea) {
+	box-sizing: border-box;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+/* WooCommerce's show-password button sits in the field, in the ink color. */
+.purplish-account .woocommerce .password-input {
+	display: block;
+	position: relative;
+}
+
+.purplish-account .woocommerce .password-input .show-password-input {
+	color: var(--pa-ink);
+	opacity: 0.7;
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Browser surfaces: caret and selection take the effect color.        */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account .woocommerce form :is(input, textarea) {
+	caret-color: var(--pa-fx);
+}
+
+.purplish-account ::selection {
+	background-color: color-mix(in oklab, var(--pa-fx) 24%, transparent);
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Fields: Soft, Filled, Underline                                     */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-fields-soft .woocommerce form .form-row :is(input.input-text, select, textarea) {
+	background-color: color-mix(in oklab, var(--pa-fx) 7%, var(--pa-ground));
+	border: 1px solid color-mix(in oklab, var(--pa-fx) 30%, var(--pa-ground));
+	border-radius: var(--pa-field-radius);
+	padding: 0.75rem 1rem;
+}
+
+.purplish-account.purplish-account-fields-filled .woocommerce form .form-row :is(input.input-text, select, textarea) {
+	background-color: color-mix(in oklab, var(--pa-ink) 6%, var(--pa-ground));
+	border: 0;
+	border-bottom: 2px solid var(--pa-line);
+	border-radius: var(--pa-field-radius) var(--pa-field-radius) 0 0;
+	padding: 0.75rem 1rem;
+}
+
+.purplish-account.purplish-account-fields-underline .woocommerce form .form-row :is(input.input-text, select, textarea) {
+	background-color: transparent;
+	border: 0;
+	border-bottom: 1px solid var(--pa-line);
+	border-radius: 0;
+	padding: 0.75rem 0;
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Focus ring                                                          */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-focus .woocommerce form .form-row :is(input.input-text, select, textarea):focus {
+	border-color: var(--pa-fx);
+	outline: 2px solid var(--pa-fx);
+	outline-offset: 2px;
+}
+
+.purplish-account.purplish-account-focus .woocommerce :is(input[type="checkbox"], button, a):focus-visible {
+	outline: 2px solid var(--pa-fx);
+	outline-offset: 3px;
+}
+
+/* An underline field keeps its line: it turns the effect color and thickens. */
+.purplish-account.purplish-account-focus.purplish-account-fields-underline .woocommerce form .form-row :is(input.input-text, select, textarea):focus,
+.purplish-account.purplish-account-focus.purplish-account-fields-filled .woocommerce form .form-row :is(input.input-text, select, textarea):focus {
+	border-bottom-color: var(--pa-fx);
+	box-shadow: 0 1px 0 var(--pa-fx);
+	outline: 0;
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Fields: Draw. A hairline box; on focus a line in the effect color   */
+
+/* draws once around it, clockwise from the top left.                  */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-fields-draw .woocommerce form .form-row :is(input.input-text, select, textarea) {
+	--pa-pen: 2px;
+	background-color: var(--pa-ground);
+	background-image:
+		linear-gradient(var(--pa-fx), var(--pa-fx)),
+		linear-gradient(var(--pa-fx), var(--pa-fx)),
+		linear-gradient(var(--pa-fx), var(--pa-fx)),
+		linear-gradient(var(--pa-fx), var(--pa-fx));
+	background-position: left top, right top, right bottom, left bottom;
+	background-repeat: no-repeat;
+	background-size: 0 var(--pa-pen), var(--pa-pen) 0, 0 var(--pa-pen), var(--pa-pen) 0;
+	border: 1px solid var(--pa-line);
+	border-radius: var(--pa-field-radius);
+	padding: 0.75rem 1rem;
+}
+
+.purplish-account.purplish-account-fields-draw .woocommerce form .form-row :is(input.input-text, select, textarea):focus {
+	animation: pa-draw 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+	border-color: var(--pa-fx);
+	outline: 0;
+}
+
+@keyframes pa-draw {
+
+	0% {
+		background-size: 0 var(--pa-pen), var(--pa-pen) 0, 0 var(--pa-pen), var(--pa-pen) 0;
+	}
+
+	35% {
+		background-size: 100% var(--pa-pen), var(--pa-pen) 0, 0 var(--pa-pen), var(--pa-pen) 0;
+	}
+
+	50% {
+		background-size: 100% var(--pa-pen), var(--pa-pen) 100%, 0 var(--pa-pen), var(--pa-pen) 0;
+	}
+
+	85% {
+		background-size: 100% var(--pa-pen), var(--pa-pen) 100%, 100% var(--pa-pen), var(--pa-pen) 0;
+	}
+
+	100% {
+		background-size: 100% var(--pa-pen), var(--pa-pen) 100%, 100% var(--pa-pen), var(--pa-pen) 100%;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Fields: Fill. The effect tint washes in from the left on focus.     */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-fields-fill .woocommerce form .form-row :is(input.input-text, select, textarea) {
+	background: linear-gradient(color-mix(in oklab, var(--pa-fx) 12%, var(--pa-ground)), color-mix(in oklab, var(--pa-fx) 12%, var(--pa-ground))) left / 0 100% no-repeat, color-mix(in oklab, var(--pa-ink) 5%, var(--pa-ground));
+	border: 0;
+	border-bottom: 2px solid var(--pa-line);
+	border-radius: var(--pa-field-radius) var(--pa-field-radius) 0 0;
+	padding: 0.75rem 1rem;
+	transition: background-size 0.55s var(--pa-ease), border-color 0.3s ease-out;
+}
+
+.purplish-account.purplish-account-fields-fill .woocommerce form .form-row :is(input.input-text, select, textarea):focus {
+	background-size: 100% 100%, auto;
+	border-bottom-color: var(--pa-fx);
+	outline: 0;
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Fields: Corners. Four corner marks draw in around the field on      */
+
+/* focus, like a viewfinder.                                           */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-fields-corners .woocommerce form .form-row :is(input.input-text, select, textarea) {
+	--pa-c: 0px;
+	background:
+		linear-gradient(var(--pa-fx), var(--pa-fx)) top left / var(--pa-c) 2px,
+		linear-gradient(var(--pa-fx), var(--pa-fx)) top left / 2px var(--pa-c),
+		linear-gradient(var(--pa-fx), var(--pa-fx)) top right / var(--pa-c) 2px,
+		linear-gradient(var(--pa-fx), var(--pa-fx)) top right / 2px var(--pa-c),
+		linear-gradient(var(--pa-fx), var(--pa-fx)) bottom left / var(--pa-c) 2px,
+		linear-gradient(var(--pa-fx), var(--pa-fx)) bottom left / 2px var(--pa-c),
+		linear-gradient(var(--pa-fx), var(--pa-fx)) bottom right / var(--pa-c) 2px,
+		linear-gradient(var(--pa-fx), var(--pa-fx)) bottom right / 2px var(--pa-c),
+		color-mix(in oklab, var(--pa-fx) 5%, var(--pa-ground));
+	background-repeat: no-repeat;
+	border: 1px solid color-mix(in oklab, var(--pa-ink) 14%, transparent);
+	border-radius: 0;
+	padding: 0.75rem 1rem;
+	transition: --pa-c 0.4s var(--pa-ease), border-color 0.3s ease-out;
+}
+
+.purplish-account.purplish-account-fields-corners .woocommerce form .form-row :is(input.input-text, select, textarea):focus {
+	--pa-c: 16px;
+	border-color: transparent;
+	outline: 0;
+}
+
+@property --pa-c {
+	inherits: false;
+	initial-value: 0;
+	syntax: "<length>";
+}
+
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-account .woocommerce form .form-row :is(input.input-text, select, textarea):focus {
+		animation: none !important;
+	}
+
+	.purplish-account.purplish-account-fields-draw .woocommerce form .form-row :is(input.input-text, select, textarea):focus {
+		background-size: 100% var(--pa-pen), var(--pa-pen) 100%, 100% var(--pa-pen), var(--pa-pen) 100%;
+	}
+}
+
+/* Labels: Inside, Floating                                            */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account:is(.purplish-account-labels-inside, .purplish-account-labels-floating, .purplish-account-labels-flip, .purplish-account-labels-wave) .woocommerce form .form-row:has(> label[for] + :is(input.input-text, .password-input, .pa-field)) {
+	position: relative;
+}
+
+.purplish-account:is(.purplish-account-labels-inside, .purplish-account-labels-floating, .purplish-account-labels-flip, .purplish-account-labels-wave) .woocommerce form .form-row:has(> label[for] + :is(input.input-text, .password-input, .pa-field)) > label {
+	color: color-mix(in oklab, var(--pa-ink) 75%, transparent);
+	font-size: 0.75rem;
+	left: 1rem;
+	line-height: 1.2;
+	margin: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 0.6rem;
+	transform-origin: left top;
+	z-index: 1;
+}
+
+.purplish-account:is(
+	.purplish-account-labels-inside,
+	.purplish-account-labels-floating,
+	.purplish-account-labels-flip,
+	.purplish-account-labels-wave
+).purplish-account-fields-underline .woocommerce form .form-row > label[for] {
+	left: 0;
+}
+
+.purplish-account:is(.purplish-account-labels-inside, .purplish-account-labels-floating, .purplish-account-labels-flip, .purplish-account-labels-wave) .woocommerce form .form-row:has(> label[for] + :is(input.input-text, .password-input, .pa-field)) input.input-text {
+	min-height: 3.5rem;
+	padding-bottom: 0.5rem;
+	padding-top: 1.5rem;
+}
+
+/*
+ * Floating: once the script is ready, an empty field at rest holds its label
+ * like a placeholder.
+ */
+.purplish-account:is(
+	.purplish-account-labels-floating,
+	.purplish-account-labels-wave
+).pa-ready .woocommerce form .form-row:has(
+	> label[for] + :is(input.input-text, .password-input, .pa-field)
+) > label {
+	transition: transform 0.25s var(--pa-ease), color 0.2s ease-out;
+}
+
+.purplish-account:is(.purplish-account-labels-floating, .purplish-account-labels-flip, .purplish-account-labels-wave).pa-ready .woocommerce form .form-row:has(> label[for] + :is(input.input-text, .password-input, .pa-field)):not(.pa-filled, :focus-within, :has(input:autofill)) > label {
+	transform: translateY(0.55rem) scale(1.3333);
+}
+
+.purplish-account:is(.purplish-account-labels-floating, .purplish-account-labels-flip, .purplish-account-labels-wave) .woocommerce form .form-row:focus-within > label[for] {
+	color: var(--pa-fx);
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Labels: Flip. Like Floating, but the label turns over like a        */
+
+/* split-flap sign: away at rest, back in above the text.              */
+
+/* Plays only after a field has been used, so nothing moves on load.   */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-labels-flip.pa-ready .woocommerce form .form-row.pa-touched > label[for] {
+	animation: pa-flip-up 0.75s cubic-bezier(0.65, 0, 0.35, 1) both;
+	transform-origin: left 60%;
+}
+
+.purplish-account.purplish-account-labels-flip.pa-ready .woocommerce form .form-row.pa-touched:not(.pa-filled, :focus-within, :has(input:autofill)) > label[for] {
+	animation-name: pa-flip-down;
+}
+
+@keyframes pa-flip-up {
+
+	from {
+		transform: perspective(420px) translateY(0.55rem) scale(1.3333) rotateX(0deg);
+	}
+
+	to {
+		transform: perspective(420px) translateY(0) scale(1) rotateX(-360deg);
+	}
+}
+
+@keyframes pa-flip-down {
+
+	from {
+		transform: perspective(420px) translateY(0) scale(1) rotateX(0deg);
+	}
+
+	to {
+		transform: perspective(420px) translateY(0.55rem) scale(1.3333) rotateX(360deg);
+	}
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Labels: Wave. Floats like Floating, and the letters ripple up one   */
+
+/* after another as the field takes focus.                             */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account .pa-ch {
+	display: inline-block;
+	white-space: pre;
+}
+
+.purplish-account.purplish-account-labels-wave .woocommerce form .form-row.pa-touched:focus-within > label .pa-ch {
+	animation: pa-wave 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+	animation-delay: calc(var(--i) * 24ms);
+}
+
+@keyframes pa-wave {
+
+	0% {
+		transform: translateY(0);
+	}
+
+	35% {
+		transform: translateY(-0.5em) rotate(-6deg);
+	}
+
+	100% {
+		transform: none;
+	}
+}
+
+.purplish-account .pa-sr {
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-account .woocommerce form .form-row > label,
+	.purplish-account .pa-ch {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	.purplish-account.purplish-account-labels-flip .woocommerce form .form-row > label[for] {
+		animation: none !important;
+	}
+}

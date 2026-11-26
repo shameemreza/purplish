@@ -7,6 +7,7 @@
 
 namespace Purplish\Admin;
 
+use Purplish\Frontend\AccountForms;
 use Purplish\Frontend\BlockEffects;
 use Purplish\Frontend\NeutralPanels;
 use Purplish\Frontend\PurpleParts;
@@ -85,7 +86,7 @@ final class Settings {
 				__( 'Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings.', 'purplish' ),
 				'<a href="' . esc_url( admin_url( 'site-editor.php?p=%2Fwp_template%2F' . rawurlencode( get_stylesheet() ) . '%2F%2Fsingle-product&canvas=edit' ) ) . '">' . esc_html__( 'Single Product template', 'purplish' ) . '</a>'
 			);
-			$fields = array( $title, self::panels_field(), $end );
+			$fields = array_merge( array( $title, self::panels_field(), $end ), self::account_fields() );
 			return $purple ? array_merge( $fields, self::purple_fields() ) : $fields;
 		}
 
@@ -179,6 +180,80 @@ final class Settings {
 		);
 		$fields[] = $end;
 
+		return array_merge( $fields, self::account_fields() );
+	}
+
+	/**
+	 * The login and register options, on every theme: they apply to My
+	 * Account on a page where no block sets them, such as a classic theme
+	 * or a page made in the classic editor.
+	 *
+	 * @since 1.4.2
+	 * @return array
+	 */
+	public static function account_fields() {
+		$options = AccountForms::config()['options'];
+		$labels  = array(
+			'fields' => array(
+				'title'   => __( 'Fields', 'purplish' ),
+				'default' => __( 'Theme default', 'purplish' ),
+				'values'  => array(
+					'soft'      => __( 'Soft', 'purplish' ),
+					'filled'    => __( 'Filled', 'purplish' ),
+					'underline' => __( 'Underline', 'purplish' ),
+					'draw'      => __( 'Draw', 'purplish' ),
+					'fill'      => __( 'Fill', 'purplish' ),
+					'corners'   => __( 'Corners', 'purplish' ),
+				),
+			),
+			'focus'  => array(
+				'title' => __( 'Focus ring', 'purplish' ),
+				'desc'  => __( 'A ring in your theme\'s accent color around the field, box or link that has keyboard focus', 'purplish' ),
+			),
+			'labels' => array(
+				'title'   => __( 'Labels', 'purplish' ),
+				'default' => __( 'Above', 'purplish' ),
+				'values'  => array(
+					'inside'   => __( 'Inside', 'purplish' ),
+					'floating' => __( 'Floating', 'purplish' ),
+					'flip'     => __( 'Flip', 'purplish' ),
+					'wave'     => __( 'Wave', 'purplish' ),
+				),
+			),
+		);
+
+		$fields = array(
+			array(
+				'id'    => 'purplish_account',
+				'type'  => 'title',
+				'title' => __( 'My Account login and register', 'purplish' ),
+				'desc'  => __( 'How the log in and register forms look to visitors who aren\'t signed in. These apply where the page sets nothing itself. On a block page, select the Account Group or the Shortcode block that holds My Account and use its Login and register panel instead.', 'purplish' ),
+			),
+		);
+		foreach ( $options as $option => $allowed ) {
+			$label = $labels[ $option ];
+			if ( true === $allowed ) {
+				$fields[] = array(
+					'id'      => self::OPTION . '[account_' . $option . ']',
+					'type'    => 'checkbox',
+					'title'   => $label['title'],
+					'desc'    => $label['desc'],
+					'default' => 'no',
+				);
+				continue;
+			}
+			$fields[] = array(
+				'id'      => self::OPTION . '[account_' . $option . ']',
+				'type'    => 'select',
+				'title'   => $label['title'],
+				'default' => '',
+				'options' => array_merge( array( '' => $label['default'] ), array_intersect_key( $label['values'], array_flip( $allowed ) ) ),
+			);
+		}
+		$fields[] = array(
+			'id'   => 'purplish_account',
+			'type' => 'sectionend',
+		);
 		return $fields;
 	}
 

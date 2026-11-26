@@ -24,7 +24,7 @@ final class BlockEffects {
 	 * `build/style-effects-<part>.css`, named for the class prefix its rules
 	 * hang off.
 	 */
-	const PARTS = array( 'gallery', 'cards', 'accordion', 'pages', 'terms', 'count', 'details', 'reviews', 'specs', 'image', 'cover', 'button', 'cart', 'buybutton', 'thanks', 'drawer', 'cartpage', 'checkoutpage', 'classic', 'group', 'chips', 'badge', 'stock', 'thumbs', 'swatches', 'filters', 'minicart', 'eyes', 'heading', 'columns', 'social', 'summary', 'meter', 'sorting', 'extras', 'account' );
+	const PARTS = array( 'gallery', 'cards', 'accordion', 'pages', 'terms', 'count', 'details', 'reviews', 'specs', 'image', 'cover', 'button', 'cart', 'buybutton', 'thanks', 'drawer', 'cartpage', 'checkoutpage', 'classic', 'group', 'chips', 'badge', 'stock', 'thumbs', 'swatches', 'filters', 'minicart', 'eyes', 'heading', 'columns', 'social', 'summary', 'meter', 'sorting', 'extras', 'account', 'login' );
 
 	/**
 	 * The script that folds a filter sidebar away, loaded only with it.
@@ -815,21 +815,35 @@ final class BlockEffects {
 	 */
 	public static function classes_for( $name, $saved ) {
 		$blocks = self::blocks();
-		if ( ! isset( $blocks[ $name ] ) || ! is_array( $saved ) ) {
+		return isset( $blocks[ $name ] ) ? self::classes_from( $blocks[ $name ], $saved ) : array();
+	}
+
+	/**
+	 * The wrapper classes for saved options, from one entry shaped like
+	 * those in `blocks()`. Unknown options and values are ignored.
+	 *
+	 * @since 1.4.2
+	 *
+	 * @param array $block An entry with `prefix`, `options` and optional `legacy` and `needs`.
+	 * @param mixed $saved The saved options.
+	 * @return string[]
+	 */
+	public static function classes_from( $block, $saved ) {
+		if ( ! is_array( $saved ) ) {
 			return array();
 		}
 
-		$legacy = isset( $blocks[ $name ]['legacy'] ) ? $blocks[ $name ]['legacy'] : array();
+		$legacy = isset( $block['legacy'] ) ? $block['legacy'] : array();
 		foreach ( $legacy as $old => $now ) {
 			if ( isset( $saved[ $old ] ) && true === $saved[ $old ] && ! isset( $saved[ $now[0] ] ) ) {
 				$saved[ $now[0] ] = $now[1];
 			}
 		}
 
-		$prefix  = 'purplish-' . $blocks[ $name ]['prefix'];
-		$needs   = isset( $blocks[ $name ]['needs'] ) ? $blocks[ $name ]['needs'] : array();
+		$prefix  = 'purplish-' . $block['prefix'];
+		$needs   = isset( $block['needs'] ) ? $block['needs'] : array();
 		$classes = array();
-		foreach ( $blocks[ $name ]['options'] as $option => $allowed ) {
+		foreach ( $block['options'] as $option => $allowed ) {
 			if ( ! isset( $saved[ $option ] ) || ( isset( $needs[ $option ] ) && ! self::needs_met( $needs[ $option ], $saved ) ) ) {
 				continue;
 			}
