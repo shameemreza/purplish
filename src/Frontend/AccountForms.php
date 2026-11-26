@@ -72,6 +72,7 @@ final class AccountForms {
 				'switch' => array( 'tabs', 'flip', 'slide' ),
 				'tabs'   => array( 'line' ),
 				'slide'  => array( 'stretch', 'flood', 'blinds', 'page', 'shear', 'shutter', 'liquid', 'depth', 'elastic', 'mosaic', 'fold', 'iris' ),
+				'button' => array( 'bloom', 'ripple', 'sweep', 'spectrum', 'trace', 'roll', 'split', 'glass' ),
 			),
 			'needs'   => array(
 				// Slide shows tabs on phones, so both take the tab look.

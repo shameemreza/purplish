@@ -256,6 +256,20 @@ final class Settings {
 					'iris'    => __( 'Iris', 'purplish' ),
 				),
 			),
+			'button' => array(
+				'title'   => __( 'Button', 'purplish' ),
+				'default' => __( 'Theme button', 'purplish' ),
+				'values'  => array(
+					'bloom'    => __( 'Bloom', 'purplish' ),
+					'ripple'   => __( 'Ripple', 'purplish' ),
+					'sweep'    => __( 'Sweep', 'purplish' ),
+					'spectrum' => __( 'Spectrum', 'purplish' ),
+					'trace'    => __( 'Trace', 'purplish' ),
+					'roll'     => __( 'Roll', 'purplish' ),
+					'split'    => __( 'Split', 'purplish' ),
+					'glass'    => __( 'Glass', 'purplish' ),
+				),
+			),
 		);
 
 		$fields = array(
