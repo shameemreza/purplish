@@ -4,11 +4,13 @@
  * on the page; the editor runs it on its sample forms.
  */
 import { floating, wave } from './labels';
+import { switcher } from './switch';
 
 /**
- * @param {HTMLElement} group The element with the option classes.
+ * @param {HTMLElement} group     The element with the option classes.
+ * @param {number}      [index=0] Its place on the page, for unique IDs.
  */
-export function setup( group ) {
+export function setup( group, index = 0 ) {
 	const has = ( name ) =>
 		group.classList.contains( 'purplish-account-' + name );
 	if ( has( 'labels-wave' ) ) {
@@ -20,5 +22,12 @@ export function setup( group ) {
 		has( 'labels-wave' )
 	) {
 		floating( group );
+	}
+	if (
+		has( 'switch-tabs' ) ||
+		has( 'switch-slide' ) ||
+		has( 'switch-flip' )
+	) {
+		switcher( group, index );
 	}
 }

@@ -40,10 +40,57 @@ export function choices() {
 			{ value: 'flip', label: __( 'Flip', 'purplish' ) },
 			{ value: 'wave', label: __( 'Wave', 'purplish' ) },
 		],
+		switch: [
+			{ value: '', label: __( 'Side by side', 'purplish' ) },
+			{ value: 'tabs', label: __( 'Tabs', 'purplish' ) },
+			{ value: 'flip', label: __( 'Flip', 'purplish' ) },
+			{ value: 'slide', label: __( 'Slide', 'purplish' ) },
+		],
+		tabs: [
+			{ value: '', label: __( 'Pill', 'purplish' ) },
+			{ value: 'line', label: __( 'Line', 'purplish' ) },
+		],
+		slide: [
+			{ value: '', label: __( 'Push', 'purplish' ) },
+			{ value: 'stretch', label: __( 'Stretch', 'purplish' ) },
+			{ value: 'flood', label: __( 'Flood', 'purplish' ) },
+			{ value: 'blinds', label: __( 'Blinds', 'purplish' ) },
+			{ value: 'page', label: __( 'Page', 'purplish' ) },
+			{ value: 'shear', label: __( 'Shear', 'purplish' ) },
+			{ value: 'shutter', label: __( 'Shutter', 'purplish' ) },
+			{ value: 'liquid', label: __( 'Liquid', 'purplish' ) },
+			{ value: 'depth', label: __( 'Depth', 'purplish' ) },
+			{ value: 'elastic', label: __( 'Elastic', 'purplish' ) },
+			{ value: 'mosaic', label: __( 'Mosaic', 'purplish' ) },
+			{ value: 'fold', label: __( 'Fold', 'purplish' ) },
+			{ value: 'iris', label: __( 'Iris', 'purplish' ) },
+		],
 	};
 }
 
+/**
+ * Options that only apply with another option set, as in
+ * AccountForms::config(): the switch values each needs.
+ */
+const NEEDS = {
+	tabs: [ 'tabs', 'slide' ],
+	slide: [ 'slide' ],
+};
+
+/**
+ * Whether an option applies with the other saved options.
+ *
+ * @param {string} option Option name.
+ * @param {Object} saved  Saved account options.
+ * @return {boolean} Whether it applies.
+ */
+export function applies( option, saved ) {
+	return ! NEEDS[ option ] || NEEDS[ option ].includes( saved.switch );
+}
+
 const SWITCHES = [ 'focus' ];
+
+let samples = 0;
 
 /**
  * The classes the server prints for saved options, `purplish-account`
@@ -58,6 +105,7 @@ export function accountClasses( account ) {
 	const classes = [];
 	Object.keys( list ).forEach( ( option ) => {
 		if (
+			applies( option, saved ) &&
 			list[ option ].some(
 				( c ) => c.value && c.value === saved[ option ]
 			)
@@ -176,6 +224,46 @@ export function AccountOptions( { account, setAccount } ) {
 				options={ list.labels }
 				onChange={ ( value ) => set( 'labels', value ) }
 			/>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Log in and register', 'purplish' ) }
+				help={ __(
+					'Tabs shows one form at a time with a tab for each. Flip turns the card over to the other form. Slide puts both forms in one card and slides a colored panel over the closed one, with tabs on phones.',
+					'purplish'
+				) }
+				value={ account.switch || '' }
+				options={ list.switch }
+				onChange={ ( value ) => set( 'switch', value ) }
+			/>
+			{ applies( 'tabs', account ) && (
+				<SelectControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Tab look', 'purplish' ) }
+					help={ __(
+						'Pill slides a raised box to the picked tab. Line puts the tabs over a rule and stretches a line to the picked one.',
+						'purplish'
+					) }
+					value={ account.tabs || '' }
+					options={ list.tabs }
+					onChange={ ( value ) => set( 'tabs', value ) }
+				/>
+			) }
+			{ applies( 'slide', account ) && (
+				<SelectControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Slide motion', 'purplish' ) }
+					help={ __(
+						'How the colored panel moves to the other form. Under reduced motion it moves without the effect.',
+						'purplish'
+					) }
+					value={ account.slide || '' }
+					options={ list.slide }
+					onChange={ ( value ) => set( 'slide', value ) }
+				/>
+			) }
 		</>
 	);
 }
@@ -286,7 +374,7 @@ function SampleFormsInner( { classes } ) {
 		node.innerHTML = sampleForms();
 		node.addEventListener( 'submit', ( e ) => e.preventDefault() );
 		if ( classes.length ) {
-			setup( node );
+			setup( node, ++samples );
 		}
 	}, [ classes ] );
 	return (

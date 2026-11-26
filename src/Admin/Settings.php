@@ -220,6 +220,42 @@ final class Settings {
 					'wave'     => __( 'Wave', 'purplish' ),
 				),
 			),
+			'switch' => array(
+				'title'   => __( 'Log in and register', 'purplish' ),
+				'default' => __( 'Side by side', 'purplish' ),
+				'values'  => array(
+					'tabs'  => __( 'Tabs', 'purplish' ),
+					'flip'  => __( 'Flip', 'purplish' ),
+					'slide' => __( 'Slide', 'purplish' ),
+				),
+			),
+			'tabs'   => array(
+				'title'   => __( 'Tab look', 'purplish' ),
+				'default' => __( 'Pill', 'purplish' ),
+				'desc'    => __( 'With Tabs or Slide.', 'purplish' ),
+				'values'  => array(
+					'line' => __( 'Line', 'purplish' ),
+				),
+			),
+			'slide'  => array(
+				'title'   => __( 'Slide motion', 'purplish' ),
+				'default' => __( 'Push', 'purplish' ),
+				'desc'    => __( 'With Slide.', 'purplish' ),
+				'values'  => array(
+					'stretch' => __( 'Stretch', 'purplish' ),
+					'flood'   => __( 'Flood', 'purplish' ),
+					'blinds'  => __( 'Blinds', 'purplish' ),
+					'page'    => __( 'Page', 'purplish' ),
+					'shear'   => __( 'Shear', 'purplish' ),
+					'shutter' => __( 'Shutter', 'purplish' ),
+					'liquid'  => __( 'Liquid', 'purplish' ),
+					'depth'   => __( 'Depth', 'purplish' ),
+					'elastic' => __( 'Elastic', 'purplish' ),
+					'mosaic'  => __( 'Mosaic', 'purplish' ),
+					'fold'    => __( 'Fold', 'purplish' ),
+					'iris'    => __( 'Iris', 'purplish' ),
+				),
+			),
 		);
 
 		$fields = array(
@@ -246,6 +282,7 @@ final class Settings {
 				'id'      => self::OPTION . '[account_' . $option . ']',
 				'type'    => 'select',
 				'title'   => $label['title'],
+				'desc'    => isset( $label['desc'] ) ? $label['desc'] : '',
 				'default' => '',
 				'options' => array_merge( array( '' => $label['default'] ), array_intersect_key( $label['values'], array_flip( $allowed ) ) ),
 			);

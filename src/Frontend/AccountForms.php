@@ -69,8 +69,15 @@ final class AccountForms {
 				'fields' => array( 'soft', 'filled', 'underline', 'draw', 'fill', 'corners' ),
 				'focus'  => true,
 				'labels' => array( 'inside', 'floating', 'flip', 'wave' ),
+				'switch' => array( 'tabs', 'flip', 'slide' ),
+				'tabs'   => array( 'line' ),
+				'slide'  => array( 'stretch', 'flood', 'blinds', 'page', 'shear', 'shutter', 'liquid', 'depth', 'elastic', 'mosaic', 'fold', 'iris' ),
 			),
-			'needs'   => array(),
+			'needs'   => array(
+				// Slide shows tabs on phones, so both take the tab look.
+				'tabs'  => array( array( 'switch', array( 'tabs', 'slide' ), true ) ),
+				'slide' => array( array( 'switch', array( 'slide' ), true ) ),
+			),
 		);
 	}
 
@@ -165,7 +172,7 @@ final class AccountForms {
 		if ( ! $tags->next_tag() ) {
 			return $html;
 		}
-		foreach ( $classes as $class ) {
+		foreach ( self::with_state( $classes ) as $class ) {
 			$tags->add_class( $class );
 		}
 		self::placed();
@@ -217,8 +224,24 @@ final class AccountForms {
 	 * @return string
 	 */
 	private static function wrap( $html, $classes ) {
+		$classes   = self::with_state( $classes );
 		$classes[] = 'purplish-account-forms';
 		return '<div class="' . esc_attr( implode( ' ', array_map( 'sanitize_html_class', $classes ) ) ) . '">' . $html . '</div>';
+	}
+
+	/**
+	 * Adds `purplish-account-open-register` when the register form was just
+	 * sent back with errors, so the switch opens on it.
+	 *
+	 * @param string[] $classes Option classes.
+	 * @return string[]
+	 */
+	public static function with_state( $classes ) {
+		// WooCommerce checks the nonce; only whether the form was sent matters here.
+		if ( isset( $_POST['register'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$classes[] = 'purplish-account-open-register';
+		}
+		return $classes;
 	}
 
 	/**
