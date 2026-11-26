@@ -57,6 +57,7 @@ final class LoadMore {
 		// After WooCommerce sets the archive's products per page at 10.
 		add_action( 'pre_get_posts', array( $this, 'widen_main_query' ), 20 );
 		add_filter( 'redirect_canonical', array( $this, 'keep_url' ) );
+		add_filter( 'get_pagenum_link', array( $this, 'drop_flag' ) );
 		// After core and WooCommerce finish the pagination at 10.
 		add_filter( 'render_block_' . self::PAGINATION, array( $this, 'swap_pagination' ), 20, 3 );
 		add_filter( 'render_block_' . self::TEMPLATE, array( $this, 'mark_new' ), 20, 3 );
@@ -193,6 +194,24 @@ final class LoadMore {
 	public function keep_url( $redirect_url ) {
 		global $wp_query;
 		return $wp_query instanceof \WP_Query && $wp_query->get( 'purplish_more_per' ) ? false : $redirect_url;
+	}
+
+	/**
+	 * Keeps the flag out of page links. They start from the address being
+	 * viewed, and Product Filters builds its next address from page 1's link,
+	 * so after Load more a filter would carry the flag on with no page.
+	 *
+	 * @param string $url A page link.
+	 * @return string
+	 */
+	public function drop_flag( $url ) {
+		$query = (string) wp_parse_url( $url, PHP_URL_QUERY );
+		if ( false === strpos( $query, 'more' ) ) {
+			return $url;
+		}
+		parse_str( $query, $args );
+		$flags = preg_grep( '/^query-(\d+-)?more$/', array_keys( $args ) );
+		return $flags ? remove_query_arg( array_values( $flags ), $url ) : $url;
 	}
 
 	/**

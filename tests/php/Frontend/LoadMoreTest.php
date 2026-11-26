@@ -324,4 +324,23 @@ class LoadMoreTest extends WP_UnitTestCase {
 		$this->assertSame( 2, $query->get( 'purplish_more_page' ) );
 		$this->assertFalse( $this->more->keep_url( 'https://x.test/' ) );
 	}
+
+	/**
+	 * Page links drop the flag, so a filter after Load more doesn't carry it.
+	 */
+	public function test_drop_flag() {
+		$this->assertSame( 'https://x.test/shop/?rating_filter=5', $this->more->drop_flag( 'https://x.test/shop/?query-more=1&rating_filter=5' ) );
+		$this->assertSame( 'https://x.test/shop/', $this->more->drop_flag( 'https://x.test/shop/?query-more=1' ) );
+		$this->assertSame( 'https://x.test/sale/?query-3-page=2', $this->more->drop_flag( 'https://x.test/sale/?query-3-page=2&query-3-more=1' ) );
+		$this->assertSame( 'https://x.test/shop/?orderby=price', $this->more->drop_flag( 'https://x.test/shop/?orderby=price' ) );
+		$this->assertSame( 'https://x.test/shop/page/2/', $this->more->drop_flag( 'https://x.test/shop/page/2/' ) );
+	}
+
+	/**
+	 * The Load more link still carries the flag next to the page.
+	 */
+	public function test_link_keeps_flag() {
+		$this->more->register();
+		$this->assertStringContainsString( 'query-more=1', add_query_arg( 'query-more', 1, get_pagenum_link( 2, false ) ) );
+	}
 }
