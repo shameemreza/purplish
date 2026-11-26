@@ -4,9 +4,30 @@ Every change to Purplish that a user or contributor would notice. The format fol
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-11-26
+
 ### Added
 
-- Trade-in on Add to Cart + Options, with a device table and CSV import and export in the WooCommerce settings, an estimate for the picked device, an optional price after trade-in and terms checkbox, and the device saved on the cart item and the order.
+- Instalment line on the Product Price block, with the monthly amount from price bands set in WooCommerce > Settings > Products > Instalments, a logo and an info link. It follows the picked variation, and a product or category can use its own bands or hide it.
+- Instant results on the Search block. Products, prices and matching categories show while a shopper types, matched by name or SKU, and it works on cached pages.
+- Trade-in on Add to Cart + Options. Shoppers pick their old device and see your estimate from a device table in WooCommerce > Settings > Products > Trade-in, with CSV import and export. The device goes with the cart item and the order, and nothing comes off the price.
+- Shelf Tag rules for products on sale and for a product tag or category, start and end dates, a ribbon look and an image look for your own artwork.
+- A ribbon shape for the On-Sale Badge.
+- Page colors for WPC Product Bundles, following the item the shopper changed last.
+- A Tint panels with the page color setting, so soft panels like accordions and the cart drawer can stay on a neutral fill.
+
+### Changed
+
+- Tags and badges on a rounded product photo sit further in, so the corner never cuts them.
+
+### Fixed
+
+- Closed Wardrobe panels don't download their photos with every page anymore. They load when the shopper points at or tabs to the menu.
+- Full-screen gallery photos don't load with the page anymore. They load once the shopper points at or tabs into the gallery, and the view still opens on the photo picked.
+- A variable product whose variations all share one color opens in that color before any option is picked.
+- Bigger cart photos keep cart rows inside phone screens, in the Cart and the Mini-Cart drawer.
+- Card hover fills the button leaves the product name without an underline.
+- Gallery arrows keep a small gap between them and stay easy to see on light page colors. They rest on a solid white disc and fill with the page color on hover.
 
 ## [1.4.0] - 2026-11-21
 
