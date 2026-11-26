@@ -7,6 +7,7 @@ Every change to Purplish that a user or contributor would notice. The format fol
 ### Fixed
 
 - Clearing the last product filter doesn't leave a second Hide filters button beside Sort by anymore.
+- The photo zoom on overlay and details product cards stays still when the shopper has reduced motion turned on.
 - A product filter picked after Load more doesn't leave `query-more` in the address anymore.
 
 ## [1.4.1] - 2026-11-26
