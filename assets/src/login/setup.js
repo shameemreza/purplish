@@ -5,6 +5,7 @@
  */
 import { bloom, ripple, roll } from './buttons';
 import { floating, wave } from './labels';
+import { light } from './light';
 import { switcher } from './switch';
 
 /**
@@ -30,6 +31,9 @@ export function setup( group, index = 0 ) {
 		has( 'switch-flip' )
 	) {
 		switcher( group, index );
+	}
+	if ( has( 'aurora' ) || has( 'spotlight' ) ) {
+		light( group, has( 'spotlight' ) );
 	}
 	if ( has( 'button-bloom' ) ) {
 		bloom( group );

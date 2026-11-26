@@ -131,6 +131,24 @@ class AccountFormsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Panel takes a value; Aurora and Spotlight are switches that can
+	 * both be on.
+	 */
+	public function test_panel_and_light_classes() {
+		$this->assertSame(
+			array( 'purplish-account', 'purplish-account-panel-glass', 'purplish-account-aurora', 'purplish-account-spotlight' ),
+			AccountForms::classes(
+				array(
+					'panel'     => 'glass',
+					'aurora'    => true,
+					'spotlight' => true,
+				)
+			)
+		);
+		$this->assertSame( array(), AccountForms::classes( array( 'panel' => 'wash' ) ) );
+	}
+
+	/**
 	 * A sign up that failed opens on the register form again.
 	 */
 	public function test_open_register_after_failed_sign_up() {

@@ -1449,3 +1449,150 @@
 		scale: none;
 	}
 }
+
+/* ------------------------------------------------------------------ */
+
+/* Panels: Card, Glass                                                 */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-panel-card .woocommerce > :is(form.login, form.lost_reset_password),
+.purplish-account.purplish-account-panel-card .woocommerce > .u-columns > :is(.u-column1, .u-column2),
+.purplish-account.purplish-account-panel-card.purplish-account-switch-slide.pa-switching .woocommerce > .u-columns {
+	background-color: var(--pa-ground);
+	border: 1px solid color-mix(in oklab, var(--pa-ink) 14%, transparent);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 18px 40px -20px color-mix(in oklab, var(--pa-ink) 35%, transparent);
+}
+
+.purplish-account.purplish-account-panel-card.purplish-account-switch-slide.pa-switching .woocommerce > .u-columns > :is(.u-column1, .u-column2) {
+	border: 0;
+	box-shadow: none;
+}
+
+.purplish-account.purplish-account-panel-glass .woocommerce > :is(form.login, form.lost_reset_password),
+.purplish-account.purplish-account-panel-glass .woocommerce > .u-columns > :is(.u-column1, .u-column2),
+.purplish-account.purplish-account-panel-glass.purplish-account-switch-slide.pa-switching .woocommerce > .u-columns,
+.purplish-account.purplish-account-panel-glass .pa-tabs {
+	background-color: var(--pa-ground);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+
+	@media (prefers-reduced-transparency: no-preference) {
+
+		.purplish-account.purplish-account-panel-glass .woocommerce > :is(form.login, form.lost_reset_password),
+		.purplish-account.purplish-account-panel-glass .woocommerce > .u-columns > :is(.u-column1, .u-column2),
+		.purplish-account.purplish-account-panel-glass.purplish-account-switch-slide.pa-switching .woocommerce > .u-columns,
+		.purplish-account.purplish-account-panel-glass .pa-tabs {
+			backdrop-filter: blur(20px) saturate(1.5);
+			background-color: color-mix(in oklab, var(--pa-ground) 78%, transparent);
+			border: 1px solid rgb(255 255 255 / 0.45);
+			box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.45);
+		}
+
+		.purplish-account.purplish-account-panel-glass.purplish-account-switch-slide.pa-switching .woocommerce > .u-columns > :is(.u-column1, .u-column2) {
+			backdrop-filter: none;
+			background: none;
+			border: 0;
+			box-shadow: none;
+		}
+
+		.purplish-account.purplish-account-panel-glass.purplish-account-fields-soft .woocommerce form .form-row :is(input.input-text, select, textarea) {
+			background-color: color-mix(in oklab, var(--pa-ground) 70%, transparent);
+		}
+	}
+}
+
+/* ------------------------------------------------------------------ */
+
+/* ================================================================== */
+
+/* Motion options. The script sets the pointer values; without it,     */
+
+/* every option below rests in a finished, still state.                */
+
+/* ================================================================== */
+
+/* A number, not a percentage: the build would write 0% as 0, which a
+   percentage property refuses. */
+@property --pa-lit {
+	syntax: "<number>";
+	inherits: true;
+	initial-value: 0;
+}
+
+.purplish-account {
+	--pa-mx: 50vw;
+	--pa-my: 40vh;
+	--pa-hue: 0;
+	--pa-glow: var(--pa-fx);
+}
+
+@supports (color: oklch(from red l c h)) {
+
+	.purplish-account {
+		--pa-glow: oklch(from var(--pa-fx) l c calc(h + var(--pa-hue)));
+	}
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Light: Aurora. The wash behind the forms carries a light that      */
+
+/* follows the pointer (and keyboard focus), and its hue turns with    */
+
+/* the pointer across the page, a few steps either side of the effect  */
+
+/* color. One fixed gradient, so it runs across both panels as one.    */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-aurora .woocommerce > :is(form.login, form.lost_reset_password),
+.purplish-account.purplish-account-aurora .woocommerce > .u-columns > :is(.u-column1, .u-column2),
+.purplish-account.purplish-account-aurora.purplish-account-switch-slide.pa-switching .woocommerce > .u-columns {
+	background-attachment: fixed;
+	background-color: var(--purplish-account-wash, var(--pa-ground));
+	background-image: var(--pa-aurora-a), var(--pa-aurora-b);
+}
+
+.purplish-account.purplish-account-aurora {
+	--pa-aurora-a: radial-gradient(34rem circle at var(--pa-mx) var(--pa-my), color-mix(in oklab, var(--pa-glow) 30%, transparent), transparent 70%);
+	--pa-aurora-b: radial-gradient(26rem circle at calc(100vw - var(--pa-mx)) calc(100vh - var(--pa-my)), color-mix(in oklab, var(--pa-fx) 12%, transparent), transparent 70%);
+	--pa-aurora: var(--pa-aurora-a) fixed padding-box, var(--pa-aurora-b) fixed padding-box,;
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Light: Spotlight. The edge of the box lights where the pointer is.  */
+
+/* Background layers, so no extra elements and no pseudo clashes.      */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-spotlight {
+	--pa-px: 50%;
+	--pa-py: 0%;
+	transition: --pa-lit 0.5s var(--pa-ease);
+}
+
+.purplish-account.purplish-account-spotlight:is(.pa-lit, :focus-within) {
+	--pa-lit: 1;
+}
+
+.purplish-account.purplish-account-spotlight .woocommerce > :is(form.login, form.lost_reset_password),
+.purplish-account.purplish-account-spotlight .woocommerce > .u-columns > :is(.u-column1, .u-column2) {
+	--pa-face: var(--purplish-account-wash, var(--pa-ground));
+	background:
+		radial-gradient(22rem circle at var(--pa-px) var(--pa-py), color-mix(in oklab, var(--pa-glow) calc(var(--pa-lit) * 10%), transparent), transparent 70%) padding-box,
+		var(--pa-aurora,) linear-gradient(var(--pa-face), var(--pa-face)) padding-box,
+		radial-gradient(16rem circle at var(--pa-px) var(--pa-py), color-mix(in oklab, var(--pa-glow) calc(var(--pa-lit) * 100%), transparent), transparent 75%) border-box,
+		linear-gradient(color-mix(in oklab, var(--pa-ink) 14%, transparent), color-mix(in oklab, var(--pa-ink) 14%, transparent)) border-box;
+	border: 2px solid transparent;
+}
+
+.purplish-account.purplish-account-spotlight.purplish-account-panel-card .woocommerce > :is(form.login, form.lost_reset_password),
+.purplish-account.purplish-account-spotlight.purplish-account-panel-card .woocommerce > .u-columns > :is(.u-column1, .u-column2) {
+	--pa-face: var(--pa-ground);
+}
+
+/* ------------------------------------------------------------------ */

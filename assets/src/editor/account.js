@@ -65,6 +65,11 @@ export function choices() {
 			{ value: 'fold', label: __( 'Fold', 'purplish' ) },
 			{ value: 'iris', label: __( 'Iris', 'purplish' ) },
 		],
+		panel: [
+			{ value: '', label: __( 'Wash', 'purplish' ) },
+			{ value: 'card', label: __( 'Card', 'purplish' ) },
+			{ value: 'glass', label: __( 'Glass', 'purplish' ) },
+		],
 		button: [
 			{ value: '', label: __( 'Theme button', 'purplish' ) },
 			{ value: 'bloom', label: __( 'Bloom', 'purplish' ) },
@@ -99,7 +104,7 @@ export function applies( option, saved ) {
 	return ! NEEDS[ option ] || NEEDS[ option ].includes( saved.switch );
 }
 
-const SWITCHES = [ 'focus' ];
+const SWITCHES = [ 'focus', 'aurora', 'spotlight' ];
 
 let samples = 0;
 
@@ -275,6 +280,38 @@ export function AccountOptions( { account, setAccount } ) {
 					onChange={ ( value ) => set( 'slide', value ) }
 				/>
 			) }
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Panel', 'purplish' ) }
+				help={ __(
+					'Wash keeps the soft tint of the Account style. Card puts each form in a raised white box, and Glass in a frosted one.',
+					'purplish'
+				) }
+				value={ account.panel || '' }
+				options={ list.panel }
+				onChange={ ( value ) => set( 'panel', value ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Aurora', 'purplish' ) }
+				help={ __(
+					'A light in the wash behind the forms that follows the pointer and keyboard focus.',
+					'purplish'
+				) }
+				checked={ true === account.aurora }
+				onChange={ ( on ) => set( 'aurora', on || undefined ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Spotlight', 'purplish' ) }
+				help={ __(
+					'The edge of each form box lights up where the pointer is. Under reduced motion the light stays still.',
+					'purplish'
+				) }
+				checked={ true === account.spotlight }
+				onChange={ ( on ) => set( 'spotlight', on || undefined ) }
+			/>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom

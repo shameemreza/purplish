@@ -107,7 +107,7 @@ class SettingsTest extends WP_UnitTestCase {
 	public function test_block_theme_pointer() {
 		$fields = Settings::fields( true );
 
-		$this->assertCount( 12, $fields );
+		$this->assertCount( 15, $fields );
 		$this->assertSame( Settings::OPTION . '[tint_panels]', $fields[1]['id'] );
 		$this->assertSame( 'yes', $fields[1]['default'] );
 		$this->assertStringContainsString( 'Add to Cart + Options block', $fields[0]['desc'] );
@@ -122,7 +122,7 @@ class SettingsTest extends WP_UnitTestCase {
 		$fields = Settings::fields( true, true );
 		$ids    = wp_list_pluck( $fields, 'id' );
 
-		$this->assertCount( 16, $fields );
+		$this->assertCount( 19, $fields );
 		$this->assertContains( Settings::OPTION . '[purple_delivery]', $ids );
 		$this->assertContains( Settings::OPTION . '[purple_extras]', $ids );
 		foreach ( $fields as $field ) {
