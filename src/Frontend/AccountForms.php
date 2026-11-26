@@ -75,6 +75,8 @@ final class AccountForms {
 				'panel'     => array( 'card', 'glass' ),
 				'aurora'    => true,
 				'spotlight' => true,
+				'feedback'  => true,
+				'eye'       => true,
 				'button'    => array( 'bloom', 'ripple', 'sweep', 'spectrum', 'trace', 'roll', 'split', 'glass' ),
 			),
 			'needs'   => array(
