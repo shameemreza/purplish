@@ -142,13 +142,13 @@ echo $purplish_step( '3', esc_html__( 'Done', 'purplish' ), 'next' );
 
 <!-- wp:group {"metadata":{"name":"<?php echo esc_attr__( 'Trust row', 'purplish' ); ?>"},"align":"full","style":{"color":{"background":"<?php echo esc_attr( $purplish_ref( $purplish_tint ) ); ?>"},"spacing":{"padding":{"top":"10px","bottom":"10px","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"margin":{"top":"0","bottom":"0"},"blockGap":"6px 28px"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 <div class="wp-block-group alignfull has-background" style="background-color:<?php echo esc_attr( $purplish_var( $purplish_tint ) ); ?>;margin-top:0;margin-bottom:0;padding-top:10px;padding-right:var(--wp--preset--spacing--50);padding-bottom:10px;padding-left:var(--wp--preset--spacing--50)">
-<?php
+	<?php
 // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped -- Block markup built and escaped above.
-echo $purplish_promise( __( 'Free shipping over $100', 'purplish' ) );
-echo $purplish_promise( __( '30-day returns', 'purplish' ) );
-echo $purplish_promise( __( 'Secure payment', 'purplish' ) );
+	echo $purplish_promise( __( 'Free shipping over $100', 'purplish' ) );
+	echo $purplish_promise( __( '30-day returns', 'purplish' ) );
+	echo $purplish_promise( __( 'Secure payment', 'purplish' ) );
 // phpcs:enable
-?>
+	?>
 </div>
 <!-- /wp:group -->
 <?php endif; ?>

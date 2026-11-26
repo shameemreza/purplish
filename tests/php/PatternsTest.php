@@ -74,7 +74,7 @@ class PatternsTest extends WP_UnitTestCase {
 	 * drops them all leaves the category out too.
 	 */
 	public function test_ships_its_patterns() {
-		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'cart-page', 'order-confirmation', 'account-page', 'atelier-shop', 'flagship-shop', 'boutique-shop', 'size-chart-guide' ), array_keys( Patterns::patterns() ) );
+		$this->assertSame( array( 'hanging-rail', 'story-deck', 'runway', 'scroll-lookbook', 'escalator-hero-products', 'escalator-hero-photos', 'flagship-header', 'flagship-phone-menu', 'flagship-footer', 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'cart-page', 'order-confirmation', 'account-page', 'account-page-welcome', 'atelier-shop', 'flagship-shop', 'boutique-shop', 'size-chart-guide' ), array_keys( Patterns::patterns() ) );
 
 		( new Patterns() )->register_patterns();
 
@@ -85,7 +85,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-header' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-phone-menu' ) );
 		$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/flagship-footer' ) );
-		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'cart-page', 'order-confirmation', 'account-page', 'atelier-shop', 'flagship-shop' ) as $slug ) {
+		foreach ( array( 'flagship-home', 'flagship-floor', 'flagship-categories', 'flagship-just-in', 'flagship-brand-band', 'flagship-best-sellers', 'trust-row', 'flagship-newsletter', 'checkout-header', 'checkout-header-trust', 'guarantee-card', 'empty-cart', 'cart-page', 'order-confirmation', 'account-page', 'account-page-welcome', 'atelier-shop', 'flagship-shop' ) as $slug ) {
 			$this->assertTrue( WP_Block_Patterns_Registry::get_instance()->is_registered( 'purplish/' . $slug ), $slug );
 		}
 		$this->assertTrue( WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( Patterns::CATEGORY ) );
@@ -470,6 +470,27 @@ class PatternsTest extends WP_UnitTestCase {
 		$this->assertSame( '1000px', $group['attrs']['layout']['contentSize'] );
 		$this->assertSame( '[woocommerce_my_account]', trim( $group['innerBlocks'][0]['innerHTML'] ) );
 		$this->assertStringContainsString( 'Questions about an order? Reply to its confirmation email.', serialize_blocks( $blocks ) );
+		$this->assertSame( 'wave', $group['attrs']['purplish']['account']['labels'] );
+	}
+
+	/**
+	 * The welcome pattern puts the Account Group, with a Glass panel and a
+	 * Glass button, on a Cover with the photo that ships with the plugin.
+	 */
+	public function test_account_page_welcome() {
+		$pattern = Patterns::patterns()['account-page-welcome'];
+		$this->assertSame( array( 'page' ), $pattern['postTypes'] );
+
+		$blocks = parse_blocks( Patterns::content( $pattern['file'] ) );
+		$cover  = $blocks[0];
+		$this->assertSame( 'core/cover', $cover['blockName'] );
+		$this->assertStringEndsWith( 'assets/photos/account-welcome.jpg', $cover['attrs']['url'] );
+		$this->assertFileExists( PURPLISH_DIR . 'assets/photos/account-welcome.jpg' );
+
+		$group = $cover['innerBlocks'][0];
+		$this->assertSame( 'is-style-purplish-account', $group['attrs']['className'] );
+		$this->assertSame( 'glass', $group['attrs']['purplish']['account']['panel'] );
+		$this->assertSame( 'glass', $group['attrs']['purplish']['account']['button'] );
 	}
 
 	/**

@@ -9,8 +9,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_shop     = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-$purplish_deep     = '#1f0342';
+$purplish_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+$purplish_deep = '#1f0342';
 // Two layers: a side fade from 782px up and a bottom fade below it, as in the
 // mockup. Each stop is clamp(0%, 78200px - 10000vw, ...), which jumps between 0
 // and the full value at 782px, so the switch needs no stylesheet and survives

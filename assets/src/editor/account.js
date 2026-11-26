@@ -4,7 +4,13 @@
  * and sample forms in the canvas with the picked options on them, since
  * the editor shows the shortcode only as text.
  */
-import { PanelBody, SelectControl, ToggleControl } from '@wordpress/components';
+import {
+	BaseControl,
+	Button,
+	PanelBody,
+	SelectControl,
+	ToggleControl,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { useEffect, useRef } from '@wordpress/element';
@@ -106,6 +112,83 @@ export function applies( option, saved ) {
 
 const SWITCHES = [ 'focus', 'aurora', 'spotlight', 'feedback', 'eye' ];
 
+/**
+ * Ready-made looks: each sets every option at once.
+ *
+ * @return {Array<{name: string, label: string, account: Object}>} The looks.
+ */
+export function looks() {
+	return [
+		{
+			name: 'purple',
+			label: __( 'Purple', 'purplish' ),
+			account: {
+				fields: 'soft',
+				focus: true,
+				labels: 'wave',
+				switch: 'slide',
+				slide: 'page',
+				button: 'bloom',
+				feedback: true,
+			},
+		},
+		{
+			name: 'motion',
+			label: __( 'Purple in motion', 'purplish' ),
+			account: {
+				fields: 'draw',
+				labels: 'flip',
+				switch: 'flip',
+				aurora: true,
+				spotlight: true,
+				button: 'ripple',
+				feedback: true,
+			},
+		},
+		{
+			name: 'ice',
+			label: __( 'Purple on Ice', 'purplish' ),
+			account: {
+				panel: 'glass',
+				fields: 'underline',
+				focus: true,
+				labels: 'floating',
+				switch: 'slide',
+				slide: 'stretch',
+				button: 'trace',
+			},
+		},
+		{
+			name: 'tt5',
+			label: __( 'Twenty Twenty-Five', 'purplish' ),
+			account: {
+				panel: 'card',
+				fields: 'filled',
+				focus: true,
+				labels: 'inside',
+				switch: 'slide',
+				slide: 'blinds',
+				button: 'sweep',
+			},
+		},
+	];
+}
+
+/**
+ * Whether saved options are exactly a look's.
+ *
+ * @param {Object} account Saved account options.
+ * @param {Object} look    A look's options.
+ * @return {boolean} Whether they match.
+ */
+export function isLook( account, look ) {
+	const keys = Object.keys( account || {} );
+	return (
+		keys.length === Object.keys( look ).length &&
+		keys.every( ( key ) => account[ key ] === look[ key ] )
+	);
+}
+
 let samples = 0;
 
 /**
@@ -206,6 +289,35 @@ export function AccountOptions( { account, setAccount } ) {
 	};
 	return (
 		<>
+			<BaseControl
+				__nextHasNoMarginBottom
+				id="purplish-account-looks"
+				label={ __( 'Looks', 'purplish' ) }
+				help={ __(
+					'Sets every option below at once. Each can be changed after.',
+					'purplish'
+				) }
+			>
+				<div
+					style={ {
+						display: 'flex',
+						flexWrap: 'wrap',
+						gap: '8px',
+					} }
+				>
+					{ looks().map( ( look ) => (
+						<Button
+							key={ look.name }
+							__next40pxDefaultSize
+							variant="secondary"
+							isPressed={ isLook( account, look.account ) }
+							onClick={ () => setAccount( { ...look.account } ) }
+						>
+							{ look.label }
+						</Button>
+					) ) }
+				</div>
+			</BaseControl>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom

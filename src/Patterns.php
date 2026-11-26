@@ -223,6 +223,13 @@ final class Patterns {
 				'postTypes'  => array( 'page' ),
 				'file'       => PURPLISH_DIR . 'patterns/account-page.php',
 			),
+			'account-page-welcome'    => array(
+				'title'      => __( 'Account page with welcome', 'purplish' ),
+				'categories' => array( 'woo-commerce' ),
+				'blockTypes' => array(),
+				'postTypes'  => array( 'page' ),
+				'file'       => PURPLISH_DIR . 'patterns/account-page-welcome.php',
+			),
 			'atelier-shop'            => array(
 				'title'      => __( 'Atelier shop', 'purplish' ),
 				'categories' => array( 'woo-commerce' ),
