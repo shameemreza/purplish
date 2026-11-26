@@ -272,6 +272,14 @@ final class Settings {
 				'title' => __( 'Spotlight', 'purplish' ),
 				'desc'  => __( 'The edge of each form box lights up where the pointer is', 'purplish' ),
 			),
+			'feedback'  => array(
+				'title' => __( 'Feedback', 'purplish' ),
+				'desc'  => __( 'The form shakes on an error, busy dots show while it sends, a tick shows on a valid email, and the password strength meter becomes a bar that grows', 'purplish' ),
+			),
+			'eye'       => array(
+				'title' => __( 'Password eye', 'purplish' ),
+				'desc'  => __( 'The show password button becomes an eye that blinks and gets a slash while the password shows', 'purplish' ),
+			),
 			'button'    => array(
 				'title'   => __( 'Button', 'purplish' ),
 				'default' => __( 'Theme button', 'purplish' ),

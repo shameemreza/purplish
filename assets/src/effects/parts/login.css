@@ -1596,3 +1596,296 @@
 }
 
 /* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+
+/* Feedback: the forms answer back. Busy dots while a form sends, a    */
+
+/* short shake on a field the browser refused or after a failed log    */
+
+/* in, and a tick that draws in once an email address is valid.        */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-feedback .woocommerce form button[type="submit"] {
+	position: relative;
+}
+
+.purplish-account .woocommerce form button.pa-busy {
+	color: transparent !important;
+	pointer-events: none;
+}
+
+.purplish-account .pa-dots {
+	color: var(--pa-dots, currentcolor);
+	display: flex;
+	gap: 0.3em;
+	inset: 0;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+}
+
+.purplish-account .pa-dots i {
+	animation: pa-dot 0.9s ease-in-out infinite;
+	background-color: currentcolor;
+	border-radius: 50%;
+	height: 0.4em;
+	width: 0.4em;
+}
+
+.purplish-account .pa-dots i:nth-child(2) {
+	animation-delay: 0.15s;
+}
+
+.purplish-account .pa-dots i:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+@keyframes pa-dot {
+
+	0%,
+	100% {
+		opacity: 0.3;
+		translate: 0 0.15em;
+	}
+
+	50% {
+		opacity: 1;
+		translate: 0 -0.15em;
+	}
+}
+
+.purplish-account .pa-shake {
+	animation: pa-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes pa-shake {
+
+	10%,
+	90% {
+		translate: -1px 0;
+	}
+
+	20%,
+	80% {
+		translate: 3px 0;
+	}
+
+	30%,
+	50%,
+	70% {
+		translate: -6px 0;
+	}
+
+	40%,
+	60% {
+		translate: 6px 0;
+	}
+}
+
+.purplish-account .pa-field {
+	display: block;
+	position: relative;
+}
+
+.purplish-account .pa-field input.input-text {
+	padding-right: 2.75rem;
+}
+
+.purplish-account .pa-tick {
+	color: var(--pa-fx);
+	height: 1.25rem;
+	pointer-events: none;
+	position: absolute;
+	right: 0.9rem;
+	top: 50%;
+	translate: 0 -50%;
+	width: 1.25rem;
+}
+
+.purplish-account.purplish-account-fields-underline .pa-tick {
+	right: 0.1rem;
+}
+
+.purplish-account .pa-tick path {
+	fill: none;
+	stroke: currentcolor;
+	stroke-dasharray: 24;
+	stroke-dashoffset: 24;
+	stroke-linecap: square;
+	stroke-width: 2.5;
+	transition: stroke-dashoffset 0.15s ease-in;
+}
+
+.purplish-account .pa-field:has(input:user-valid:not(:placeholder-shown)) .pa-tick path {
+	stroke-dashoffset: 0;
+	transition: stroke-dashoffset 0.45s var(--pa-ease) 0.05s;
+}
+
+/* ------------------------------------------------------------------ */
+
+@keyframes pa-dot-still {
+
+	0%,
+	100% {
+		opacity: 0.3;
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+/* Feedback: the password strength meter becomes a bar that grows and  */
+
+/* changes color with the password.                                    */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-feedback .woocommerce-password-strength {
+	--pa-meter: 0%;
+	background: none !important;
+	border: 0 !important;
+	color: var(--pa-ink);
+	font-size: 0.875rem;
+	font-weight: 500;
+	padding: 0.5rem 0 0 !important;
+	text-align: left;
+	transition: color 0.3s ease-out;
+}
+
+.purplish-account.purplish-account-feedback .woocommerce-password-strength::before {
+	background: linear-gradient(currentcolor, currentcolor) left / var(--pa-meter) 100% no-repeat, color-mix(in oklab, var(--pa-ink) 10%, transparent);
+	content: "";
+	display: block;
+	height: 4px;
+	margin-bottom: 0.4rem;
+	transition: background-size 0.5s var(--pa-ease);
+}
+
+.purplish-account.purplish-account-feedback .woocommerce-password-strength.short {
+	--pa-meter: 18%;
+	color: #b3261e;
+}
+
+.purplish-account.purplish-account-feedback .woocommerce-password-strength.bad {
+	--pa-meter: 42%;
+	color: #c2410c;
+}
+
+.purplish-account.purplish-account-feedback .woocommerce-password-strength.good {
+	--pa-meter: 72%;
+	color: var(--pa-fx);
+}
+
+.purplish-account.purplish-account-feedback .woocommerce-password-strength.strong {
+	--pa-meter: 100%;
+	color: #15803d;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-account .pa-dots i {
+		animation-name: pa-dot-still;
+	}
+
+	.purplish-account .pa-shake {
+		animation: none;
+		outline: 2px solid #b3261e;
+		outline-offset: 2px;
+	}
+
+	.purplish-account .pa-tick path,
+	.purplish-account .woocommerce-password-strength::before {
+		transition: none !important;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Password eye: WooCommerce's show-password button becomes an eye     */
+
+/* that blinks on each press, with a slash that draws in while the     */
+
+/* password shows.                                                     */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-eye .woocommerce .password-input .show-password-input {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	height: 2rem;
+	opacity: 1;
+	padding: 0;
+	position: absolute;
+	right: 0.6rem;
+	top: 50%;
+	translate: 0 -50%;
+	width: 2rem;
+}
+
+.purplish-account.purplish-account-eye .woocommerce .password-input .show-password-input::before,
+.purplish-account.purplish-account-eye .woocommerce .password-input .show-password-input::after {
+	content: "";
+	inset: 0;
+	margin: 0;
+	position: absolute;
+}
+
+.purplish-account.purplish-account-eye .woocommerce .password-input .show-password-input::before {
+	animation: pa-blink-a 0.35s var(--pa-ease);
+	background-color: color-mix(in oklab, var(--pa-ink) 70%, transparent);
+	font-family: inherit;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E") center / 1.25rem no-repeat;
+	transition: background-color 0.2s ease-out;
+}
+
+.purplish-account.purplish-account-eye .woocommerce .password-input .show-password-input.display-password::before {
+	animation-name: pa-blink-b;
+	background-color: var(--pa-fx);
+}
+
+.purplish-account.purplish-account-eye .woocommerce .password-input .show-password-input::after {
+	background: linear-gradient(var(--pa-fx), var(--pa-fx)) center / 1.5rem 2px no-repeat;
+	rotate: -45deg;
+	scale: 0 1;
+	transition: scale 0.3s var(--pa-ease);
+}
+
+.purplish-account.purplish-account-eye .woocommerce .password-input .show-password-input.display-password::after {
+	scale: 1 1;
+	transition-delay: 0.15s;
+}
+
+.purplish-account.purplish-account-eye .woocommerce .password-input input {
+	padding-right: 3rem;
+}
+
+@keyframes pa-blink-a {
+
+	50% {
+		scale: 1 0.1;
+	}
+}
+
+@keyframes pa-blink-b {
+
+	50% {
+		scale: 1 0.1;
+	}
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-account .woocommerce .show-password-input::after {
+		transition: none !important;
+	}
+
+	.purplish-account .woocommerce .show-password-input::before {
+		animation: none !important;
+	}
+}

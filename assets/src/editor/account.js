@@ -104,7 +104,7 @@ export function applies( option, saved ) {
 	return ! NEEDS[ option ] || NEEDS[ option ].includes( saved.switch );
 }
 
-const SWITCHES = [ 'focus', 'aurora', 'spotlight' ];
+const SWITCHES = [ 'focus', 'aurora', 'spotlight', 'feedback', 'eye' ];
 
 let samples = 0;
 
@@ -311,6 +311,26 @@ export function AccountOptions( { account, setAccount } ) {
 				) }
 				checked={ true === account.spotlight }
 				onChange={ ( on ) => set( 'spotlight', on || undefined ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Feedback', 'purplish' ) }
+				help={ __(
+					'The form shakes on an error, busy dots show while it sends, a tick shows on a valid email, and the password strength meter becomes a bar that grows.',
+					'purplish'
+				) }
+				checked={ true === account.feedback }
+				onChange={ ( on ) => set( 'feedback', on || undefined ) }
+			/>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Password eye', 'purplish' ) }
+				help={ __(
+					'The show password button becomes an eye that blinks and gets a slash while the password shows.',
+					'purplish'
+				) }
+				checked={ true === account.eye }
+				onChange={ ( on ) => set( 'eye', on || undefined ) }
 			/>
 			<SelectControl
 				__next40pxDefaultSize

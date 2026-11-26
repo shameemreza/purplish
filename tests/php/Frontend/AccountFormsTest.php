@@ -149,6 +149,22 @@ class AccountFormsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Feedback and Password eye are switches.
+	 */
+	public function test_feedback_and_eye_classes() {
+		$this->assertSame(
+			array( 'purplish-account', 'purplish-account-feedback', 'purplish-account-eye' ),
+			AccountForms::classes(
+				array(
+					'feedback' => true,
+					'eye'      => true,
+				)
+			)
+		);
+		$this->assertSame( array(), AccountForms::classes( array( 'eye' => 'on' ) ) );
+	}
+
+	/**
 	 * A sign up that failed opens on the register form again.
 	 */
 	public function test_open_register_after_failed_sign_up() {
