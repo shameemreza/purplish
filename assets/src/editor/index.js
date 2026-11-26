@@ -43,6 +43,7 @@ import CartPagePanel from './cart-page';
 import CheckoutPagePanel from './checkout-page';
 import { OrderStatusPanel, OrderSummaryPanel } from './order-confirmation';
 import SearchPanel, { SearchView } from './search';
+import { ShortcodePanel, ShortcodeView } from './account';
 import './preview';
 
 const PANELS = {
@@ -86,6 +87,7 @@ const PANELS = {
 	'woocommerce/cart': CartPagePanel,
 	'woocommerce/checkout': CheckoutPagePanel,
 	'core/search': SearchPanel,
+	'core/shortcode': ShortcodePanel,
 };
 
 /**
@@ -98,6 +100,7 @@ const VIEWS = {
 	'woocommerce/product-results-count': CountView,
 	'woocommerce/catalog-sorting': CatalogSortingView,
 	'core/search': SearchView,
+	'core/shortcode': ShortcodeView,
 };
 
 addFilter(
@@ -135,6 +138,7 @@ const withPurplishPanel = createHigherOrderComponent(
 				<InspectorControls>
 					<Panel
 						attributes={ props.attributes }
+						clientId={ props.clientId }
 						context={ props.context }
 						saved={ props.attributes.purplish || {} }
 						setSaved={ ( purplish ) =>
