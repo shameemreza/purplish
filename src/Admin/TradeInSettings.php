@@ -93,9 +93,9 @@ final class TradeInSettings {
 				'type'  => 'title',
 				'title' => __( 'Trade-in', 'purplish' ),
 				'desc'  => sprintf(
-					/* translators: %s: "Trade-in", the name of the option on the Add to Cart + Options block. */
-					__( 'Shoppers say whether they’re trading in an old device, pick it, and see your estimate. It shows where the Add to Cart + Options block has %s turned on in its Purplish panel. The device and the estimate go with the cart item and the order. Nothing comes off the price: you settle the value when you inspect the device.', 'purplish' ),
-					'<strong>' . esc_html__( 'Trade-in', 'purplish' ) . '</strong>'
+					/* translators: %s: "Ask about a trade-in", the name of the switch in the Trade-in panel of the Add to Cart + Options block. */
+					__( 'Shoppers say whether they’re trading in an old device, pick it, and see your estimate. It shows where the Add to Cart + Options block has %s turned on in its Trade-in panel. The device and the estimate go with the cart item and the order. Nothing comes off the price: you settle the value when you inspect the device.', 'purplish' ),
+					'<strong>' . esc_html__( 'Ask about a trade-in', 'purplish' ) . '</strong>'
 				),
 			),
 			array(

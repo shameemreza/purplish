@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-26T01:36:16+00:00\n"
+"POT-Creation-Date: 2026-11-26T03:07:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -1741,17 +1741,22 @@ msgstr ""
 #: src/Admin/TradeInOverride.php:132
 #: src/Admin/TradeInSettings.php:63
 #: src/Admin/TradeInSettings.php:94
-#: src/Admin/TradeInSettings.php:98
 #: src/TradeIn.php:410
 #: assets/src/editor/trade-in.js:21
 #: build/editor.js:6
 msgid "Trade-in"
 msgstr ""
 
-#. translators: %s: "Trade-in", the name of the option on the Add to Cart + Options block.
+#. translators: %s: "Ask about a trade-in", the name of the switch in the Trade-in panel of the Add to Cart + Options block.
 #: src/Admin/TradeInSettings.php:97
 #, php-format
-msgid "Shoppers say whether they’re trading in an old device, pick it, and see your estimate. It shows where the Add to Cart + Options block has %s turned on in its Purplish panel. The device and the estimate go with the cart item and the order. Nothing comes off the price: you settle the value when you inspect the device."
+msgid "Shoppers say whether they’re trading in an old device, pick it, and see your estimate. It shows where the Add to Cart + Options block has %s turned on in its Trade-in panel. The device and the estimate go with the cart item and the order. Nothing comes off the price: you settle the value when you inspect the device."
+msgstr ""
+
+#: src/Admin/TradeInSettings.php:98
+#: assets/src/editor/trade-in.js:24
+#: build/editor.js:6
+msgid "Ask about a trade-in"
 msgstr ""
 
 #: src/Admin/TradeInSettings.php:104
@@ -7125,11 +7130,6 @@ msgstr ""
 #: assets/src/editor/thumbs.js:27
 #: build/editor.js:12
 msgid "Circle is round with the square aspect ratio, and oval with the others."
-msgstr ""
-
-#: assets/src/editor/trade-in.js:24
-#: build/editor.js:6
-msgid "Ask about a trade-in"
 msgstr ""
 
 #: assets/src/editor/trade-in.js:27
