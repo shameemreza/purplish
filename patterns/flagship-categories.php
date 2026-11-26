@@ -14,14 +14,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$purplish_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-$purplish_rule = 'var:preset|color|theme-6';
+$purplish_shop   = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+$purplish_rule   = 'var:preset|color|theme-6';
 // A category without an image shows this under the fade.
-$purplish_deep = 'var:preset|color|theme-3';
+$purplish_deep   = 'var:preset|color|theme-3';
 // Clear at the head, dark at the foot, so the name reads on any photo.
-$purplish_fade  = 'linear-gradient(180deg, rgba(31,3,66,0) 50%, rgba(31,3,66,0.72) 100%)';
-$purplish_terms = defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '11.3', '>=' );
-$purplish_tiles = array(
+$purplish_fade   = 'linear-gradient(180deg, rgba(31,3,66,0) 50%, rgba(31,3,66,0.72) 100%)';
+$purplish_terms  = defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '11.3', '>=' );
+$purplish_tiles  = array(
 	array( __( 'Coats', 'purplish' ), 'long-coat' ),
 	array( __( 'Jackets', 'purplish' ), 'puffer' ),
 	array( __( 'Trousers', 'purplish' ), 'denim-set' ),
@@ -51,33 +51,33 @@ $purplish_tiles = array(
 <?php else : ?>
 <!-- wp:group {"style":{"spacing":{"blockGap":"16px"}},"className":"purplish-category-grid","layout":{"type":"grid","columnCount":4,"minimumColumnWidth":"9rem"}} -->
 <div class="wp-block-group purplish-category-grid">
-	<?php foreach ( $purplish_tiles as $purplish_tile ) : ?>
-		<?php
-		$purplish_url   = \Purplish\Blocks\Showfloor::figure( $purplish_tile[1] );
-		$purplish_attrs = serialize_block_attributes(
-			array(
-				'url'             => $purplish_url,
-				'dimRatio'        => 100,
-				'customGradient'  => $purplish_fade,
-				'focalPoint'      => array(
-					'x' => 0.5,
-					'y' => 0.3,
+<?php foreach ( $purplish_tiles as $purplish_tile ) : ?>
+	<?php
+	$purplish_url   = \Purplish\Blocks\Showfloor::figure( $purplish_tile[1] );
+	$purplish_attrs = serialize_block_attributes(
+		array(
+			'url'             => $purplish_url,
+			'dimRatio'        => 100,
+			'customGradient'  => $purplish_fade,
+			'focalPoint'      => array(
+				'x' => 0.5,
+				'y' => 0.3,
+			),
+			'contentPosition' => 'bottom left',
+			'isDark'          => true,
+			'style'           => array(
+				'dimensions' => array( 'aspectRatio' => '3/4' ),
+				'border'     => array(
+					'width' => '1px',
+					'style' => 'solid',
+					'color' => $purplish_rule,
 				),
-				'contentPosition' => 'bottom left',
-				'isDark'          => true,
-				'style'           => array(
-					'dimensions' => array( 'aspectRatio' => '3/4' ),
-					'border'     => array(
-						'width' => '1px',
-						'style' => 'solid',
-						'color' => $purplish_rule,
-					),
-				),
-				'layout'          => array( 'type' => 'default' ),
-				'purplish'        => array( 'hover' => 'tilt' ),
-			)
-		);
-		?>
+			),
+			'layout'          => array( 'type' => 'default' ),
+			'purplish'        => array( 'hover' => 'tilt' ),
+		)
+	);
+	?>
 <!-- wp:group {"layout":{"type":"default"},"purplish":{"entrance":"fadeup"}} -->
 <div class="wp-block-group"><!-- wp:cover <?php echo $purplish_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Block attribute JSON, encoded by core. ?> -->
 <div class="wp-block-cover has-border-color has-custom-content-position is-position-bottom-left" style="border-color:var(--wp--preset--color--theme-6);border-style:solid;border-width:1px"><img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( $purplish_url ); ?>" style="object-position:50% 30%" data-object-fit="cover" data-object-position="50% 30%"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim-100 has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:<?php echo esc_attr( $purplish_fade ); ?>"></span><div class="wp-block-cover__inner-container"><!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"#ffffff"},"typography":{"textDecoration":"none"}}}},"fontSize":"large"} -->
@@ -85,7 +85,7 @@ $purplish_tiles = array(
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:cover --></div>
 <!-- /wp:group -->
-	<?php endforeach; ?>
+<?php endforeach; ?>
 </div>
 <!-- /wp:group -->
 <?php endif; ?></div>
