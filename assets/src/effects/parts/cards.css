@@ -121,10 +121,6 @@
 		pointer-events: auto;
 	}
 
-	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"], [class*="purplish-cards-hovercard-"]) .wc-block-product:hover .wc-block-components-product-image img {
-		transform: scale(1.06);
-	}
-
 	:is(.purplish-cards-overlay, .purplish-cards-details) .wc-block-product .wc-block-components-product-button__button:is(:hover, .purplish-hover) {
 		background-size: 100% 100%, auto !important;
 		color: var(--purplish-color-on) !important;
@@ -687,6 +683,14 @@
 	 */
 
 /* Looks that move: off under reduced motion and on touch screens. */
+
+/* The photo grows a little on hover, only when motion is welcome. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+
+	:is(.purplish-cards-overlay, .purplish-cards-details):not([class*="purplish-cards-hoverphoto-"], [class*="purplish-cards-hovercard-"]) .wc-block-product:hover .wc-block-components-product-image img {
+		transform: scale(1.06);
+	}
+}
 
 /*
 	 * The main photo fades out with the second photo's timing. An animation,
