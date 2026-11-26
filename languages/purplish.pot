@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.4.1\n"
+"Project-Id-Version: Purplish - Block Design Toolkit for WooCommerce 1.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/purplish\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-26T03:47:53+00:00\n"
+"POT-Creation-Date: 2026-11-26T18:22:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: purplish\n"
@@ -39,17 +39,22 @@ msgstr ""
 msgid "https://shameemreza.com/"
 msgstr ""
 
-#: patterns/account-page.php:12
+#: patterns/account-page-welcome.php:14
+#: patterns/account-page.php:13
 msgid "My account"
 msgstr ""
 
-#: patterns/account-page.php:19
+#: patterns/account-page-welcome.php:16
+msgid "Your account"
+msgstr ""
+
+#: patterns/account-page.php:20
 msgid "Questions about an order? Reply to its confirmation email."
 msgstr ""
 
 #: patterns/atelier-shop.php:65
 #: patterns/atelier-shop.php:103
-#: src/Patterns.php:227
+#: src/Patterns.php:234
 msgid "Atelier shop"
 msgstr ""
 
@@ -112,7 +117,7 @@ msgstr ""
 
 #: patterns/boutique-shop.php:129
 #: patterns/boutique-shop.php:165
-#: src/Patterns.php:241
+#: src/Patterns.php:248
 msgid "Boutique shop"
 msgstr ""
 
@@ -446,11 +451,11 @@ msgstr ""
 
 #: patterns/flagship-footer.php:17
 #: src/Abilities.php:57
-#: src/Admin/Settings.php:45
-#: src/Admin/Settings.php:75
+#: src/Admin/Settings.php:46
+#: src/Admin/Settings.php:76
 #: src/Blocks/Registry.php:158
 #: src/Patterns.php:46
-#: src/Patterns.php:310
+#: src/Patterns.php:317
 #: assets/src/editor/accordion-group.js:16
 #: assets/src/editor/accordion.js:19
 #: assets/src/editor/add-to-cart.js:52
@@ -471,7 +476,7 @@ msgstr ""
 #: assets/src/editor/filter-chips.js:16
 #: assets/src/editor/filters.js:24
 #: assets/src/editor/gallery.js:75
-#: assets/src/editor/group.js:22
+#: assets/src/editor/group.js:26
 #: assets/src/editor/heading.js:23
 #: assets/src/editor/image.js:18
 #: assets/src/editor/mini-cart.js:16
@@ -737,7 +742,7 @@ msgstr ""
 
 #: patterns/flagship-shop.php:159
 #: patterns/flagship-shop.php:242
-#: src/Patterns.php:234
+#: src/Patterns.php:241
 msgid "Flagship shop"
 msgstr ""
 
@@ -1388,20 +1393,20 @@ msgid "The instalment line under the price. Store bands follows the product’s 
 msgstr ""
 
 #. translators: %s: link to the Single Product template in the Site Editor.
-#: src/Admin/Settings.php:85
+#: src/Admin/Settings.php:86
 #, php-format
 msgid "Your theme uses blocks, so these settings live on the Add to Cart + Options block. Open the %s, select the block, and find the Purplish panel. Each template keeps its own settings."
 msgstr ""
 
-#: src/Admin/Settings.php:86
+#: src/Admin/Settings.php:87
 msgid "Single Product template"
 msgstr ""
 
-#: src/Admin/Settings.php:92
+#: src/Admin/Settings.php:93
 msgid "When a shopper picks a color on a variable product, these parts of the product page take that color."
 msgstr ""
 
-#: src/Admin/Settings.php:95
+#: src/Admin/Settings.php:96
 #: assets/src/blocks/escalator/edit.js:224
 #: assets/src/editor/add-to-cart.js:19
 #: build/blocks/escalator/index.js:1
@@ -1409,52 +1414,52 @@ msgstr ""
 msgid "Add to cart button"
 msgstr ""
 
-#: src/Admin/Settings.php:96
+#: src/Admin/Settings.php:97
 #: assets/src/editor/add-to-cart.js:21
 #: build/editor.js:6
 msgid "Sale badge"
 msgstr ""
 
-#: src/Admin/Settings.php:97
+#: src/Admin/Settings.php:98
 #: assets/src/editor/add-to-cart.js:22
 #: build/editor.js:6
 msgid "Sale price"
 msgstr ""
 
-#: src/Admin/Settings.php:98
+#: src/Admin/Settings.php:99
 #: assets/src/editor/add-to-cart.js:23
 #: build/editor.js:6
 msgid "Page background tint"
 msgstr ""
 
-#: src/Admin/Settings.php:107
+#: src/Admin/Settings.php:108
 msgid "Parts that take the color"
 msgstr ""
 
-#: src/Admin/Settings.php:117
+#: src/Admin/Settings.php:118
 msgid "Hide thumbnails (one big photo)"
 msgstr ""
 
-#: src/Admin/Settings.php:118
+#: src/Admin/Settings.php:119
 #: assets/src/editor/gallery.js:13
 #: build/editor.js:6
 msgid "Rounded corners"
 msgstr ""
 
-#: src/Admin/Settings.php:125
+#: src/Admin/Settings.php:126
 msgid "Product gallery"
 msgstr ""
 
-#: src/Admin/Settings.php:138
+#: src/Admin/Settings.php:139
 msgid "Gallery hover style"
 msgstr ""
 
-#: src/Admin/Settings.php:139
+#: src/Admin/Settings.php:140
 msgid "Plays when the mouse is over the photo, and replaces WooCommerce's hover zoom. Touch screens and visitors who ask for reduced motion see the plain photo."
 msgstr ""
 
-#: src/Admin/Settings.php:143
-#: src/Admin/Settings.php:162
+#: src/Admin/Settings.php:144
+#: src/Admin/Settings.php:163
 #: src/Admin/SizeChartFields.php:100
 #: assets/src/blocks/escalator/edit.js:51
 #: assets/src/blocks/escalator/edit.js:59
@@ -1472,7 +1477,7 @@ msgstr ""
 #: assets/src/editor/cover.js:15
 #: assets/src/editor/eyes.js:8
 #: assets/src/editor/gallery.js:39
-#: assets/src/editor/group.js:8
+#: assets/src/editor/group.js:10
 #: assets/src/editor/heading.js:8
 #: assets/src/editor/social.js:8
 #: assets/src/editor/terms.js:136
@@ -1488,14 +1493,14 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: src/Admin/Settings.php:144
+#: src/Admin/Settings.php:145
 #: assets/src/editor/gallery.js:40
 #: build/editor.js:6
 msgid "3D tilt"
 msgstr ""
 
-#: src/Admin/Settings.php:145
-#: src/Admin/Settings.php:165
+#: src/Admin/Settings.php:146
+#: src/Admin/Settings.php:166
 #: assets/src/editor/add-to-cart.js:104
 #: assets/src/editor/gallery.js:41
 #: assets/src/editor/terms.js:129
@@ -1504,7 +1509,7 @@ msgstr ""
 msgid "Zoom"
 msgstr ""
 
-#: src/Admin/Settings.php:146
+#: src/Admin/Settings.php:147
 #: assets/src/blocks/escalator/edit.js:53
 #: assets/src/blocks/showfloor/choices.js:54
 #: assets/src/editor/cards.js:100
@@ -1517,7 +1522,7 @@ msgstr ""
 msgid "Lift"
 msgstr ""
 
-#: src/Admin/Settings.php:147
+#: src/Admin/Settings.php:148
 #: assets/src/editor/cards.js:59
 #: assets/src/editor/cover.js:10
 #: assets/src/editor/gallery.js:43
@@ -1526,7 +1531,7 @@ msgstr ""
 msgid "Parallax"
 msgstr ""
 
-#: src/Admin/Settings.php:148
+#: src/Admin/Settings.php:149
 #: assets/src/editor/cards.js:112
 #: assets/src/editor/cover.js:19
 #: assets/src/editor/gallery.js:44
@@ -1535,13 +1540,13 @@ msgstr ""
 msgid "Glare"
 msgstr ""
 
-#: src/Admin/Settings.php:149
+#: src/Admin/Settings.php:150
 #: assets/src/editor/gallery.js:45
 #: build/editor.js:6
 msgid "Loupe"
 msgstr ""
 
-#: src/Admin/Settings.php:150
+#: src/Admin/Settings.php:151
 #: assets/src/editor/cover.js:9
 #: assets/src/editor/gallery.js:46
 #: build/editor.js:6
@@ -1549,19 +1554,19 @@ msgstr ""
 msgid "Slow zoom"
 msgstr ""
 
-#: src/Admin/Settings.php:157
+#: src/Admin/Settings.php:158
 #: assets/src/editor/add-to-cart.js:83
 #: build/editor.js:12
 msgid "Photo transition"
 msgstr ""
 
-#: src/Admin/Settings.php:158
+#: src/Admin/Settings.php:159
 #: assets/src/editor/add-to-cart.js:84
 #: build/editor.js:12
 msgid "Plays when the photo changes with the color. Visitors who ask for reduced motion see no effect."
 msgstr ""
 
-#: src/Admin/Settings.php:163
+#: src/Admin/Settings.php:164
 #: assets/src/blocks/changing-room/choices.js:28
 #: assets/src/blocks/color-dots/edit.js:30
 #: assets/src/editor/add-to-cart.js:96
@@ -1573,28 +1578,36 @@ msgstr ""
 msgid "Fade"
 msgstr ""
 
-#: src/Admin/Settings.php:164
+#: src/Admin/Settings.php:165
 #: assets/src/editor/add-to-cart.js:100
 #: build/editor.js:12
 msgid "Blur"
 msgstr ""
 
-#: src/Admin/Settings.php:166
+#: src/Admin/Settings.php:167
+#: src/Admin/Settings.php:229
 #: assets/src/blocks/color-dots/edit.js:32
+#: assets/src/editor/account.js:53
 #: assets/src/editor/add-to-cart.js:108
 #: assets/src/editor/filters.js:86
 #: build/blocks/color-dots/index.js:1
+#: build/editor.js:8
 #: build/editor.js:12
 msgid "Slide"
 msgstr ""
 
-#: src/Admin/Settings.php:167
+#: src/Admin/Settings.php:168
+#: src/Admin/Settings.php:219
+#: src/Admin/Settings.php:228
+#: assets/src/editor/account.js:46
+#: assets/src/editor/account.js:52
 #: assets/src/editor/add-to-cart.js:112
+#: build/editor.js:8
 #: build/editor.js:12
 msgid "Flip"
 msgstr ""
 
-#: src/Admin/Settings.php:168
+#: src/Admin/Settings.php:169
 #: assets/src/blocks/color-dots/edit.js:31
 #: assets/src/editor/add-to-cart.js:116
 #: build/blocks/color-dots/index.js:1
@@ -1602,55 +1615,465 @@ msgstr ""
 msgid "Wipe"
 msgstr ""
 
-#: src/Admin/Settings.php:169
+#: src/Admin/Settings.php:170
 #: assets/src/editor/add-to-cart.js:120
 #: build/editor.js:12
 msgid "Circle reveal"
 msgstr ""
 
-#: src/Admin/Settings.php:170
+#: src/Admin/Settings.php:171
 #: assets/src/editor/add-to-cart.js:124
 #: build/editor.js:12
 msgid "Color wash"
 msgstr ""
 
-#: src/Admin/Settings.php:176
+#: src/Admin/Settings.php:177
 msgid "Title and price"
 msgstr ""
 
-#: src/Admin/Settings.php:177
+#: src/Admin/Settings.php:178
 msgid "Rise in after the photo on each color change"
 msgstr ""
 
-#: src/Admin/Settings.php:196
-msgid "Panels"
-msgstr ""
-
-#: src/Admin/Settings.php:197
-msgid "Tint panels with the page color"
-msgstr ""
-
 #: src/Admin/Settings.php:198
-msgid "Soft panels, like accordions and the cart drawer, take a light mix of the page color. Turn this off to keep them on a neutral fill from your theme's text color."
+#: assets/src/editor/account.js:324
+#: build/editor.js:8
+msgid "Fields"
 msgstr ""
 
-#: src/Admin/Settings.php:213
-msgid "Purple's Add to Cart parts"
+#: src/Admin/Settings.php:199
+#: assets/src/editor/accordion.js:48
+#: assets/src/editor/account.js:34
+#: assets/src/editor/catalog-sorting.js:135
+#: assets/src/editor/pagination.js:39
+#: assets/src/editor/terms.js:58
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Theme default"
+msgstr ""
+
+#: src/Admin/Settings.php:201
+#: assets/src/editor/account.js:35
+#: assets/src/editor/checkout-page.js:17
+#: build/editor.js:8
+#: build/editor.js:11
+msgid "Soft"
+msgstr ""
+
+#: src/Admin/Settings.php:202
+#: assets/src/blocks/escalator/edit.js:60
+#: assets/src/editor/account.js:36
+#: assets/src/editor/checkout-page.js:18
+#: build/blocks/escalator/index.js:1
+#: build/editor.js:8
+#: build/editor.js:11
+msgid "Filled"
+msgstr ""
+
+#: src/Admin/Settings.php:203
+#: assets/src/editor/account.js:37
+#: assets/src/editor/checkout-page.js:19
+#: assets/src/editor/pagination.js:43
+#: build/editor.js:8
+#: build/editor.js:11
+#: build/editor.js:12
+msgid "Underline"
+msgstr ""
+
+#: src/Admin/Settings.php:204
+#: assets/src/editor/account.js:38
+#: build/editor.js:8
+msgid "Draw"
+msgstr ""
+
+#: src/Admin/Settings.php:205
+#: assets/src/editor/account.js:39
+#: build/editor.js:8
+msgid "Fill"
+msgstr ""
+
+#: src/Admin/Settings.php:206
+#: assets/src/editor/account.js:40
+#: build/editor.js:8
+msgid "Corners"
+msgstr ""
+
+#: src/Admin/Settings.php:210
+#: assets/src/editor/account.js:335
+#: assets/src/editor/checkout-page.js:37
+#: build/editor.js:8
+#: build/editor.js:11
+msgid "Focus ring"
+msgstr ""
+
+#: src/Admin/Settings.php:211
+msgid "A ring in your theme's accent color around the field, box or link that has keyboard focus"
 msgstr ""
 
 #: src/Admin/Settings.php:214
-msgid "Purple has an Add to Cart part for each product type. What you turn on here goes at the end of the simple, variable and grouped parts, under the buy button. To move it, change its settings or take it out of one part, open that part in the Site Editor."
+#: assets/src/editor/account.js:346
+#: build/editor.js:8
+msgid "Labels"
 msgstr ""
 
-#: src/Admin/Settings.php:219
-msgid "Add under the button"
+#: src/Admin/Settings.php:215
+#: assets/src/editor/account.js:43
+#: build/editor.js:8
+msgid "Above"
+msgstr ""
+
+#: src/Admin/Settings.php:217
+#: assets/src/editor/account.js:44
+#: build/editor.js:8
+msgid "Inside"
+msgstr ""
+
+#: src/Admin/Settings.php:218
+#: assets/src/editor/account.js:45
+#: build/editor.js:8
+msgid "Floating"
 msgstr ""
 
 #: src/Admin/Settings.php:220
-msgid "Delivery Line: the delivery date, returns and pickup. Set your dates in Shipping > Delivery dates first."
+#: assets/src/editor/account.js:47
+#: build/editor.js:8
+msgid "Wave"
+msgstr ""
+
+#: src/Admin/Settings.php:224
+#: assets/src/editor/account.js:358
+#: build/editor.js:8
+msgid "Log in and register"
+msgstr ""
+
+#: src/Admin/Settings.php:225
+#: assets/src/editor/account.js:50
+#: build/editor.js:8
+msgid "Side by side"
 msgstr ""
 
 #: src/Admin/Settings.php:227
+#: assets/src/editor/account.js:51
+#: assets/src/editor/terms.js:59
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Tabs"
+msgstr ""
+
+#: src/Admin/Settings.php:233
+#: assets/src/editor/account.js:371
+#: build/editor.js:8
+msgid "Tab look"
+msgstr ""
+
+#: src/Admin/Settings.php:234
+#: assets/src/blocks/shelf-tag/edit.js:49
+#: assets/src/editor/account.js:56
+#: assets/src/editor/badge.js:9
+#: assets/src/editor/cards.js:567
+#: assets/src/editor/count.js:127
+#: assets/src/editor/stock.js:12
+#: assets/src/editor/terms.js:77
+#: build/blocks/shelf-tag/index.js:1
+#: build/editor.js:8
+#: build/editor.js:10
+#: build/editor.js:12
+msgid "Pill"
+msgstr ""
+
+#: src/Admin/Settings.php:235
+msgid "With Tabs or Slide."
+msgstr ""
+
+#: src/Admin/Settings.php:237
+#: assets/src/editor/account.js:57
+#: assets/src/editor/terms.js:76
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Line"
+msgstr ""
+
+#: src/Admin/Settings.php:241
+#: assets/src/editor/account.js:385
+#: build/editor.js:8
+msgid "Slide motion"
+msgstr ""
+
+#: src/Admin/Settings.php:242
+#: assets/src/editor/account.js:60
+#: build/editor.js:8
+msgid "Push"
+msgstr ""
+
+#: src/Admin/Settings.php:243
+msgid "With Slide."
+msgstr ""
+
+#: src/Admin/Settings.php:245
+#: assets/src/editor/account.js:61
+#: build/editor.js:8
+msgid "Stretch"
+msgstr ""
+
+#: src/Admin/Settings.php:246
+#: assets/src/editor/account.js:62
+#: build/editor.js:8
+msgid "Flood"
+msgstr ""
+
+#: src/Admin/Settings.php:247
+#: assets/src/editor/account.js:63
+#: build/editor.js:8
+msgid "Blinds"
+msgstr ""
+
+#: src/Admin/Settings.php:248
+#: assets/src/editor/account.js:64
+#: build/editor.js:8
+msgid "Page"
+msgstr ""
+
+#: src/Admin/Settings.php:249
+#: assets/src/editor/account.js:65
+#: build/editor.js:8
+msgid "Shear"
+msgstr ""
+
+#: src/Admin/Settings.php:250
+#: assets/src/editor/account.js:66
+#: build/editor.js:8
+msgid "Shutter"
+msgstr ""
+
+#: src/Admin/Settings.php:251
+#: assets/src/editor/account.js:67
+#: build/editor.js:8
+msgid "Liquid"
+msgstr ""
+
+#: src/Admin/Settings.php:252
+#: assets/src/blocks/showfloor/edit.js:182
+#: assets/src/editor/account.js:68
+#: assets/src/editor/cards.js:47
+#: build/blocks/showfloor/index.js:3
+#: build/editor.js:6
+#: build/editor.js:8
+msgid "Depth"
+msgstr ""
+
+#: src/Admin/Settings.php:253
+#: assets/src/editor/account.js:69
+#: build/editor.js:8
+msgid "Elastic"
+msgstr ""
+
+#: src/Admin/Settings.php:254
+#: assets/src/editor/account.js:70
+#: build/editor.js:8
+msgid "Mosaic"
+msgstr ""
+
+#: src/Admin/Settings.php:255
+#: assets/src/editor/account.js:71
+#: assets/src/editor/filters.js:88
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Fold"
+msgstr ""
+
+#: src/Admin/Settings.php:256
+#: assets/src/editor/account.js:72
+#: build/editor.js:8
+msgid "Iris"
+msgstr ""
+
+#: src/Admin/Settings.php:260
+#: src/Color/BlockStyles.php:91
+#: src/Color/BlockStyles.php:178
+#: assets/src/editor/account.js:398
+#: build/editor.js:8
+msgid "Panel"
+msgstr ""
+
+#: src/Admin/Settings.php:261
+#: assets/src/editor/account.js:75
+#: build/editor.js:8
+msgid "Wash"
+msgstr ""
+
+#: src/Admin/Settings.php:263
+#: assets/src/blocks/wardrobe/edit.js:168
+#: assets/src/editor/account.js:76
+#: assets/src/editor/cards.js:220
+#: build/blocks/wardrobe/index.js:1
+#: build/editor.js:6
+#: build/editor.js:8
+msgid "Card"
+msgstr ""
+
+#: src/Admin/Settings.php:264
+#: src/Admin/Settings.php:294
+#: assets/src/blocks/changing-room/choices.js:13
+#: assets/src/blocks/shelf-tag/edit.js:50
+#: assets/src/editor/account.js:77
+#: assets/src/editor/account.js:88
+#: assets/src/editor/stock.js:14
+#: build/blocks/changing-room/index.js:1
+#: build/blocks/shelf-tag/index.js:1
+#: build/editor.js:8
+#: build/editor.js:10
+msgid "Glass"
+msgstr ""
+
+#: src/Admin/Settings.php:268
+#: assets/src/editor/account.js:409
+#: build/editor.js:8
+msgid "Aurora"
+msgstr ""
+
+#: src/Admin/Settings.php:269
+msgid "A light in the wash behind the forms that follows the pointer"
+msgstr ""
+
+#: src/Admin/Settings.php:272
+#: assets/src/blocks/showfloor/choices.js:55
+#: assets/src/editor/account.js:419
+#: assets/src/editor/cards.js:30
+#: build/blocks/showfloor/index.js:1
+#: build/editor.js:6
+#: build/editor.js:8
+msgid "Spotlight"
+msgstr ""
+
+#: src/Admin/Settings.php:273
+msgid "The edge of each form box lights up where the pointer is"
+msgstr ""
+
+#: src/Admin/Settings.php:276
+#: assets/src/editor/account.js:429
+#: build/editor.js:8
+msgid "Feedback"
+msgstr ""
+
+#: src/Admin/Settings.php:277
+msgid "The form shakes on an error, busy dots show while it sends, a tick shows on a valid email, and the password strength meter becomes a bar that grows"
+msgstr ""
+
+#: src/Admin/Settings.php:280
+#: assets/src/editor/account.js:439
+#: build/editor.js:8
+msgid "Password eye"
+msgstr ""
+
+#: src/Admin/Settings.php:281
+msgid "The show password button becomes an eye that blinks and gets a slash while the password shows"
+msgstr ""
+
+#: src/Admin/Settings.php:284
+#: assets/src/editor/account.js:450
+#: assets/src/editor/cards.js:230
+#: assets/src/editor/pagination.js:59
+#: build/editor.js:6
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Button"
+msgstr ""
+
+#: src/Admin/Settings.php:285
+#: assets/src/blocks/changing-room/choices.js:10
+#: assets/src/editor/account.js:80
+#: build/blocks/changing-room/index.js:1
+#: build/editor.js:8
+msgid "Theme button"
+msgstr ""
+
+#: src/Admin/Settings.php:287
+#: assets/src/editor/account.js:81
+#: build/editor.js:8
+msgid "Bloom"
+msgstr ""
+
+#: src/Admin/Settings.php:288
+#: assets/src/editor/account.js:82
+#: build/editor.js:8
+msgid "Ripple"
+msgstr ""
+
+#: src/Admin/Settings.php:289
+#: assets/src/blocks/changing-room/choices.js:12
+#: assets/src/editor/account.js:83
+#: assets/src/editor/cards.js:123
+#: build/blocks/changing-room/index.js:1
+#: build/editor.js:6
+#: build/editor.js:8
+msgid "Sweep"
+msgstr ""
+
+#: src/Admin/Settings.php:290
+#: assets/src/blocks/changing-room/choices.js:14
+#: assets/src/editor/account.js:84
+#: build/blocks/changing-room/index.js:1
+#: build/editor.js:8
+msgid "Spectrum"
+msgstr ""
+
+#: src/Admin/Settings.php:291
+#: assets/src/editor/account.js:85
+#: build/editor.js:8
+msgid "Trace"
+msgstr ""
+
+#: src/Admin/Settings.php:292
+#: assets/src/editor/account.js:86
+#: assets/src/editor/count.js:148
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Roll"
+msgstr ""
+
+#: src/Admin/Settings.php:293
+#: assets/src/editor/account.js:87
+#: build/editor.js:8
+msgid "Split"
+msgstr ""
+
+#: src/Admin/Settings.php:303
+msgid "My Account login and register"
+msgstr ""
+
+#: src/Admin/Settings.php:304
+msgid "How the log in and register forms look to visitors who aren't signed in. These apply where the page sets nothing itself. On a block page, select the Account Group or the Shortcode block that holds My Account and use its Login and register panel instead."
+msgstr ""
+
+#: src/Admin/Settings.php:346
+msgid "Panels"
+msgstr ""
+
+#: src/Admin/Settings.php:347
+msgid "Tint panels with the page color"
+msgstr ""
+
+#: src/Admin/Settings.php:348
+msgid "Soft panels, like accordions and the cart drawer, take a light mix of the page color. Turn this off to keep them on a neutral fill from your theme's text color."
+msgstr ""
+
+#: src/Admin/Settings.php:363
+msgid "Purple's Add to Cart parts"
+msgstr ""
+
+#: src/Admin/Settings.php:364
+msgid "Purple has an Add to Cart part for each product type. What you turn on here goes at the end of the simple, variable and grouped parts, under the buy button. To move it, change its settings or take it out of one part, open that part in the Site Editor."
+msgstr ""
+
+#: src/Admin/Settings.php:369
+msgid "Add under the button"
+msgstr ""
+
+#: src/Admin/Settings.php:370
+msgid "Delivery Line: the delivery date, returns and pickup. Set your dates in Shipping > Delivery dates first."
+msgstr ""
+
+#: src/Admin/Settings.php:377
 msgid "Matching Extras: other products to tick, added to the cart on the same click."
 msgstr ""
 
@@ -2633,11 +3056,6 @@ msgstr ""
 msgid "Long coats and soft layers."
 msgstr ""
 
-#: src/Color/BlockStyles.php:91
-#: src/Color/BlockStyles.php:178
-msgid "Panel"
-msgstr ""
-
 #: src/Color/BlockStyles.php:100
 #: assets/src/editor/count.js:128
 #: build/editor.js:12
@@ -2680,31 +3098,34 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Frontend/AccountStyle.php:44
+#: assets/src/login/switch.js:71
+#: build/editor.js:8
+#: build/login.js:1
 msgid "Account"
 msgstr ""
 
 #: src/Frontend/BlockEffects.php:804
-#: src/Frontend/BlockEffects.php:1102
+#: src/Frontend/BlockEffects.php:1116
 msgid "Hide filters"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:999
+#: src/Frontend/BlockEffects.php:1013
 msgid "Larger cards"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:999
+#: src/Frontend/BlockEffects.php:1013
 msgid "Smaller cards"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:1003
+#: src/Frontend/BlockEffects.php:1017
 msgid "Card size"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:1078
+#: src/Frontend/BlockEffects.php:1092
 msgid "Select options"
 msgstr ""
 
-#: src/Frontend/BlockEffects.php:1106
+#: src/Frontend/BlockEffects.php:1120
 msgid "Show filters"
 msgstr ""
 
@@ -2805,7 +3226,7 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
-#: src/Frontend/LoadMore.php:271
+#: src/Frontend/LoadMore.php:290
 #: assets/src/editor/pagination.js:53
 #: build/editor.js:12
 msgid "Load more"
@@ -2977,7 +3398,11 @@ msgstr ""
 msgid "Account page"
 msgstr ""
 
-#: src/Patterns.php:248
+#: src/Patterns.php:227
+msgid "Account page with welcome"
+msgstr ""
+
+#: src/Patterns.php:255
 msgid "Size chart with how to measure"
 msgstr ""
 
@@ -3143,35 +3568,9 @@ msgstr ""
 msgid "Pick a product"
 msgstr ""
 
-#: assets/src/blocks/changing-room/choices.js:10
-#: build/blocks/changing-room/index.js:1
-msgid "Theme button"
-msgstr ""
-
 #: assets/src/blocks/changing-room/choices.js:11
 #: build/blocks/changing-room/index.js:1
 msgid "Glow"
-msgstr ""
-
-#: assets/src/blocks/changing-room/choices.js:12
-#: assets/src/editor/cards.js:123
-#: build/blocks/changing-room/index.js:1
-#: build/editor.js:6
-msgid "Sweep"
-msgstr ""
-
-#: assets/src/blocks/changing-room/choices.js:13
-#: assets/src/blocks/shelf-tag/edit.js:50
-#: assets/src/editor/stock.js:14
-#: build/blocks/changing-room/index.js:1
-#: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:10
-msgid "Glass"
-msgstr ""
-
-#: assets/src/blocks/changing-room/choices.js:14
-#: build/blocks/changing-room/index.js:1
-msgid "Spectrum"
 msgstr ""
 
 #: assets/src/blocks/changing-room/choices.js:17
@@ -3691,13 +4090,6 @@ msgstr ""
 msgid "Push in"
 msgstr ""
 
-#: assets/src/blocks/escalator/edit.js:60
-#: assets/src/editor/checkout-page.js:18
-#: build/blocks/escalator/index.js:1
-#: build/editor.js:11
-msgid "Filled"
-msgstr ""
-
 #: assets/src/blocks/escalator/edit.js:61
 #: assets/src/editor/button.js:33
 #: assets/src/editor/buy-button.js:31
@@ -4127,18 +4519,6 @@ msgstr ""
 msgid "Chip"
 msgstr ""
 
-#: assets/src/blocks/shelf-tag/edit.js:49
-#: assets/src/editor/badge.js:9
-#: assets/src/editor/cards.js:567
-#: assets/src/editor/count.js:127
-#: assets/src/editor/stock.js:12
-#: assets/src/editor/terms.js:77
-#: build/blocks/shelf-tag/index.js:1
-#: build/editor.js:10
-#: build/editor.js:12
-msgid "Pill"
-msgstr ""
-
 #: assets/src/blocks/shelf-tag/edit.js:51
 #: assets/src/editor/badge.js:12
 #: build/blocks/shelf-tag/index.js:1
@@ -4505,13 +4885,6 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: assets/src/blocks/showfloor/choices.js:55
-#: assets/src/editor/cards.js:30
-#: build/blocks/showfloor/index.js:1
-#: build/editor.js:6
-msgid "Spotlight"
-msgstr ""
-
 #: assets/src/blocks/showfloor/choices.js:56
 #: build/blocks/showfloor/index.js:1
 msgid "Peek pieces"
@@ -4537,13 +4910,6 @@ msgstr ""
 #: assets/src/blocks/showfloor/edit.js:177
 #: build/blocks/showfloor/index.js:3
 msgid "Floor shape"
-msgstr ""
-
-#: assets/src/blocks/showfloor/edit.js:182
-#: assets/src/editor/cards.js:47
-#: build/blocks/showfloor/index.js:3
-#: build/editor.js:6
-msgid "Depth"
 msgstr ""
 
 #: assets/src/blocks/showfloor/edit.js:184
@@ -5030,13 +5396,6 @@ msgstr ""
 msgid "A card with rounded corners and a soft shadow."
 msgstr ""
 
-#: assets/src/blocks/wardrobe/edit.js:168
-#: assets/src/editor/cards.js:220
-#: build/blocks/wardrobe/index.js:1
-#: build/editor.js:6
-msgid "Card"
-msgstr ""
-
 #: assets/src/blocks/wardrobe/edit.js:183
 #: build/blocks/wardrobe/index.js:1
 msgid "Menu label"
@@ -5079,14 +5438,6 @@ msgstr ""
 msgid "Drawn: a hairline under each item, with a line that draws across on hover and stays while the item is open."
 msgstr ""
 
-#: assets/src/editor/accordion.js:48
-#: assets/src/editor/catalog-sorting.js:135
-#: assets/src/editor/pagination.js:39
-#: assets/src/editor/terms.js:58
-#: build/editor.js:12
-msgid "Theme default"
-msgstr ""
-
 #: assets/src/editor/accordion.js:49
 #: build/editor.js:12
 msgid "Drawn"
@@ -5110,6 +5461,177 @@ msgstr ""
 #: assets/src/editor/accordion.js:72
 #: build/editor.js:12
 msgid "Chevron"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:22
+#: build/editor.js:8
+msgid "Required"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:28
+#: build/editor.js:8
+msgid "Show password"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:50
+#: build/editor.js:8
+msgid "Login"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:52
+#: build/editor.js:8
+msgid "Username or email address"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:53
+#: assets/src/editor/account-sample.js:65
+#: build/editor.js:8
+msgid "Password"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:56
+#: build/editor.js:8
+msgid "Remember me"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:57
+#: assets/src/login/switch.js:38
+#: build/editor.js:8
+#: build/login.js:1
+msgid "Log in"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:59
+#: build/editor.js:8
+msgid "Lost your password?"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:62
+#: assets/src/editor/account-sample.js:73
+#: build/editor.js:8
+msgid "Register"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:64
+#: build/editor.js:8
+msgid "Email address"
+msgstr ""
+
+#: assets/src/editor/account-sample.js:67
+#: build/editor.js:8
+msgid "Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy."
+msgstr ""
+
+#: assets/src/editor/account.js:124
+#: build/editor.js:8
+msgid "Purple"
+msgstr ""
+
+#: assets/src/editor/account.js:137
+#: build/editor.js:8
+msgid "Purple in motion"
+msgstr ""
+
+#: assets/src/editor/account.js:150
+#: build/editor.js:8
+msgid "Purple on Ice"
+msgstr ""
+
+#: assets/src/editor/account.js:163
+#: build/editor.js:8
+msgid "Twenty Twenty-Five"
+msgstr ""
+
+#: assets/src/editor/account.js:295
+#: build/editor.js:8
+msgid "Looks"
+msgstr ""
+
+#: assets/src/editor/account.js:296
+#: build/editor.js:8
+msgid "Sets every option below at once. Each can be changed after."
+msgstr ""
+
+#: assets/src/editor/account.js:325
+#: build/editor.js:8
+msgid "Soft and Filled tint the fields, Underline keeps a line under each, Draw traces a line around a field when it takes focus, Fill washes the color in, and Corners draws four marks around it."
+msgstr ""
+
+#: assets/src/editor/account.js:336
+#: build/editor.js:8
+msgid "A ring in your theme's accent color around the field, box or link that has keyboard focus."
+msgstr ""
+
+#: assets/src/editor/account.js:347
+#: build/editor.js:8
+msgid "Inside puts the label in the field. Floating holds it in the empty field and moves it up as you type. Flip turns it over on the way up, and Wave ripples its letters up one after another."
+msgstr ""
+
+#: assets/src/editor/account.js:359
+#: build/editor.js:8
+msgid "Tabs shows one form at a time with a tab for each. Flip turns the card over to the other form. Slide puts both forms in one card and slides a colored panel over the closed one, with tabs on phones."
+msgstr ""
+
+#: assets/src/editor/account.js:372
+#: build/editor.js:8
+msgid "Pill slides a raised box to the picked tab. Line puts the tabs over a rule and stretches a line to the picked one."
+msgstr ""
+
+#: assets/src/editor/account.js:386
+#: build/editor.js:8
+msgid "How the colored panel moves to the other form. Under reduced motion it moves without the effect."
+msgstr ""
+
+#: assets/src/editor/account.js:399
+#: build/editor.js:8
+msgid "Wash keeps the soft tint of the Account style. Card puts each form in a raised white box, and Glass in a frosted one."
+msgstr ""
+
+#: assets/src/editor/account.js:410
+#: build/editor.js:8
+msgid "A light in the wash behind the forms that follows the pointer and keyboard focus."
+msgstr ""
+
+#: assets/src/editor/account.js:420
+#: build/editor.js:8
+msgid "The edge of each form box lights up where the pointer is. Under reduced motion the light stays still."
+msgstr ""
+
+#: assets/src/editor/account.js:430
+#: build/editor.js:8
+msgid "The form shakes on an error, busy dots show while it sends, a tick shows on a valid email, and the password strength meter becomes a bar that grows."
+msgstr ""
+
+#: assets/src/editor/account.js:440
+#: build/editor.js:8
+msgid "The show password button becomes an eye that blinks and gets a slash while the password shows."
+msgstr ""
+
+#: assets/src/editor/account.js:451
+#: build/editor.js:8
+msgid "How Log in, Register and the other form buttons answer the pointer and keyboard focus. Bloom grows the effect color from where the pointer comes in, and Ripple spreads ink from where the button is pressed. Under reduced motion they keep the colors without the movement."
+msgstr ""
+
+#: assets/src/editor/account.js:472
+#: assets/src/editor/account.js:504
+#: build/editor.js:8
+#: build/editor.js:12
+msgid "Login and register"
+msgstr ""
+
+#: assets/src/editor/account.js:474
+#: build/editor.js:8
+msgid "How the log in and register forms look to visitors who aren't signed in."
+msgstr ""
+
+#: assets/src/editor/account.js:506
+#: build/editor.js:12
+msgid "This block sits in an Account Group. Select the Group to change how the log in and register forms look."
+msgstr ""
+
+#: assets/src/editor/account.js:576
+#: build/editor.js:8
+msgid "Sample log in and register forms"
 msgstr ""
 
 #: assets/src/editor/add-to-cart.js:20
@@ -5517,13 +6039,6 @@ msgstr ""
 #: build/blocks/matching-extras/index.js:6
 #: build/editor.js:6
 msgid "Photo"
-msgstr ""
-
-#: assets/src/editor/cards.js:230
-#: assets/src/editor/pagination.js:59
-#: build/editor.js:6
-#: build/editor.js:12
-msgid "Button"
 msgstr ""
 
 #: assets/src/editor/cards.js:234
@@ -5962,18 +6477,6 @@ msgstr ""
 msgid "Large makes the select at least 44px tall, as easy to tap as the other shop controls."
 msgstr ""
 
-#: assets/src/editor/checkout-page.js:17
-#: build/editor.js:11
-msgid "Soft"
-msgstr ""
-
-#: assets/src/editor/checkout-page.js:19
-#: assets/src/editor/pagination.js:43
-#: build/editor.js:11
-#: build/editor.js:12
-msgid "Underline"
-msgstr ""
-
 #: assets/src/editor/checkout-page.js:24
 #: assets/src/editor/extras.js:294
 #: assets/src/editor/specs.js:10
@@ -5997,11 +6500,6 @@ msgstr ""
 #: assets/src/editor/checkout-page.js:31
 #: build/editor.js:11
 msgid "Timeline"
-msgstr ""
-
-#: assets/src/editor/checkout-page.js:37
-#: build/editor.js:11
-msgid "Focus ring"
 msgstr ""
 
 #: assets/src/editor/checkout-page.js:38
@@ -6205,7 +6703,7 @@ msgid "Made for the product details beside a photo grid. On wide screens this co
 msgstr ""
 
 #: assets/src/editor/columns.js:22
-#: assets/src/editor/group.js:36
+#: assets/src/editor/group.js:40
 #: assets/src/editor/terms.js:144
 #: build/editor.js:12
 msgid "Entrance on scroll"
@@ -6259,11 +6757,6 @@ msgstr ""
 #: assets/src/editor/count.js:137
 #: build/editor.js:12
 msgid "Plays when the page opens and again when a filter changes the count. Roll brings the digits up one after another; Pop grows the number in. Visitors who ask for reduced motion see it as it is."
-msgstr ""
-
-#: assets/src/editor/count.js:148
-#: build/editor.js:12
-msgid "Roll"
 msgstr ""
 
 #: assets/src/editor/count.js:149
@@ -6547,11 +7040,6 @@ msgstr ""
 msgid "How a list moves as it opens. It closes with a quick fade."
 msgstr ""
 
-#: assets/src/editor/filters.js:88
-#: build/editor.js:12
-msgid "Fold"
-msgstr ""
-
 #: assets/src/editor/filters.js:90
 #: build/editor.js:12
 msgid "Cascade"
@@ -6719,47 +7207,47 @@ msgstr ""
 msgid "How the photo moves when the gallery slides to the next one. Visitors who ask for reduced motion see the default slide."
 msgstr ""
 
-#: assets/src/editor/group.js:9
+#: assets/src/editor/group.js:11
 #: build/editor.js:8
 msgid "Fade up"
 msgstr ""
 
-#: assets/src/editor/group.js:10
+#: assets/src/editor/group.js:12
 #: build/editor.js:8
 msgid "Zoom in"
 msgstr ""
 
-#: assets/src/editor/group.js:25
+#: assets/src/editor/group.js:29
 #: build/editor.js:12
 msgid "Take the page color"
 msgstr ""
 
-#: assets/src/editor/group.js:26
+#: assets/src/editor/group.js:30
 #: build/editor.js:12
 msgid "On product pages, this section's background becomes a soft version of the color the shopper picks. The editor shows it in a sample color on product templates."
 msgstr ""
 
-#: assets/src/editor/group.js:37
+#: assets/src/editor/group.js:41
 #: build/editor.js:12
 msgid "Plays once as the section scrolls into view. Visitors who ask for reduced motion see it as it is."
 msgstr ""
 
-#: assets/src/editor/group.js:49
+#: assets/src/editor/group.js:56
 #: build/editor.js:12
 msgid "Condense on scroll"
 msgstr ""
 
-#: assets/src/editor/group.js:50
+#: assets/src/editor/group.js:57
 #: build/editor.js:12
 msgid "Made for headers. The section stays at the top of the window and narrows into a floating pill as the page scrolls. Visitors who ask for reduced motion keep the full bar."
 msgstr ""
 
-#: assets/src/editor/group.js:61
+#: assets/src/editor/group.js:68
 #: build/editor.js:12
 msgid "Turn on hover"
 msgstr ""
 
-#: assets/src/editor/group.js:62
+#: assets/src/editor/group.js:69
 #: build/editor.js:12
 msgid "Made for badges and seals. The section turns a little, like a stamp, when the mouse is over it or over the group around it. Phones and visitors who ask for reduced motion see it still."
 msgstr ""
@@ -7042,11 +7530,6 @@ msgstr ""
 msgid "Tabs: the terms in a row that marks the current one. Category photos: add a Featured Category block to the term template for a photo above each name."
 msgstr ""
 
-#: assets/src/editor/terms.js:59
-#: build/editor.js:12
-msgid "Tabs"
-msgstr ""
-
 #: assets/src/editor/terms.js:62
 #: build/editor.js:12
 msgid "Category photos"
@@ -7060,11 +7543,6 @@ msgstr ""
 #: assets/src/editor/terms.js:71
 #: build/editor.js:12
 msgid "Line draws in under a tab on hover and stays under the current one. Pill fills the current tab. Dot puts a small dot under it. Chip gives each tab a thin edge and a 44px height, and fills the current one."
-msgstr ""
-
-#: assets/src/editor/terms.js:76
-#: build/editor.js:12
-msgid "Line"
 msgstr ""
 
 #: assets/src/editor/terms.js:86
@@ -7153,10 +7631,40 @@ msgid "Adds the product price minus the highest estimate under the estimate. The
 msgstr ""
 
 #. translators: 1: photo number, 2: number of photos.
-#: assets/src/effects/index.js:484
+#: assets/src/effects/index.js:485
 #: build/effects.js:2
 #, js-format
 msgid "Photo %1$d of %2$d"
+msgstr ""
+
+#: assets/src/login/switch.js:23
+#: build/editor.js:8
+#: build/login.js:1
+msgid "New here?"
+msgstr ""
+
+#: assets/src/login/switch.js:24
+#: build/editor.js:8
+#: build/login.js:1
+msgid "Create an account to track orders and check out faster."
+msgstr ""
+
+#: assets/src/login/switch.js:28
+#: build/editor.js:8
+#: build/login.js:1
+msgid "Create an account"
+msgstr ""
+
+#: assets/src/login/switch.js:33
+#: build/editor.js:8
+#: build/login.js:1
+msgid "Welcome back"
+msgstr ""
+
+#: assets/src/login/switch.js:34
+#: build/editor.js:8
+#: build/login.js:1
+msgid "Log in to see your orders and saved addresses."
 msgstr ""
 
 #: assets/src/blocks/changing-room-piece/block.json

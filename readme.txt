@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce blocks, blocks, design, product gallery
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -273,6 +273,20 @@ Purplish doesn't collect, store or send personal data. It sets no cookies and ma
 Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussion on X](https://x.com/shameemdev/status/2116510521612755209): set each variation's color by hand, or read it from the photo.
 
 == Changelog ==
+
+= 1.4.2 =
+
+* New: Field, focus ring and label options for the My Account log in and register forms. Fields can be Soft, Filled, Underline, Draw, Fill or Corners, and labels can sit Inside, float, Flip or Wave. Set them in the Login and register panel of the Account Group or the Shortcode block, or in WooCommerce > Settings > Products > Purplish on classic themes.
+* New: A log in and register switch on My Account: Tabs as a Pill or a Line, Flip, or Slide with 13 motions. Phones show tabs, and a sign up that fails opens on the register form again.
+* New: Button looks for the My Account forms: Bloom, Ripple, Sweep, Spectrum, Trace, Roll, Split and Glass.
+* New: Card and Glass panels for the My Account forms, and two lights. Aurora follows the pointer and keyboard focus behind the forms, and Spotlight lights the edge of each form box.
+* New: Feedback on the My Account forms, with a shake on an error, busy dots on the button, a tick on a valid email and a password strength bar, plus a password eye that blinks and gets a slash while the password shows.
+* New: Four looks that set every log in and register option at once: Purple, Purple in motion, Purple on Ice and Twenty Twenty-Five.
+* New: An Account page with welcome pattern that puts My Account on a full-height Cover with a Glass panel and a Glass button.
+* Update: The Account page pattern ships with the Purple look on, so the log in and register effects show from the start.
+* Fix: Clearing the last product filter doesn't leave a second Hide filters button beside Sort by anymore.
+* Fix: The photo zoom on overlay and details product cards stays still when the shopper has reduced motion turned on.
+* Fix: A product filter picked after Load more doesn't leave `query-more` in the address anymore.
 
 = 1.4.1 =
 
