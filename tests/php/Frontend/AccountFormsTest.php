@@ -122,6 +122,15 @@ class AccountFormsTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * The button looks turn into classes; Glow, left out of the plugin,
+	 * doesn't.
+	 */
+	public function test_button_classes() {
+		$this->assertSame( array( 'purplish-account', 'purplish-account-button-bloom' ), AccountForms::classes( array( 'button' => 'bloom' ) ) );
+		$this->assertSame( array(), AccountForms::classes( array( 'button' => 'glow' ) ) );
+	}
+
+	/**
 	 * A sign up that failed opens on the register form again.
 	 */
 	public function test_open_register_after_failed_sign_up() {

@@ -3,6 +3,7 @@
  * `purplish-account-*` classes. The front script runs it on each element
  * on the page; the editor runs it on its sample forms.
  */
+import { bloom, ripple, roll } from './buttons';
 import { floating, wave } from './labels';
 import { switcher } from './switch';
 
@@ -29,5 +30,14 @@ export function setup( group, index = 0 ) {
 		has( 'switch-flip' )
 	) {
 		switcher( group, index );
+	}
+	if ( has( 'button-bloom' ) ) {
+		bloom( group );
+	}
+	if ( has( 'button-roll' ) ) {
+		roll( group );
+	}
+	if ( has( 'button-ripple' ) ) {
+		ripple( group );
 	}
 }

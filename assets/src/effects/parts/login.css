@@ -1165,3 +1165,287 @@
 		transform: none !important;
 	}
 }
+
+/* ------------------------------------------------------------------ */
+
+/* Button looks on Log in, Register and the other account forms        */
+
+/* ------------------------------------------------------------------ */
+
+@property --pa-spin {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+.purplish-account:is(.purplish-account-button-sweep, .purplish-account-button-spectrum, .purplish-account-button-trace, .purplish-account-button-glass) .woocommerce form button[type="submit"] {
+	isolation: isolate;
+	position: relative;
+}
+
+/* Sweep */
+.purplish-account.purplish-account-button-sweep .woocommerce form button[type="submit"] {
+	overflow: hidden;
+}
+
+.purplish-account.purplish-account-button-sweep .woocommerce form button[type="submit"]::after {
+	background: linear-gradient(110deg, transparent 35%, color-mix(in srgb, currentcolor 30%, transparent) 50%, transparent 65%);
+	content: "";
+	inset: 0;
+	pointer-events: none;
+	position: absolute;
+	translate: -120% 0;
+}
+
+.purplish-account.purplish-account-button-sweep .woocommerce form button[type="submit"]:is(:hover, :focus-visible)::after {
+	transition: translate 0.8s ease;
+	translate: 120% 0;
+}
+
+/* Spectrum: a rainbow border turns once on hover and focus. */
+.purplish-account.purplish-account-button-spectrum .woocommerce form button[type="submit"]::before {
+	background: conic-gradient(from var(--pa-spin), #ff4d6d, #ffb703, #8ac926, #1fb5d6, #6a4cff, #ff4d6d);
+	border-radius: inherit;
+	content: "";
+	inset: 0;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	opacity: 0;
+	padding: 2px;
+	pointer-events: none;
+	position: absolute;
+	transition: opacity 0.3s ease, --pa-spin 0s linear 0.3s;
+}
+
+.purplish-account.purplish-account-button-spectrum .woocommerce form button[type="submit"]:is(:hover, :focus-visible)::before {
+	--pa-spin: 360deg;
+	opacity: 1;
+	transition: opacity 0.2s ease, --pa-spin 1.2s var(--pa-ease);
+}
+
+/* Glass */
+@supports (backdrop-filter: blur(1px)) {
+
+	.purplish-account.purplish-account-button-glass .woocommerce form button[type="submit"] {
+		backdrop-filter: blur(14px) saturate(1.8);
+		background-color: color-mix(in oklab, var(--pa-fx) 72%, transparent);
+		background-image: radial-gradient(circle at 30% 0%, rgb(255 255 255 / 0.45), transparent 60%);
+		box-shadow:
+			inset 0 0 0 1px rgb(255 255 255 / 0.35),
+			inset 0 1px 0 rgb(255 255 255 / 0.55),
+			inset 0 -1px 0 rgb(0 0 0 / 0.12),
+			0 10px 24px -12px color-mix(in oklab, var(--pa-fx) 70%, #000);
+		color: var(--pa-fx-on);
+	}
+}
+
+/*
+ * Trace: a light runs once around the border on hover and on keyboard
+ * focus, and leaves a quiet ring behind. One conic gradient, masked to a
+ * 2px border just outside the button; no extra elements, no loop.
+ */
+.purplish-account.purplish-account-button-trace .woocommerce form button[type="submit"]::before {
+	--pa-trace-gap: 3px;
+	background: conic-gradient(from var(--pa-spin), transparent 0 62%, color-mix(in oklab, var(--pa-fx) 60%, transparent) 80%, var(--pa-fx) 94%, color-mix(in oklab, var(--pa-fx) 30%, #fff) 99%, transparent 100%);
+	border-radius: calc(var(--pa-field-radius) + var(--pa-trace-gap));
+	content: "";
+	inset: calc(var(--pa-trace-gap) * -1 - 2px);
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	opacity: 0;
+	padding: 2px;
+	pointer-events: none;
+	position: absolute;
+	transition: opacity 0.4s ease-out;
+}
+
+.purplish-account.purplish-account-button-trace .woocommerce form button[type="submit"]::after {
+	border: 2px solid color-mix(in oklab, var(--pa-fx) 35%, transparent);
+	border-radius: calc(var(--pa-field-radius) + 3px);
+	content: "";
+	inset: -5px;
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+	transition: opacity 0.6s ease-out 0.6s;
+}
+
+.purplish-account.purplish-account-button-trace .woocommerce form button[type="submit"]:is(:hover, :focus-visible)::before {
+	animation: pa-trace 1.1s cubic-bezier(0.45, 0, 0.2, 1) 1 forwards;
+}
+
+.purplish-account.purplish-account-button-trace .woocommerce form button[type="submit"]:is(:hover, :focus-visible)::after {
+	opacity: 1;
+}
+
+@keyframes pa-trace {
+
+	0% {
+		--pa-spin: 0deg;
+		opacity: 0;
+	}
+
+	12% {
+		opacity: 1;
+	}
+
+	80% {
+		opacity: 1;
+	}
+
+	100% {
+		--pa-spin: 360deg;
+		opacity: 0;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Button: Ripple. Ink spreads from where the button was pressed, or   */
+
+/* from the middle for Enter and Space.                                */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-button-ripple .woocommerce form button[type="submit"] {
+	isolation: isolate;
+	overflow: hidden;
+	position: relative;
+}
+
+.purplish-account.purplish-account-button-ripple .woocommerce form button[type="submit"]:active {
+	scale: 0.97;
+}
+
+.purplish-account.purplish-account-button-ripple .woocommerce form button[type="submit"] {
+	transition: scale 0.15s ease-out;
+}
+
+.purplish-account .pa-ripple {
+	animation: pa-ripple 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	background: radial-gradient(circle, color-mix(in oklab, var(--pa-fx) 75%, #fff) 0 45%, color-mix(in oklab, var(--pa-fx) 60%, transparent) 60%, transparent 71%);
+	border-radius: 50%;
+	pointer-events: none;
+	position: absolute;
+	scale: 0;
+	translate: -50% -50%;
+	z-index: -1;
+}
+
+@keyframes pa-ripple {
+
+	0% {
+		opacity: 1;
+		scale: 0;
+	}
+
+	55% {
+		opacity: 0.85;
+	}
+
+	100% {
+		opacity: 0;
+		scale: 1;
+	}
+}
+
+/* Button: Bloom. The effect color grows from where the pointer comes in
+   and shrinks back to where it leaves. */
+.purplish-account.purplish-account-button-bloom .woocommerce form button[type="submit"] {
+	isolation: isolate;
+	overflow: hidden;
+	position: relative;
+}
+
+.purplish-account.purplish-account-button-bloom .woocommerce form button[type="submit"]::before {
+	background-color: var(--pa-fx);
+	clip-path: circle(0 at var(--pa-bx, 50%) var(--pa-by, 50%));
+	content: "";
+	inset: 0;
+	pointer-events: none;
+	position: absolute;
+	transition: clip-path 0.55s var(--pa-ease);
+	z-index: -1;
+}
+
+.purplish-account.purplish-account-button-bloom .woocommerce form button[type="submit"]:is(:hover, :focus-visible)::before {
+	clip-path: circle(150% at var(--pa-bx, 50%) var(--pa-by, 50%));
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Button: Roll. The words roll up and the same words roll in from     */
+
+/* below.                                                              */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account .pa-roll-clip {
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+.purplish-account .pa-roll {
+	display: inline-block;
+	position: relative;
+	transition: translate 0.5s var(--pa-ease);
+}
+
+.purplish-account .pa-roll::after {
+	content: attr(data-text) / "";
+	left: 0;
+	position: absolute;
+	top: 100%;
+	white-space: nowrap;
+}
+
+.purplish-account.purplish-account-button-roll .woocommerce form button[type="submit"]:is(:hover, :focus-visible) .pa-roll {
+	translate: 0 -100%;
+}
+
+/* ------------------------------------------------------------------ */
+
+/* Button: Split. The effect color closes in from both ends and meets  */
+
+/* in the middle.                                                      */
+
+/* ------------------------------------------------------------------ */
+
+.purplish-account.purplish-account-button-split .woocommerce form button[type="submit"] {
+	background:
+		linear-gradient(var(--pa-fx), var(--pa-fx)) left / 0 100% no-repeat,
+		linear-gradient(var(--pa-fx), var(--pa-fx)) right / 0 100% no-repeat,
+		var(--wp--preset--color--theme-3, var(--pa-ink));
+	transition: background-size 0.45s var(--pa-ease);
+}
+
+.purplish-account.purplish-account-button-split .woocommerce form button[type="submit"]:is(:hover, :focus-visible) {
+	background-size: 50.5% 100%, 50.5% 100%, auto;
+}
+
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+	.purplish-account .woocommerce form button[type="submit"],
+	.purplish-account .woocommerce form button[type="submit"]::before,
+	.purplish-account .woocommerce form button[type="submit"]::after,
+	.purplish-account .pa-roll {
+		animation: none !important;
+		transition: none !important;
+	}
+
+	.purplish-account.purplish-account-button-sweep .woocommerce form button[type="submit"]::after,
+	.purplish-account .pa-ripple {
+		display: none;
+	}
+
+	.purplish-account.purplish-account-button-trace .woocommerce form button[type="submit"]:is(:hover, :focus-visible)::after {
+		opacity: 1;
+	}
+
+	.purplish-account.purplish-account-button-ripple .woocommerce form button[type="submit"]:active {
+		scale: none;
+	}
+}

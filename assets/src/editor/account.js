@@ -65,6 +65,17 @@ export function choices() {
 			{ value: 'fold', label: __( 'Fold', 'purplish' ) },
 			{ value: 'iris', label: __( 'Iris', 'purplish' ) },
 		],
+		button: [
+			{ value: '', label: __( 'Theme button', 'purplish' ) },
+			{ value: 'bloom', label: __( 'Bloom', 'purplish' ) },
+			{ value: 'ripple', label: __( 'Ripple', 'purplish' ) },
+			{ value: 'sweep', label: __( 'Sweep', 'purplish' ) },
+			{ value: 'spectrum', label: __( 'Spectrum', 'purplish' ) },
+			{ value: 'trace', label: __( 'Trace', 'purplish' ) },
+			{ value: 'roll', label: __( 'Roll', 'purplish' ) },
+			{ value: 'split', label: __( 'Split', 'purplish' ) },
+			{ value: 'glass', label: __( 'Glass', 'purplish' ) },
+		],
 	};
 }
 
@@ -264,6 +275,18 @@ export function AccountOptions( { account, setAccount } ) {
 					onChange={ ( value ) => set( 'slide', value ) }
 				/>
 			) }
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Button', 'purplish' ) }
+				help={ __(
+					'How Log in, Register and the other form buttons answer the pointer and keyboard focus. Bloom grows the effect color from where the pointer comes in, and Ripple spreads ink from where the button is pressed. Under reduced motion they keep the colors without the movement.',
+					'purplish'
+				) }
+				value={ account.button || '' }
+				options={ list.button }
+				onChange={ ( value ) => set( 'button', value ) }
+			/>
 		</>
 	);
 }
