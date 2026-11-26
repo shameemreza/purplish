@@ -2,7 +2,21 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.4.2] - 2026-11-27
+
+### Added
+
+- Field, focus ring and label options for the My Account log in and register forms. Fields can be Soft, Filled, Underline, Draw, Fill or Corners, and labels can sit Inside, float, Flip or Wave. Set them in the Login and register panel of the Account Group or the Shortcode block, or in WooCommerce > Settings > Products > Purplish on classic themes.
+- A log in and register switch on My Account: Tabs as a Pill or a Line, Flip, or Slide with 13 motions. Phones show tabs, and a sign up that fails opens on the register form again.
+- Button looks for the My Account forms: Bloom, Ripple, Sweep, Spectrum, Trace, Roll, Split and Glass.
+- Card and Glass panels for the My Account forms, and two lights. Aurora follows the pointer and keyboard focus behind the forms, and Spotlight lights the edge of each form box.
+- Feedback on the My Account forms, with a shake on an error, busy dots on the button, a tick on a valid email and a password strength bar, plus a password eye that blinks and gets a slash while the password shows.
+- Four looks that set every log in and register option at once: Purple, Purple in motion, Purple on Ice and Twenty Twenty-Five.
+- An Account page with welcome pattern that puts My Account on a full-height Cover with a Glass panel and a Glass button.
+
+### Changed
+
+- The Account page pattern ships with the Purple look on, so the log in and register effects show from the start.
 
 ### Fixed
 
