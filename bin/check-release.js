@@ -127,11 +127,24 @@ const shipped = () => {
  * @param {string} body The body.
  * @return {string[]|null} The section's lines.
  */
-const foundWhileTesting = ( body ) => {
+const foundWhileTesting = ( body ) => section( body, 'Found while testing' );
+
+/**
+ * The lines of a pull request body's section with this heading, comments
+ * left out, or null when it has no such section.
+ *
+ * @param {string} body  The body.
+ * @param {string} title The heading.
+ * @return {string[]|null} The section's lines.
+ */
+const section = ( body, title ) => {
 	const match = ( body || '' )
 		.replace( /<!--[\s\S]*?-->/g, '' )
 		.match(
-			/^#{2,3} Found while testing:?[ \t]*\r?\n([\s\S]*?)(?=^#{1,3} |(?![\s\S]))/m
+			new RegExp(
+				`^#{2,3} ${ title }:?[ \\t]*\\r?\\n([\\s\\S]*?)(?=^#{1,3} |(?![\\s\\S]))`,
+				'm'
+			)
 		);
 	if ( ! match ) {
 		return null;
@@ -385,12 +398,35 @@ const checks = {
 				( line ) => line.split( ' ' )[ 0 ]
 			)
 		);
-		const numbers = after( `${ tag }..HEAD` )
+		// Pull requests merged once the template asked for a changelog line
+		// either change CHANGELOG.md or write None under "Changelog".
+		const askedChangelog = git(
+			'log',
+			'--reverse',
+			'--format=%H',
+			'-S',
+			'## Changelog',
+			'--',
+			'.github/PULL_REQUEST_TEMPLATE.md'
+		)
+			.split( '\n' )
+			.filter( Boolean )[ 0 ];
+		const sinceChangelog = new Set(
+			askedChangelog
+				? after( `${ askedChangelog }~1..HEAD` ).map(
+						( line ) => line.split( ' ' )[ 0 ]
+					)
+				: []
+		);
+		const merged = after( `${ tag }..HEAD` )
 			.filter( ( line ) => sinceTemplate.has( line.split( ' ' )[ 0 ] ) )
-			.map( ( line ) => ( line.match( /\(#(\d+)\)$/ ) || [] )[ 1 ] )
-			.filter( Boolean );
+			.map( ( line ) => [
+				line.split( ' ' )[ 0 ],
+				( line.match( /\(#(\d+)\)$/ ) || [] )[ 1 ],
+			] )
+			.filter( ( [ , number ] ) => number );
 		const problems = [];
-		for ( const number of numbers ) {
+		for ( const [ hash, number ] of merged ) {
 			let body;
 			try {
 				body = execFileSync(
@@ -425,6 +461,19 @@ const checks = {
 							`#${ number } left "${ line }" undecided; fix it, open an issue or write "no change: <reason>"`
 						)
 					);
+			}
+			if ( sinceChangelog.has( hash ) ) {
+				const changed = git( 'show', '--name-only', '--format=', hash )
+					.split( '\n' )
+					.includes( 'CHANGELOG.md' );
+				const notes = (
+					section( body, 'Changelog(?: entry)?' ) || []
+				).map( ( line ) => line.replace( /^>\s*/, '' ) );
+				if ( ! changed && ! /^none\b/i.test( notes[ 0 ] || '' ) ) {
+					problems.push(
+						`#${ number } added no line to CHANGELOG.md; add it under [Unreleased], or write "None" and why under "Changelog" in the pull request`
+					);
+				}
 			}
 		}
 		return problems;

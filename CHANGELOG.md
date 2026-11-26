@@ -2,6 +2,12 @@
 
 Every change to Purplish that a user or contributor would notice. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Every pull request adds its own line here under Unreleased, or writes None and why, and `npm run check:release` names any pull request since the last tag that did neither.
+
 ## [1.4.2] - 2026-11-27
 
 ### Added
