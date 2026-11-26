@@ -68,7 +68,7 @@ Find them in the Purplish group of the block inserter.
 
 = Patterns =
 
-Purplish's 28 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
+Purplish's 29 patterns are in the Purplish category of the pattern inserter. They're built from WooCommerce and core blocks, so you can change any part.
 
 * **Store front:** Flagship home is a full front page with a Showfloor, category tiles, best sellers, a brand band, the newest products, customer stories, a trust row and a newsletter sign-up. Each of those sections is also its own pattern.
 * **Header and footer:** Flagship header has a Wardrobe Shop menu and a bag pill that condenses on scroll, with Flagship phone menu for small screens. Flagship footer ends on the site name as a big wordmark that rises from the floor.
