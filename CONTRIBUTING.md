@@ -62,7 +62,7 @@ Every change has to pass these, and CI runs the same ones:
 | `npm run build` | The scripts in `build/` |
 | `npm run check:size` | Each block's front script is under 5 KB gzipped (run after the build) |
 | `npm run check:screens -- <url>` | Nothing that sticks sits under the theme header or runs off the bottom of the window, at 390px and 1440px with the header as it is, sticky and fixed (needs Chrome and a test site, so it runs before a release, not in CI) |
-| `npm run check:release` | The version, changelog entries, requirements, translation template, committed build and shipped files all agree, and every pull request since the last tag settled what it found (builds first) |
+| `npm run check:release` | The version, changelog entries, requirements, translation template, committed build and shipped files all agree, and every pull request since the last tag settled what it found and added its changelog line (builds first) |
 
 When a change adds, edits or removes a translatable string, run `npm run make-pot` (needs WP-CLI) to regenerate `languages/purplish.pot`. It sets the purplish slug, so the template never takes its name from the folder you work in.
 
@@ -104,7 +104,8 @@ To test, go through the feature with the mouse put away, then with VoiceOver (Co
 3. Keep the change to what the issue needs. If you notice something else, open another issue.
 4. Open a pull request that says `Closes #<issue>`, with how you tested it. Anything someone can see needs before and after screenshots, on a block theme and a classic theme.
 5. Fill in "Found while testing": anything wrong you saw while testing, even if your change didn't cause it. Write None, or one line each that ends with "fixed here", the new issue's number, or "no change:" and the reason when Purplish can't fix it (a theme setting, say).
-6. Pull requests merge with a squash once the `CI passed` check is green.
+6. Add your line under `[Unreleased]` in CHANGELOG.md, under Added, Changed or Fixed, in the words a store owner would use, and copy it into the pull request's "Changelog". A change no user or contributor would notice, like tests, CI or a release, writes None and why under "Changelog" instead. A release then only renames Unreleased and copies the lines into readme.txt.
+7. Pull requests merge with a squash once the `CI passed` check is green.
 
 ## Before a release
 
@@ -116,4 +117,4 @@ A release only ships what was checked in a browser, on the screens shoppers use.
 4. Run `npm run check:screens -- <url> [<url>...]` with the changed pages. It opens each one at both widths with the header all three ways, scrolls through, and fails when something that sticks sits under the header or runs off the bottom of the window. It uses the Chrome on this computer; set `CHROME_PATH` if Chrome lives elsewhere. It doesn't replace looking: it only knows about headers and things that stick.
 5. Anything wrong goes in the pull request's "Found while testing", fixed, with its issue, or with "no change:" and the reason, before the merge.
 
-Then, on an up-to-date main, run `npm run check:release`. It has to end with "Ready to release" before the tag. It also reads every pull request merged since the last tag and fails if one left something under "Found while testing" without "fixed here", an issue number or "no change:" and a reason.
+Then, on an up-to-date main, run `npm run check:release`. It has to end with "Ready to release" before the tag. It also reads every pull request merged since the last tag and fails if one left something under "Found while testing" without "fixed here", an issue number or "no change:" and a reason, or one that neither changed CHANGELOG.md nor wrote None under "Changelog".

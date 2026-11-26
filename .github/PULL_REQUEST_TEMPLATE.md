@@ -4,6 +4,11 @@ Closes #
 
 ## Why
 
+## Changelog
+
+<!-- The line this pull request adds under [Unreleased] in CHANGELOG.md, under Added, Changed or Fixed, in the file's style. Add it to CHANGELOG.md in this pull request too, so a release only renames Unreleased. Write None and why for something no user or contributor would notice, like tests, CI or a release. `npm run check:release` fails on a pull request since the last tag that neither changed CHANGELOG.md nor wrote None here. -->
+
+
 ## How I tested it
 
 - [ ] CI passed
