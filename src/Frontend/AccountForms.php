@@ -66,13 +66,16 @@ final class AccountForms {
 		return array(
 			'prefix'  => 'account',
 			'options' => array(
-				'fields' => array( 'soft', 'filled', 'underline', 'draw', 'fill', 'corners' ),
-				'focus'  => true,
-				'labels' => array( 'inside', 'floating', 'flip', 'wave' ),
-				'switch' => array( 'tabs', 'flip', 'slide' ),
-				'tabs'   => array( 'line' ),
-				'slide'  => array( 'stretch', 'flood', 'blinds', 'page', 'shear', 'shutter', 'liquid', 'depth', 'elastic', 'mosaic', 'fold', 'iris' ),
-				'button' => array( 'bloom', 'ripple', 'sweep', 'spectrum', 'trace', 'roll', 'split', 'glass' ),
+				'fields'    => array( 'soft', 'filled', 'underline', 'draw', 'fill', 'corners' ),
+				'focus'     => true,
+				'labels'    => array( 'inside', 'floating', 'flip', 'wave' ),
+				'switch'    => array( 'tabs', 'flip', 'slide' ),
+				'tabs'      => array( 'line' ),
+				'slide'     => array( 'stretch', 'flood', 'blinds', 'page', 'shear', 'shutter', 'liquid', 'depth', 'elastic', 'mosaic', 'fold', 'iris' ),
+				'panel'     => array( 'card', 'glass' ),
+				'aurora'    => true,
+				'spotlight' => true,
+				'button'    => array( 'bloom', 'ripple', 'sweep', 'spectrum', 'trace', 'roll', 'split', 'glass' ),
 			),
 			'needs'   => array(
 				// Slide shows tabs on phones, so both take the tab look.

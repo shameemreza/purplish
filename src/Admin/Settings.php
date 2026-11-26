@@ -194,7 +194,7 @@ final class Settings {
 	public static function account_fields() {
 		$options = AccountForms::config()['options'];
 		$labels  = array(
-			'fields' => array(
+			'fields'    => array(
 				'title'   => __( 'Fields', 'purplish' ),
 				'default' => __( 'Theme default', 'purplish' ),
 				'values'  => array(
@@ -206,11 +206,11 @@ final class Settings {
 					'corners'   => __( 'Corners', 'purplish' ),
 				),
 			),
-			'focus'  => array(
+			'focus'     => array(
 				'title' => __( 'Focus ring', 'purplish' ),
 				'desc'  => __( 'A ring in your theme\'s accent color around the field, box or link that has keyboard focus', 'purplish' ),
 			),
-			'labels' => array(
+			'labels'    => array(
 				'title'   => __( 'Labels', 'purplish' ),
 				'default' => __( 'Above', 'purplish' ),
 				'values'  => array(
@@ -220,7 +220,7 @@ final class Settings {
 					'wave'     => __( 'Wave', 'purplish' ),
 				),
 			),
-			'switch' => array(
+			'switch'    => array(
 				'title'   => __( 'Log in and register', 'purplish' ),
 				'default' => __( 'Side by side', 'purplish' ),
 				'values'  => array(
@@ -229,7 +229,7 @@ final class Settings {
 					'slide' => __( 'Slide', 'purplish' ),
 				),
 			),
-			'tabs'   => array(
+			'tabs'      => array(
 				'title'   => __( 'Tab look', 'purplish' ),
 				'default' => __( 'Pill', 'purplish' ),
 				'desc'    => __( 'With Tabs or Slide.', 'purplish' ),
@@ -237,7 +237,7 @@ final class Settings {
 					'line' => __( 'Line', 'purplish' ),
 				),
 			),
-			'slide'  => array(
+			'slide'     => array(
 				'title'   => __( 'Slide motion', 'purplish' ),
 				'default' => __( 'Push', 'purplish' ),
 				'desc'    => __( 'With Slide.', 'purplish' ),
@@ -256,7 +256,23 @@ final class Settings {
 					'iris'    => __( 'Iris', 'purplish' ),
 				),
 			),
-			'button' => array(
+			'panel'     => array(
+				'title'   => __( 'Panel', 'purplish' ),
+				'default' => __( 'Wash', 'purplish' ),
+				'values'  => array(
+					'card'  => __( 'Card', 'purplish' ),
+					'glass' => __( 'Glass', 'purplish' ),
+				),
+			),
+			'aurora'    => array(
+				'title' => __( 'Aurora', 'purplish' ),
+				'desc'  => __( 'A light in the wash behind the forms that follows the pointer', 'purplish' ),
+			),
+			'spotlight' => array(
+				'title' => __( 'Spotlight', 'purplish' ),
+				'desc'  => __( 'The edge of each form box lights up where the pointer is', 'purplish' ),
+			),
+			'button'    => array(
 				'title'   => __( 'Button', 'purplish' ),
 				'default' => __( 'Theme button', 'purplish' ),
 				'values'  => array(
