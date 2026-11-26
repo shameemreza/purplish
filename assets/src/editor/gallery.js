@@ -13,9 +13,9 @@ const OPTIONS = [
 	{ key: 'rounded', label: __( 'Rounded corners', 'purplish' ) },
 	{
 		key: 'arrows',
-		label: __( 'Frosted arrows on hover', 'purplish' ),
+		label: __( 'Round arrows on hover', 'purplish' ),
 		help: __(
-			'Round arrows that show when the shopper hovers the photo.',
+			'White round arrows that show when the shopper hovers the photo.',
 			'purplish'
 		),
 	},
