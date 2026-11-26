@@ -26,7 +26,7 @@ Select a block in the Site Editor, open the Purplish panel, and decide how it lo
 | Product page | Matching Extras | Purplish's own block: the matching extras list for an Add to Cart part, with the same options as the switch on Add to Cart + Options. |
 | Product page | Column | Keep the product details in view beside a photo grid on wide screens, until the photos end. |
 | Product page | Product Reviews, Product Specifications | Reviews on soft cards or in chat bubbles, and a striped or card-style specifications table. |
-| Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and frosted arrows. |
+| Product gallery | Product Gallery | 7 hover styles, 5 full-screen styles, 4 slide styles, hidden, rounded or circle thumbnails, rounded corners and round arrows on hover. |
 | Shop and collection pages | Product Collection | 23 card effects, details or add to cart on the photo as a small button or a full-width bar, an outline button under the card, a carousel that ends on part of the next card, and button motion. |
 | Shop and collection pages | Shelf Tag, Stock Indicator | Purplish's own Shelf Tag block: a tag on the photo for best sellers, new arrivals, featured products, products on sale, or a product tag or category you choose, shown only on the cards its rule matches and only between the dates you set. A sold-out pill from the Stock Indicator, with the sold-out photo greyed. |
 | Shop and collection pages | Color Dots | Purplish's own Color Dots block: the colors a product comes in, as small dots beside the name or swatches under the price. A dot can swap the card's photo to that color. |
@@ -99,7 +99,7 @@ Soft panels, like accordions and the cart drawer, take a light mix of the page c
 | Hover style | 3D tilt leans the photo toward the mouse, Zoom magnifies the spot under it, Loupe shows a round magnifier. Lift, Parallax, Glare and Slow zoom add softer motion. |
 | Full-screen style | Snap stack is tinted to the page color, Zoom from photo grows out of the photo, Filmstrip adds small photos along the bottom, Cinema uses a dark screen, Classic fade keeps it plain. |
 | Slide style | 3D media gallery turns like a cube, Circular slider swings like a wheel, Reel slider runs like film, Image tunnel comes out of the distance. |
-| Layout | Hide the thumbnail strip, round the photo's corners, and add frosted arrows that show on hover. Photo wash puts a light tint of the page color behind the photos and blends them into it, so photos shot on white take the tint. |
+| Layout | Hide the thumbnail strip, round the photo's corners, and add round white arrows that show on hover. Photo wash puts a light tint of the page color behind the photos and blends them into it, so photos shot on white take the tint. |
 | Thumbnail shape | On the Thumbnails block inside the gallery: rounded or circle. |
 | Details beside the photos | On the Column that holds the product details: Keep in view while the photos scroll. On screens 782px and wider, the column stays below the header while the grid scrolls, then leaves with it. Details taller than the window scroll to their end first, so Add to Cart always shows. Phones keep the columns stacked. |
 
@@ -429,7 +429,7 @@ Purplish is built for block themes. Classic themes get a smaller set under WooCo
 | Page colors and photo transitions | Yes | Yes, except the selected option |
 | Title and price rise | Yes | Yes |
 | Gallery: hide thumbnails, rounded corners, hover style | Yes | Yes |
-| Gallery: full-screen and slide styles, frosted arrows | Yes | No |
+| Gallery: full-screen and slide styles, round arrows | Yes | No |
 | Product cards, card effects and card hover looks | Yes | No |
 | Title focus, glow ring, halo, mesh background, color dots | Yes | No |
 | Accordion, Group and page number styles | Yes | No |
