@@ -267,10 +267,6 @@ Thanks to [Luigi Teschio](https://x.com/gigitux) for the idea, from [a discussio
 
 == Changelog ==
 
-= 1.4.1 =
-
-* New: Trade-in on Add to Cart + Options, with a device table and CSV import and export in the WooCommerce settings, an estimate for the picked device, an optional price after trade-in and terms checkbox, and the device saved on the cart item and the order.
-
 = 1.4.0 =
 
 * New: Size Chart block with a cm/in switch, charts for each category or product and a fit note. The Variation Selector gets a Size guide link that opens the chart in a dialog.
