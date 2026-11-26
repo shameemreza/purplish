@@ -475,7 +475,7 @@ class PatternsTest extends WP_UnitTestCase {
 
 	/**
 	 * The welcome pattern puts the Account Group, with a Glass panel and a
-	 * Glass button, on a Cover with the photo that ships with the plugin.
+	 * Glass button, on a Cover that waits for the store's own photo.
 	 */
 	public function test_account_page_welcome() {
 		$pattern = Patterns::patterns()['account-page-welcome'];
@@ -484,8 +484,7 @@ class PatternsTest extends WP_UnitTestCase {
 		$blocks = parse_blocks( Patterns::content( $pattern['file'] ) );
 		$cover  = $blocks[0];
 		$this->assertSame( 'core/cover', $cover['blockName'] );
-		$this->assertStringEndsWith( 'assets/photos/account-welcome.jpg', $cover['attrs']['url'] );
-		$this->assertFileExists( PURPLISH_DIR . 'assets/photos/account-welcome.jpg' );
+		$this->assertArrayNotHasKey( 'url', $cover['attrs'] );
 
 		$group = $cover['innerBlocks'][0];
 		$this->assertSame( 'is-style-purplish-account', $group['attrs']['className'] );
